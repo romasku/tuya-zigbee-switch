@@ -1,0 +1,57 @@
+name: Build Firmware
+
+on:
+  workflow_dispatch:
+#  push:
+#    branches:
+#      - main
+#  pull_request:
+#    branches:
+#      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      with:
+        fetch-depth: 0  # Получить полную историю коммитов
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y make python3 python3-pip
+        python3 -m pip install --upgrade pip
+        pip install yq jinja2
+
+    - name: Install SDK and Toolchain
+      run: |
+        make install
+
+    - name: Build for all boards
+      run: |
+        yq -r '(keys)[]' device_db.yaml | while read ITER; do
+          echo "Building for board: $ITER"
+          BOARD=$ITER make clean && BOARD=$ITER make -j16 || exit 1
+          echo "Checking if files were created for board: $ITER"
+          ls -l bin/$ITER/
+        done
+
+    - name: Update converters
+      run: |
+        make update_converters
+
+    - name: Commit changes
+      run: |
+        git config --global user.name "GitHub Actions"
+        git config --global user.email "actions@github.com"
+        git add bin/* zigbee2mqtt/*
+        git diff --cached --quiet || git commit -m "Update firmware files and converters"
+        git push
