@@ -1,13 +1,13 @@
 const tuyaDefinitions = require("zigbee-herdsman-converters/devices/tuya");
 
 const tuyaModels = [
-    "TS0004_switch_module_2",
-    "WHD02",
-    "TS0001_switch_module",
+    "TS0012_switch_module",
     "TS0002_basic",
     "TS0002_limited",
-    "TS0012_switch_module",
     "TS0011_switch_module",
+    "TS0004_switch_module_2",
+    "TS0001_switch_module",
+    "WHD02",
 ];
 
 const definitions = [];
