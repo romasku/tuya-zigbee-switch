@@ -48,6 +48,10 @@ jobs:
       run: |
         make update_converters
 
+    - name: Freeze ota links
+      run: |
+        make freeze_ota_links
+
     - name: Commit changes
       run: |
         git config --global user.name "GitHub Actions"
