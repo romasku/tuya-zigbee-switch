@@ -673,6 +673,53 @@ const definitions = [
     },
     {
         zigbeeModel: [
+            "Bseed-2-gang-ED",
+        ],
+        model: "Bseed-2-gang",
+        vendor: "Tuya-custom",
+        description: "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
+        extend: [
+            deviceEndpoints({ endpoints: {1: 1, 2: 2, "left": 3, "right": 4, } }),
+            romasku.deviceConfig("device_config", "1"),
+            onOff({ endpointNames: ["left", "right"] }),
+            romasku.pressAction("switch_1_press_action", "1"),
+            romasku.switchMode("switch_1_mode", "1"),
+            romasku.switchAction("switch_1_action_mode", "1"),
+            romasku.relayMode("switch_1_relay_mode", "1"),
+            romasku.relayIndex("switch_1_relay_index", "1", 2),
+            romasku.longPressDuration("switch_1_long_press_duration", "1"),
+            romasku.pressAction("switch_2_press_action", "2"),
+            romasku.switchMode("switch_2_mode", "2"),
+            romasku.switchAction("switch_2_action_mode", "2"),
+            romasku.relayMode("switch_2_relay_mode", "2"),
+            romasku.relayIndex("switch_2_relay_index", "2", 2),
+            romasku.longPressDuration("switch_2_long_press_duration", "2"),
+            romasku.relayIndicatorMode("relay_left_indicator_mode", "left"),
+            romasku.relayIndicator("relay_left_indicator", "left"),
+            romasku.relayIndicatorMode("relay_right_indicator_mode", "right"),
+            romasku.relayIndicator("relay_right_indicator", "right"),
+        ],
+        meta: { multiEndpoint: true },
+        configure: async (device, coordinatorEndpoint, logger) => {
+            await reporting.bind(device.getEndpoint(1), coordinatorEndpoint, ["genMultistateInput"]);
+            await reporting.bind(device.getEndpoint(2), coordinatorEndpoint, ["genMultistateInput"]);
+            const endpoint3 = device.getEndpoint(3);
+            await reporting.onOff(endpoint3, {
+                min: 0,
+                max: constants.repInterval.MINUTE,
+                change: 1,
+            });
+            const endpoint4 = device.getEndpoint(4);
+            await reporting.onOff(endpoint4, {
+                min: 0,
+                max: constants.repInterval.MINUTE,
+                change: 1,
+            });
+        },
+        ota: true,
+    },
+    {
+        zigbeeModel: [
             "TS0012-avatto",
         ],
         model: "TS0012-custom",
