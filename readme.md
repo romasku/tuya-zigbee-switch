@@ -22,6 +22,7 @@ Note that rebranded versions may have different internals and may not work. "Zig
 | [TS0002_limited](https://www.zigbee2mqtt.io/devices/TS0002_limited.html) | Avatto TS0002  | _TZ3000_mtnpt6ws | router | Supported |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/9)  | 
 | [TS0004_switch_module_2](https://www.zigbee2mqtt.io/devices/TS0004_switch_module_2.html) | Avatto TS0004  | _TZ3000_5ajpkyq6 | router | Supported |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/9)  | 
 | [TS0012](https://www.zigbee2mqtt.io/devices/TS0012.html) | Moes TS0012 (2 gang switch)  | _TZ3000_18ejxno0 | router / end_device | In progress |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/14)  | 
+| [TS0012](https://www.zigbee2mqtt.io/devices/TS0012.html) | Bseed TS0012 (2 gang switch)  | _TZ3000_f2slq5pj | end_device | Supported |   -  | 
 | [TS0012_switch_module](https://www.zigbee2mqtt.io/devices/TS0012_switch_module.html) | Avatto TS0012  | _TZ3000_ljhbw1c9 | router / end_device | Supported |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/16)  | 
 | [WHD02](https://www.zigbee2mqtt.io/devices/WHD02.html) | Aubess WHD02  | _TZ3000_46t1rvdu | router / end_device | Supported |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/18)  | 
 

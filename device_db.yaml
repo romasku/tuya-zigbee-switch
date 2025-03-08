@@ -173,6 +173,18 @@ MOES_2_GANG_SWITCH_END_DEVICE:
   human_name: Moes TS0012 (2 gang switch)
   status: In progress
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/14
+BSEED_2_GANG_SWITCH_END_DEVICE:
+  name: Bseed-2-gang
+  config_str: Bseed-2-gang;Bseed-2-gang-ED;SB6u;SA1u;RD3;RC0;IC2;IB4;M;
+  device_type: end_device
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 43510
+  tuya_converter_model: TS0012
+  tuya_manufacturer_names:
+      - _TZ3000_f2slq5pj
+  human_name: Bseed TS0012 (2 gang switch)
+  status: Supported
 TS0012_AVATTO:
   name: TS0012-custom
   config_str: TS0012-Avatto;TS0012-avatto;BB4f;LB5;SC0f;SC3f;RC2;RC4;

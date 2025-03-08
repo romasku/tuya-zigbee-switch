@@ -10,7 +10,22 @@
     "otaHeaderString": "Telink Zigbee OTA\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_18ejxno0",
-      "Moes-2-gang"
+      "Moes-2-gang",
+      "_TZ3000_f2slq5pj"
+    ]
+  },
+  {
+    "fileName": "1141-a9f6-ffffffff-tlc_switch-forced.zigbee",
+    "fileVersion": 4294967295,
+    "fileSize": 126338,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/223f446ca6fa5242f98496686ba39cf78aa25a85/bin/MOES_2_GANG_SWITCH_END_DEVICE/1141-a9f6-ffffffff-tlc_switch-forced.zigbee",
+    "imageType": 43510,
+    "manufacturerCode": 4417,
+    "sha512": "f2ebd39d9b441674a34880a52abf2787d62e113c72219537caf291b4757e5938c6810365d02e410db5a9f7c47fae4eb77fc3243db218140297b0d8b072ff881b",
+    "otaHeaderString": "Telink Zigbee OTA\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
+    "manufacturerName": [
+      "Bseed-2-gang",
+      "_TZ3000_f2slq5pj"
     ]
   },
   {
