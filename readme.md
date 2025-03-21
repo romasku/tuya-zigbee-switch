@@ -20,6 +20,7 @@ Note that rebranded versions may have different internals and may not work. "Zig
 | [TS0002_basic](https://www.zigbee2mqtt.io/devices/TS0002_basic.html) | No name TS0002  | _TZ3000_zmy4lslw | router | Not working, pinout is not correct |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/29)  | 
 | [TS0001_switch_module](https://www.zigbee2mqtt.io/devices/TS0001_switch_module.html) | Avatto TS0001  | _TZ3000_4rbqgcuv | router | Supported |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/9)  | 
 | [TS0002_limited](https://www.zigbee2mqtt.io/devices/TS0002_limited.html) | Avatto TS0002  | _TZ3000_mtnpt6ws | router | Supported |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/9)  | 
+| [TS0003](https://www.zigbee2mqtt.io/devices/TS0003.html) | Moes MS-104CZ  | _TZ3000_pfc7i3kt | router | Supported |    -  |
 | [TS0004_switch_module_2](https://www.zigbee2mqtt.io/devices/TS0004_switch_module_2.html) | Avatto TS0004  | _TZ3000_5ajpkyq6 | router | Supported |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/9)  | 
 | [TS0012](https://www.zigbee2mqtt.io/devices/TS0012.html) | Moes TS0012 (2 gang switch)  | _TZ3000_18ejxno0 | router / end_device | Supported |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/14)  | 
 | [TS0012](https://www.zigbee2mqtt.io/devices/TS0012.html) | Bseed TS0012 (2 gang switch)  | _TZ3000_f2slq5pj | router / end_device | Supported |   [link](https://github.com/romasku/tuya-zigbee-switch/pull/23)  | 

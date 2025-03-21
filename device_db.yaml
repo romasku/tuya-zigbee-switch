@@ -370,3 +370,16 @@ TS0011_AVATTO_END_DEVICE:
   human_name: Avatto TS0011
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/16
+TS0003:
+  name: TS0003-custom
+  config_str: Tuya-TS0003-custom;TS0003-custom;BD3u;SC1u;SD7u;SC3u;RB5;RD4;RB4;
+  device_type: router
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 43538
+  stock_converter_model: TS0003
+  tuya_manufacturer_names:
+    - _TZ3000_pfc7i3kt
+  human_name: Moes MS-104CZ
+  status: Supported
+  github_issue:
