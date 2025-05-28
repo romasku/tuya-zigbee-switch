@@ -20,6 +20,19 @@ void btn_update_debounced(button_t *button, u8 is_pressed)
 {
   u32 now = millis();
 
+  // Add check debounce
+  if (is_pressed != button->debounce_last_state)
+  {
+    button->debounce_last_change = now;
+    button->debounce_last_state = is_pressed;
+  }
+
+  // Ignore change state
+  if ((now - button->debounce_last_change) < 50) // 50ms debounce
+  {
+    return;
+  }
+
   if (!button->pressed && is_pressed)
   {
     printf("Press detected\r\n");
