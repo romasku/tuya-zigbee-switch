@@ -17,6 +17,8 @@ typedef struct
   u32                              long_press_duration_ms;
   u32                              multi_press_duration_ms;
   u8                               multi_press_cnt;
+  u8                               debounce_last_state;
+  u32                              debounce_last_change;
   ev_button_callback_t             on_press;
   ev_button_callback_t             on_long_press;
   ev_button_callback_t             on_release;
