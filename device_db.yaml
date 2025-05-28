@@ -1,3 +1,16 @@
+WHD02_sixwgh:
+  name: WHD02-custom
+  config_str: Tuya-WHD02-custom;WHD02-custom;BB1u;LB4;SD2u;RD3;
+  device_type: router
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 518
+  firmware_image_type: 43535
+  stock_converter_model: WHD02
+  tuya_manufacturer_names:
+    - _TZ3000_skueekg3
+  human_name: No-name 1 gang switch with no rf shiled ZT2S
+  status: In progress, tuya_manufacturer_name is not confirmed
+  github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/44
 TS0012:
   name: TS0012-custom
   config_str: Tuya-TS0012-custom;TS0012-custom;BA0f;LD7;SC2f;SC3f;RC0;RB4;
