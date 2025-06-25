@@ -128,7 +128,13 @@ void switch_cluster_on_button_press(zigbee_switch_cluster *cluster)
       case ZCL_ONOFF_CONFIGURATION_SWITCH_ACTION_OFFON:
         relay_cluster_off(relay_cluster);
         break;
-      case ZCL_ONOFF_CONFIGURATION_SWITCH_ACTION_TOGGLE:
+      case ZCL_ONOFF_CONFIGURATION_SWITCH_ACTION_TOGGLE_SIMPLE:
+        relay_cluster_toggle(relay_cluster);
+        break;
+      case ZCL_ONOFF_CONFIGURATION_SWITCH_ACTION_TOGGLE_SMART_SYNC:
+        relay_cluster_toggle(relay_cluster);
+        break;
+      case ZCL_ONOFF_CONFIGURATION_SWITCH_ACTION_TOGGLE_SMART_OPPOSITE:
         relay_cluster_toggle(relay_cluster);
         break;
       }
@@ -151,8 +157,28 @@ void switch_cluster_on_button_press(zigbee_switch_cluster *cluster)
     case ZCL_ONOFF_CONFIGURATION_SWITCH_ACTION_OFFON:
       zcl_onOff_offCmd(cluster->endpoint, &dstEpInfo, FALSE);
       break;
-    case ZCL_ONOFF_CONFIGURATION_SWITCH_ACTION_TOGGLE:
+    case ZCL_ONOFF_CONFIGURATION_SWITCH_ACTION_TOGGLE_SIMPLE:
       zcl_onOff_toggleCmd(cluster->endpoint, &dstEpInfo, FALSE);
+      break;
+    case ZCL_ONOFF_CONFIGURATION_SWITCH_ACTION_TOGGLE_SMART_SYNC:
+      if (relay_cluster->relay->on)
+      {
+        zcl_onOff_onCmd(cluster->endpoint, &dstEpInfo, FALSE);
+      }
+      else
+      {
+        zcl_onOff_offCmd(cluster->endpoint, &dstEpInfo, FALSE);
+      }
+      break;
+    case ZCL_ONOFF_CONFIGURATION_SWITCH_ACTION_TOGGLE_SMART_OPPOSITE:
+      if (relay_cluster->relay->on)
+      {
+        zcl_onOff_offCmd(cluster->endpoint, &dstEpInfo, FALSE);
+      }
+      else
+      {
+        zcl_onOff_onCmd(cluster->endpoint, &dstEpInfo, FALSE);
+      }
       break;
     }
   }
@@ -179,7 +205,13 @@ void switch_cluster_on_button_release(zigbee_switch_cluster *cluster)
       case ZCL_ONOFF_CONFIGURATION_SWITCH_ACTION_OFFON:
         relay_cluster_on(relay_cluster);
         break;
-      case ZCL_ONOFF_CONFIGURATION_SWITCH_ACTION_TOGGLE:
+      case ZCL_ONOFF_CONFIGURATION_SWITCH_ACTION_TOGGLE_SIMPLE:
+        relay_cluster_toggle(relay_cluster);
+        break;
+      case ZCL_ONOFF_CONFIGURATION_SWITCH_ACTION_TOGGLE_SMART_SYNC:
+        relay_cluster_toggle(relay_cluster);
+        break;
+      case ZCL_ONOFF_CONFIGURATION_SWITCH_ACTION_TOGGLE_SMART_OPPOSITE:
         relay_cluster_toggle(relay_cluster);
         break;
       }
@@ -201,10 +233,36 @@ void switch_cluster_on_button_release(zigbee_switch_cluster *cluster)
     case ZCL_ONOFF_CONFIGURATION_SWITCH_ACTION_OFFON:
       zcl_onOff_onCmd(cluster->endpoint, &dstEpInfo, FALSE);
       break;
-    case ZCL_ONOFF_CONFIGURATION_SWITCH_ACTION_TOGGLE:
+    case ZCL_ONOFF_CONFIGURATION_SWITCH_ACTION_TOGGLE_SIMPLE:
       if (cluster->mode != ZCL_ONOFF_CONFIGURATION_SWITCH_TYPE_MOMENTARY)
       {
         zcl_onOff_toggleCmd(cluster->endpoint, &dstEpInfo, FALSE);
+      }
+      break;
+    case ZCL_ONOFF_CONFIGURATION_SWITCH_ACTION_TOGGLE_SMART_SYNC:
+      if (cluster->mode != ZCL_ONOFF_CONFIGURATION_SWITCH_TYPE_MOMENTARY)
+      {
+        if (relay_cluster->relay->on)
+        {
+          zcl_onOff_onCmd(cluster->endpoint, &dstEpInfo, FALSE);
+        }
+        else
+        {
+          zcl_onOff_offCmd(cluster->endpoint, &dstEpInfo, FALSE);
+        }
+      }
+      break;
+    case ZCL_ONOFF_CONFIGURATION_SWITCH_ACTION_TOGGLE_SMART_OPPOSITE:
+      if (cluster->mode != ZCL_ONOFF_CONFIGURATION_SWITCH_TYPE_MOMENTARY)
+      {
+        if (relay_cluster->relay->on)
+        {
+          zcl_onOff_offCmd(cluster->endpoint, &dstEpInfo, FALSE);
+        }
+        else
+        {
+          zcl_onOff_onCmd(cluster->endpoint, &dstEpInfo, FALSE);
+        }
       }
       break;
     }

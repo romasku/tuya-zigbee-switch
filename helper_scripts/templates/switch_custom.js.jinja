@@ -18,13 +18,15 @@ const romasku = {
         enumLookup({
             name,
             endpointName,
-            lookup: { on_off: 0, off_on: 1, toggle: 2 },
+            lookup: { on_off: 0, off_on: 1, toggle_simple: 2, toggle_smart_sync: 3, toggle_smart_opposite: 4 },
             cluster: "genOnOffSwitchCfg",
             attribute: "switchActions", // Enum8
             description: `Select how switch should work:
             - on_off: When switch physically moved to position 1 it always generates ON command, and when moved to position 2 it generates OFF command
             - off_on: Same as on_off, but positions are swapped
-            - toggle: Generate TOGGLE command for any press of physicall switch`,
+            - toggle_simple: Any press of physical switch will TOGGLE the relay and send TOGGLE command to binds
+            - toggle_smart_sync: Any press of physical switch will TOGGLE the relay and send corresponding ON/OFF command to keep binds in sync with relay
+            - toggle_smart_opposite: Any press of physical switch: TOGGLE the relay and send corresponding ON/OFF command to keep binds in the state opposite to the relay`,
         }),
     switchMode: (name, endpointName) =>
         enumLookup({
