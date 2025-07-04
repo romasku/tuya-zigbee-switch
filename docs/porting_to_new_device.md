@@ -13,11 +13,11 @@ The firmware works on the TLS8258 microchip, which is the heart of Tuya-branded 
 
 This can be checked in Z2M by verifying the device IEEE (MAC) address. It should start with `0xa4c138`:  
 
-![Telink MAC](screen_telink_mac.png)  
+![Telink MAC](images/screen_telink_mac.png)  
 
 Alternatively, you can open your device and check for such a module. It should look like this:  
 
-![Wiring](ts0012_wires.jpg)  
+![Wiring](images/ts0012_wires.jpg)  
 
 **IMPORTANT**  
 The firmware will not work for non-Telink devices, and trying to apply the steps below to other devices will almost certainly break your device.  
@@ -28,23 +28,23 @@ Tuya devices come with OTA support, but this is disabled and hidden from Z2M as 
 
 First, find the device "model" name from the Z2M interface:  
 
-![Z2M Model](screen_z2m_model.png)  
+![Z2M Model](images/screen_z2m_model.png)  
 
 Then download the [converter for the original device](https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/main/zigbee2mqtt/converters/tuya_with_ota.js) and place it into the `external_converters` subfolder of your Zigbee2mqtt data folder. If the `external_converters` folder doesn't exist, create it.  
 
 Then modify the `tuyaModels` list to include your model. If it is already there, just skip this step.  
 
-![Add](screen_add_model_to_ota.png)  
+![Add](images/screen_add_model_to_ota.png)  
 
 Now you can restart your Z2M and verify that your device is visible in the OTA tab.  
 
-![OTA visible](device_added_to_ota.png)  
+![OTA visible](images/device_added_to_ota.png)  
 
 ## Prepare OTA Index  
 
 Now that Z2M recognizes that the device can be updated via OTA, you need to provide it with a file to flash. Z2M uses JSON index files for this.  
 
-Add a custom index as described in the [flashing via OTA guide](./docs/ota_flash.md). Then open this index file in a text editor and find the entry for the device that is most similar to your device. Replace the `manufacturerName` list with the "Zigbee Manufacturer" value from the Z2M device info screen. It should be something like `_TZ3000_...`. Save the file, restart Z2M, and check for updates for your device in the OTA tab.  
+Add a custom index as described in the [flashing via OTA guide](ota_flash.md). Then open this index file in a text editor and find the entry for the device that is most similar to your device. Replace the `manufacturerName` list with the "Zigbee Manufacturer" value from the Z2M device info screen. It should be something like `_TZ3000_...`. Save the file, restart Z2M, and check for updates for your device in the OTA tab.  
 
 If Z2M shows that OTA is available, you are ready to proceed.  
 

@@ -12,7 +12,7 @@ Unplug the device from the mains. **Never attempt to disassemble it while it is 
 
 Start by removing the back cover. Use any flat object to pop it off.  Here is a picture for TS0012, other devices can be opened in a similar way:
 
-![Back cover disassembly](ts0012_back_cover.jpg)  
+![Back cover disassembly](images/ts0012_back_cover.jpg)  
 
 Next, remove the board from the case by pushing on the screws; it should come out easily.
 
@@ -23,7 +23,7 @@ You’ll need to solder four wires as shown in the photo:
 <details>
   <summary>TS0012</summary>
   
- ![Wiring](ts0012_wires.jpg)  
+ ![Wiring](images/ts0012_wires.jpg)  
   
 </details>
 
@@ -33,7 +33,7 @@ You’ll need to solder four wires as shown in the photo:
 
    Note that I desoldered capacitors for easier access to SWS pin. It is OK to flash device without them, but you need to reinstall them if you plan to use the device. Alternatevely, you can try to solder SWS pin without this manipulation.
 
-  ![Wiring](ts0011_wires.jpg)  
+  ![Wiring](images/ts0011_wires.jpg)  
 
 </details>
 
