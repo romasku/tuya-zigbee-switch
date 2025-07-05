@@ -35,7 +35,7 @@ Replace `!NAME_OF_DOWNLOADED_INDEX_FILE!` with the name of the index file you do
 
 If everything is set up correctly, you should see something similar to this:  
 
-![screen_ota_config](screen_ota_config.png)  
+![screen_ota_config](images/screen_ota_config.png)  
 
 ### Step 4: Flash via OTA
 

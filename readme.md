@@ -43,12 +43,15 @@ The main driver for this project was the following factory firmware bug: if one 
 ## Features
 
 - Detached mode, e.g. switch doesn't trigger relay but only generates events via Zigbee
+- Bind switch to light bulb
 - Long press for momentary switches with configurable duration
 - Router/EndDevice modes for no-neutral devices
 - Super fast reaction time (compared to the factory firmware)
 - 5 quick presses to reset the device
 - Power-on behavior 
-- Switch modes ON_OFF/OFF_ON/TOGGLE_SIMPLE/TOGGLE_SMART_SYNC/TOGGLE_SMART_OPPOSITE allowing to synchonize switch position with relay state
+- Switch modes:  
+ON_OFF, OFF_ON, TOGGLE_SIMPLE, TOGGLE_SMART_SYNC, TOGGLE_SMART_OPPOSITE  
+allowing to synchonize switch position with relay state
 
 ## Building
 

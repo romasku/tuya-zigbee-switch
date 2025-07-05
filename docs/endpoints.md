@@ -25,10 +25,10 @@ If you have a 2-gang module and want its second button to control a smart bulb v
 
 Bind endpoint 2 of your device to endpoint 1 of the bulb, and bind the `OnOff` cluster, as shown in the screenshot:
 
-![bulb binding](<bind_bulb.png>)
+![bulb binding](<images/bind_bulb.png>)
 
 ### Creating a Zigbee Group
 
 If you have two 2-gang devices and want to group the first relay of both devices, you should add endpoint 3 of both devices to the same group, as shown in the screenshot:
 
-![add to group](<add_to_group.png>)
+![add to group](<images/add_to_group.png>)

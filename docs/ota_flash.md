@@ -36,7 +36,7 @@ ota:
 
 If everything is set up correctly, you should see something similar to this:  
 
-![screen_ota_config](screen_ota_config_v2.png)  
+![screen_ota_config](images/screen_ota_config_v2.png)  
 
 ### Step 4: Flash via OTA
 
