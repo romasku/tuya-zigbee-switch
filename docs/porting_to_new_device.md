@@ -2,6 +2,14 @@
 
 This guide describes how firmware can be adapted to other switches or patched to work properly if a device partially misbehaves.  
 
+## Requirements
+- supported microchip
+- pinout
+- OTA cluster (otherwise flash by wire)
+- Zigbee manufacturer (_TZ3000_abcdefgh)
+- stock converter model
+- imageType and manufacturerCode
+
 ## Verify That the Device Uses the Correct Controller Module  
 
 The firmware works on the TLS8258 microchip, which is the heart of Tuya-branded modules [ZT series modules](https://developer.tuya.com/en/docs/iot/zt-series-module?id=Kaiuym8ctid7k):  
@@ -39,6 +47,15 @@ Then modify the `tuyaModels` list to include your model. If it is already there,
 Now you can restart your Z2M and verify that your device is visible in the OTA tab.  
 
 ![OTA visible](images/device_added_to_ota.png)  
+
+If your device is not visible, it might be a rebranded model.  
+Search this file for your Zigbee manufacturer (_TZ3000_abcdefgh): [devices/tuya.ts](https://github.com/Koenkk/zigbee-herdsman-converters/blob/master/src/devices/tuya.ts) and use the original model name you find there.  
+```
+fingerprint: tuya.fingerprint("TS0003", ["_TZ3000_4o16jdca", "_TZ3000_odzoiovu", "_TZ3000_hbic3ka3", "_TZ3000_lvhy15ix"]),
+model: "TS0003_switch_module_2", <-- this one
+vendor: "Tuya",
+```
+Also check the Z2M logs to see if the converters were loaded.
 
 ## Prepare OTA Index  
 
@@ -91,6 +108,8 @@ For buttons (`B`) and switches (`S`), the next character determines the pull-up/
 - `f`: Float  
 
 If unsure, use `u` or `U`. `f` may cause fake clicks, and the device can get stuck in a boot loop, so use it only if you are sure.  
+
+For LEDs, add `i` to invert the state.
 
 As some Relays are bi-stable and use two pins to control, where one pin turns it on and another one turns it of, it is possible to specify
 second pin like this: `RC2D2;`
