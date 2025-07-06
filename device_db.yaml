@@ -201,6 +201,32 @@ BSEED_2_GANG_SWITCH_END_DEVICE:
   human_name: Bseed TS0012 (2 gang switch)
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/pull/23
+BSEED_2_GANG_SWITCH_2:
+  name: Bseed-2-gang-2
+  config_str: Bseed-2-gang-2;Bseed-2-gang-2;SB5u;SD4u;RB6C0;RD7A1;ID2;ID3;LC3;M;
+  device_type: router
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 43534
+  stock_converter_model: TS0012
+  tuya_manufacturer_names:
+      - _TZ3000_xk5udnd6
+  human_name: Bseed TS0012 (2 gang switch)
+  status: Supported
+  github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/51
+BSEED_2_GANG_SWITCH_2_END_DEVICE:
+  name: Bseed-2-gang-2
+  config_str: Bseed-2-gang-2;Bseed-2-gang-2-ED;SB5u;SD4u;RB6C0;RD7A1;ID2;ID3;LC3;M;
+  device_type: end_device
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 43534
+  stock_converter_model: TS0012
+  tuya_manufacturer_names:
+      - _TZ3000_xk5udnd6
+  human_name: Bseed TS0012 (2 gang switch)
+  status: Supported
+  github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/51
 TS0012_AVATTO:
   name: TS0012-custom
   config_str: TS0012-Avatto;TS0012-avatto;BB4f;LB5;SC0f;SC3f;RC2;RC4;
