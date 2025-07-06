@@ -177,7 +177,7 @@ MOES_2_GANG_SWITCH_END_DEVICE:
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/14
 BSEED_2_GANG_SWITCH:
   name: Bseed-2-gang
-  config_str: Bseed-2-gang;Bseed-2-gang-ED;SB6u;SA1u;RD3;RC0;IC2;IB4;M;
+  config_str: Bseed-2-gang;Bseed-2-gang;SB6u;SA1u;RD3;RC0;IC2;IB4;M;
   device_type: router
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
