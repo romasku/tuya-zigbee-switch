@@ -3,6 +3,7 @@ import hashlib
 import json
 from pathlib import Path
 import yaml
+import subprocess
 
 
 BOARD_TO_MANUFACTURER_NAMES = {
@@ -76,6 +77,18 @@ def make_ota_index_entry(file: Path, base_url: str, manufacturer_names: list[str
         res["manufacturerName"] = manufacturer_names
     return res
 
+def get_raw_github_link():
+    remote_url = subprocess.run(
+        ["git", "remote", "get-url", "origin"],
+        capture_output=True, text=True, check=True
+    ).stdout.strip()
+
+    branch = subprocess.run(
+        ["git", "branch", "--show-current"],
+        capture_output=True, text=True, check=True
+    ).stdout.strip()
+
+    return f"{remote_url}/raw/refs/heads/{branch}"
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Create Zigbee2mqtt index json",
@@ -83,7 +96,7 @@ if __name__ == "__main__":
     parser.add_argument("filename", metavar="INPUT", type=str, help="OTA filename")
     parser.add_argument("index_file", type=str, help="OTA index.json file")
     parser.add_argument("--base-url", required=False, help="Base url to use", 
-                        default="https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/main")
+                        default=get_raw_github_link())
     parser.add_argument(
         "--db_file", metavar="INPUT", type=str, help="File with device db"
     )
