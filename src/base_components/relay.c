@@ -13,7 +13,7 @@ void relay_on(relay_t *relay)
   printf("relay_on\r\n");
   
   if (relay->off_pin) {
-    // Bi-stable latch relay: Pulse ON pin for 125ms
+    // Bi-stable Latch relay: Pulse ON pin for 125ms
     drv_gpio_write(relay->pin, relay->on_high);
     WaitMs(125);
     drv_gpio_write(relay->pin, !relay->on_high);
@@ -34,7 +34,7 @@ void relay_off(relay_t *relay)
   printf("relay_off\r\n");
 
   if (relay->off_pin) {
-    // Bi-stable latch relay: Pulse OFF pin for 125ms
+    // Bi-stable Latch relay: Pulse OFF pin for 125ms
     drv_gpio_write(relay->off_pin, relay->on_high);
     WaitMs(125);
     drv_gpio_write(relay->off_pin, !relay->on_high);
