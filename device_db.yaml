@@ -203,7 +203,7 @@ BSEED_2_GANG_SWITCH_END_DEVICE:
   github_issue: https://github.com/romasku/tuya-zigbee-switch/pull/23
 BSEED_2_GANG_SWITCH_2:
   name: Bseed-2-gang-2
-  config_str: Bseed-2-gang-2;Bseed-2-gang-2;SB5u;SD4u;RB6C0;RD7A1;ID2;ID3;LC3;M;
+  config_str: Bseed-2-gang-2;Bseed-2-gang-2;SB5u;SD4u;RC0B6;RA1D7;ID2;ID3;LC3;M;
   device_type: router
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
@@ -216,7 +216,7 @@ BSEED_2_GANG_SWITCH_2:
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/51
 BSEED_2_GANG_SWITCH_2_END_DEVICE:
   name: Bseed-2-gang-2
-  config_str: Bseed-2-gang-2;Bseed-2-gang-2-ED;SB5u;SD4u;RB6C0;RD7A1;ID2;ID3;LC3;M;
+  config_str: Bseed-2-gang-2;Bseed-2-gang-2-ED;SB5u;SD4u;RC0B6;RA1D7;ID2;ID3;LC3;M;
   device_type: end_device
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
