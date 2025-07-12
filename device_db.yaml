@@ -220,7 +220,7 @@ BSEED_2_GANG_SWITCH_2_END_DEVICE:
   device_type: end_device
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
-  firmware_image_type: 43534
+  firmware_image_type: 43544
   stock_converter_model: TS0012
   tuya_manufacturer_names:
       - _TZ3000_xk5udnd6
