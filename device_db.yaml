@@ -402,7 +402,7 @@ TS0003:
   github_issue:
 TS0003_AVATTO:
   name: TS0003-Avatto-custom
-  config_str: Tuya-TS0003-Avatto-custom;TS0003-Avatto-custom;BC2u;LD2;SD3u;RC0;SD7u;RD4;SB6u;RC1;
+  config_str: TS0003-AV-CUS;TS0003-AV-CUS;BC2u;LD2i;SD3u;RC0;SD7u;RD4;SB6u;RC1;
   device_type: router
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
@@ -410,8 +410,9 @@ TS0003_AVATTO:
   stock_converter_model: TS0003_switch_module_2
   tuya_manufacturer_names:
     - _TZ3000_hbic3ka3
+    - Tuya-TS0003-Avatto-custom
   human_name: Avatto TS0003
-  status: WIP
+  status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/56
 TS0013_GIRIER:
   name: Girier-ZB08-custom
