@@ -208,7 +208,7 @@ TS0012_AVATTO:
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
   firmware_image_type: 43530
-  stock_converter_model: LZWSM16-2
+  stock_converter_model: TS0012_switch_module
   tuya_manufacturer_names:
       - _TZ3000_ljhbw1c9 
   human_name: Avatto TS0012
@@ -221,7 +221,7 @@ TS0012_AVATTO_END_DEVICE:
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
   firmware_image_type: 43530
-  stock_converter_model: LZWSM16-2
+  stock_converter_model: TS0012_switch_module
   tuya_manufacturer_names:
       - _TZ3000_ljhbw1c9
   human_name: Avatto TS0012
