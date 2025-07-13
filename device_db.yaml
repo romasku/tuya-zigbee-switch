@@ -133,6 +133,20 @@ TS0002_AVATTO:
   human_name: Avatto TS0002
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/9
+TS0003_AVATTO:
+  name: TS0003-Avatto-custom
+  config_str: TS0003-AV-CUS;TS0003-AV-CUS;BC2u;LD2i;SD3u;RC0;SD7u;RD4;SB6u;RC1;
+  device_type: router
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 43543
+  stock_converter_model: TS0003_switch_module_2
+  tuya_manufacturer_names:
+    - _TZ3000_hbic3ka3
+    - Tuya-TS0003-Avatto-custom
+  human_name: Avatto TS0003
+  status: Supported
+  github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/56
 TS0004_AVATTO:
   name: TS0004-Avatto-custom
   config_str: TS0004-AV-CUS;TS0004-AV-CUS;BC2u;LD2i;SD7u;RB6;SC0u;RD4;SA0u;RC1;SA1u;RC4;
@@ -400,20 +414,6 @@ TS0003:
   human_name: Moes MS-104CZ
   status: Supported
   github_issue:
-TS0003_AVATTO:
-  name: TS0003-Avatto-custom
-  config_str: TS0003-AV-CUS;TS0003-AV-CUS;BC2u;LD2i;SD3u;RC0;SD7u;RD4;SB6u;RC1;
-  device_type: router
-  tuya_manufacturer_id: 4417
-  tuya_image_type: 54179
-  firmware_image_type: 43543
-  stock_converter_model: TS0003_switch_module_2
-  tuya_manufacturer_names:
-    - _TZ3000_hbic3ka3
-    - Tuya-TS0003-Avatto-custom
-  human_name: Avatto TS0003
-  status: Supported
-  github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/56
 TS0013_GIRIER:
   name: Girier-ZB08-custom
   config_str: Girier-ZB08-custom;ZB08-custom;BA0u;LD7;SC2u;RC0;SC3u;RB4;SD2u;RB5;
