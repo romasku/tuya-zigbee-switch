@@ -101,7 +101,7 @@ void parse_config()
       buttons[buttons_cnt].on_long_press           = onResetClicked;
       buttons_cnt++;
     }
-    if (entry[0] == 'L')
+    else if (entry[0] == 'L')
     {
       GPIO_PinTypeDef pin = parsePin(entry + 1);
       init_gpio_output(pin);
@@ -117,7 +117,7 @@ void parse_config()
       has_dedicated_status_led = true;
       leds_cnt++;
     }
-    if (entry[0] == 'I')
+    else if (entry[0] == 'I')
     {
       GPIO_PinTypeDef pin = parsePin(entry + 1);
       init_gpio_output(pin);
@@ -147,7 +147,7 @@ void parse_config()
       }
       leds_cnt++;
     }
-    if (entry[0] == 'S')
+    else if (entry[0] == 'S')
     {
       GPIO_PinTypeDef  pin  = parsePin(entry + 1);
       GPIO_PullTypeDef pull = parsePullUpDown(entry + 3);
@@ -166,7 +166,7 @@ void parse_config()
       buttons_cnt++;
       switch_clusters_cnt++;
     }
-    if (entry[0] == 'R')
+    else if (entry[0] == 'R')
     {
       GPIO_PinTypeDef pin = parsePin(entry + 1);
       init_gpio_output(pin);
@@ -186,12 +186,12 @@ void parse_config()
       relays_cnt++;
       relay_clusters_cnt++;
     }
-    if (entry[0] == 'i')
+    else if (entry[0] == 'i')
     {
       u32 image_type = parseInt(entry + 1);
       baseEndpoint_otaInfo.imageType = image_type;
     }
-    if (entry[0] == 'M')
+    else if (entry[0] == 'M')
     {
       for (int index = 0; index < switch_clusters_cnt; index++)
       {
