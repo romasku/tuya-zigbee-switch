@@ -51,16 +51,24 @@ jobs:
           ls -l bin/$ITER/
         done
 
-    - name: Update converters
+    - name: Update Z2M converters
       run: |
         make update_converters
+
+    - name: Update ZHA quirks
+      run: |
+        make update_zha_quirk
+
+    - name: Update readme.md
+      run: |
+        make update_readme
 
     - name: Commit changes
       run: |
         git config --global user.name "GitHub Actions"
         git config --global user.email "actions@github.com"
-        git add bin/* zigbee2mqtt/*
-        git diff --cached --quiet || git commit -m "Update firmware files and converters"
+        git add bin/* zigbee2mqtt/* zha/* readme.md
+        git diff --cached --quiet || git commit -m "Update firmware files, converters, quirks and readme"
         make freeze_ota_links
         git add zigbee2mqtt/*
         git diff --cached --quiet || git commit -m "Freeze links in OTA index files"
