@@ -133,6 +133,20 @@ TS0002_AVATTO:
   human_name: Avatto TS0002
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/9
+TS0003_AVATTO:
+  name: TS0003-Avatto-custom
+  config_str: TS0003-AV-CUS;TS0003-AV-CUS;BC2u;LD2i;SD3u;RC0;SD7u;RD4;SB6u;RC1;
+  device_type: router
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 43543
+  stock_converter_model: TS0003_switch_module_2
+  tuya_manufacturer_names:
+    - _TZ3000_hbic3ka3
+    - Tuya-TS0003-Avatto-custom
+  human_name: Avatto TS0003
+  status: Supported
+  github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/56
 TS0004_AVATTO:
   name: TS0004-Avatto-custom
   config_str: TS0004-AV-CUS;TS0004-AV-CUS;BC2u;LD2i;SD7u;RB6;SC0u;RD4;SA0u;RC1;SA1u;RC4;
@@ -177,7 +191,7 @@ MOES_2_GANG_SWITCH_END_DEVICE:
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/14
 BSEED_2_GANG_SWITCH:
   name: Bseed-2-gang
-  config_str: Bseed-2-gang;Bseed-2-gang-ED;SB6u;SA1u;RD3;RC0;IC2;IB4;M;
+  config_str: Bseed-2-gang;Bseed-2-gang;SB6u;SA1u;RD3;RC0;IC2;IB4;M;
   device_type: router
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
@@ -201,6 +215,32 @@ BSEED_2_GANG_SWITCH_END_DEVICE:
   human_name: Bseed TS0012 (2 gang switch)
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/pull/23
+BSEED_2_GANG_SWITCH_2:
+  name: Bseed-2-gang-2
+  config_str: Bseed-2-gang-2;Bseed-2-gang-2;SB5u;SD4u;RC0B6;RA1D7;ID2;ID3;LC3;M;
+  device_type: router
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 43544
+  stock_converter_model: TS0012
+  tuya_manufacturer_names:
+      - _TZ3000_xk5udnd6
+  human_name: Bseed TS0012 (2 gang switch)
+  status: Supported
+  github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/51
+BSEED_2_GANG_SWITCH_2_END_DEVICE:
+  name: Bseed-2-gang-2
+  config_str: Bseed-2-gang-2;Bseed-2-gang-2-ED;SB5u;SD4u;RC0B6;RA1D7;ID2;ID3;LC3;M;
+  device_type: end_device
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 43544
+  stock_converter_model: TS0012
+  tuya_manufacturer_names:
+      - _TZ3000_xk5udnd6
+  human_name: Bseed TS0012 (2 gang switch)
+  status: Supported
+  github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/51
 TS0012_AVATTO:
   name: TS0012-custom
   config_str: TS0012-Avatto;TS0012-avatto;BB4f;LB5;SC0f;SC3f;RC2;RC4;
@@ -208,7 +248,7 @@ TS0012_AVATTO:
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
   firmware_image_type: 43530
-  stock_converter_model: LZWSM16-2
+  stock_converter_model: TS0012_switch_module
   tuya_manufacturer_names:
       - _TZ3000_ljhbw1c9 
   human_name: Avatto TS0012
@@ -221,7 +261,7 @@ TS0012_AVATTO_END_DEVICE:
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
   firmware_image_type: 43530
-  stock_converter_model: LZWSM16-2
+  stock_converter_model: TS0012_switch_module
   tuya_manufacturer_names:
       - _TZ3000_ljhbw1c9
   human_name: Avatto TS0012
@@ -400,19 +440,6 @@ TS0003:
   human_name: Moes MS-104CZ
   status: Supported
   github_issue:
-TS0003_AVATTO:
-  name: TS0003-Avatto-custom
-  config_str: Tuya-TS0003-Avatto-custom;TS0003-Avatto-custom;BC2u;LD2;SD3u;RC0;SD7u;RD4;SB6u;RC1;
-  device_type: router
-  tuya_manufacturer_id: 4417
-  tuya_image_type: 54179
-  firmware_image_type: 43543
-  stock_converter_model: TS0003_switch_module_2
-  tuya_manufacturer_names:
-    - _TZ3000_hbic3ka3
-  human_name: Avatto TS0003
-  status: WIP
-  github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/56
 TS0013_GIRIER:
   name: Girier-ZB08-custom
   config_str: Girier-ZB08-custom;ZB08-custom;BA0u;LD7;SC2u;RC0;SC3u;RB4;SD2u;RB5;
@@ -454,6 +481,19 @@ TS0004_AVATTO_NEUTRAL:
   human_name: Avatto 4 gang switch module with N
   status: WIP, check issue for current status.
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/42
+TS0004:
+  name: TS0004-custom
+  config_str: Tuya-TS0004-custom;TS0004-custom;BB6u;LB1;SC1u;RB7;SC2u;RB5;SC3u;RB4;SD2u;RC4;
+  device_type: router
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 43545
+  stock_converter_model: TS0004_switch_module
+  tuya_manufacturer_names:
+    - _TZ3000_mmkbptmx
+  human_name: No-name 4 gang switch module with N
+  status: Untested
+  github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/66
 AVATTO_3_GANG_TOUCH:
   name: Avatto-3-gang-touch
   config_str: Avatto-3-touch;Avatto-3-touch;LB5;SD3u;RC2;SD7u;RC3;SD4u;RD2;M;

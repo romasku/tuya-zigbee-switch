@@ -181,7 +181,7 @@ $(FROM_TUYA_OTA_FILE): $(BIN_FILE)
 $(FORCE_OTA_FILE): $(BIN_FILE)
 	@echo 'Create OTA image to convert from stock firmware'
 	@echo ' '
-	@$(PYTHON) $(HELPERS_PATH)/zb_bin_ota.py $(BIN_FILE) $(FORCE_OTA_FILE) --header_string "Telink Zigbee OTA" --manufacturer_id 4417 --image_type $(FIRMWARE_IMAGE_TYPE) --file_version 0xFFFFFFFF
+	@$(PYTHON) $(HELPERS_PATH)/zb_bin_ota.py $(BIN_FILE) $(FORCE_OTA_FILE) --header_string "Telink Zigbee OTA" --manufacturer_id $(FROM_TUYA_MANUFACTURER_ID) --image_type $(FIRMWARE_IMAGE_TYPE) --file_version 0xFFFFFFFF
 	@echo ' '
 
 $(OTA_FILE): $(BIN_FILE)

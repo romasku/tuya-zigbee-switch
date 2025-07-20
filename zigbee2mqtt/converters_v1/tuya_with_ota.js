@@ -10,7 +10,6 @@ avattoDefinitions = avattoDefinitions.definitions ?? avattoDefinitions;
 const ota = require("zigbee-herdsman-converters/lib/ota");
 
 const tuyaModels = [
-    "LZWSM16-2",
     "TS0001_switch_module",
     "TS0002_basic",
     "TS0002_limited",
