@@ -440,6 +440,19 @@ TS0003:
   human_name: Moes MS-104CZ
   status: Supported
   github_issue:
+TS0003_3CH:
+  name: TS0003-3CH-cus
+  config_str: TS0003-3CH-cus;TS0003-3CH-cus;BC3u;LC2i;SD7u;RD2;SB4u;RD3;SB5u;RC0;
+  device_type: router
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 43546
+  stock_converter_model: TS0003_switch_module_2
+  tuya_manufacturer_names:
+    - _TZ3000_mhhxxjrs
+  human_name: No-name 3-gang switch with Neutral
+  status: Supported
+  github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/85
 TS0013_GIRIER:
   name: Girier-ZB08-custom
   config_str: Girier-ZB08-custom;ZB08-custom;BA0u;LD7;SC2u;RC0;SC3u;RB4;SD2u;RB5;
