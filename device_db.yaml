@@ -53,6 +53,19 @@ TS0002:
   human_name: OXT TS0001, probably other rebrands
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/6
+TS0002_OXT:
+  name: OXT_2_GANG
+  config_str: TS0002-OXT-CUS;TS0002-OXT-CUS;BD2u;LC0;SB4u;SB5u;RC2;RC3;
+  device_type: router
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 43547
+  stock_converter_model: TS0002_basic
+  tuya_manufacturer_names:
+    - _TZ3000_bvrlqyj7
+  human_name: OXT 2-gang switch
+  status: WIP
+  github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/49
 TS0011:
   name: TS0011-custom
   config_str: Tuya-TS0011-custom;TS0011-custom;BA0f;LD7;SC2f;RC0;
