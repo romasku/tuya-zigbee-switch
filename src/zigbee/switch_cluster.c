@@ -113,7 +113,7 @@ void switch_cluster_add_to_endpoint(zigbee_switch_cluster *cluster, zigbee_endpo
   info_level->attrNum             = 0;
   info_level->attrTbl             = NULL;
   info_level->clusterRegisterFunc = zcl_level_register;
-  info_level->clusterAppCb        = NULL;
+  info_level->clusterAppCb        = switch_cluster_callback_trampoline;
 }
 
 void switch_cluster_on_button_press(zigbee_switch_cluster *cluster)
