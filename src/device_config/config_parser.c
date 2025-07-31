@@ -204,6 +204,10 @@ void parse_config()
 
   u8 total_endpoints = switch_clusters_cnt + relay_clusters_cnt;
 
+  // special case when no switches or relays are defined, so we can init a "clean" device and configure it while running
+  // endpoint 1 still needs to be initialised even though wenn no switches or relays are defined, so it can join the network!
+  if (total_endpoints == 0) total_endpoints = 1;
+
   for (int index = 0; index < total_endpoints; index++)
   {
     endpoints[index].index = index + 1;
