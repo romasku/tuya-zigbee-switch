@@ -83,6 +83,7 @@ extern "C" {
 #define ZCL_POWER_CFG_SUPPORT     0
 #define ZCL_ON_OFF_SUPPORT        1
 #define ZCL_ONOFF_CONFIGUATION    1
+#define ZCL_LEVEL_CTRL            1
 //#define ZCL_IAS_ZONE_SUPPORT			    1
 #define ZCL_POLL_CTRL_SUPPORT     0
 #define ZCL_GROUP_SUPPORT         1

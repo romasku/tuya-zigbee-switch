@@ -47,6 +47,13 @@ class CustomOnOffConfigurationCluster(CustomCluster, OnOffConfiguration):
             is_manufacturer_specific=True,
         )
 
+        level_move_rate = ZCLAttributeDef(
+            id=0xff04,
+            type=t.uint8_t,
+            access="rw",
+            is_manufacturer_specific=True,
+        )
+
 
 class CustomMultistateInputCluster(CustomCluster, MultistateInput):
 
@@ -153,6 +160,16 @@ for config in CONFIGS:
                 fallback_name="Long press mode",
                 min_value=0,
                 max_value=5000,
+                step=1,
+                endpoint_id=endpoint_id,
+            )
+            .number(
+                CustomOnOffConfigurationCluster.AttributeDefs.level_move_rate.name,
+                CustomOnOffConfigurationCluster.cluster_id,
+                translation_key="level_move_rate",
+                fallback_name="Level move rate",
+                min_value=1,
+                max_value=255,
                 step=1,
                 endpoint_id=endpoint_id,
             )
