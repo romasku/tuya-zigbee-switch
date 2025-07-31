@@ -67,6 +67,16 @@ const romasku = {
             valueMin: 0,
             valueMax: 5000,
         }),
+    levelMoveRate: (name, endpointName) =>
+        numeric({
+            name,
+            endpointNames: [endpointName],
+            cluster: "genOnOffSwitchCfg",
+            attribute: { ID: 0xff04, type: 0x20 }, // uint8
+            description: "Level (dim) move rate in steps per ms",
+            valueMin: 1,
+            valueMax: 255,
+        }),
     pressAction: (name, endpointName) =>
         enumLookup({
             name,
@@ -187,6 +197,7 @@ const definitions = [
             romasku.relayMode("{{switchName}}_relay_mode", "{{switchName}}"),
             romasku.relayIndex("{{switchName}}_relay_index", "{{switchName}}", {{device.relayNames | length}}),
             romasku.longPressDuration("{{switchName}}_long_press_duration", "{{switchName}}"),
+            romasku.levelMoveRate("{{switchName}}_level_move_rate", "{{switchName}}"),
             {% endfor %}
             {% for relayName in device.relayIndicatorNames %}
             romasku.relayIndicatorMode("{{relayName}}_indicator_mode", "{{relayName}}"),
