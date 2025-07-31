@@ -206,10 +206,7 @@ void switch_cluster_on_button_release(zigbee_switch_cluster *cluster)
       (cluster->button->long_pressed == false)
     )
   {
-    if 
-    (
-      cluster->relay_mode == ZCL_ONOFF_CONFIGURATION_RELAY_MODE_RISE
-    )
+    if (cluster->relay_mode == ZCL_ONOFF_CONFIGURATION_RELAY_MODE_RISE)
     {
       switch (cluster->action)
       {
