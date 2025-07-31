@@ -125,28 +125,28 @@ void switch_cluster_on_button_press(zigbee_switch_cluster *cluster)
   switch_cluster_report_action(cluster);
 
   if (cluster->mode == ZCL_ONOFF_CONFIGURATION_SWITCH_TYPE_TOGGLE)
+  {
+    if (cluster->relay_mode == ZCL_ONOFF_CONFIGURATION_RELAY_MODE_RISE)
     {
-      if (cluster->relay_mode == ZCL_ONOFF_CONFIGURATION_RELAY_MODE_RISE)
+      switch (cluster->action)
       {
-        switch (cluster->action)
-        {
-        case ZCL_ONOFF_CONFIGURATION_SWITCH_ACTION_ONOFF:
-          relay_cluster_on(relay_cluster);
-          break;
-        case ZCL_ONOFF_CONFIGURATION_SWITCH_ACTION_OFFON:
-          relay_cluster_off(relay_cluster);
-          break;
-        case ZCL_ONOFF_CONFIGURATION_SWITCH_ACTION_TOGGLE_SIMPLE:
-          relay_cluster_toggle(relay_cluster);
-          break;
-        case ZCL_ONOFF_CONFIGURATION_SWITCH_ACTION_TOGGLE_SMART_SYNC:
-          relay_cluster_toggle(relay_cluster);
-          break;
-        case ZCL_ONOFF_CONFIGURATION_SWITCH_ACTION_TOGGLE_SMART_OPPOSITE:
-          relay_cluster_toggle(relay_cluster);
-          break;
-        }
+      case ZCL_ONOFF_CONFIGURATION_SWITCH_ACTION_ONOFF:
+        relay_cluster_on(relay_cluster);
+        break;
+      case ZCL_ONOFF_CONFIGURATION_SWITCH_ACTION_OFFON:
+        relay_cluster_off(relay_cluster);
+        break;
+      case ZCL_ONOFF_CONFIGURATION_SWITCH_ACTION_TOGGLE_SIMPLE:
+        relay_cluster_toggle(relay_cluster);
+        break;
+      case ZCL_ONOFF_CONFIGURATION_SWITCH_ACTION_TOGGLE_SMART_SYNC:
+        relay_cluster_toggle(relay_cluster);
+        break;
+      case ZCL_ONOFF_CONFIGURATION_SWITCH_ACTION_TOGGLE_SMART_OPPOSITE:
+        relay_cluster_toggle(relay_cluster);
+        break;
       }
+    }
 
     if (zb_isDeviceJoinedNwk())
     {
