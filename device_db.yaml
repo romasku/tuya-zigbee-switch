@@ -64,7 +64,7 @@ TS0002_OXT:
   tuya_manufacturer_names:
     - _TZ3000_bvrlqyj7
   human_name: OXT 2-gang switch
-  status: WIP
+  status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/49
 TS0011:
   name: TS0011-custom
@@ -120,35 +120,45 @@ TS0002_GIRIER:
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/29 
 TS0001_AVATTO:
   name: TS0001-Avatto-custom
-  config_str: TS0001-AV-CUS;TS0001-AV-CUS;BC2u;LD2i;SD3u;RC0;
+  config_str: TS0001-AVB;TS0001-AVB;BC2u;LD2i;SD3u;RC0;
   device_type: router
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
   firmware_image_type: 43527
   stock_converter_model: TS0001_switch_module
   tuya_manufacturer_names:
-      - _TZ3000_4rbqgcuv
-      - Tuya-TS0001-Avatto-custom
-  human_name: Avatto TS0001
+    - _TZ3000_4rbqgcuv
+    - Tuya-TS0001-Avatto-custom
+    - TS0001-AV-CUS
+  old_zb_models:
+    - TS0001-Avatto-custom
+    - TS0001-AV-CUS
+  override_z2m_device: ZWSM16-1-Zigbee
+  human_name: AVATTO ZWSM16-1-Zigbee (blue socket)
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/9
 TS0002_AVATTO:
   name: TS0002-Avatto-custom
-  config_str: TS0002-AV-CUS;TS0002-AV-CUS;BC2u;LD2i;SD3u;RC0;SD7u;RD4;
+  config_str: TS0002-AVB;TS0002-AVB;BC2u;LD2i;SD3u;RC0;SD7u;RD4;
   device_type: router
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
   firmware_image_type: 43528
   stock_converter_model: TS0002_limited
   tuya_manufacturer_names:
-      - _TZ3000_mtnpt6ws
-      - Tuya-TS0002-Avatto-custom
-  human_name: Avatto TS0002
+    - _TZ3000_mtnpt6ws
+    - Tuya-TS0002-Avatto-custom
+    - TS0002-AV-CUS
+  old_zb_models:
+    - TS0002-Avatto-custom
+    - TS0002-AV-CUS
+  override_z2m_device: ZWSM16-2-Zigbee
+  human_name: AVATTO ZWSM16-2-Zigbee (blue socket)
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/9
 TS0003_AVATTO:
   name: TS0003-Avatto-custom
-  config_str: TS0003-AV-CUS;TS0003-AV-CUS;BC2u;LD2i;SD3u;RC0;SD7u;RD4;SB6u;RC1;
+  config_str: TS0003-AVB;TS0003-AVB;BC2u;LD2i;SD3u;RC0;SD7u;RD4;SB6u;RC1;
   device_type: router
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
@@ -157,23 +167,31 @@ TS0003_AVATTO:
   tuya_manufacturer_names:
     - _TZ3000_hbic3ka3
     - Tuya-TS0003-Avatto-custom
-  human_name: Avatto TS0003
+    - TS0003-AV-CUS
+  old_zb_models:
+    - TS0003-Avatto-custom
+    - TS0003-AV-CUS
+  override_z2m_device: ZWSM16-3-Zigbee
+  human_name: AVATTO ZWSM16-3-Zigbee (blue socket)
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/56
 TS0004_AVATTO:
   name: TS0004-Avatto-custom
-  config_str: TS0004-AV-CUS;TS0004-AV-CUS;BC2u;LD2i;SD7u;RB6;SC0u;RD4;SA0u;RC1;SA1u;RC4;
+  config_str: TS0004-AVB;TS0004-AVB;BC2u;LD2i;SD3u;RC0;SD7u;RD4;SB6u;RC1;SA0u;RC4;
   device_type: router
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
   firmware_image_type: 43529
   stock_converter_model: TS0004_switch_module_2
   tuya_manufacturer_names:
-      - _TZ3000_5ajpkyq6 
-      - Tuya-TS0004-Avatto-custom
+    - _TZ3000_5ajpkyq6 
+    - Tuya-TS0004-Avatto-custom
+    - TS0004-AV-CUS
   old_zb_models:
     - TS0004-Avatto-custom
-  human_name: Avatto TS0004
+    - TS0004-AV-CUS
+  override_z2m_device: ZWSM16-4-Zigbee
+  human_name: AVATTO ZWSM16-4-Zigbee (blue socket)
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/9
 MOES_2_GANG_SWITCH:
