@@ -28,7 +28,7 @@ void device_config_write_to_nv()
 
 void device_config_remove_from_nv()
 {
-  nv_flashSingleItemRemove(1, NV_MODULE_ZCL, NV_ITEM_ZCL_DEVICE_CONFIG);
+  nv_flashSingleItemRemove(NV_MODULE_ZCL, NV_ITEM_ZCL_DEVICE_CONFIG, sizeof(config.data));
 }
 
 void device_config_read_from_nv()
