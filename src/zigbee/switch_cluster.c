@@ -244,8 +244,6 @@ void switch_cluster_on_button_release(zigbee_switch_cluster *cluster)
       return;
     }
 
-    cluster->button->long_pressed = false;
-
     switch (cluster->action)
     {
     case ZCL_ONOFF_CONFIGURATION_SWITCH_ACTION_ONOFF:
