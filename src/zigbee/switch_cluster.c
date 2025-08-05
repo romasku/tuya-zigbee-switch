@@ -195,15 +195,13 @@ void switch_cluster_on_button_release(zigbee_switch_cluster *cluster)
 {
   zigbee_relay_cluster *relay_cluster = &relay_clusters[cluster->relay_index - 1];
 
-  cluster->multistate_state = MUTLISTATE_NOT_PRESSED;
-  switch_cluster_report_action(cluster);
 
   if (
     (
       (cluster->mode == ZCL_ONOFF_CONFIGURATION_SWITCH_TYPE_TOGGLE) ||
       (cluster->mode == ZCL_ONOFF_CONFIGURATION_SWITCH_TYPE_MOMENTARY)
     ) &&
-      (cluster->button->long_pressed == false)
+      (cluster->multistate_state == MUTLISTATE_NOT_PRESSED)
     )
   {
     if (cluster->relay_mode == ZCL_ONOFF_CONFIGURATION_RELAY_MODE_RISE)
@@ -237,10 +235,11 @@ void switch_cluster_on_button_release(zigbee_switch_cluster *cluster)
     dstEpInfo.profileId   = HA_PROFILE_ID;
     dstEpInfo.dstAddrMode = APS_DSTADDR_EP_NOTPRESETNT;
 
-    if (cluster->button->long_pressed == true)
+    if (cluster->multistate_state == MUTLISTATE_LONG_PRESS)
     {
       zcl_level_stopWithOnOffCmd(cluster->endpoint, &dstEpInfo, FALSE, NULL);
-      cluster->button->long_pressed = false;
+      cluster->multistate_state = MUTLISTATE_NOT_PRESSED;
+      switch_cluster_report_action(cluster);
       return;
     }
 
@@ -277,13 +276,15 @@ void switch_cluster_on_button_release(zigbee_switch_cluster *cluster)
       break;
     }
   }
+
+  cluster->multistate_state = MUTLISTATE_NOT_PRESSED;
+  switch_cluster_report_action(cluster);
 }
 
 void switch_cluster_on_button_long_press(zigbee_switch_cluster *cluster)
 {
   if ( cluster->mode == ZCL_ONOFF_CONFIGURATION_SWITCH_TYPE_TOGGLE )
   {
-    cluster->button->long_pressed = false;
     return;
   }
 
