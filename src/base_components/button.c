@@ -78,7 +78,7 @@ void btn_update_debounced(button_t *button, u8 is_pressed)
     }
   }
   button->pressed = is_pressed;
-  if (is_pressed && !button->long_pressed && (button->long_press_duration_ms < (now - button->pressed_at_ms)))
+  if (is_pressed && !button->long_pressed && (button->long_press_duration_ms > 0) && (button->long_press_duration_ms < (now - button->pressed_at_ms)))
   {
     button->long_pressed = true;
     printf("Long press detected\r\n");
