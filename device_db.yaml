@@ -183,6 +183,8 @@ TS0004_AVATTO:
   tuya_image_type: 54179
   firmware_image_type: 43529
   stock_converter_model: TS0004_switch_module_2
+  alt_config_str:
+    - TS0004-AVB;TS0004-AVB;BC2u;LD2i;SD7u;RB6;SC0u;RD4;SA0u;RC1;SA1u;RC4;
   tuya_manufacturer_names:
     - _TZ3000_5ajpkyq6 
     - Tuya-TS0004-Avatto-custom
