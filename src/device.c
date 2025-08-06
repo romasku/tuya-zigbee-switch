@@ -113,6 +113,8 @@ void user_app_init(void)
   /* Register Incoming ZCL Foundation command/response messages */
   zcl_init(device_zclProcessIncomingMsg);
 
+  handle_version_changes();
+
   parse_config();
 
   ota_init(OTA_TYPE_CLIENT, (af_simple_descriptor_t *)&endpoints[0].simple_description, &baseEndpoint_otaInfo, &baseEndpoint_otaCb);

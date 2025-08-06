@@ -16,5 +16,6 @@ extern zigbee_endpoint endpoints[10];
 void periferals_update();
 void parse_config();
 void init_reporting();
+void handle_version_changes();
 
 #endif

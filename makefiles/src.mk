@@ -40,7 +40,8 @@ $(BUILD_PATH)/$(SRC_DIR)/base_components/millis.o \
 $(BUILD_PATH)/$(SRC_DIR)/base_components/relay.o \
 $(BUILD_PATH)/$(SRC_DIR)/base_components/network_indicator.o \
 $(BUILD_PATH)/$(SRC_DIR)/device_config/config_parser.o \
-$(BUILD_PATH)/$(SRC_DIR)/device_config/config_nv.o
+$(BUILD_PATH)/$(SRC_DIR)/device_config/config_nv.o \
+$(BUILD_PATH)/$(SRC_DIR)/device_config/version_nv.o
 
 $(BUILD_PATH)/$(SRC_DIR)/%.o: $(PROJECT_PATH)/$(SRC_DIR)/%.c
 	@echo 'Building file: $<'
