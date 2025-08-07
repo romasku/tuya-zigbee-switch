@@ -122,7 +122,7 @@ GCC_FLAGS += $(TEL_CHIP) $(DEVICE_DEFS)
 
 LS_INCLUDE := -L$(SDK_PATH)/platform/lib -L$(SDK_PATH)/zigbee/lib/tc32 -L$(SDK_PATH)/proj -L$(SDK_PATH)/platform -L$(BUILD_PATH)
 
-LS_FLAGS := $(SRC_PATH)/boot.link
+LS_FLAGS := $(SDK_PATH)/platform/boot/8258/boot_8258.link
 
 # Inlude sub-makefiles
 
@@ -265,7 +265,7 @@ secondary-outputs: $(BIN_FILE) $(OTA_FILE) $(LST_FILE) z2m_index z2m_index_force
 
 # SDK & Tools download targets
 
-SDK_VERSION := 3.6.8.6
+SDK_VERSION := 3.7.1.4
 
 sdk:
 	mkdir -p $(SDK_DIR)
