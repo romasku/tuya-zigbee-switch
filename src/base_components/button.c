@@ -70,15 +70,15 @@ void btn_update_debounced(button_t *button, u8 is_pressed)
   else if (button->pressed && !is_pressed)
   {
     printf("Release detected\r\n");
-    button->long_pressed   = false;
     button->released_at_ms = now;
+    button->long_pressed   = false;
     if (button->on_release != NULL)
     {
       button->on_release(button->callback_param);
     }
   }
   button->pressed = is_pressed;
-  if (is_pressed && !button->long_pressed && (button->long_press_duration_ms < (now - button->pressed_at_ms)))
+  if (is_pressed && !button->long_pressed && (button->long_press_duration_ms > 0) && (button->long_press_duration_ms < (now - button->pressed_at_ms)))
   {
     button->long_pressed = true;
     printf("Long press detected\r\n");
