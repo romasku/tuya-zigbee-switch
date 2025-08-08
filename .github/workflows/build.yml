@@ -19,17 +19,10 @@ jobs:
       with:
         fetch-depth: 0  # Получить полную историю коммитов
 
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.x'
-
     - name: Install dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y make python3 python3-pip unzip wget
-        python3 -m pip install --upgrade pip
-        pip install yq jinja2
+        sudo apt-get install -y make python3 python3-jinja2 python3-yaml yq unzip wget
 
     - name: Install SDK and Toolchain
       run: |

@@ -101,7 +101,7 @@ void parse_config()
       buttons[buttons_cnt].on_long_press           = onResetClicked;
       buttons_cnt++;
     }
-    if (entry[0] == 'L')
+    else if (entry[0] == 'L')
     {
       GPIO_PinTypeDef pin = parsePin(entry + 1);
       init_gpio_output(pin);
@@ -117,7 +117,7 @@ void parse_config()
       has_dedicated_status_led = true;
       leds_cnt++;
     }
-    if (entry[0] == 'I')
+    else if (entry[0] == 'I')
     {
       GPIO_PinTypeDef pin = parsePin(entry + 1);
       init_gpio_output(pin);
@@ -147,7 +147,7 @@ void parse_config()
       }
       leds_cnt++;
     }
-    if (entry[0] == 'S')
+    else if (entry[0] == 'S')
     {
       GPIO_PinTypeDef  pin  = parsePin(entry + 1);
       GPIO_PullTypeDef pull = parsePullUpDown(entry + 3);
@@ -166,7 +166,7 @@ void parse_config()
       buttons_cnt++;
       switch_clusters_cnt++;
     }
-    if (entry[0] == 'R')
+    else if (entry[0] == 'R')
     {
       GPIO_PinTypeDef pin = parsePin(entry + 1);
       init_gpio_output(pin);
@@ -186,12 +186,12 @@ void parse_config()
       relays_cnt++;
       relay_clusters_cnt++;
     }
-    if (entry[0] == 'i')
+    else if (entry[0] == 'i')
     {
       u32 image_type = parseInt(entry + 1);
       baseEndpoint_otaInfo.imageType = image_type;
     }
-    if (entry[0] == 'M')
+    else if (entry[0] == 'M')
     {
       for (int index = 0; index < switch_clusters_cnt; index++)
       {
@@ -203,6 +203,10 @@ void parse_config()
   periferals_init();
 
   u8 total_endpoints = switch_clusters_cnt + relay_clusters_cnt;
+
+  // special case when no switches or relays are defined, so we can init a "clean" device and configure it while running
+  // endpoint 1 still needs to be initialised even though wenn no switches or relays are defined, so it can join the network!
+  if (total_endpoints == 0) total_endpoints = 1;
 
   for (int index = 0; index < total_endpoints; index++)
   {

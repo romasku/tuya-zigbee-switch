@@ -14,16 +14,19 @@ What is FORCE OTA index/image?
 </summary>
 
 **Normal** images **do not** allow flashing the same version (for example v1.0.17).  
-So, using the **normal** index, Z2M will update your device to the latest version and say that you have the latest version already installed.  
-You will only receive updates if the version number is incremented (in the Makefile).
+So, using the **normal** index, Z2M will update your device to the **latest version** and then say that you have the latest version already installed.  
+You will only receive updates **if the version number is incremented** (in the Makefile).  
+Note that we don't increment the version for every change/build - so we don't bother users to update for small fixes.  
+Fresh installs always get the latest build though. 
 
 **Force** images **do** allow flashing the same version.  
-So, using the force index, Z2M will update your device to the latest version and still say there is an update available.  
+So, using the force index, Z2M will update your device to the **latest build** and still say there is an update available.  
 Z2M will **always** say there is an update available, even if there is no difference between your version and the remote version.  
 
 Use the **force** image when:
 - switching between Router/End-device firmware
 - testing your changes in the source code
+- updating to a new build with the same version number
 
 After flashing a **force** image, you can simply change the index back to normal and restart Z2M. No downgrade or other action necessary. You will receive updates correctly.
 </details>
@@ -44,6 +47,15 @@ Is it possible to revert to stock firmware?
 Partially. Reverting to the stock firmware is only possible via wired flashing using UART.  
 Additionally, you will need a dump of the original stock firmware. Dumps are available for **some** devices in the `bin/` directory.
 
-To flash the stock firmware, follow the same steps outlined in the [flashing via wire guide](./docs/flashing_via_wire.md), just as you would for custom firmware.
+To flash the stock firmware, follow the same steps outlined in the [flashing via wire guide](flashing_via_wire.md), just as you would for custom firmware.
+
+</details>
+
+<details>
+<summary>
+How to recover an unresponsive device?
+</summary>
+
+If your device does not respond to commands/button-presses etc, the only way to bring it back is to [flash by wire](flashing_via_wire.md).
 
 </details>

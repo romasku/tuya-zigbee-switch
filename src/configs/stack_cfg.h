@@ -49,7 +49,7 @@
  *  @brief  ZCL: MAX number of cluster list, in cluster number add  + out cluster number
  *
  */
-#define ZCL_CLUSTER_NUM_MAX        20
+#define ZCL_CLUSTER_NUM_MAX        32
 
 /**
  *  @brief  ZCL: maximum number for zcl reporting table
@@ -72,7 +72,7 @@
 /**
  *  @brief  APS: MAX number of binding table size
  */
-#define APS_BINDING_TABLE_NUM      16
+#define APS_BINDING_TABLE_NUM      32
 
 
 /**********************************************************************
