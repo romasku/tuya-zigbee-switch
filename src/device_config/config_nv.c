@@ -23,22 +23,51 @@ struct
 
 void device_config_write_to_nv()
 {
-  nv_flashWriteNew(1, NV_MODULE_ZCL, NV_ITEM_ZCL_DEVICE_CONFIG, sizeof(config.data), (u8 *)config.data);
+  nv_sts_t st = 0;
+  st = nv_flashWriteNew(1, NV_MODULE_ZCL, NV_ITEM_ZCL_DEVICE_CONFIG_SIZE, sizeof(config.size), (u8 *)&config.size);
+
+  if(st != NV_SUCC)
+  {
+    printf("Failed to write DEVICE_CONFIG_SIZE to NV, st: %d. (bytes: %d, value: %d)\r\n", st, sizeof(config.size), config.size);
+    return;
+  }
+
+  st = nv_flashWriteNew(1, NV_MODULE_ZCL, NV_ITEM_ZCL_DEVICE_CONFIG_DATA, config.size, (u8 *)config.data);
+
+  if(st != NV_SUCC)
+  {
+    printf("Failed to write DEVICE_CONFIG_DATA to NV, st: %d. (bytes: %d)\r\n", st, config.size);
+  }
 }
 
 void device_config_remove_from_nv()
 {
-  nv_flashSingleItemRemove(NV_MODULE_ZCL, NV_ITEM_ZCL_DEVICE_CONFIG, sizeof(config.data));
+  nv_flashSingleItemRemove(NV_MODULE_ZCL, NV_ITEM_ZCL_DEVICE_CONFIG_DATA, config.size);
+  nv_flashSingleItemRemove(NV_MODULE_ZCL, NV_ITEM_ZCL_DEVICE_CONFIG_SIZE, sizeof(config.size));
 }
 
 void device_config_read_from_nv()
 {
-  nv_sts_t st = nv_flashReadNew(1, NV_MODULE_ZCL, NV_ITEM_ZCL_DEVICE_CONFIG, sizeof(config.data), (u8 *)config.data);
+  nv_sts_t st = 0;
+  st = nv_flashReadNew(1, NV_MODULE_ZCL, NV_ITEM_ZCL_DEVICE_CONFIG_SIZE, sizeof(config.size), (u8 *)&config.size);
 
   if (st != NV_SUCC)
   {
+    printf("Failed to read DEVICE_CONFIG_SIZE from NV, using default config instead, st: %d. (bytes: %d)\r\n", st, sizeof(config.size));
     memcpy(config.data, default_config_data, sizeof(default_config_data));
+    config.size = strlen(config.data);
+    return;
   }
-  config.size = strlen(config.data);
-  printf("Loaded config %s\r\n", config.data);
+
+  st = nv_flashReadNew(1, NV_MODULE_ZCL, NV_ITEM_ZCL_DEVICE_CONFIG_DATA, config.size, (u8 *)config.data);
+
+  if (st != NV_SUCC)
+  {
+    printf("Failed to read DEVICE_CONFIG_DATA from NV, using default config instead, st: %d. (bytes: %d)\r\n", st, config.size);
+    memcpy(config.data, default_config_data, sizeof(default_config_data));
+    config.size = strlen(config.data);
+    return;
+  }
+
+  printf("Read config: %d chars from\r\n%s\r\n", config.size, config.data);
 }

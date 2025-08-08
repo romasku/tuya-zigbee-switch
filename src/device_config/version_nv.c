@@ -33,4 +33,8 @@ void handle_version_changes()
 
   lastSeenVersion = currentVersion;
   st = nv_flashWriteNew(1, NV_MODULE_ZCL, NV_ITEM_ZCL_LAST_SEEN_VERSION, sizeof(lastSeenVersion), (u8 *)&lastSeenVersion);
+  if (st != NV_SUCC)
+  {
+    printf("Failed to write lastSeenVersion to NV, st: %d\r\n", st);
+  }
 }
