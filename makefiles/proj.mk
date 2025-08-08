@@ -15,16 +15,22 @@ $(BUILD_PATH)/proj/drivers/drv_pwm.o \
 $(BUILD_PATH)/proj/drivers/drv_timer.o \
 $(BUILD_PATH)/proj/drivers/drv_uart.o \
 $(BUILD_PATH)/proj/drivers/drv_keyboard.o \
-$(BUILD_PATH)/proj/drivers/drv_calibration.o \
+$(BUILD_PATH)/proj/drivers/drv_flash.o \
+$(BUILD_PATH)/proj/drivers/drv_hw.o \
+$(BUILD_PATH)/proj/drivers/drv_adc.o \
 $(BUILD_PATH)/proj/os/ev.o \
 $(BUILD_PATH)/proj/os/ev_buffer.o \
 $(BUILD_PATH)/proj/os/ev_poll.o \
 $(BUILD_PATH)/proj/os/ev_queue.o \
-$(BUILD_PATH)/proj/os/ev_timer.o
+$(BUILD_PATH)/proj/os/ev_timer.o \
+$(BUILD_PATH)/proj/os/ev_rtc.o \
+$(BUILD_PATH)/proj/drivers/drv_calibration.o \
+$(BUILD_PATH)/proj/drivers/drv_security.o
 
+
+#$(BUILD_PATH)/proj/os/ev_rtc.o \
 #$(BUILD_PATH)/proj/drivers/drv_spi.o \
 #
-#$(BUILD_PATH)/proj/drivers/drv_calibration.o \
 #$(BUILD_PATH)/proj/drivers/drv_i2c.o \
 #$(BUILD_PATH)/proj/drivers/drv_keyboard.o \
 #$(BUILD_PATH)/proj/drivers/drv_hw.o \
