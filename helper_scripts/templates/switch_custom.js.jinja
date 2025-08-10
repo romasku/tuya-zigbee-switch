@@ -41,7 +41,7 @@ const romasku = {
         enumLookup({
             name,
             endpointName,
-            lookup: { detached: 0, raise: 1, long_press: 2 },
+            lookup: { detached: 0, raise: 1, short_press: 3, long_press: 2},
             cluster: "genOnOffSwitchCfg",
             attribute: { ID: 0xff01, type: 0x30 }, // Enum8
             description: "When to trigger internal relay",
@@ -56,6 +56,15 @@ const romasku = {
             cluster: "genOnOffSwitchCfg",
             attribute: { ID: 0xff02, type: 0x20 }, // uint8
             description: "Which internal relay it should trigger",
+        }),
+    bindedMode: (name, endpointName) =>
+        enumLookup({
+            name,
+            endpointName,
+            lookup: { raise: 1, short_press: 3, long_press: 2},
+            cluster: "genOnOffSwitchCfg",
+            attribute: { ID: 0xff05, type: 0x30 }, // Enum8
+            description: "When to trigger binded device",
         }),
     longPressDuration: (name, endpointName) =>
         numeric({
@@ -196,6 +205,7 @@ const definitions = [
             romasku.switchAction("{{switchName}}_action_mode", "{{switchName}}"),
             romasku.relayMode("{{switchName}}_relay_mode", "{{switchName}}"),
             romasku.relayIndex("{{switchName}}_relay_index", "{{switchName}}", {{device.relayNames | length}}),
+            romasku.bindedMode("{{switchName}}_binded_mode", "{{switchName}}"),
             romasku.longPressDuration("{{switchName}}_long_press_duration", "{{switchName}}"),
             romasku.levelMoveRate("{{switchName}}_level_move_rate", "{{switchName}}"),
             {% endfor %}

@@ -17,6 +17,7 @@ typedef struct
   u8  relay_index;
   u16 button_long_press_duration;
   u8  level_move_rate;
+  u8  binded_mode;
 } zigbee_switch_cluster_config;
 
 typedef struct
@@ -26,8 +27,9 @@ typedef struct
   u8            action;
   u8            relay_mode;
   u8            relay_index;
+  u8            binded_mode;
   button_t *    button;
-  zclAttrInfo_t attr_infos[7];
+  zclAttrInfo_t attr_infos[8];
   u16           multistate_state;
   zclAttrInfo_t multistate_attr_infos[4];
   move_t *      level_move;

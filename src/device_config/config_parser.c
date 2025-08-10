@@ -167,6 +167,7 @@ void parse_config()
       switch_clusters[switch_clusters_cnt].mode        = ZCL_ONOFF_CONFIGURATION_SWITCH_TYPE_TOGGLE;
       switch_clusters[switch_clusters_cnt].action      = ZCL_ONOFF_CONFIGURATION_SWITCH_ACTION_TOGGLE_SIMPLE;
       switch_clusters[switch_clusters_cnt].relay_mode  = ZCL_ONOFF_CONFIGURATION_RELAY_MODE_RISE;
+      switch_clusters[switch_clusters_cnt].binded_mode = ZCL_ONOFF_CONFIGURATION_BINDED_MODE_SHORT;
       switch_clusters[switch_clusters_cnt].relay_index = switch_clusters_cnt + 1;
       switch_clusters[switch_clusters_cnt].button      = &buttons[buttons_cnt];
       switch_clusters[switch_clusters_cnt].level_move  = &level_move[switch_clusters_cnt];

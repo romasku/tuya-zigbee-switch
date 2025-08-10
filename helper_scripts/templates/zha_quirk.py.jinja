@@ -12,6 +12,13 @@ class RelayMode(t.enum8):
     Detached = 0x00
     Raise = 0x01
     LongPress = 0x02
+    ShortPress = 0x03
+
+
+class BindedMode(t.enum8):
+    Raise = 0x01
+    LongPress = 0x02
+    ShortPress = 0x03
 
 
 class CustomOnOffConfigurationCluster(CustomCluster, OnOffConfiguration):
@@ -50,6 +57,13 @@ class CustomOnOffConfigurationCluster(CustomCluster, OnOffConfiguration):
         level_move_rate = ZCLAttributeDef(
             id=0xff04,
             type=t.uint8_t,
+            access="rw",
+            is_manufacturer_specific=True,
+        )
+
+        binded_mode = ZCLAttributeDef(
+            id=0xff05,
+            type=BindedMode,
             access="rw",
             is_manufacturer_specific=True,
         )
@@ -151,6 +165,14 @@ for config in CONFIGS:
                 min_value=1,
                 max_value=relay_cnt,
                 step=1,
+                endpoint_id=endpoint_id,
+            )
+            .enum(
+                CustomOnOffConfigurationCluster.AttributeDefs.binded_mode.name,
+                BindedMode,
+                CustomOnOffConfigurationCluster.cluster_id,
+                translation_key="binded_mode",
+                fallback_name="Binded mode",
                 endpoint_id=endpoint_id,
             )
             .number(

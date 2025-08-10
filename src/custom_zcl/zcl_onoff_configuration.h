@@ -18,6 +18,7 @@
 #define ZCL_ATTRID_ONOFF_CONFIGURATION_SWITCH_RELAY_INDEX           0xff02
 #define ZCL_ATTRID_ONOFF_CONFIGURATION_SWITCH_LONG_PRESS_DUR        0xff03
 #define ZCL_ATTRID_ONOFF_CONFIGURATION_SWITCH_LEVEL_MOVE_RATE       0xff04
+#define ZCL_ATTRID_ONOFF_CONFIGURATION_SWITCH_BINDING_MODE          0xff05
 
 
 #define ZCL_ONOFF_CONFIGURATION_SWITCH_TYPE_TOGGLE                  0x00
@@ -33,6 +34,12 @@
 #define ZCL_ONOFF_CONFIGURATION_RELAY_MODE_DETACHED                 0x00
 #define ZCL_ONOFF_CONFIGURATION_RELAY_MODE_RISE                     0x01
 #define ZCL_ONOFF_CONFIGURATION_RELAY_MODE_LONG                     0x02
+#define ZCL_ONOFF_CONFIGURATION_RELAY_MODE_SHORT                    0x03
+
+#define ZCL_ONOFF_CONFIGURATION_BINDED_MODE_RISE                     0x01
+#define ZCL_ONOFF_CONFIGURATION_BINDED_MODE_LONG                     0x02
+#define ZCL_ONOFF_CONFIGURATION_BINDED_MODE_SHORT                    0x03
+
 
 
 status_t zcl_onoff_configuration_register(u8 endpoint, u16 manuCode, u8 attrNum, const zclAttrInfo_t attrTbl[], cluster_forAppCb_t cb);
