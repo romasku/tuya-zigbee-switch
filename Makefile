@@ -291,3 +291,10 @@ clean_toolchain:
 
 
 clean_install: clean_sdk clean_toolchain
+
+
+test:
+	$(MAKE) -f tests/Makefile
+
+clean_test:
+	$(MAKE) -f tests/Makefile clean
