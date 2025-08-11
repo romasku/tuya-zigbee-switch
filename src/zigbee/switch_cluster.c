@@ -321,7 +321,7 @@ void switch_cluster_on_button_release(zigbee_switch_cluster *cluster)
     return;
   }
 
-  if (cluster->multistate_state != MULTISTATE_PRESS) {
+  if (cluster->multistate_state != MULTISTATE_LONG_PRESS) {
     if (cluster->relay_mode == ZCL_ONOFF_CONFIGURATION_RELAY_MODE_SHORT) {
       switch_cluster_relay_action_on(cluster);
     }
