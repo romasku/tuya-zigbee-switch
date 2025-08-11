@@ -76,7 +76,7 @@ void switch_cluster_add_to_endpoint(zigbee_switch_cluster *cluster, zigbee_endpo
   zcl_specClusterInfo_t *info_conf = zigbee_endpoint_reserve_info(endpoint);
   info_conf->clusterId           = ZCL_CLUSTER_GEN_ON_OFF_SWITCH_CONFIG;
   info_conf->manuCode            = MANUFACTURER_CODE_NONE;
-  info_conf->attrNum             = 7;
+  info_conf->attrNum             = 8;
   info_conf->attrTbl             = cluster->attr_infos;
   info_conf->clusterRegisterFunc = zcl_onoff_configuration_register;
   info_conf->clusterAppCb        = switch_cluster_callback_trampoline;
