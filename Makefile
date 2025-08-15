@@ -246,7 +246,7 @@ update_zha_quirk:
 
 
 update_readme:
-	python3 helper_scripts/make_readme.py device_db.yaml > readme.md 
+	python3 helper_scripts/make_readme.py device_db.yaml $(VERSION) > readme.md 
 
 
 freeze_ota_links:
