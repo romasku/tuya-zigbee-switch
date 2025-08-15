@@ -246,6 +246,7 @@ void parse_config()
 
 void periferals_init()
 {
+  millis_init();
   for (int index = 0; index < buttons_cnt; index++)
   {
     btn_init(&buttons[index]);

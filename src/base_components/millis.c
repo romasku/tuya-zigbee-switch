@@ -7,6 +7,13 @@
 u32 millis_tick_counter = 0;
 u32 millis_value        = 0;
 
+
+void millis_init()
+{
+  millis_tick_counter = clock_time();
+  millis_value        = 0;
+}
+
 /**
  * @brief      Advance millis counter
  * @param	   none
@@ -20,6 +27,7 @@ void millis_update()
     millis_value++;
   }
 }
+
 
 u32 millis()
 {

@@ -4,6 +4,7 @@
 #include "types.h"
 
 
+void millis_init();
 void millis_update();
 u32 millis();
 u32 seconds();
