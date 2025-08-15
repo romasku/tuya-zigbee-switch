@@ -1,5 +1,5 @@
 TS0012:
-  config_str: Tuya-TS0012-custom;TS0012-custom;BA0f;LD7;SC2f;SC3f;RC0;RB4;
+  config_str: jl7qyupf;TS0012-custom;BA0f;LD7;SC2f;SC3f;RC0;RB4;
   device_type: router
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
@@ -10,10 +10,11 @@ TS0012:
   tuya_manufacturer_names:
   - _TZ3000_jl7qyupf  # Initial device
   - Tuya-CUSTOM   # Old name from early firmware
+  - Tuya-TS0012-custom
   human_name: GIRIER TS0012, OXT
   status: Supported
 TS0012_END_DEVICE:
-  config_str: Tuya-TS0012-custom;TS0012-custom-end-device;BA0f;LD7;SC2f;SC3f;RC0;RB4;
+  config_str: jl7qyupf;TS0012-custom-end-device;BA0f;LD7;SC2f;SC3f;RC0;RB4;
   device_type: end_device
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
@@ -23,11 +24,12 @@ TS0012_END_DEVICE:
   stock_converter_model: TS0012_switch_module
   tuya_manufacturer_names:
   - _TZ3000_jl7qyupf
-  - Tuya-CUSTOM   # Old name from early firmware
+  - Tuya-CUSTOM
+  - Tuya-TS0012-custom
   human_name: GIRIER TS0012, OXT
   status: Supported
 WHD02:
-  config_str: Tuya-WHD02-custom;WHD02-custom;BB4u;LD3;SB5u;RB1;
+  config_str: skueekg3;WHD02-custom;BB4u;LD3;SB5u;RB1;
   device_type: router
   tuya_manufacturer_id: 4407
   tuya_image_type: 524
@@ -35,10 +37,11 @@ WHD02:
   stock_converter_model: WHD02
   tuya_manufacturer_names:
   - _TZ3000_skueekg3
+  - Tuya-WHD02-custom
   human_name: No-name 1 gang switch
   status: Supported
 TS0002:
-  config_str: Tuya-TS0002-custom;TS0002-custom;BD2u;LC2;SB5u;SB4u;RC4;RC3;
+  config_str: 01gpyda5;TS0002-custom;BD2u;LC2;SB5u;SB4u;RC4;RC3;
   device_type: router
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
@@ -46,11 +49,12 @@ TS0002:
   stock_converter_model: TS0002_basic
   tuya_manufacturer_names:
   - _TZ3000_01gpyda5
+  - Tuya-TS0002-custom
   human_name: OXT TS0001, probably other rebrands
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/6
 TS0002_OXT:
-  config_str: TS0002-OXT-CUS;TS0002-OXT-CUS;BD2u;LC0;SB4u;SB5u;RC2;RC3;
+  config_str: bvrlqyj7;TS0002-OXT-CUS;BD2u;LC0;SB4u;SB5u;RC2;RC3;
   device_type: router
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
@@ -58,11 +62,12 @@ TS0002_OXT:
   stock_converter_model: TS0002_basic
   tuya_manufacturer_names:
   - _TZ3000_bvrlqyj7
+  - TS0002-OXT-CUS
   human_name: OXT 2-gang switch
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/49
 TS0011:
-  config_str: Tuya-TS0011-custom;TS0011-custom;BA0f;LD7;SC2f;RC0;
+  config_str: ji4araar;TS0011-custom;BA0f;LD7;SC2f;RC0;
   device_type: router
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
@@ -70,11 +75,12 @@ TS0011:
   stock_converter_model: TS0011_switch_module
   tuya_manufacturer_names:
   - _TZ3000_ji4araar
+  - Tuya-TS0011-custom
   human_name: GIRIER TS0011, OXT TS0011
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/4
 TS0011_END_DEVICE:
-  config_str: Tuya-TS0011-custom;TS0011-custom;BA0f;LD7;SC2f;RC0;
+  config_str: ji4araar;TS0011-custom;BA0f;LD7;SC2f;RC0;
   device_type: end_device
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
@@ -82,11 +88,12 @@ TS0011_END_DEVICE:
   stock_converter_model: TS0011_switch_module
   tuya_manufacturer_names:
   - _TZ3000_ji4araar
+  - Tuya-TS0011-custom
   human_name: GIRIER TS0011, OXT TS0011
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/4
 TS0001:
-  config_str: Tuya-TS0001-custom;TS0001-custom;BD2u;LC0;SB4u;RC2;
+  config_str: tqlv4ug4;TS0001-custom;BD2u;LC0;SB4u;RC2;
   device_type: router
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
@@ -94,11 +101,12 @@ TS0001:
   stock_converter_model: TS0001_switch_module
   tuya_manufacturer_names:
   - _TZ3000_tqlv4ug4
+  - Tuya-TS0001-custom
   human_name: OXT TS0001, probably other rebrands
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/6
 TS0002_GIRIER:
-  config_str: Tuya-TS0002-custom;TS0002-custom;BD2u;LC2;SB5u;RC4;SB4u;RC3;
+  config_str: zmy4lslw;TS0002-custom;BD2u;LC2;SB5u;RC4;SB4u;RC3;
   device_type: router
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
@@ -106,11 +114,12 @@ TS0002_GIRIER:
   stock_converter_model: TS0002_basic
   tuya_manufacturer_names:
   - _TZ3000_zmy4lslw
+  - Tuya-TS0002-custom
   human_name: GIRIER 2 Gang
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/29
 TS0001_AVATTO:
-  config_str: TS0001-AVB;TS0001-AVB;BC2u;LD2i;SD3u;RC0;
+  config_str: 4rbqgcuv;TS0001-AVB;BC2u;LD2i;SD3u;RC0;
   device_type: router
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
@@ -120,6 +129,7 @@ TS0001_AVATTO:
   - _TZ3000_4rbqgcuv
   - Tuya-TS0001-Avatto-custom
   - TS0001-AV-CUS
+  - TS0001-AVB
   old_zb_models:
   - TS0001-Avatto-custom
   - TS0001-AV-CUS
@@ -128,7 +138,7 @@ TS0001_AVATTO:
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/9
 TS0002_AVATTO:
-  config_str: TS0002-AVB;TS0002-AVB;BC2u;LD2i;SD3u;RC0;SD7u;RD4;
+  config_str: mtnpt6ws;TS0002-AVB;BC2u;LD2i;SD3u;RC0;SD7u;RD4;
   device_type: router
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
@@ -138,6 +148,7 @@ TS0002_AVATTO:
   - _TZ3000_mtnpt6ws
   - Tuya-TS0002-Avatto-custom
   - TS0002-AV-CUS
+  - TS0002-AVB
   old_zb_models:
   - TS0002-Avatto-custom
   - TS0002-AV-CUS
@@ -146,7 +157,7 @@ TS0002_AVATTO:
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/9
 TS0003_AVATTO:
-  config_str: TS0003-AVB;TS0003-AVB;BC2u;LD2i;SD3u;RC0;SD7u;RD4;SB6u;RC1;
+  config_str: hbic3ka3;TS0003-AVB;BC2u;LD2i;SD3u;RC0;SD7u;RD4;SB6u;RC1;
   device_type: router
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
@@ -156,6 +167,7 @@ TS0003_AVATTO:
   - _TZ3000_hbic3ka3
   - Tuya-TS0003-Avatto-custom
   - TS0003-AV-CUS
+  - TS0003-AVB
   old_zb_models:
   - TS0003-Avatto-custom
   - TS0003-AV-CUS
@@ -164,7 +176,7 @@ TS0003_AVATTO:
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/56
 TS0004_AVATTO:
-  config_str: TS0004-AVB;TS0004-AVB;BC2u;LD2i;SD3u;RC0;SD7u;RD4;SB6u;RC1;SA0u;RC4;
+  config_str: 5ajpkyq6;TS0004-AVB;BC2u;LD2i;SD3u;RC0;SD7u;RD4;SB6u;RC1;SA0u;RC4;
   device_type: router
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
@@ -174,6 +186,7 @@ TS0004_AVATTO:
   - _TZ3000_5ajpkyq6
   - Tuya-TS0004-Avatto-custom
   - TS0004-AV-CUS
+  - TS0004-AVB
   old_zb_models:
   - TS0004-Avatto-custom
   - TS0004-AV-CUS
@@ -182,7 +195,7 @@ TS0004_AVATTO:
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/9
 MOES_2_GANG_SWITCH:
-  config_str: Moes-2-gang;Moes-2-gang;SB6u;SC4u;RB5;RB4;ID3;IC0;M;
+  config_str: 18ejxno0;Moes-2-gang;SB6u;SC4u;RB5;RB4;ID3;IC0;M;
   device_type: router
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
@@ -190,11 +203,12 @@ MOES_2_GANG_SWITCH:
   stock_converter_model: TS0012
   tuya_manufacturer_names:
   - _TZ3000_18ejxno0
+  - Moes-2-gang
   human_name: Moes TS0012 (2 gang switch)
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/14
 MOES_2_GANG_SWITCH_END_DEVICE:
-  config_str: Moes-2-gang;Moes-2-gang-ED;SB6u;SC4u;RB5;RB4;ID3;IC0;M;
+  config_str: 18ejxno0;Moes-2-gang-ED;SB6u;SC4u;RB5;RB4;ID3;IC0;M;
   device_type: end_device
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
@@ -202,11 +216,12 @@ MOES_2_GANG_SWITCH_END_DEVICE:
   stock_converter_model: TS0012
   tuya_manufacturer_names:
   - _TZ3000_18ejxno0
+  - Moes-2-gang
   human_name: Moes TS0012 (2 gang switch)
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/14
 BSEED_2_GANG_SWITCH:
-  config_str: Bseed-2-gang;Bseed-2-gang;SB6u;SA1u;RD3;RC0;IC2;IB4;M;
+  config_str: f2slq5pj;Bseed-2-gang;SB6u;SA1u;RD3;RC0;IC2;IB4;M;
   device_type: router
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
@@ -214,11 +229,12 @@ BSEED_2_GANG_SWITCH:
   stock_converter_model: TS0012
   tuya_manufacturer_names:
   - _TZ3000_f2slq5pj
+  - Bseed-2-gang
   human_name: Bseed TS0012 (2 gang switch)
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/pull/23
 BSEED_2_GANG_SWITCH_END_DEVICE:
-  config_str: Bseed-2-gang;Bseed-2-gang-ED;SB6u;SA1u;RD3;RC0;IC2;IB4;M;
+  config_str: f2slq5pj;Bseed-2-gang-ED;SB6u;SA1u;RD3;RC0;IC2;IB4;M;
   device_type: end_device
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
@@ -226,11 +242,12 @@ BSEED_2_GANG_SWITCH_END_DEVICE:
   stock_converter_model: TS0012
   tuya_manufacturer_names:
   - _TZ3000_f2slq5pj
+  - Bseed-2-gang
   human_name: Bseed TS0012 (2 gang switch)
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/pull/23
 BSEED_2_GANG_SWITCH_2:
-  config_str: Bseed-2-gang-2;Bseed-2-gang-2;SB5u;SD4u;RC0B6;RA1D7;ID2;ID3;LC3;M;
+  config_str: xk5udnd6;Bseed-2-gang-2;SB5u;SD4u;RC0B6;RA1D7;ID2;ID3;LC3;M;
   device_type: router
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
@@ -238,11 +255,12 @@ BSEED_2_GANG_SWITCH_2:
   stock_converter_model: TS0012
   tuya_manufacturer_names:
   - _TZ3000_xk5udnd6
+  - Bseed-2-gang-2
   human_name: Bseed TS0012 (2 gang switch)
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/51
 BSEED_2_GANG_SWITCH_2_END_DEVICE:
-  config_str: Bseed-2-gang-2;Bseed-2-gang-2-ED;SB5u;SD4u;RC0B6;RA1D7;ID2;ID3;LC3;M;
+  config_str: xk5udnd6;Bseed-2-gang-2-ED;SB5u;SD4u;RC0B6;RA1D7;ID2;ID3;LC3;M;
   device_type: end_device
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
@@ -250,11 +268,12 @@ BSEED_2_GANG_SWITCH_2_END_DEVICE:
   stock_converter_model: TS0012
   tuya_manufacturer_names:
   - _TZ3000_xk5udnd6
+  - Bseed-2-gang-2
   human_name: Bseed TS0012 (2 gang switch)
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/51
 TS0012_AVATTO:
-  config_str: TS0012-Avatto;TS0012-avatto;BB4f;LB5;SC0f;SC3f;RC2;RC4;
+  config_str: ljhbw1c9;TS0012-avatto;BB4f;LB5;SC0f;SC3f;RC2;RC4;
   device_type: router
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
@@ -262,11 +281,12 @@ TS0012_AVATTO:
   stock_converter_model: TS0012_switch_module
   tuya_manufacturer_names:
   - _TZ3000_ljhbw1c9
+  - TS0012-Avatto
   human_name: Avatto TS0012
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/16
 TS0012_AVATTO_END_DEVICE:
-  config_str: TS0012-Avatto;TS0012-avatto-ED;BB4f;LB5;SC0f;SC3f;RC2;RC4;
+  config_str: ljhbw1c9;TS0012-avatto-ED;BB4f;LB5;SC0f;SC3f;RC2;RC4;
   device_type: end_device
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
@@ -274,11 +294,12 @@ TS0012_AVATTO_END_DEVICE:
   stock_converter_model: TS0012_switch_module
   tuya_manufacturer_names:
   - _TZ3000_ljhbw1c9
+  - TS0012-Avatto
   human_name: Avatto TS0012
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/16
 WHD02_AUBESS:
-  config_str: WHD02-Aubess;WHD02-Aubess;BC4u;LD2;SB4u;RB5;
+  config_str: 46t1rvdu;WHD02-Aubess;BC4u;LD2;SB4u;RB5;
   device_type: router
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
@@ -286,11 +307,12 @@ WHD02_AUBESS:
   stock_converter_model: WHD02
   tuya_manufacturer_names:
   - _TZ3000_46t1rvdu
+  - WHD02-Aubess
   human_name: Aubess WHD02
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/18
 WHD02_AUBESS_END_DEVICE:
-  config_str: WHD02-Aubess;WHD02-Aubess-ED;BC4u;LD2;SB4u;RB5;
+  config_str: 46t1rvdu;WHD02-Aubess-ED;BC4u;LD2;SB4u;RB5;
   device_type: end_device
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
@@ -298,11 +320,12 @@ WHD02_AUBESS_END_DEVICE:
   stock_converter_model: WHD02
   tuya_manufacturer_names:
   - _TZ3000_46t1rvdu
+  - WHD02-Aubess
   human_name: Aubess WHD02
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/18
 MOES_1_GANG_SWITCH:
-  config_str: Moes-1-gang;Moes-1-gang;SC1u;RB5;ID7;M;
+  config_str: hhiodade;Moes-1-gang;SC1u;RB5;ID7;M;
   device_type: router
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
@@ -311,11 +334,12 @@ MOES_1_GANG_SWITCH:
   stock_converter_manufacturer: moes
   tuya_manufacturer_names:
   - _TZ3000_hhiodade
+  - Moes-1-gang
   human_name: Moes TS0011 (1 gang switch)
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/14
 MOES_1_GANG_SWITCH_END_DEVICE:
-  config_str: Moes-1-gang;Moes-1-gang-ED;SC1u;RB5;ID7;M;
+  config_str: hhiodade;Moes-1-gang-ED;SC1u;RB5;ID7;M;
   device_type: end_device
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
@@ -324,11 +348,12 @@ MOES_1_GANG_SWITCH_END_DEVICE:
   stock_converter_manufacturer: moes
   tuya_manufacturer_names:
   - _TZ3000_hhiodade
+  - Moes-1-gang
   human_name: Moes TS0011 (1 gang switch)
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/14
 MOES_3_GANG_SWITCH:
-  config_str: Moes-3-gang;Moes-3-gang;SB6u;RB5;ID3;SC1u;RB4;ID7;SC4u;RD2;IC0;M;
+  config_str: qewo8dlz;Moes-3-gang;SB6u;RB5;ID3;SC1u;RB4;ID7;SC4u;RD2;IC0;M;
   device_type: router
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
@@ -336,11 +361,12 @@ MOES_3_GANG_SWITCH:
   stock_converter_model: TS0013
   tuya_manufacturer_names:
   - _TZ3000_qewo8dlz
+  - Moes-3-gang
   human_name: Moes TS0013 (3 gang switch)
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/14
 MOES_3_GANG_SWITCH_END_DEVICE:
-  config_str: Moes-3-gang;Moes-3-gang-ED;SB6u;RB5;ID3;SC1u;RB4;ID7;SC4u;RD2;IC0;M;
+  config_str: qewo8dlz;Moes-3-gang-ED;SB6u;RB5;ID3;SC1u;RB4;ID7;SC4u;RD2;IC0;M;
   device_type: end_device
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
@@ -348,11 +374,12 @@ MOES_3_GANG_SWITCH_END_DEVICE:
   stock_converter_model: TS0013
   tuya_manufacturer_names:
   - _TZ3000_qewo8dlz
+  - Moes-3-gang
   human_name: Moes TS0013 (3 gang switch)
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/14
 WHD02_2:
-  config_str: Tuya-WHD02-custom;WHD02-custom;BB1u;LB4;SD2u;RD3;
+  config_str: skueekg3;WHD02-custom;BB1u;LB4;SD2u;RD3;
   device_type: router
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
@@ -360,11 +387,12 @@ WHD02_2:
   stock_converter_model: WHD02
   tuya_manufacturer_names:
   - _TZ3000_skueekg3
+  - Tuya-WHD02-custom
   human_name: No-name 1 gang switch with no rf shiled ZT2S
   status: In progress, tuya_manufacturer_name is not confirmed
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/24
 WHD02_3:
-  config_str: Tuya-WHD02-custom;WHD02-custom;BB1u;LB4;SD2u;RD3;
+  config_str: skueekg3;WHD02-custom;BB1u;LB4;SD2u;RD3;
   device_type: router
   tuya_manufacturer_id: 4417
   tuya_image_type: 518
@@ -372,11 +400,12 @@ WHD02_3:
   stock_converter_model: WHD02
   tuya_manufacturer_names:
   - _TZ3000_skueekg3
+  - Tuya-WHD02-custom
   human_name: No-name 1 gang switch with no rf shiled ZT2S
   status: In progress, tuya_manufacturer_name is not confirmed
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/44
 ZEMISMART_2_GANG:
-  config_str: Zemi-2-gang;Zemi-2-gang;SC3U;SD2U;IB7;ID7;RB5C4;RC2D4;
+  config_str: zmlunnhy;Zemi-2-gang;SC3U;SD2U;IB7;ID7;RB5C4;RC2D4;
   device_type: router
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
@@ -384,11 +413,12 @@ ZEMISMART_2_GANG:
   stock_converter_model: TS0012
   tuya_manufacturer_names:
   - _TZ3000_zmlunnhy
+  - Zemi-2-gang
   human_name: Internet search says this is Zemismart 2 gang switch, needs confirmation
   status: In progress
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/19
 ZEMISMART_2_GANG_END_DEVICE:
-  config_str: Zemi-2-gang;Zemi-2-gang-ED;SC3U;SD2U;IB7;ID7;RB5C4;RC2D4;
+  config_str: zmlunnhy;Zemi-2-gang-ED;SC3U;SD2U;IB7;ID7;RB5C4;RC2D4;
   device_type: end_device
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
@@ -396,11 +426,12 @@ ZEMISMART_2_GANG_END_DEVICE:
   stock_converter_model: TS0012
   tuya_manufacturer_names:
   - _TZ3000_zmlunnhy
+  - Zemi-2-gang
   human_name: Internet search says this is Zemismart 2 gang switch, needs confirmation
   status: In progress
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/19
 TS0011_AVATTO:
-  config_str: TS0011-Avatto;TS0011-avatto;BB4u;LB5;SC0u;RC2;
+  config_str: hbxsdd6k;TS0011-avatto;BB4u;LB5;SC0u;RC2;
   device_type: router
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
@@ -409,11 +440,12 @@ TS0011_AVATTO:
   stock_converter_model: LZWSM16-1
   tuya_manufacturer_names:
   - _TZ3000_hbxsdd6k
+  - TS0011-Avatto
   human_name: Avatto TS0011
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/16
 TS0011_AVATTO_END_DEVICE:
-  config_str: TS0011-Avatto;TS0011-avatto-ED;BB4u;LB5;SC0u;RC2;
+  config_str: hbxsdd6k;TS0011-avatto-ED;BB4u;LB5;SC0u;RC2;
   device_type: end_device
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
@@ -422,11 +454,12 @@ TS0011_AVATTO_END_DEVICE:
   stock_converter_model: LZWSM16-1
   tuya_manufacturer_names:
   - _TZ3000_hbxsdd6k
+  - TS0011-Avatto
   human_name: Avatto TS0011
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/16
 TS0003:
-  config_str: Tuya-TS0003-custom;TS0003-custom;BD3u;SC1u;SD7u;SC3u;RB5;RD4;RB4;
+  config_str: pfc7i3kt;TS0003-custom;BD3u;SC1u;SD7u;SC3u;RB5;RD4;RB4;
   device_type: router
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
@@ -434,11 +467,12 @@ TS0003:
   stock_converter_model: TS0003
   tuya_manufacturer_names:
   - _TZ3000_pfc7i3kt
+  - Tuya-TS0003-custom
   human_name: Moes MS-104CZ
   status: Supported
   github_issue: null
 TS0003_IHS:
-  config_str: TS0003-IHS;TS0003-IHS;BC3u;LC2i;SD7u;RD2;SB4u;RD3;SB5u;RC0;
+  config_str: mhhxxjrs;TS0003-IHS;BC3u;LC2i;SD7u;RD2;SB4u;RD3;SB5u;RC0;
   device_type: router
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
@@ -447,13 +481,14 @@ TS0003_IHS:
   tuya_manufacturer_names:
   - _TZ3000_mhhxxjrs
   - TS0003-3CH-cus
+  - TS0003-IHS
   old_zb_models:
   - TS0003-3CH-cus
   human_name: IHSENO 3-gang Neutral
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/85
 TS0004_IHS:
-  config_str: TS0004-IHS;TS0004-IHS;BC3u;LC2i;SB5u;RD2;SB4u;RD3;SD7u;RC0;SD4u;RC1;
+  config_str: knoj8lpk;TS0004-IHS;BC3u;LC2i;SB5u;RD2;SB4u;RD3;SD7u;RC0;SD4u;RC1;
   device_type: router
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
@@ -461,11 +496,12 @@ TS0004_IHS:
   stock_converter_model: TS0004_switch_module_2
   tuya_manufacturer_names:
   - _TZ3000_knoj8lpk
+  - TS0004-IHS
   human_name: IHSENO 4-gang Neutral
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/105
 TS0013_GIRIER:
-  config_str: Girier-ZB08-custom;ZB08-custom;BA0u;LD7;SC2u;RC0;SC3u;RB4;SD2u;RB5;
+  config_str: ypgri8yz;ZB08-custom;BA0u;LD7;SC2u;RC0;SC3u;RB4;SD2u;RB5;
   device_type: router
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
@@ -474,11 +510,12 @@ TS0013_GIRIER:
   override_z2m_device: ZB08
   tuya_manufacturer_names:
   - _TZ3000_ypgri8yz
+  - Girier-ZB08-custom
   human_name: Girier-ZB08
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/37
 TS0013_GIRIER_END_DEVICE:
-  config_str: Girier-ZB08-custom-ED;ZB08-custom-ED;BA0u;LD7;SC2u;RC0;SC3u;RB4;SD2u;RB5;
+  config_str: ypgri8yz;ZB08-custom-ED;BA0u;LD7;SC2u;RC0;SC3u;RB4;SD2u;RB5;
   device_type: end_device
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
@@ -487,11 +524,12 @@ TS0013_GIRIER_END_DEVICE:
   override_z2m_device: ZB08
   tuya_manufacturer_names:
   - _TZ3000_ypgri8yz
+  - Girier-ZB08-custom-ED
   human_name: Girier-ZB08
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/37
 TS0004_AVATTO_NEUTRAL:
-  config_str: TS0004-Avv;TS0004-Avv;BB5u;LC1;SB4u;RC0;SD2u;RC4;SC3u;RD4;SC2u;RD7;
+  config_str: ltt60asa;TS0004-Avv;BB5u;LC1;SB4u;RC0;SD2u;RC4;SC3u;RD4;SC2u;RD7;
   device_type: router
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
@@ -499,11 +537,12 @@ TS0004_AVATTO_NEUTRAL:
   stock_converter_model: TS0004_switch_module
   tuya_manufacturer_names:
   - _TZ3000_ltt60asa
+  - TS0004-Avv
   human_name: Avatto 4 gang switch module with N
   status: WIP, check issue for current status.
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/42
 TS0004:
-  config_str: Tuya-TS0004-custom;TS0004-custom;BB6u;LB1;SC1u;RB7;SC2u;RB5;SC3u;RB4;SD2u;RC4;
+  config_str: mmkbptmx;TS0004-custom;BB6u;LB1;SC1u;RB7;SC2u;RB5;SC3u;RB4;SD2u;RC4;
   device_type: router
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
@@ -511,11 +550,12 @@ TS0004:
   stock_converter_model: TS0004_switch_module
   tuya_manufacturer_names:
   - _TZ3000_mmkbptmx
+  - Tuya-TS0004-custom
   human_name: No-name 4 gang switch module with N
   status: Untested
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/66
 AVATTO_3_GANG_TOUCH:
-  config_str: Avatto-3-touch;Avatto-3-touch;LB5;SD3u;RC2;SD7u;RC3;SD4u;RD2;M;
+  config_str: avky2mvc;Avatto-3-touch;LB5;SD3u;RC2;SD7u;RC3;SD4u;RD2;M;
   device_type: router
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
@@ -523,6 +563,7 @@ AVATTO_3_GANG_TOUCH:
   stock_converter_model: TS0003_switch_3_gang
   tuya_manufacturer_names:
   - _TZ3000_avky2mvc
+  - Avatto-3-touch
   human_name: Avatto Zigbee 3 Gang (ZTS02RD-US-W3)
   status: WIP, expiremntal, see issue.
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/41
