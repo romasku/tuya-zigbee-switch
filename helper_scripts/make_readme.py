@@ -18,6 +18,9 @@ if __name__ == "__main__":
     parser.add_argument(
         "db_file", metavar="INPUT", type=str, help="File with device db"
     )
+    parser.add_argument(
+        "version", metavar="VERSION", type=str, help="Version number"
+    )
 
     args = parser.parse_args()
 
@@ -45,7 +48,7 @@ if __name__ == "__main__":
 
     template = env.get_template("readme.md.jinja")
 
-    print(template.render(devices=by_manufacturer_names.values()))
+    print(template.render(devices=by_manufacturer_names.values(), version=args.version))
 
     exit(0)
 
