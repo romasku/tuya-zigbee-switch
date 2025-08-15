@@ -68,7 +68,7 @@ if __name__ == "__main__":
 
         devices.append({
             "zb_models": [zb_model, *device.get("old_zb_models", [])],
-            "model": device["stock_converter_model"],
+            "model": device.get("override_z2m_device", device["stock_converter_model"]),
             "switchNames": switch_names,
             "relayNames": relay_names,
             "relayIndicatorNames": relay_names[:indicators_cnt],

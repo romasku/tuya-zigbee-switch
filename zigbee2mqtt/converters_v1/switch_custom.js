@@ -506,7 +506,7 @@ const definitions = [
             "TS0001-Avatto-custom",
             "TS0001-AV-CUS",
         ],
-        model: "TS0001_switch_module",
+        model: "ZWSM16-1-Zigbee",
         vendor: "Tuya-custom",
         description: "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
         extend: [
@@ -539,7 +539,7 @@ const definitions = [
             "TS0002-Avatto-custom",
             "TS0002-AV-CUS",
         ],
-        model: "TS0002_limited",
+        model: "ZWSM16-2-Zigbee",
         vendor: "Tuya-custom",
         description: "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
         extend: [
@@ -585,7 +585,7 @@ const definitions = [
             "TS0003-Avatto-custom",
             "TS0003-AV-CUS",
         ],
-        model: "TS0003_switch_module_2",
+        model: "ZWSM16-3-Zigbee",
         vendor: "Tuya-custom",
         description: "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
         extend: [
@@ -644,7 +644,7 @@ const definitions = [
             "TS0004-Avatto-custom",
             "TS0004-AV-CUS",
         ],
-        model: "TS0004_switch_module_2",
+        model: "ZWSM16-4-Zigbee",
         vendor: "Tuya-custom",
         description: "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
         extend: [
@@ -1738,7 +1738,7 @@ const definitions = [
         zigbeeModel: [
             "ZB08-custom",
         ],
-        model: "TS0013_switch_module",
+        model: "ZB08",
         vendor: "Tuya-custom",
         description: "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
         extend: [
@@ -1795,7 +1795,7 @@ const definitions = [
         zigbeeModel: [
             "ZB08-custom-ED",
         ],
-        model: "TS0013_switch_module",
+        model: "ZB08",
         vendor: "Tuya-custom",
         description: "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
         extend: [
