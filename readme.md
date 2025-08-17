@@ -79,7 +79,7 @@ To flash via wire, follow [this guide](./docs/flashing_via_wire.md)
 ## Changelog
 
 Latest version: **v1.0.18**  
-Read the release notes here: [changelog.md](./docs/changelog.md)
+Read the firmware release notes here: [changelog_fw.md](./docs/changelog_fw.md)
 
 ## Acknowledgements
 
