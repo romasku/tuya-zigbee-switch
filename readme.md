@@ -22,7 +22,7 @@ The main driver for this project was a **frustrating bug in the factory firmware
 > When you pressed one button, the device ignored input from the others for ~0.5 seconds. As a result, pressing two buttons simultaneously toggled a single relay.
 
 Users also consider this *the missing piece of a reliable smart home* because it allows **using a light switch as a Zigbee remote**.  
-(There are no switches on the market that allow binding **to** other devices out-of-the-box.) 
+(Most of the cheap switches on the market do not allow binding **to** other devices out-of-the-box.) 
 
 ## ✨ Features
 
