@@ -34,7 +34,7 @@ Two branches are recommended to avoid conflicts between generated files.
 5. Commit changes and push
 6. Create **build_branch** from **code_branch** (newFeature -> newFeature_build) and push
 7. Visit GitHub Actions on your fork (web) and run `build.yml` on **build_branch**  
-(this takes 5 minutes as it builds the firmware for evey device)
+(this takes 5 minutes as it builds the firmware for every device)
 8. Add the updated converters/quriks to your Z2M/ZHA instance  
 (if new ones were generated)
 9. Prepare the update
