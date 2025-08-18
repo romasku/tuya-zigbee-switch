@@ -7,7 +7,7 @@ To follow these instructions, you need **zigbee2mqtt** installed. If you're usin
 
 ### Step 1: Download the Necessary Files  
 - [Converter for the original device](https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/main/zigbee2mqtt/converters/tuya_with_ota.js)  
-- [Converter for custom firmware](https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/main/zigbee2mqtt/converters/switch_custom.js)  
+- [Converter for custom firmware](https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/main/zigbee2mqtt/converters/switch_custom.mjs)  
 
 Place these files into `external_converters` subfolder of zigbee2mqtt data folder. If `external_converters` folder doesn't exists, create it.
 

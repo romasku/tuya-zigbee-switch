@@ -78,7 +78,7 @@ Flashing firmware via OTA may break your device. Fixing it will require solderin
 
 ## Setting Up the Device After Update  
 
-First, install the [converter for custom firmware](https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/main/zigbee2mqtt/converters/switch_custom.js) to control the reflashed device. This is done the same way as for the converter for stock firmware.  
+First, install the [converter for custom firmware](https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/main/zigbee2mqtt/converters/switch_custom.mjs) to control the reflashed device. This is done the same way as for the converter for stock firmware.  
 
 If everything goes correctly, the device will reboot and rejoin after the update. If it reboots but doesn't rejoin, wait at least 5 minutes, then try removing it from Z2M and resetting it by long-pressing the reset button or pressing a switch multiple times quickly. If nothing works, you'll need to disassemble the device and flash it by wire.  
 

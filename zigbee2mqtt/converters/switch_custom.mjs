@@ -736,16 +736,263 @@ const baseDefinition = {
 }
 
 const MODELS = [ 
-  {% for device in devices %}
     {
         zigbeeModel: [
-        {% for zb_model in device.zb_models %}
-            "{{zb_model}}",
-        {% endfor %}
+            "TS0012-custom",
+            "TS0042-CUSTOM",
         ],
-        model: "{{device.model}}",
+        model: "TS0012_switch_module",
     },
-  {% endfor %}
+    {
+        zigbeeModel: [
+            "TS0012-custom-end-device",
+            "TS0042-CUSTOM",
+        ],
+        model: "TS0012_switch_module",
+    },
+    {
+        zigbeeModel: [
+            "WHD02-custom",
+        ],
+        model: "WHD02",
+    },
+    {
+        zigbeeModel: [
+            "TS0002-custom",
+        ],
+        model: "TS0002_basic",
+    },
+    {
+        zigbeeModel: [
+            "TS0002-OXT-CUS",
+        ],
+        model: "TS0002_basic",
+    },
+    {
+        zigbeeModel: [
+            "TS0011-custom",
+        ],
+        model: "TS0011_switch_module",
+    },
+    {
+        zigbeeModel: [
+            "TS0011-custom",
+        ],
+        model: "TS0011_switch_module",
+    },
+    {
+        zigbeeModel: [
+            "TS0001-custom",
+        ],
+        model: "TS0001_switch_module",
+    },
+    {
+        zigbeeModel: [
+            "TS0002-custom",
+        ],
+        model: "TS0002_basic",
+    },
+    {
+        zigbeeModel: [
+            "TS0001-AVB",
+            "TS0001-Avatto-custom",
+            "TS0001-AV-CUS",
+        ],
+        model: "TS0001_switch_module",
+    },
+    {
+        zigbeeModel: [
+            "TS0002-AVB",
+            "TS0002-Avatto-custom",
+            "TS0002-AV-CUS",
+        ],
+        model: "TS0002_limited",
+    },
+    {
+        zigbeeModel: [
+            "TS0003-AVB",
+            "TS0003-Avatto-custom",
+            "TS0003-AV-CUS",
+        ],
+        model: "TS0003_switch_module_2",
+    },
+    {
+        zigbeeModel: [
+            "TS0004-AVB",
+            "TS0004-Avatto-custom",
+            "TS0004-AV-CUS",
+        ],
+        model: "TS0004_switch_module_2",
+    },
+    {
+        zigbeeModel: [
+            "Moes-2-gang",
+        ],
+        model: "TS0012",
+    },
+    {
+        zigbeeModel: [
+            "Moes-2-gang-ED",
+        ],
+        model: "TS0012",
+    },
+    {
+        zigbeeModel: [
+            "Bseed-2-gang",
+        ],
+        model: "TS0012",
+    },
+    {
+        zigbeeModel: [
+            "Bseed-2-gang-ED",
+        ],
+        model: "TS0012",
+    },
+    {
+        zigbeeModel: [
+            "Bseed-2-gang-2",
+        ],
+        model: "TS0012",
+    },
+    {
+        zigbeeModel: [
+            "Bseed-2-gang-2-ED",
+        ],
+        model: "TS0012",
+    },
+    {
+        zigbeeModel: [
+            "TS0012-avatto",
+        ],
+        model: "TS0012_switch_module",
+    },
+    {
+        zigbeeModel: [
+            "TS0012-avatto-ED",
+        ],
+        model: "TS0012_switch_module",
+    },
+    {
+        zigbeeModel: [
+            "WHD02-Aubess",
+        ],
+        model: "WHD02",
+    },
+    {
+        zigbeeModel: [
+            "WHD02-Aubess-ED",
+        ],
+        model: "WHD02",
+    },
+    {
+        zigbeeModel: [
+            "Moes-1-gang",
+        ],
+        model: "ZS-EUB_1gang",
+    },
+    {
+        zigbeeModel: [
+            "Moes-1-gang-ED",
+        ],
+        model: "ZS-EUB_1gang",
+    },
+    {
+        zigbeeModel: [
+            "Moes-3-gang",
+        ],
+        model: "TS0013",
+    },
+    {
+        zigbeeModel: [
+            "Moes-3-gang-ED",
+        ],
+        model: "TS0013",
+    },
+    {
+        zigbeeModel: [
+            "WHD02-custom",
+        ],
+        model: "WHD02",
+    },
+    {
+        zigbeeModel: [
+            "WHD02-custom",
+        ],
+        model: "WHD02",
+    },
+    {
+        zigbeeModel: [
+            "Zemi-2-gang",
+        ],
+        model: "TS0012",
+    },
+    {
+        zigbeeModel: [
+            "Zemi-2-gang-ED",
+        ],
+        model: "TS0012",
+    },
+    {
+        zigbeeModel: [
+            "TS0011-avatto",
+        ],
+        model: "LZWSM16-1",
+    },
+    {
+        zigbeeModel: [
+            "TS0011-avatto-ED",
+        ],
+        model: "LZWSM16-1",
+    },
+    {
+        zigbeeModel: [
+            "TS0003-custom",
+        ],
+        model: "TS0003",
+    },
+    {
+        zigbeeModel: [
+            "TS0003-IHS",
+            "TS0003-3CH-cus",
+        ],
+        model: "TS0003_switch_module_2",
+    },
+    {
+        zigbeeModel: [
+            "TS0004-IHS",
+        ],
+        model: "TS0004_switch_module_2",
+    },
+    {
+        zigbeeModel: [
+            "ZB08-custom",
+        ],
+        model: "TS0013_switch_module",
+    },
+    {
+        zigbeeModel: [
+            "ZB08-custom-ED",
+        ],
+        model: "TS0013_switch_module",
+    },
+    {
+        zigbeeModel: [
+            "TS0004-Avv",
+        ],
+        model: "TS0004_switch_module",
+    },
+    {
+        zigbeeModel: [
+            "TS0004-custom",
+        ],
+        model: "TS0004_switch_module",
+    },
+    {
+        zigbeeModel: [
+            "Avatto-3-touch",
+        ],
+        model: "TS0003_switch_3_gang",
+    },
 ]
 
 const definitions = MODELS.map((model) => ({...model, ...baseDefinition}));
