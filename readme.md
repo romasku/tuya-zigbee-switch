@@ -2,13 +2,15 @@
 [![GitHub issues](https://img.shields.io/github/issues/romasku/tuya-zigbee-switch.svg)](https://github.com/romasku/tuya-zigbee-switch/issues)
 [![StandWithUkraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/badges/StandWithUkraine.svg)](https://github.com/vshymanskyy/StandWithUkraine/blob/main/docs/README.md)
 
-# Custom firmware for Tuya switch
+# 🔓 Custom firmware for Telink Tuya switches
 
-A custom firmware for Tuya telink based switch module. Code is based on pvvx's [ZigbeeTLc](https://github.com/pvvx/ZigbeeTLc) firmware, huge thanks!
+Feature-rich custom firmware for Telink-based Tuya switches / switch-modules.  
+Code is based on pvvx's [ZigbeeTLc](https://github.com/pvvx/ZigbeeTLc) firmware, huge thanks!
 
-## Supported devices
+## 🔌 Supported devices
 
-Note that rebranded versions may have different internals and may not work. "Zigbee Manufacturer" is the most reliable identifier of the device.
+Note that rebranded versions may have different internals, requiring different pinouts (and therefore custom builds).  
+"Zigbee Manufacturer" is the most reliable device identifier.
 
 | Z2M device name | Vendor name | Zigbee Manufacturer | Type | Status | Issue |
 | --- | --- | --- | --- | --- | --- |
@@ -40,54 +42,57 @@ Note that rebranded versions may have different internals and may not work. "Zig
 | [TS0004_switch_module](https://www.zigbee2mqtt.io/devices/TS0004_switch_module.html) | No-name 4 gang switch module with N  | _TZ3000_mmkbptmx | router | Untested |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/66)  | 
 | [TS0003_switch_3_gang](https://www.zigbee2mqtt.io/devices/TS0003_switch_3_gang.html) | Avatto Zigbee 3 Gang (ZTS02RD-US-W3)  | _TZ3000_avky2mvc | router | WIP, expiremntal, see issue. |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/41)  | 
 
-If you device is not supported, but it is some Tuya switch module, please check [the porting guide](./docs/porting_to_new_device.md).
+If you device is not supported, but it is some Tuya switch module, please check: [porting_to_new_device.md](./docs/porting_to_new_device.md)
 
-## Why?
+## 🤔 Why?
 
-The main driver for this project was the following factory firmware bug: if one button is pressed, the device ignores clicks to other buttons for ~0.5 seconds. The most frustrating consequence is that pressing both buttons at the same time turns only one relay on.
+The main driver for this project was a **frustrating bug in the factory firmware**:  
+> When you pressed one button, the device ignored input from the others for ~0.5 seconds. As a result, pressing two buttons simultaneously toggled a single relay.
 
-## Features
+Users also consider this *the missing piece of a reliable smart home* because it allows **using a light switch as a Zigbee remote**.  
+(There are no switches on the market that allow binding **to** other devices out-of-the-box.) 
 
-- Detached mode, e.g. switch doesn't trigger relay but only generates events via Zigbee
-- Bind switch to light bulb
-- Long press for momentary switches with configurable duration
-- Router/EndDevice modes for no-neutral devices
-- Super fast reaction time (compared to the factory firmware)
-- 5 quick presses to reset the device
-- Power-on behavior 
-- Switch modes:  
-ON_OFF, OFF_ON, TOGGLE_SIMPLE, TOGGLE_SMART_SYNC, TOGGLE_SMART_OPPOSITE  
-allowing to synchonize switch position with relay state
+## ✨ Features
 
-## Building
+- **Super fast reaction time** (compared to stock firmware)
+- **Outgoing binds** (use switch to remotely control Zigbee lightbulbs - state & brightness)
+- Configurable **Long press** for push-switches (custom action & duration)
+- Both **Router** & **EndDevice** modes for no-Neutral devices
+- **Detached mode** (generate Zigbee events without triggering relays)
+- **Power-on behavior** (on, off, previous, toggle)
+- Multiple **reset options** (5x switch press, on-board button)
+- Custom **switch action modes**, allowing to synchonize switch position or binded devices with relay state
 
-Only on linux:
+## 📲 Flashing
 
-```
-make install
-make
-```
+The firmware can be installed:
+- wirelessly on Z2M: [ota_flash.md](./docs/ota_flash.md) (recommended)
+- wirelessly on old Z2M: [ota_flash_z2m_v1.md](./docs/ota_flash_z2m_v1.md)
+- wirelessly on ZHA: [zha_ota.md](./docs/zha_ota.md)
+- by wire: [flashing_via_wire.md](./docs/flashing_via_wire.md)
 
-## Flashing
+To switch between End Device and Router, follow [change_device_type.md](./docs/change_device_type.md)
 
-Firmware can be [flashed via OTA](./docs/ota_flash.md). If you still use zigbee2mqtt 1.x, use [this guide](./docs/ota_flash_z2m_v1.md)
+## ❔ Frequently Asked Questions (FAQ)
 
-To switch between End Device and Router follow [this guide](./docs/change_device_type.md)
+Read here: [faq.md](./docs/faq.md)
 
-To flash via wire, follow [this guide](./docs/flashing_via_wire.md)
-
-## Changelog
+## 📝 Changelog
 
 Latest version: **v1.0.18**  
 Read the firmware release notes here: [changelog_fw.md](./docs/changelog_fw.md)
 
-## Acknowledgements
+## 🛠️ Building
+
+Read [building.md](./docs/building.md)
+
+## 🙏 Acknowledgements
 
 - https://github.com/pvvx/ZigbeeTLc (firmware for telink based ATC) as this was base for this project
 - https://github.com/doctor64/tuyaZigbee (firmware for some other Tuya Zigbee devices) for some helpful examples
 - https://medium.com/@omaslyuchenko for **Hello Zigbee World** series, that contain very usefull reference on how to implement a Zigbee device 
 
-## Star History
+## ⭐ Star History
 
 <a href="https://www.star-history.com/#romasku/tuya-zigbee-switch&Date">
  <picture>
