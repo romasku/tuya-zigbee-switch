@@ -9,7 +9,7 @@ Buliding consists of multiple steps:
 6. generating new index files
 7. updating Z2M converters (for old and new Z2M versions)
 8. updating ZHA quirks
-9. updating `readme.md`
+9. updating `supported_devices.md`
 10. (manual) updating `changelog.md`
 11. (online) freezing OTA links  
 
@@ -67,11 +67,11 @@ We currently have scripts for Debian/Ubuntu, but they can easily be adapted for 
 
 `make_scripts/make_install.sh`
 
-- (Re)build for all devices - firmware, index, converters, quirks, readme: 
+- (Re)build for all devices - firmware, index, converters, quirks, supported devices list: 
 
 `make_scripts/make_all.sh`
 
-- (Re)build for a single device, UART prints enabled - firmware, index, converters, quirks, readme:  
+- (Re)build for a single device, UART prints enabled - firmware, index, converters, quirks, supported devices list:  
 
 `make_scripts/make_debug_single.sh`
 
@@ -83,6 +83,6 @@ We currently have scripts for Debian/Ubuntu, but they can easily be adapted for 
 
 `make update_zha_quirk`
 
-- (Re)generate readme:  
+- (Re)generate supported devices list:  
 
-`make update_readme`
+`make update_supported_devices`

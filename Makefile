@@ -245,8 +245,8 @@ update_zha_quirk:
 	python3 helper_scripts/make_zha_quirk.py device_db.yaml > zha/switch_quirk.py
 
 
-update_readme:
-	python3 helper_scripts/make_readme.py device_db.yaml $(VERSION) > readme.md 
+update_supported_devices:
+	python3 helper_scripts/make_supported_devices.py device_db.yaml > docs/supported_devices.md 
 
 
 freeze_ota_links:

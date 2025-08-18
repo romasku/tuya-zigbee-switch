@@ -2,7 +2,7 @@
 
 # Builds the firmware for all devices found in device_db.yaml
 #   with up to 16 parallel jobs (-j16) for faster compilation.
-# Updates indexes, converters, quirks, and readme.
+# Updates indexes, converters, quirks, and supported devices list.
 
 # Estimated runtime: 5 mins
 
@@ -26,4 +26,4 @@ done
 
 make update_converters
 make update_zha_quirk
-make update_readme
+make update_supported_devices

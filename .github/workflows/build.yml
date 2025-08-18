@@ -52,16 +52,16 @@ jobs:
       run: |
         make update_zha_quirk
 
-    - name: Update readme.md
+    - name: Update supported_devices.md
       run: |
-        make update_readme
+        make update_supported_devices
 
     - name: Commit changes
       run: |
         git config --global user.name "GitHub Actions"
         git config --global user.email "actions@github.com"
-        git add bin/* zigbee2mqtt/* zha/* readme.md
-        git diff --cached --quiet || git commit -m "Update firmware files, converters, quirks and readme"
+        git add bin/* zigbee2mqtt/* zha/* docs/supported_devices.md
+        git diff --cached --quiet || git commit -m "Update firmware files, converters, quirks and supported devices list"
         make freeze_ota_links
         git add zigbee2mqtt/*
         git diff --cached --quiet || git commit -m "Freeze links in OTA index files"

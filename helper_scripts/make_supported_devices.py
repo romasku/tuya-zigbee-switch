@@ -13,13 +13,10 @@ env = Environment(
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
-        description="Update readme file to include full list of supported deviced",
+        description="Update supported_devices.md to with all entries from device_db.yaml",
     )
     parser.add_argument(
         "db_file", metavar="INPUT", type=str, help="File with device db"
-    )
-    parser.add_argument(
-        "version", metavar="VERSION", type=str, help="Version number"
     )
 
     args = parser.parse_args()
@@ -46,9 +43,9 @@ if __name__ == "__main__":
     for device in by_manufacturer_names.values():
         device["device_types"] = sorted(list(set(device["device_types"])), reverse=True)
 
-    template = env.get_template("readme.md.jinja")
+    template = env.get_template("supported_devices.md.jinja")
 
-    print(template.render(devices=by_manufacturer_names.values(), version=args.version))
+    print(template.render(devices=by_manufacturer_names.values()))
 
     exit(0)
 
