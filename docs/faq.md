@@ -36,7 +36,7 @@ After flashing a **force** image, you can simply change the index back to normal
 Will I still receive updates for my other devices?
 </summary>
 
-Yes, the custom index you provide to Z2M does not replace the original index. It 'appends', so you receive custom firmware for the supported devices and stock firmware for the other devices.
+**Yes**, the custom index you provide to Z2M **does not replace the original index**. It 'appends', so you receive custom firmware for the supported devices and stock firmware for the other devices.
 </details>
 
 <details>
@@ -44,10 +44,10 @@ Yes, the custom index you provide to Z2M does not replace the original index. It
 Is it possible to revert to stock firmware?
 </summary>
 
-Partially. Reverting to the stock firmware is only possible via wired flashing using UART.  
-Additionally, you will need a dump of the original stock firmware. Dumps are available for **some** devices in the `bin/` directory.
+**Partially**. Reverting to the stock firmware is only possible via wired flashing using UART.  
+Additionally, you will need a **dump of the original firmware**. Dumps are available for **some** devices in the `bin/` directory.
 
-To flash the stock firmware, follow the same steps outlined in the [flashing via wire guide](flashing_via_wire.md), just as you would for custom firmware.
+To flash the stock firmware, follow the same steps outlined in [flashing_via_wire.md](flashing_via_wire.md), just as you would for custom firmware.
 
 </details>
 
@@ -56,6 +56,6 @@ To flash the stock firmware, follow the same steps outlined in the [flashing via
 How to recover an unresponsive device?
 </summary>
 
-If your device does not respond to commands/button-presses etc, the only way to bring it back is to [flash by wire](flashing_via_wire.md).
+If your device does not respond to commands or button-presses, the only way to bring it back is [flashing_via_wire.md](flashing_via_wire.md).
 
 </details>
