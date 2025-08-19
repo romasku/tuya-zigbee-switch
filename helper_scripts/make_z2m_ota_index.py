@@ -111,7 +111,9 @@ if __name__ == "__main__":
     manufacturer_names = []
     device = db.get(args.board)
     if device:
-        manufacturer_names.extend(device["tuya_manufacturer_names"])
+        manufacturer_names.append(device["tuya_manufacturer_name"])
+        if "old_manufacturer_names" in device:
+            manufacturer_names.extend(device["old_manufacturer_names"])
         manufacturer_names.append(
             device["config_str"].split(";")[0]
         )

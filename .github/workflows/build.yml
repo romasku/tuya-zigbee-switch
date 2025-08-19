@@ -37,11 +37,18 @@ jobs:
 
     - name: Build for all boards
       run: |
-        yq -r '(keys)[]' device_db.yaml | while read ITER; do
-          echo "Building for board: $ITER"
-          BOARD=$ITER make clean && BOARD=$ITER make -j16 || exit 1
-          echo "Checking if files were created for board: $ITER"
+        yq -r 'to_entries | sort_by(.key)[] | "\(.key) \(.value.device_type)"' device_db.yaml | while read ITER TYPE; do
+          echo "Building for board: $ITER (router)"
+          BOARD=$ITER DEVICE_TYPE=router make clean && BOARD=$ITER DEVICE_TYPE=router make -j16 || exit 1
+          echo "Checking if files were created for board: $ITER (router)"
           ls -l bin/$ITER/
+
+          echo "Building for board: $ITER (end_device)"
+          if [ "$TYPE" = "end_device" ]; then
+            BOARD=${ITER} DEVICE_TYPE=end_device make clean && BOARD=${ITER} DEVICE_TYPE=end_device make -j16 || exit 1
+            echo "Checking if files were created for board: $ITER (end_device)"
+            ls -l bin/${ITER}_END_DEVICE/
+          fi
         done
 
     - name: Update Z2M converters

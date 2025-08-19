@@ -12,6 +12,13 @@ class RelayMode(t.enum8):
     Detached = 0x00
     Raise = 0x01
     LongPress = 0x02
+    ShortPress = 0x03
+
+
+class BindedMode(t.enum8):
+    Raise = 0x01
+    LongPress = 0x02
+    ShortPress = 0x03
 
 
 class CustomOnOffConfigurationCluster(CustomCluster, OnOffConfiguration):
@@ -43,6 +50,20 @@ class CustomOnOffConfigurationCluster(CustomCluster, OnOffConfiguration):
         long_press_duration = ZCLAttributeDef(
             id=0xff03,
             type=t.uint16_t,
+            access="rw",
+            is_manufacturer_specific=True,
+        )
+
+        level_move_rate = ZCLAttributeDef(
+            id=0xff04,
+            type=t.uint8_t,
+            access="rw",
+            is_manufacturer_specific=True,
+        )
+
+        binded_mode = ZCLAttributeDef(
+            id=0xff05,
+            type=BindedMode,
             access="rw",
             is_manufacturer_specific=True,
         )
@@ -146,6 +167,14 @@ for config in CONFIGS:
                 step=1,
                 endpoint_id=endpoint_id,
             )
+            .enum(
+                CustomOnOffConfigurationCluster.AttributeDefs.binded_mode.name,
+                BindedMode,
+                CustomOnOffConfigurationCluster.cluster_id,
+                translation_key="binded_mode",
+                fallback_name="Binded mode",
+                endpoint_id=endpoint_id,
+            )
             .number(
                 CustomOnOffConfigurationCluster.AttributeDefs.long_press_duration.name,
                 CustomOnOffConfigurationCluster.cluster_id,
@@ -153,6 +182,16 @@ for config in CONFIGS:
                 fallback_name="Long press mode",
                 min_value=0,
                 max_value=5000,
+                step=1,
+                endpoint_id=endpoint_id,
+            )
+            .number(
+                CustomOnOffConfigurationCluster.AttributeDefs.level_move_rate.name,
+                CustomOnOffConfigurationCluster.cluster_id,
+                translation_key="level_move_rate",
+                fallback_name="Level move rate",
+                min_value=1,
+                max_value=255,
                 step=1,
                 endpoint_id=endpoint_id,
             )

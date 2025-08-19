@@ -29,7 +29,7 @@ if __name__ == "__main__":
     by_manufacturer_names = {}
 
     for device in devices:
-        manufacturer_name = next(name for name in device["tuya_manufacturer_names"] if name.startswith("_TZ3000"))
+        manufacturer_name = device["tuya_manufacturer_name"]
         if manufacturer_name not in by_manufacturer_names:
             by_manufacturer_names[manufacturer_name] = {
                 **device,
@@ -37,8 +37,8 @@ if __name__ == "__main__":
                 "device_types": [device["device_type"]],
                 "z2m_device": device.get("override_z2m_device") or device["stock_converter_model"]
             }
-        else:
-             by_manufacturer_names[manufacturer_name]["device_types"].append(device["device_type"])
+        if (device["device_type"] == "end_device"):
+             by_manufacturer_names[manufacturer_name]["device_types"].append("router")
 
     for device in by_manufacturer_names.values():
         device["device_types"] = sorted(list(set(device["device_types"])), reverse=True)

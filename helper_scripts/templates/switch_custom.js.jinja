@@ -41,10 +41,10 @@ const romasku = {
         enumLookup({
             name,
             endpointName,
-            lookup: { detached: 0, raise: 1, long_press: 2 },
+            lookup: { detached: 0, press_start: 1, short_press: 3, long_press: 2},
             cluster: "genOnOffSwitchCfg",
             attribute: { ID: 0xff01, type: 0x30 }, // Enum8
-            description: "When to trigger internal relay",
+            description: "When to turn on/off internal relay",
         }),
     relayIndex: (name, endpointName, relay_cnt) =>
         enumLookup({
@@ -57,6 +57,15 @@ const romasku = {
             attribute: { ID: 0xff02, type: 0x20 }, // uint8
             description: "Which internal relay it should trigger",
         }),
+    bindedMode: (name, endpointName) =>
+        enumLookup({
+            name,
+            endpointName,
+            lookup: { press_start: 1, short_press: 3, long_press: 2},
+            cluster: "genOnOffSwitchCfg",
+            attribute: { ID: 0xff05, type: 0x30 }, // Enum8
+            description: "When turn on/off binded device",
+        }),
     longPressDuration: (name, endpointName) =>
         numeric({
             name,
@@ -66,6 +75,16 @@ const romasku = {
             description: "What duration is considerd to be long press",
             valueMin: 0,
             valueMax: 5000,
+        }),
+    levelMoveRate: (name, endpointName) =>
+        numeric({
+            name,
+            endpointNames: [endpointName],
+            cluster: "genOnOffSwitchCfg",
+            attribute: { ID: 0xff04, type: 0x20 }, // uint8
+            description: "Level (dim) move rate in steps per ms",
+            valueMin: 1,
+            valueMax: 255,
         }),
     pressAction: (name, endpointName) =>
         enumLookup({
@@ -186,7 +205,9 @@ const definitions = [
             romasku.switchAction("{{switchName}}_action_mode", "{{switchName}}"),
             romasku.relayMode("{{switchName}}_relay_mode", "{{switchName}}"),
             romasku.relayIndex("{{switchName}}_relay_index", "{{switchName}}", {{device.relayNames | length}}),
+            romasku.bindedMode("{{switchName}}_binded_mode", "{{switchName}}"),
             romasku.longPressDuration("{{switchName}}_long_press_duration", "{{switchName}}"),
+            romasku.levelMoveRate("{{switchName}}_level_move_rate", "{{switchName}}"),
             {% endfor %}
             {% for relayName in device.relayIndicatorNames %}
             romasku.relayIndicatorMode("{{relayName}}_indicator_mode", "{{relayName}}"),

@@ -31,23 +31,41 @@ if __name__ == "__main__":
         for entry in db.values()
         if entry.get("stock_converter_manufacturer", "tuya") == "tuya"
     ]
+    tuyaMultiplePinoutsModels = [
+        entry["stock_converter_model"]
+        for entry in db.values()
+        if entry.get("stock_converter_manufacturer", "tuya") == "tuya" and entry.get("alt_config_str", False)
+    ]
     moesModels = [
         entry["stock_converter_model"]
         for entry in db.values()
         if entry.get("stock_converter_manufacturer", "tuya") == "moes"
+    ]
+    moesMultiplePinoutsModels = [
+        entry["stock_converter_model"]
+        for entry in db.values()
+        if entry.get("stock_converter_manufacturer", "tuya") == "moes" and entry.get("alt_config_str", False)
     ]
     avattoModels = [
         entry["stock_converter_model"]
         for entry in db.values()
         if entry.get("stock_converter_manufacturer", "tuya") == "avatto"
     ]
+    avattoMultiplePinoutsModels = [
+        entry["stock_converter_model"]
+        for entry in db.values()
+        if entry.get("stock_converter_manufacturer", "tuya") == "avatto" and entry.get("alt_config_str", False)
+    ]
 
     template = env.get_template("tuya_with_ota.js.jinja")
 
     print(template.render(
         tuyaModels=sorted(list(set(tuyaModels))),
+        tuyaMultiplePinoutsModels=sorted(list(set(tuyaMultiplePinoutsModels))),
         moesModels=sorted(list(set(moesModels))),
+        moesMultiplePinoutsModels=sorted(list(set(moesMultiplePinoutsModels))),
         avattoModels=sorted(list(set(avattoModels))),
+        avattoMultiplePinoutsModels=sorted(list(set(avattoMultiplePinoutsModels))),
          z2m_v1=args.z2m_v1)
     )
    

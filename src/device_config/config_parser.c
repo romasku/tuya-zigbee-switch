@@ -36,6 +36,7 @@ zigbee_basic_cluster basic_cluster =
 
 zigbee_group_cluster group_cluster = {};
 
+move_t level_move[4];
 zigbee_switch_cluster switch_clusters[4];
 u8 switch_clusters_cnt = 0;
 
@@ -154,14 +155,22 @@ void parse_config()
       init_gpio_input(pin, pull);
 
       buttons[buttons_cnt].pin = pin;
-      buttons[buttons_cnt].long_press_duration_ms  = 2000;
+      buttons[buttons_cnt].long_press_duration_ms  = 800;
       buttons[buttons_cnt].multi_press_duration_ms = 800;
+
+      level_move[switch_clusters_cnt].moveMode = LEVEL_MOVE_UP,
+      level_move[switch_clusters_cnt].rate = 50,
+      level_move[switch_clusters_cnt].optPresent = 0,
+      level_move[switch_clusters_cnt].optionsMask = 0,
+      level_move[switch_clusters_cnt].optionsOverride = 0,
 
       switch_clusters[switch_clusters_cnt].mode        = ZCL_ONOFF_CONFIGURATION_SWITCH_TYPE_TOGGLE;
       switch_clusters[switch_clusters_cnt].action      = ZCL_ONOFF_CONFIGURATION_SWITCH_ACTION_TOGGLE_SIMPLE;
-      switch_clusters[switch_clusters_cnt].relay_mode  = ZCL_ONOFF_CONFIGURATION_RELAY_MODE_RISE;
+      switch_clusters[switch_clusters_cnt].relay_mode  = ZCL_ONOFF_CONFIGURATION_RELAY_MODE_SHORT;
+      switch_clusters[switch_clusters_cnt].binded_mode = ZCL_ONOFF_CONFIGURATION_BINDED_MODE_SHORT;
       switch_clusters[switch_clusters_cnt].relay_index = switch_clusters_cnt + 1;
       switch_clusters[switch_clusters_cnt].button      = &buttons[buttons_cnt];
+      switch_clusters[switch_clusters_cnt].level_move  = &level_move[switch_clusters_cnt];
 
       buttons_cnt++;
       switch_clusters_cnt++;
@@ -246,6 +255,7 @@ void parse_config()
 
 void periferals_init()
 {
+  millis_init();
   for (int index = 0; index < buttons_cnt; index++)
   {
     btn_init(&buttons[index]);

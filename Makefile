@@ -1,7 +1,7 @@
 PROJECT_NAME = tlc_switch
 
 BOARD ?= TS0012
-VERSION = 18
+VERSION := 18
 
 DEBUG ?= 0
 
@@ -17,7 +17,7 @@ DEVICE_DB_FILE := device_db.yaml
 
 # Board and version defines
 
-DEVICE_TYPE := $(shell yq -r .$(BOARD).device_type $(DEVICE_DB_FILE))
+DEVICE_TYPE ?= $(shell yq -r .$(BOARD).device_type $(DEVICE_DB_FILE))
 CONFIG_STR := $(shell yq -r .$(BOARD).config_str $(DEVICE_DB_FILE))
 FROM_TUYA_MANUFACTURER_ID := $(shell yq -r .$(BOARD).tuya_manufacturer_id $(DEVICE_DB_FILE))
 FROM_TUYA_IMAGE_TYPE := $(shell yq -r .$(BOARD).tuya_image_type $(DEVICE_DB_FILE))
@@ -26,11 +26,13 @@ FIRMWARE_IMAGE_TYPE := $(shell yq -r .$(BOARD).firmware_image_type $(DEVICE_DB_F
 ifeq ($(DEVICE_TYPE), router)
 	TEL_CHIP := -DMCU_CORE_8258=1 -DROUTER=1 -DMCU_STARTUP_8258=1
 	LIBS := -ldrivers_8258 -lzb_router
+	BOARD_FILE := $(BOARD)
 endif
 
 ifeq ($(DEVICE_TYPE), end_device)
 	TEL_CHIP := -DMCU_CORE_8258=1 -DEND_DEVICE=1 -DMCU_STARTUP_8258=1 -DPM_ENABLE
 	LIBS := -ldrivers_8258 -lzb_ed
+	BOARD_FILE := $(BOARD)_END_DEVICE
 endif
 
 
@@ -45,7 +47,7 @@ endif
 PROJECT_PATH := .
 
 BUILD_PATH :=$(PROJECT_PATH)/$(BUILD_DIR)
-BIN_PATH := $(PROJECT_PATH)/$(BIN_DIR)/$(BOARD)
+BIN_PATH := $(PROJECT_PATH)/$(BIN_DIR)/$(BOARD_FILE)
 TC32_PATH := $(PROJECT_PATH)/$(TOOLCHAIN_DIR)/tc32/bin
 SRC_PATH := $(PROJECT_PATH)/$(SRC_DIR)
 SDK_PATH := $(PROJECT_PATH)/$(SDK_DIR)
@@ -130,12 +132,12 @@ LS_FLAGS := $(SRC_PATH)/boot.link
 -include makefiles/zigbee.mk
 
 
-LST_FILE := $(BUILD_PATH)/$(PROJECT_NAME)-$(BOARD).lst
+LST_FILE := $(BUILD_PATH)/$(PROJECT_NAME)-$(BOARD_FILE).lst
 BIN_FILE := $(BIN_PATH)/$(PROJECT_NAME).bin
 OTA_FILE := $(BIN_PATH)/$(PROJECT_NAME).zigbee
 FROM_TUYA_OTA_FILE := $(BIN_PATH)/$(PROJECT_NAME)-from_tuya.zigbee
 FORCE_OTA_FILE:= $(BIN_PATH)/$(PROJECT_NAME)-forced.zigbee
-ELF_FILE := $(BUILD_PATH)/$(PROJECT_NAME)-$(BOARD).elf
+ELF_FILE := $(BUILD_PATH)/$(PROJECT_NAME)-$(BOARD_FILE).elf
 
 Z2M_INDEX_FILE := zigbee2mqtt/ota/index_$(DEVICE_TYPE).json
 
@@ -291,3 +293,10 @@ clean_toolchain:
 
 
 clean_install: clean_sdk clean_toolchain
+
+
+test:
+	$(MAKE) -f tests/Makefile
+
+clean_test:
+	$(MAKE) -f tests/Makefile clean
