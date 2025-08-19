@@ -9,12 +9,14 @@ Code is based on pvvx's [ZigbeeTLc](https://github.com/pvvx/ZigbeeTLc) firmware,
 
 ## 🔌 Supported devices
 
-There are **25+ already supported devices**: [supported_devices.md](./docs/supported_devices.md).  
+There are already **25+** [**supported_devices.md**](./docs/supported_devices.md).  
   
 > If your device contains a **supported Tuya Zigbee module** (ZT3L, ZTU, ZT2S), porting is relatively simple.  
-> It consists of tracing (or guessing) the **board pinout**, adding an entry in the `device_db.yaml` file and running the build action. 
+> It consists of tracing (or guessing) the **board pinout**, adding an entry in `device_db.yaml` and rebuilding. 
 >  
-> Further reading: [porting_to_new_device.md](./docs/porting_to_new_device.md)
+> Further reading:  
+> [porting_to_new_device.md](./docs/porting_to_new_device.md), [device_db_explained.md](./docs/device_db_explained.md),  
+> [recommended_devices.md](./docs/recommended_devices.md), [not_recommended_devices.md](./docs/not_recommended_devices.md).
 
 ## 🤔 Why?
 
@@ -62,9 +64,13 @@ Further versions could include breaking changes or require resetting the device!
 ⚠️️ ️️Read the known issues here: [known_issues.md](./docs/known_issues.md).
 > **Stay up to date with the known issues to prevent bricking your device!**
 
-## 🛠️ Building & Contributing
+## 🛠️ Contributing
 
-Welcome to the team! Read [building.md](./docs/building.md).
+**Welcome to the team!** Please read:  
+- [building.md](./docs/building.md)
+- [project_structure.md](./docs/project_structure.md)
+- [device_db_explained.md](./docs/device_db_explained.md)
+- [tests.md](./docs/tests.md)
 
 ## 🙏 Acknowledgements
 

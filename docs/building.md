@@ -9,8 +9,9 @@ Buliding consists of multiple steps:
 6. generating new index files
 7. updating Z2M converters (for old and new Z2M versions)
 8. updating ZHA quirks
-9. updating `supported_devices.md`
-10. (manual) updating `changelog.md`
+9. updating [supported_devices.md](./supported_devices.md)
+10. (manual) updating [changelog_fw.md](./changelog_fw.md)
+11. running unit tests (automated on push and merge)
 11. (online) freezing OTA links  
 
 The process is automated with scripts that you can run locally or online.  
@@ -44,45 +45,49 @@ Two branches are recommended to avoid conflicts between generated files.
     (`bin/BOARD/tlc_switch.bin`)
 10. Perform update and test: [readme.md # Flashing](../readme.md#-flashing)
 11. Create a Pull Request (**code_branch** -> **romasku/main**)
+12. Check the unit tests result
 
 ## 💻 Local build
 
-Linux is recommended.  
-We currently have scripts for Debian/Ubuntu, but they can easily be adapted for other distributions.  
-(Please share your scripts)
+This project uses:
+- **Make** for building, with all rules defined in Makefile
+- **Python** for helper_scripts and ZHA quirks
+- **Javascript** for Z2M converters  
+- **YAML** for the device database
+
+**Linux is recommended.**  
+We currently have bash scripts for Debian/Ubuntu to install dependencies with apt and automate building for multipe boards.  
+They can easily be adapted for other distributions. (Please share your scripts)
 
 1. Fork the repository and clone it
 2. Run `make_scripts/make_install.sh`
 3. Create **code_branch** from main (eg. newFeature)
 4. Make changes
 5. Build with `make_scripts/make_all.sh` or `make_scripts/make_debug_single.sh`
-6. Perform update and test: [flashing_via_wire.md](../flashing_via_wire.md)
-7. Update `changelog.md`
-8. Commit changes (without generated files) and push
-9. Create a Pull Request (**code_branch** -> **romasku/main**)
+6. Run unit tests with `make tests`: [tests.md](./tests.md)
+7. Perform update and test: [flashing_via_wire.md](./flashing_via_wire.md)
+8. Update `changelog.md`
+9. Commit changes (without generated files) and push
+10. Create a Pull Request (**code_branch** -> **romasku/main**)
 
 ### Available commands
 
-- (Re)install dependencies:  
-
-`make_scripts/make_install.sh`
-
-- (Re)build for all devices - firmware, index, converters, quirks, supported devices list: 
-
-`make_scripts/make_all.sh`
-
-- (Re)build for a single device, UART prints enabled - firmware, index, converters, quirks, supported devices list:  
-
-`make_scripts/make_debug_single.sh`
-
-- (Re)generate Z2M converters:  
-
-`make update_converters`
-
-- (Re)generate ZHA quirks:  
-
-`make update_zha_quirk`
-
-- (Re)generate supported devices list:  
-
-`make update_supported_devices`
+| Command                            | Description                                     |
+|------------------------------------|-------------------------------------------------|
+|`make_scripts/make_install.sh`      | (Re)installs dependencies (apt)                 |
+|`make_scripts/make_all.sh`          | (Re)builds for all devices: <br> firmware, index, converters, quirks, supported devices list |
+|`make_scripts/make_debug_single.sh` | (Re)builds for a single device, UART prints enabled: <br> firmware, index, converters, quirks, supported devices list |
+|`make update_converters`            | (Re)generates Z2M converters                    |
+|`make update_zha_quirk`             | (Re)generates ZHA quirks                        |
+|`make update_supported_devices`     | (Re)generates [supported_devices.md](./supported_devices.md) |
+|`make freeze_ota_links`             | Replaces branch with commit ID in index files. <br> Without it, old indexes will point to the latest fw |
+|`make clean_z2m_index`              | Deletes OTA indexes                             |
+|`make`                              | Builds fw and indexes for a single device       |
+|`make clean`                        | Deletes the built fw binary for a single device |
+|`make tests`                        | Runs the unit [tests.md](./tests.md)            |
+|`make install`                      | `make sdk` and `make toolchain`                 |
+|`make clean_install`                | Runs `make clean_sdk` and `make clean_toolchain`|
+|`make sdk`                          | Downloads Telink's Zigbee SDK into `sdk/`       |
+|`make clean_sdk`                    | Deletes `sdk/`                                  |
+|`make toolchain`                    | Downloads Telink's tc32 into `toolchain/`       |
+|`make clean_toolchain`              | Deletes `toolchain/`                            |
