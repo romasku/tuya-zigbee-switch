@@ -4,10 +4,11 @@
 
 Discussion: [#77](https://github.com/romasku/tuya-zigbee-switch/issues/77)
 
+> [!NOTE]  
 > The **device config field** is an advanced option that allows changing the pre-defined *device config string* without updating the whole firmware.  
 >  
 > Currently, it is useful in debugging and supporting new devices.  
-> ⚠️️ **Do not touch it otherwise!**
+> **Do not touch it otherwise!**
 >
 > We are slowly moving towards a unified firmware without the config string pre-defined (where the user would use this field to set it per device). But it is not **yet** recommended to use it as a permanent solution.  
 >

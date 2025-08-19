@@ -11,6 +11,7 @@ Code is based on pvvx's [ZigbeeTLc](https://github.com/pvvx/ZigbeeTLc) firmware,
 
 There are already **25+** [**supported_devices.md**](./docs/supported_devices.md).  
   
+> [!TIP]   
 > If your device contains a **supported Tuya Zigbee module** (ZT3L, ZTU, ZT2S), porting is relatively simple.  
 > It consists of tracing (or guessing) the **board pinout**, adding an entry in `device_db.yaml` and rebuilding. 
 >  
@@ -46,6 +47,7 @@ The firmware can be installed:
 - wirelessly on ZHA: [zha_ota.md](./docs/zha_ota.md)
 - by wire: [flashing_via_wire.md](./docs/flashing_via_wire.md)
 
+> [!TIP]  
 > To switch between End Device and Router, follow [change_device_type.md](./docs/change_device_type.md)
 
 ## ❔ Frequently Asked Questions (FAQ)
@@ -54,14 +56,17 @@ Read here: [faq.md](./docs/faq.md) and feel free to ask more questions or sugges
 
 ## 📝 Changelog
 
-⚠️ Read the firmware release notes here: [changelog_fw.md](./docs/changelog_fw.md).  
+Read the firmware release notes here: [changelog_fw.md](./docs/changelog_fw.md).  
 
+> [!CAUTION]  
 > **Always check the changelog before updating!**  
-Further versions could include breaking changes or require resetting the device!
+> Further versions could include breaking changes or require resetting the device!
 
 ## 🚨 ️Known issues
 
-⚠️️ ️️Read the known issues here: [known_issues.md](./docs/known_issues.md).
+Read the known issues here: [known_issues.md](./docs/known_issues.md).
+
+> [!WARNING]  
 > **Stay up to date with the known issues to prevent bricking your device!**
 
 ## 🛠️ Contributing

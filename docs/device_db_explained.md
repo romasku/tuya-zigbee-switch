@@ -2,6 +2,7 @@
 
 Information about all supported devices is kept inside `device_db.yaml`.
 
+> [!TIP]  
 > That is the only file you need to edit for adding a new device  
 > that has a supported Zigbee module (ZTU, ZT2S, ZT3L)
 
