@@ -41,16 +41,14 @@ Users also consider this *the missing piece of a reliable smart home* because it
 
 ## 📲 Flashing
 
-The firmware can be installed:
-- wirelessly on Z2M: [ota_flash.md](./docs/ota_flash.md) (recommended)
-- wirelessly on old Z2M: [ota_flash_z2m_v1.md](./docs/ota_flash_z2m_v1.md)
-- wirelessly on ZHA: [zha_ota.md](./docs/zha_ota.md)
+The firmware can be installed and updated:
+- wirelessly on Z2M / ZHA: [updating.md](./docs/updating.md)
 - by wire: [flashing_via_wire.md](./docs/flashing_via_wire.md)
 
 > [!TIP]  
-> To switch between End Device and Router, follow [change_device_type.md](./docs/change_device_type.md)
+> To switch between EndDevice and Router, follow [change_device_type.md](./docs/change_device_type.md)
 
-## ❔ Frequently Asked Questions (FAQ)
+## ❓ Frequently Asked Questions (FAQ)
 
 Read here: [faq.md](./docs/faq.md) and feel free to ask more questions or suggest useful information.
 

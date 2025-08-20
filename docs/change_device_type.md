@@ -1,6 +1,6 @@
 # How to Change Device Type
 
-This guide explains how to change a device's type between **Router** and **End Device**. It only applies to devices running custom firmware. If you need to update from stock firmware, follow the [flash via OTA](./ota_flash.md) guide.
+This guide explains how to change a device's type between **Router** and **End Device**. It only applies to devices running custom firmware. If you need to update from stock firmware, follow the [updating.md](./updating.md) guide.
 
 ## Step 1: Set Up the Proper Index File
 

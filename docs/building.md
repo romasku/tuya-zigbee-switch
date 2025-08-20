@@ -43,7 +43,7 @@ Two branches are recommended to avoid conflicts between generated files.
     (user + **build_branch** + device_type) 
     - For wire update, get the binary file for your device  
     (`bin/BOARD/tlc_switch.bin`)
-10. Perform update and test: [readme.md # Flashing](../readme.md#-flashing)
+10. Perform device update and test: [readme.md # Flashing](../readme.md#-flashing)
 11. Create a Pull Request (**code_branch** -> **romasku/main**)
 12. Check the unit tests result
 
@@ -65,7 +65,7 @@ They can easily be adapted for other distributions. (Please share your scripts)
 4. Make changes
 5. Build with `make_scripts/make_all.sh` or `make_scripts/make_debug_single.sh`
 6. Run unit tests with `make tests`: [tests.md](./tests.md)
-7. Perform update and test: [flashing_via_wire.md](./flashing_via_wire.md)
+7. Perform device update and test: [flashing_via_wire.md](./flashing_via_wire.md)
 8. Update `changelog.md`
 9. Commit changes (without generated files) and push
 10. Create a Pull Request (**code_branch** -> **romasku/main**)

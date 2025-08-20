@@ -61,7 +61,7 @@ Also check the Z2M logs to see if the converters were loaded.
 
 Now that Z2M recognizes that the device can be updated via OTA, you need to provide it with a file to flash. Z2M uses JSON index files for this.  
 
-Add a custom index as described in the [flashing via OTA guide](ota_flash.md). Then open this index file in a text editor and find the entry for the device that is most similar to your device. Replace the `manufacturerName` list with the "Zigbee Manufacturer" value from the Z2M device info screen. It should be something like `_TZ3000_...`. Save the file, restart Z2M, and check for updates for your device in the OTA tab.  
+Add a custom index as described in [updating.md](./updating.md). Then open this index file in a text editor and find the entry for the device that is most similar to your device. Replace the `manufacturerName` list with the "Zigbee Manufacturer" value from the Z2M device info screen. It should be something like `_TZ3000_...`. Save the file, restart Z2M, and check for updates for your device in the OTA tab.  
 
 If Z2M shows that OTA is available, you are ready to proceed.  
 
