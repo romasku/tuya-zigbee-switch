@@ -134,6 +134,9 @@ The quirks / converters **independently receive updates** to:
 
 So you are advised to **regularly update the quirks / converters** even if there are no FW updates.  
 
+Normally, quirks and converters are backwards-compatible.  
+Meaning that if you have devices on different versions, you can safely use the latest files.
+
 > [!TIP]  
 > Follow the **#announcements** channel to stay up-to-date: [readme.md # Discord](../readme.md#-discord)
 

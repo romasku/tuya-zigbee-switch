@@ -91,3 +91,10 @@ They can easily be adapted for other distributions. (Please share your scripts)
 |`make clean_sdk`                    | Deletes `sdk/`                                  |
 |`make toolchain`                    | Downloads Telink's tc32 into `toolchain/`       |
 |`make clean_toolchain`              | Deletes `toolchain/`                            |
+
+## Further reading
+
+- [project_structure.md](./project_structure.md)
+- [device_db_explained.md](./device_db_explained.md)
+- [debugging.md](./debugging.md)
+- [tests.md](./tests.md)

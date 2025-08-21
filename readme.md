@@ -73,6 +73,7 @@ Read the known issues here: [known_issues.md](./docs/known_issues.md).
 - [building.md](./docs/building.md)
 - [project_structure.md](./docs/project_structure.md)
 - [device_db_explained.md](./docs/device_db_explained.md)
+- [debugging.md](./docs/debugging.md)
 - [tests.md](./docs/tests.md)
 
 ## 🙏 Acknowledgements
