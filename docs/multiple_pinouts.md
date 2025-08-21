@@ -1,3 +1,5 @@
+# Multiple pinouts
+
 We used to think **Zigbee Manufacturer** (`_TZ3000_xxxxxxxx`) can reliably indicate a unique device, but AVATTO has proven us wrong.
 
 There are some devices that have different pinouts, **even if their manufacturer names are identical**.  
