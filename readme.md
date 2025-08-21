@@ -1,6 +1,8 @@
-[![GitHub stars](https://img.shields.io/github/stars/romasku/tuya-zigbee-switch.svg)](https://github.com/romasku/tuya-zigbee-switch/stargazers)
-[![GitHub issues](https://img.shields.io/github/issues/romasku/tuya-zigbee-switch.svg)](https://github.com/romasku/tuya-zigbee-switch/issues)
+[![GitHub stars](https://img.shields.io/github/stars/romasku/tuya-zigbee-switch.svg?style=flat&label=Stars&color=yellow)](https://github.com/romasku/tuya-zigbee-switch/stargazers)
+[![GitHub issues](https://img.shields.io/github/issues/romasku/tuya-zigbee-switch.svg?label=Issues)](https://github.com/romasku/tuya-zigbee-switch/issues)
 [![StandWithUkraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/badges/StandWithUkraine.svg)](https://github.com/vshymanskyy/StandWithUkraine/blob/main/docs/README.md)
+[![Discord](https://img.shields.io/discord/1405486711412359278.svg?logo=discord&logoColor=white&label=Chat&color=blue)](https://discord.gg/4HAg2Fr565)
+
 
 # 🔓 Custom firmware for Telink Tuya switches
 
@@ -41,16 +43,12 @@ Users also consider this *the missing piece of a reliable smart home* because it
 
 ## 📲 Flashing
 
-The firmware can be installed and updated:
+The firmware can be **installed and updated**:
 - wirelessly on Z2M / ZHA: [updating.md](./docs/updating.md)
 - by wire: [flashing_via_wire.md](./docs/flashing_via_wire.md)
 
 > [!TIP]  
 > To switch between EndDevice and Router, follow [change_device_type.md](./docs/change_device_type.md)
-
-## ❓ Frequently Asked Questions (FAQ)
-
-Read here: [faq.md](./docs/faq.md) and feel free to ask more questions or suggest useful information.
 
 ## 📝 Changelog
 
@@ -67,7 +65,20 @@ Read the known issues here: [known_issues.md](./docs/known_issues.md).
 > [!WARNING]  
 > **Stay up to date with the known issues to prevent bricking your device!**
 
-## 🛠️ Contributing
+## ❓ Frequently Asked Questions (FAQ)
+
+Read here: [faq.md](./docs/faq.md) and feel free to ask more questions or suggest useful information.  
+Also read [endpoints.md](./docs/endpoints.md) for information about groups and binding.
+
+## Discord
+
+Join the discussion or just follow the news on:  
+
+[![Discord](https://discord.com/api/guilds/1405486711412359278/widget.png?style=banner3)](https://discord.gg/4HAg2Fr565)  
+
+Keep important topics on GitHub!
+
+## 🛠️ Building and Contributing
 
 **Welcome to the team!** Please read:  
 - [building.md](./docs/building.md)

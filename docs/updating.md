@@ -138,7 +138,7 @@ Normally, quirks and converters are backwards-compatible.
 Meaning that if you have devices on different versions, you can safely use the latest files.
 
 > [!TIP]  
-> Follow the **#announcements** channel to stay up-to-date: [readme.md # Discord](../readme.md#-discord)
+> Follow the **#announcements** channel to stay up-to-date: [readme.md # Discord](../readme.md#discord)
 
 ## First-time update steps
 1. Download the custom quirks / converters

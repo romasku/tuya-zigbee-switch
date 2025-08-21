@@ -9,7 +9,8 @@ If your device has a **different pinout**, please request a custom build on the 
 Known cases:
 
 <details>
-<summary>_TZ3000_5ajpkyq6</summary>
+<summary> <code>_TZ3000_5ajpkyq6</code> - AVATTO ZWSM16-4 </summary>
+<br>
 
 Pinout 1 (was default until v17.x), reported by @paddenstoeltje in [#9](https://github.com/romasku/tuya-zigbee-switch/issues/9):  
 `BC2u;LD2i;SD7u;RB6;SC0u;RD4;SA0u;RC1;SA1u;RC4;`
