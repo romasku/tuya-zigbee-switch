@@ -3,7 +3,7 @@
 This guide describes how firmware can be adapted to other switches or patched to work properly if a device partially misbehaves.  
 
 ## Requirements
-- supported microchip
+- supported microchip / Zigbee module
 - pinout
 - OTA cluster (otherwise flash by wire)
 - Zigbee manufacturer (_TZ3000_abcdefgh)
@@ -12,12 +12,8 @@ This guide describes how firmware can be adapted to other switches or patched to
 
 ## Verify That the Device Uses the Correct Controller Module  
 
-The firmware works on the TLS8258 microchip, which is the heart of Tuya-branded modules [ZT series modules](https://developer.tuya.com/en/docs/iot/zt-series-module?id=Kaiuym8ctid7k):  
-- ZT3L  
-- ZTU  
-- ZT2S  
-- ZTC  
-- ZT5  
+The firmware works on the TLSR8258 microchip, which is the heart of Tuya-branded modules [ZT series modules](https://developer.tuya.com/en/docs/iot/zt-series-module?id=Kaiuym8ctid7k).  
+Currently the **ZTU, ZT2S and ZT3L** are supported.  
 
 This can be checked in Z2M by verifying the device IEEE (MAC) address. It should start with `0xa4c138`:  
 

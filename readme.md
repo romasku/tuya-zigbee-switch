@@ -13,7 +13,7 @@ Feature-rich custom firmware for Telink-based Tuya Zigbee switches and switch-mo
 There are already **25+** [**supported_devices.md**](./docs/supported_devices.md).  
   
 > [!TIP]   
-> If your device contains a **supported Tuya Zigbee module** (ZT3L, ZTU, ZT2S), porting is relatively simple.  
+> If your device contains a **supported Tuya Zigbee module** (ZTU, ZT2S, ZT3L), porting is relatively simple.  
 > It consists of tracing (or guessing) the **board pinout**, adding an entry in `device_db.yaml` and rebuilding. 
 >  
 > Further reading:  
@@ -38,36 +38,33 @@ Users also consider this *the missing piece of a reliable smart home* because it
 - **Detached mode** (generate Zigbee events without triggering relays)
 - **Power-on behavior** (on, off, previous, toggle)
 - **Wireless flashing and updating** (OTA from original fw to custom fw, further OTA updates)
-- Multiple **reset options** (5x switch press, on-board button)
+- Multiple **reset options** (10x switch press, on-board button)
 
 ## 📲 Flashing
 
-The firmware can be **installed and updated**:
+If your device is already supported, the firmware can be **installed and updated**:
 - wirelessly on Z2M / ZHA: [updating.md](./docs/updating.md)
 - by wire: [flashing_via_wire.md](./docs/flashing_via_wire.md)
 
-> [!TIP]  
-> To switch between EndDevice and Router, follow [change_device_type.md](./docs/change_device_type.md)
+Otherwise, check [porting_to_new_device.md](./docs/porting_to_new_device.md).
+
+> [!WARNING]  
+> **Always check the changelog before updating!**  
+> Further versions could include breaking changes or require resetting the device!
 
 ## 📝 Changelog
 
 Read the firmware release notes here: [changelog_fw.md](./docs/changelog_fw.md).  
 
-> [!CAUTION]  
-> **Always check the changelog before updating!**  
-> Further versions could include breaking changes or require resetting the device!
-
 ## 🚨 ️Known issues
 
-Read the known issues here: [known_issues.md](./docs/known_issues.md).
-
-> [!WARNING]  
-> **Stay up to date with the known issues to prevent bricking your device!**
+Stay up to date with the [known_issues.md](./docs/known_issues.md) to prevent bricking your device!
 
 ## ❓ Frequently Asked Questions (FAQ)
 
-Read here: [faq.md](./docs/faq.md) and feel free to ask more questions or suggest useful information.  
-Also read [endpoints.md](./docs/endpoints.md) for information about groups and binding.
+Read the [faq.md](./docs/faq.md) and feel free to ask more questions or suggest useful information.  
+Also read [endpoints.md](./docs/endpoints.md) for information about groups and binding.  
+To switch between EndDevice and Router, follow [change_device_type.md](./docs/change_device_type.md).  
 
 ## Discord
 
