@@ -182,7 +182,7 @@ TS0004_AVATTO:
   store: https://www.aliexpress.com/item/1005007247647375.html
 MOES_2_GANG_SWITCH:
   config_str: 18ejxno0;Moes-2-gang;SB6u;SC4u;RB5;RB4;ID3;IC0;M;
-  device_type: end_device
+  device_type: router
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
   firmware_image_type: 43510
@@ -198,6 +198,29 @@ MOES_2_GANG_SWITCH:
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/14
   store: https://www.aliexpress.com/item/1005005178075186.html
+  # PWM fields (Router builds only)
+  indicator_pwm: true                    # Enable PWM capability
+  default_indicator_brightness: 2        # Default dimmed brightness (0-15, where 2≈12.5%)
+  pwm_capable_pins: [D3, C0]            # Pins that support PWM dimming
+MOES_2_GANG_SWITCH_END_DEVICE:
+  config_str: 18ejxno0;Moes-2-gang-ED;SB6u;SC4u;RB5;RB4;ID3;IC0;M;
+  device_type: end_device
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 43511
+  stock_converter_model: TS0012
+  old_zb_models:
+  - Moes-2-gang-ED
+  tuya_manufacturer_name: _TZ3000_18ejxno0
+  old_manufacturer_names:
+  - Moes-2-gang
+  zb_module: ZTU
+  override_z2m_device: ZS-EUB_2gang
+  human_name: Moes TS0012 (2 gang switch) - End Device
+  status: Supported
+  github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/14
+  store: https://www.aliexpress.com/item/1005005178075186.html
+  # No PWM fields - ensures Z2M/ZHA won't expose PWM controls
 BSEED_2_GANG_SWITCH:
   config_str: f2slq5pj;Bseed-2-gang;SB6u;SA1u;RD3;RC0;IC2;IB4;M;
   device_type: end_device

@@ -7,6 +7,7 @@
 #include "ota.h"
 
 #include "base_components/led.h"
+#include "base_components/led_pwm.h"
 #include "base_components/network_indicator.h"
 #include "chip_8258/gpio.h"
 #include "config_nv.h"
@@ -55,7 +56,13 @@ char *extractNextEntry(char **cursor);
 void init_gpio_input(GPIO_PinTypeDef pin, GPIO_PullTypeDef pull);
 void init_gpio_output(GPIO_PinTypeDef pin);
 
-
+#ifdef INDICATOR_PWM_SUPPORT
+void apply_pwm_config_from_db(void);
+u8 device_has_indicator_pwm(void);
+u8 pin_supports_pwm(GPIO_PinTypeDef pin);
+u8 is_indicator_led(led_t *led);
+u8 get_default_brightness(void);
+#endif
 
 void onResetClicked(void *_)
 {
@@ -250,6 +257,11 @@ void parse_config()
       *cursor = ';';
     }
   }
+
+#ifdef INDICATOR_PWM_SUPPORT
+  // Apply PWM configuration from device database
+  apply_pwm_config_from_db();
+#endif
 }
 
 
@@ -273,6 +285,9 @@ void periferals_update()
   {
     btn_update(&buttons[index]);
   }
+#ifdef INDICATOR_PWM_SUPPORT
+  led_pwm_update();
+#endif
 }
 
 void init_reporting()
@@ -538,3 +553,54 @@ u32 parseInt(const char *s)
   }
   return(n);
 }
+
+#ifdef INDICATOR_PWM_SUPPORT
+void apply_pwm_config_from_db(void)
+{
+  if (device_has_indicator_pwm())
+  {
+    for (int i = 0; i < leds_cnt; i++)
+    {
+      if (is_indicator_led(&leds[i]) && pin_supports_pwm(leds[i].pin))
+      {
+        led_pwm_register_led(i, get_default_brightness());
+      }
+    }
+    if (pwm_led_count > 0)
+    {
+      led_pwm_init();
+    }
+  }
+}
+
+u8 device_has_indicator_pwm(void)
+{
+  return 1;
+}
+
+u8 pin_supports_pwm(GPIO_PinTypeDef pin)
+{
+  return (pin == GPIO_PD3 || pin == GPIO_PC0);
+}
+
+u8 is_indicator_led(led_t *led)
+{
+  for (int i = 0; i < relay_clusters_cnt; i++)
+  {
+    if (relay_clusters[i].indicator_led == led)
+    {
+      return 1;
+    }
+  }
+  return 0;
+}
+
+u8 get_default_brightness(void)
+{
+#ifdef DEFAULT_INDICATOR_BRIGHTNESS
+  return DEFAULT_INDICATOR_BRIGHTNESS;
+#else
+  return 2;
+#endif
+}
+#endif

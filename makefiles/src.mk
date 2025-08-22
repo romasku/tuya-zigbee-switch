@@ -43,6 +43,11 @@ $(BUILD_PATH)/$(SRC_DIR)/device_config/config_parser.o \
 $(BUILD_PATH)/$(SRC_DIR)/device_config/config_nv.o \
 $(BUILD_PATH)/$(SRC_DIR)/device_config/version_nv.o
 
+# Conditionally include PWM support
+ifeq ($(INDICATOR_PWM), true)
+OBJS += $(BUILD_PATH)/$(SRC_DIR)/base_components/led_pwm.o
+endif
+
 $(BUILD_PATH)/$(SRC_DIR)/%.o: $(PROJECT_PATH)/$(SRC_DIR)/%.c
 	@echo 'Building file: $<'
 	@$(CC) $(GCC_FLAGS) $(INCLUDE_PATHS) -c -o"$@" "$<"
