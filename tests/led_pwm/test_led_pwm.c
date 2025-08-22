@@ -296,5 +296,11 @@ int main(void)
   test_timer_resource_management();
   
   printf("\nAll LED PWM tests passed!\n");
+  printf("Note: Run additional comprehensive test suites:\n");
+  printf("- test_pwm_comprehensive.c for detailed functionality tests\n");
+  printf("- test_build_targets.c for Router/End Device build validation\n");
+  printf("- test_timer_conflicts.c for timer resource management\n");
+  printf("- test_timer_management.c for timer integration tests\n");
+  
   return 0;
 }
