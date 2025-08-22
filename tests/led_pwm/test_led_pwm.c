@@ -258,6 +258,28 @@ void test_pwm_indicator_modes(void)
   printf("PWM indicator modes tests passed!\n");
 }
 
+void test_timer_resource_management(void)
+{
+  printf("Testing timer resource management...\n");
+  
+  // Test timer availability check
+  u8 available = led_pwm_check_timer_availability();
+  assert(available == 0); // Should use software fallback
+  
+  // Test timer reservation
+  assert(led_pwm_reserve_timer() == 1);
+  led_pwm_release_timer();
+  
+  // Test PWM with timer management
+  led_pwm_register_led(0, 4);
+  led_pwm_init();
+  led_pwm_enable(0, 8);
+  led_pwm_disable(0);
+  led_pwm_deinit();
+  
+  printf("Timer resource management tests passed!\n");
+}
+
 int main(void)
 {
   printf("Starting LED PWM unit tests...\n\n");
@@ -271,6 +293,7 @@ int main(void)
   test_pwm_relay_integration();
   test_pwm_blink_integration();
   test_pwm_indicator_modes();
+  test_timer_resource_management();
   
   printf("\nAll LED PWM tests passed!\n");
   return 0;

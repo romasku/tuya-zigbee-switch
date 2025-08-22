@@ -24,6 +24,8 @@ typedef struct
   u8 active_channels;
   u8 current_cycle_step;
   u8 timer_enabled;
+  u8 hardware_timer_available;
+  u8 reserved_timer_id;
 } led_pwm_manager_t;
 
 typedef struct
@@ -92,6 +94,13 @@ void led_pwm_timer_handler(void);
 void led_pwm_update(void);
 
 /**
+ * @brief      Deinitialize PWM system and release resources
+ * @param	   none
+ * @return     none
+ */
+void led_pwm_deinit(void);
+
+/**
  * @brief      Register LED for PWM
  * @param      led_index - LED index
  * @param      default_brightness - Default brightness
@@ -113,6 +122,27 @@ u8 led_pwm_is_registered(u8 led_index);
  */
 u8 led_pwm_get_default_brightness(u8 led_index);
 
+/**
+ * @brief      Check if hardware timer is available for PWM use
+ * @param	   none
+ * @return     1 if available, 0 if not
+ */
+u8 led_pwm_check_timer_availability(void);
+
+/**
+ * @brief      Reserve hardware timer for PWM use
+ * @param	   none
+ * @return     1 if successful, 0 if failed
+ */
+u8 led_pwm_reserve_timer(void);
+
+/**
+ * @brief      Release reserved hardware timer
+ * @param	   none
+ * @return     none
+ */
+void led_pwm_release_timer(void);
+
 #else
 #define led_pwm_init()
 #define led_pwm_enable(idx, brightness)
@@ -124,6 +154,10 @@ u8 led_pwm_get_default_brightness(u8 led_index);
 #define led_pwm_is_registered(idx) 0
 #define led_pwm_get_default_brightness(idx) 0
 #define led_pwm_update()
+#define led_pwm_deinit()
+#define led_pwm_check_timer_availability() 0
+#define led_pwm_reserve_timer() 0
+#define led_pwm_release_timer()
 #endif
 
 #endif

@@ -11,6 +11,7 @@
 #include "base_components/network_indicator.h"
 #include "chip_8258/gpio.h"
 #include "config_nv.h"
+#include "device_db.h"
 
 extern ota_preamble_t baseEndpoint_otaInfo;
 
@@ -559,13 +560,20 @@ void apply_pwm_config_from_db(void)
 {
   if (device_has_indicator_pwm())
   {
+    // Register PWM LEDs based on device database configuration
     for (int i = 0; i < leds_cnt; i++)
     {
       if (is_indicator_led(&leds[i]) && pin_supports_pwm(leds[i].pin))
       {
-        led_pwm_register_led(i, get_default_brightness());
+        u8 brightness = get_default_brightness();
+        if (led_pwm_register_led(i, brightness))
+        {
+          // Successfully registered LED for PWM
+        }
       }
     }
+    
+    // Initialize PWM system only if LEDs were registered
     if (pwm_led_count > 0)
     {
       led_pwm_init();
@@ -575,16 +583,29 @@ void apply_pwm_config_from_db(void)
 
 u8 device_has_indicator_pwm(void)
 {
+  // Check device database for PWM capability
+  // PWM is only supported on Router builds, never on End Device builds
+#ifdef ROUTER
+  // For Moes ZS-EUB 2-gang Router variant: indicator_pwm: true
+  // This would ideally read from device_db.yaml, but for now we hardcode
+  // the known PWM-capable device configuration
   return 1;
+#else
+  // End Device builds never have PWM support to save memory and power
+  return 0;
+#endif
 }
 
 u8 pin_supports_pwm(GPIO_PinTypeDef pin)
 {
+  // Check if pin is in pwm_capable_pins list from device_db.yaml
+  // For Moes ZS-EUB 2-gang: pwm_capable_pins: [D3, C0]
   return (pin == GPIO_PD3 || pin == GPIO_PC0);
 }
 
 u8 is_indicator_led(led_t *led)
 {
+  // Check if LED is used as an indicator LED for any relay cluster
   for (int i = 0; i < relay_clusters_cnt; i++)
   {
     if (relay_clusters[i].indicator_led == led)
@@ -597,10 +618,12 @@ u8 is_indicator_led(led_t *led)
 
 u8 get_default_brightness(void)
 {
+  // Get default brightness from device_db.yaml
+  // For Moes ZS-EUB 2-gang Router: default_indicator_brightness: 2
 #ifdef DEFAULT_INDICATOR_BRIGHTNESS
   return DEFAULT_INDICATOR_BRIGHTNESS;
 #else
-  return 2;
+  return 2; // Default for Moes ZS-EUB 2-gang
 #endif
 }
 #endif
