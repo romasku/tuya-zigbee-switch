@@ -44,7 +44,7 @@ void relay_cluster_add_to_endpoint(zigbee_relay_cluster *cluster, zigbee_endpoin
   cluster->relay->callback_param = cluster;
   cluster->relay->on_change      = (ev_relay_callback_t)relay_cluster_on_relay_change;
 
-  relay_cluster_handle_startup_mode(cluster);
+  relay_cluster_handle_startup_mode(cluster); 
   sync_indicator_led(cluster);
 
   SETUP_ATTR(0, ZCL_ATTRID_ONOFF, ZCL_DATA_TYPE_BOOLEAN, ACCESS_CONTROL_READ | ACCESS_CONTROL_REPORTABLE, cluster->relay->on);
@@ -212,12 +212,12 @@ void relay_cluster_store_attrs_to_nv(zigbee_relay_cluster *cluster)
   nv_config_buffer.indicator_led_mode = cluster->indicator_led_mode;
   nv_config_buffer.indicator_led_on   = cluster->indicator_led->on;
 
-  nv_flashWriteNew(1, NV_MODULE_ZCL, NV_ITEM_ZCL_RELAY_CONFIG(cluster->endpoint), sizeof(zigbee_relay_cluster_config), (u8 *)&nv_config_buffer);
+  nv_flashWriteNew(1, NV_MODULE_APP, NV_ITEM_RELAY_CLUSTER_DATA(cluster->relay_idx), sizeof(zigbee_relay_cluster_config), (u8 *)&nv_config_buffer);
 }
 
 void relay_cluster_load_attrs_from_nv(zigbee_relay_cluster *cluster)
 {
-  nv_sts_t st = nv_flashReadNew(1, NV_MODULE_ZCL, NV_ITEM_ZCL_RELAY_CONFIG(cluster->endpoint), sizeof(zigbee_relay_cluster_config), (u8 *)&nv_config_buffer);
+  nv_sts_t st = nv_flashReadNew(1, NV_MODULE_APP, NV_ITEM_RELAY_CLUSTER_DATA(cluster->relay_idx), sizeof(zigbee_relay_cluster_config), (u8 *)&nv_config_buffer);
 
   if (st != NV_SUCC)
   {
@@ -229,7 +229,7 @@ void relay_cluster_load_attrs_from_nv(zigbee_relay_cluster *cluster)
 
 void relay_cluster_handle_startup_mode(zigbee_relay_cluster *cluster)
 {
-  nv_sts_t st = nv_flashReadNew(1, NV_MODULE_ZCL, NV_ITEM_ZCL_RELAY_CONFIG(cluster->endpoint), sizeof(zigbee_relay_cluster_config), (u8 *)&nv_config_buffer);
+  nv_sts_t st = nv_flashReadNew(1, NV_MODULE_APP, NV_ITEM_RELAY_CLUSTER_DATA(cluster->relay_idx), sizeof(zigbee_relay_cluster_config), (u8 *)&nv_config_buffer);
 
   if (st != NV_SUCC)
   {

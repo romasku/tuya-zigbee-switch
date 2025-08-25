@@ -388,12 +388,12 @@ void switch_cluster_store_attrs_to_nv(zigbee_switch_cluster *cluster)
   nv_config_buffer.level_move_rate = cluster->level_move->rate;
   nv_config_buffer.binded_mode  = cluster->binded_mode;
 
-  nv_flashWriteNew(1, NV_MODULE_ZCL, NV_ITEM_ZCL_SWITCH_CONFIG(cluster->endpoint), sizeof(zigbee_switch_cluster_config), (u8 *)&nv_config_buffer);
+  nv_flashWriteNew(1, NV_MODULE_APP, NV_ITEM_SWITCH_CLUSTER_DATA(cluster->switch_idx), sizeof(zigbee_switch_cluster_config), (u8 *)&nv_config_buffer);
 }
 
 void switch_cluster_load_attrs_from_nv(zigbee_switch_cluster *cluster)
 {
-  nv_sts_t st = nv_flashReadNew(1, NV_MODULE_ZCL, NV_ITEM_ZCL_SWITCH_CONFIG(cluster->endpoint), sizeof(zigbee_switch_cluster_config), (u8 *)&nv_config_buffer);
+  nv_sts_t st = nv_flashReadNew(1, NV_MODULE_APP, NV_ITEM_SWITCH_CLUSTER_DATA(cluster->switch_idx), sizeof(zigbee_switch_cluster_config), (u8 *)&nv_config_buffer);
 
   if (st != NV_SUCC)
   {

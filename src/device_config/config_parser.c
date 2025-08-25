@@ -65,7 +65,7 @@ void onResetClicked(void *_)
 void parse_config()
 {
   device_config_read_from_nv();
-  char *cursor = config.data;
+  char *cursor = device_config_str.data;
 
   const char *zb_manufacturer = extractNextEntry(&cursor);
 
@@ -164,6 +164,7 @@ void parse_config()
       level_move[switch_clusters_cnt].optionsMask = 0,
       level_move[switch_clusters_cnt].optionsOverride = 0,
 
+      switch_clusters[switch_clusters_cnt].switch_idx  = switch_clusters_cnt;
       switch_clusters[switch_clusters_cnt].mode        = ZCL_ONOFF_CONFIGURATION_SWITCH_TYPE_TOGGLE;
       switch_clusters[switch_clusters_cnt].action      = ZCL_ONOFF_CONFIGURATION_SWITCH_ACTION_TOGGLE_SIMPLE;
       switch_clusters[switch_clusters_cnt].relay_mode  = ZCL_ONOFF_CONFIGURATION_RELAY_MODE_SHORT;
@@ -190,6 +191,7 @@ void parse_config()
         relays[relays_cnt].off_pin = pin;
       }
 
+      relay_clusters[relay_clusters_cnt].relay_idx = relay_clusters_cnt;
       relay_clusters[relay_clusters_cnt].relay = &relays[relays_cnt];
 
       relays_cnt++;
@@ -242,7 +244,7 @@ void parse_config()
     zigbee_endpoint_register_self(&endpoints[index]);
   }
   cursor--;
-  while (cursor != config.data)
+  while (cursor != device_config_str.data)
   {
     cursor--;
     if (*cursor == '\0')
