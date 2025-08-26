@@ -94,6 +94,29 @@ const romasku = {
             description: "State of the relay indicator LED",
             access: "ALL",
         }),
+    relayIndicatorPwmMode: (name, endpointName) =>
+        binary({
+            name,
+            endpointName,
+            valueOn: ["ON", 1],
+            valueOff: ["OFF", 0],
+            cluster: "genOnOff",
+            attribute: {ID: 0xff03, type: 0x10},  // Boolean
+            description: "Enable PWM dimming for relay indicator LED",
+            access: "ALL",
+        }),
+    relayIndicatorPwmBrightness: (name, endpointName) =>
+        numeric({
+            name,
+            endpointName,
+            cluster: "genOnOff",
+            attribute: {ID: 0xff04, type: 0x20},  // uint8
+            description: "PWM brightness for relay indicator LED (0=off, 15=full, 6.25% steps)",
+            valueMin: 0,
+            valueMax: 15,
+            valueStep: 1,
+            access: "ALL",
+        }),
     networkIndicator: (name, endpointName) =>
         binary({
             name,
@@ -734,8 +757,12 @@ const definitions = [
             romasku.longPressDuration("switch_right_long_press_duration", "switch_right"),
             romasku.relayIndicatorMode("relay_left_indicator_mode", "relay_left"),
             romasku.relayIndicator("relay_left_indicator", "relay_left"),
+            romasku.relayIndicatorPwmMode("relay_left_indicator_pwm_mode", "relay_left"),
+            romasku.relayIndicatorPwmBrightness("relay_left_indicator_pwm_brightness", "relay_left"),
             romasku.relayIndicatorMode("relay_right_indicator_mode", "relay_right"),
             romasku.relayIndicator("relay_right_indicator", "relay_right"),
+            romasku.relayIndicatorPwmMode("relay_right_indicator_pwm_mode", "relay_right"),
+            romasku.relayIndicatorPwmBrightness("relay_right_indicator_pwm_brightness", "relay_right"),
         ],
         meta: { multiEndpoint: true },
         configure: async (device, coordinatorEndpoint, logger) => {
@@ -753,6 +780,20 @@ const definitions = [
                 max: constants.repInterval.MINUTE,
                 change: 1,
             });
+            
+            // Try to detect PWM support by reading PWM attributes
+            for (const endpoint of [endpoint3, endpoint4]) {
+                try {
+                    await endpoint.read('genOnOff', [0xff03, 0xff04], {manufacturerCode: 0x0000});
+                    // If we get here, PWM is supported
+                    if (!device.meta) device.meta = {};
+                    device.meta.pwmSupported = true;
+                    logger.info(`PWM support detected on endpoint ${endpoint.ID}`);
+                } catch (error) {
+                    // PWM attributes not available, likely End Device build or older firmware
+                    logger.debug(`PWM not supported on endpoint ${endpoint.ID}: ${error.message}`);
+                }
+            }
         },
         ota: true,
     },

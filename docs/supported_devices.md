@@ -3,6 +3,8 @@
 Note that rebranded versions may have different internals, requiring different pinouts (and therefore custom builds).  
 **Zigbee Manufacturer** is the most reliable device identifier.
 
+**⭐ PWM** indicates devices with PWM LED dimming support (Router builds only). See [pwm_led_dimming.md](pwm_led_dimming.md) for details.
+
 If your device contains a **supported Tuya Zigbee module** (ZTU, ZT2S, ZT3L), porting is relatively simple.  
 It consists of tracing (or guessing) the **board pinout**, adding an entry in the `device_db.yaml` file and running the build action. 
 
@@ -24,7 +26,7 @@ Also read:
 | [ZWSM16-2-Zigbee](https://www.zigbee2mqtt.io/devices/ZWSM16-2-Zigbee.html) | AVATTO ZWSM16-2-Zigbee (blue socket)  | _TZ3000_mtnpt6ws | router | Supported |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/9)  | 
 | [ZWSM16-3-Zigbee](https://www.zigbee2mqtt.io/devices/ZWSM16-3-Zigbee.html) | AVATTO ZWSM16-3-Zigbee (blue socket)  | _TZ3000_hbic3ka3 | router | Supported |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/56)  | 
 | [ZWSM16-4-Zigbee](https://www.zigbee2mqtt.io/devices/ZWSM16-4-Zigbee.html) | AVATTO ZWSM16-4-Zigbee (blue socket)  | _TZ3000_5ajpkyq6 | router | Supported |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/9)  | 
-| [ZS-EUB_2gang](https://www.zigbee2mqtt.io/devices/ZS-EUB_2gang.html) | Moes TS0012 (2 gang switch)  | _TZ3000_18ejxno0 | router / end_device | Supported |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/14)  | 
+| [ZS-EUB_2gang](https://www.zigbee2mqtt.io/devices/ZS-EUB_2gang.html) | Moes TS0012 (2 gang switch) ⭐ PWM  | _TZ3000_18ejxno0 | router / end_device | Supported |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/14)  | 
 | [TS0012](https://www.zigbee2mqtt.io/devices/TS0012.html) | Bseed TS0012 (2 gang switch)  | _TZ3000_f2slq5pj | router / end_device | Supported |   [link](https://github.com/romasku/tuya-zigbee-switch/pull/23)  | 
 | [TS0012](https://www.zigbee2mqtt.io/devices/TS0012.html) | Bseed TS0012 (2 gang switch)  | _TZ3000_xk5udnd6 | router / end_device | Supported |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/51)  | 
 | [LZWSM16-2](https://www.zigbee2mqtt.io/devices/LZWSM16-2.html) | Avatto TS0012  | _TZ3000_ljhbw1c9 | router / end_device | Supported |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/16)  | 

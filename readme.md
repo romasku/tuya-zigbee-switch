@@ -34,6 +34,7 @@ Users also consider this *the missing piece of a reliable smart home* because it
 - **Outgoing binds** (use switch to remotely control Zigbee lightbulbs - state & brightness)
 - Configurable **Long press** for push-switches (custom action & duration)
 - Custom **switch action modes**, allowing to synchonize switch position or binded devices with relay state
+- **PWM LED dimming** (16-level brightness control for indicator LEDs on Router builds)
 - Both **Router** & **EndDevice** modes for no-Neutral devices
 - **Detached mode** (generate Zigbee events without triggering relays)
 - **Power-on behavior** (on, off, previous, toggle)
