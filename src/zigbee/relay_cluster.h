@@ -9,6 +9,7 @@
 #include "base_components/relay.h"
 #include "base_components/led.h"
 #include "base_components/led_pwm.h"
+#include "device_config/pwm_nv.h"
 
 typedef struct
 {

@@ -6,7 +6,7 @@ TEST_NAME := led_pwm
 TEST_SOURCES := tests/led_pwm/test_led_pwm.c
 
 # Source files under test
-UNDER_TEST := src/base_components/led_pwm.c
+UNDER_TEST := src/base_components/led_pwm.c src/device_config/pwm_nv.c
 
 # Real dependencies (other source files needed)
 REAL_DEPS := 

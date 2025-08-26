@@ -1,59 +1,72 @@
-#include <stdio.h>
-#include <assert.h>
+#include "unity/unity.h"
+#include "base_components/led_pwm.h"
+#include "device_config/pwm_nv.h"
+#include "stubs/gpio.h"
+#include "stubs/clock.h"
 #include <string.h>
 
 #define INDICATOR_PWM_SUPPORT
-
-#include "base_components/led_pwm.h"
-#include "millis.h"
-#include "gpio.h"
 
 #define ZCL_ONOFF_INDICATOR_MODE_NORMAL   0
 #define ZCL_ONOFF_INDICATOR_MODE_OPPOSITE 1
 #define ZCL_ONOFF_INDICATOR_MODE_MANUAL   2
 
-led_t leds[5] = {
-    {.pin = 0xD3, .on_high = 1, .on = 0},
-    {.pin = 0xC0, .on_high = 1, .on = 0},
-    {.pin = 0xB5, .on_high = 1, .on = 0},
+led_t leds[5] = 
+{
+  {.pin = 0xD3, .on_high = 1, .on = 0},
+  {.pin = 0xC0, .on_high = 1, .on = 0},
+  {.pin = 0xB5, .on_high = 1, .on = 0},
 };
 u8 leds_cnt = 3;
-typedef struct {
-    u8 endpoint;
-    led_t *indicator_led;
-    u8 indicator_led_mode;
+typedef struct
+{
+  u8 endpoint;
+  led_t *indicator_led;
+  u8 indicator_led_mode;
 #ifdef INDICATOR_PWM_SUPPORT
-    u8 pwm_enabled;
-    u8 pwm_brightness;
-    u8 pwm_saved_state;
+  u8 pwm_enabled;
+  u8 pwm_brightness;
+  u8 pwm_saved_state;
 #endif
 } zigbee_relay_cluster;
 
-zigbee_relay_cluster relay_clusters[4] = {
-    {.endpoint = 0, .indicator_led = &leds[0], .indicator_led_mode = ZCL_ONOFF_INDICATOR_MODE_NORMAL, .pwm_enabled = 0, .pwm_brightness = 2},
-    {.endpoint = 1, .indicator_led = &leds[1], .indicator_led_mode = ZCL_ONOFF_INDICATOR_MODE_NORMAL, .pwm_enabled = 0, .pwm_brightness = 3},
-    {.endpoint = 2, .indicator_led = NULL, .indicator_led_mode = ZCL_ONOFF_INDICATOR_MODE_NORMAL, .pwm_enabled = 0, .pwm_brightness = 0},
-    {.endpoint = 3, .indicator_led = NULL, .indicator_led_mode = ZCL_ONOFF_INDICATOR_MODE_NORMAL, .pwm_enabled = 0, .pwm_brightness = 0}
+zigbee_relay_cluster relay_clusters[4] = 
+{
+  {.endpoint = 0, .indicator_led = &leds[0], .indicator_led_mode = ZCL_ONOFF_INDICATOR_MODE_NORMAL, .pwm_enabled = 0, .pwm_brightness = 2},
+  {.endpoint = 1, .indicator_led = &leds[1], .indicator_led_mode = ZCL_ONOFF_INDICATOR_MODE_NORMAL, .pwm_enabled = 0, .pwm_brightness = 3},
+  {.endpoint = 2, .indicator_led = NULL, .indicator_led_mode = ZCL_ONOFF_INDICATOR_MODE_NORMAL, .pwm_enabled = 0, .pwm_brightness = 0},
+  {.endpoint = 3, .indicator_led = NULL, .indicator_led_mode = ZCL_ONOFF_INDICATOR_MODE_NORMAL, .pwm_enabled = 0, .pwm_brightness = 0}
 };
 u8 relay_clusters_cnt = 2;
 #ifdef INDICATOR_PWM_SUPPORT
+u8 relay_cluster_get_pwm_brightness(zigbee_relay_cluster *cluster)
+{
+  return cluster->pwm_brightness;
+}
+
 void relay_cluster_set_pwm_brightness(zigbee_relay_cluster *cluster, u8 brightness)
 {
   if (brightness > 15)
   {
     brightness = 15;
   }
+  
   cluster->pwm_brightness = brightness;
-}
-
-u8 relay_cluster_get_pwm_brightness(zigbee_relay_cluster *cluster)
-{
-  return cluster->pwm_brightness;
+  
+  pwm_nv_config_t config;
+  config.pwm_enabled = cluster->pwm_enabled;
+  config.pwm_brightness = cluster->pwm_brightness;
+  pwm_nv_write_config(cluster->endpoint, &config);
 }
 
 void relay_cluster_enable_pwm(zigbee_relay_cluster *cluster, u8 enable)
 {
   cluster->pwm_enabled = enable ? 1 : 0;
+  
+  pwm_nv_config_t config;
+  config.pwm_enabled = cluster->pwm_enabled;
+  config.pwm_brightness = cluster->pwm_brightness;
+  pwm_nv_write_config(cluster->endpoint, &config);
 }
 
 u8 relay_cluster_is_pwm_enabled(zigbee_relay_cluster *cluster)
@@ -92,34 +105,51 @@ void sync_indicator_led(zigbee_relay_cluster *cluster)
     }
   }
 }
+
+// Mock NV storage functions
+typedef enum {
+  NV_SUCC = 0,
+  NV_FAIL = 1
+} nv_sts_t;
+
+#define NV_MODULE_ZCL 1
+
+nv_sts_t nv_flashReadNew(u8 op, u8 module, u16 id, u16 len, u8 *buf)
+{
+  return NV_FAIL;
+}
+
+nv_sts_t nv_flashWriteNew(u8 op, u8 module, u16 id, u16 len, u8 *buf)
+{
+  return NV_SUCC;
+}
+
+void nv_flashSingleItemRemove(u8 module, u16 id, u16 len)
+{
+}
+
 #endif
 
 void test_pwm_registration(void)
 {
-  printf("Testing PWM LED registration...\n");
-  
   pwm_led_count = 0;
   memset(pwm_led_registry, 0, sizeof(pwm_led_registry));
   
-  assert(led_pwm_register_led(0, 2) == 1);
-  assert(led_pwm_register_led(1, 3) == 1);
-  assert(pwm_led_count == 2);
+  TEST_ASSERT_EQUAL(1, led_pwm_register_led(0, 2));
+  TEST_ASSERT_EQUAL(1, led_pwm_register_led(1, 3));
+  TEST_ASSERT_EQUAL(2, pwm_led_count);
   
-  assert(led_pwm_is_registered(0) == 1);
-  assert(led_pwm_is_registered(1) == 1);
-  assert(led_pwm_is_registered(2) == 0);
+  TEST_ASSERT_EQUAL(1, led_pwm_is_registered(0));
+  TEST_ASSERT_EQUAL(1, led_pwm_is_registered(1));
+  TEST_ASSERT_EQUAL(0, led_pwm_is_registered(2));
   
-  assert(led_pwm_get_default_brightness(0) == 2);
-  assert(led_pwm_get_default_brightness(1) == 3);
-  assert(led_pwm_get_default_brightness(2) == 0);
-  
-  printf("PWM LED registration tests passed!\n");
+  TEST_ASSERT_EQUAL(2, led_pwm_get_default_brightness(0));
+  TEST_ASSERT_EQUAL(3, led_pwm_get_default_brightness(1));
+  TEST_ASSERT_EQUAL(0, led_pwm_get_default_brightness(2));
 }
 
 void test_pwm_brightness_control(void)
 {
-  printf("Testing PWM brightness control...\n");
-  
   led_pwm_init();
   
   led_pwm_enable(0, 4);
@@ -127,14 +157,10 @@ void test_pwm_brightness_control(void)
   
   led_pwm_set_brightness(0, 0);
   led_pwm_set_brightness(1, 15);
-  
-  printf("PWM brightness control tests passed!\n");
 }
 
 void test_pwm_timing(void)
 {
-  printf("Testing PWM timing...\n");
-  
   led_pwm_init();
   led_pwm_enable(0, 4);
   
@@ -147,14 +173,10 @@ void test_pwm_timing(void)
       u8 expected_state = (step < 4) ? 1 : 0;
     }
   }
-  
-  printf("PWM timing tests passed!\n");
 }
 
 void test_pwm_state_save_restore(void)
 {
-  printf("Testing PWM state save/restore...\n");
-  
   led_pwm_init();
   led_pwm_enable(0, 6);
   
@@ -163,88 +185,67 @@ void test_pwm_state_save_restore(void)
   led_pwm_set_brightness(0, 10);
   
   led_pwm_restore_state(0);
-  
-  printf("PWM state save/restore tests passed!\n");
 }
 
 void test_pwm_enhanced_features(void)
 {
-  printf("Testing PWM enhanced features...\n");
-  
-  assert(led_pwm_validate_state() == 1);
+  TEST_ASSERT_EQUAL(1, led_pwm_validate_state());
   
   led_pwm_channel_t channel_info;
   led_pwm_init();
   led_pwm_enable(0, 8);
   
-  assert(led_pwm_get_channel_info(0, &channel_info) == 1);
-  assert(channel_info.led_index == 0);
-  assert(channel_info.enabled == 1);
+  TEST_ASSERT_EQUAL(1, led_pwm_get_channel_info(0, &channel_info));
+  TEST_ASSERT_EQUAL(0, channel_info.led_index);
+  TEST_ASSERT_EQUAL(1, channel_info.enabled);
   
-  assert(led_pwm_get_channel_info(2, &channel_info) == 0);
+  TEST_ASSERT_EQUAL(0, led_pwm_get_channel_info(2, &channel_info));
   
   led_pwm_reset_manager();
-  assert(led_pwm_get_channel_info(0, &channel_info) == 0);
-  
-  printf("PWM enhanced features tests passed!\n");
+  TEST_ASSERT_EQUAL(0, led_pwm_get_channel_info(0, &channel_info));
 }
 
 void test_pwm_gamma_correction(void)
 {
-  printf("Testing PWM gamma correction...\n");
-  
   led_pwm_init();
   led_pwm_enable(0, 4);
   
   led_pwm_channel_t channel_info;
   if (led_pwm_get_channel_info(0, &channel_info))
   {
-    printf("Original: 4, Gamma corrected: %d\n", channel_info.brightness_step);
   }
-  
-  printf("PWM gamma correction tests passed!\n");
 }
 
 void test_pwm_relay_integration(void)
 {
-  printf("Testing PWM relay cluster integration...\n");
-  
   relay_cluster_enable_pwm(&relay_clusters[0], 1);
-  assert(relay_cluster_is_pwm_enabled(&relay_clusters[0]) == 1);
+  TEST_ASSERT_EQUAL(1, relay_cluster_is_pwm_enabled(&relay_clusters[0]));
   
   relay_cluster_set_pwm_brightness(&relay_clusters[0], 8);
-  assert(relay_cluster_get_pwm_brightness(&relay_clusters[0]) == 8);
+  TEST_ASSERT_EQUAL(8, relay_cluster_get_pwm_brightness(&relay_clusters[0]));
   
   relay_cluster_set_pwm_brightness(&relay_clusters[0], 20);
-  assert(relay_cluster_get_pwm_brightness(&relay_clusters[0]) == 15);
-  
-  printf("PWM relay integration tests passed!\n");
+  TEST_ASSERT_EQUAL(15, relay_cluster_get_pwm_brightness(&relay_clusters[0]));
 }
 
 void test_pwm_blink_integration(void)
 {
-  printf("Testing PWM blink integration...\n");
-  
   relay_cluster_enable_pwm(&relay_clusters[0], 1);
   relay_cluster_set_pwm_brightness(&relay_clusters[0], 10);
   
   relay_cluster_led_blink(&relay_clusters[0], 100, 100, 3);
   
-  assert(relay_clusters[0].indicator_led->blink_times_left > 0);
+  TEST_ASSERT_GREATER_THAN(0, relay_clusters[0].indicator_led->blink_times_left);
   
-  assert(relay_clusters[0].pwm_saved_state == 10);
+  TEST_ASSERT_EQUAL(10, relay_clusters[0].pwm_saved_state);
   
   relay_clusters[0].indicator_led->blink_times_left = 0;
   
   sync_indicator_led(&relay_clusters[0]);
-  
-  printf("PWM blink integration tests passed!\n");
 }
 
 void test_pwm_indicator_modes(void)
 {
-  printf("Testing PWM with different indicator modes...\n");
-  
   relay_clusters[0].indicator_led_mode = ZCL_ONOFF_INDICATOR_MODE_NORMAL;
   relay_cluster_enable_pwm(&relay_clusters[0], 1);
   relay_cluster_set_pwm_brightness(&relay_clusters[0], 5);
@@ -254,53 +255,60 @@ void test_pwm_indicator_modes(void)
   
   relay_clusters[0].indicator_led_mode = ZCL_ONOFF_INDICATOR_MODE_MANUAL;
   sync_indicator_led(&relay_clusters[0]);
-  
-  printf("PWM indicator modes tests passed!\n");
 }
 
 void test_timer_resource_management(void)
 {
-  printf("Testing timer resource management...\n");
-  
-  // Test timer availability check
   u8 available = led_pwm_check_timer_availability();
-  assert(available == 0); // Should use software fallback
+  TEST_ASSERT_EQUAL(0, available);
   
-  // Test timer reservation
-  assert(led_pwm_reserve_timer() == 1);
+  TEST_ASSERT_EQUAL(1, led_pwm_reserve_timer());
   led_pwm_release_timer();
   
-  // Test PWM with timer management
   led_pwm_register_led(0, 4);
   led_pwm_init();
   led_pwm_enable(0, 8);
   led_pwm_disable(0);
   led_pwm_deinit();
+}
+
+void test_pwm_nv_storage(void)
+{
+  pwm_nv_config_t config;
+  u8 result = pwm_nv_read_config(1, &config);
+  TEST_ASSERT_EQUAL(0, result);
+  TEST_ASSERT_EQUAL(0, config.pwm_enabled);
+  TEST_ASSERT_EQUAL(2, config.pwm_brightness);
   
-  printf("Timer resource management tests passed!\n");
+  config.pwm_enabled = 1;
+  config.pwm_brightness = 8;
+  pwm_nv_write_config(1, &config);
+  
+  config.pwm_brightness = 20;
+  pwm_nv_write_config(1, &config);
+  
+  relay_cluster_set_pwm_brightness(&relay_clusters[0], 8);
+  relay_cluster_enable_pwm(&relay_clusters[0], 1);
+  
+  TEST_ASSERT_EQUAL(8, relay_clusters[0].pwm_brightness);
+  TEST_ASSERT_EQUAL(1, relay_clusters[0].pwm_enabled);
 }
 
 int main(void)
 {
-  printf("Starting LED PWM unit tests...\n\n");
+  UNITY_BEGIN();
   
-  test_pwm_registration();
-  test_pwm_brightness_control();
-  test_pwm_timing();
-  test_pwm_state_save_restore();
-  test_pwm_enhanced_features();
-  test_pwm_gamma_correction();
-  test_pwm_relay_integration();
-  test_pwm_blink_integration();
-  test_pwm_indicator_modes();
-  test_timer_resource_management();
+  RUN_TEST(test_pwm_registration);
+  RUN_TEST(test_pwm_brightness_control);
+  RUN_TEST(test_pwm_timing);
+  RUN_TEST(test_pwm_state_save_restore);
+  RUN_TEST(test_pwm_enhanced_features);
+  RUN_TEST(test_pwm_gamma_correction);
+  RUN_TEST(test_pwm_relay_integration);
+  RUN_TEST(test_pwm_blink_integration);
+  RUN_TEST(test_pwm_indicator_modes);
+  RUN_TEST(test_timer_resource_management);
+  RUN_TEST(test_pwm_nv_storage);
   
-  printf("\nAll LED PWM tests passed!\n");
-  printf("Note: Run additional comprehensive test suites:\n");
-  printf("- test_pwm_comprehensive.c for detailed functionality tests\n");
-  printf("- test_build_targets.c for Router/End Device build validation\n");
-  printf("- test_timer_conflicts.c for timer resource management\n");
-  printf("- test_timer_management.c for timer integration tests\n");
-  
-  return 0;
+  return UNITY_END();
 }

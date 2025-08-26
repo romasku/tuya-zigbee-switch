@@ -45,8 +45,17 @@ void relay_cluster_add_to_endpoint(zigbee_relay_cluster *cluster, zigbee_endpoin
   relay_cluster_load_attrs_from_nv(cluster);
 
 #ifdef INDICATOR_PWM_SUPPORT
-  cluster->pwm_enabled = 0;
-  cluster->pwm_brightness = led_pwm_get_default_brightness(endpoint->index);
+  pwm_nv_config_t pwm_config;
+  if (pwm_nv_read_config(endpoint->index, &pwm_config))
+  {
+    cluster->pwm_enabled = pwm_config.pwm_enabled;
+    cluster->pwm_brightness = pwm_config.pwm_brightness;
+  }
+  else
+  {
+    cluster->pwm_enabled = 0;
+    cluster->pwm_brightness = led_pwm_get_default_brightness(endpoint->index);
+  }
   cluster->pwm_saved_state = 0;
 #endif
 
@@ -370,6 +379,12 @@ void relay_cluster_set_pwm_brightness(zigbee_relay_cluster *cluster, u8 brightne
   
   cluster->pwm_brightness = brightness;
   
+  // Save to NV storage
+  pwm_nv_config_t config;
+  config.pwm_enabled = cluster->pwm_enabled;
+  config.pwm_brightness = cluster->pwm_brightness;
+  pwm_nv_write_config(cluster->endpoint, &config);
+  
   if (cluster->pwm_enabled)
   {
     sync_indicator_led(cluster);
@@ -384,6 +399,12 @@ u8 relay_cluster_get_pwm_brightness(zigbee_relay_cluster *cluster)
 void relay_cluster_enable_pwm(zigbee_relay_cluster *cluster, u8 enable)
 {
   cluster->pwm_enabled = enable ? 1 : 0;
+  
+  // Save to NV storage
+  pwm_nv_config_t config;
+  config.pwm_enabled = cluster->pwm_enabled;
+  config.pwm_brightness = cluster->pwm_brightness;
+  pwm_nv_write_config(cluster->endpoint, &config);
   
   sync_indicator_led(cluster);
 }
