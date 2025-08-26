@@ -16,7 +16,11 @@ typedef struct
   u8            endpoint;
   u8            startup_mode;
   u8            indicator_led_mode;
+#ifdef INDICATOR_PWM_SUPPORT
+  zclAttrInfo_t attr_infos[6];
+#else
   zclAttrInfo_t attr_infos[4];
+#endif
   relay_t *     relay;
   led_t *       indicator_led;
 #ifdef INDICATOR_PWM_SUPPORT

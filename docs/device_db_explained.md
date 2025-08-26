@@ -27,3 +27,20 @@ Information about all supported devices is kept inside `device_db.yaml`.
 |`status`                      | Device support status: <br> • **Supported** or **In progress** <br> • Shown in [supported_devices.md](./supported_devices.md)|
 |`github_issue`                | Link to device-related GitHub issue or pull request                                                                          |
 |`store`                       | Link to buy the exact same device: <br> • Preferably AliExpress (international, English, no affiliation)                     |
+|`indicator_pwm`               | **PWM LED dimming support** (Router builds only): <br> • `true` ➡ Enables software PWM for indicator LEDs <br> • `false` or omitted ➡ Standard on/off LED control <br> • Only available on Router builds with line+neutral power |
+|`default_indicator_brightness`| **Default PWM brightness** (0-15): <br> • Used when PWM is enabled but no user setting exists <br> • Range: 0=off, 15=full brightness <br> • Typical values: 2-4 for subtle indication |
+|`pwm_capable_pins`            | **GPIO pins supporting PWM**: <br> • List of pins that can use software PWM dimming <br> • Must match indicator LED pins in pinout <br> • Example: `[D3, C0]` for 2-gang switches |
+
+## PWM LED Dimming (Router Builds Only)
+
+The firmware supports software PWM dimming of indicator LEDs on Router builds. This feature adds Zigbee attributes for Home Assistant control:
+
+- **Dimming Mode** (`0xff03`): Boolean attribute to enable/disable PWM dimming
+- **Dimming Brightness** (`0xff04`): Numeric attribute (0-15) to control brightness level
+
+PWM attributes are only exposed when:
+1. Device is built as Router (has line+neutral power)
+2. `indicator_pwm: true` is set in device database
+3. Device has indicator LEDs defined in pinout
+
+End Device builds never include PWM support to conserve battery and reduce firmware size.

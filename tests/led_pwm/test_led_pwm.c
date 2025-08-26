@@ -1,6 +1,7 @@
 #include "unity/unity.h"
 #include "base_components/led_pwm.h"
 #include "device_config/pwm_nv.h"
+#include "custom_zcl/zcl_onoff_indicator.h"
 #include "stubs/gpio.h"
 #include "stubs/clock.h"
 #include <string.h>
@@ -294,6 +295,24 @@ void test_pwm_nv_storage(void)
   TEST_ASSERT_EQUAL(1, relay_clusters[0].pwm_enabled);
 }
 
+void test_pwm_zigbee_attributes(void)
+{
+  led_pwm_register_led(0, 4);
+  led_pwm_register_led(1, 6);
+  
+  relay_cluster_enable_pwm(&relay_clusters[0], 1);
+  relay_cluster_set_pwm_brightness(&relay_clusters[0], 10);
+  
+  TEST_ASSERT_EQUAL(1, relay_clusters[0].pwm_enabled);
+  TEST_ASSERT_EQUAL(10, relay_clusters[0].pwm_brightness);
+  
+  relay_cluster_set_pwm_brightness(&relay_clusters[0], 20);
+  TEST_ASSERT_EQUAL(15, relay_clusters[0].pwm_brightness);
+  
+  relay_cluster_enable_pwm(&relay_clusters[0], 0);
+  TEST_ASSERT_EQUAL(0, relay_clusters[0].pwm_enabled);
+}
+
 int main(void)
 {
   UNITY_BEGIN();
@@ -309,6 +328,7 @@ int main(void)
   RUN_TEST(test_pwm_indicator_modes);
   RUN_TEST(test_timer_resource_management);
   RUN_TEST(test_pwm_nv_storage);
+  RUN_TEST(test_pwm_zigbee_attributes);
   
   return UNITY_END();
 }

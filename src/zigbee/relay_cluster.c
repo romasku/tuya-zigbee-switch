@@ -67,17 +67,28 @@ void relay_cluster_add_to_endpoint(zigbee_relay_cluster *cluster, zigbee_endpoin
 
   SETUP_ATTR(0, ZCL_ATTRID_ONOFF, ZCL_DATA_TYPE_BOOLEAN, ACCESS_CONTROL_READ | ACCESS_CONTROL_REPORTABLE, cluster->relay->on);
   SETUP_ATTR(1, ZCL_ATTRID_START_UP_ONOFF, ZCL_DATA_TYPE_ENUM8, ACCESS_CONTROL_READ | ACCESS_CONTROL_WRITE, cluster->startup_mode);
+  u8 attr_count = 2;
   if (cluster->indicator_led != NULL)
   {
     SETUP_ATTR(2, ZCL_ATTRID_ONOFF_INDICATOR_MODE, ZCL_DATA_TYPE_ENUM8, ACCESS_CONTROL_READ | ACCESS_CONTROL_WRITE, cluster->indicator_led_mode);
     SETUP_ATTR(3, ZCL_ATTRID_ONOFF_INDICATOR_STATE, ZCL_DATA_TYPE_BOOLEAN, ACCESS_CONTROL_READ | ACCESS_CONTROL_WRITE, cluster->indicator_led->on);
+    attr_count = 4;
+
+#ifdef INDICATOR_PWM_SUPPORT
+    if (led_pwm_is_registered(cluster->endpoint))
+    {
+      SETUP_ATTR(4, ZCL_ATTRID_ONOFF_INDICATOR_DIMMING_MODE, ZCL_DATA_TYPE_BOOLEAN, ACCESS_CONTROL_READ | ACCESS_CONTROL_WRITE, cluster->pwm_enabled);
+      SETUP_ATTR(5, ZCL_ATTRID_ONOFF_INDICATOR_DIMMING_BRIGHTNESS, ZCL_DATA_TYPE_UINT8, ACCESS_CONTROL_READ | ACCESS_CONTROL_WRITE, cluster->pwm_brightness);
+      attr_count = 6;
+    }
+#endif
   }
 
   zigbee_endpoint_add_cluster(endpoint, 1, ZCL_CLUSTER_GEN_ON_OFF);
   zcl_specClusterInfo_t *info = zigbee_endpoint_reserve_info(endpoint);
   info->clusterId           = ZCL_CLUSTER_GEN_ON_OFF;
   info->manuCode            = MANUFACTURER_CODE_NONE;
-  info->attrNum             = cluster->indicator_led != NULL ? 4 : 2;
+  info->attrNum             = attr_count;
   info->attrTbl             = cluster->attr_infos;
   info->clusterRegisterFunc = zcl_onOff_register;
   info->clusterAppCb        = relay_cluster_callback_trampoline;
@@ -253,6 +264,20 @@ void relay_cluster_on_write_attr(zigbee_relay_cluster *cluster, zclWriteCmd_t *p
         led_off(cluster->indicator_led);
       }
     }
+#ifdef INDICATOR_PWM_SUPPORT
+    else if (pWriteReqCmd->attrList[index].attrID == ZCL_ATTRID_ONOFF_INDICATOR_DIMMING_MODE)
+    {
+      relay_cluster_enable_pwm(cluster, cluster->pwm_enabled);
+    }
+    else if (pWriteReqCmd->attrList[index].attrID == ZCL_ATTRID_ONOFF_INDICATOR_DIMMING_BRIGHTNESS)
+    {
+      if (cluster->pwm_brightness > 15)
+      {
+        cluster->pwm_brightness = 15;
+      }
+      relay_cluster_set_pwm_brightness(cluster, cluster->pwm_brightness);
+    }
+#endif
   }
   if (cluster->indicator_led_mode != ZCL_ONOFF_INDICATOR_MODE_MANUAL)
   {
