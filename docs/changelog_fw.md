@@ -2,6 +2,10 @@
 
 ### 1.0.20:
 
+- Do not reset device configuration on Zigbee network leave. 
+
+### 1.0.20:
+
 - Fix bug when changing device config string crashed 3 and 4 gang devices. Due to this change, device settings may reset after OTA update.
 - Fix bug when detached mode doesn't work for Toggle switches.
 

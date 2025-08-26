@@ -30,7 +30,9 @@ $(BUILD_PATH)/proj/os/ev_timer.o
 #$(BUILD_PATH)/proj/drivers/drv_hw.o \
 #$(BUILD_PATH)/proj/drivers/drv_flash.o \
 
+$(BUILD_PATH)/proj/drivers/drv_nv.o: GCC_FLAGS += -Dnv_resetToFactoryNew=nv_resetToFactoryNew__sdk
+
 # Each subdirectory must supply rules for building sources it contributes
 $(BUILD_PATH)/proj/%.o: $(SDK_PATH)/proj/%.c
 	@echo 'Building file: $<'
-	@$(CC) $(GCC_FLAGS) $(INCLUDE_PATHS) -c -o"$@" "$<"
+	$(CC) $(GCC_FLAGS) $(INCLUDE_PATHS) -c -o"$@" "$<"
