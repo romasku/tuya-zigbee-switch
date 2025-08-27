@@ -375,6 +375,19 @@ TS0003:
   human_name: Moes MS-104CZ
   status: Supported
   github_issue: null
+TS0003_BSEED:
+  config_str: 7aqaupa9;TS0003-BS;SC3u;SB7u;SB5u;RC2;RB4;RC0;LA0i;M;
+  device_type: router
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 43549
+  stock_converter_model: TS0003
+  tuya_manufacturer_name: _TZ3000_7aqaupa9
+  zb_module: ZT3L
+  human_name: Bseed 3-gang touch switch with Neutral
+  status: Supported
+  github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/125
+  store: https://www.aliexpress.com/item/1005003475686409.html
 TS0003_IHS:
   config_str: mhhxxjrs;TS0003-IHS;BC3u;LC2i;SD7u;RD2;SB4u;RD3;SB5u;RC0;
   device_type: router
