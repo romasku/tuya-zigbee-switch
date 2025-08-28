@@ -426,6 +426,21 @@ TS0013_GIRIER:
   human_name: Girier-ZB08
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/37
+TS0013_MANHOT:
+  config_str: tqwydnqn;TS0013-MH;SC4u;SD7u;SB7u;ID2;IC3;IB1;RB4A0;RD4B5;RC0C2;M;
+  device_type: end_device
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 43550
+  stock_converter_model: TS0013
+  tuya_manufacturer_name: _TZ3000_tqwydnqn
+  zb_module: ZT3L
+  human_name: Manhot 3-gang button switch with optional Neutral
+  status: In progress
+  github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/128
+  store:
+  - https://www.aliexpress.com/item/1005008300010160.html
+  - https://www.aliexpress.com/item/1005008867890261.html
 TS0004_AVATTO_NEUTRAL:
   config_str: ltt60asa;TS0004-Avv;BB5u;LC1;SB4u;RC0;SD2u;RC4;SC3u;RD4;SC2u;RD7;
   device_type: router
