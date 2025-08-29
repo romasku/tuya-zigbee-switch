@@ -79,6 +79,23 @@ class OnOffWithIndicatorCluster(CustomCluster, OnOff):
             access="rw",
             is_manufacturer_specific=True,
         )
+        pwm_mode: Final = ZCLAttributeDef(
+            id=0xff03,
+            type=t.Bool,
+            access="rw",
+            is_manufacturer_specific=True,
+        )
+        pwm_brightness: Final = ZCLAttributeDef(
+            id=0xff04,
+            type=t.uint8_t,
+            access="rw",
+            is_manufacturer_specific=True,
+        )
+
+# Devices with PWM support (Router builds only)
+PWM_CAPABLE_CONFIGS = {
+    "Moes-2-gang",  # Moes ZS-EUB 2-gang Router variant
+}
 
 CONFIGS = [
     "Tuya-TS0012-custom;TS0012-custom;BA0f;LD7;SC2f;SC3f;RC0;RB4;",
@@ -226,6 +243,29 @@ for config in CONFIGS:
                 endpoint_id=endpoint_id,
             )
         )
+        
+        # Add PWM controls for PWM-capable devices (Router builds only)
+        if zb_model in PWM_CAPABLE_CONFIGS:
+            builder = (
+                builder
+                .switch(
+                    OnOffWithIndicatorCluster.AttributeDefs.pwm_mode.name,
+                    OnOffWithIndicatorCluster.cluster_id,
+                    translation_key="relay_led_pwm_mode",
+                    fallback_name="Relay LED PWM mode",
+                    endpoint_id=endpoint_id,
+                )
+                .number(
+                    OnOffWithIndicatorCluster.AttributeDefs.pwm_brightness.name,
+                    OnOffWithIndicatorCluster.cluster_id,
+                    translation_key="relay_led_pwm_brightness",
+                    fallback_name="Relay LED PWM brightness",
+                    min_value=0,
+                    max_value=15,
+                    step=1,
+                    endpoint_id=endpoint_id,
+                )
+            )
 
 
 

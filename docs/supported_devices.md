@@ -3,7 +3,7 @@
 Note that rebranded versions may have different internals, requiring different pinouts (and therefore custom builds).  
 **Zigbee Manufacturer** is the most reliable device identifier.
 
-**⭐ PWM** indicates devices with PWM LED dimming support (Router builds only). See [pwm_led_dimming.md](pwm_led_dimming.md) for details.
+**⭐ PWM** indicates devices with PWM LED dimming support (Router builds only). See [pwm_led_dimming.md](pwm_led_dimming.md) and [zha_pwm_integration.md](zha_pwm_integration.md) for details.
 
 If your device contains a **supported Tuya Zigbee module** (ZTU, ZT2S, ZT3L), porting is relatively simple.  
 It consists of tracing (or guessing) the **board pinout**, adding an entry in the `device_db.yaml` file and running the build action. 
