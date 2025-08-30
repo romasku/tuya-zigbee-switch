@@ -21,7 +21,9 @@ Changing the index can be done in Z2M settings or in:
 
 <details>
 <summary> <code>zigbee2mqtt/data/configuration.yaml</code> for Z2M </summary>  
+<br>
 
+For current Z2M version:
 ```yaml
 ota:
   zigbee_ota_override_index_location: >-
@@ -40,6 +42,7 @@ ota:
 
 <details>
 <summary> <code>homeassistant/configuration.yaml</code> for ZHA </summary>  
+<br>
 Note that we also enabled quirks.
 
 ```yaml
@@ -52,7 +55,10 @@ zha:
         - type: z2m
           url: LINK_OR_PATH
 ```
+
+More details about ZHA updating here: [#62](https://github.com/romasku/tuya-zigbee-switch/issues/62)
 </details>
+<br>
 
 **A restart is required** for the new index to apply.
 
@@ -122,8 +128,12 @@ https://raw.githubusercontent.com/romasku/tuya-zigbee-switch/refs/heads/main/zig
 Currently, you have to manually (re)download them from [`zha/`][quirks] or [`zigbee2mqtt/converters/`][converters]  
 and (re)place them in `homeassistant/custom_zha_quirks/` or `zigbee2mqtt/data/external_converters` respectively.  
 
-- The custom quirks path has to be specified in the configuration file (see OTA index).  
-- The external converters directory has to be manually created.
+- ZHA: The custom quirks path has to be specified in the configuration file (see OTA index).  
+- Z2M: The external converters directory has to be manually created.
+
+**To apply** the newly downloaded quirks / converters:
+- restart ZHA / Z2M
+- reconfigure device
 
 The quirks / converters **independently receive updates** to:  
 - support new features from FW updates
@@ -161,8 +171,8 @@ Hopefully, you now have a working device with custom firmware! 😊
 (resetting erases the configuration from flash memory so it can prevent issues)
 3. Perform the OTA update\*
 4. Update the quirks / converters and restart ZHA / Z2M
-5. Interview the device(s)  
-(updates the manufacturer and model names)
+5. Interview the device(s) - option missing from ZHA  
+(updates the manufacturer and model names - not mandatory, as backwards compatibility is kept)
 6. Reconfigure the devices(s)  
 (updates reporting and endpoints, keeps binds and user settings)
 
