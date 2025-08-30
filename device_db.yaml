@@ -80,7 +80,7 @@ TS0001:
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/6
 TS0002_GIRIER:
-  config_str: zmy4lslw;TS0002-custom;BD2u;LC2;SB5u;RC4;SB4u;RC3;
+  config_str: zmy4lslw;TS0002-GIR;BD2u;LC2;SB5u;RC4;SB4u;RC3;
   device_type: router
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
@@ -89,6 +89,8 @@ TS0002_GIRIER:
   tuya_manufacturer_name: _TZ3000_zmy4lslw
   old_manufacturer_names:
   - Tuya-TS0002-custom
+  old_zb_models:
+  - TS0002-custom
   zb_module: ZT2S
   human_name: GIRIER 2 Gang
   status: Supported
@@ -212,7 +214,8 @@ BSEED_2_GANG_SWITCH:
   - Bseed-2-gang
   zb_module: ZTU
   human_name: Bseed TS0012 (2 gang switch)
-  status: Supported
+  status: In progress
+  info: Pin C3 disables both LEDs ?
   github_issue: https://github.com/romasku/tuya-zigbee-switch/pull/23
 BSEED_2_GANG_SWITCH_2:
   config_str: xk5udnd6;Bseed-2-gang-2;SB5u;SD4u;RC0B6;RA1D7;ID2;ID3;LC3;M;
@@ -312,7 +315,8 @@ WHD02_2:
   - Tuya-WHD02-custom
   zb_module: ZT2S
   human_name: No-name 1 gang switch with no rf shiled ZT2S
-  status: In progress, tuya_manufacturer_name is not confirmed
+  status: In progress
+  info: tuya_manufacturer_name is not confirmed ?
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/24
 WHD02_3:
   config_str: skueekg3;WHD02-custom;BB1u;LB4;SD2u;RD3;
@@ -326,7 +330,8 @@ WHD02_3:
   - Tuya-WHD02-custom
   zb_module: ZT2S
   human_name: No-name 1 gang switch with no rf shiled ZT2S
-  status: In progress, tuya_manufacturer_name is not confirmed
+  status: In progress
+  info: tuya_manufacturer_name is not confirmed ?
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/44
 ZEMISMART_2_GANG:
   config_str: zmlunnhy;Zemi-2-gang;SC3U;SD2U;IB7;ID7;RB5C4;RC2D4;
@@ -341,8 +346,9 @@ ZEMISMART_2_GANG:
   old_manufacturer_names:
   - Zemi-2-gang
   zb_module: ZT3L
-  human_name: Internet search says this is Zemismart 2 gang switch, needs confirmation
+  human_name: Zemismart 2 gang switch (needs confirmation)
   status: In progress
+  info: Untested
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/19
 TS0011_AVATTO:
   config_str: hbxsdd6k;TS0011-avatto;BB4u;LB5;SC0u;RC2;
@@ -451,7 +457,8 @@ TS0004_AVATTO_NEUTRAL:
   - TS0004-Avv
   zb_module: ZTU
   human_name: Avatto 4 gang switch module with N
-  status: WIP, check issue for current status.
+  status: In progress
+  info: Some issues with reporting and groups
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/42
 TS0004:
   config_str: mmkbptmx;TS0004-custom;BB6u;LB1;SC1u;RB7;SC2u;RB5;SC3u;RB4;SD2u;RC4;
@@ -465,7 +472,7 @@ TS0004:
   - Tuya-TS0004-custom
   zb_module: ZTU
   human_name: No-name 4 gang switch module with N
-  status: Untested
+  status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/66
   store: https://www.aliexpress.com/item/1005005748264739.html
 AVATTO_3_GANG_TOUCH:
@@ -481,6 +488,7 @@ AVATTO_3_GANG_TOUCH:
   # override_z2m_device: 37022474_2
   zb_module: ZTU
   human_name: Avatto Zigbee 3 Gang (ZTS02RD-US-W3)
-  status: WIP, expiremntal, see issue.
+  status: In progress
+  info: Indicator LEDs are hard wired to buttons, but they can be forced on with C4 ?
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/41
   store: https://www.aliexpress.com/item/1005007097427150.html
