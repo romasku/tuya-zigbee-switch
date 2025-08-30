@@ -468,6 +468,21 @@ TS0004:
   status: Untested
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/66
   store: https://www.aliexpress.com/item/1005005748264739.html
+TS0004_MHCOZY:
+  config_str: imaccztn;TS0004-MC;LC3;SD7u;SC0u;SB5u;SB7u;RD2;RC2;RD4;RA0;M;
+  device_type: router
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 43551
+  stock_converter_model: TS0004
+  tuya_manufacturer_name: _TZ3000_imaccztn
+  override_z2m_device: TYWB 4ch-RF
+  zb_module: ZT3L
+  human_name: MHCOZY TYWB 4ch-RF (4 channel board with microUSB)
+  status: In progress
+  info: Unknown reset button pin (C4, B4, B1)
+  github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/130
+  store: https://www.aliexpress.com/item/1005005457296054.html
 AVATTO_3_GANG_TOUCH:
   config_str: avky2mvc;Avatto-3-touch;LB5;SD3u;RC2;SD7u;RC3;SD4u;RD2;M;
   device_type: router
