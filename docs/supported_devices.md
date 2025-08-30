@@ -34,10 +34,12 @@ Also read:
 | [TS0012](https://www.zigbee2mqtt.io/devices/TS0012.html) | Internet search says this is Zemismart 2 gang switch, needs confirmation  | _TZ3000_zmlunnhy | router / end_device | In progress |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/19)  | 
 | [LZWSM16-1](https://www.zigbee2mqtt.io/devices/LZWSM16-1.html) | Avatto TS0011  | _TZ3000_hbxsdd6k | router / end_device | Supported |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/16)  | 
 | [TS0003](https://www.zigbee2mqtt.io/devices/TS0003.html) | Moes MS-104CZ  | _TZ3000_pfc7i3kt | router | Supported |    -  | 
+| [TS0003](https://www.zigbee2mqtt.io/devices/TS0003.html) | Bseed 3-gang touch switch with Neutral  | _TZ3000_7aqaupa9 | router | Supported |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/125)  | 
 | [TS0003_switch_module_2](https://www.zigbee2mqtt.io/devices/TS0003_switch_module_2.html) | IHSENO 3-gang Neutral  | _TZ3000_mhhxxjrs | router | Supported |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/85)  | 
 | [TS0004_switch_module_2](https://www.zigbee2mqtt.io/devices/TS0004_switch_module_2.html) | IHSENO 4-gang Neutral  | _TZ3000_knoj8lpk | router | Supported |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/105)  | 
 | [ZB08](https://www.zigbee2mqtt.io/devices/ZB08.html) | Girier-ZB08  | _TZ3000_ypgri8yz | router / end_device | Supported |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/37)  | 
 | [TS0004_switch_module](https://www.zigbee2mqtt.io/devices/TS0004_switch_module.html) | Avatto 4 gang switch module with N  | _TZ3000_ltt60asa | router | WIP, check issue for current status. |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/42)  | 
 | [TS0004_switch_module](https://www.zigbee2mqtt.io/devices/TS0004_switch_module.html) | No-name 4 gang switch module with N  | _TZ3000_mmkbptmx | router | Untested |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/66)  | 
+| [TYWB 4ch-RF](https://www.zigbee2mqtt.io/devices/TYWB 4ch-RF.html) | MHCOZY TYWB 4ch-RF (4 channel board with microUSB)  | _TZ3000_imaccztn | router | In progress |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/130)  | 
 | [TS0003_switch_3_gang](https://www.zigbee2mqtt.io/devices/TS0003_switch_3_gang.html) | Avatto Zigbee 3 Gang (ZTS02RD-US-W3)  | _TZ3000_avky2mvc | router | WIP, expiremntal, see issue. |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/41)  | 
 

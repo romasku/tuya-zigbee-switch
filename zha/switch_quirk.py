@@ -125,11 +125,13 @@ CONFIGS = [
     "zmlunnhy;Zemi-2-gang;SC3U;SD2U;IB7;ID7;RB5C4;RC2D4;",
     "hbxsdd6k;TS0011-avatto;BB4u;LB5;SC0u;RC2;",
     "pfc7i3kt;TS0003-custom;BD3u;SC1u;SD7u;SC3u;RB5;RD4;RB4;",
+    "7aqaupa9;TS0003-BS;SC3u;SB7u;SB5u;RC2;RB4;RC0;LA0i;M;",
     "mhhxxjrs;TS0003-IHS;BC3u;LC2i;SD7u;RD2;SB4u;RD3;SB5u;RC0;",
     "knoj8lpk;TS0004-IHS;BC3u;LC2i;SB5u;RD2;SB4u;RD3;SD7u;RC0;SD4u;RC1;",
     "ypgri8yz;ZB08-custom;BA0u;LD7;SC2u;RC0;SC3u;RB4;SD2u;RB5;",
     "ltt60asa;TS0004-Avv;BB5u;LC1;SB4u;RC0;SD2u;RC4;SC3u;RD4;SC2u;RD7;",
     "mmkbptmx;TS0004-custom;BB6u;LB1;SC1u;RB7;SC2u;RB5;SC3u;RB4;SD2u;RC4;",
+    "imaccztn;TS0004-MC;LC3;SD7u;SC0u;SB5u;SB7u;RD2;RC2;RD4;RA0;M;",
     "avky2mvc;Avatto-3-touch;LB5;SD3u;RC2;SD7u;RC3;SD4u;RD2;M;",
 ]
 
