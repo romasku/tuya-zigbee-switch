@@ -53,6 +53,21 @@ TS0002_OXT:
   human_name: OXT 2-gang switch
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/49
+TS0002_AUBESS:
+  config_str: lmlsduws;TS0002-AUB;LB1;BC4u;RB7;SC2u;RB4;SC3u;
+  device_type: router
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 43553
+  stock_converter_model: TS0002_basic
+  tuya_manufacturer_name: _TZ3000_lmlsduws
+  override_z2m_device: TMZ02
+  zb_module: ZT2S
+  human_name: Aubess TMZ02
+  status: Supported
+  build: yes
+  github_issue: https://github.com/romasku/tuya-zigbee-switch/pull/153
+  store: https://www.aliexpress.com/item/1005005748264739.html
 TS0002_MOES:
   config_str: qaa59zqd;TS0002-MS;BB1u;LC3;RD2;SB5u;RC2;SB4u;
   device_type: router
