@@ -84,6 +84,14 @@ status_t relay_cluster_callback(zigbee_relay_cluster *cluster, zclIncomingAddrIn
   {
     relay_cluster_toggle(cluster);
   }
+  else if (cmdId == ZCL_CMD_OFF_WITH_EFFECT)
+  {
+    relay_cluster_off(cluster);
+  }
+  else if (cmdId == ZCL_CMD_ON_WITH_RECALL_GLOBAL_SCENE)
+  {
+    relay_cluster_on(cluster);
+  }
   else
   {
     printf("Unknown command: %d\r\n", cmdId);
