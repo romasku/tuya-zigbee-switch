@@ -8,6 +8,6 @@ REAL_DEPS         :=
 # stubs/fakes replacing heavy deps
 STUBS             := tests/stubs/gpio.c tests/stubs/clock.c
 
-INCLUDES          := -Iinclude -Isrc -Itests/unity/src
+INCLUDES_button   := -Iinclude
 CFLAGS_EXTRA      := -DUNIT_TEST
 LDFLAGS_EXTRA     :=

@@ -5,6 +5,8 @@
 #include "tl_common.h"
 #include "led.h"
 #include "millis.h"
+#include <string.h>
+
 led_pwm_config_t pwm_led_registry[MAX_PWM_LEDS];
 u8 pwm_led_count = 0;
 
@@ -306,11 +308,10 @@ static void led_pwm_remove_channel(u8 led_index)
 
 static void led_pwm_timer_init(void)
 {
-  // Calculate PWM step interval based on desired frequency
   pwm_step_interval_ms = 1000 / (PWM_BASE_FREQUENCY_HZ * PWM_RESOLUTION_STEPS);
   if (pwm_step_interval_ms == 0)
   {
-    pwm_step_interval_ms = 1; // Minimum 1ms interval
+    pwm_step_interval_ms = 1;
   }
 
   last_pwm_update = millis();
@@ -336,25 +337,11 @@ void led_pwm_update(void)
   }
 }
 
-#endif // INDICATOR_PWM_SUPPORT/*
-*
- * @brief      Audit existing timer usage to avoid conflicts
- * @param	   none
- * @return     1 if safe to use hardware timer, 0 if conflicts detected
- */
 static u8 led_pwm_audit_timer_usage(void)
 {
-  // Check if system is using hardware timers that would conflict
-  // For now, we assume software-only approach is safest
-  // Future: Add hardware timer detection and conflict resolution
   return 0; // Use software fallback by default
 }
 
-/**
- * @brief      Initialize timer resource management
- * @param	   none
- * @return     none
- */
 static void led_pwm_init_timer_resources(void)
 {
   if (timer_resources_checked)
@@ -362,7 +349,6 @@ static void led_pwm_init_timer_resources(void)
     return;
   }
 
-  // Audit existing timer usage
   pwm_manager.hardware_timer_available = led_pwm_audit_timer_usage();
   timer_resources_checked = 1;
 }
@@ -379,25 +365,13 @@ u8 led_pwm_check_timer_availability(void)
 
 u8 led_pwm_reserve_timer(void)
 {
-  if (!pwm_manager.hardware_timer_available)
-  {
-    // Use software fallback - always succeeds
-    return 1;
-  }
-
-  // Future: Reserve specific hardware timer
-  // For now, software scheduling is used
-  pwm_manager.reserved_timer_id = 0xFF; // Software timer ID
+  pwm_manager.reserved_timer_id = 0xFF;
   return 1;
 }
 
 void led_pwm_release_timer(void)
 {
-  if (pwm_manager.reserved_timer_id != 0xFF)
-  {
-    // Future: Release hardware timer resource
-    pwm_manager.reserved_timer_id = 0xFF;
-  }
+  pwm_manager.reserved_timer_id = 0xFF;
 }
 
 void led_pwm_deinit(void)
@@ -428,3 +402,5 @@ void led_pwm_deinit(void)
   memset(&pwm_manager, 0, sizeof(pwm_manager));
   pwm_manager.reserved_timer_id = 0xFF;
 }
+
+#endif // INDICATOR_PWM_SUPPORT

@@ -6,6 +6,13 @@
 #include "configs/nv_slots_cfg.h"
 #include "custom_zcl/zcl_onoff_indicator.h"
 
+#ifdef INDICATOR_PWM_SUPPORT
+#include "base_components/led.h"
+#include "base_components/led_pwm.h"
+extern led_t leds[];
+extern u8 leds_cnt;
+#endif
+
 
 
 status_t relay_cluster_callback(zigbee_relay_cluster *cluster, zclIncomingAddrInfo_t *pAddrInfo, u8 cmdId, void *cmdPayload);
