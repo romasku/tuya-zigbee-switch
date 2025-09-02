@@ -16,10 +16,10 @@ STUBS := tests/stubs/millis.c \
          tests/stubs/gpio.c
 
 # Additional includes for this test
-INCLUDES_led_pwm := -Itests/sdk_headers_stubs -Itests/stubs
+INCLUDES := -Itests/sdk_headers_stubs -Itests/stubs
 
 # Additional compiler flags
 CFLAGS_EXTRA := -DINDICATOR_PWM_SUPPORT -DDEFAULT_INDICATOR_BRIGHTNESS=2
 
 # Additional linker flags
-LDFLAGS_led_pwm :=
+LDFLAGS_EXTRA :=

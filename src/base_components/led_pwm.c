@@ -399,8 +399,8 @@ void led_pwm_release_timer(void)
     pwm_manager.reserved_timer_id = 0xFF;
   }
 }
-v
-oid led_pwm_deinit(void)
+
+void led_pwm_deinit(void)
 {
   if (pwm_led_count == 0)
   {
