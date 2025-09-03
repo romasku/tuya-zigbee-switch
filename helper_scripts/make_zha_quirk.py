@@ -28,13 +28,30 @@ if __name__ == "__main__":
     configs = []
 
     for device in db.values():
-
+        
         # Skip if build == no. Defaults to yes
         if not device.get("build", True):
             continue
-
-        configs.append(device["config_str"]);
         
+        fields = device["config_str"].split(";")
+        current_mf_name = fields[0]
+        current_zb_model = fields[1]
+
+        old_mf_names = device.get("old_manufacturer_names", [])
+        old_zb_models = device.get("old_zb_models", [])
+
+        all_mf_names = [current_mf_name] + old_mf_names
+        all_zb_models = [current_zb_model] + old_zb_models
+
+        # cross product of all_mf_names × all_zb_models
+        for mf in all_mf_names:
+            for zb in all_zb_models:
+                new_fields = fields[:]  # copy
+                new_fields[0] = mf
+                new_fields[1] = zb
+                configs.append(";".join(new_fields))
+
+
     template = env.get_template("zha_quirk.py.jinja")
 
     print(template.render(configs=configs))
