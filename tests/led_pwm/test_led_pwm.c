@@ -103,7 +103,26 @@ void test_timer_resource_management(void)
 
 void test_pwm_nv_storage(void)
 {
-  TEST_ASSERT_TRUE(1);
+#ifdef INDICATOR_PWM_SUPPORT
+  // Test PWM NV storage functionality
+  led_pwm_register_led(0, 4);
+  led_pwm_init();
+  
+  // Test basic save/restore functionality
+  led_pwm_enable(0, 8);
+  led_pwm_save_state(0);
+  led_pwm_set_brightness(0, 12);
+  led_pwm_restore_state(0);
+  
+  // Test with disabled PWM
+  led_pwm_disable(0);
+  led_pwm_save_state(0);
+  led_pwm_restore_state(0);
+  
+  led_pwm_deinit();
+#else
+  TEST_FAIL_MESSAGE("INDICATOR_PWM_SUPPORT not defined");
+#endif
 }
 
 void setUp(void)

@@ -9,6 +9,8 @@
 #define PWM_BASE_FREQUENCY_HZ     500
 #define PWM_RESOLUTION_STEPS      16
 #define MAX_PWM_LEDS              4
+#define INVALID_TIMER_ID          0xFF
+#define PWM_SOFTWARE_FALLBACK     0
 
 typedef struct
 {

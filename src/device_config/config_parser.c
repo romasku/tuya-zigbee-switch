@@ -11,7 +11,6 @@
 #include "base_components/network_indicator.h"
 #include "chip_8258/gpio.h"
 #include "config_nv.h"
-#include "device_db.h"
 
 extern ota_preamble_t baseEndpoint_otaInfo;
 
@@ -583,24 +582,23 @@ void apply_pwm_config_from_db(void)
 
 u8 device_has_indicator_pwm(void)
 {
-  // Check device database for PWM capability
-  // PWM is only supported on Router builds, never on End Device builds
-#ifdef ROUTER
-  // For Moes ZS-EUB 2-gang Router variant: indicator_pwm: true
-  // This would ideally read from device_db.yaml, but for now we hardcode
-  // the known PWM-capable device configuration
+#ifdef INDICATOR_PWM_SUPPORT
   return 1;
 #else
-  // End Device builds never have PWM support to save memory and power
   return 0;
 #endif
 }
 
 u8 pin_supports_pwm(GPIO_PinTypeDef pin)
 {
-  // Check if pin is in pwm_capable_pins list from device_db.yaml
-  // For Moes ZS-EUB 2-gang: pwm_capable_pins: [D3, C0]
+#ifdef INDICATOR_PWM_SUPPORT
+  // PWM capable pins for current device configuration
+  // TODO: Read from device_db.yaml pwm_capable_pins at build time
   return (pin == GPIO_PD3 || pin == GPIO_PC0);
+#else
+  (void)pin;
+  return 0;
+#endif
 }
 
 u8 is_indicator_led(led_t *led)

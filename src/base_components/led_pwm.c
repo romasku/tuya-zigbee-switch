@@ -13,7 +13,6 @@ u8 pwm_led_count = 0;
 static led_pwm_manager_t pwm_manager = {0};
 static u8 pwm_saved_states[MAX_PWM_LEDS] = {0};
 
-// Timer resource management
 static u32 last_pwm_update = 0;
 static u32 pwm_step_interval_ms = 0;
 static u8 timer_resources_checked = 0;
@@ -37,16 +36,14 @@ void led_pwm_init(void)
     return;
   }
 
-  // Initialize timer resource management
   led_pwm_init_timer_resources();
 
   memset(&pwm_manager, 0, sizeof(pwm_manager));
   pwm_manager.current_cycle_step = 0;
   pwm_manager.timer_enabled = 0;
   pwm_manager.hardware_timer_available = led_pwm_check_timer_availability();
-  pwm_manager.reserved_timer_id = 0xFF; // Invalid timer ID
+  pwm_manager.reserved_timer_id = INVALID_TIMER_ID;
 
-  // Only initialize timer if we have PWM LEDs registered
   if (pwm_led_count > 0)
   {
     led_pwm_timer_init();
@@ -339,7 +336,7 @@ void led_pwm_update(void)
 
 static u8 led_pwm_audit_timer_usage(void)
 {
-  return 0; // Use software fallback by default
+  return 0;
 }
 
 static void led_pwm_init_timer_resources(void)
@@ -365,13 +362,13 @@ u8 led_pwm_check_timer_availability(void)
 
 u8 led_pwm_reserve_timer(void)
 {
-  pwm_manager.reserved_timer_id = 0xFF;
+  pwm_manager.reserved_timer_id = INVALID_TIMER_ID;
   return 1;
 }
 
 void led_pwm_release_timer(void)
 {
-  pwm_manager.reserved_timer_id = 0xFF;
+  pwm_manager.reserved_timer_id = INVALID_TIMER_ID;
 }
 
 void led_pwm_deinit(void)
@@ -381,7 +378,6 @@ void led_pwm_deinit(void)
     return;
   }
 
-  // Disable all PWM channels
   for (u8 i = 0; i < MAX_PWM_LEDS; i++)
   {
     if (pwm_manager.channels[i].enabled)
@@ -390,7 +386,6 @@ void led_pwm_deinit(void)
     }
   }
 
-  // Release timer resources
   if (pwm_manager.timer_enabled)
   {
     led_pwm_timer_deinit();
@@ -398,9 +393,8 @@ void led_pwm_deinit(void)
     pwm_manager.timer_enabled = 0;
   }
 
-  // Clear manager state
   memset(&pwm_manager, 0, sizeof(pwm_manager));
-  pwm_manager.reserved_timer_id = 0xFF;
+  pwm_manager.reserved_timer_id = INVALID_TIMER_ID;
 }
 
 #endif // INDICATOR_PWM_SUPPORT

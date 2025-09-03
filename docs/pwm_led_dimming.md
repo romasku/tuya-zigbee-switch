@@ -1,24 +1,20 @@
 # PWM LED Dimming
 
-This document describes the PWM (Pulse Width Modulation) LED dimming feature for indicator LEDs on supported devices.
+PWM support allows fine-grained control of indicator LED brightness on Router builds with 16 discrete brightness levels (0-15).
 
-## Overview
-
-PWM support allows fine-grained control of indicator LED brightness on Router builds. This feature provides 16 discrete brightness levels (0-15) for smooth LED dimming.
-
-**Important**: PWM is only available on Router builds with line+neutral power. End Device builds do not support PWM to preserve battery life.
+> [!IMPORTANT]  
+> PWM is only available on Router builds with line+neutral power. End Device builds do not support PWM to preserve battery life.
 
 ## Supported Devices
 
-### Router Builds with PWM Support
-- **Moes ZS-EUB 2-gang Switch** (Router variant)
-  - Device database key: `MOES_2_GANG_SWITCH`
-  - PWM capable pins: D3, C0
-  - Default brightness: 2 (~12.5%)
+**Router builds with PWM:**
+- Moes ZS-EUB 2-gang Switch (`MOES_2_GANG_SWITCH`)
+  - PWM pins: D3, C0
+  - Default brightness: 2
 
-### End Device Builds
-- All End Device variants do not support PWM
-- PWM controls are automatically hidden in Z2M/ZHA
+**End Device builds:**
+- PWM not supported
+- PWM controls hidden in Z2M/ZHA
 
 ## Device Database Configuration
 
