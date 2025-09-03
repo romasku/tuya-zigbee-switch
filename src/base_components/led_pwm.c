@@ -10,12 +10,11 @@
 led_pwm_config_t pwm_led_registry[MAX_PWM_LEDS];
 u8 pwm_led_count = 0;
 
-static led_pwm_manager_t pwm_manager = {0};
+static led_pwm_manager_t pwm_manager;
 static u8 pwm_saved_states[MAX_PWM_LEDS] = {0};
 
 static u32 last_pwm_update = 0;
 static u32 pwm_step_interval_ms = 0;
-static u8 timer_resources_checked = 0;
 
 extern led_t leds[];
 extern u8 leds_cnt;
@@ -26,8 +25,6 @@ static s8 led_pwm_find_free_channel(void);
 static void led_pwm_remove_channel(u8 led_index);
 static void led_pwm_timer_init(void);
 static void led_pwm_timer_deinit(void);
-static u8 led_pwm_audit_timer_usage(void);
-static void led_pwm_init_timer_resources(void);
 
 void led_pwm_init(void)
 {
@@ -36,18 +33,11 @@ void led_pwm_init(void)
     return;
   }
 
-  led_pwm_init_timer_resources();
-
   memset(&pwm_manager, 0, sizeof(pwm_manager));
   pwm_manager.current_cycle_step = 0;
   pwm_manager.timer_enabled = 0;
-  pwm_manager.hardware_timer_available = led_pwm_check_timer_availability();
-  pwm_manager.reserved_timer_id = INVALID_TIMER_ID;
 
-  if (pwm_led_count > 0)
-  {
-    led_pwm_timer_init();
-  }
+  led_pwm_timer_init();
 }
 
 u8 led_pwm_register_led(u8 led_index, u8 default_brightness)
@@ -153,11 +143,8 @@ void led_pwm_enable(u8 led_index, u8 brightness_step)
 
   if (!pwm_manager.timer_enabled && pwm_manager.active_channels > 0)
   {
-    if (led_pwm_reserve_timer())
-    {
-      led_pwm_timer_init();
-      pwm_manager.timer_enabled = 1;
-    }
+    led_pwm_timer_init();
+    pwm_manager.timer_enabled = 1;
   }
 }
 
@@ -168,7 +155,6 @@ void led_pwm_disable(u8 led_index)
   if (pwm_manager.active_channels == 0 && pwm_manager.timer_enabled)
   {
     led_pwm_timer_deinit();
-    led_pwm_release_timer();
     pwm_manager.timer_enabled = 0;
   }
 }
@@ -334,42 +320,7 @@ void led_pwm_update(void)
   }
 }
 
-static u8 led_pwm_audit_timer_usage(void)
-{
-  return 0;
-}
 
-static void led_pwm_init_timer_resources(void)
-{
-  if (timer_resources_checked)
-  {
-    return;
-  }
-
-  pwm_manager.hardware_timer_available = led_pwm_audit_timer_usage();
-  timer_resources_checked = 1;
-}
-
-u8 led_pwm_check_timer_availability(void)
-{
-  if (!timer_resources_checked)
-  {
-    led_pwm_init_timer_resources();
-  }
-  
-  return pwm_manager.hardware_timer_available;
-}
-
-u8 led_pwm_reserve_timer(void)
-{
-  pwm_manager.reserved_timer_id = INVALID_TIMER_ID;
-  return 1;
-}
-
-void led_pwm_release_timer(void)
-{
-  pwm_manager.reserved_timer_id = INVALID_TIMER_ID;
-}
 
 void led_pwm_deinit(void)
 {
@@ -389,12 +340,10 @@ void led_pwm_deinit(void)
   if (pwm_manager.timer_enabled)
   {
     led_pwm_timer_deinit();
-    led_pwm_release_timer();
     pwm_manager.timer_enabled = 0;
   }
 
   memset(&pwm_manager, 0, sizeof(pwm_manager));
-  pwm_manager.reserved_timer_id = INVALID_TIMER_ID;
 }
 
 #endif // INDICATOR_PWM_SUPPORT

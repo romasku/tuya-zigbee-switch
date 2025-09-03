@@ -88,12 +88,6 @@ void test_pwm_state_save_restore(void)
 
 void test_timer_resource_management(void)
 {
-  u8 available = led_pwm_check_timer_availability();
-  TEST_ASSERT_EQUAL(0, available);
-  
-  TEST_ASSERT_EQUAL(1, led_pwm_reserve_timer());
-  led_pwm_release_timer();
-  
   led_pwm_register_led(0, 4);
   led_pwm_init();
   led_pwm_enable(0, 8);
