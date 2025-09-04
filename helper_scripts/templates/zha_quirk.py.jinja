@@ -1,9 +1,9 @@
 from typing import Final
 
 from zhaquirks import CustomCluster
-from zigpy.quirks.v2 import QuirkBuilder, ReportingConfig, SensorDeviceClass
+from zigpy.quirks.v2 import QuirkBuilder, ReportingConfig, SensorDeviceClass, EntityType
 from zigpy.zcl import ClusterType, foundation
-from zigpy.zcl.clusters.general import OnOffConfiguration, SwitchType, SwitchActions, MultistateInput, OnOff
+from zigpy.zcl.clusters.general import OnOffConfiguration, SwitchType, SwitchActions, MultistateInput, OnOff, Basic
 from zigpy.zcl.foundation import ZCLAttributeDef
 import zigpy.types as t
 
@@ -79,6 +79,18 @@ class CustomMultistateInputCluster(CustomCluster, MultistateInput):
         reporting_status: Final = foundation.ZCL_REPORTING_STATUS_ATTR
 
 
+class CustomBasicCluster(CustomCluster, Basic):
+
+    class AttributeDefs(foundation.BaseAttributeDefs):
+
+        networkIndicator = ZCLAttributeDef(
+            id=0xff01,
+            type=t.Bool,
+            access="rw",  
+            is_manufacturer_specific=True,
+        )
+
+
 class RelayIndicatorMode(t.enum8):
     Same = 0x00
     Opposite = 0x01
@@ -113,6 +125,7 @@ for config in CONFIGS:
     relay_cnt = 0
     switch_cnt = 0
     indicators_cnt = 0
+    has_dedicated_net_led = False
     for peripheral in peripherals:
         if peripheral[0] == "R":
             relay_cnt += 1
@@ -120,6 +133,8 @@ for config in CONFIGS:
             switch_cnt += 1
         if peripheral[0] == 'I':
             indicators_cnt += 1
+        if peripheral[0] == 'L':
+            has_dedicated_net_led = True
 
     builder =  QuirkBuilder(zb_manufacturer, zb_model)
 
@@ -228,6 +243,18 @@ for config in CONFIGS:
             )
         )
 
-
+    builder = (
+        builder
+        .removes(Basic.cluster_id, cluster_type=ClusterType.Client, endpoint_id=1)
+        .adds(CustomBasicCluster, endpoint_id=1)
+        .switch(
+            CustomBasicCluster.AttributeDefs.networkIndicator.name,
+            CustomBasicCluster.cluster_id,
+            translation_key="network_indicator",
+            fallback_name="Network indicator",
+            endpoint_id=1,
+            entity_type=EntityType.STANDARD,
+        )
+    )
 
     builder.add_to_registry()
