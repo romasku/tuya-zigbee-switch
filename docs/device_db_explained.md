@@ -25,6 +25,7 @@ Information about all supported devices is kept inside `device_db.yaml`.
 |`zb_module`                   | Zigbee module inside the device: <br> • Currently unused, planned for pinout validation <br> • Supported: ZTU, ZT2S, ZT3L    |
 |`human_name`                  | Full name of the device: <br> • Shown in [supported_devices.md](./supported_devices.md)                                      |
 |`status`                      | Device support status: <br> • **Supported** or **In progress** <br> • Shown in [supported_devices.md](./supported_devices.md)|
+|`info`                        | Why is the status In progress?                                                                                               |
 |`github_issue`                | Link to device-related GitHub issue or pull request                                                                          |
 |`store`                       | Link to buy the exact same device: <br> • Preferably AliExpress (international, English, no affiliation)                     |
 |`indicator_pwm`               | **PWM LED dimming support** (Router builds only): <br> • `true` ➡ Enables software PWM for indicator LEDs <br> • `false` or omitted ➡ Standard on/off LED control <br> • Only available on Router builds with line+neutral power |

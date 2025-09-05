@@ -26,7 +26,7 @@ Attach a probe to the TX pin of the switch and connect it to the RX pin of the r
 (You no longer need the SWS and RST connections. These are only for flashing.)  
 
 There are multiple options available for keeping the wires connected:  
-soldering, [3D printed jig][3D_model], laser cut jig, PCBite kit, holding them with your hand.  
+soldering, pogo-pins, [3D printed jig][3D_model], laser cut jig, PCBite kit, holding them with your hand.  
 You might need to desolder some components to access the pins.
 
 Use this command to find the port:

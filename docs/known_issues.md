@@ -1,6 +1,6 @@
 # 🚨 Known issues
 
-## Custom DEVICE CONFIG bricks unit (fixed in v18)
+## Custom DEVICE CONFIG bricks unit (fixed in v18-20)
 
 Discussion: [#77](https://github.com/romasku/tuya-zigbee-switch/issues/77)
 
@@ -22,7 +22,10 @@ Discussion: [#77](https://github.com/romasku/tuya-zigbee-switch/issues/77)
 It is recommended you **reset the device and update to the latest version**.  
 (Although, after testing, we concluded the devices were running fine even without resetting)  
 
-**This was mostly fixed in v18**, but it is still possible to brick your device by providing a GPIO pin that is not present on your device's Zigbee module. (This will be prevented in further updates)
+**This was partly fixed in v18**, where the device would freeze and recover after a power-cycle.  
+**The real bug was found and fixed in v20**, where it is safe to update the config string.
+
+Note that it is still possible to brick your device by providing a GPIO pin that is not present on your device's Zigbee module. (This will be prevented in further updates)
 
 If you bricked your device, [flashing_via_wire.md](./flashing_via_wire.md) will restore it.  
 

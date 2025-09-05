@@ -12,6 +12,13 @@ class RelayMode(t.enum8):
     Detached = 0x00
     Raise = 0x01
     LongPress = 0x02
+    ShortPress = 0x03
+
+
+class BindedMode(t.enum8):
+    Raise = 0x01
+    LongPress = 0x02
+    ShortPress = 0x03
 
 
 class CustomOnOffConfigurationCluster(CustomCluster, OnOffConfiguration):
@@ -43,6 +50,20 @@ class CustomOnOffConfigurationCluster(CustomCluster, OnOffConfiguration):
         long_press_duration = ZCLAttributeDef(
             id=0xff03,
             type=t.uint16_t,
+            access="rw",
+            is_manufacturer_specific=True,
+        )
+
+        level_move_rate = ZCLAttributeDef(
+            id=0xff04,
+            type=t.uint8_t,
+            access="rw",
+            is_manufacturer_specific=True,
+        )
+
+        binded_mode = ZCLAttributeDef(
+            id=0xff05,
+            type=BindedMode,
             access="rw",
             is_manufacturer_specific=True,
         )
@@ -98,47 +119,36 @@ PWM_CAPABLE_CONFIGS = {
 }
 
 CONFIGS = [
-    "Tuya-TS0012-custom;TS0012-custom;BA0f;LD7;SC2f;SC3f;RC0;RB4;",
-    "Tuya-TS0012-custom;TS0012-custom-end-device;BA0f;LD7;SC2f;SC3f;RC0;RB4;",
-    "Tuya-WHD02-custom;WHD02-custom;BB4u;LD3;SB5u;RB1;",
-    "Tuya-TS0002-custom;TS0002-custom;BD2u;LC2;SB5u;SB4u;RC4;RC3;",
-    "TS0002-OXT-CUS;TS0002-OXT-CUS;BD2u;LC0;SB4u;SB5u;RC2;RC3;",
-    "Tuya-TS0011-custom;TS0011-custom;BA0f;LD7;SC2f;RC0;",
-    "Tuya-TS0011-custom;TS0011-custom;BA0f;LD7;SC2f;RC0;",
-    "Tuya-TS0001-custom;TS0001-custom;BD2u;LC0;SB4u;RC2;",
-    "Tuya-TS0002-custom;TS0002-custom;BD2u;LC2;SB5u;RC4;SB4u;RC3;",
-    "TS0001-AVB;TS0001-AVB;BC2u;LD2i;SD3u;RC0;",
-    "TS0002-AVB;TS0002-AVB;BC2u;LD2i;SD3u;RC0;SD7u;RD4;",
-    "TS0003-AVB;TS0003-AVB;BC2u;LD2i;SD3u;RC0;SD7u;RD4;SB6u;RC1;",
-    "TS0004-AVB;TS0004-AVB;BC2u;LD2i;SD3u;RC0;SD7u;RD4;SB6u;RC1;SA0u;RC4;",
-    "Moes-2-gang;Moes-2-gang;SB6u;SC4u;RB5;RB4;ID3;IC0;M;",
-    "Moes-2-gang;Moes-2-gang-ED;SB6u;SC4u;RB5;RB4;ID3;IC0;M;",
-    "Bseed-2-gang;Bseed-2-gang;SB6u;SA1u;RD3;RC0;IC2;IB4;M;",
-    "Bseed-2-gang;Bseed-2-gang-ED;SB6u;SA1u;RD3;RC0;IC2;IB4;M;",
-    "Bseed-2-gang-2;Bseed-2-gang-2;SB5u;SD4u;RC0B6;RA1D7;ID2;ID3;LC3;M;",
-    "Bseed-2-gang-2;Bseed-2-gang-2-ED;SB5u;SD4u;RC0B6;RA1D7;ID2;ID3;LC3;M;",
-    "TS0012-Avatto;TS0012-avatto;BB4f;LB5;SC0f;SC3f;RC2;RC4;",
-    "TS0012-Avatto;TS0012-avatto-ED;BB4f;LB5;SC0f;SC3f;RC2;RC4;",
-    "WHD02-Aubess;WHD02-Aubess;BC4u;LD2;SB4u;RB5;",
-    "WHD02-Aubess;WHD02-Aubess-ED;BC4u;LD2;SB4u;RB5;",
-    "Moes-1-gang;Moes-1-gang;SC1u;RB5;ID7;M;",
-    "Moes-1-gang;Moes-1-gang-ED;SC1u;RB5;ID7;M;",
-    "Moes-3-gang;Moes-3-gang;SB6u;RB5;ID3;SC1u;RB4;ID7;SC4u;RD2;IC0;M;",
-    "Moes-3-gang;Moes-3-gang-ED;SB6u;RB5;ID3;SC1u;RB4;ID7;SC4u;RD2;IC0;M;",
-    "Tuya-WHD02-custom;WHD02-custom;BB1u;LB4;SD2u;RD3;",
-    "Tuya-WHD02-custom;WHD02-custom;BB1u;LB4;SD2u;RD3;",
-    "Zemi-2-gang;Zemi-2-gang;SC3U;SD2U;IB7;ID7;RB5C4;RC2D4;",
-    "Zemi-2-gang;Zemi-2-gang-ED;SC3U;SD2U;IB7;ID7;RB5C4;RC2D4;",
-    "TS0011-Avatto;TS0011-avatto;BB4u;LB5;SC0u;RC2;",
-    "TS0011-Avatto;TS0011-avatto-ED;BB4u;LB5;SC0u;RC2;",
-    "Tuya-TS0003-custom;TS0003-custom;BD3u;SC1u;SD7u;SC3u;RB5;RD4;RB4;",
-    "TS0003-IHS;TS0003-IHS;BC3u;LC2i;SD7u;RD2;SB4u;RD3;SB5u;RC0;",
-    "TS0004-IHS;TS0004-IHS;BC3u;LC2i;SB5u;RD2;SB4u;RD3;SD7u;RC0;SD4u;RC1;",
-    "Girier-ZB08-custom;ZB08-custom;BA0u;LD7;SC2u;RC0;SC3u;RB4;SD2u;RB5;",
-    "Girier-ZB08-custom-ED;ZB08-custom-ED;BA0u;LD7;SC2u;RC0;SC3u;RB4;SD2u;RB5;",
-    "TS0004-Avv;TS0004-Avv;BB5u;LC1;SB4u;RC0;SD2u;RC4;SC3u;RD4;SC2u;RD7;",
-    "Tuya-TS0004-custom;TS0004-custom;BB6u;LB1;SC1u;RB7;SC2u;RB5;SC3u;RB4;SD2u;RC4;",
-    "Avatto-3-touch;Avatto-3-touch;LB5;SD3u;RC2;SD7u;RC3;SD4u;RD2;M;",
+    "jl7qyupf;TS0012-custom;BA0f;LD7;SC2f;SC3f;RC0;RB4;",
+    "skueekg3;WHD02-custom;BB4u;LD3;SB5u;RB1;",
+    "01gpyda5;TS0002-custom;BD2u;LC2;SB5u;SB4u;RC4;RC3;",
+    "bvrlqyj7;TS0002-OXT-CUS;BD2u;LC0;SB4u;SB5u;RC2;RC3;",
+    "ji4araar;TS0011-custom;BA0f;LD7;SC2f;RC0;",
+    "tqlv4ug4;TS0001-custom;BD2u;LC0;SB4u;RC2;",
+    "zmy4lslw;TS0002-custom;BD2u;LC2;SB5u;RC4;SB4u;RC3;",
+    "4rbqgcuv;TS0001-AVB;BC2u;LD2i;SD3u;RC0;",
+    "mtnpt6ws;TS0002-AVB;BC2u;LD2i;SD3u;RC0;SD7u;RD4;",
+    "hbic3ka3;TS0003-AVB;BC2u;LD2i;SD3u;RC0;SD7u;RD4;SB6u;RC1;",
+    "5ajpkyq6;TS0004-AVB;BC2u;LD2i;SD3u;RC0;SD7u;RD4;SB6u;RC1;SA0u;RC4;",
+    "18ejxno0;Moes-2-gang;SB6u;SC4u;RB5;RB4;ID3;IC0;M;",
+    "f2slq5pj;Bseed-2-gang;SB6u;SA1u;RD3;RC0;IC2;IB4;M;",
+    "xk5udnd6;Bseed-2-gang-2;SB5u;SD4u;RC0B6;RA1D7;ID2;ID3;LC3;M;",
+    "ljhbw1c9;TS0012-avatto;BB4f;LB5;SC0f;SC3f;RC2;RC4;",
+    "46t1rvdu;WHD02-Aubess;BC4u;LD2;SB4u;RB5;",
+    "hhiodade;Moes-1-gang;SC1u;RB5;ID7;M;",
+    "qewo8dlz;Moes-3-gang;SB6u;RB5;ID3;SC1u;RB4;ID7;SC4u;RD2;IC0;M;",
+    "skueekg3;WHD02-custom;BB1u;LB4;SD2u;RD3;",
+    "skueekg3;WHD02-custom;BB1u;LB4;SD2u;RD3;",
+    "zmlunnhy;Zemi-2-gang;SC3U;SD2U;IB7;ID7;RB5C4;RC2D4;",
+    "hbxsdd6k;TS0011-avatto;BB4u;LB5;SC0u;RC2;",
+    "pfc7i3kt;TS0003-custom;BD3u;SC1u;SD7u;SC3u;RB5;RD4;RB4;",
+    "7aqaupa9;TS0003-BS;SC3u;SB7u;SB5u;RC2;RB4;RC0;LA0i;M;",
+    "mhhxxjrs;TS0003-IHS;BC3u;LC2i;SD7u;RD2;SB4u;RD3;SB5u;RC0;",
+    "knoj8lpk;TS0004-IHS;BC3u;LC2i;SB5u;RD2;SB4u;RD3;SD7u;RC0;SD4u;RC1;",
+    "ypgri8yz;ZB08-custom;BA0u;LD7;SC2u;RC0;SC3u;RB4;SD2u;RB5;",
+    "ltt60asa;TS0004-Avv;BB5u;LC1;SB4u;RC0;SD2u;RC4;SC3u;RD4;SC2u;RD7;",
+    "mmkbptmx;TS0004-custom;BB6u;LB1;SC1u;RB7;SC2u;RB5;SC3u;RB4;SD2u;RC4;",
+    "avky2mvc;Avatto-3-touch;LB5;SD3u;RC2;SD7u;RC3;SD4u;RD2;M;",
 ]
 
 for config in CONFIGS:
@@ -201,6 +211,14 @@ for config in CONFIGS:
                 step=1,
                 endpoint_id=endpoint_id,
             )
+            .enum(
+                CustomOnOffConfigurationCluster.AttributeDefs.binded_mode.name,
+                BindedMode,
+                CustomOnOffConfigurationCluster.cluster_id,
+                translation_key="binded_mode",
+                fallback_name="Binded mode",
+                endpoint_id=endpoint_id,
+            )
             .number(
                 CustomOnOffConfigurationCluster.AttributeDefs.long_press_duration.name,
                 CustomOnOffConfigurationCluster.cluster_id,
@@ -208,6 +226,16 @@ for config in CONFIGS:
                 fallback_name="Long press mode",
                 min_value=0,
                 max_value=5000,
+                step=1,
+                endpoint_id=endpoint_id,
+            )
+            .number(
+                CustomOnOffConfigurationCluster.AttributeDefs.level_move_rate.name,
+                CustomOnOffConfigurationCluster.cluster_id,
+                translation_key="level_move_rate",
+                fallback_name="Level move rate",
+                min_value=1,
+                max_value=255,
                 step=1,
                 endpoint_id=endpoint_id,
             )

@@ -11,7 +11,7 @@
 #include "base_components/relay.h"
 #include "configs/nv_slots_cfg.h"
 
-#define MULTI_PRESS_CNT_TO_RESET    5
+#define MULTI_PRESS_CNT_TO_RESET    10
 
 const u8  multistate_out_of_service = 0;
 const u8  multistate_flags          = 0;
@@ -293,7 +293,9 @@ void switch_cluster_on_button_press(zigbee_switch_cluster *cluster)
 
   if (cluster->mode == ZCL_ONOFF_CONFIGURATION_SWITCH_TYPE_TOGGLE) {
     // Toggle does not support modes (RISE, SHORT, LONG)
-    switch_cluster_relay_action_on(cluster);
+    if (cluster->relay_mode != ZCL_ONOFF_CONFIGURATION_RELAY_MODE_DETACHED) {
+      switch_cluster_relay_action_on(cluster);
+    }
     switch_cluster_binding_action_on(cluster);
     return;
   }
@@ -316,7 +318,9 @@ void switch_cluster_on_button_release(zigbee_switch_cluster *cluster)
 
   if (cluster->mode == ZCL_ONOFF_CONFIGURATION_SWITCH_TYPE_TOGGLE) {
     // Toggle does not support modes (RISE, SHORT, LONG)
-    switch_cluster_relay_action_off(cluster);
+    if (cluster->relay_mode != ZCL_ONOFF_CONFIGURATION_RELAY_MODE_DETACHED) {
+       switch_cluster_relay_action_off(cluster);
+    }
     switch_cluster_binding_action_off(cluster);
     return;
   }
@@ -388,12 +392,12 @@ void switch_cluster_store_attrs_to_nv(zigbee_switch_cluster *cluster)
   nv_config_buffer.level_move_rate = cluster->level_move->rate;
   nv_config_buffer.binded_mode  = cluster->binded_mode;
 
-  nv_flashWriteNew(1, NV_MODULE_ZCL, NV_ITEM_ZCL_SWITCH_CONFIG(cluster->endpoint), sizeof(zigbee_switch_cluster_config), (u8 *)&nv_config_buffer);
+  nv_flashWriteNew(1, NV_MODULE_APP, NV_ITEM_SWITCH_CLUSTER_DATA(cluster->switch_idx), sizeof(zigbee_switch_cluster_config), (u8 *)&nv_config_buffer);
 }
 
 void switch_cluster_load_attrs_from_nv(zigbee_switch_cluster *cluster)
 {
-  nv_sts_t st = nv_flashReadNew(1, NV_MODULE_ZCL, NV_ITEM_ZCL_SWITCH_CONFIG(cluster->endpoint), sizeof(zigbee_switch_cluster_config), (u8 *)&nv_config_buffer);
+  nv_sts_t st = nv_flashReadNew(1, NV_MODULE_APP, NV_ITEM_SWITCH_CLUSTER_DATA(cluster->switch_idx), sizeof(zigbee_switch_cluster_config), (u8 *)&nv_config_buffer);
 
   if (st != NV_SUCC)
   {

@@ -22,6 +22,7 @@ typedef struct
 
 typedef struct
 {
+  u8            switch_idx;
   u8            endpoint;
   u8            mode;
   u8            action;

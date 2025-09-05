@@ -13,6 +13,7 @@
 
 typedef struct
 {
+  u8            relay_idx;
   u8            endpoint;
   u8            startup_mode;
   u8            indicator_led_mode;
