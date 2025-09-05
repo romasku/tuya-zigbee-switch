@@ -92,6 +92,30 @@ They can easily be adapted for other distributions. (Please share your scripts)
 |`make toolchain`                    | Downloads Telink's tc32 into `toolchain/`       |
 |`make clean_toolchain`              | Deletes `toolchain/`                            |
 
+## 🐳 Docker build
+
+For cross-platform development or isolated builds, use Docker:
+
+1. Build the Docker image: `docker-compose build`
+2. Run any make command: `docker-compose run --rm build make [command]`
+
+**Examples:**
+```bash
+# Install SDK and toolchain
+docker-compose run --rm build make install
+
+# Build for specific device
+docker-compose run --rm build make BOARD=MOES_2_GANG_SWITCH
+
+# Run tests
+docker-compose run --rm build make test
+
+# Build for end device
+docker-compose run --rm build make BOARD=TS0012 bin/TS0012_END_DEVICE/tlc_switch.bin
+```
+
+**Note:** Docker builds are slower than native builds but provide consistent cross-platform results.
+
 ## Further reading
 
 - [project_structure.md](./project_structure.md)

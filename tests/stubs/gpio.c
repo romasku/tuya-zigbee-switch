@@ -12,3 +12,7 @@ u8 drv_gpio_read(u32 pin) {
     return (pin < GPIO_MAX) ? gpio_state[pin] : 0; 
 }
 
+void gpio_write(u32 pin, u8 level) {
+    drv_gpio_write(pin, level);
+}
+
