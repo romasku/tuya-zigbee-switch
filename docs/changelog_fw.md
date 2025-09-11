@@ -4,7 +4,12 @@
 - Keep device configuration (user settings) when it is removed from the network
 - Add support for Zigbee commands: off_with_effect (0x40) and on_with_recall_global_scene (0x41)
 
-## v1.0.20:
+- Do not reset device configuration on Zigbee network leave. 
+
+### 1.0.20:
+
+- Fix bug when changing device config string crashed 3 and 4 gang devices. Due to this change, device settings may reset after OTA update.
+- Fix bug when detached mode doesn't work for Toggle switches.
 
 ### Changes:
 - (technical) Updated memory map: moved NV items from ZCL to APP.  

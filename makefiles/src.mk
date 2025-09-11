@@ -1,12 +1,11 @@
 
 OUT_DIR += /$(SRC_DIR) \
-/$(SRC_DIR)/patch_sdk \
 /$(SRC_DIR)/base_components \
 /$(SRC_DIR)/zigbee \
 /$(SRC_DIR)/zigbee/clusters \
 /$(SRC_DIR)/zigbee/endpoints\
 /$(SRC_DIR)/custom_zcl \
-/$(SRC_DIR)/zigbee \
+/$(SRC_DIR)/patch_sdk \
 /$(SRC_DIR)/boards/ts0001 \
 /$(SRC_DIR)/boards/ts0012 \
 /$(SRC_DIR)/boards/ts0002 \
@@ -14,12 +13,7 @@ OUT_DIR += /$(SRC_DIR) \
 /$(SRC_DIR)/device_config
 
 OBJS += \
-$(BUILD_PATH)/$(SRC_DIR)/patch_sdk/flash.o \
-$(BUILD_PATH)/$(SRC_DIR)/patch_sdk/flash_drv.o \
-$(BUILD_PATH)/$(SRC_DIR)/patch_sdk/cstartup_8258.o \
-$(BUILD_PATH)/$(SRC_DIR)/patch_sdk/hw_drv.o \
-$(BUILD_PATH)/$(SRC_DIR)/patch_sdk/adc_drv.o \
-$(BUILD_PATH)/$(SRC_DIR)/patch_sdk/random.o \
+$(BUILD_PATH)/$(SRC_DIR)/patch_sdk/drv_nv.o \
 $(BUILD_PATH)/$(SRC_DIR)/zigbee/general_commands.o \
 $(BUILD_PATH)/$(SRC_DIR)/zigbee/basic_cluster.o \
 $(BUILD_PATH)/$(SRC_DIR)/zigbee/group_cluster.o \
