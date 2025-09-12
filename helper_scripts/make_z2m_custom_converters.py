@@ -73,6 +73,7 @@ if __name__ == "__main__":
             "relayNames": relay_names,
             "relayIndicatorNames": relay_names[:indicators_cnt],
             "has_dedicated_net_led": has_dedicated_net_led,
+            "device_type": device.get("device_type", "end_device"),
         })
 
     template = env.get_template("switch_custom.js.jinja")
