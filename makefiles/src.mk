@@ -44,8 +44,8 @@ $(BUILD_PATH)/$(SRC_DIR)/device_config/config_nv.o \
 $(BUILD_PATH)/$(SRC_DIR)/device_config/version_nv.o \
 $(BUILD_PATH)/$(SRC_DIR)/device_config/pwm_nv.o
 
-# Conditionally include PWM support
-ifeq ($(INDICATOR_PWM), true)
+# Conditionally include PWM support for router devices
+ifeq ($(DEVICE_TYPE), router)
 OBJS += $(BUILD_PATH)/$(SRC_DIR)/base_components/led_pwm.o
 endif
 

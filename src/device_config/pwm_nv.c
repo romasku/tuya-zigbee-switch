@@ -5,7 +5,7 @@
 
 #ifdef INDICATOR_PWM_SUPPORT
 
-#define NV_ITEM_ZCL_PWM_CONFIG(endpoint) (NV_ITEM_ZCL_LAST_SEEN_VERSION + endpoint)
+#define NV_ITEM_ZCL_PWM_CONFIG(endpoint) (NV_ITEM_ZCL_PWM_CONFIG_BASE + endpoint)
 
 u8 pwm_nv_read_config(u8 endpoint, pwm_nv_config_t *config)
 {
@@ -20,13 +20,13 @@ u8 pwm_nv_read_config(u8 endpoint, pwm_nv_config_t *config)
   if (st != NV_SUCC)
   {
     config->pwm_enabled = 0;
-    config->pwm_brightness = led_pwm_get_default_brightness(endpoint);
+    config->pwm_brightness = 2;
     return 0;
   }
 
   if (config->pwm_brightness > 15)
   {
-    config->pwm_brightness = led_pwm_get_default_brightness(endpoint);
+    config->pwm_brightness = 2;
   }
 
   return 1;

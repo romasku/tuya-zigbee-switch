@@ -22,8 +22,7 @@ CONFIG_STR := $(shell yq -r .$(BOARD).config_str $(DEVICE_DB_FILE))
 FROM_TUYA_MANUFACTURER_ID := $(shell yq -r .$(BOARD).tuya_manufacturer_id $(DEVICE_DB_FILE))
 FROM_TUYA_IMAGE_TYPE := $(shell yq -r .$(BOARD).tuya_image_type $(DEVICE_DB_FILE))
 FIRMWARE_IMAGE_TYPE := $(shell yq -r .$(BOARD).firmware_image_type $(DEVICE_DB_FILE))
-INDICATOR_PWM := $(shell yq -r '.$(BOARD).indicator_pwm // false' $(DEVICE_DB_FILE))
-DEFAULT_INDICATOR_BRIGHTNESS := $(shell yq -r '.$(BOARD).default_indicator_brightness // 2' $(DEVICE_DB_FILE))
+
 
 ifeq ($(DEVICE_TYPE), router)
 	TEL_CHIP := -DMCU_CORE_8258=1 -DROUTER=1 -DMCU_STARTUP_8258=1
@@ -40,9 +39,9 @@ endif
 
 DEVICE_DEFS := -DSTACK_BUILD=$(VERSION) -DDEFAULT_CONFIG="$(CONFIG_STR)" -DIMAGE_TYPE=$(FIRMWARE_IMAGE_TYPE)
 
-# PWM feature flag based on device database
-ifeq ($(INDICATOR_PWM), true)
-	DEVICE_DEFS := $(DEVICE_DEFS) -DINDICATOR_PWM_SUPPORT -DDEFAULT_INDICATOR_BRIGHTNESS=$(DEFAULT_INDICATOR_BRIGHTNESS)
+# PWM feature flag based on device type
+ifeq ($(DEVICE_TYPE), router)
+	DEVICE_DEFS := $(DEVICE_DEFS) -DINDICATOR_PWM_SUPPORT
 endif
 
 ifeq ($(DEBUG), 1)

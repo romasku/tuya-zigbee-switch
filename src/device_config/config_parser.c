@@ -58,10 +58,8 @@ void init_gpio_output(GPIO_PinTypeDef pin);
 
 #ifdef INDICATOR_PWM_SUPPORT
 void apply_pwm_config_from_db(void);
-u8 device_has_indicator_pwm(void);
-u8 pin_supports_pwm(GPIO_PinTypeDef pin);
+u8 device_supports_pwm(void);
 u8 is_indicator_led(led_t *led);
-u8 get_default_brightness(void);
 #endif
 
 void onResetClicked(void *_)
@@ -261,7 +259,6 @@ void parse_config()
   }
 
 #ifdef INDICATOR_PWM_SUPPORT
-  // Apply PWM configuration from device database
   apply_pwm_config_from_db();
 #endif
 }
@@ -556,22 +553,19 @@ u32 parseInt(const char *s)
 #ifdef INDICATOR_PWM_SUPPORT
 void apply_pwm_config_from_db(void)
 {
-  if (device_has_indicator_pwm())
+  if (device_supports_pwm())
   {
-    // Register PWM LEDs based on device database configuration
     for (int i = 0; i < leds_cnt; i++)
     {
-      if (is_indicator_led(&leds[i]) && pin_supports_pwm(leds[i].pin))
+      if (is_indicator_led(&leds[i]))
       {
-        u8 brightness = get_default_brightness();
+        u8 brightness = 2;
         if (led_pwm_register_led(i, brightness))
         {
-          // Successfully registered LED for PWM
         }
       }
     }
     
-    // Initialize PWM system only if LEDs were registered
     if (pwm_led_count > 0)
     {
       led_pwm_init();
@@ -579,30 +573,17 @@ void apply_pwm_config_from_db(void)
   }
 }
 
-u8 device_has_indicator_pwm(void)
+u8 device_supports_pwm(void)
 {
-#ifdef INDICATOR_PWM_SUPPORT
+#ifdef ROUTER
   return 1;
 #else
   return 0;
 #endif
 }
 
-u8 pin_supports_pwm(GPIO_PinTypeDef pin)
-{
-#ifdef INDICATOR_PWM_SUPPORT
-  // PWM capable pins for current device configuration
-  // TODO: Read from device_db.yaml pwm_capable_pins at build time
-  return (pin == GPIO_PD3 || pin == GPIO_PC0);
-#else
-  (void)pin;
-  return 0;
-#endif
-}
-
 u8 is_indicator_led(led_t *led)
 {
-  // Check if LED is used as an indicator LED for any relay cluster
   for (int i = 0; i < relay_clusters_cnt; i++)
   {
     if (relay_clusters[i].indicator_led == led)
@@ -611,16 +592,5 @@ u8 is_indicator_led(led_t *led)
     }
   }
   return 0;
-}
-
-u8 get_default_brightness(void)
-{
-  // Get default brightness from device_db.yaml
-  // For Moes ZS-EUB 2-gang Router: default_indicator_brightness: 2
-#ifdef DEFAULT_INDICATOR_BRIGHTNESS
-  return DEFAULT_INDICATOR_BRIGHTNESS;
-#else
-  return 2; // Default for Moes ZS-EUB 2-gang
-#endif
 }
 #endif
