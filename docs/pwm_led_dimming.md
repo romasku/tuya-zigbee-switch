@@ -18,15 +18,13 @@ PWM support allows fine-grained control of indicator LED brightness on Router bu
 
 ## Device Database Configuration
 
-PWM support is configured in `device_db.yaml`:
+PWM support is automatically determined by device type in `device_db.yaml`:
 
 ```yaml
 MOES_2_GANG_SWITCH:
   # ... existing fields ...
-  # PWM fields (Router builds only)
-  indicator_pwm: true                    # Enable PWM capability
-  default_indicator_brightness: 2        # Default dimmed brightness (0-15)
-  pwm_capable_pins: [D3, C0]            # Pins that support PWM dimming
+  device_type: router                    # PWM enabled for router builds
+  # PWM capability determined by device_type - no additional fields needed
 ```
 
 ## Zigbee2MQTT Integration
@@ -91,7 +89,7 @@ Z2M/ZHA converters automatically detect PWM support:
 ### PWM Controls Not Visible
 - Ensure device is Router build (not End Device)
 - Verify firmware has PWM support enabled
-- Check device database has `indicator_pwm: true`
+- Check device database has `device_type: router`
 - Try re-pairing the device
 
 ### PWM Not Working
@@ -110,10 +108,8 @@ Z2M/ZHA converters automatically detect PWM support:
 1. **Update Device Database**:
 ```yaml
 DEVICE_NAME:
-  device_type: router  # PWM only on Router builds
-  indicator_pwm: true
-  default_indicator_brightness: 2
-  pwm_capable_pins: [D3, C0]  # Match your device pinout
+  device_type: router  # PWM automatically enabled for router builds
+  # No additional PWM fields needed - capability determined by device_type
 ```
 
 2. **Update Z2M Converter**:

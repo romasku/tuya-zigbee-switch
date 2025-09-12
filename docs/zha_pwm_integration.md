@@ -25,9 +25,7 @@ PWM-capable devices expose these additional entities:
 Update device database:
 ```yaml
 DEVICE_NAME:
-  device_type: router
-  indicator_pwm: true
-  default_indicator_brightness: 2
+  device_type: router  # PWM automatically enabled for router builds
 ```
 
 Update ZHA quirk:
