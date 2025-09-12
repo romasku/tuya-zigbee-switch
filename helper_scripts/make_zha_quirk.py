@@ -28,10 +28,17 @@ if __name__ == "__main__":
     configs = [
         device["config_str"] for device in db.values()
     ]
+    
+    device_types = {}
+    for device in db.values():
+        config_parts = device["config_str"].rstrip(";").split(";")
+        if len(config_parts) >= 2:
+            zb_model = config_parts[1]
+            device_types[zb_model] = device["device_type"]
 
     template = env.get_template("zha_quirk.py.jinja")
 
-    print(template.render(configs=configs))
+    print(template.render(configs=configs, device_types=device_types))
 
     exit(0)
 
