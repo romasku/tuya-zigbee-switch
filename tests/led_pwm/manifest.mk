@@ -14,7 +14,8 @@ REAL_DEPS := src/base_components/led.c
 
 # Stub files (mocked dependencies)
 STUBS := tests/stubs/millis.c \
-         tests/stubs/gpio.c
+         tests/stubs/gpio.c \
+         tests/stubs/timer_stubs.c
 
 # Additional include paths (these are added to the default INCLUDES)
 INCLUDES_led_pwm := -Itests/sdk_headers_stubs -DINDICATOR_PWM_SUPPORT -DDEFAULT_INDICATOR_BRIGHTNESS=2 -DUNIT_TEST

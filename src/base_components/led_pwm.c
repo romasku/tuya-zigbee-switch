@@ -4,7 +4,6 @@
 
 #include "tl_common.h"
 #include "led.h"
-#include "millis.h"
 #include <string.h>
 
 led_pwm_config_t pwm_led_registry[MAX_PWM_LEDS];
@@ -13,8 +12,7 @@ u8 pwm_led_count = 0;
 static led_pwm_manager_t pwm_manager;
 static u8 pwm_saved_states[MAX_PWM_LEDS] = {0};
 
-static u32 last_pwm_update = 0;
-static u32 pwm_step_interval_ms = 0;
+static ev_timer_event_t *pwm_timer_evt = NULL;
 
 extern led_t leds[];
 extern u8 leds_cnt;
@@ -289,36 +287,54 @@ static void led_pwm_remove_channel(u8 led_index)
   }
 }
 
+static int led_pwm_timer_callback(void *arg)
+{
+  (void)arg;
+  led_pwm_timer_handler();
+  
+  if (pwm_manager.timer_enabled && pwm_manager.active_channels > 0)
+  {
+    u32 interval_ms = 1000 / (PWM_BASE_FREQUENCY_HZ * PWM_RESOLUTION_STEPS);
+    if (interval_ms == 0)
+    {
+      interval_ms = 1;
+    }
+    pwm_timer_evt = TL_ZB_TIMER_SCHEDULE(led_pwm_timer_callback, NULL, interval_ms);
+  }
+  else
+  {
+    pwm_timer_evt = NULL;
+  }
+  
+  return -1;
+}
+
 static void led_pwm_timer_init(void)
 {
-  pwm_step_interval_ms = 1000 / (PWM_BASE_FREQUENCY_HZ * PWM_RESOLUTION_STEPS);
-  if (pwm_step_interval_ms == 0)
+  if (pwm_timer_evt)
   {
-    pwm_step_interval_ms = 1;
+    TL_ZB_TIMER_CANCEL(&pwm_timer_evt);
   }
-
-  last_pwm_update = millis();
+  
+  u32 interval_ms = 1000 / (PWM_BASE_FREQUENCY_HZ * PWM_RESOLUTION_STEPS);
+  if (interval_ms == 0)
+  {
+    interval_ms = 1;
+  }
+  
+  pwm_timer_evt = TL_ZB_TIMER_SCHEDULE(led_pwm_timer_callback, NULL, interval_ms);
 }
 
 static void led_pwm_timer_deinit(void)
 {
-  last_pwm_update = 0;
-}
-
-void led_pwm_update(void)
-{
-  if (!pwm_manager.timer_enabled || pwm_manager.active_channels == 0)
+  if (pwm_timer_evt)
   {
-    return;
-  }
-
-  u32 current_time = millis();
-  if (current_time - last_pwm_update >= pwm_step_interval_ms)
-  {
-    last_pwm_update = current_time;
-    led_pwm_timer_handler();
+    TL_ZB_TIMER_CANCEL(&pwm_timer_evt);
+    pwm_timer_evt = NULL;
   }
 }
+
+
 
 
 

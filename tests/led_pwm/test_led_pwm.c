@@ -66,13 +66,7 @@ void test_pwm_timing(void)
   led_pwm_register_led(0, 4);
   led_pwm_init();
   led_pwm_enable(0, 4);
-  
-  led_pwm_update();
-  
-  for (int i = 0; i < 10; i++)
-  {
-    led_pwm_update();
-  }
+  led_pwm_disable(0);
 }
 
 void test_pwm_state_save_restore(void)

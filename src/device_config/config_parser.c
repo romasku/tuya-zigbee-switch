@@ -287,9 +287,6 @@ void periferals_update()
   {
     btn_update(&buttons[index]);
   }
-#ifdef INDICATOR_PWM_SUPPORT
-  led_pwm_update();
-#endif
 }
 
 void init_reporting()

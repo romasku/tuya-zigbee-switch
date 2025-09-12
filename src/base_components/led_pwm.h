@@ -86,11 +86,7 @@ void led_pwm_restore_state(u8 led_index);
  */
 void led_pwm_timer_handler(void);
 
-/**
- * @brief      Update PWM state
- * @return     none
- */
-void led_pwm_update(void);
+
 
 /**
  * @brief      Deinitialize PWM system and release resources
@@ -133,7 +129,7 @@ u8 led_pwm_get_default_brightness(u8 led_index);
 #define led_pwm_register_led(idx, brightness) 0
 #define led_pwm_is_registered(idx) 0
 #define led_pwm_get_default_brightness(idx) 0
-#define led_pwm_update()
+
 #define led_pwm_deinit()
 #endif
 
