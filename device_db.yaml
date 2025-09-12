@@ -552,3 +552,37 @@ AVATTO_3_GANG_TOUCH:
   info: Indicator LEDs are hard wired to buttons, but they can be forced on with C4 ?
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/41
   store: https://www.aliexpress.com/item/1005007097427150.html
+TS011F_BSEED:
+  config_str: o1jzcxou;TS011F-BS;LC2;SB4u;RC3;ID2;M;
+  device_type: router
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 43555
+  stock_converter_model: _TZ3000_o1jzcxou
+  tuya_manufacturer_name: _TZ3000_o1jzcxou
+  zb_module: ZTU
+  human_name: Bseed in-wall socket (multiple regions and colors)
+  status: Supported
+  build: yes
+  github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/145
+  store:
+  - https://www.aliexpress.com/item/1005004402438527.html
+TS011F_BSEED_PM:
+  config_str: b28wrpvx;TS011F-BS-PM;LC3;SB5u;RD2;IB4;M;
+  device_type: router
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 43556
+  stock_converter_model: TS011F_plug_1
+  tuya_manufacturer_name: _TZ3000_b28wrpvx
+  override_z2m_device: TS011F_plug_1_2
+  zb_module: ZTU
+  human_name: Bseed in-wall socket with PM (multiple regions and colors)
+  status: In progress
+  info: PM not implemented
+  build: yes
+  github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/145
+  store:
+  - https://www.aliexpress.com/item/1005004402438527.html
+  - https://www.aliexpress.com/i/1005005835434423.html
+  - https://www.aliexpress.com/item/1005003350696939.html
