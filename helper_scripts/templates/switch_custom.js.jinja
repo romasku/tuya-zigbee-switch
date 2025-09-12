@@ -116,6 +116,52 @@ const romasku = {
             description: "State of the relay indicator LED",
             access: "ALL",
         }),
+    relayIndicatorPwmMode: (name, endpointName) =>
+        binary({
+            name,
+            endpointName,
+            valueOn: ["ON", 1],
+            valueOff: ["OFF", 0],
+            cluster: "genOnOff",
+            attribute: {ID: 0xff03, type: 0x10},  // Boolean
+            description: "Enable PWM dimming for relay indicator LED",
+            access: "ALL",
+        }),
+    relayIndicatorPwmBrightness: (name, endpointName) =>
+        numeric({
+            name,
+            endpointName,
+            cluster: "genOnOff",
+            attribute: {ID: 0xff04, type: 0x20},  // uint8
+            description: "PWM brightness for relay indicator LED (0=off, 15=full, 6.25% steps)",
+            valueMin: 0,
+            valueMax: 15,
+            valueStep: 1,
+            access: "ALL",
+        }),
+    relayIndicatorPwmMode: (name, endpointName) =>
+        binary({
+            name,
+            endpointName,
+            valueOn: ["ON", 1],
+            valueOff: ["OFF", 0],
+            cluster: "genOnOff",
+            attribute: {ID: 0xff03, type: 0x10},  // Boolean
+            description: "Enable PWM dimming for relay indicator LED",
+            access: "ALL",
+        }),
+    relayIndicatorPwmBrightness: (name, endpointName) =>
+        numeric({
+            name,
+            endpointName,
+            cluster: "genOnOff",
+            attribute: {ID: 0xff04, type: 0x20},  // uint8
+            description: "PWM brightness for relay indicator LED (0=off, 15=full, 6.25% steps)",
+            valueMin: 0,
+            valueMax: 15,
+            valueStep: 1,
+            access: "ALL",
+        }),
     networkIndicator: (name, endpointName) =>
         binary({
             name,
@@ -212,6 +258,10 @@ const definitions = [
             {% for relayName in device.relayIndicatorNames %}
             romasku.relayIndicatorMode("{{relayName}}_indicator_mode", "{{relayName}}"),
             romasku.relayIndicator("{{relayName}}_indicator", "{{relayName}}"),
+            {% if device.device_type == 'router' %}
+            romasku.relayIndicatorPwmMode("{{relayName}}_indicator_pwm_mode", "{{relayName}}"),
+            romasku.relayIndicatorPwmBrightness("{{relayName}}_indicator_pwm_brightness", "{{relayName}}"),
+            {% endif %}
             {% endfor %}
         ],
         meta: { multiEndpoint: true },
@@ -227,6 +277,19 @@ const definitions = [
                 change: 1,
             });
             {% endfor %}
+            {% if device.device_type == 'router' and device.relayIndicatorNames %}
+            
+            for (const endpoint of [{% for relayName in device.relayNames %}endpoint{{loop.index  + (device.switchNames | length)}}{% if not loop.last %}, {% endif %}{% endfor %}]) {
+                try {
+                    await endpoint.read('genOnOff', [0xff03, 0xff04], {manufacturerCode: 0x0000});
+                    if (!device.meta) device.meta = {};
+                    device.meta.pwmSupported = true;
+                    logger.info(`PWM support detected on endpoint ${endpoint.ID}`);
+                } catch (error) {
+                    logger.debug(`PWM not supported on endpoint ${endpoint.ID}: ${error.message}`);
+                }
+            }
+            {% endif %}
         },
         {% if z2m_v1 %}
         ota: ota.zigbeeOTA,

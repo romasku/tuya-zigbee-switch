@@ -41,7 +41,13 @@ $(BUILD_PATH)/$(SRC_DIR)/base_components/relay.o \
 $(BUILD_PATH)/$(SRC_DIR)/base_components/network_indicator.o \
 $(BUILD_PATH)/$(SRC_DIR)/device_config/config_parser.o \
 $(BUILD_PATH)/$(SRC_DIR)/device_config/config_nv.o \
-$(BUILD_PATH)/$(SRC_DIR)/device_config/version_nv.o
+$(BUILD_PATH)/$(SRC_DIR)/device_config/version_nv.o \
+$(BUILD_PATH)/$(SRC_DIR)/device_config/pwm_nv.o
+
+# Conditionally include PWM support for router devices
+ifeq ($(DEVICE_TYPE), router)
+OBJS += $(BUILD_PATH)/$(SRC_DIR)/base_components/led_pwm.o
+endif
 
 $(BUILD_PATH)/$(SRC_DIR)/%.o: $(PROJECT_PATH)/$(SRC_DIR)/%.c
 	@echo 'Building file: $<'
