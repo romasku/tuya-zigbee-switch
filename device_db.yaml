@@ -440,6 +440,36 @@ TS0003_BSEED:
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/125
   store: https://www.aliexpress.com/item/1005003475686409.html
+TS0001_IHS_TOUCH:
+  config_str: qq9ahj6z;TS0001-IHS-T;LC4i;RC3;SB4u;M;
+  device_type: end_device
+  neutral: optional
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 43557
+  stock_converter_model: TS0001
+  tuya_manufacturer_name: _TZ3000_qq9ahj6z
+  zb_module: ZT3L
+  human_name: iHseno 1-gang Touch Switch
+  status: Supported
+  build: yes
+  github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/146
+  store: https://www.aliexpress.com/item/1005007532195287.html
+TS0002_IHS_TOUCH:
+  config_str: zxrfobzw;TS0002-IHS-T;LC4i;RC2;SC0u;RD2;SB5u;M;
+  device_type: end_device
+  neutral: optional
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 43558
+  stock_converter_model: TS0002
+  tuya_manufacturer_name: _TZ3000_zxrfobzw
+  zb_module: ZT3L
+  human_name: iHseno 2-gang Touch Switch
+  status: Supported
+  build: yes
+  github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/146
+  store: https://www.aliexpress.com/item/1005007532195287.html
 TS0001_IHS:
   config_str: pgq7ormg;TS0001-IHS;BC3u;LC2i;SB5u;RD2;
   device_type: router
