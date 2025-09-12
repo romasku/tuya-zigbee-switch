@@ -26,7 +26,7 @@ if __name__ == "__main__":
     db_str = Path(args.db_file).read_text()
     db = yaml.safe_load(db_str)
 
-    tuyaModels = [
+    tuyaModels = ["TS0001", "TS0002", "TS0003", "TS0004"] + [
         entry["stock_converter_model"]
         for entry in db.values()
         if entry.get("stock_converter_manufacturer", "tuya") == "tuya"
