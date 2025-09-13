@@ -53,6 +53,22 @@ TS0002_OXT:
   human_name: OXT 2-gang switch
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/49
+TS0002_MOES:
+  config_str: qaa59zqd;TS0002-MS;BB1u;LC3;RD2;SB5u;RC2;SB4u;
+  device_type: router
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 43560
+  stock_converter_model: TS0002_basic
+  tuya_manufacturer_name: _TZ3000_qaa59zqd
+  override_z2m_device: ZM-104B-M
+  zb_module: ZT2S
+  human_name: Moes ZM-104B-M
+  status: In progress
+  info: Has buzzer instead of LED
+  build: yes
+  github_issue: https://github.com/romasku/tuya-zigbee-switch/pull/147
+  store: https://www.amazon.co.uk/dp/B0CKYP32CW?th=1
 TS0011:
   config_str: ji4araar;TS0011-custom;BA0f;LD7;SC2f;RC0;
   device_type: end_device
