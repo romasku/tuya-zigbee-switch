@@ -2,6 +2,19 @@
 #include "tl_common.h"
 #include "millis.h"
 
+#define MAX_RELAY_PULSES 4  // Number of pulses allowed at the same time
+
+typedef struct {
+  u32 pin;
+  u8 turn_off;
+} relay_pulse_t;
+
+relay_pulse_t pulse_pool[MAX_RELAY_PULSES];
+u8 pulse_pool_in_use[MAX_RELAY_PULSES];
+relay_pulse_t* pulse_alloc(void);
+void pulse_free(relay_pulse_t* p);
+void deactivate_pin(u32 pin, u8 turn_off);
+s32 schedule_pin_clear(void *arg);
 
 void relay_init(relay_t *relay)
 {
@@ -11,11 +24,18 @@ void relay_init(relay_t *relay)
 void relay_on(relay_t *relay)
 {
   printf("relay_on\r\n");
-  drv_gpio_write(relay->pin, relay->on_high);
+
   if (relay->off_pin)
   {
-    drv_gpio_write(relay->off_pin, !relay->on_high);
+    // Bi-stable relay: activate the ON pin
+    drv_gpio_write(relay->pin, relay->on_high);
+    // and schedule a pulse to clear the ON pin
+    deactivate_pin(relay->pin, !relay->on_high);
+  } else {
+    // Normal relay: drive continuously
+    drv_gpio_write(relay->pin, relay->on_high);
   }
+
   relay->on = 1;
   if (relay->on_change != NULL)
   {
@@ -26,11 +46,18 @@ void relay_on(relay_t *relay)
 void relay_off(relay_t *relay)
 {
   printf("relay_off\r\n");
-  drv_gpio_write(relay->pin, !relay->on_high);
+
   if (relay->off_pin)
   {
+    // Bi-stable relay: activate the OFF pin
     drv_gpio_write(relay->off_pin, relay->on_high);
+    // and schedule a pulse to clear the OFF pin
+    deactivate_pin(relay->off_pin, !relay->on_high);
+  } else {
+    // Normal relay: turn OFF
+    drv_gpio_write(relay->pin, !relay->on_high);
   }
+
   relay->on = 0;
   if (relay->on_change != NULL)
   {
@@ -48,5 +75,47 @@ void relay_toggle(relay_t *relay)
   else
   {
     relay_on(relay);
+  }
+}
+
+void deactivate_pin(u32 pin, u8 turn_off)
+{
+  printf("deactivate_pin\r\n");
+
+  relay_pulse_t *pulse = pulse_alloc();
+  if (!pulse) return;
+
+  pulse->pin = pin;
+  pulse->turn_off = turn_off;
+
+  TL_ZB_TIMER_SCHEDULE(schedule_pin_clear, pulse, 125);
+}
+
+
+s32 schedule_pin_clear(void *arg)
+{
+  printf("schedule_pin clear\r\n");
+  relay_pulse_t *pulse = (relay_pulse_t *)arg;
+  drv_gpio_write(pulse->pin, pulse->turn_off);
+  pulse_free(pulse);
+  return -1;
+}
+
+relay_pulse_t* pulse_alloc(void) {
+  for (int i = 0; i < MAX_RELAY_PULSES; ++i) {
+    if (!pulse_pool_in_use[i]) {
+      pulse_pool_in_use[i] = 1;
+      return &pulse_pool[i];
+    }
+  }
+  return NULL;
+}
+
+void pulse_free(relay_pulse_t* p) {
+  for (int i = 0; i < MAX_RELAY_PULSES; ++i) {
+    if (&pulse_pool[i] == p) {
+      pulse_pool_in_use[i] = 0;
+      return;
+    }
   }
 }
