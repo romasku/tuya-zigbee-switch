@@ -1,9 +1,11 @@
 # Supported devices
 
-Note that rebranded versions may have different internals, requiring different pinouts (and therefore custom builds).  
-**Zigbee Manufacturer** is the most reliable device identifier.
+**Z2M device name** usually represents a collection of devices.  
+Even if they work the same, rebranded versions have different internals and different pinouts (and therefore require custom builds).  
 
-If your device contains a **supported Tuya Zigbee module** (ZTU, ZT2S, ZT3L), porting is relatively simple.  
+**Zigbee Manufacturer** is the most reliable unique device identifier. If the TZ3000 id of your device is not on this list, it requires porting. 
+
+For devices that contain a **supported Tuya Zigbee module** (ZTU, ZT2S, ZT3L), porting is relatively simple.  
 It consists of tracing (or guessing) the **board pinout**, adding an entry in the `device_db.yaml` file and running the build action. 
 
 Also read:  
