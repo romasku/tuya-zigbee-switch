@@ -4,13 +4,13 @@
 [![Discord](https://img.shields.io/discord/1405486711412359278.svg?logo=discord&logoColor=white&label=Chat&color=blue)](https://discord.gg/4HAg2Fr565)
 
 
-# 🔓 Custom firmware for Telink Tuya switches
+# 🔓 Custom firmware for Tuya Zigbee switches
 
-Feature-rich custom firmware for Telink-based Tuya Zigbee switches and switch-modules.  
+Feature-rich custom firmware for Telink-based Tuya Zigbee switches, switch-modules and sockets.  
 
 ## 🔌 Supported devices
 
-There are already **25+** [**supported_devices.md**](./docs/supported_devices.md).  
+There are already **30+** [**supported_devices.md**](./docs/supported_devices.md).  
   
 > [!TIP]   
 > If your device contains a **supported Tuya Zigbee module** (ZTU, ZT2S, ZT3L), porting is relatively simple.  
@@ -48,10 +48,6 @@ If your device is already supported, the firmware can be **installed and updated
 
 Otherwise, check [porting_to_new_device.md](./docs/porting_to_new_device.md).
 
-> [!WARNING]  
-> **Always check the changelog before updating!**  
-> Further versions could include breaking changes or require resetting the device!
-
 ## 📝 Changelog
 
 Read the firmware release notes here: [changelog_fw.md](./docs/changelog_fw.md).  
@@ -68,7 +64,7 @@ To switch between EndDevice and Router, follow [change_device_type.md](./docs/ch
 
 ## Discord
 
-Join the discussion or just follow the news on:  
+Join the discussion, ask for help or just follow the news on:  
 
 [![Discord](https://discord.com/api/guilds/1405486711412359278/widget.png?style=banner3)](https://discord.gg/4HAg2Fr565)  
 
