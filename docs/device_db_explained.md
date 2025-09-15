@@ -28,3 +28,18 @@ Information about all supported devices is kept inside `device_db.yaml`.
 |`info`                        | Why is the status In progress?                                                                                               |
 |`github_issue`                | Link to device-related GitHub issue or pull request                                                                          |
 |`store`                       | Link to buy the exact same device: <br> • Preferably AliExpress (international, English, no affiliation)                     |
+
+## PWM LED Dimming (Router Builds Only)
+
+The firmware supports software PWM dimming of indicator LEDs on Router builds. This feature adds Zigbee attributes for Home Assistant control:
+
+- **Dimming Mode** (`0xff03`): Boolean attribute to enable/disable PWM dimming
+- **Dimming Brightness** (`0xff04`): Numeric attribute (0-15) to control brightness level
+
+PWM attributes are only exposed when:
+1. Device is built as Router (has line+neutral power)
+2. Device has indicator LEDs defined in pinout
+
+PWM capability is automatically determined by the `device_type` field.
+
+End Device builds never include PWM support to conserve battery and reduce firmware size.

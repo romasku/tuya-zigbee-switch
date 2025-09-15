@@ -100,6 +100,18 @@ class OnOffWithIndicatorCluster(CustomCluster, OnOff):
             access="rw",
             is_manufacturer_specific=True,
         )
+        pwm_mode: Final = ZCLAttributeDef(
+            id=0xff03,
+            type=t.Bool,
+            access="rw",
+            is_manufacturer_specific=True,
+        )
+        pwm_brightness: Final = ZCLAttributeDef(
+            id=0xff04,
+            type=t.uint8_t,
+            access="rw",
+            is_manufacturer_specific=True,
+        )
 
 CONFIGS = [
     "jl7qyupf;TS0012-custom;BA0f;LD7;SC2f;SC3f;RC0;RB4;",
@@ -114,6 +126,7 @@ CONFIGS = [
     "hbic3ka3;TS0003-AVB;BC2u;LD2i;SD3u;RC0;SD7u;RD4;SB6u;RC1;",
     "5ajpkyq6;TS0004-AVB;BC2u;LD2i;SD3u;RC0;SD7u;RD4;SB6u;RC1;SA0u;RC4;",
     "18ejxno0;Moes-2-gang;SB6u;SC4u;RB5;RB4;ID3;IC0;M;",
+    "18ejxno0;Moes-2-gang-ED;SB6u;SC4u;RB5;RB4;ID3;IC0;M;",
     "f2slq5pj;Bseed-2-gang;SB6u;SA1u;RD3;RC0;IC2;IB4;M;",
     "xk5udnd6;Bseed-2-gang-2;SB5u;SD4u;RC0B6;RA1D7;ID2;ID3;LC3;M;",
     "ljhbw1c9;TS0012-avatto;BB4u;LB5;SC0u;SC3u;RC2;RC4;",
@@ -136,8 +149,43 @@ CONFIGS = [
     "avky2mvc;Avatto-3-touch;LB5;SD3u;RC2;SD7u;RC3;SD4u;RD2;M;",
 ]
 
+DEVICE_TYPES = {
+    "TS0012-custom": "end_device",
+    "WHD02-custom": "router",
+    "TS0002-custom": "router",
+    "TS0002-OXT-CUS": "router",
+    "TS0011-custom": "end_device",
+    "TS0001-custom": "router",
+    "TS0002-GIR": "router",
+    "TS0001-AVB": "router",
+    "TS0002-AVB": "router",
+    "TS0003-AVB": "router",
+    "TS0004-AVB": "router",
+    "Moes-2-gang": "router",
+    "Moes-2-gang-ED": "end_device",
+    "Bseed-2-gang": "end_device",
+    "Bseed-2-gang-2": "end_device",
+    "TS0012-avatto": "end_device",
+    "TS0013-AVB": "end_device",
+    "WHD02-Aubess": "end_device",
+    "Moes-1-gang": "end_device",
+    "Moes-3-gang": "end_device",
+    "Zemi-2-gang": "end_device",
+    "TS0011-avatto": "end_device",
+    "TS0003-custom": "router",
+    "TS0003-BS": "router",
+    "TS0001-IHS": "router",
+    "TS0003-IHS": "router",
+    "TS0004-IHS": "router",
+    "ZB08-custom": "end_device",
+    "TS0004-Avv": "router",
+    "TS0004-custom": "router",
+    "Avatto-3-touch": "router",
+}
+
 for config in CONFIGS:
     zb_manufacturer, zb_model, *peripherals = config.rstrip(";").split(";")
+    device_type = DEVICE_TYPES.get(zb_model, "end_device")
 
     relay_cnt = 0
     switch_cnt = 0
@@ -256,6 +304,28 @@ for config in CONFIGS:
                 endpoint_id=endpoint_id,
             )
         )
+        
+        if device_type == "router":
+            builder = (
+                builder
+                .switch(
+                    OnOffWithIndicatorCluster.AttributeDefs.pwm_mode.name,
+                    OnOffWithIndicatorCluster.cluster_id,
+                    translation_key="relay_led_pwm_mode",
+                    fallback_name="Relay LED PWM mode",
+                    endpoint_id=endpoint_id,
+                )
+                .number(
+                    OnOffWithIndicatorCluster.AttributeDefs.pwm_brightness.name,
+                    OnOffWithIndicatorCluster.cluster_id,
+                    translation_key="relay_led_pwm_brightness",
+                    fallback_name="Relay LED PWM brightness",
+                    min_value=0,
+                    max_value=15,
+                    step=1,
+                    endpoint_id=endpoint_id,
+                )
+            )
 
 
 

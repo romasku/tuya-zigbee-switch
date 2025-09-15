@@ -12,3 +12,5 @@
 // switch_idx and relay_idx below are zero indexes, e.g. first switch has switch_idx = 0
 #define NV_ITEM_SWITCH_CLUSTER_DATA(switch_idx)  (NV_ITEM_BASIC_CLUSTER_DATA + 1 + switch_idx)
 #define NV_ITEM_RELAY_CLUSTER_DATA(relay_idx)  (NV_ITEM_BASIC_CLUSTER_DATA + MAX_SWITCHES + 1 + relay_idx)
+
+#define NV_ITEM_ZCL_PWM_CONFIG_BASE         (NV_ITEM_BASIC_CLUSTER_DATA + MAX_SWITCHES + MAX_RELAYS + 1)

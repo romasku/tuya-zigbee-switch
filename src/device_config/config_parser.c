@@ -7,6 +7,7 @@
 #include "ota.h"
 
 #include "base_components/led.h"
+#include "base_components/led_pwm.h"
 #include "base_components/network_indicator.h"
 #include "chip_8258/gpio.h"
 #include "config_nv.h"
@@ -55,7 +56,11 @@ char *extractNextEntry(char **cursor);
 void init_gpio_input(GPIO_PinTypeDef pin, GPIO_PullTypeDef pull);
 void init_gpio_output(GPIO_PinTypeDef pin);
 
-
+#ifdef INDICATOR_PWM_SUPPORT
+void apply_pwm_config_from_db(void);
+u8 device_supports_pwm(void);
+u8 is_indicator_led(led_t *led);
+#endif
 
 void onResetClicked(void *_)
 {
@@ -252,6 +257,10 @@ void parse_config()
       *cursor = ';';
     }
   }
+
+#ifdef INDICATOR_PWM_SUPPORT
+  apply_pwm_config_from_db();
+#endif
 }
 
 
@@ -540,3 +549,48 @@ u32 parseInt(const char *s)
   }
   return(n);
 }
+
+#ifdef INDICATOR_PWM_SUPPORT
+void apply_pwm_config_from_db(void)
+{
+  if (device_supports_pwm())
+  {
+    for (int i = 0; i < leds_cnt; i++)
+    {
+      if (is_indicator_led(&leds[i]))
+      {
+        u8 brightness = 2;
+        if (led_pwm_register_led(i, brightness))
+        {
+        }
+      }
+    }
+    
+    if (pwm_led_count > 0)
+    {
+      led_pwm_init();
+    }
+  }
+}
+
+u8 device_supports_pwm(void)
+{
+#ifdef ROUTER
+  return 1;
+#else
+  return 0;
+#endif
+}
+
+u8 is_indicator_led(led_t *led)
+{
+  for (int i = 0; i < relay_clusters_cnt; i++)
+  {
+    if (relay_clusters[i].indicator_led == led)
+    {
+      return 1;
+    }
+  }
+  return 0;
+}
+#endif

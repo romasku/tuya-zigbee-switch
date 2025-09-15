@@ -100,6 +100,18 @@ class OnOffWithIndicatorCluster(CustomCluster, OnOff):
             access="rw",
             is_manufacturer_specific=True,
         )
+        pwm_mode: Final = ZCLAttributeDef(
+            id=0xff03,
+            type=t.Bool,
+            access="rw",
+            is_manufacturer_specific=True,
+        )
+        pwm_brightness: Final = ZCLAttributeDef(
+            id=0xff04,
+            type=t.uint8_t,
+            access="rw",
+            is_manufacturer_specific=True,
+        )
 
 CONFIGS = [
     {% for config in configs %}
@@ -107,8 +119,15 @@ CONFIGS = [
     {% endfor %}
 ]
 
+DEVICE_TYPES = {
+    {% for device_name, device_type in device_types.items() %}
+    "{{ device_name }}": "{{ device_type }}",
+    {% endfor %}
+}
+
 for config in CONFIGS:
     zb_manufacturer, zb_model, *peripherals = config.rstrip(";").split(";")
+    device_type = DEVICE_TYPES.get(zb_model, "end_device")
 
     relay_cnt = 0
     switch_cnt = 0
@@ -227,6 +246,28 @@ for config in CONFIGS:
                 endpoint_id=endpoint_id,
             )
         )
+        
+        if device_type == "router":
+            builder = (
+                builder
+                .switch(
+                    OnOffWithIndicatorCluster.AttributeDefs.pwm_mode.name,
+                    OnOffWithIndicatorCluster.cluster_id,
+                    translation_key="relay_led_pwm_mode",
+                    fallback_name="Relay LED PWM mode",
+                    endpoint_id=endpoint_id,
+                )
+                .number(
+                    OnOffWithIndicatorCluster.AttributeDefs.pwm_brightness.name,
+                    OnOffWithIndicatorCluster.cluster_id,
+                    translation_key="relay_led_pwm_brightness",
+                    fallback_name="Relay LED PWM brightness",
+                    min_value=0,
+                    max_value=15,
+                    step=1,
+                    endpoint_id=endpoint_id,
+                )
+            )
 
 
 
