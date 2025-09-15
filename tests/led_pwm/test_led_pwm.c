@@ -1,6 +1,7 @@
 #include "unity/unity.h"
 #include "base_components/led_pwm.h"
 #include "base_components/led.h"
+#include "stubs/timer_stubs.h"
 #include <string.h>
 
 led_t leds[3] = 
@@ -32,6 +33,17 @@ nv_sts_t nv_flashWriteNew(u8 op, u8 module, u16 id, u16 len, u8 *buf) {
 void nv_flashSingleItemRemove(u8 module, u16 id, u16 len) {
   (void)module; (void)id; (void)len;
 }
+
+#ifdef INDICATOR_PWM_SUPPORT
+u8 device_supports_pwm(void)
+{
+#ifdef ROUTER
+  return 1;
+#else
+  return 0;
+#endif
+}
+#endif
 
 void test_pwm_registration(void)
 {
@@ -89,6 +101,36 @@ void test_timer_resource_management(void)
   led_pwm_deinit();
 }
 
+void test_sdk_timer_integration(void)
+{
+#ifdef INDICATOR_PWM_SUPPORT
+  timer_stubs_reset();
+  
+  led_pwm_register_led(0, 4);
+  led_pwm_init();
+  
+  led_pwm_enable(0, 8);
+  
+  led_pwm_disable(0);
+  led_pwm_deinit();
+#else
+  TEST_FAIL_MESSAGE("INDICATOR_PWM_SUPPORT not defined");
+#endif
+}
+
+void test_device_type_pwm_detection(void)
+{
+#ifdef INDICATOR_PWM_SUPPORT
+#ifdef ROUTER
+  TEST_ASSERT_EQUAL(1, device_supports_pwm());
+#else
+  TEST_ASSERT_EQUAL(0, device_supports_pwm());
+#endif
+#else
+  TEST_FAIL_MESSAGE("INDICATOR_PWM_SUPPORT not defined");
+#endif
+}
+
 void test_pwm_nv_storage(void)
 {
 #ifdef INDICATOR_PWM_SUPPORT
@@ -129,4 +171,6 @@ void run_all_tests(void)
   RUN_TEST(test_pwm_state_save_restore);
   RUN_TEST(test_timer_resource_management);
   RUN_TEST(test_pwm_nv_storage);
+  RUN_TEST(test_sdk_timer_integration);
+  RUN_TEST(test_device_type_pwm_detection);
 }
