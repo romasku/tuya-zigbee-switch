@@ -11,8 +11,9 @@ Information about all supported devices is kept inside `device_db.yaml`.
 | Field                        | Description                                                                                                                  |
 |------------------------------|------------------------------------------------------------------------------------------------------------------------------|
 |**KEY** (e.g. `TS0004_AVATTO`)| **Given device name**: <br> • Used in project as `BOARD` <br> • Name of the device directory in `bin/`                       |
-|`tuya_manufacturer_name`      | **Zigbee Manufacturer** in Z2M on stock FW: <br> • Identifies the exact device <br> • Used in OTA indexes to select the correct FW when updating <br> • Format: `_TZ3000_xxxxxxxx` |
-|`stock_converter_model`       | **Model** in Z2M on stock FW: <br> • May be overwritten by `whiteLabel` <br> &nbsp; (Check [official Z2M converters][off_conv]) <br> • Needed to enable OTA for stock FW <br> • Used as base for the custom converter |
+|`tuya_manufacturer_name`      | **Zigbee Manufacturer** in Z2M on stock FW: <br> • Identifies the exact device <br> • Value harcoded on the stock FW, can't be changed <br> • Used in OTA indexes to select the correct FW when updating <br> • Format: `_TZ3000_xxxxxxxx` |
+|`stock_converter_model`       | **Model** in Z2M on stock FW: <br> • Not Zigbee Model! <br> • Model name given by Z2M converter <br> • May be overwritten by `whiteLabel` <br> &nbsp; (Check [official Z2M converters][off_conv]) <br> • Needed to enable OTA for stock FW <br> • Used as base for the custom converter? |
+|`stock_converter_manufacturer`| **Manufacturer** in Z2M on stock FW <br> • Not Zigbee Manufacturer! <br> • Manufacturer name given by Z2M converter <br> • May be overwritten by `whiteLabel` <br> &nbsp; (Check [official Z2M converters][off_conv]) <br> • Needed to enable OTA for stock FW |
 |`config_str`                  | Given `manufacturer;model;pinout` on custom FW: <br> • `manufacturer` ➡ ID & OTA updates <br> • `model` ➡ selects converter <br> • `pinout` ➡ GPIO mapping |
 |`alt_config_str`              | Alternative config string: <br> • In case the device has [multiple_pinouts.md](/docs/devices/multiple_pinouts.md) <br> • Currently unused|
 |`device_type`                 | Default operation mode for custom FW: <br> • `end_device` ➡ Line-only devices <br> • `router` ➡ Line+Neutral devices <br> (Scripts build both variants for L-only devices) |
@@ -26,5 +27,6 @@ Information about all supported devices is kept inside `device_db.yaml`.
 |`human_name`                  | Full name of the device: <br> • Shown in [devices/supported.md](/docs/devices/supported.md)                                      |
 |`status`                      | Device support status: <br> • **Supported** or **In progress** <br> • Shown in [devices/supported.md](/docs/devices/supported.md)|
 |`info`                        | Why is the status In progress?                                                                                               |
+|`build`                       | Whether to build for this device or not                                                                                      |
 |`github_issue`                | Link to device-related GitHub issue or pull request                                                                          |
 |`store`                       | Link to buy the exact same device: <br> • Preferably AliExpress (international, English, no affiliation)                     |
