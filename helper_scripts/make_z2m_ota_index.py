@@ -78,13 +78,19 @@ def make_ota_index_entry(file: Path, base_url: str, manufacturer_names: list[str
     return res
 
 def get_raw_github_link():
-    remote_url = subprocess.run(
-        ["git", "remote", "get-url", "origin"],
-        capture_output=True, text=True, check=True
-    ).stdout.strip()
 
     branch = subprocess.run(
         ["git", "branch", "--show-current"],
+        capture_output=True, text=True, check=True
+    ).stdout.strip()
+
+    remote = subprocess.run(
+        ["git", "config", "--get", "branch." + branch + ".remote"],
+        capture_output=True, text=True, check=True
+    ).stdout.strip()
+
+    remote_url = subprocess.run(
+        ["git", "remote", "get-url", remote],
         capture_output=True, text=True, check=True
     ).stdout.strip()
 
