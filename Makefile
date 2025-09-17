@@ -248,7 +248,7 @@ update_zha_quirk:
 
 
 update_supported_devices:
-	python3 helper_scripts/make_supported_devices.py device_db.yaml > docs/supported_devices.md 
+	python3 helper_scripts/make_supported_devices.py device_db.yaml > docs/devices/supported.md 
 
 
 freeze_ota_links:

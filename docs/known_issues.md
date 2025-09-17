@@ -1,13 +1,13 @@
 # Open issues
 
 These issues are not yet fixed and they affect every device.  
-If you have devices on older versions, also read [# Closed issues](#closed-issues).
+If you have devices on older versions of the custom firmware, also read [# Closed issues](#closed-issues).
 
 ## Bi-stable relays draw too much power
 
 Discussion: [#70](https://github.com/romasku/tuya-zigbee-switch/issues/70) + Discord  
 
-Bi-stable relays are sometimes found in switches without Neutral.  
+Bi-stable (latching) relays are sometimes found in switches without Neutral.  
 They require a pulse instead of constant power, **which is not implemented yet**.  
 The higher power draw than stock firmware might **prevent the device from functioning properly**.  
 
@@ -22,7 +22,7 @@ This is a routing issue that happens on big networks, when the custom device att
 
 This issue was fixed in a newer SDK version, but we haven't migrated yet.
 
-It can be avoided by disabling routing (using end_device firmware) or by trying out firmware built with the latest SDK.  
+**It can be avoided by using end_device firmware** (it disables routing) or by trying out firmware built with the latest SDK.  
 
 ## Error message on boot
 
@@ -76,7 +76,7 @@ It is recommended you **reset the device and update to the latest version**.
 **The real bug was found and fixed in v20**, where it is safe to update the config string.
 
 Note that it is still possible to brick your device by providing an incorrect config string.  
-If you bricked your device, [flashing_via_wire.md](./flashing_via_wire.md) is the only recovery method.  
+If you bricked your device, [contribute/flashing_via_wire.md](/docs/contribute/flashing_via_wire.md) is the only recovery method.  
 
 ## 4-gang devices can't update OTA (fixed between v17 and v18)
 
