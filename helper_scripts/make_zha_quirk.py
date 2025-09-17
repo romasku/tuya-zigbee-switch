@@ -25,10 +25,16 @@ if __name__ == "__main__":
     db_str = Path(args.db_file).read_text()
     db = yaml.safe_load(db_str)
 
-    configs = [
-        device["config_str"] for device in db.values()
-    ]
+    configs = []
 
+    for device in db.values():
+
+        # Skip if build == no. Defaults to yes
+        if not device.get("build", True):
+            continue
+
+        configs.append(device["config_str"]);
+        
     template = env.get_template("zha_quirk.py.jinja")
 
     print(template.render(configs=configs))

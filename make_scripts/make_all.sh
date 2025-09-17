@@ -20,13 +20,23 @@ echo [] > zigbee2mqtt/ota/index_end_device.json
 echo [] > zigbee2mqtt/ota/index_router-FORCE.json 
 echo [] > zigbee2mqtt/ota/index_end_device-FORCE.json 
 
-yq -r 'to_entries | sort_by(.key)[] | "\(.key) \(.value.device_type)"' device_db.yaml | while read ITER TYPE; do
-  # Always build router firmware
-  BOARD=$ITER DEVICE_TYPE=router make clean && BOARD=$ITER DEVICE_TYPE=router make -j16
+yq -r 'to_entries | sort_by(.key)[] | "\(.key) \(.value.device_type) \(.value.build)"' device_db.yaml | while read ITER TYPE BUILD; do
 
-  # Also build end_device firmware for devices without Neutral
+  if [ "$BUILD" = "no" ]; then
+    echo "Skipping $ITER as building this model is disabled in the db."
+    continue
+  fi
+
+  echo "Building for board: $ITER (router)"
+  BOARD=$ITER DEVICE_TYPE=router make clean && BOARD=$ITER DEVICE_TYPE=router make -j16
+  echo "Checking if files were created for board: $ITER (router)"
+  ls -l bin/$ITER/
+  
+  echo "Building for board: $ITER (end_device)"
   if [ "$TYPE" = "end_device" ]; then
     BOARD=${ITER} DEVICE_TYPE=end_device make clean && BOARD=${ITER} DEVICE_TYPE=end_device make -j16
+    echo "Checking if files were created for board: $ITER (end_device)"
+    ls -l bin/${ITER}_END_DEVICE/
   fi
 done
 
