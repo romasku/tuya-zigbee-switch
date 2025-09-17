@@ -9,9 +9,9 @@ For devices that contain a **supported Tuya Zigbee module** (ZTU, ZT2S, ZT3L), p
 It consists of tracing (or guessing) the **board pinout**, adding an entry in the `device_db.yaml` file and running the build action. 
 
 Also read:  
-- [porting_to_new_device.md](./porting_to_new_device.md)
-- [recommended_devices.md](./recommended_devices.md)
-- [not_recommended_devices.md](./not_recommended_devices.md)
+- [contribute/porting_to_new_device.md](/docs/contribute/porting_to_new_device.md)
+- [recommended.md](./recommended.md)
+- [not_recommended.md](./not_recommended.md)
 
 | Z2M device name | Vendor name | Zigbee Manufacturer | Type | Status | Issue |
 | --- | --- | --- | --- | --- | --- |

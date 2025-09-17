@@ -7,7 +7,7 @@ This page describes updating supported devices OTA (both converting from origina
 > However, **always check [changelog_fw.md](./changelog_fw.md) and [known_issues.md](./known_issues.md) before updating!**  
 > 
 > Misuse of advanced options, bugs in the code and ignoring instructions **can brick your device**.  
-> The only way to recover it is [flashing_via_wire.md](./flashing_via_wire.md).  
+> The only way to recover it is [contribute/flashing_via_wire.md](/docs/contribute/flashing_via_wire.md).  
 > The same method is used for restoring the original FW, additionally requiring a memory dump of the stock device.
 
 To receive custom FW updates, your ZHA / Z2M instance must have a **custom OTA index** applied.  
@@ -17,25 +17,29 @@ Additionally, to use the new features, you must also **download and regularly up
 > **Zigbee2MQTT is recommended**, prioritized and used by the contributors.  
 > **ZHA is missing the interview button**, so devices might require re-pairing after version updates (to support new features).
 >
-> If you get stuck, please reach out on [Discord](../readme.md#discord). 
+> Consider yourself invited to our [Discord](/readme.md#discord) community! 
 
 ## First-time update steps
-1. Download the custom [# Quirks / Converters](#quirks--converters)
-2. Apply the preferred [# OTA index](#ota-index) (not FORCE)
-3. Restart ZHA / Z2M
-4. If possible, bring the device closer to the coordinator
-5. Optionally, tweak Z2M settings for [# Faster OTA updates](#faster-ota-updates)
-6. Perform the OTA update
-7. Permit join
+1. Read [known_issues.md](./known_issues.md)
+2. Download the custom [# Quirks / Converters](#quirks--converters)
+3. Apply the preferred [# OTA index](#ota-index) (not FORCE)
+4. Restart ZHA / Z2M
+5. If possible, bring the device closer to the coordinator
+6. Optionally, tweak Z2M settings for [# Faster OTA updates](#faster-ota-updates)
+7. Perform the OTA update
+8. Permit join
+9. Interview the device - option missing from ZHA, remove and re-pair if needed  
+10. Reconfigure the device  
+11. Be aware of [## Version update steps](#version-update-steps)
 
 When the update is finished, the device will go into pairing mode (indicated by blinking LED).  
 
-**Joining the network, it should show up as a new device.**  
-So you will have 2 entries: old and new. Force-remove the old, unresponsive entry.  
+**Joining the network, it might show up as a new device.**  
+In this case you will have 2 entries: old and new.  
+Force-remove the old, unresponsive entry.  
 
-If the device still uses the old entry, is misbehaving or is missing clusters: **Interview and Reconfigure it.**  
-– Use these whenever you're in doubt. They don't remove user settings or binds.  
-Also, stronger signal and rebooting will resolve lots of issues.  
+**If the device still uses the old entry**: Interview and Reconfigure it.  
+– Use these whenever you're in doubt. The 2 options, along with better signal will resolve lots of issues (errors, missing clusters). They don't remove user settings or binds.  
 
 Hopefully, you now have a working device with custom firmware! 😊  
 
@@ -255,12 +259,12 @@ Normally, quirks and converters are backwards-compatible.
 Meaning that if you have devices on different versions, you can safely use the latest files.
 
 > [!TIP]  
-> Follow the **#announcements** channel to stay up-to-date: [readme.md # Discord](../readme.md#discord)
+> Follow the **#announcements** channel to stay up-to-date: [readme.md # Discord](/readme.md#discord)
 
 
 [quirks]: https://github.com/romasku/tuya-zigbee-switch/tree/main/zha
 [converters]: https://github.com/romasku/tuya-zigbee-switch/tree/main/zigbee2mqtt/converters
 [zha_tips]: https://github.com/romasku/tuya-zigbee-switch/issues/62
 [zha-device-handlers]: https://github.com/zigpy/zha-device-handlers
-[zigbee-herdsman-converters]: (https://github.com/Koenkk/zigbee-herdsman-converters)
+[zigbee-herdsman-converters]: https://github.com/Koenkk/zigbee-herdsman-converters
 [z2m_ota_speed]: https://www.zigbee2mqtt.io/guide/usage/ota_updates.html#advanced-configuration

@@ -10,15 +10,16 @@ Feature-rich custom firmware for Telink-based Tuya Zigbee switches, switch-modul
 
 ## 🔌 Supported devices
 
-There are already **30+** [**supported_devices.md**](./docs/supported_devices.md).  
+There are already **30+** [devices/supported.md](/docs/devices/supported.md).  
   
 > [!TIP]   
 > If your device contains a **supported Tuya Zigbee module** (ZTU, ZT2S, ZT3L), porting is relatively simple.  
 > It consists of tracing (or guessing) the **board pinout**, adding an entry in `device_db.yaml` and rebuilding. 
->  
-> Further reading:  
-> [porting_to_new_device.md](./docs/porting_to_new_device.md), [device_db_explained.md](./docs/device_db_explained.md),  
-> [recommended_devices.md](./docs/recommended_devices.md), [not_recommended_devices.md](./docs/not_recommended_devices.md).
+ 
+Further reading:  
+- [contribute/porting_to_new_device.md](/docs/contribute/porting_to_new_device.md)
+- [devices/recommended.md](/docs/devices/recommended.md)
+- [devices/not_recommended.md](/docs/devices/not_recommended.md)
 
 ## 🤔 Why?
 
@@ -42,25 +43,25 @@ Users also consider this *the missing piece of a reliable smart home* because it
 
 ## 📲 Flashing
 
-If your device is already supported, the firmware can be **installed and updated**:
-- wirelessly on Z2M / ZHA: [updating.md](./docs/updating.md)
-- by wire: [flashing_via_wire.md](./docs/flashing_via_wire.md)
+If your device is already on [devices/supported.md](/docs/devices/supported.md), the firmware can be **installed and updated**:
+- wirelessly on Z2M / ZHA: [updating.md](/docs/updating.md)
+- by wire: [contribute/flashing_via_wire.md](/docs/contribute/flashing_via_wire.md)
 
-Otherwise, check [porting_to_new_device.md](./docs/porting_to_new_device.md).
+Otherwise, check [contribute/porting_to_new_device.md](/docs/contribute/porting_to_new_device.md).
 
 ## 📝 Changelog
 
-Read the firmware release notes here: [changelog_fw.md](./docs/changelog_fw.md).  
+Read the firmware release notes here: [changelog_fw.md](/docs/changelog_fw.md).  
 
 ## 🚨 ️Known issues
 
-Stay up to date with the [known_issues.md](./docs/known_issues.md) to prevent bricking your device!
+Stay up to date with the [known_issues.md](/docs/known_issues.md) to prevent bricking your device!
 
 ## ❓ Frequently Asked Questions (FAQ)
 
-Read the [faq.md](./docs/faq.md) and feel free to ask more questions or suggest useful information.  
-Also read [endpoints.md](./docs/endpoints.md) for information about groups and binding.  
-To switch between EndDevice and Router, follow [change_device_type.md](./docs/change_device_type.md).  
+Read the [faq.md](/docs/faq.md) and feel free to ask more questions or suggest useful information.  
+Also read [endpoints.md](/docs/usage/endpoints.md) for information about groups and binding.  
+To switch between EndDevice and Router, follow [change_device_type.md](/docs/usage/change_device_type.md).  
 
 ## Discord
 
@@ -73,11 +74,12 @@ Keep important topics on GitHub!
 ## 🛠️ Building and Contributing
 
 **Welcome to the team!** Please read:  
-- [building.md](./docs/building.md)
-- [project_structure.md](./docs/project_structure.md)
-- [device_db_explained.md](./docs/device_db_explained.md)
-- [debugging.md](./docs/debugging.md)
-- [tests.md](./docs/tests.md)
+- [porting_to_new_device.md](/docs/contribute/porting_to_new_device.md)
+- [building.md](/docs/contribute/building.md)
+- [project_structure.md](/docs/contribute/project_structure.md)
+- [device_db_explained.md](docs/contribute/device_db_explained.md)
+- [debugging.md](/docs/contribute/debugging.md)
+- [tests.md](/docs/contribute/tests.md)
 
 ## 🙏 Acknowledgements
 

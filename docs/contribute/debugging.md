@@ -9,11 +9,11 @@
 Currently, debugging is very rudimentary.  
 
 It consits of adding **prints in the code** and building with the DEBUG flag enabled.  
-(See [`make_scripts/make_debug_single.sh`](../make_scripts/make_debug_single.sh).)  
+(See [`make_scripts/make_debug_single.sh`](/make_scripts/make_debug_single.sh).)  
 
-After you flash the debug build, the device will output the messages to the **UART TX pin**.  
-The TX pin can be dedicated or shared with a GPIO pin.  
-Check the diagrams: [ZTU], [ZT2S], [ZT3L].  
+After you flash the debug build, the device will output messages to the **UART TX pin**.  
+The TX pin is usually shared with the B1 GPIO pin. Check the diagrams: [ZTU], [ZT2S], [ZT3L].  
+It is defined in [app_cfg.h](/src/app_cfg.h).  
 
 You can safely power and use the device with 3.3V DC from the programmer.  
 It behaves exactly the same way it does when powered with 220V AC.

@@ -67,7 +67,7 @@ jobs:
       run: |
         git config --global user.name "GitHub Actions"
         git config --global user.email "actions@github.com"
-        git add bin/* zigbee2mqtt/* zha/* docs/supported_devices.md
+        git add bin/* zigbee2mqtt/* zha/* docs/devices/supported.md
         git diff --cached --quiet || git commit -m "Update firmware files, converters, quirks and supported devices list"
         make freeze_ota_links
         git add zigbee2mqtt/*
