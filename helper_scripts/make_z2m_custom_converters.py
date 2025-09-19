@@ -31,6 +31,11 @@ if __name__ == "__main__":
     devices = []
 
     for device in db.values():
+
+        # Skip if build == no. Defaults to yes
+        if not device.get("build", True):
+            continue
+      
         config = device["config_str"]
         zb_manufacturer, zb_model, *peripherals = config.rstrip(";").split(";")
 

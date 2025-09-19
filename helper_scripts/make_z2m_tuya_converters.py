@@ -26,36 +26,38 @@ if __name__ == "__main__":
     db_str = Path(args.db_file).read_text()
     db = yaml.safe_load(db_str)
 
-    tuyaModels = ["TS0001", "TS0002", "TS0003", "TS0004"] + [
-        entry["stock_converter_model"]
-        for entry in db.values()
-        if entry.get("stock_converter_manufacturer", "tuya") == "tuya"
-    ]
-    tuyaMultiplePinoutsModels = [
-        entry["stock_converter_model"]
-        for entry in db.values()
-        if entry.get("stock_converter_manufacturer", "tuya") == "tuya" and entry.get("alt_config_str", False)
-    ]
-    moesModels = [
-        entry["stock_converter_model"]
-        for entry in db.values()
-        if entry.get("stock_converter_manufacturer", "tuya") == "moes"
-    ]
-    moesMultiplePinoutsModels = [
-        entry["stock_converter_model"]
-        for entry in db.values()
-        if entry.get("stock_converter_manufacturer", "tuya") == "moes" and entry.get("alt_config_str", False)
-    ]
-    avattoModels = [
-        entry["stock_converter_model"]
-        for entry in db.values()
-        if entry.get("stock_converter_manufacturer", "tuya") == "avatto"
-    ]
-    avattoMultiplePinoutsModels = [
-        entry["stock_converter_model"]
-        for entry in db.values()
-        if entry.get("stock_converter_manufacturer", "tuya") == "avatto" and entry.get("alt_config_str", False)
-    ]
+    manufacturers = {
+        "tuya": ["TS0001", "TS0002", "TS0003", "TS0004"],
+        "moes": [],
+        "avatto": []
+    }
+
+    # Prepare containers for multiple pinout models
+    multiple_pinouts = {key: [] for key in manufacturers}
+
+    for entry in db.values():
+      
+        # Skip if build == no. Defaults to yes
+        if not entry.get("build", True):
+            continue
+      
+        model = entry.get("stock_converter_model")
+        mfr = entry.get("stock_converter_manufacturer", "tuya")
+        if model is None or mfr not in manufacturers:
+            continue
+
+        manufacturers[mfr].append(model)
+
+        if entry.get("alt_config_str"):
+            multiple_pinouts[mfr].append(model)
+
+    tuyaModels = manufacturers["tuya"]
+    moesModels = manufacturers["moes"]
+    avattoModels = manufacturers["avatto"]
+
+    tuyaMultiplePinoutsModels = multiple_pinouts["tuya"]
+    moesMultiplePinoutsModels = multiple_pinouts["moes"]
+    avattoMultiplePinoutsModels = multiple_pinouts["avatto"]
 
     template = env.get_template("tuya_with_ota.js.jinja")
 
