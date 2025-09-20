@@ -1,4 +1,4 @@
-TS0012:
+TUYA_TS0012:
   config_str: jl7qyupf;TS0012-custom;BA0f;LD7;SC2f;SC3f;RC0;RB4;
   device_type: end_device
   tuya_manufacturer_id: 4417
@@ -12,9 +12,9 @@ TS0012:
   old_manufacturer_names:
   - Tuya-CUSTOM   # Old name from early firmware
   - Tuya-TS0012-custom
-  human_name: GIRIER TS0012, OXT
+  human_name: Tuya 2-gang L-only
   status: Supported
-WHD02:
+TUYA_WHD02:
   config_str: skueekg3;WHD02-custom;BB4u;LD3;SB5u;RB1;
   device_type: router
   tuya_manufacturer_id: 4407
@@ -24,9 +24,9 @@ WHD02:
   tuya_manufacturer_name: _TZ3000_skueekg3
   old_manufacturer_names:
   - Tuya-WHD02-custom
-  human_name: No-name 1 gang switch
+  human_name: Tuya 1-gang
   status: Supported
-TS0002:
+TUYA_TS0002:
   config_str: 01gpyda5;TS0002-custom;BD2u;LC2;SB5u;SB4u;RC4;RC3;
   device_type: router
   tuya_manufacturer_id: 4417
@@ -36,10 +36,10 @@ TS0002:
   tuya_manufacturer_name: _TZ3000_01gpyda5
   old_manufacturer_names:
   - Tuya-TS0002-custom
-  human_name: OXT TS0001, probably other rebrands
+  human_name: Tuya 2-gang
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/6
-TS0002_OXT:
+OXT_TS0002:
   config_str: bvrlqyj7;TS0002-OXT-CUS;BD2u;LC0;SB4u;SB5u;RC2;RC3;
   device_type: router
   tuya_manufacturer_id: 4417
@@ -50,10 +50,10 @@ TS0002_OXT:
   old_manufacturer_names:
   - TS0002-OXT-CUS
   zb_module: ZT3L
-  human_name: OXT 2-gang switch
+  human_name: OXT 2-gang
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/49
-TS0002_AUBESS:
+AUBESS_TS0002:
   config_str: lmlsduws;TS0002-AUB;LB1;BC4u;RB7;SC2u;RB4;SC3u;
   device_type: router
   tuya_manufacturer_id: 4417
@@ -68,7 +68,7 @@ TS0002_AUBESS:
   build: yes
   github_issue: https://github.com/romasku/tuya-zigbee-switch/pull/153
   store: https://www.aliexpress.com/item/1005005748264739.html
-TS0002_MOES:
+MOES_TS0002:
   config_str: qaa59zqd;TS0002-MS;BB1u;LC3;RD2;SB5u;RC2;SB4u;
   device_type: router
   tuya_manufacturer_id: 4417
@@ -84,7 +84,7 @@ TS0002_MOES:
   build: yes
   github_issue: https://github.com/romasku/tuya-zigbee-switch/pull/147
   store: https://www.amazon.co.uk/dp/B0CKYP32CW?th=1
-TS0011:
+TUYA_TS0011:
   config_str: ji4araar;TS0011-custom;BA0f;LD7;SC2f;RC0;
   device_type: end_device
   tuya_manufacturer_id: 4417
@@ -94,10 +94,10 @@ TS0011:
   tuya_manufacturer_name: _TZ3000_ji4araar
   old_manufacturer_names:
   - Tuya-TS0011-custom
-  human_name: GIRIER TS0011, OXT TS0011
+  human_name: Tuya 1-gang L-only
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/4
-TS0001:
+TUYA_TS0001:
   config_str: tqlv4ug4;TS0001-custom;BD2u;LC0;SB4u;RC2;
   device_type: router
   tuya_manufacturer_id: 4417
@@ -107,10 +107,10 @@ TS0001:
   tuya_manufacturer_name: _TZ3000_tqlv4ug4
   old_manufacturer_names:
   - Tuya-TS0001-custom
-  human_name: OXT TS0001, probably other rebrands
+  human_name: Tuya 1-gang
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/6
-TS0002_GIRIER:
+GIRIER_TS0002:
   config_str: zmy4lslw;TS0002-GIR;BD2u;LC2;SB5u;RC4;SB4u;RC3;
   device_type: router
   tuya_manufacturer_id: 4417
@@ -123,11 +123,11 @@ TS0002_GIRIER:
   old_zb_models:
   - TS0002-custom
   zb_module: ZT2S
-  human_name: GIRIER 2 Gang
+  human_name: Girier 2-gang
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/29
   store: https://www.aliexpress.com/item/1005006084763437.html
-TS0001_AVATTO:
+AVATTO_TS0001:
   config_str: 4rbqgcuv;TS0001-AVB;BC2u;LD2i;SD3u;RC0;
   device_type: router
   tuya_manufacturer_id: 4417
@@ -144,11 +144,11 @@ TS0001_AVATTO:
   - TS0001-AV-CUS
   zb_module: ZTU
   override_z2m_device: ZWSM16-1-Zigbee
-  human_name: AVATTO ZWSM16-1 (blue socket)
+  human_name: AVATTO ZWSM16-1
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/9
   store: https://www.aliexpress.com/item/1005007247647375.html
-TS0002_AVATTO:
+AVATTO_TS0002:
   config_str: mtnpt6ws;TS0002-AVB;BC2u;LD2i;SD3u;RC0;SD7u;RD4;
   device_type: router
   tuya_manufacturer_id: 4417
@@ -165,11 +165,11 @@ TS0002_AVATTO:
   - TS0002-AV-CUS
   zb_module: ZTU
   override_z2m_device: ZWSM16-2-Zigbee
-  human_name: AVATTO ZWSM16-2 (blue socket)
+  human_name: AVATTO ZWSM16-2
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/9
   store: https://www.aliexpress.com/item/1005007247647375.html
-TS0003_AVATTO:
+AVATTO_TS0003:
   config_str: hbic3ka3;TS0003-AVB;BC2u;LD2i;SD3u;RC0;SD7u;RD4;SB6u;RC1;
   device_type: router
   tuya_manufacturer_id: 4417
@@ -186,11 +186,11 @@ TS0003_AVATTO:
   - TS0003-AV-CUS
   zb_module: ZTU
   override_z2m_device: ZWSM16-3-Zigbee
-  human_name: AVATTO ZWSM16-3 (blue socket)
+  human_name: AVATTO ZWSM16-3
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/56
   store: https://www.aliexpress.com/item/1005007247647375.html
-TS0004_AVATTO:
+AVATTO_TS0004:
   config_str: 5ajpkyq6;TS0004-AVB;BC2u;LD2i;SD3u;RC0;SD7u;RD4;SB6u;RC1;SA0u;RC4;
   alt_config_str:
   - 5ajpkyq6;TS0004-AVB;BC2u;LD2i;SD7u;RB6;SC0u;RD4;SA0u;RC1;SA1u;RC4;
@@ -209,13 +209,14 @@ TS0004_AVATTO:
   - TS0004-AV-CUS
   zb_module: ZTU
   override_z2m_device: ZWSM16-4-Zigbee
-  human_name: AVATTO ZWSM16-4 (blue socket)
+  human_name: AVATTO ZWSM16-4
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/9
   store: https://www.aliexpress.com/item/1005007247647375.html
-MOES_2_GANG_SWITCH:
+MOES_TOUCH_TS0012:
   config_str: 18ejxno0;Moes-2-gang;SB6u;SC4u;RB5;RB4;ID3;IC0;M;
   device_type: end_device
+  neutral: optional
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
   firmware_image_type: 43510
@@ -227,13 +228,14 @@ MOES_2_GANG_SWITCH:
   - Moes-2-gang
   zb_module: ZTU
   override_z2m_device: ZS-EUB_2gang
-  human_name: Moes TS0012 (2 gang switch)
+  human_name: Moes 2-gang touch switch
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/14
   store: https://www.aliexpress.com/item/1005005178075186.html
-BSEED_2_GANG_SWITCH:
+BSEED_TOUCH_TS0012:
   config_str: f2slq5pj;Bseed-2-gang;SB6u;SA1u;RD3;RC0;IC2;IB4;M;
   device_type: end_device
+  neutral: no
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
   firmware_image_type: 43534
@@ -244,13 +246,14 @@ BSEED_2_GANG_SWITCH:
   old_manufacturer_names:
   - Bseed-2-gang
   zb_module: ZTU
-  human_name: Bseed TS0012 (2 gang switch)
+  human_name: BSEED 2-gang touch switch
   status: In progress
   info: Pin C3 disables both LEDs ?
   github_issue: https://github.com/romasku/tuya-zigbee-switch/pull/23
-BSEED_2_GANG_SWITCH_2:
+BSEED_TOUCH_2_TS0012:
   config_str: xk5udnd6;Bseed-2-gang-2;SB5u;SD4u;RC0B6;RA1D7;ID2;ID3;LC3;M;
   device_type: end_device
+  neutral: no
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
   firmware_image_type: 43544
@@ -261,11 +264,11 @@ BSEED_2_GANG_SWITCH_2:
   old_manufacturer_names:
   - Bseed-2-gang-2
   zb_module: ZTU
-  human_name: Bseed TS0012 (2 gang switch)
+  human_name: BSEED 2-gang touch switch
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/51
   store: https://www.aliexpress.com/item/1005003324697513.html
-TS0012_AVATTO:
+AVATTO_TS0012:
   config_str: ljhbw1c9;TS0012-avatto;BB4u;LB5;SC0u;SC3u;RC2;RC4;
   device_type: end_device
   tuya_manufacturer_id: 4417
@@ -278,12 +281,12 @@ TS0012_AVATTO:
   old_manufacturer_names:
   - TS0012-Avatto
   zb_module: ZTU
-  human_name: Avatto LZWSM16-2 (blue socket)
+  human_name: AVATTO LZWSM16-2
   override_z2m_device: LZWSM16-2
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/16
   store: https://www.aliexpress.com/item/1005007247647375.html
-TS0013_AVATTO:
+AVATTO_TS0013:
   config_str: avotanj3;TS0013-AVB;BB4u;LB5;SA1u;RC2;SC3u;RC4;SC0u;RD2;
   device_type: end_device
   tuya_manufacturer_id: 4417
@@ -292,12 +295,12 @@ TS0013_AVATTO:
   stock_converter_model: TS0013
   tuya_manufacturer_name: _TZ3000_avotanj3
   zb_module: ZTU
-  human_name: AVATTO LZWSM16-3 (blue socket)
+  human_name: AVATTO LZWSM16-3
   override_z2m_device: LZWSM16-3
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/135
   store: https://www.aliexpress.com/item/1005007247647375.html
-WHD02_AUBESS:
+AUBESS_WHD02:
   config_str: 46t1rvdu;WHD02-Aubess;BC4u;LD2;SB4u;RB5;
   device_type: end_device
   tuya_manufacturer_id: 4417
@@ -313,9 +316,10 @@ WHD02_AUBESS:
   human_name: Aubess WHD02
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/18
-MOES_1_GANG_SWITCH:
+MOES_TOUCH_TS0011:
   config_str: hhiodade;Moes-1-gang;SC1u;RB5;ID7;M;
   device_type: end_device
+  neutral: optional
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
   firmware_image_type: 43532
@@ -327,13 +331,14 @@ MOES_1_GANG_SWITCH:
   old_manufacturer_names:
   - Moes-1-gang
   zb_module: ZTU
-  human_name: Moes TS0011 (1 gang switch)
+  human_name: Moes 1-gang touch switch
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/14
   store: https://www.aliexpress.com/item/1005005178075186.html
-MOES_3_GANG_SWITCH:
+MOES_TOUCH_TS0013:
   config_str: qewo8dlz;Moes-3-gang;SB6u;RB5;ID3;SC1u;RB4;ID7;SC4u;RD2;IC0;M;
   device_type: end_device
+  neutral: optional
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
   firmware_image_type: 43533
@@ -344,11 +349,11 @@ MOES_3_GANG_SWITCH:
   old_manufacturer_names:
   - Moes-3-gang
   zb_module: ZTU
-  human_name: Moes TS0013 (3 gang switch)
+  human_name: Moes 3-gang touch switch
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/14
   store: https://www.aliexpress.com/item/1005005178075186.html
-WHD02_2:
+TUYA_WHD02_2:
   config_str: skueekg3;WHD02-custom;BB1u;LB4;SD2u;RD3;
   device_type: router
   tuya_manufacturer_id: 4417
@@ -358,12 +363,12 @@ WHD02_2:
   tuya_manufacturer_name: _TZ3000_skueekg3
   old_manufacturer_names:
   - Tuya-WHD02-custom
-  zb_module: ZT2S
-  human_name: No-name 1 gang switch with no rf shiled ZT2S
+  zb_module: ZT2S_without_shield
+  human_name: Tuya 1-gang
   status: In progress
   info: tuya_manufacturer_name is not confirmed ?
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/24
-WHD02_3:
+TUYA_WHD02_3:
   config_str: skueekg3;WHD02-custom;BB1u;LB4;SD2u;RD3;
   device_type: router
   tuya_manufacturer_id: 4417
@@ -373,14 +378,15 @@ WHD02_3:
   tuya_manufacturer_name: _TZ3000_skueekg3
   old_manufacturer_names:
   - Tuya-WHD02-custom
-  zb_module: ZT2S
-  human_name: No-name 1 gang switch with no rf shiled ZT2S
+  zb_module: ZT2S_without_shield
+  human_name: Tuya 1-gang
   status: In progress
   info: tuya_manufacturer_name is not confirmed ?
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/44
-ZEMISMART_2_GANG:
+ZEMISMART_SWITCH_TS0012:
   config_str: zmlunnhy;Zemi-2-gang;SC3U;SD2U;IB7;ID7;RB5C4;RC2D4;
   device_type: end_device
+  neutral: optional
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
   firmware_image_type: 43536
@@ -391,11 +397,11 @@ ZEMISMART_2_GANG:
   old_manufacturer_names:
   - Zemi-2-gang
   zb_module: ZT3L
-  human_name: Zemismart 2 gang switch (needs confirmation)
+  human_name: Zemismart 2-gang switch
   status: In progress
   info: Untested
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/19
-TS0011_AVATTO:
+AVATTO_TS0011:
   config_str: hbxsdd6k;TS0011-avatto;BB4u;LB5;SC0u;RC2;
   device_type: end_device
   tuya_manufacturer_id: 4417
@@ -409,11 +415,11 @@ TS0011_AVATTO:
   old_manufacturer_names:
   - TS0011-Avatto
   zb_module: ZTU
-  human_name: Avatto LZWSM16-1 (blue socket)
+  human_name: AVATTO LZWSM16-1
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/9
   store: https://www.aliexpress.com/item/1005007247647375.html
-TS0003_AUBESS:
+AUBESS_TS0003:
   config_str: lvhy15ix;TS0003-AUB;LB1;BC4u;RB7;SC2u;RB4;SC3u;RB5;SD2u;
   device_type: router
   tuya_manufacturer_id: 4417
@@ -422,14 +428,14 @@ TS0003_AUBESS:
   stock_converter_model: TS0003_switch_module_2
   tuya_manufacturer_name: _TZ3000_lvhy15ix
   zb_module: ZT2S
-  human_name: Aubess 3-gang module
+  human_name: Aubess 3-gang
   status: Supported
   build: yes
   github_issue: https://github.com/romasku/tuya-zigbee-switch/pull/151
   store: 
   - https://www.amazon.co.uk/dp/B0DKC2CRFJ
   - https://www.aliexpress.com/item/1005005748264739.html
-TS0003:
+MOES_TS0003:
   config_str: pfc7i3kt;TS0003-custom;BD3u;SC1u;SD7u;SC3u;RB5;RD4;RB4;
   device_type: router
   tuya_manufacturer_id: 4417
@@ -442,20 +448,21 @@ TS0003:
   human_name: Moes MS-104CZ
   status: Supported
   github_issue: null
-TS0003_BSEED:
+BSEED_TOUCH_TS0003:
   config_str: 7aqaupa9;TS0003-BS;SC3u;SB7u;SB5u;RC2;RB4;RC0;LA0i;M;
   device_type: router
+  neutral: required
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
   firmware_image_type: 43549
   stock_converter_model: TS0003
   tuya_manufacturer_name: _TZ3000_7aqaupa9
   zb_module: ZT3L
-  human_name: Bseed 3-gang touch switch with Neutral
+  human_name: BSEED 3-gang touch switch
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/125
   store: https://www.aliexpress.com/item/1005003475686409.html
-TS0001_IHS_TOUCH:
+IHS_TOUCH_TS0001:
   config_str: qq9ahj6z;TS0001-IHS-T;LC4i;RC3;SB4u;M;
   device_type: end_device
   neutral: optional
@@ -465,12 +472,12 @@ TS0001_IHS_TOUCH:
   stock_converter_model: TS0001
   tuya_manufacturer_name: _TZ3000_qq9ahj6z
   zb_module: ZT3L
-  human_name: iHseno 1-gang Touch Switch
+  human_name: iHseno 1-gang touch switch
   status: Supported
   build: yes
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/146
   store: https://www.aliexpress.com/item/1005007532195287.html
-TS0002_IHS_TOUCH:
+IHS_TOUCH_TS0002:
   config_str: zxrfobzw;TS0002-IHS-T;LC4i;RC2;SC0u;RD2;SB5u;M;
   device_type: end_device
   neutral: optional
@@ -480,12 +487,12 @@ TS0002_IHS_TOUCH:
   stock_converter_model: TS0002
   tuya_manufacturer_name: _TZ3000_zxrfobzw
   zb_module: ZT3L
-  human_name: iHseno 2-gang Touch Switch
+  human_name: iHseno 2-gang touch switch
   status: Supported
   build: yes
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/146
   store: https://www.aliexpress.com/item/1005007532195287.html
-TS0001_IHS:
+IHS_TS0001:
   config_str: pgq7ormg;TS0001-IHS;BC3u;LC2i;SB5u;RD2;
   device_type: router
   tuya_manufacturer_id: 4417
@@ -495,11 +502,11 @@ TS0001_IHS:
   tuya_manufacturer_name: _TZ3000_pgq7ormg
   override_z2m_device: _TZ3000_pgq7ormg
   zb_module: ZTU
-  human_name: IHSENO 1-gang Neutral
+  human_name: iHseno 1-gang
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/105
   store: https://www.aliexpress.com/item/1005008107698143.html
-TS0003_IHS:
+IHS_TS0003:
   config_str: mhhxxjrs;TS0003-IHS;BC3u;LC2i;SD7u;RD2;SB4u;RD3;SB5u;RC0;
   device_type: router
   tuya_manufacturer_id: 4417
@@ -513,11 +520,11 @@ TS0003_IHS:
   old_zb_models:
   - TS0003-3CH-cus
   zb_module: ZTU
-  human_name: IHSENO 3-gang Neutral
+  human_name: iHseno 3-gang
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/85
   store: https://www.aliexpress.com/item/1005008107698143.html
-TS0004_IHS:
+IHS_TS0004:
   config_str: knoj8lpk;TS0004-IHS;BC3u;LC2i;SB5u;RD2;SB4u;RD3;SD7u;RC0;SD4u;RC1;
   device_type: router
   tuya_manufacturer_id: 4417
@@ -528,11 +535,11 @@ TS0004_IHS:
   old_manufacturer_names:
   - TS0004-IHS
   zb_module: ZTU
-  human_name: IHSENO 4-gang Neutral
+  human_name: iHseno 4-gang
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/105
   store: https://www.aliexpress.com/item/1005008107698143.html
-TS0013_GIRIER:
+GIRIER_TS0013:
   config_str: ypgri8yz;ZB08-custom;BA0u;LD7;SC2u;RC0;SC3u;RB4;SD2u;RB5;
   device_type: end_device
   tuya_manufacturer_id: 4417
@@ -547,10 +554,10 @@ TS0013_GIRIER:
   - Girier-ZB08-custom
   - Girier-ZB08-custom-ED
   zb_module: ZTU # probably but not confirmed
-  human_name: Girier-ZB08
+  human_name: Girier ZB08
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/37
-TS0004_AVATTO_NEUTRAL:
+TUYA_TS0004:
   config_str: ltt60asa;TS0004-Avv;BB5u;LC1;SB4u;RC0;SD2u;RC4;SC3u;RD4;SC2u;RD7;
   device_type: router
   tuya_manufacturer_id: 4417
@@ -561,11 +568,11 @@ TS0004_AVATTO_NEUTRAL:
   old_manufacturer_names:
   - TS0004-Avv
   zb_module: ZTU
-  human_name: Avatto 4 gang switch module with N
+  human_name: Tuya 4-gang
   status: In progress
   info: Some issues with reporting and groups
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/42
-TS0004:
+AUBESS_TS0004:
   config_str: mmkbptmx;TS0004-custom;BB6u;LB1;SC1u;RB7;SC2u;RB5;SC3u;RB4;SD2u;RC4;
   device_type: router
   tuya_manufacturer_id: 4417
@@ -576,13 +583,14 @@ TS0004:
   old_manufacturer_names:
   - Tuya-TS0004-custom
   zb_module: ZTU
-  human_name: No-name 4 gang switch module with N
+  human_name: Aubess 4-gang
   status: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/66
   store: https://www.aliexpress.com/item/1005005748264739.html
-AVATTO_3_GANG_TOUCH:
+AVATTO_TOUCH_TS0003:
   config_str: avky2mvc;Avatto-3-touch;LB5;SD3u;RC2;SD7u;RC3;SD4u;RD2;M;
   device_type: router
+  neutral: required
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
   firmware_image_type: 43542
@@ -592,12 +600,12 @@ AVATTO_3_GANG_TOUCH:
   - Avatto-3-touch
   # override_z2m_device: 37022474_2
   zb_module: ZTU
-  human_name: Avatto Zigbee 3 Gang (ZTS02RD-US-W3)
+  human_name: AVATTO 3-gang touch switch
   status: In progress
   info: Indicator LEDs are hard wired to buttons, but they can be forced on with C4 ?
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/41
   store: https://www.aliexpress.com/item/1005007097427150.html
-TS011F_BSEED:
+BSEED_SOCKET_TS011F:
   config_str: o1jzcxou;TS011F-BS;LC2;SB4u;RC3;ID2;M;
   device_type: router
   tuya_manufacturer_id: 4417
@@ -606,13 +614,13 @@ TS011F_BSEED:
   stock_converter_model: _TZ3000_o1jzcxou
   tuya_manufacturer_name: _TZ3000_o1jzcxou
   zb_module: ZTU
-  human_name: Bseed in-wall socket (multiple regions and colors)
+  human_name: BSEED socket
   status: Supported
   build: yes
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/145
   store:
   - https://www.aliexpress.com/item/1005004402438527.html
-TS011F_BSEED_PM:
+BSEED_SOCKET_PM_TS011F:
   config_str: b28wrpvx;TS011F-BS-PM;LC3;SB5u;RD2;IB4;M;
   device_type: router
   tuya_manufacturer_id: 4417
@@ -622,7 +630,7 @@ TS011F_BSEED_PM:
   tuya_manufacturer_name: _TZ3000_b28wrpvx
   override_z2m_device: TS011F_plug_1_2
   zb_module: ZTU
-  human_name: Bseed in-wall socket with PM (multiple regions and colors)
+  human_name: BSEED PM socket 
   status: In progress
   info: PM not implemented
   build: yes
