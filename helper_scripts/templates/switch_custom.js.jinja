@@ -200,18 +200,18 @@ const definitions = [
             {% endif%}
             onOff({ endpointNames: {{device.relayNames | tojson }} }),
             {% for switchName in device.switchNames %}
-            romasku.pressAction("{{switchName}}_press_action", "{{switchName}}"),
-            romasku.switchMode("{{switchName}}_mode", "{{switchName}}"),
-            romasku.switchAction("{{switchName}}_action_mode", "{{switchName}}"),
-            romasku.relayMode("{{switchName}}_relay_mode", "{{switchName}}"),
-            romasku.relayIndex("{{switchName}}_relay_index", "{{switchName}}", {{device.relayNames | length}}),
-            romasku.bindedMode("{{switchName}}_binded_mode", "{{switchName}}"),
-            romasku.longPressDuration("{{switchName}}_long_press_duration", "{{switchName}}"),
-            romasku.levelMoveRate("{{switchName}}_level_move_rate", "{{switchName}}"),
+            romasku.pressAction("press_action", "{{switchName}}"),
+            romasku.switchMode("mode", "{{switchName}}"),
+            romasku.switchAction("action_mode", "{{switchName}}"),
+            romasku.relayMode("relay_mode", "{{switchName}}"),
+            romasku.relayIndex("relay_index", "{{switchName}}", {{device.relayNames | length}}),
+            romasku.bindedMode("binded_mode", "{{switchName}}"),
+            romasku.longPressDuration("long_press_duration", "{{switchName}}"),
+            romasku.levelMoveRate("level_move_rate", "{{switchName}}"),
             {% endfor %}
             {% for relayName in device.relayIndicatorNames %}
-            romasku.relayIndicatorMode("{{relayName}}_indicator_mode", "{{relayName}}"),
-            romasku.relayIndicator("{{relayName}}_indicator", "{{relayName}}"),
+            romasku.relayIndicatorMode("indicator_mode", "{{relayName}}"),
+            romasku.relayIndicator("indicator", "{{relayName}}"),
             {% endfor %}
         ],
         meta: { multiEndpoint: true },
