@@ -9,12 +9,15 @@ moesDefinitions = moesDefinitions.definitions ?? moesDefinitions;
 avattoDefinitions = avattoDefinitions.definitions ?? avattoDefinitions;
 
 const definitions = [];
-const multiplePinoutsDescription = "WARNING! There are multiple known pinouts for this device! Before flashing custom firmware, it is recommended you disassemble the device and trace the board pinout. Please check https://github.com/romasku/tuya-zigbee-switch/tree/main/docs/multiple_pinouts.md";
+const multiplePinoutsDescription = "WARNING! There are multiple known pinouts for this device! Before flashing custom firmware, it is recommended you disassemble the device and trace the board pinout. Please check https://github.com/romasku/tuya-zigbee-switch/tree/main/docs/devices/multiple_pinouts.md";
 
 const ota = require("zigbee-herdsman-converters/lib/ota");
 
 const tuyaModels = [
+    "TS0001",
     "TS0001_switch_module",
+    "TS0001_switch_module_3",
+    "TS0002",
     "TS0002_basic",
     "TS0002_limited",
     "TS0003",
@@ -27,7 +30,9 @@ const tuyaModels = [
     "TS0012_switch_module",
     "TS0013",
     "TS0013_switch_module",
+    "TS011F_plug_1",
     "WHD02",
+    "_TZ3000_o1jzcxou",
 ];
 
 const tuyaMultiplePinoutsModels = [
