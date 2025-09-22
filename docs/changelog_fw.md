@@ -50,7 +50,7 @@ Requires manual update of converters and reconfiguration.
 
 ## v1.0.15
 
-- Add support for Zigbee groups. Read [doc](./docs/endpoints.md) for details about endpoints.
+- Add support for Zigbee groups. Read [doc](/docs/usage/endpoints.md) for details about endpoints.
 
 ## v1.0.14
 

@@ -47,7 +47,7 @@ Is it possible to revert to stock firmware?
 **Partially**. Reverting to the stock firmware is only possible via wired flashing using UART.  
 Additionally, you will need a **dump of the original firmware**. Dumps are available for **some** devices in the `bin/` directory.
 
-To flash the stock firmware, follow the same steps outlined in [flashing_via_wire.md](flashing_via_wire.md), just as you would for custom firmware.
+To flash the stock firmware, follow the same steps outlined in [contribute/flashing_via_wire.md](/docs/contribute/flashing_via_wire.md), just as you would for custom firmware.
 
 </details>
 
@@ -56,6 +56,6 @@ To flash the stock firmware, follow the same steps outlined in [flashing_via_wir
 How to recover an unresponsive device?
 </summary>
 
-If your device does not respond to commands or button-presses, the only way to bring it back is [flashing_via_wire.md](flashing_via_wire.md).
+If your device does not respond to commands or button-presses, the only way to bring it back is [contribute/flashing_via_wire.md](/docs/contribute/flashing_via_wire.md).
 
 </details>
