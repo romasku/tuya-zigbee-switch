@@ -10,7 +10,7 @@ Buliding consists of multiple steps:
 7. updating Z2M converters (for old and new Z2M versions)
 8. updating ZHA quirks
 9. updating [devices/supported.md](/docs/devices/supported.md)
-10. (manual) updating [changelog_fw.md](/docs/changelog_fw.md)
+10. (manual) updating changelogs: [readme.md # Changelogs](/readme.md#-changelogs)
 11. running unit tests (automated on push and merge)
 11. (online) freezing OTA links  
 
@@ -31,7 +31,7 @@ Two branches are recommended to avoid conflicts between generated files.
 1. Fork the repository and clone it
 2. Create **code_branch** from main (eg. newFeature)
 3. Make changes
-4. Update `changelog_fw.md` (manual)
+4. Update changelogs (manual): [readme.md # Changelogs](/readme.md#-changelogs)
 5. Commit changes and push
 6. Create **build_branch** from **code_branch** (newFeature -> newFeature_build) and push
 7. Visit GitHub Actions on your fork (web) and run `build.yml` on **build_branch**  
@@ -66,7 +66,7 @@ They can easily be adapted for other distributions. (Please share your scripts)
 5. Build with `make_scripts/make_all.sh` or `make_scripts/make_debug_single.sh`
 6. Run unit tests with `make tests`: [tests.md](./tests.md)
 7. Perform device update and test: [flashing_via_wire.md](./flashing_via_wire.md)
-8. Update `changelog_fw.md` (manual)
+8. Update changelogs (manual): [readme.md # Changelogs](/readme.md#-changelogs)
 9. Commit changes (without generated files) and push
 10. Create a Pull Request (**code_branch** -> **romasku/main**)
 

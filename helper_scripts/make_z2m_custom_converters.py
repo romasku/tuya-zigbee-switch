@@ -2,7 +2,7 @@ import argparse
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 from pathlib import Path
 import yaml
-
+import subprocess
 
 env = Environment(
     loader=FileSystemLoader("helper_scripts/templates"),
@@ -24,6 +24,13 @@ if __name__ == "__main__":
     )
 
     args = parser.parse_args()
+
+    branch = subprocess.run(
+        ["git", "branch", "--show-current"],
+        capture_output=True, text=True, check=True
+    ).stdout.strip()
+
+    converters_version = f"v1.1 ({branch})"
 
     db_str = Path(args.db_file).read_text()
     db = yaml.safe_load(db_str)
@@ -82,7 +89,7 @@ if __name__ == "__main__":
 
     template = env.get_template("switch_custom.js.jinja")
 
-    print(template.render(devices=devices, z2m_v1=args.z2m_v1))
+    print(template.render(devices=devices, converters_version=converters_version, z2m_v1=args.z2m_v1))
 
     exit(0)
 
