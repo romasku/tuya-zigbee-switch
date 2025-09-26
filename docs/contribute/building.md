@@ -85,7 +85,7 @@ They can easily be adapted for other distributions. (Please share your scripts)
 |`make`                              | Builds fw and indexes for a single device       |
 |`make clean`                        | Deletes the built fw binary for a single device |
 |`make tests`                        | Runs the unit [tests.md](./tests.md)            |
-|`make install`                      | `make sdk` and `make toolchain`                 |
+|`make install`                      | Runs `make sdk` and `make toolchain`            |
 |`make clean_install`                | Runs `make clean_sdk` and `make clean_toolchain`|
 |`make sdk`                          | Downloads Telink's Zigbee SDK into `sdk/`       |
 |`make clean_sdk`                    | Deletes `sdk/`                                  |
@@ -94,6 +94,7 @@ They can easily be adapted for other distributions. (Please share your scripts)
 
 ## Further reading
 
+- [porting_to_new_device.md](./porting_to_new_device.md)
 - [project_structure.md](./project_structure.md)
 - [device_db_explained.md](./device_db_explained.md)
 - [debugging.md](./debugging.md)

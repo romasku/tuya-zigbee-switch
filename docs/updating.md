@@ -27,10 +27,10 @@ Additionally, to use the new features, you must also **download and regularly up
 2. Download the custom [# Quirks / Converters](#quirks--converters)
 3. Apply the preferred [# OTA index](#ota-index) (not FORCE)
 4. Restart ZHA / Z2M
-5. If possible, bring the device closer to the coordinator
+5. If possible, bring the device closer to the coordinator (or add routers to boost signal)
 6. Optionally, tweak Z2M settings for [# Faster OTA updates](#faster-ota-updates)
-7. Perform the OTA update
-8. Permit join
+7. Perform the OTA update (can get stuck at 100%, it's ok)
+8. Permit join when the LED flashes
 9. Interview the device - option missing from ZHA, remove and re-pair if needed  
 10. Reconfigure the device  
 11. Be aware of [## Version update steps](#version-update-steps)
@@ -50,12 +50,13 @@ Hopefully, you now have a working device with custom firmware! 😊
 1. Read [changelog_fw.md](./changelog_fw.md) and [known_issues.md](./known_issues.md)
 2. Reset the device if mentioned at step 1  
 (resetting erases the configuration from flash memory so it can prevent issues)
-3. Optionally, tweak Z2M settings for [# Faster OTA updates](#faster-ota-updates)
-4. Perform the OTA update
-5. Redownload the custom [# Quirks / Converters](#quirks--converters) and restart ZHA / Z2M
-6. Interview the device - option missing from ZHA, remove and re-pair instead  
+3. If possible, bring the device closer to the coordinator (or add routers to boost signal)
+4. Optionally, tweak Z2M settings for [# Faster OTA updates](#faster-ota-updates)
+5. Perform the OTA update
+6. Redownload the custom [# Quirks / Converters](#quirks--converters) and restart ZHA / Z2M
+7. Interview the device - option missing from ZHA, remove and re-pair instead  
 (updates endpoints, clusters and identifiers)
-7. Reconfigure the device  
+8. Reconfigure the device  
 (resets reporting and stuff?, keeps user binds and settings)
 
 > [!NOTE]  
@@ -133,7 +134,7 @@ Switching between them requires reinstalling (updating again with the FORCE inde
 Routing takes more power. It can be unstable for L-only devices and will require a higher load. Proceed with caution!  
 
 <details>
-<summary> Index link format </summary>  
+<summary> <b> Index link format </b> </summary>  
 
 ```
 https://raw.githubusercontent.com/USER/REPO/refs/heads/BRANCH/zigbee2mqtt/ota/INDEX
