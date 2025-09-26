@@ -16,7 +16,10 @@ Additionally, to use the new features, you must also **download and regularly up
 > [!TIP]  
 > **Zigbee2MQTT is recommended**, prioritized and used by the contributors.  
 > **ZHA is missing the interview button**, so devices might require re-pairing after version updates (to support new features).
->
+>  
+> **EmberZNet coordinators are [recommended](/docs/devices/recommended.md)**.  
+> **zStack coordinators are [not_recommended](/docs/devices/not_recommended.md)** (unreliable for large networks). 
+> 
 > Consider yourself invited to our [Discord](/readme.md#discord) community! 
 
 ## First-time update steps
