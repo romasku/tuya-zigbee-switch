@@ -20,9 +20,9 @@ Information about all supported devices is kept inside `device_db.yaml`.
 |`old_manufacturer_names`      | Previously used manufacturer names in custom FW                                                                              |
 |`old_zb_models`               | Previously used model names in custom FW                                                                                     |
 |`override_z2m_device`         | Overwrites the model name: <br> (get it from `whiteLabel` in [official Z2M converters][off_conv]): <br> • Keeps generic converter <br> • Adds custom name & picture <br> • eg. `TS0004_AVATTO` shows up as `ZWSM16-4-Zigbee`, <br> instead of generic `TS0004_switch_module_2`                                     |
-|`tuya_image_type`             | Stock FW identifier: <br> • Needed for OTA updates <br> • Found in Z2M debug logs when attempting OTA                        |
-|`firmware_image_type`         | Given custom FW identifier (usually 54179): <br> • Currently unique per device <br> • Increment for every new device         |
-|`tuya_manufacturer_id`        | Another stock FW identifier (usually 4417): <br> • Needed for OTA updates <br> • Found in Z2M debug logs when attempting OTA |
+|`tuya_image_type`             | Stock FW identifier (usually 54179): <br> • Needed for stock OTA update <br> • Found in Z2M debug logs when attempting OTA   |
+|`firmware_image_type`         | Given custom FW identifier: <br> • Currently unique per device <br> • Increment for every new device                         |
+|`tuya_manufacturer_id`        | Another stock FW identifier (usually 4417): <br> • Needed for stock OTA update <br> • Found in Z2M debug logs when attempting OTA|
 |`zb_module`                   | Zigbee module inside the device: <br> • Currently unused, planned for pinout validation <br> • Supported: ZTU, ZT2S, ZT3L    |
 |`human_name`                  | Full name of the device: <br> • Shown in [devices/supported.md](/docs/devices/supported.md)                                      |
 |`status`                      | Device support status: <br> • **Supported** or **In progress** <br> • Shown in [devices/supported.md](/docs/devices/supported.md)|
