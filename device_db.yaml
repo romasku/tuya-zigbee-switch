@@ -62,7 +62,7 @@ AUBESS_TS0004:
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
   firmware_image_type: 43545
-  build: null
+  build: yes
   status: Supported
   info: null
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/66
@@ -86,7 +86,7 @@ AUBESS_WHD02:
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
   firmware_image_type: 43531
-  build: null
+  build: yes
   status: Supported
   info: null
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/18
@@ -109,7 +109,7 @@ AVATTO_TOUCH_TS0003:
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
   firmware_image_type: 43542
-  build: null
+  build: yes
   status: In progress
   info: Indicator LEDs are hard wired to buttons, but they can be forced on with C4?
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/41
@@ -136,7 +136,7 @@ AVATTO_TS0001:
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
   firmware_image_type: 43527
-  build: null
+  build: yes
   status: Supported
   info: null
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/9
@@ -163,7 +163,7 @@ AVATTO_TS0002:
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
   firmware_image_type: 43528
-  build: null
+  build: yes
   status: Supported
   info: null
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/9
@@ -190,7 +190,7 @@ AVATTO_TS0003:
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
   firmware_image_type: 43543
-  build: null
+  build: yes
   status: Supported
   info: null
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/56
@@ -218,7 +218,7 @@ AVATTO_TS0004:
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
   firmware_image_type: 43529
-  build: null
+  build: yes
   status: Supported
   info: null
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/9
@@ -242,7 +242,7 @@ AVATTO_TS0011:
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
   firmware_image_type: 43537
-  build: null
+  build: yes
   status: Supported
   info: null
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/9
@@ -266,7 +266,7 @@ AVATTO_TS0012:
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
   firmware_image_type: 43530
-  build: null
+  build: yes
   status: Supported
   info: null
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/16
@@ -288,7 +288,7 @@ AVATTO_TS0013:
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
   firmware_image_type: 43552
-  build: null
+  build: yes
   status: Supported
   info: null
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/135
@@ -384,7 +384,7 @@ BSEED_TOUCH_2_TS0012:
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
   firmware_image_type: 43544
-  build: null
+  build: yes
   status: Supported
   info: null
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/51
@@ -406,7 +406,7 @@ BSEED_TOUCH_TS0003:
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
   firmware_image_type: 43549
-  build: null
+  build: yes
   status: Supported
   info: null
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/125
@@ -430,7 +430,7 @@ BSEED_TOUCH_TS0012:
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
   firmware_image_type: 43534
-  build: null
+  build: yes
   status: In progress
   info: Pin C3 disables both LEDs ?
   github_issue: https://github.com/romasku/tuya-zigbee-switch/pull/23
@@ -454,7 +454,7 @@ GIRIER_TS0002:
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
   firmware_image_type: 43526
-  build: null
+  build: yes
   status: Supported
   info: null
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/29
@@ -479,7 +479,7 @@ GIRIER_TS0013:
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
   firmware_image_type: 43539
-  build: null
+  build: yes
   status: Supported
   info: null
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/37
@@ -545,7 +545,7 @@ IHS_TS0001:
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
   firmware_image_type: 43554
-  build: null
+  build: yes
   status: Supported
   info: null
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/105
@@ -570,7 +570,7 @@ IHS_TS0003:
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
   firmware_image_type: 43546
-  build: null
+  build: yes
   status: Supported
   info: null
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/85
@@ -593,7 +593,7 @@ IHS_TS0004:
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
   firmware_image_type: 43548
-  build: null
+  build: yes
   status: Supported
   info: null
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/105
@@ -617,7 +617,7 @@ MOES_TOUCH_TS0011:
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
   firmware_image_type: 43532
-  build: null
+  build: yes
   status: Supported
   info: null
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/14
@@ -641,7 +641,7 @@ MOES_TOUCH_TS0012:
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
   firmware_image_type: 43510
-  build: null
+  build: yes
   status: Supported
   info: null
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/14
@@ -665,7 +665,7 @@ MOES_TOUCH_TS0013:
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
   firmware_image_type: 43533
-  build: null
+  build: yes
   status: Supported
   info: null
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/14
@@ -710,7 +710,7 @@ MOES_TS0003:
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
   firmware_image_type: 43538
-  build: null
+  build: yes
   status: Supported
   info: null
   github_issue: null
@@ -733,7 +733,7 @@ OXT_TS0002:
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
   firmware_image_type: 43547
-  build: null
+  build: yes
   status: Supported
   info: null
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/49
@@ -756,7 +756,7 @@ TUYA_TS0001:
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
   firmware_image_type: 43525
-  build: null
+  build: yes
   status: Supported
   info: null
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/6
@@ -779,7 +779,7 @@ TUYA_TS0002:
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
   firmware_image_type: 43523
-  build: null
+  build: yes
   status: Supported
   info: null
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/6
@@ -802,7 +802,7 @@ TUYA_TS0004:
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
   firmware_image_type: 43540
-  build: null
+  build: yes
   status: In progress
   info: Some issues with reporting and groups
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/42
@@ -825,7 +825,7 @@ TUYA_TS0011:
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
   firmware_image_type: 43524
-  build: null
+  build: yes
   status: Supported
   info: null
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/4
@@ -851,7 +851,7 @@ TUYA_TS0012:
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
   firmware_image_type: 43521
-  build: null
+  build: yes
   status: Supported
   info: null
   github_issue: null
@@ -874,7 +874,7 @@ TUYA_WHD02:
   tuya_manufacturer_id: 4407
   tuya_image_type: 524
   firmware_image_type: 43522
-  build: null
+  build: yes
   status: Supported
   info: null
   github_issue: null
@@ -897,7 +897,7 @@ TUYA_WHD02_2:
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
   firmware_image_type: 43535
-  build: null
+  build: yes
   status: In progress
   info: tuya_manufacturer_name is not confirmed ?
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/24
@@ -920,7 +920,7 @@ TUYA_WHD02_3:
   tuya_manufacturer_id: 4417
   tuya_image_type: 518
   firmware_image_type: 43541
-  build: null
+  build: yes
   status: In progress
   info: tuya_manufacturer_name is not confirmed ?
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/44
@@ -944,7 +944,7 @@ ZEMISMART_SWITCH_TS0012:
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
   firmware_image_type: 43536
-  build: null
+  build: yes
   status: In progress
   info: Untested
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/19
