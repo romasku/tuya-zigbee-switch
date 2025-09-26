@@ -22,7 +22,7 @@ AUBESS_TS0002:
   store: https://www.aliexpress.com/item/1005005748264739.html
 AUBESS_TS0003:
   human_name: Aubess 3-gang
-  neutral: null
+  neutral: required
   device_type: router
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_lvhy15ix
@@ -46,7 +46,7 @@ AUBESS_TS0003:
   - https://www.aliexpress.com/item/1005005748264739.html
 AUBESS_TS0004:
   human_name: Aubess 4-gang
-  neutral: null
+  neutral: required
   device_type: router
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_mmkbptmx
@@ -116,7 +116,7 @@ AVATTO_TOUCH_TS0003:
   store: https://www.aliexpress.com/item/1005007097427150.html
 AVATTO_TS0001:
   human_name: AVATTO ZWSM16-1
-  neutral: null
+  neutral: required
   device_type: router
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_4rbqgcuv
@@ -143,7 +143,7 @@ AVATTO_TS0001:
   store: https://www.aliexpress.com/item/1005007247647375.html
 AVATTO_TS0002:
   human_name: AVATTO ZWSM16-2
-  neutral: null
+  neutral: required
   device_type: router
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_mtnpt6ws
@@ -170,7 +170,7 @@ AVATTO_TS0002:
   store: https://www.aliexpress.com/item/1005007247647375.html
 AVATTO_TS0003:
   human_name: AVATTO ZWSM16-3
-  neutral: null
+  neutral: required
   device_type: router
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_hbic3ka3
@@ -197,7 +197,7 @@ AVATTO_TS0003:
   store: https://www.aliexpress.com/item/1005007247647375.html
 AVATTO_TS0004:
   human_name: AVATTO ZWSM16-4
-  neutral: null
+  neutral: required
   device_type: router
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_5ajpkyq6
@@ -225,7 +225,7 @@ AVATTO_TS0004:
   store: https://www.aliexpress.com/item/1005007247647375.html
 AVATTO_TS0011:
   human_name: AVATTO LZWSM16-1
-  neutral: null
+  neutral: without
   device_type: end_device
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_hbxsdd6k
@@ -249,7 +249,7 @@ AVATTO_TS0011:
   store: https://www.aliexpress.com/item/1005007247647375.html
 AVATTO_TS0012:
   human_name: AVATTO LZWSM16-2
-  neutral: null
+  neutral: without
   device_type: end_device
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_ljhbw1c9
@@ -273,7 +273,7 @@ AVATTO_TS0012:
   store: https://www.aliexpress.com/item/1005007247647375.html
 AVATTO_TS0013:
   human_name: AVATTO LZWSM16-3
-  neutral: null
+  neutral: without
   device_type: end_device
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_avotanj3
@@ -295,7 +295,7 @@ AVATTO_TS0013:
   store: https://www.aliexpress.com/item/1005007247647375.html
 BSEED_SOCKET_PM_TS011F:
   human_name: BSEED PM socket
-  neutral: null
+  neutral: required
   device_type: router
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_b28wrpvx
@@ -320,7 +320,7 @@ BSEED_SOCKET_PM_TS011F:
   - https://www.aliexpress.com/item/1005003350696939.html
 BSEED_SOCKET_TS011F:
   human_name: BSEED socket
-  neutral: null
+  neutral: required
   device_type: router
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_o1jzcxou
@@ -437,7 +437,7 @@ BSEED_TOUCH_TS0012:
   store: null
 GIRIER_TS0002:
   human_name: Girier 2-gang
-  neutral: null
+  neutral: required
   device_type: router
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_zmy4lslw
@@ -461,7 +461,7 @@ GIRIER_TS0002:
   store: https://www.aliexpress.com/item/1005006084763437.html
 GIRIER_TS0013:
   human_name: Girier ZB08
-  neutral: null
+  neutral: without
   device_type: end_device
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_ypgri8yz
@@ -530,7 +530,7 @@ IHS_TOUCH_TS0002:
   store: https://www.aliexpress.com/item/1005007532195287.html
 IHS_TS0001:
   human_name: iHseno 1-gang
-  neutral: null
+  neutral: required
   device_type: router
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_pgq7ormg
@@ -552,7 +552,7 @@ IHS_TS0001:
   store: https://www.aliexpress.com/item/1005008107698143.html
 IHS_TS0003:
   human_name: iHseno 3-gang
-  neutral: null
+  neutral: required
   device_type: router
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_mhhxxjrs
@@ -577,7 +577,7 @@ IHS_TS0003:
   store: https://www.aliexpress.com/item/1005008107698143.html
 IHS_TS0004:
   human_name: iHseno 4-gang
-  neutral: null
+  neutral: required
   device_type: router
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_knoj8lpk
@@ -672,7 +672,7 @@ MOES_TOUCH_TS0013:
   store: https://www.aliexpress.com/item/1005005178075186.html
 MOES_TS0002:
   human_name: Moes ZM-104B-M
-  neutral: null
+  neutral: required
   device_type: router
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_qaa59zqd
@@ -694,7 +694,7 @@ MOES_TS0002:
   store: https://www.amazon.co.uk/dp/B0CKYP32CW?th=1
 MOES_TS0003:
   human_name: Moes MS-104CZ
-  neutral: null
+  neutral: required
   device_type: router
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_pfc7i3kt
@@ -717,7 +717,7 @@ MOES_TS0003:
   store: null
 OXT_TS0002:
   human_name: OXT 2-gang
-  neutral: null
+  neutral: required
   device_type: router
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_bvrlqyj7
@@ -740,7 +740,7 @@ OXT_TS0002:
   store: null
 TUYA_TS0001:
   human_name: Tuya 1-gang
-  neutral: null
+  neutral: required
   device_type: router
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_tqlv4ug4
@@ -763,7 +763,7 @@ TUYA_TS0001:
   store: null
 TUYA_TS0002:
   human_name: Tuya 2-gang
-  neutral: null
+  neutral: required
   device_type: router
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_01gpyda5
@@ -786,7 +786,7 @@ TUYA_TS0002:
   store: null
 TUYA_TS0004:
   human_name: Tuya 4-gang
-  neutral: null
+  neutral: required
   device_type: router
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_ltt60asa
@@ -809,7 +809,7 @@ TUYA_TS0004:
   store: null
 TUYA_TS0011:
   human_name: Tuya 1-gang L-only
-  neutral: null
+  neutral: without
   device_type: end_device
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_ji4araar
@@ -832,7 +832,7 @@ TUYA_TS0011:
   store: null
 TUYA_TS0012:
   human_name: Tuya 2-gang L-only
-  neutral: null
+  neutral: without
   device_type: end_device
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_jl7qyupf
@@ -858,7 +858,7 @@ TUYA_TS0012:
   store: null
 TUYA_WHD02:
   human_name: Tuya 1-gang
-  neutral: null
+  neutral: required
   device_type: router
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_skueekg3
@@ -881,7 +881,7 @@ TUYA_WHD02:
   store: null
 TUYA_WHD02_2:
   human_name: Tuya 1-gang
-  neutral: null
+  neutral: required
   device_type: router
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_skueekg3
@@ -904,7 +904,7 @@ TUYA_WHD02_2:
   store: null
 TUYA_WHD02_3:
   human_name: Tuya 1-gang
-  neutral: null
+  neutral: required
   device_type: router
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_skueekg3
