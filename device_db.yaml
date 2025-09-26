@@ -4,7 +4,7 @@ AUBESS_TS0002:
   device_type: router
   tuya_model_name: TS0002
   tuya_manufacturer_name: _TZ3000_lmlsduws
-  stock_converter_manufacturer: null
+  stock_converter_manufacturer: Tuya
   stock_converter_model: TS0002_basic
   override_z2m_device: TMZ02
   zb_module: ZT2S
@@ -26,7 +26,7 @@ AUBESS_TS0003:
   device_type: router
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_lvhy15ix
-  stock_converter_manufacturer: null
+  stock_converter_manufacturer: Tuya
   stock_converter_model: TS0003_switch_module_2
   override_z2m_device: null
   zb_module: ZT2S
@@ -50,7 +50,7 @@ AUBESS_TS0004:
   device_type: router
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_mmkbptmx
-  stock_converter_manufacturer: null
+  stock_converter_manufacturer: Tuya
   stock_converter_model: TS0004_switch_module
   override_z2m_device: null
   zb_module: ZTU
@@ -73,7 +73,7 @@ AUBESS_WHD02:
   device_type: end_device
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_46t1rvdu
-  stock_converter_manufacturer: null
+  stock_converter_manufacturer: Tuya
   stock_converter_model: WHD02
   override_z2m_device: null
   zb_module: ZT2S
@@ -97,7 +97,7 @@ AVATTO_TOUCH_TS0003:
   device_type: router
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_avky2mvc
-  stock_converter_manufacturer: null
+  stock_converter_manufacturer: Tuya
   stock_converter_model: TS0003_switch_3_gang
   override_z2m_device: null
   zb_module: ZTU
@@ -120,7 +120,7 @@ AVATTO_TS0001:
   device_type: router
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_4rbqgcuv
-  stock_converter_manufacturer: null
+  stock_converter_manufacturer: Tuya
   stock_converter_model: TS0001_switch_module
   override_z2m_device: ZWSM16-1-Zigbee
   zb_module: ZTU
@@ -147,7 +147,7 @@ AVATTO_TS0002:
   device_type: router
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_mtnpt6ws
-  stock_converter_manufacturer: null
+  stock_converter_manufacturer: Tuya
   stock_converter_model: TS0002_limited
   override_z2m_device: ZWSM16-2-Zigbee
   zb_module: ZTU
@@ -174,7 +174,7 @@ AVATTO_TS0003:
   device_type: router
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_hbic3ka3
-  stock_converter_manufacturer: null
+  stock_converter_manufacturer: Tuya
   stock_converter_model: TS0003_switch_module_2
   override_z2m_device: ZWSM16-3-Zigbee
   zb_module: ZTU
@@ -201,7 +201,7 @@ AVATTO_TS0004:
   device_type: router
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_5ajpkyq6
-  stock_converter_manufacturer: null
+  stock_converter_manufacturer: Tuya
   stock_converter_model: TS0004_switch_module_2
   override_z2m_device: ZWSM16-4-Zigbee
   zb_module: ZTU
@@ -229,7 +229,7 @@ AVATTO_TS0011:
   device_type: end_device
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_hbxsdd6k
-  stock_converter_manufacturer: avatto
+  stock_converter_manufacturer: AVATTO
   stock_converter_model: LZWSM16-1
   override_z2m_device: null
   zb_module: ZTU
@@ -253,7 +253,7 @@ AVATTO_TS0012:
   device_type: end_device
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_ljhbw1c9
-  stock_converter_manufacturer: null
+  stock_converter_manufacturer: Tuya
   stock_converter_model: TS0012_switch_module
   override_z2m_device: LZWSM16-2
   zb_module: ZTU
@@ -277,7 +277,7 @@ AVATTO_TS0013:
   device_type: end_device
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_avotanj3
-  stock_converter_manufacturer: null
+  stock_converter_manufacturer: Tuya
   stock_converter_model: TS0013
   override_z2m_device: LZWSM16-3
   zb_module: ZTU
@@ -299,7 +299,7 @@ BSEED_SOCKET_PM_TS011F:
   device_type: router
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_b28wrpvx
-  stock_converter_manufacturer: null
+  stock_converter_manufacturer: Tuya
   stock_converter_model: TS011F_plug_1
   override_z2m_device: TS011F_plug_1_2
   zb_module: ZTU
@@ -324,7 +324,7 @@ BSEED_SOCKET_TS011F:
   device_type: router
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_o1jzcxou
-  stock_converter_manufacturer: null
+  stock_converter_manufacturer: Tuya
   stock_converter_model: _TZ3000_o1jzcxou
   override_z2m_device: null
   zb_module: ZTU
@@ -347,7 +347,7 @@ BSEED_SWITCH_TS0726_2GANG:
   device_type: router
   tuya_model_name: TS0726
   tuya_manufacturer_name: _TZ3002_zjuvw9zf
-  stock_converter_manufacturer: null
+  stock_converter_manufacturer: Tuya
   stock_converter_model: TS0726_2_gang_scene_switch
   override_z2m_device: EC-GL86ZPCS21
   zb_module: ZT3L
@@ -371,7 +371,7 @@ BSEED_TOUCH_2_TS0012:
   device_type: end_device
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_xk5udnd6
-  stock_converter_manufacturer: null
+  stock_converter_manufacturer: Tuya
   stock_converter_model: TS0012
   override_z2m_device: null
   zb_module: ZTU
@@ -395,7 +395,7 @@ BSEED_TOUCH_TS0003:
   device_type: router
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_7aqaupa9
-  stock_converter_manufacturer: null
+  stock_converter_manufacturer: Tuya
   stock_converter_model: TS0003
   override_z2m_device: null
   zb_module: ZT3L
@@ -417,7 +417,7 @@ BSEED_TOUCH_TS0012:
   device_type: end_device
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_f2slq5pj
-  stock_converter_manufacturer: null
+  stock_converter_manufacturer: Tuya
   stock_converter_model: TS0012
   override_z2m_device: null
   zb_module: ZTU
@@ -441,7 +441,7 @@ GIRIER_TS0002:
   device_type: router
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_zmy4lslw
-  stock_converter_manufacturer: null
+  stock_converter_manufacturer: Tuya
   stock_converter_model: TS0002_basic
   override_z2m_device: null
   zb_module: ZT2S
@@ -465,7 +465,7 @@ GIRIER_TS0013:
   device_type: end_device
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_ypgri8yz
-  stock_converter_manufacturer: null
+  stock_converter_manufacturer: Tuya
   stock_converter_model: TS0013_switch_module
   override_z2m_device: ZB08
   zb_module: null
@@ -490,7 +490,7 @@ IHS_TOUCH_TS0001:
   device_type: end_device
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_qq9ahj6z
-  stock_converter_manufacturer: null
+  stock_converter_manufacturer: Tuya
   stock_converter_model: TS0001
   override_z2m_device: null
   zb_module: ZT3L
@@ -512,7 +512,7 @@ IHS_TOUCH_TS0002:
   device_type: end_device
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_zxrfobzw
-  stock_converter_manufacturer: null
+  stock_converter_manufacturer: Tuya
   stock_converter_model: TS0002
   override_z2m_device: null
   zb_module: ZT3L
@@ -534,7 +534,7 @@ IHS_TS0001:
   device_type: router
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_pgq7ormg
-  stock_converter_manufacturer: null
+  stock_converter_manufacturer: Tuya
   stock_converter_model: TS0001_switch_module_3
   override_z2m_device: _TZ3000_pgq7ormg
   zb_module: ZTU
@@ -556,7 +556,7 @@ IHS_TS0003:
   device_type: router
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_mhhxxjrs
-  stock_converter_manufacturer: null
+  stock_converter_manufacturer: Tuya
   stock_converter_model: TS0003_switch_module_2
   override_z2m_device: null
   zb_module: ZTU
@@ -581,7 +581,7 @@ IHS_TS0004:
   device_type: router
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_knoj8lpk
-  stock_converter_manufacturer: null
+  stock_converter_manufacturer: Tuya
   stock_converter_model: TS0004_switch_module_2
   override_z2m_device: null
   zb_module: ZTU
@@ -604,7 +604,7 @@ MOES_TOUCH_TS0011:
   device_type: end_device
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_hhiodade
-  stock_converter_manufacturer: moes
+  stock_converter_manufacturer: Moes
   stock_converter_model: ZS-EUB_1gang
   override_z2m_device: null
   zb_module: ZTU
@@ -628,7 +628,7 @@ MOES_TOUCH_TS0012:
   device_type: end_device
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_18ejxno0
-  stock_converter_manufacturer: null
+  stock_converter_manufacturer: Tuya
   stock_converter_model: TS0012
   override_z2m_device: ZS-EUB_2gang
   zb_module: ZTU
@@ -652,7 +652,7 @@ MOES_TOUCH_TS0013:
   device_type: end_device
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_qewo8dlz
-  stock_converter_manufacturer: null
+  stock_converter_manufacturer: Tuya
   stock_converter_model: TS0013
   override_z2m_device: null
   zb_module: ZTU
@@ -676,7 +676,7 @@ MOES_TS0002:
   device_type: router
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_qaa59zqd
-  stock_converter_manufacturer: null
+  stock_converter_manufacturer: Tuya
   stock_converter_model: TS0002_basic
   override_z2m_device: ZM-104B-M
   zb_module: ZT2S
@@ -698,7 +698,7 @@ MOES_TS0003:
   device_type: router
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_pfc7i3kt
-  stock_converter_manufacturer: null
+  stock_converter_manufacturer: Tuya
   stock_converter_model: TS0003
   override_z2m_device: null
   zb_module: null
@@ -721,7 +721,7 @@ OXT_TS0002:
   device_type: router
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_bvrlqyj7
-  stock_converter_manufacturer: null
+  stock_converter_manufacturer: Tuya
   stock_converter_model: TS0002_basic
   override_z2m_device: null
   zb_module: ZT3L
@@ -744,7 +744,7 @@ TUYA_TS0001:
   device_type: router
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_tqlv4ug4
-  stock_converter_manufacturer: null
+  stock_converter_manufacturer: Tuya
   stock_converter_model: TS0001_switch_module
   override_z2m_device: null
   zb_module: null
@@ -767,7 +767,7 @@ TUYA_TS0002:
   device_type: router
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_01gpyda5
-  stock_converter_manufacturer: null
+  stock_converter_manufacturer: Tuya
   stock_converter_model: TS0002_basic
   override_z2m_device: null
   zb_module: null
@@ -790,7 +790,7 @@ TUYA_TS0004:
   device_type: router
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_ltt60asa
-  stock_converter_manufacturer: null
+  stock_converter_manufacturer: Tuya
   stock_converter_model: TS0004_switch_module
   override_z2m_device: null
   zb_module: ZTU
@@ -813,7 +813,7 @@ TUYA_TS0011:
   device_type: end_device
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_ji4araar
-  stock_converter_manufacturer: null
+  stock_converter_manufacturer: Tuya
   stock_converter_model: TS0011_switch_module
   override_z2m_device: null
   zb_module: null
@@ -836,7 +836,7 @@ TUYA_TS0012:
   device_type: end_device
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_jl7qyupf
-  stock_converter_manufacturer: null
+  stock_converter_manufacturer: Tuya
   stock_converter_model: TS0012_switch_module
   override_z2m_device: null
   zb_module: null
@@ -862,7 +862,7 @@ TUYA_WHD02:
   device_type: router
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_skueekg3
-  stock_converter_manufacturer: null
+  stock_converter_manufacturer: Tuya
   stock_converter_model: WHD02
   override_z2m_device: null
   zb_module: null
@@ -885,7 +885,7 @@ TUYA_WHD02_2:
   device_type: router
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_skueekg3
-  stock_converter_manufacturer: null
+  stock_converter_manufacturer: Tuya
   stock_converter_model: WHD02
   override_z2m_device: null
   zb_module: ZT2S_without_shield
@@ -908,7 +908,7 @@ TUYA_WHD02_3:
   device_type: router
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_skueekg3
-  stock_converter_manufacturer: null
+  stock_converter_manufacturer: Tuya
   stock_converter_model: WHD02
   override_z2m_device: null
   zb_module: ZT2S_without_shield
@@ -931,7 +931,7 @@ ZEMISMART_SWITCH_TS0012:
   device_type: end_device
   tuya_model_name: null
   tuya_manufacturer_name: _TZ3000_zmlunnhy
-  stock_converter_manufacturer: null
+  stock_converter_manufacturer: Tuya
   stock_converter_model: TS0012
   override_z2m_device: null
   zb_module: ZT3L
