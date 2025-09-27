@@ -18,11 +18,12 @@ Discussion: [#122](https://github.com/romasku/tuya-zigbee-switch/issues/122) + D
 There have been reports from 2 users occasionally finding their devices unresponsive.  
 The devices recover after a reboot.
 
-This is a routing issue that happens on big networks, when the custom device attempts routing some specific devices through it.
+This is a routing error that happens on big networks, when the custom device attempts routing some specific devices through it.
 
-This issue was fixed in a newer SDK version, but we haven't migrated yet.
+This problem was fixed in a newer SDK version, but we haven't migrated yet.  
+(Upgrading from original fw to custom fw is not working currently)
 
-**It can be avoided by using end_device firmware** (it disables routing) or by trying out firmware built with the latest SDK.  
+So, **the issue can be avoided by trying out firmware built with the latest SDK** or, potentially, by using end_device firmware (it disables routing). 
 
 ## Error message on boot
 

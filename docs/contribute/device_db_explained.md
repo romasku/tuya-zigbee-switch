@@ -11,22 +11,24 @@ Information about all supported devices is kept inside `device_db.yaml`.
 | Field                        | Description                                                                                                                  |
 |------------------------------|------------------------------------------------------------------------------------------------------------------------------|
 |**KEY** (e.g. `TS0004_AVATTO`)| **Given device name**: <br> • Used in project as `BOARD` <br> • Name of the device directory in `bin/`                       |
+|`human_name`                  | Full name of the device: <br> • Shown in [devices/supported.md](/docs/devices/supported.md)                                  |
+|`neutral`                     | Does the device have Neutral? <br> • `without` / `optional` / `required` <br> • Currently unused |
+|`device_type`                 | Default operation mode for custom FW: <br> • `end_device` ➡ Line-only devices <br> • `router` ➡ Line+Neutral devices <br> (Scripts build both variants for L-only devices) |
+|`tuya_model_name`             | **Zigbee Model** in Z2M on stock FW: <br> • Identifies the device <br> • Value harcoded on the stock FW, can't be changed <br> • Currently unused|
 |`tuya_manufacturer_name`      | **Zigbee Manufacturer** in Z2M on stock FW: <br> • Identifies the exact device <br> • Value harcoded on the stock FW, can't be changed <br> • Used in OTA indexes to select the correct FW when updating <br> • Format: `_TZ3000_xxxxxxxx` |
-|`stock_converter_model`       | **Model** in Z2M on stock FW: <br> • Not Zigbee Model! <br> • Model name given by Z2M converter <br> • May be overwritten by `whiteLabel` <br> &nbsp; (Check [official Z2M converters][off_conv]) <br> • Needed to enable OTA for stock FW <br> • Used as base for the custom converter? |
 |`stock_converter_manufacturer`| **Manufacturer** in Z2M on stock FW <br> • Not Zigbee Manufacturer! <br> • Manufacturer name given by Z2M converter <br> • May be overwritten by `whiteLabel` <br> &nbsp; (Check [official Z2M converters][off_conv]) <br> • Needed to enable OTA for stock FW |
+|`stock_converter_model`       | **Model** in Z2M on stock FW: <br> • Not Zigbee Model! <br> • Model name given by Z2M converter <br> • May be overwritten by `whiteLabel` <br> &nbsp; (Check [official Z2M converters][off_conv]) <br> • Needed to enable OTA for stock FW <br> • Used as base for the custom converter? |
+|`override_z2m_device`         | Overwrites the model name: <br> (get it from `whiteLabel` in [official Z2M converters][off_conv]): <br> • Keeps generic converter <br> • Adds custom name & picture <br> • eg. `TS0004_AVATTO` shows up as `ZWSM16-4-Zigbee`, <br> instead of generic `TS0004_switch_module_2`                                     |
+|`zb_module`                   | Zigbee module inside the device: <br> • Currently unused, planned for pinout validation <br> • Supported: ZTU, ZT2S, ZT3L    |
 |`config_str`                  | Given `manufacturer;model;pinout` on custom FW: <br> • `manufacturer` ➡ ID & OTA updates <br> • `model` ➡ selects converter <br> • `pinout` ➡ GPIO mapping |
 |`alt_config_str`              | Alternative config string: <br> • In case the device has [multiple_pinouts.md](/docs/devices/multiple_pinouts.md) <br> • Currently unused|
-|`device_type`                 | Default operation mode for custom FW: <br> • `end_device` ➡ Line-only devices <br> • `router` ➡ Line+Neutral devices <br> (Scripts build both variants for L-only devices) |
 |`old_manufacturer_names`      | Previously used manufacturer names in custom FW                                                                              |
 |`old_zb_models`               | Previously used model names in custom FW                                                                                     |
-|`override_z2m_device`         | Overwrites the model name: <br> (get it from `whiteLabel` in [official Z2M converters][off_conv]): <br> • Keeps generic converter <br> • Adds custom name & picture <br> • eg. `TS0004_AVATTO` shows up as `ZWSM16-4-Zigbee`, <br> instead of generic `TS0004_switch_module_2`                                     |
-|`tuya_image_type`             | Stock FW identifier: <br> • Needed for OTA updates <br> • Found in Z2M debug logs when attempting OTA                        |
-|`firmware_image_type`         | Given custom FW identifier (usually 54179): <br> • Currently unique per device <br> • Increment for every new device         |
-|`tuya_manufacturer_id`        | Another stock FW identifier (usually 4417): <br> • Needed for OTA updates <br> • Found in Z2M debug logs when attempting OTA |
-|`zb_module`                   | Zigbee module inside the device: <br> • Currently unused, planned for pinout validation <br> • Supported: ZTU, ZT2S, ZT3L    |
-|`human_name`                  | Full name of the device: <br> • Shown in [devices/supported.md](/docs/devices/supported.md)                                      |
+|`tuya_manufacturer_id`        | Another stock FW identifier (usually 4417): <br> • Needed for stock OTA update <br> • Found in Z2M debug logs when attempting OTA|
+|`tuya_image_type`             | Stock FW identifier (usually 54179): <br> • Needed for stock OTA update <br> • Found in Z2M debug logs when attempting OTA   |
+|`firmware_image_type`         | Given custom FW identifier: <br> • Currently unique per device <br> • Increment for every new device                         |
+|`build`                       | Whether to build for this device or not <br> • `yes` / `no`                                                                  |
 |`status`                      | Device support status: <br> • **Supported** or **In progress** <br> • Shown in [devices/supported.md](/docs/devices/supported.md)|
 |`info`                        | Why is the status In progress?                                                                                               |
-|`build`                       | Whether to build for this device or not                                                                                      |
 |`github_issue`                | Link to device-related GitHub issue or pull request                                                                          |
 |`store`                       | Link to buy the exact same device: <br> • Preferably AliExpress (international, English, no affiliation)                     |
