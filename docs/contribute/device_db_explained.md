@@ -11,8 +11,10 @@ Information about all supported devices is kept inside `device_db.yaml`.
 | Field                        | Description                                                                                                                  |
 |------------------------------|------------------------------------------------------------------------------------------------------------------------------|
 |**KEY** (e.g. `TS0004_AVATTO`)| **Given device name**: <br> • Used in project as `BOARD` <br> • Name of the device directory in `bin/`                       |
-|`human_name`                  | Full name of the device: <br> • Shown in [devices/supported.md](/docs/devices/supported.md)                                      |
+|`human_name`                  | Full name of the device: <br> • Shown in [devices/supported.md](/docs/devices/supported.md)                                  |
+|`neutral`                     | Does the device have Neutral? <br> • `without` / `optional` / `required` <br> • Currently unused |
 |`device_type`                 | Default operation mode for custom FW: <br> • `end_device` ➡ Line-only devices <br> • `router` ➡ Line+Neutral devices <br> (Scripts build both variants for L-only devices) |
+|`tuya_model_name`             | **Zigbee Model** in Z2M on stock FW: <br> • Identifies the device <br> • Value harcoded on the stock FW, can't be changed <br> • Currently unused|
 |`tuya_manufacturer_name`      | **Zigbee Manufacturer** in Z2M on stock FW: <br> • Identifies the exact device <br> • Value harcoded on the stock FW, can't be changed <br> • Used in OTA indexes to select the correct FW when updating <br> • Format: `_TZ3000_xxxxxxxx` |
 |`stock_converter_manufacturer`| **Manufacturer** in Z2M on stock FW <br> • Not Zigbee Manufacturer! <br> • Manufacturer name given by Z2M converter <br> • May be overwritten by `whiteLabel` <br> &nbsp; (Check [official Z2M converters][off_conv]) <br> • Needed to enable OTA for stock FW |
 |`stock_converter_model`       | **Model** in Z2M on stock FW: <br> • Not Zigbee Model! <br> • Model name given by Z2M converter <br> • May be overwritten by `whiteLabel` <br> &nbsp; (Check [official Z2M converters][off_conv]) <br> • Needed to enable OTA for stock FW <br> • Used as base for the custom converter? |
@@ -25,7 +27,7 @@ Information about all supported devices is kept inside `device_db.yaml`.
 |`tuya_manufacturer_id`        | Another stock FW identifier (usually 4417): <br> • Needed for stock OTA update <br> • Found in Z2M debug logs when attempting OTA|
 |`tuya_image_type`             | Stock FW identifier (usually 54179): <br> • Needed for stock OTA update <br> • Found in Z2M debug logs when attempting OTA   |
 |`firmware_image_type`         | Given custom FW identifier: <br> • Currently unique per device <br> • Increment for every new device                         |
-|`build`                       | Whether to build for this device or not                                                                                      |
+|`build`                       | Whether to build for this device or not <br> • `yes` / `no`                                                                  |
 |`status`                      | Device support status: <br> • **Supported** or **In progress** <br> • Shown in [devices/supported.md](/docs/devices/supported.md)|
 |`info`                        | Why is the status In progress?                                                                                               |
 |`github_issue`                | Link to device-related GitHub issue or pull request                                                                          |
