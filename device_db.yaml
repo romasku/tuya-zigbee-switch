@@ -528,6 +528,28 @@ IHSENO_TOUCH_TS0002:
   info: Issues with touchpads?
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/146
   store: https://www.aliexpress.com/item/1005007532195287.html
+IHSENO_TOUCH_TS0003:
+  human_name: iHseno 3-gang touch switch
+  neutral: optional
+  device_type: end_device
+  tuya_model_name: TS0003
+  tuya_manufacturer_name: null
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0003
+  override_z2m_device: null
+  zb_module: ZT3L
+  config_str: null    ;TS0003-IHS-T;LC4i;SC0u;RC2;SB4u;RC3;SB5u;RD2;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 43559
+  build: no
+  status: In progress
+  info: Need IDs + Issues with touchpads?
+  github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/146
+  store: https://www.aliexpress.com/item/1005007532195287.html
 IHSENO_TS0001:
   human_name: iHseno 1-gang
   neutral: required
@@ -598,6 +620,52 @@ IHSENO_TS0004:
   info: null
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/105
   store: https://www.aliexpress.com/item/1005008107698143.html
+MANHOT_SWITCH_TS0013:
+  human_name: Manhot 3-gang switch
+  neutral: optional
+  device_type: end_device
+  tuya_model_name: TS0013
+  tuya_manufacturer_name: _TZ3000_tqwydnqn
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0013
+  override_z2m_device: null
+  zb_module: ZT3L
+  config_str: tqwydnqn;TS0013-MH;SC4u;RB4A0;ID2;SD7u;RD4B5;IC3;SB7u;RC0C2;IB1;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 43550
+  build: no
+  status: In progress
+  info: Bi-stable relays not implemented + can not toggle multiple relays at once
+  github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/128
+  store:
+  - https://www.aliexpress.com/item/1005008300010160.html
+  - https://www.aliexpress.com/item/1005008867890261.html
+MHCOZY_TS0004:
+  human_name: MHCOZY TYWB 4ch-RF
+  neutral: required
+  device_type: router
+  tuya_model_name: TS0004
+  tuya_manufacturer_name: _TZ3000_imaccztn
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0004
+  override_z2m_device: TYWB 4ch-RF
+  zb_module: ZT3L
+  config_str: imaccztn;TS0004-MC;LC3;SD7u;RD4;SC0u;RA0;SB5u;RD2;SB7u;RC2;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 43551
+  build: yes
+  status: In progress
+  info: Untesed? Unknown pins for reset button and blue LED? (C4, B4, B1)
+  github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/130
+  store: https://www.aliexpress.com/item/1005005457296054.html
 MOES_TOUCH_TS0011:
   human_name: Moes 1-gang touch switch
   neutral: optional
