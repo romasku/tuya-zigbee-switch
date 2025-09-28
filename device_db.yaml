@@ -69,8 +69,8 @@ AUBESS_TS0004:
   store: https://www.aliexpress.com/item/1005005748264739.html
 AUBESS_WHD02:
   human_name: Aubess WHD02
-  neutral: null
-  device_type: end_device
+  neutral: required
+  device_type: end_device # specifically requested
   tuya_model_name: TS0001
   tuya_manufacturer_name: _TZ3000_46t1rvdu
   stock_converter_manufacturer: Tuya
@@ -502,8 +502,8 @@ IHS_TOUCH_TS0001:
   tuya_image_type: 54179
   firmware_image_type: 43557
   build: yes
-  status: Supported
-  info: null
+  status: In progress
+  info: Issues with touchpads?
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/146
   store: https://www.aliexpress.com/item/1005007532195287.html
 IHS_TOUCH_TS0002:
@@ -524,8 +524,8 @@ IHS_TOUCH_TS0002:
   tuya_image_type: 54179
   firmware_image_type: 43558
   build: yes
-  status: Supported
-  info: null
+  status: In progress
+  info: Issues with touchpads?
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/146
   store: https://www.aliexpress.com/item/1005007532195287.html
 IHS_TS0001:
@@ -711,10 +711,10 @@ MOES_TS0003:
   tuya_image_type: 54179
   firmware_image_type: 43538
   build: yes
-  status: Supported
-  info: null
-  github_issue: null
-  store: null
+  status: In progress
+  info: Has buzzer on C2
+  github_issue: https://github.com/romasku/tuya-zigbee-switch/pull/30
+  store: https://www.aliexpress.com/item/1005004986958450.html
 OXT_TS0002:
   human_name: OXT 2-gang
   neutral: required
@@ -883,7 +883,9 @@ TUYA_WHD02_2:
   human_name: Tuya 1-gang
   neutral: required
   device_type: router
-  tuya_model_name: TS0001
+  tuya_model_name: 
+  - TS0001
+  - TS000F
   tuya_manufacturer_name: _TZ3000_skueekg3
   stock_converter_manufacturer: Tuya
   stock_converter_model: WHD02
@@ -898,8 +900,8 @@ TUYA_WHD02_2:
   tuya_image_type: 54179
   firmware_image_type: 43535
   build: yes
-  status: In progress
-  info: tuya_manufacturer_name is not confirmed ?
+  status: Supported
+  info: null
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/24
   store: null
 TUYA_WHD02_3:
@@ -921,8 +923,8 @@ TUYA_WHD02_3:
   tuya_image_type: 518
   firmware_image_type: 43541
   build: yes
-  status: In progress
-  info: tuya_manufacturer_name is not confirmed ?
+  status: Supported
+  info: null
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/44
   store: null
 ZEMISMART_SWITCH_TS0012:
