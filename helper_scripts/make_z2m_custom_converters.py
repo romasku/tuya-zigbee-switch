@@ -72,7 +72,7 @@ if __name__ == "__main__":
             relay_names = [f"relay_{index}" for index in range(relay_cnt)]
 
         devices.append({
-            "zb_models": [zb_model, *device.get("old_zb_models", [])],
+            "zb_models": [zb_model] + (device.get("old_zb_models") or []),
             "model": device.get("override_z2m_device", device["stock_converter_model"]),
             "switchNames": switch_names,
             "relayNames": relay_names,
