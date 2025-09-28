@@ -889,7 +889,7 @@ TUYA_WHD02_2:
   stock_converter_model: WHD02
   override_z2m_device: null
   zb_module: ZT2S_without_shield
-  config_str: skueekg3;WHD02-custom;BB1u;LB4;SD2u;RD3;
+  config_str: skueekg3;WHD02-custom;BB1u;LB4i;SD2u;RD3;
   alt_config_str: null
   old_manufacturer_names:
   - Tuya-WHD02-custom
@@ -912,7 +912,7 @@ TUYA_WHD02_3:
   stock_converter_model: WHD02
   override_z2m_device: null
   zb_module: ZT2S_without_shield
-  config_str: skueekg3;WHD02-custom;BB1u;LB4;SD2u;RD3;
+  config_str: skueekg3;WHD02-custom;BB1u;LB4i;SD2u;RD3;
   alt_config_str: null
   old_manufacturer_names:
   - Tuya-WHD02-custom
