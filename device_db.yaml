@@ -67,7 +67,7 @@ AUBESS_TS0004:
   info: null
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/66
   store: https://www.aliexpress.com/item/1005005748264739.html
-AUBESS_WHD02:
+AUBESS_TS0001:
   human_name: Aubess WHD02
   neutral: required
   device_type: end_device # specifically requested
@@ -411,7 +411,7 @@ BSEED_TOUCH_TS0003:
   info: null
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/125
   store: https://www.aliexpress.com/item/1005003475686409.html
-BSEED_TOUCH_TS0012:
+BSEED_TOUCH_1_TS0012:
   human_name: BSEED 2-gang touch switch
   neutral: without
   device_type: end_device
@@ -484,7 +484,7 @@ GIRIER_TS0013:
   info: null
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/37
   store: null
-IHS_TOUCH_TS0001:
+IHSENO_TOUCH_TS0001:
   human_name: iHseno 1-gang touch switch
   neutral: optional
   device_type: end_device
@@ -506,7 +506,7 @@ IHS_TOUCH_TS0001:
   info: Issues with touchpads?
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/146
   store: https://www.aliexpress.com/item/1005007532195287.html
-IHS_TOUCH_TS0002:
+IHSENO_TOUCH_TS0002:
   human_name: iHseno 2-gang touch switch
   neutral: optional
   device_type: end_device
@@ -528,7 +528,7 @@ IHS_TOUCH_TS0002:
   info: Issues with touchpads?
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/146
   store: https://www.aliexpress.com/item/1005007532195287.html
-IHS_TS0001:
+IHSENO_TS0001:
   human_name: iHseno 1-gang
   neutral: required
   device_type: router
@@ -550,7 +550,7 @@ IHS_TS0001:
   info: null
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/105
   store: https://www.aliexpress.com/item/1005008107698143.html
-IHS_TS0003:
+IHSENO_TS0003:
   human_name: iHseno 3-gang
   neutral: required
   device_type: router
@@ -575,7 +575,7 @@ IHS_TS0003:
   info: null
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/85
   store: https://www.aliexpress.com/item/1005008107698143.html
-IHS_TS0004:
+IHSENO_TS0004:
   human_name: iHseno 4-gang
   neutral: required
   device_type: router
@@ -738,7 +738,7 @@ OXT_TS0002:
   info: null
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/49
   store: null
-TUYA_TS0001:
+TUYA_1_TS0001:
   human_name: Tuya 1-gang
   neutral: required
   device_type: router
@@ -856,7 +856,7 @@ TUYA_TS0012:
   info: null
   github_issue: null
   store: null
-TUYA_WHD02:
+TUYA_2_TS0001:
   human_name: Tuya 1-gang
   neutral: required
   device_type: router
@@ -879,7 +879,7 @@ TUYA_WHD02:
   info: null
   github_issue: null
   store: null
-TUYA_WHD02_2:
+TUYA_3_TS0001:
   human_name: Tuya 1-gang
   neutral: required
   device_type: router
@@ -904,7 +904,7 @@ TUYA_WHD02_2:
   info: null
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/24
   store: null
-TUYA_WHD02_3:
+TUYA_4_TS0001:
   human_name: Tuya 1-gang
   neutral: required
   device_type: router
