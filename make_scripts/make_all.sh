@@ -30,13 +30,13 @@ yq -r 'to_entries | sort_by(.key)[] | "\(.key) \(.value.device_type) \(.value.bu
   echo "Building for board: $ITER (router)"
   BOARD=$ITER DEVICE_TYPE=router make clean && BOARD=$ITER DEVICE_TYPE=router make -j16
   echo "Checking if files were created for board: $ITER (router)"
-  ls -l bin/$ITER/
+  ls -l bin/router/$ITER/
   
-  echo "Building for board: $ITER (end_device)"
   if [ "$TYPE" = "end_device" ]; then
+    echo "Building for board: $ITER (end_device)"
     BOARD=${ITER} DEVICE_TYPE=end_device make clean && BOARD=${ITER} DEVICE_TYPE=end_device make -j16
     echo "Checking if files were created for board: $ITER (end_device)"
-    ls -l bin/${ITER}_END_DEVICE/
+    ls -l bin/end_device/${ITER}_END_DEVICE/
   fi
 done
 
