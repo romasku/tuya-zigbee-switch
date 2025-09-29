@@ -18,7 +18,7 @@
 set -e                                           # Exit on error.
 cd "$(dirname "$(dirname "$(realpath "$0")")")"  # Go to project root.
 
-DEVICE=TS0004_AVATTO  # Change this to your device
+DEVICE=AVATTO_TS0004  # Change this to your device
 BOARD=$DEVICE make clean && BOARD=$DEVICE DEBUG=1 make -j16
 
 make update_converters
