@@ -1,6 +1,6 @@
 PROJECT_NAME = tlc_switch
 
-BOARD ?= TS0012
+BOARD ?= TUYA_TS0012
 VERSION := 20
 
 DEBUG ?= 0
