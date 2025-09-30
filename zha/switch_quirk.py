@@ -106,6 +106,7 @@ CONFIGS = [
     "skueekg3;WHD02-custom;BB4u;LD3;SB5u;RB1;",
     "01gpyda5;TS0002-custom;BD2u;LC2;SB5u;SB4u;RC4;RC3;",
     "bvrlqyj7;TS0002-OXT-CUS;BD2u;LC0;SB4u;SB5u;RC2;RC3;",
+    "lmlsduws;TS0002-AUB;LB1;BC4u;RB7;SC2u;RB4;SC3u;",
     "qaa59zqd;TS0002-MS;BB1u;LC3;RD2;SB5u;RC2;SB4u;",
     "ji4araar;TS0011-custom;BA0f;LD7;SC2f;RC0;",
     "tqlv4ug4;TS0001-custom;BD2u;LC0;SB4u;RC2;",

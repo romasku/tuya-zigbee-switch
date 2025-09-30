@@ -19,6 +19,7 @@ Also read:
 | [WHD02](https://www.zigbee2mqtt.io/devices/WHD02.html) | No-name 1 gang switch  | _TZ3000_skueekg3 | router | Supported |    -  | 
 | [TS0002_basic](https://www.zigbee2mqtt.io/devices/TS0002_basic.html) | OXT TS0001, probably other rebrands  | _TZ3000_01gpyda5 | router | Supported |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/6)  | 
 | [TS0002_basic](https://www.zigbee2mqtt.io/devices/TS0002_basic.html) | OXT 2-gang switch  | _TZ3000_bvrlqyj7 | router | Supported |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/49)  | 
+| [TMZ02](https://www.zigbee2mqtt.io/devices/TMZ02.html) | Aubess TMZ02  | _TZ3000_lmlsduws | router | Supported |   [link](https://github.com/romasku/tuya-zigbee-switch/pull/153)  | 
 | [ZM-104B-M](https://www.zigbee2mqtt.io/devices/ZM-104B-M.html) | Moes ZM-104B-M  | _TZ3000_qaa59zqd | router | In progress |   [link](https://github.com/romasku/tuya-zigbee-switch/pull/147)  | 
 | [TS0011_switch_module](https://www.zigbee2mqtt.io/devices/TS0011_switch_module.html) | GIRIER TS0011, OXT TS0011  | _TZ3000_ji4araar | router / end_device | Supported |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/4)  | 
 | [TS0001_switch_module](https://www.zigbee2mqtt.io/devices/TS0001_switch_module.html) | OXT TS0001, probably other rebrands  | _TZ3000_tqlv4ug4 | router | Supported |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/6)  | 
