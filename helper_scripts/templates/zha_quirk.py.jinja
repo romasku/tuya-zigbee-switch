@@ -3,22 +3,27 @@ from typing import Final
 from zhaquirks import CustomCluster
 from zigpy.quirks.v2 import QuirkBuilder, ReportingConfig, SensorDeviceClass, EntityType
 from zigpy.zcl import ClusterType, foundation
-from zigpy.zcl.clusters.general import OnOffConfiguration, SwitchType, SwitchActions, MultistateInput, OnOff, Basic
+from zigpy.zcl.clusters.general import OnOffConfiguration, SwitchType, MultistateInput, OnOff, Basic
 from zigpy.zcl.foundation import ZCLAttributeDef
 import zigpy.types as t
 
-
 class RelayMode(t.enum8):
     Detached = 0x00
-    Raise = 0x01
+    PressStart = 0x01
     LongPress = 0x02
     ShortPress = 0x03
-
 
 class BindedMode(t.enum8):
-    Raise = 0x01
+    PressStart = 0x01
     LongPress = 0x02
     ShortPress = 0x03
+
+class SwitchActions(t.enum8):
+    OnOff = 0x00
+    OffOn = 0x01
+    ToggleSimple = 0x02
+    ToggleSmartSync = 0x03
+    ToggleSmartOpposite = 0x04
 
 
 class CustomOnOffConfigurationCluster(CustomCluster, OnOffConfiguration):
