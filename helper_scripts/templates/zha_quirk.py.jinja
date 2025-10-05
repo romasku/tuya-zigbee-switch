@@ -154,8 +154,8 @@ for config in CONFIGS:
                 CustomOnOffConfigurationCluster.AttributeDefs.switch_actions.name,
                 SwitchActions,
                 CustomOnOffConfigurationCluster.cluster_id,
-                translation_key="switch_actions",
-                fallback_name="Switch actions",
+                translation_key="switch_actions_"+str(endpoint_id),
+                fallback_name="Switch actions "+str(endpoint_id),
                 endpoint_id=endpoint_id,
                 # Next is hack to force binding to make all attrs values visible.
                 # TODO: find a better approach
@@ -165,23 +165,23 @@ for config in CONFIGS:
                 CustomOnOffConfigurationCluster.AttributeDefs.switch_mode.name,
                 SwitchType,
                 CustomOnOffConfigurationCluster.cluster_id,
-                translation_key="switch_mode",
-                fallback_name="Switch mode",
+                translation_key="switch_mode_"+str(endpoint_id),
+                fallback_name="Switch mode "+str(endpoint_id),
                 endpoint_id=endpoint_id,
             )
             .enum(
                 CustomOnOffConfigurationCluster.AttributeDefs.relay_mode.name,
                 RelayMode,
                 CustomOnOffConfigurationCluster.cluster_id,
-                translation_key="relay_mode",
-                fallback_name="Relay mode",
+                translation_key="relay_mode_"+str(endpoint_id),
+                fallback_name="Relay mode "+str(endpoint_id),
                 endpoint_id=endpoint_id,
             )
             .number(
                 CustomOnOffConfigurationCluster.AttributeDefs.relay_index.name,
                 CustomOnOffConfigurationCluster.cluster_id,
-                translation_key="relay_index",
-                fallback_name="Relay index",
+                translation_key="relay_index_"+str(endpoint_id),
+                fallback_name="Relay index "+str(endpoint_id),
                 min_value=1,
                 max_value=relay_cnt,
                 step=1,
@@ -191,15 +191,15 @@ for config in CONFIGS:
                 CustomOnOffConfigurationCluster.AttributeDefs.binded_mode.name,
                 BindedMode,
                 CustomOnOffConfigurationCluster.cluster_id,
-                translation_key="binded_mode",
-                fallback_name="Binded mode",
+                translation_key="binded_mode_"+str(endpoint_id),
+                fallback_name="Binded mode "+str(endpoint_id),
                 endpoint_id=endpoint_id,
             )
             .number(
                 CustomOnOffConfigurationCluster.AttributeDefs.long_press_duration.name,
                 CustomOnOffConfigurationCluster.cluster_id,
-                translation_key="long_press_duration",
-                fallback_name="Long press mode",
+                translation_key="long_press_duration_"+str(endpoint_id),
+                fallback_name="Long press mode "+str(endpoint_id),
                 min_value=0,
                 max_value=5000,
                 step=1,
@@ -208,8 +208,8 @@ for config in CONFIGS:
             .number(
                 CustomOnOffConfigurationCluster.AttributeDefs.level_move_rate.name,
                 CustomOnOffConfigurationCluster.cluster_id,
-                translation_key="level_move_rate",
-                fallback_name="Level move rate",
+                translation_key="level_move_rate_"+str(endpoint_id),
+                fallback_name="Level move rate "+str(endpoint_id),
                 min_value=1,
                 max_value=255,
                 step=1,
@@ -218,8 +218,8 @@ for config in CONFIGS:
             .sensor(
                 MultistateInput.AttributeDefs.present_value.name,
                 MultistateInput.cluster_id,
-                translation_key="press_action",
-                fallback_name="Press action",
+                translation_key="press_action_"+str(endpoint_id),
+                fallback_name="Press action "+str(endpoint_id),
                 endpoint_id=endpoint_id,
                 reporting_config=ReportingConfig(min_interval=0, max_interval=300, reportable_change=1),
                 device_class=SensorDeviceClass.ENUM,
@@ -235,15 +235,15 @@ for config in CONFIGS:
                 OnOffWithIndicatorCluster.AttributeDefs.led_mode.name,
                 RelayIndicatorMode,
                 OnOffWithIndicatorCluster.cluster_id,
-                translation_key="relay_led_mode",
-                fallback_name="Relay Led mode",
+                translation_key="relay_led_mode_"+str(endpoint_id),
+                fallback_name="Relay Led mode "+str(endpoint_id),
                 endpoint_id=endpoint_id
             )
             .switch(
                 OnOffWithIndicatorCluster.AttributeDefs.led_state.name,
                 OnOffWithIndicatorCluster.cluster_id,
-                translation_key="relay_led_state",
-                fallback_name="Relay led state",
+                translation_key="relay_led_state_"+str(endpoint_id),
+                fallback_name="Relay led state "+str(endpoint_id),
                 endpoint_id=endpoint_id,
             )
         )
