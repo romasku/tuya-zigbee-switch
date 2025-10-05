@@ -666,8 +666,8 @@ MHCOZY_TS0004:
   info: Untesed? Unknown pins for reset button and blue LED? (C4, B4, B1)
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/130
   store: https://www.aliexpress.com/item/1005005457296054.html
-MOES_TOUCH_TS0011:
-  human_name: Moes 1-gang touch switch
+MOES_SWITCHES_TS0011:
+  human_name: Moes 1-gang switches (button or touch)
   neutral: optional
   device_type: end_device
   tuya_model_name: TS0011
@@ -689,9 +689,11 @@ MOES_TOUCH_TS0011:
   status: Supported
   info: null
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/14
-  store: https://www.aliexpress.com/item/1005005178075186.html
-MOES_TOUCH_TS0012:
-  human_name: Moes 2-gang touch switch
+  store:
+  - https://www.aliexpress.com/item/1005005178075186.html
+  - https://moeshouse.com/collections/eu-star-ring
+MOES_SWITCHES_TS0012:
+  human_name: Moes 2-gang switches (buttons or touch)
   neutral: optional
   device_type: end_device
   tuya_model_name: TS0012
@@ -713,9 +715,11 @@ MOES_TOUCH_TS0012:
   status: Supported
   info: null
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/14
-  store: https://www.aliexpress.com/item/1005005178075186.html
-MOES_TOUCH_TS0013:
-  human_name: Moes 3-gang touch switch
+  store:
+  - https://www.aliexpress.com/item/1005005178075186.html
+  - https://moeshouse.com/collections/eu-star-ring
+MOES_SWITCHES_TS0013:
+  human_name: Moes 3-gang switches (buttons or touch)
   neutral: optional
   device_type: end_device
   tuya_model_name: TS0013
@@ -737,7 +741,9 @@ MOES_TOUCH_TS0013:
   status: Supported
   info: null
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/14
-  store: https://www.aliexpress.com/item/1005005178075186.html
+  store:
+  - https://www.aliexpress.com/item/1005005178075186.html
+  - https://moeshouse.com/collections/eu-star-ring
 MOES_TS0002:
   human_name: Moes ZM-104B-M
   neutral: required
