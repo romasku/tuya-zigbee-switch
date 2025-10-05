@@ -277,7 +277,7 @@ sdk:
 
 toolchain:
 	mkdir -p $(TOOLCHAIN_DIR)
-	wget -P $(TOOLCHAIN_DIR) http://shyboy.oss-cn-shenzhen.aliyuncs.com/readonly/tc32_gcc_v2.0.tar.bz2 
+	wget -P $(TOOLCHAIN_DIR) https://shyboy.oss-cn-shenzhen.aliyuncs.com/readonly/tc32_gcc_v2.0.tar.bz2
 	tar -xvjf $(TOOLCHAIN_DIR)/tc32_gcc_v2.0.tar.bz2 -C $(TOOLCHAIN_DIR)
 
 
