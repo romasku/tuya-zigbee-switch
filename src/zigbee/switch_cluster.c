@@ -279,7 +279,7 @@ void switch_cluster_level_control(zigbee_switch_cluster *cluster) {
   dstEpInfo.dstAddrMode = APS_DSTADDR_EP_NOTPRESETNT;
 
   if (cluster->level_move->moveMode == LEVEL_MOVE_DOWN) {
-    zcl_level_moveWithOnOffCmd(cluster->endpoint, &dstEpInfo, FALSE, cluster->level_move);
+    zcl_level_moveCmd(cluster->endpoint, &dstEpInfo, FALSE, cluster->level_move);
     cluster->level_move->moveMode = LEVEL_MOVE_UP;
   } else {
     zcl_level_moveWithOnOffCmd(cluster->endpoint, &dstEpInfo, FALSE, cluster->level_move);
