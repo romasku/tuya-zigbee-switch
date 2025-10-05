@@ -275,6 +275,10 @@ void periferals_update()
   {
     btn_update(&buttons[index]);
   }
+  for (int index = 0; index < relays_cnt; ++index)
+  {
+    relay_poll(&relays[index]);
+  }
 }
 
 void init_reporting()

@@ -5,11 +5,16 @@
 #include "cluster_common.h"
 #include "configs/nv_slots_cfg.h"
 #include "custom_zcl/zcl_onoff_indicator.h"
+#include "base_components/millis.h"
 
 
 
 status_t relay_cluster_callback(zigbee_relay_cluster *cluster, zclIncomingAddrInfo_t *pAddrInfo, u8 cmdId, void *cmdPayload);
 status_t relay_cluster_callback_trampoline(zclIncomingAddrInfo_t *pAddrInfo, u8 cmdId, void *cmdPayload);
+
+status_t identify_cluster_callback_trampoline(zclIncomingAddrInfo_t *pAddrInfo, u8 cmdId, void *cmdPayload);
+status_t identify_cluster_callback(zigbee_relay_cluster *cluster, zclIncomingAddrInfo_t *pAddrInfo, u8 cmdId, void *cmdPayload);
+
 
 void relay_cluster_on_relay_change(zigbee_relay_cluster *cluster, u8 state);
 void relay_cluster_on_write_attr(zigbee_relay_cluster *cluster, zclWriteCmd_t *pWriteReqCmd);
@@ -19,6 +24,10 @@ void relay_cluster_load_attrs_from_nv(zigbee_relay_cluster *cluster);
 void relay_cluster_handle_startup_mode(zigbee_relay_cluster *cluster);
 
 void sync_indicator_led(zigbee_relay_cluster *cluster);
+
+void relay_cluster_update_effect(zigbee_relay_cluster *cluster);
+
+void relay_cluster_stop_effect(zigbee_relay_cluster *cluster);
 
 zigbee_relay_cluster *relay_cluster_by_endpoint[10];
 
@@ -43,6 +52,7 @@ void relay_cluster_add_to_endpoint(zigbee_relay_cluster *cluster, zigbee_endpoin
 
   cluster->relay->callback_param = cluster;
   cluster->relay->on_change      = (ev_relay_callback_t)relay_cluster_on_relay_change;
+  cluster->relay->poll_callback  = (poll_relay_callback_t)relay_cluster_update_effect;
 
   relay_cluster_handle_startup_mode(cluster); 
   sync_indicator_led(cluster);
@@ -63,6 +73,20 @@ void relay_cluster_add_to_endpoint(zigbee_relay_cluster *cluster, zigbee_endpoin
   info->attrTbl             = cluster->attr_infos;
   info->clusterRegisterFunc = zcl_onOff_register;
   info->clusterAppCb        = relay_cluster_callback_trampoline;
+
+  // Identify stuff
+  SETUP_ATTR_FOR_TABLE(cluster->identify_attr_infos, 0, ZCL_ATTRID_IDENTIFY_TIME, ZCL_DATA_TYPE_UINT16, ACCESS_CONTROL_READ | ACCESS_CONTROL_WRITE, cluster->identify_time);
+
+  zigbee_endpoint_add_cluster(endpoint, 1, ZCL_CLUSTER_GEN_IDENTIFY);
+  info = zigbee_endpoint_reserve_info(endpoint);
+  info->clusterId = ZCL_CLUSTER_GEN_IDENTIFY;
+  info->manuCode  = MANUFACTURER_CODE_NONE;
+  info->attrNum   = 1;
+  info->attrTbl   = cluster->identify_attr_infos;
+  info->clusterRegisterFunc = zcl_identify_register;
+  info->clusterAppCb        = identify_cluster_callback_trampoline;
+
+  relay_cluster_stop_effect(cluster);
 }
 
 status_t relay_cluster_callback_trampoline(zclIncomingAddrInfo_t *pAddrInfo, u8 cmdId, void *cmdPayload)
@@ -98,6 +122,54 @@ status_t relay_cluster_callback(zigbee_relay_cluster *cluster, zclIncomingAddrIn
   }
 
   return(ZCL_STA_SUCCESS);
+}
+
+
+status_t identify_cluster_callback_trampoline(zclIncomingAddrInfo_t *pAddrInfo, u8 cmdId, void *cmdPayload)
+{
+  return identify_cluster_callback(relay_cluster_by_endpoint[pAddrInfo->dstEp], pAddrInfo, cmdId, cmdPayload);
+}
+
+static void identify_set(zigbee_relay_cluster *cluster, u16 time)
+{
+  if (time == 0) {
+    if (cluster->identify_time)
+    {
+      relay_cluster_stop_effect(cluster);
+    }
+    return;
+  }
+
+  cluster->identify_time = time;
+  cluster->next_state = NEXT_STATE_OFF;
+  cluster->last_update = millis();
+  cluster->on_time = 500;
+  cluster->off_time = 500;
+
+  relay_on(cluster->relay);
+}
+
+status_t identify_cluster_callback(zigbee_relay_cluster *cluster, zclIncomingAddrInfo_t *pAddrInfo, u8 cmdId, void *cmdPayload)
+{
+  u8 status = ZCL_STA_SUCCESS;
+  zcl_identify_cmdPayload_t *payload = cmdPayload;
+
+  switch (cmdId) {
+  case ZCL_CMD_IDENTIFY:
+  {
+    identify_set(cluster, payload->identify.identifyTime);
+  }
+    break;
+  case ZCL_CMD_IDENTIFY_QUERY:
+    break;
+  case ZCL_CMD_TRIGGER_EFFECT:
+    // Maybe one day...
+  default:
+		status = ZCL_STA_UNSUP_CLUSTER_COMMAND;
+    break;
+  }
+
+  return status;
 }
 
 void sync_indicator_led(zigbee_relay_cluster *cluster)
@@ -291,4 +363,68 @@ void relay_cluster_handle_startup_mode(zigbee_relay_cluster *cluster)
       }
     }
   }
+}
+
+void relay_cluster_stop_effect(zigbee_relay_cluster *cluster)
+{
+  cluster->toggles_left = 0;
+  cluster->identify_time = 0;
+  cluster->switch_counter = 0;
+}
+
+void relay_cluster_update_effect(zigbee_relay_cluster *cluster)
+{
+  if (!(cluster->identify_time) && !(cluster->toggles_left))
+  {
+    return;
+  }
+
+  u32 now = millis();
+  u32 time_carry = now - cluster->last_update;
+
+  cluster->last_update = now;
+  while (time_carry >= cluster->switch_counter)
+  {
+    time_carry -= cluster->switch_counter;
+
+    if (cluster->next_state == NEXT_STATE_OFF)
+    {
+      relay_off(cluster->relay);
+      cluster->next_state = NEXT_STATE_ON;
+
+      if (!cluster->identify_time)
+      {
+        cluster->toggles_left--;
+        if (!cluster->toggles_left)
+        {
+          relay_cluster_stop_effect(cluster);
+          return;
+        }
+      }
+      cluster->switch_counter = cluster->off_time;
+    }
+    else
+    {
+      relay_on(cluster->relay);
+      cluster->next_state = NEXT_STATE_OFF;
+
+      if (cluster->identify_time)
+      {
+        cluster->identify_time--;
+        if (!cluster->identify_time)
+        {
+          relay_cluster_stop_effect(cluster);
+          return;
+        }
+      }
+      else if (!(--cluster->toggles_left))
+      {
+        relay_cluster_stop_effect(cluster);
+        return;
+      }
+
+      cluster->switch_counter = cluster->on_time;
+    }
+  }
+  cluster->switch_counter -= time_carry;
 }
