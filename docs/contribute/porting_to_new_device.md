@@ -108,7 +108,7 @@ If unsure, use `u` or `U`. `f` may cause fake clicks, and the device can get stu
 For LEDs, add `i` to invert the state.
 
 As some Relays are bi-stable and use two pins to control, where one pin turns it on and another one turns it off, it is possible to specify
-second pin like this: `RC2D2;`
+the second pin like this: `RC2D2;`
 
 Here is an example config:  
 
@@ -118,7 +118,7 @@ Tuya-WHD02-custom;WHD02-custom;BB4u;LD3;SB5u;RB1;
 
 The manufacturer is `"Tuya-WHD02-custom"`, the model is `"WHD02-custom"`, `BB4u` means a reset button on pin `B4` with a 10K pull-up (`u`), `LD3` specifies an onboard LED on pin `D3`, `SB5u` specifies a switch on pin `B5` with a 10K pull-up, and `RB1` specifies a relay on pin `B1`. This describes a device with a single switch and a single relay.  
 
-Here is an another example config:  
+Here is another example config:  
 
 ```
 Example-switch;Example-switch;SB5u;RC2D2;ID3;

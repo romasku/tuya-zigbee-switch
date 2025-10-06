@@ -1,6 +1,6 @@
 # Open issues
 
-These issues are not yet fixed and they affect every device.  
+These issues are not yet fixed, and they affect every device.  
 If you have devices on older versions of the custom firmware, also read [# Closed issues](#closed-issues).
 
 ## Bi-stable relays draw too much power
@@ -84,4 +84,4 @@ If you bricked your device, [contribute/flashing_via_wire.md](/docs/contribute/f
 **Up to version 17**, 4-gang devices could not update OTA.  
 It is possible to enable updates by giving it a 3-gang config string.  
 But the [previously mentioned issue](#custom-device-config-bricks-unit-fixed-in-v18-20) makes it harder. (**Do not try it yourself** without a UART flasher handy)  
-Please open an issue if you are in this scenario and we will test a solution before giving you instructions.
+Please open an issue if you are in this scenario, and we will test a solution before giving you instructions.

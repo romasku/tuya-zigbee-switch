@@ -19,7 +19,7 @@ The process is automated with scripts that you can run locally or online.
 > [!IMPORTANT]  
 > We currently generate a dedicated firmware binary **for each device**.  
 > The only difference between binaries is the **pre-defined config string** (device name and pinout).  
-> We are slowly moving towards a unique build **(with an empty config string)** where the user will have to select the appropriate config string.  
+> We are slowly moving towards a unified build **(with an empty config string)** where the user will have to select the appropriate config string.  
 
 Below are explicit instructions for building, installing and contributing.  
 
