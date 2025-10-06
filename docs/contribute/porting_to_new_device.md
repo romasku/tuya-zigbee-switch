@@ -107,7 +107,7 @@ If unsure, use `u` or `U`. `f` may cause fake clicks, and the device can get stu
 
 For LEDs, add `i` to invert the state.
 
-As some Relays are bi-stable and use two pins to control, where one pin turns it on and another one turns it of, it is possible to specify
+As some Relays are bi-stable and use two pins to control, where one pin turns it on and another one turns it off, it is possible to specify
 second pin like this: `RC2D2;`
 
 Here is an example config:  

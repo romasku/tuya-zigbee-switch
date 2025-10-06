@@ -60,7 +60,7 @@ Hopefully, you now have a working device with custom firmware! 😊
 (resets reporting and stuff?, keeps user binds and settings)
 
 > [!NOTE]  
-> If your device is several versions behind, it will update directly to the latest verion.
+> If your device is several versions behind, it will update directly to the latest version.
 
 ## OTA index
 

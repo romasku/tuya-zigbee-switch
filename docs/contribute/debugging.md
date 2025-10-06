@@ -8,7 +8,7 @@
 
 Currently, debugging is very rudimentary.  
 
-It consits of adding **prints in the code** and building with the DEBUG flag enabled.  
+It consists of adding **prints in the code** and building with the DEBUG flag enabled.  
 (See [`make_scripts/make_debug_single.sh`](/make_scripts/make_debug_single.sh).)  
 
 After you flash the debug build, the device will output messages to the **UART TX pin**.  

@@ -72,7 +72,7 @@ Requires manual update of converters and reconfiguration.
 
 ## v1.0.10
 
-- Add support for bi-stable relays contolled by 2 pins.
+- Add support for bi-stable relays controlled by 2 pins.
 - Fix Led indicator mode not preserved after reboot.
 
 ## v1.0.9
@@ -104,7 +104,7 @@ Requires manual update of converters and reconfiguration.
 
 ## v1.0.3
 
-- Add support of statup behaviour: ON, OFF, TOGGLE, PREVIOUS.
+- Add support of startup behaviour: ON, OFF, TOGGLE, PREVIOUS.
 - Add support of button actions: 'released', 'press', 'long_press'. This is only useful for momentary (doorbell-like) switches.
 
 ## v1.0.2
