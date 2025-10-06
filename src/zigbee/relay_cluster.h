@@ -21,9 +21,13 @@ typedef struct
   u8            endpoint;
   u8            startup_mode;
   u8            indicator_led_mode;
-  zclAttrInfo_t attr_infos[4];
+  u16           off_wait_time;
+  u16           on_wait_time;
+  zclAttrInfo_t attr_infos[6];
   relay_t *     relay;
   led_t *       indicator_led;
+
+  u32 on_off_count_from;
 
   u16           identify_time;
   zclAttrInfo_t identify_attr_infos[1];
@@ -49,5 +53,7 @@ void update_relay_clusters();
 void relay_cluster_callback_attr_write_trampoline(u8 clusterId, zclWriteCmd_t *pWriteReqCmd);
 
 void gen_identify_callback_attr_write_trampoline(u8 clusterId, zclWriteCmd_t *pWriteReqCmd);
+
+bool relay_cluster_is_on(zigbee_relay_cluster *cluster);
 
 #endif
