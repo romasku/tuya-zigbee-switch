@@ -61,7 +61,7 @@ Requires manual update of converters and reconfiguration.
 - Fix led indicator state in manual mode not preserved after reboot.
 - Add forced device announcement after boot to make sure device is seen as "available" as soon as it boots.
 - Restored device pictures in z2m (requires re-download of `switch_custom.js`).
-- Cleaned-up z2m converter (fix typos, inconsistent names, etc). **Warning!** This may break your automations as it changes .
+- Cleaned-up z2m converter (fix typos, inconsistent names, etc.). **Warning!** This may break your automations as it changes .
   property names (requires re-download of `switch_custom.js`).
 
 ## v1.0.11
