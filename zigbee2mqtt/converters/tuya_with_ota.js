@@ -13,9 +13,9 @@ const multiplePinoutsDescription = "WARNING! There are multiple known pinouts fo
 
 
 const tuyaModels = [
+    "FZB-1",
     "TS0001",
     "TS0001_switch_module",
-    "TS0001_switch_module_3",
     "TS0002",
     "TS0002_basic",
     "TS0002_limited",
@@ -31,8 +31,10 @@ const tuyaModels = [
     "TS0013",
     "TS0013_switch_module",
     "TS011F_plug_1",
+    "TS011F_plug_2",
+    "TS0726_2_gang_scene_switch",
     "WHD02",
-    "_TZ3000_o1jzcxou",
+    "_TZ3000_pgq7ormg",
 ];
 
 const tuyaMultiplePinoutsModels = [
