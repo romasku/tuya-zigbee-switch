@@ -33,7 +33,7 @@ Two branches are recommended to avoid conflicts between generated files.
 3. Make changes
 4. Update `changelog_fw.md` (manual)
 5. Commit changes and push
-6. Create **build_branch** from **code_branch** (newFeature -> newFeature_build) and push
+6. Create **build_branch** from **code_branch** (newFeature → newFeature_build) and push
 7. Visit GitHub Actions on your fork (web) and run `build.yml` on **build_branch**  
 (this takes 5 minutes as it builds the firmware for every device)
 8. Add the updated converters/quirks to your Z2M/ZHA instance  
@@ -44,7 +44,7 @@ Two branches are recommended to avoid conflicts between generated files.
     - For wire update, get the binary file for your device  
     (`bin/BOARD/tlc_switch.bin`)
 10. Perform device update and test: [readme.md # Flashing](/readme.md#-flashing)
-11. Create a Pull Request (**code_branch** -> **romasku/main**)
+11. Create a Pull Request (**code_branch** → **romasku/main**)
 12. Check the unit tests result
 
 ## 💻 Local build
@@ -68,7 +68,7 @@ They can easily be adapted for other distributions. (Please share your scripts)
 7. Perform device update and test: [flashing_via_wire.md](./flashing_via_wire.md)
 8. Update `changelog_fw.md` (manual)
 9. Commit changes (without generated files) and push
-10. Create a Pull Request (**code_branch** -> **romasku/main**)
+10. Create a Pull Request (**code_branch** → **romasku/main**)
 
 ### Available commands
 
