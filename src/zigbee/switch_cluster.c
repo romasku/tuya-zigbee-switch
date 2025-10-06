@@ -164,7 +164,7 @@ void switch_cluster_relay_action_off(zigbee_switch_cluster *cluster) {
   }
 }
 
-// Send OnOff command to bindinded device based on ON position (position 1 in ZCL docs)
+// Send OnOff command to binded device based on ON position (position 1 in ZCL docs)
 void switch_cluster_binding_action_on(zigbee_switch_cluster *cluster) {
   zigbee_relay_cluster *relay_cluster = &relay_clusters[cluster->relay_index - 1];
 
@@ -205,7 +205,7 @@ void switch_cluster_binding_action_on(zigbee_switch_cluster *cluster) {
 }
 
 
-// Send OnOff command to bindinded device based on OFF position (position 2 in ZCL docs)
+// Send OnOff command to binded device based on OFF position (position 2 in ZCL docs)
 void switch_cluster_binding_action_off(zigbee_switch_cluster *cluster) {
   zigbee_relay_cluster *relay_cluster = &relay_clusters[cluster->relay_index - 1];
 

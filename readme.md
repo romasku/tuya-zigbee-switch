@@ -34,7 +34,7 @@ Users also consider this *the missing piece of a reliable smart home* because it
 - **Super fast reaction time** (compared to stock firmware)
 - **Outgoing binds** (use switch to remotely control Zigbee lightbulbs - state & brightness)
 - Configurable **Long press** for push-switches (custom action & duration)
-- Custom **switch action modes**, allowing to synchonize switch position or binded devices with relay state
+- Custom **switch action modes**, allowing to synchronize switch position or binded devices with relay state
 - Both **Router** & **EndDevice** modes for no-Neutral devices
 - **Detached mode** (generate Zigbee events without triggering relays)
 - **Power-on behavior** (on, off, previous, toggle)

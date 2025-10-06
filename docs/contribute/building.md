@@ -1,6 +1,6 @@
 # 🛠️ Building
 
-Buliding consists of multiple steps:
+Building consists of multiple steps:
 1. (one-time) installing dependencies
 2. (one-time) installing SDK and toolchain
 3. (optional) clearing OTA index files
@@ -12,7 +12,7 @@ Buliding consists of multiple steps:
 9. updating [devices/supported.md](/docs/devices/supported.md)
 10. (manual) updating [changelog_fw.md](/docs/changelog_fw.md)
 11. running unit tests (automated on push and merge)
-11. (online) freezing OTA links  
+12. (online) freezing OTA links  
 
 The process is automated with scripts that you can run locally or online.  
   
@@ -36,7 +36,7 @@ Two branches are recommended to avoid conflicts between generated files.
 6. Create **build_branch** from **code_branch** (newFeature -> newFeature_build) and push
 7. Visit GitHub Actions on your fork (web) and run `build.yml` on **build_branch**  
 (this takes 5 minutes as it builds the firmware for every device)
-8. Add the updated converters/quriks to your Z2M/ZHA instance  
+8. Add the updated converters/quirks to your Z2M/ZHA instance  
 (if new ones were generated)
 9. Prepare the update
     - For wireless update, use the corresponding index in your OTA settings  
@@ -56,7 +56,7 @@ This project uses:
 - **YAML** for the device database
 
 **Linux is recommended.**  
-We currently have bash scripts for Debian/Ubuntu to install dependencies with apt and automate building for multipe boards.  
+We currently have bash scripts for Debian/Ubuntu to install dependencies with apt and automate building for multiple boards.  
 They can easily be adapted for other distributions. (Please share your scripts)
 
 1. Fork the repository and clone it
