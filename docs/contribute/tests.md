@@ -3,7 +3,7 @@
 ## Executing Tests
 
 ```bash
-make tests
+make test
 ```
 
 ## Writing Tests
