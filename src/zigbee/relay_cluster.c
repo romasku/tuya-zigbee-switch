@@ -18,6 +18,8 @@ status_t identify_cluster_callback(zigbee_relay_cluster *cluster, zclIncomingAdd
 
 void relay_cluster_on_relay_change(zigbee_relay_cluster *cluster, u8 state);
 void relay_cluster_on_write_attr(zigbee_relay_cluster *cluster, zclWriteCmd_t *pWriteReqCmd);
+void gen_identify_callback_attr_write(zigbee_relay_cluster *cluster, zclWriteCmd_t *pWriteReqCmd);
+
 
 void relay_cluster_store_attrs_to_nv(zigbee_relay_cluster *cluster);
 void relay_cluster_load_attrs_from_nv(zigbee_relay_cluster *cluster);
@@ -34,6 +36,11 @@ zigbee_relay_cluster *relay_cluster_by_endpoint[10];
 void relay_cluster_callback_attr_write_trampoline(u8 clusterId, zclWriteCmd_t *pWriteReqCmd)
 {
   relay_cluster_on_write_attr(relay_cluster_by_endpoint[clusterId], pWriteReqCmd);
+}
+
+void gen_identify_callback_attr_write_trampoline(u8 clusterId, zclWriteCmd_t *pWriteReqCmd)
+{
+  gen_identify_callback_attr_write(relay_cluster_by_endpoint[clusterId], pWriteReqCmd);
 }
 
 void update_relay_clusters() {
@@ -271,6 +278,19 @@ void relay_cluster_on_write_attr(zigbee_relay_cluster *cluster, zclWriteCmd_t *p
   }
 
   relay_cluster_store_attrs_to_nv(cluster);
+}
+
+void gen_identify_callback_attr_write(zigbee_relay_cluster *cluster, zclWriteCmd_t *pWriteReqCmd)
+{
+  for (int index = 0; index < pWriteReqCmd->numAttr; index++)
+  {
+    zclWriteRec_t attr = pWriteReqCmd->attrList[index];
+    if (attr.attrID == ZCL_ATTRID_IDENTIFY_TIME && attr.dataType == ZCL_DATA_TYPE_UINT16)
+    {
+      u16 identify_time = BUILD_U16(attr.attrData[0], attr.attrData[1]);
+      identify_set(cluster, identify_time);
+    }
+  }
 }
 
 typedef struct
