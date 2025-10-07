@@ -40,8 +40,8 @@ if __name__ == "__main__":
         old_mf_names = device.get("old_manufacturer_names", [])
         old_zb_models = device.get("old_zb_models", [])
 
-        all_mf_names = [current_mf_name] + old_mf_names
-        all_zb_models = [current_zb_model] + old_zb_models
+        all_mf_names = [current_mf_name] + (old_mf_names or [])
+        all_zb_models = [current_zb_model] + (old_zb_models or [])
 
         # cross product of all_mf_names × all_zb_models
         for mf in all_mf_names:
