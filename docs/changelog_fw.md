@@ -1,8 +1,13 @@
 # Firmware Changelog
 
 ## Upcoming:
-- Keep device configuration (user settings) when it is removed from the network
-- Add support for Zigbee commands: off_with_effect (0x40) and on_with_recall_global_scene (0x41)
+
+### Changes:
+- Keep device configuration (user settings) when it is removed from the network - not on main yet
+
+### New features:
+- Add support for Zigbee commands: **off_with_effect** (0x40) and **on_with_recall_global_scene** (0x41)
+- Add support for **normally-closed momentary buttons**
 
 ## v1.0.20:
 

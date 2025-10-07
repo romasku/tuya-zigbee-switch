@@ -14,6 +14,7 @@ typedef struct
   u32                              pin;
   u8                               pressed;
   u8                               long_pressed;
+  u8                               long_released;
   u32                              pressed_at_ms;
   u32                              released_at_ms;
   u32                              long_press_duration_ms;
@@ -24,6 +25,7 @@ typedef struct
   ev_button_callback_t             on_press;
   ev_button_callback_t             on_long_press;
   ev_button_callback_t             on_release;
+  ev_button_callback_t             on_long_release;
   ev_button_multi_press_callback_t on_multi_press;
   void *                           callback_param;
 }button_t;

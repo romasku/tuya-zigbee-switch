@@ -21,6 +21,12 @@ class BindedMode(t.enum8):
     ShortPress = 0x03
 
 
+class SwitchType(t.enum8):
+    Toggle = 0x00
+    Momentary = 0x01
+    Momentary_NC = 0x02
+
+
 class CustomOnOffConfigurationCluster(CustomCluster, OnOffConfiguration):
 
     class AttributeDefs(OnOffConfiguration.AttributeDefs):
