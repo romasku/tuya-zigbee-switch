@@ -15,6 +15,11 @@ enum active_effect_next_state {
   NEXT_STATE_STOP_EFFECT,
 };
 
+enum relay_state {
+  RELAY_OFF = 0,
+  RELAY_ON = 1,
+};
+
 typedef struct
 {
   u8            relay_idx;
@@ -29,15 +34,18 @@ typedef struct
 
   u32 on_off_count_from;
 
-  u16           identify_time;
-  zclAttrInfo_t identify_attr_infos[1];
-
   enum active_effect_next_state next_state;
   u32 on_time;
   u32 off_time;
   u32 last_update;
   u32 switch_counter;
   u16 toggles_left;
+  
+  u16           identify_time;
+  zclAttrInfo_t identify_attr_infos[1];
+
+  bool on_off;
+  bool indicator_led_on;
 } zigbee_relay_cluster;
 
 void relay_cluster_add_to_endpoint(zigbee_relay_cluster *cluster, zigbee_endpoint *endpoint);
@@ -55,5 +63,6 @@ void relay_cluster_callback_attr_write_trampoline(u8 clusterId, zclWriteCmd_t *p
 void gen_identify_callback_attr_write_trampoline(u8 clusterId, zclWriteCmd_t *pWriteReqCmd);
 
 bool relay_cluster_is_on(zigbee_relay_cluster *cluster);
+bool relay_cluster_is_identifying(zigbee_relay_cluster *cluster);
 
 #endif
