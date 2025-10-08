@@ -94,6 +94,19 @@ def get_raw_github_link():
         capture_output=True, text=True, check=True
     ).stdout.strip()
 
+    # Normalize to HTTPS GitHub URL
+    if remote_url.startswith("git@github.com:"):
+        remote_url = remote_url.replace("git@github.com:", "https://github.com/")
+    elif remote_url.startswith("gh:"):
+        remote_url = remote_url.replace("gh:", "https://github.com/")
+    elif remote_url.startswith("git://github.com/"):
+        remote_url = remote_url.replace("git://", "https://")
+    elif remote_url.startswith("http:"):
+        remote_url = remote_url.replace("http:", "https:")
+
+    if remote_url.endswith(".git"):
+        remote_url = remote_url[:-4]
+
     return f"{remote_url}/raw/refs/heads/{branch}"
 
 if __name__ == "__main__":
