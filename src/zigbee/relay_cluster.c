@@ -7,7 +7,7 @@
 #include "custom_zcl/zcl_onoff_indicator.h"
 #include "base_components/millis.h"
 
-
+#include "scene_cluster.h"
 
 status_t relay_cluster_callback(zigbee_relay_cluster *cluster, zclIncomingAddrInfo_t *pAddrInfo, u8 cmdId, void *cmdPayload);
 status_t relay_cluster_callback_trampoline(zclIncomingAddrInfo_t *pAddrInfo, u8 cmdId, void *cmdPayload);
@@ -90,12 +90,13 @@ void relay_cluster_add_to_endpoint(zigbee_relay_cluster *cluster, zigbee_endpoin
 
   // Identify stuff
   SETUP_ATTR_FOR_TABLE(cluster->identify_attr_infos, 0, ZCL_ATTRID_IDENTIFY_TIME, ZCL_DATA_TYPE_UINT16, ACCESS_CONTROL_READ | ACCESS_CONTROL_WRITE, cluster->identify_time);
+  SETUP_ATTR_FOR_TABLE(cluster->identify_attr_infos, 1, ZCL_ATTRID_GLOBAL_CLUSTER_REVISION, ZCL_DATA_TYPE_UINT16, ACCESS_CONTROL_READ, zcl_attr_global_clusterRevision);
 
   zigbee_endpoint_add_cluster(endpoint, 1, ZCL_CLUSTER_GEN_IDENTIFY);
   info = zigbee_endpoint_reserve_info(endpoint);
   info->clusterId = ZCL_CLUSTER_GEN_IDENTIFY;
   info->manuCode  = MANUFACTURER_CODE_NONE;
-  info->attrNum   = 1;
+  info->attrNum   = 2;
   info->attrTbl   = cluster->identify_attr_infos;
   info->clusterRegisterFunc = zcl_identify_register;
   info->clusterAppCb        = identify_cluster_callback_trampoline;
@@ -264,10 +265,15 @@ void relay_cluster_restore_relay_state(zigbee_relay_cluster *cluster)
   }
 }
 
-static void relay_cluster_set_on_off(zigbee_relay_cluster *cluster, enum relay_state state)
+void relay_cluster_set_on_off(zigbee_relay_cluster *cluster, enum relay_state state, bool from_scene)
 {
   bool on = state == RELAY_ON ? true : false;
   cluster->on_off = on;
+
+  if (cluster->scene_cluster && !from_scene)
+  {
+    cluster->scene_cluster->scene_valid = false;
+  }
 
   if (relay_cluster_control_phys_relay(cluster))
   {
@@ -293,7 +299,7 @@ void relay_cluster_on(zigbee_relay_cluster *cluster)
     cluster->off_wait_time = 0;
   }
 
-  relay_cluster_set_on_off(cluster, RELAY_ON);
+  relay_cluster_set_on_off(cluster, RELAY_ON, false);
 }
 
 void relay_cluster_off(zigbee_relay_cluster *cluster)
@@ -301,7 +307,7 @@ void relay_cluster_off(zigbee_relay_cluster *cluster)
   cluster->on_wait_time = 0;
   cluster->on_off_count_from = millis();
 
-  relay_cluster_set_on_off(cluster, RELAY_OFF);
+  relay_cluster_set_on_off(cluster, RELAY_OFF, false);
 }
 
 void relay_cluster_toggle(zigbee_relay_cluster *cluster)
@@ -348,7 +354,7 @@ void relay_cluster_on_with_timed_off(zigbee_relay_cluster *cluster, zcl_onoffCtr
 
   if (!cluster_on)
   {
-    relay_cluster_set_on_off(cluster, RELAY_ON);
+    relay_cluster_set_on_off(cluster, RELAY_ON, false);
   }
 }
 

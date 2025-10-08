@@ -20,7 +20,7 @@ enum relay_state {
   RELAY_ON = 1,
 };
 
-typedef struct
+typedef struct zigbee_relay_cluster
 {
   u8            relay_idx;
   u8            endpoint;
@@ -42,10 +42,12 @@ typedef struct
   u16 toggles_left;
   
   u16           identify_time;
-  zclAttrInfo_t identify_attr_infos[1];
+  zclAttrInfo_t identify_attr_infos[2];
 
   bool on_off;
   bool indicator_led_on;
+
+  struct zigbee_scene_cluster *scene_cluster;
 } zigbee_relay_cluster;
 
 void relay_cluster_add_to_endpoint(zigbee_relay_cluster *cluster, zigbee_endpoint *endpoint);
@@ -64,5 +66,8 @@ void gen_identify_callback_attr_write_trampoline(u8 clusterId, zclWriteCmd_t *pW
 
 bool relay_cluster_is_on(zigbee_relay_cluster *cluster);
 bool relay_cluster_is_identifying(zigbee_relay_cluster *cluster);
+
+bool relay_cluster_get_on_off(zigbee_relay_cluster *cluster);
+void relay_cluster_set_on_off(zigbee_relay_cluster *cluster, bool new_state, bool from_scene);
 
 #endif
