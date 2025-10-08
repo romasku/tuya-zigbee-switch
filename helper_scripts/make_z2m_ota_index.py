@@ -78,21 +78,25 @@ def make_ota_index_entry(file: Path, base_url: str, manufacturer_names: list[str
     return res
 
 def get_raw_github_link():
+    try:
+        branch = subprocess.run(
+            ["git", "branch", "--show-current"],
+            capture_output=True, text=True, check=True
+        ).stdout.strip() or "main"
 
-    branch = subprocess.run(
-        ["git", "branch", "--show-current"],
-        capture_output=True, text=True, check=True
-    ).stdout.strip()
+        remote = subprocess.run(
+            ["git", "config", "--get", "branch." + branch + ".remote"],
+            capture_output=True, text=True, check=True
+        ).stdout.strip() or "origin"
 
-    remote = subprocess.run(
-        ["git", "config", "--get", "branch." + branch + ".remote"],
-        capture_output=True, text=True, check=True
-    ).stdout.strip()
+        remote_url = subprocess.run(
+            ["git", "remote", "get-url", remote],
+            capture_output=True, text=True, check=True
+        ).stdout.strip() or "https://github.com/romasku/tuya-zigbee-switch"
 
-    remote_url = subprocess.run(
-        ["git", "remote", "get-url", remote],
-        capture_output=True, text=True, check=True
-    ).stdout.strip()
+    except subprocess.CalledProcessError:
+        # Fallback if any git command fails
+        return "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/main"
 
     # Normalize to HTTPS GitHub URL
     if remote_url.startswith("git@github.com:"):
