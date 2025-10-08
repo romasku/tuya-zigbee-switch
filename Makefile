@@ -278,7 +278,7 @@ sdk:
 toolchain:
 	mkdir -p $(TOOLCHAIN_DIR)
 	wget -P $(TOOLCHAIN_DIR) https://shyboy.oss-cn-shenzhen.aliyuncs.com/readonly/tc32_gcc_v2.0.tar.bz2
-	echo "33b854be3e3db3dba4b4dacdda2cd4ea1c94dfd4d562864a095956de7991b430  $(TOOLCHAIN_DIR)/tc32_gcc_v2.0.tar.bz2" | sha256sum -c -
+	echo "33b854be3e3db3dba4b4dacdda2cd4ea1c94dfd4d562864a095956de7991b430  $(TOOLCHAIN_DIR)/tc32_gcc_v2.0.tar.bz2" | sha256sum -c - || (rm -f $(TOOLCHAIN_DIR)/tc32_gcc_v2.0.tar.bz2 && false)
 	tar -xvjf $(TOOLCHAIN_DIR)/tc32_gcc_v2.0.tar.bz2 -C $(TOOLCHAIN_DIR)
 
 
