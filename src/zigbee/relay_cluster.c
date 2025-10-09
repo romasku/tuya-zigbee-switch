@@ -177,7 +177,13 @@ static void identify_set(zigbee_relay_cluster *cluster, u16 time)
   cluster->on_time = 500;
   cluster->off_time = 500;
 
-  relay_on(cluster->relay);
+  if (cluster->indicator_led)
+  {
+    led_on(cluster->indicator_led);
+  } else if (cluster->relay)
+  {
+    relay_on(cluster->relay);
+  }
 }
 
 status_t identify_cluster_callback(zigbee_relay_cluster *cluster, zclIncomingAddrInfo_t *pAddrInfo, u8 cmdId, void *cmdPayload)
