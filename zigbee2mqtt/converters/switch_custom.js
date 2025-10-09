@@ -1576,7 +1576,7 @@ const definitions = [
             "Moes-1-gang",
             "Moes-1-gang-ED",
         ],
-        model: "None",
+        model: "ZS-EUB_1gang",
         vendor: "Tuya-custom",
         description: "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
         extend: [
