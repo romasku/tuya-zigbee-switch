@@ -178,7 +178,7 @@ const definitions = [
             "WHD02-Aubess",
             "WHD02-Aubess-ED",
         ],
-        model: "None",
+        model: "WHD02",
         vendor: "Tuya-custom",
         description: "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
         extend: [
@@ -259,7 +259,7 @@ const definitions = [
         zigbeeModel: [
             "TS0003-AUB",
         ],
-        model: "None",
+        model: "TS0003_switch_module_2",
         vendor: "Tuya-custom",
         description: "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
         extend: [
@@ -322,7 +322,7 @@ const definitions = [
         zigbeeModel: [
             "TS0004-custom",
         ],
-        model: "None",
+        model: "TS0004_switch_module",
         vendor: "Tuya-custom",
         description: "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
         extend: [
@@ -400,7 +400,7 @@ const definitions = [
         zigbeeModel: [
             "Avatto-3-touch",
         ],
-        model: "None",
+        model: "TS0003_switch_3_gang",
         vendor: "Tuya-custom",
         description: "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
         extend: [
@@ -694,7 +694,7 @@ const definitions = [
             "TS0011-avatto",
             "TS0011-avatto-ED",
         ],
-        model: "None",
+        model: "LZWSM16-1",
         vendor: "Tuya-custom",
         description: "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
         extend: [
@@ -962,7 +962,7 @@ const definitions = [
             "Bseed-2-gang",
             "Bseed-2-gang-ED",
         ],
-        model: "None",
+        model: "TS0012",
         vendor: "Tuya-custom",
         description: "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
         extend: [
@@ -1014,7 +1014,7 @@ const definitions = [
             "Bseed-2-gang-2",
             "Bseed-2-gang-2-ED",
         ],
-        model: "None",
+        model: "TS0012",
         vendor: "Tuya-custom",
         description: "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
         extend: [
@@ -1066,7 +1066,7 @@ const definitions = [
         zigbeeModel: [
             "TS0003-BS",
         ],
-        model: "None",
+        model: "TS0003",
         vendor: "Tuya-custom",
         description: "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
         extend: [
@@ -1130,7 +1130,7 @@ const definitions = [
             "TS0002-GIR",
             "TS0002-custom",
         ],
-        model: "None",
+        model: "TS0002_basic",
         vendor: "Tuya-custom",
         description: "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
         extend: [
@@ -1323,7 +1323,7 @@ const definitions = [
         zigbeeModel: [
             "TS0001-IHS",
         ],
-        model: "None",
+        model: "_TZ3000_pgq7ormg",
         vendor: "Tuya-custom",
         description: "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
         extend: [
@@ -1357,7 +1357,7 @@ const definitions = [
             "TS0003-IHS",
             "TS0003-3CH-cus",
         ],
-        model: "None",
+        model: "TS0003",
         vendor: "Tuya-custom",
         description: "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
         extend: [
@@ -1420,7 +1420,7 @@ const definitions = [
         zigbeeModel: [
             "TS0004-IHS",
         ],
-        model: "None",
+        model: "TS0004",
         vendor: "Tuya-custom",
         description: "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
         extend: [
@@ -1577,7 +1577,7 @@ const definitions = [
             "Moes-1-gang",
             "Moes-1-gang-ED",
         ],
-        model: "None",
+        model: "ZS-EUB_1gang",
         vendor: "Tuya-custom",
         description: "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
         extend: [
@@ -1664,7 +1664,7 @@ const definitions = [
             "Moes-3-gang",
             "Moes-3-gang-ED",
         ],
-        model: "None",
+        model: "TS0013",
         vendor: "Tuya-custom",
         description: "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
         extend: [
@@ -1780,7 +1780,7 @@ const definitions = [
         zigbeeModel: [
             "TS0003-custom",
         ],
-        model: "None",
+        model: "TS0003",
         vendor: "Tuya-custom",
         description: "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
         extend: [
@@ -1842,7 +1842,7 @@ const definitions = [
         zigbeeModel: [
             "TS0002-OXT-CUS",
         ],
-        model: "None",
+        model: "TS0002_basic",
         vendor: "Tuya-custom",
         description: "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
         extend: [
@@ -1890,7 +1890,7 @@ const definitions = [
         zigbeeModel: [
             "TS0001-custom",
         ],
-        model: "None",
+        model: "TS0001_switch_module",
         vendor: "Tuya-custom",
         description: "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
         extend: [
@@ -1923,7 +1923,7 @@ const definitions = [
         zigbeeModel: [
             "WHD02-custom",
         ],
-        model: "None",
+        model: "WHD02",
         vendor: "Tuya-custom",
         description: "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
         extend: [
@@ -1956,7 +1956,7 @@ const definitions = [
         zigbeeModel: [
             "WHD02-custom",
         ],
-        model: "None",
+        model: "WHD02",
         vendor: "Tuya-custom",
         description: "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
         extend: [
@@ -1989,7 +1989,7 @@ const definitions = [
         zigbeeModel: [
             "WHD02-custom",
         ],
-        model: "None",
+        model: "WHD02",
         vendor: "Tuya-custom",
         description: "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
         extend: [
@@ -2022,7 +2022,7 @@ const definitions = [
         zigbeeModel: [
             "TS0002-custom",
         ],
-        model: "None",
+        model: "TS0002_basic",
         vendor: "Tuya-custom",
         description: "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
         extend: [
@@ -2070,7 +2070,7 @@ const definitions = [
         zigbeeModel: [
             "TS0004-Avv",
         ],
-        model: "None",
+        model: "TS0004_switch_module",
         vendor: "Tuya-custom",
         description: "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
         extend: [
@@ -2148,7 +2148,7 @@ const definitions = [
         zigbeeModel: [
             "TS0011-custom",
         ],
-        model: "None",
+        model: "TS0011_switch_module",
         vendor: "Tuya-custom",
         description: "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
         extend: [
@@ -2183,7 +2183,7 @@ const definitions = [
             "TS0042-CUSTOM",
             "TS0012-custom-end-device",
         ],
-        model: "None",
+        model: "TS0012_switch_module",
         vendor: "Tuya-custom",
         description: "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
         extend: [
@@ -2232,7 +2232,7 @@ const definitions = [
             "Zemi-2-gang",
             "Zemi-2-gang-ED",
         ],
-        model: "None",
+        model: "TS0012",
         vendor: "Tuya-custom",
         description: "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
         extend: [
