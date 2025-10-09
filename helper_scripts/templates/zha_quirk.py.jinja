@@ -248,18 +248,19 @@ for config in CONFIGS:
             )
         )
 
-    builder = (
-        builder
-        .removes(Basic.cluster_id, cluster_type=ClusterType.Client, endpoint_id=1)
-        .adds(CustomBasicCluster, endpoint_id=1)
-        .switch(
-            CustomBasicCluster.AttributeDefs.networkIndicator.name,
-            CustomBasicCluster.cluster_id,
-            translation_key="network_indicator",
-            fallback_name="Network indicator",
-            endpoint_id=1,
-            entity_type=EntityType.STANDARD,
+    if has_dedicated_net_led:
+        builder = (
+            builder
+            .removes(Basic.cluster_id, cluster_type=ClusterType.Client, endpoint_id=1)
+            .adds(CustomBasicCluster, endpoint_id=1)
+            .switch(
+                CustomBasicCluster.AttributeDefs.networkIndicator.name,
+                CustomBasicCluster.cluster_id,
+                translation_key="network_indicator",
+                fallback_name="Network indicator",
+                endpoint_id=1,
+                entity_type=EntityType.CONFIG,
+            )
         )
-    )
 
     builder.add_to_registry()
