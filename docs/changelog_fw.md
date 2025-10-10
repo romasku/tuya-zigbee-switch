@@ -1,4 +1,4 @@
-# Firmware Changelog
+# Custom Firmware Changelog
 
 ## Upcoming:
 - Keep device configuration (user settings) when it is removed from the network

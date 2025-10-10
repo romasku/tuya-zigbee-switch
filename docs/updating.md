@@ -4,7 +4,7 @@ This page describes updating supported devices OTA (both converting from origina
 
 > [!CAUTION]  
 > OTA flashing and updates from the main branch are generally safe.  
-> However, **always check [changelog_fw.md](./changelog_fw.md) and [known_issues.md](./known_issues.md) before updating!**  
+> However, **always check [readme.md # Changelogs](/readme.md#-changelogs) and [known_issues.md](./known_issues.md) before updating!**  
 > 
 > Misuse of advanced options, bugs in the code and ignoring instructions **can brick your device**.  
 > The only way to recover it is [contribute/flashing_via_wire.md](/docs/contribute/flashing_via_wire.md).  
@@ -47,7 +47,7 @@ Force-remove the old, unresponsive entry.
 Hopefully, you now have a working device with custom firmware! 😊  
 
 ## Version update steps
-1. Read [changelog_fw.md](./changelog_fw.md) and [known_issues.md](./known_issues.md)
+1. Read [readme.md # Changelogs](/readme.md#-changelogs) and [known_issues.md](./known_issues.md)
 2. Reset the device if mentioned at step 1  
 (resetting erases the configuration from flash memory so it can prevent issues)
 3. If possible, bring the device closer to the coordinator (or add routers to boost signal)
