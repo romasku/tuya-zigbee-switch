@@ -77,6 +77,10 @@ void btn_update_debounced(button_t *button, u8 is_pressed)
     {
       button->on_release(button->callback_param);
     }
+    if (now - button->pressed_at_ms > button->multi_press_duration_ms)
+    {
+      button->multi_press_cnt = 0;
+    }
   }
   button->pressed = is_pressed;
   if (is_pressed && !button->long_pressed && (button->long_press_duration_ms > 0) && (button->long_press_duration_ms < (now - button->pressed_at_ms)))
