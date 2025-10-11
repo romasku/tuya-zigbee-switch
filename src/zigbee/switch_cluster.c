@@ -314,6 +314,7 @@ void switch_cluster_on_button_press(zigbee_switch_cluster *cluster)
 
     cluster->multistate_state = MULTISTATE_PRESS;
     switch_cluster_report_action(cluster);
+    return;
   }
 
   if (cluster->mode == ZCL_ONOFF_CONFIGURATION_SWITCH_TYPE_MOMENTARY_NC) {
@@ -332,6 +333,7 @@ void switch_cluster_on_button_press(zigbee_switch_cluster *cluster)
 
     cluster->multistate_state = MULTISTATE_NOT_PRESSED;
     switch_cluster_report_action(cluster);
+    return;
   }
 }
 
@@ -364,6 +366,7 @@ void switch_cluster_on_button_release(zigbee_switch_cluster *cluster)
 
     cluster->multistate_state = MULTISTATE_NOT_PRESSED;
     switch_cluster_report_action(cluster);
+    return;
   }
 
   if (cluster->mode == ZCL_ONOFF_CONFIGURATION_SWITCH_TYPE_MOMENTARY_NC) {
@@ -378,6 +381,7 @@ void switch_cluster_on_button_release(zigbee_switch_cluster *cluster)
 
     cluster->multistate_state = MULTISTATE_PRESS;
     switch_cluster_report_action(cluster);
+    return;
   }
 }
 
@@ -412,6 +416,7 @@ void switch_cluster_on_button_long_press(zigbee_switch_cluster *cluster)
 
     cluster->multistate_state = MULTISTATE_LONG_PRESS;
     switch_cluster_report_action(cluster);
+    return;
   }
 }
 
@@ -446,6 +451,7 @@ void switch_cluster_on_button_long_release(zigbee_switch_cluster *cluster)
 
     cluster->multistate_state = MULTISTATE_LONG_PRESS;
     switch_cluster_report_action(cluster);
+    return;
   }
 }
 
