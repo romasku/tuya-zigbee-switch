@@ -21,6 +21,8 @@ const u16 multistate_num_of_states  = 3;
 #define MULTISTATE_NOT_PRESSED    0
 #define MULTISTATE_PRESS          1
 #define MULTISTATE_LONG_PRESS     2
+#define MULTISTATE_POSITION_ON    3
+#define MULTISTATE_POSITION_OFF   4
 
 
 extern zigbee_relay_cluster relay_clusters[];
@@ -299,6 +301,9 @@ void switch_cluster_on_button_press(zigbee_switch_cluster *cluster)
       switch_cluster_relay_action_on(cluster);
     }
     switch_cluster_binding_action_on(cluster);
+
+    cluster->multistate_state = MULTISTATE_POSITION_ON;
+    switch_cluster_report_action(cluster);
     return;
   }
 
@@ -347,6 +352,9 @@ void switch_cluster_on_button_release(zigbee_switch_cluster *cluster)
        switch_cluster_relay_action_off(cluster);
     }
     switch_cluster_binding_action_off(cluster);
+
+    cluster->multistate_state = MULTISTATE_POSITION_OFF;
+    switch_cluster_report_action(cluster);
     return;
   }
 
