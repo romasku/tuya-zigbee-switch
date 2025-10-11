@@ -8,6 +8,7 @@
 ### New features:
 - Add support for Zigbee commands: **off_with_effect** (0x40) and **on_with_recall_global_scene** (0x41)
 - Add support for **normally-closed momentary buttons**
+- Add **action states for toggle buttons**: position_on and position_off
 
 ## v1.0.20:
 
