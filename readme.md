@@ -33,6 +33,7 @@ Users also consider this *the missing piece of a reliable smart home* because it
 
 - **Super fast reaction time** (compared to stock firmware)
 - **Outgoing binds** (use switch to remotely control Zigbee lightbulbs - state & brightness)
+- Supports **all button types**: toggle, momentary NO, momentary NC
 - Configurable **Long press** for push-switches (custom action & duration)
 - Custom **switch action modes**, allowing to synchronize switch position or binded devices with relay state
 - Both **Router** & **EndDevice** modes for no-Neutral devices
