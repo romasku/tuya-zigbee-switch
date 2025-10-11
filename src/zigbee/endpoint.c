@@ -4,10 +4,10 @@
 #include "endpoint.h"
 
 
-void zigbee_endpoint_init(zigbee_endpoint *endpoint)
+void zigbee_endpoint_init(zigbee_endpoint *endpoint, u16 app_dev_id)
 {
   endpoint->simple_description.app_profile_id      = HA_PROFILE_ID;
-  endpoint->simple_description.app_dev_id          = HA_DEV_ONOFF_SWITCH;
+  endpoint->simple_description.app_dev_id          = app_dev_id;
   endpoint->simple_description.endpoint            = endpoint->index;
   endpoint->simple_description.app_dev_ver         = 1;
   endpoint->simple_description.reserved            = 0;

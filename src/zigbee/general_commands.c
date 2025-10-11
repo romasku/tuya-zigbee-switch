@@ -36,6 +36,10 @@ void device_zclWriteReqCmd(u8 endpoint, u16 clusterId, zclWriteCmd_t *pWriteReqC
   {
     basic_cluster_callback_attr_write_trampoline(endpoint, pWriteReqCmd);
   }
+  if (clusterId == ZCL_CLUSTER_GEN_IDENTIFY)
+  {
+    gen_identify_callback_attr_write_trampoline(endpoint, pWriteReqCmd);
+  }
 }
 
 void device_zclProcessIncomingMsg(zclIncoming_t *pInHdlrMsg)

@@ -49,7 +49,7 @@
  *  @brief  ZCL: MAX number of cluster list, in cluster number add  + out cluster number
  *
  */
-#define ZCL_CLUSTER_NUM_MAX        32
+#define ZCL_CLUSTER_NUM_MAX        48
 
 /**
  *  @brief  ZCL: maximum number for zcl reporting table
@@ -61,7 +61,7 @@
  *  @brief  ZCL: maximum number for zcl scene table
  *
  */
-#define ZCL_SCENE_TABLE_NUM        8
+#define ZCL_SCENE_TABLE_NUM        32
 
 /**
  *  @brief  APS: MAX number of groups size in the group table

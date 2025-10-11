@@ -52,7 +52,7 @@ void basic_cluster_callback_attr_write_trampoline(u8 clusterId, zclWriteCmd_t *p
   }
 }
 
-void basic_cluster_add_to_endpoint(zigbee_basic_cluster *cluster, zigbee_endpoint *endpoint)
+void basic_cluster_populate(zigbee_basic_cluster *cluster)
 {
   populate_date_code();
 
@@ -64,25 +64,28 @@ void basic_cluster_add_to_endpoint(zigbee_basic_cluster *cluster, zigbee_endpoin
   SETUP_ATTR(4, ZCL_ATTRID_BASIC_MFR_NAME, ZCL_DATA_TYPE_CHAR_STR, ACCESS_CONTROL_READ, cluster->manuName);
   SETUP_ATTR(5, ZCL_ATTRID_BASIC_MODEL_ID, ZCL_DATA_TYPE_CHAR_STR, ACCESS_CONTROL_READ, cluster->modelId);
   SETUP_ATTR(6, ZCL_ATTRID_BASIC_POWER_SOURCE, ZCL_DATA_TYPE_ENUM8, ACCESS_CONTROL_READ, powerSource);
-  SETUP_ATTR(7, ZCL_ATTRID_BASIC_DEV_ENABLED, ZCL_DATA_TYPE_BOOLEAN, ACCESS_CONTROL_READ | ACCESS_CONTROL_WRITE, cluster->deviceEnable);
-  SETUP_ATTR(8, ZCL_ATTRID_BASIC_SW_BUILD_ID, ZCL_DATA_TYPE_CHAR_STR, ACCESS_CONTROL_READ, swBuildId);
-  SETUP_ATTR(9, ZCL_ATTRID_BASIC_DATE_CODE, ZCL_DATA_TYPE_CHAR_STR, ACCESS_CONTROL_READ, dateCode);
-  SETUP_ATTR(10, ZCL_ATTRID_GLOBAL_CLUSTER_REVISION, ZCL_DATA_TYPE_UINT16, ACCESS_CONTROL_READ, zcl_attr_global_clusterRevision);
-  SETUP_ATTR(11, ZCL_ATTRID_BASIC_DEVICE_CONFIG, ZCL_DATA_TYPE_LONG_CHAR_STR, ACCESS_CONTROL_READ | ACCESS_CONTROL_WRITE, device_config_str);
+  //SETUP_ATTR(7, ZCL_ATTRID_BASIC_DEV_ENABLED, ZCL_DATA_TYPE_BOOLEAN, ACCESS_CONTROL_READ | ACCESS_CONTROL_WRITE, cluster->deviceEnable);
+  SETUP_ATTR(7, ZCL_ATTRID_BASIC_SW_BUILD_ID, ZCL_DATA_TYPE_CHAR_STR, ACCESS_CONTROL_READ, swBuildId);
+  SETUP_ATTR(8, ZCL_ATTRID_BASIC_DATE_CODE, ZCL_DATA_TYPE_CHAR_STR, ACCESS_CONTROL_READ, dateCode);
+  SETUP_ATTR(9, ZCL_ATTRID_GLOBAL_CLUSTER_REVISION, ZCL_DATA_TYPE_UINT16, ACCESS_CONTROL_READ, zcl_attr_global_clusterRevision);
+  SETUP_ATTR(10, ZCL_ATTRID_BASIC_DEVICE_CONFIG, ZCL_DATA_TYPE_LONG_CHAR_STR, ACCESS_CONTROL_READ | ACCESS_CONTROL_WRITE, device_config_str);
   if (network_indicator.has_dedicated_led) {
-    SETUP_ATTR(12, ZCL_ATTRID_STATUS_LED_STATE, ZCL_DATA_TYPE_BOOLEAN, ACCESS_CONTROL_READ | ACCESS_CONTROL_WRITE, network_indicator.manual_state_when_connected);
+    SETUP_ATTR(11, ZCL_ATTRID_STATUS_LED_STATE, ZCL_DATA_TYPE_BOOLEAN, ACCESS_CONTROL_READ | ACCESS_CONTROL_WRITE, network_indicator.manual_state_when_connected);
   }
 
+  basic_cluster_load_attrs_from_nv();
+}
+
+void basic_cluster_add_to_endpoint(zigbee_basic_cluster *cluster, zigbee_endpoint *endpoint)
+{
   zigbee_endpoint_add_cluster(endpoint, 1, ZCL_CLUSTER_GEN_BASIC);
   zcl_specClusterInfo_t *info = zigbee_endpoint_reserve_info(endpoint);
   info->clusterId           = ZCL_CLUSTER_GEN_BASIC;
   info->manuCode            = MANUFACTURER_CODE_NONE;
-  info->attrNum             = network_indicator.has_dedicated_led ? 13 : 12;
+  info->attrNum             = network_indicator.has_dedicated_led ? 12 : 11;
   info->attrTbl             = cluster->attr_infos;
   info->clusterRegisterFunc = zcl_basic_register;
   info->clusterAppCb        = basic_cluster_callback_trampoline;
-
-  basic_cluster_load_attrs_from_nv();
 }
 
 void populate_date_code()
