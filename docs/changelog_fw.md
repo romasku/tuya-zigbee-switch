@@ -3,7 +3,7 @@
 ## Upcoming:
 
 ### Changes:
-- Keep device configuration (user settings) when it is removed from the network - not on main yet
+- Keep device configuration (user settings) when it is removed from the network
 
 ### New features:
 - Add support for Zigbee commands: **off_with_effect** (0x40) and **on_with_recall_global_scene** (0x41)
