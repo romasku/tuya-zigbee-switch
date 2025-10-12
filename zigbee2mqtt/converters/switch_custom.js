@@ -29,7 +29,7 @@ const romasku = {
         enumLookup({
             name,
             endpointName,
-            lookup: { toggle: 0, momentary: 1, multifunction: 2 },
+            lookup: { toggle: 0, momentary: 1, momentary_nc: 2 },
             cluster: "genOnOffSwitchCfg",
             attribute: { ID: 0xff00, type: 0x30 }, // Enum8
             description: "Select the type of switch connected to the device",
@@ -88,7 +88,7 @@ const romasku = {
             name,
             endpointName,
             access: "STATE_GET",
-            lookup: { released: 0, press: 1, long_press: 2 },
+            lookup: { released: 0, press: 1, long_press: 2, position_on: 3, position_off: 4 },
             cluster: "genMultistateInput",
             attribute: "presentValue",
             description: "Action of the switch: 'released' or 'press' or 'long_press'",
