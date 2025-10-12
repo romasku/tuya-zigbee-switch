@@ -3,6 +3,12 @@
 ## Upcoming:
 
 ### Changes:
+
+### New features:
+
+## v1.0.21:
+
+### Changes:
 - Keep device configuration (user settings) when it is removed from the network
 
 ### New features:
