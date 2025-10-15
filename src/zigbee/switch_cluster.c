@@ -19,10 +19,12 @@ const u16 multistate_num_of_states  = 3;
 
 
 #define MULTISTATE_NOT_PRESSED    0
-#define MULTISTATE_PRESS          1
+#define MULTISTATE_SINGLE_PRESS   1
 #define MULTISTATE_LONG_PRESS     2
 #define MULTISTATE_POSITION_ON    3
 #define MULTISTATE_POSITION_OFF   4
+#define MULTISTATE_DOUBLE_PRESS   5
+#define MULTISTATE_SINGLE_RELEASE 6
 
 
 extern zigbee_relay_cluster relay_clusters[];
@@ -33,6 +35,8 @@ void switch_cluster_on_button_release(zigbee_switch_cluster *cluster);
 void switch_cluster_on_button_long_press(zigbee_switch_cluster *cluster);
 void switch_cluster_on_button_long_release(zigbee_switch_cluster *cluster);
 void switch_cluster_on_button_multi_press(zigbee_switch_cluster *cluster, u8 press_count);
+void switch_cluster_on_button_timeout_pressed(zigbee_switch_cluster *cluster);
+void switch_cluster_on_button_timeout_released(zigbee_switch_cluster *cluster);
 
 zigbee_switch_cluster *switch_cluster_by_endpoint[10];
 
@@ -46,6 +50,8 @@ static void switch_cluster_fixup_scene_attrs(zigbee_switch_cluster *cluster);
 static void switch_cluster_report_next_scene(zigbee_switch_cluster *cluster);
 
 bool switch_cluster_scenes_is_enabled(zigbee_switch_cluster *cluster);
+
+static void switch_cluster_binding_recall_scene(zigbee_switch_cluster *cluster);
 
 status_t switch_cluster_callback_trampoline(zclIncomingAddrInfo_t *pAddrInfo, u8 cmdId, void *cmdPayload)
 {
@@ -62,6 +68,12 @@ void switch_cluster_callback_attr_write_trampoline(u8 endpoint, u16 clusterId, z
   if (clusterId == 8 || clusterId == 9 || clusterId == 10)
   {
     switch_cluster_fixup_scene_attrs(cluster);
+  }
+
+  if (clusterId == 3) // relay mode
+  {
+    cluster->multistate_state = MULTISTATE_NOT_PRESSED;
+    switch_cluster_report_action(cluster);
   }
 }
 
@@ -91,8 +103,10 @@ void switch_cluster_add_to_endpoint(zigbee_switch_cluster *cluster, zigbee_endpo
   cluster->button->on_release     = (ev_button_callback_t)switch_cluster_on_button_release;
   cluster->button->on_long_press  = (ev_button_callback_t)switch_cluster_on_button_long_press;
   cluster->button->on_long_release  = (ev_button_callback_t)switch_cluster_on_button_long_release;
-  cluster->button->on_multi_press = (ev_button_multi_press_callback_t)switch_cluster_on_button_multi_press;
+  cluster->button->on_timeout_pressed = (ev_button_callback_t)switch_cluster_on_button_timeout_pressed;
+  cluster->button->on_timeout_released = (ev_button_callback_t)switch_cluster_on_button_timeout_released;
   cluster->button->callback_param = cluster;
+  cluster->button->timeout_duration_ms = 250;
 
   SETUP_ATTR(0, ZCL_ATTRID_ONOFF_CONFIGURATION_SWITCH_TYPE, ZCL_DATA_TYPE_ENUM8, ACCESS_CONTROL_READ, cluster->mode);
   SETUP_ATTR(1, ZCL_ATTRID_ONOFF_CONFIGURATION_SWITCH_ACTIONS, ZCL_DATA_TYPE_ENUM8, ACCESS_CONTROL_READ | ACCESS_CONTROL_WRITE, cluster->action);
@@ -355,6 +369,13 @@ void switch_cluster_on_button_press(zigbee_switch_cluster *cluster)
   }
 
   if (cluster->mode == ZCL_ONOFF_CONFIGURATION_SWITCH_TYPE_MOMENTARY) {
+    if (cluster->multistate_state == MULTISTATE_SINGLE_RELEASE) {
+      switch_cluster_binding_recall_scene(cluster);
+
+      cluster->multistate_state = MULTISTATE_DOUBLE_PRESS;
+      switch_cluster_report_action(cluster);
+      return;
+    }
 
     if (cluster->relay_mode == ZCL_ONOFF_CONFIGURATION_RELAY_MODE_RISE) {
       switch_cluster_relay_action_on(cluster);
@@ -364,27 +385,40 @@ void switch_cluster_on_button_press(zigbee_switch_cluster *cluster)
       switch_cluster_binding_action_on(cluster);
     }
 
-    cluster->multistate_state = MULTISTATE_PRESS;
+    cluster->multistate_state = MULTISTATE_SINGLE_PRESS;
     switch_cluster_report_action(cluster);
     return;
   }
 
   if (cluster->mode == ZCL_ONOFF_CONFIGURATION_SWITCH_TYPE_MOMENTARY_NC) {
-
     if (cluster->multistate_state != MULTISTATE_LONG_PRESS) {
-      if (cluster->relay_mode == ZCL_ONOFF_CONFIGURATION_RELAY_MODE_SHORT) {
-        switch_cluster_relay_action_on(cluster);
+      if (!switch_cluster_scenes_is_enabled(cluster)) {
+        if (cluster->relay_mode == ZCL_ONOFF_CONFIGURATION_RELAY_MODE_SHORT) {
+          switch_cluster_relay_action_on(cluster);
+        }
+        if (cluster->binded_mode == ZCL_ONOFF_CONFIGURATION_BINDED_MODE_SHORT) {
+          switch_cluster_binding_action_on(cluster);
+        }
+
+        cluster->multistate_state = MULTISTATE_NOT_PRESSED;
+        switch_cluster_report_action(cluster);
       }
-      if (cluster->binded_mode == ZCL_ONOFF_CONFIGURATION_BINDED_MODE_SHORT) {
-        switch_cluster_binding_action_on(cluster);
+      else if (cluster->multistate_state == MULTISTATE_SINGLE_PRESS)
+      {
+        cluster->multistate_state = MULTISTATE_SINGLE_RELEASE;
+        switch_cluster_report_action(cluster);
+      } else {
+        cluster->multistate_state = MULTISTATE_NOT_PRESSED;
+        switch_cluster_report_action(cluster);
       }
     } else {
       // This is end of long press, send zcl_level stop 
       switch_cluster_level_stop(cluster);
+
+      cluster->multistate_state = MULTISTATE_NOT_PRESSED;
+      switch_cluster_report_action(cluster);
     }
 
-    cluster->multistate_state = MULTISTATE_NOT_PRESSED;
-    switch_cluster_report_action(cluster);
     return;
   }
 }
@@ -406,25 +440,43 @@ void switch_cluster_on_button_release(zigbee_switch_cluster *cluster)
   }
 
   if (cluster->mode == ZCL_ONOFF_CONFIGURATION_SWITCH_TYPE_MOMENTARY) {
-
     if (cluster->multistate_state != MULTISTATE_LONG_PRESS) {
-      if (cluster->relay_mode == ZCL_ONOFF_CONFIGURATION_RELAY_MODE_SHORT) {
-        switch_cluster_relay_action_on(cluster);
+      if (!switch_cluster_scenes_is_enabled(cluster)) {
+        if (cluster->relay_mode == ZCL_ONOFF_CONFIGURATION_RELAY_MODE_SHORT) {
+          switch_cluster_relay_action_on(cluster);
+        }
+        if (cluster->binded_mode == ZCL_ONOFF_CONFIGURATION_BINDED_MODE_SHORT) {
+          switch_cluster_binding_action_on(cluster);
+        }
+
+        cluster->multistate_state = MULTISTATE_NOT_PRESSED;
+        switch_cluster_report_action(cluster);
       }
-      if (cluster->binded_mode == ZCL_ONOFF_CONFIGURATION_BINDED_MODE_SHORT) {
-        switch_cluster_binding_action_on(cluster);
+      else if (cluster->multistate_state == MULTISTATE_SINGLE_PRESS)
+      {
+        cluster->multistate_state = MULTISTATE_SINGLE_RELEASE;
+        switch_cluster_report_action(cluster);
+      } else {
+        cluster->multistate_state = MULTISTATE_NOT_PRESSED;
+        switch_cluster_report_action(cluster);
       }
     } else {
       // This is end of long press, send zcl_level stop 
       switch_cluster_level_stop(cluster);
-    }
 
-    cluster->multistate_state = MULTISTATE_NOT_PRESSED;
-    switch_cluster_report_action(cluster);
-    return;
+      cluster->multistate_state = MULTISTATE_NOT_PRESSED;
+      switch_cluster_report_action(cluster);
+    }
   }
 
   if (cluster->mode == ZCL_ONOFF_CONFIGURATION_SWITCH_TYPE_MOMENTARY_NC) {
+    if (cluster->multistate_state == MULTISTATE_SINGLE_RELEASE) {
+      switch_cluster_binding_recall_scene(cluster);
+
+      cluster->multistate_state = MULTISTATE_DOUBLE_PRESS;
+      switch_cluster_report_action(cluster);
+      return;
+    }
 
     if (cluster->relay_mode == ZCL_ONOFF_CONFIGURATION_RELAY_MODE_RISE) {
       switch_cluster_relay_action_on(cluster);
@@ -434,7 +486,7 @@ void switch_cluster_on_button_release(zigbee_switch_cluster *cluster)
       switch_cluster_binding_action_on(cluster);
     }
 
-    cluster->multistate_state = MULTISTATE_PRESS;
+    cluster->multistate_state = MULTISTATE_SINGLE_PRESS;
     switch_cluster_report_action(cluster);
     return;
   }
@@ -515,6 +567,58 @@ void switch_cluster_on_button_multi_press(zigbee_switch_cluster *cluster, u8 pre
   if (press_count > MULTI_PRESS_CNT_TO_RESET)
   {
     factoryReset();
+  }
+}
+
+void switch_cluster_on_button_timeout_pressed(zigbee_switch_cluster *cluster)
+{
+  if (cluster->mode == ZCL_ONOFF_CONFIGURATION_SWITCH_TYPE_TOGGLE)
+  {
+    // Shouldn't hook into this
+  }
+
+  if (cluster->mode == ZCL_ONOFF_CONFIGURATION_SWITCH_TYPE_MOMENTARY)
+  {
+    // Hook into switch_cluster_on_button_released
+  }
+
+  if (switch_cluster_scenes_is_enabled(cluster) && cluster->multistate_state == MULTISTATE_SINGLE_RELEASE)
+  {
+    if (cluster->relay_mode == ZCL_ONOFF_CONFIGURATION_RELAY_MODE_SHORT) {
+      switch_cluster_relay_action_on(cluster);
+    }
+    if (cluster->binded_mode == ZCL_ONOFF_CONFIGURATION_BINDED_MODE_SHORT) {
+      switch_cluster_binding_action_on(cluster);
+    }
+  
+    cluster->multistate_state = MULTISTATE_NOT_PRESSED;
+    switch_cluster_report_action(cluster);
+  }
+}
+
+void switch_cluster_on_button_timeout_released(zigbee_switch_cluster *cluster)
+{
+  if (cluster->mode == ZCL_ONOFF_CONFIGURATION_SWITCH_TYPE_TOGGLE)
+  {
+    // Shouldn't hook into this
+  }
+
+  if (cluster->mode == ZCL_ONOFF_CONFIGURATION_SWITCH_TYPE_MOMENTARY_NC)
+  {
+    // Hook into switch_cluster_on_button_released
+  }
+
+  if (switch_cluster_scenes_is_enabled(cluster) && cluster->multistate_state == MULTISTATE_SINGLE_RELEASE)
+  {
+    if (cluster->relay_mode == ZCL_ONOFF_CONFIGURATION_RELAY_MODE_SHORT) {
+      switch_cluster_relay_action_on(cluster);
+    }
+    if (cluster->binded_mode == ZCL_ONOFF_CONFIGURATION_BINDED_MODE_SHORT) {
+      switch_cluster_binding_action_on(cluster);
+    }
+
+    cluster->multistate_state = MULTISTATE_NOT_PRESSED;
+    switch_cluster_report_action(cluster);
   }
 }
 
@@ -620,7 +724,7 @@ static void switch_cluster_binding_recall_scene(zigbee_switch_cluster *cluster)
   }
 
   u8 next_scene = cluster->out_scene_next++;
-  if (cluster->out_scene_next - cluster->out_scene_start_offset > cluster->out_scene_count)
+  if (cluster->out_scene_next - cluster->out_scene_start_offset >= cluster->out_scene_count)
     cluster->out_scene_next = cluster->out_scene_start_offset;
 
   if (cluster->out_scene_group_id != 0xffff)
@@ -696,4 +800,9 @@ static void switch_cluster_binding_recall_scene(zigbee_switch_cluster *cluster)
 
 out:
   switch_cluster_report_next_scene(cluster);
+}
+
+bool switch_cluster_scenes_is_enabled(zigbee_switch_cluster *cluster)
+{
+  return cluster->out_scene_count;
 }
