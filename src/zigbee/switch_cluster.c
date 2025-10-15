@@ -42,16 +42,44 @@ void switch_cluster_on_write_attr(zigbee_switch_cluster *cluster);
 
 void switch_cluster_report_action(zigbee_switch_cluster *cluster);
 
+static void switch_cluster_fixup_scene_attrs(zigbee_switch_cluster *cluster);
+static void switch_cluster_report_next_scene(zigbee_switch_cluster *cluster);
+
+bool switch_cluster_scenes_is_enabled(zigbee_switch_cluster *cluster);
 
 status_t switch_cluster_callback_trampoline(zclIncomingAddrInfo_t *pAddrInfo, u8 cmdId, void *cmdPayload)
 {
   return(ZCL_STA_SUCCESS);
 }
 
-void switch_cluster_callback_attr_write_trampoline(u8 clusterId)
+void switch_cluster_callback_attr_write_trampoline(u8 endpoint, u16 clusterId, zclWriteCmd_t *pWriteReqCmd)
 {
-  switch_cluster_on_write_attr(switch_cluster_by_endpoint[clusterId]);
+  (void)pWriteReqCmd;
+  zigbee_switch_cluster *cluster = switch_cluster_by_endpoint[endpoint];
+
+  switch_cluster_on_write_attr(cluster);
+
+  if (clusterId == 8 || clusterId == 9 || clusterId == 10)
+  {
+    switch_cluster_fixup_scene_attrs(cluster);
+  }
 }
+
+// (mandatory) Cluster revisions
+static u16 onoff_cluster_revision = 0x0002;
+static const zclAttrInfo_t onOff_client_attrs[] = {
+  {.id = 0, .type = ZCL_DATA_TYPE_UINT16, .access = ACCESS_CONTROL_READ, .data = (u8*)&onoff_cluster_revision},
+};
+
+static u16 scenes_cluster_revision = 0x0003;
+static const zclAttrInfo_t scenes_client_attrs[] = {
+  {.id = 0, .type = ZCL_DATA_TYPE_UINT16, .access = ACCESS_CONTROL_READ, .data = (u8*)&scenes_cluster_revision},
+};
+
+// Level has the same revision as Scene cluster
+#define level_client_attrs scenes_client_attrs
+
+static u16 multistate_input_cluster_revision = 0x0001;
 
 void switch_cluster_add_to_endpoint(zigbee_switch_cluster *cluster, zigbee_endpoint *endpoint)
 {
@@ -74,13 +102,21 @@ void switch_cluster_add_to_endpoint(zigbee_switch_cluster *cluster, zigbee_endpo
   SETUP_ATTR(5, ZCL_ATTRID_ONOFF_CONFIGURATION_SWITCH_LONG_PRESS_DUR, ZCL_DATA_TYPE_UINT16, ACCESS_CONTROL_READ | ACCESS_CONTROL_WRITE, cluster->button->long_press_duration_ms);
   SETUP_ATTR(6, ZCL_ATTRID_ONOFF_CONFIGURATION_SWITCH_LEVEL_MOVE_RATE, ZCL_DATA_TYPE_UINT8, ACCESS_CONTROL_READ | ACCESS_CONTROL_WRITE, cluster->level_move->rate);
   SETUP_ATTR(7, ZCL_ATTRID_ONOFF_CONFIGURATION_SWITCH_BINDING_MODE, ZCL_DATA_TYPE_ENUM8, ACCESS_CONTROL_READ | ACCESS_CONTROL_WRITE, cluster->binded_mode);
+  SETUP_ATTR(8, ZCL_ATTRID_ONOFF_CONFIGURATION_SCENE_NEXT_IDX, ZCL_DATA_TYPE_UINT8, ACCESS_CONTROL_READ | ACCESS_CONTROL_AUTH_WRITE | ACCESS_CONTROL_REPORTABLE, cluster->out_scene_next);
+  SETUP_ATTR(9, ZCL_ATTRID_ONOFF_CONFIGURATION_SCENE_COUNT, ZCL_DATA_TYPE_UINT8, ACCESS_CONTROL_READ | ACCESS_CONTROL_WRITE, cluster->out_scene_count);
+  SETUP_ATTR(10, ZCL_ATTRID_ONOFF_CONFIGURATION_SCENE_OFFSET, ZCL_DATA_TYPE_UINT8, ACCESS_CONTROL_READ | ACCESS_CONTROL_WRITE, cluster->out_scene_start_offset);
+  SETUP_ATTR(11, ZCL_ATTRID_ONOFF_CONFIGURATION_SCENE_GROUP_ID, ZCL_DATA_TYPE_UINT16, ACCESS_CONTROL_READ | ACCESS_CONTROL_WRITE, cluster->out_scene_group_id);
+  SETUP_ATTR(12, ZCL_ATTRID_ONOFF_CONFIGURATION_SCENE_RECALL_TIME, ZCL_DATA_TYPE_UINT16, ACCESS_CONTROL_READ | ACCESS_CONTROL_WRITE, cluster->scene_recall_time);
+  // This is mandatory on everything
+  SETUP_ATTR(13, ZCL_ATTRID_GLOBAL_CLUSTER_REVISION, ZCL_DATA_TYPE_UINT16, ACCESS_CONTROL_READ, zcl_attr_global_clusterRevision);
+
 
   // Configuration
   zigbee_endpoint_add_cluster(endpoint, 1, ZCL_CLUSTER_GEN_ON_OFF_SWITCH_CONFIG);
   zcl_specClusterInfo_t *info_conf = zigbee_endpoint_reserve_info(endpoint);
   info_conf->clusterId           = ZCL_CLUSTER_GEN_ON_OFF_SWITCH_CONFIG;
   info_conf->manuCode            = MANUFACTURER_CODE_NONE;
-  info_conf->attrNum             = 8;
+  info_conf->attrNum             = SWITCH_CLUSTER_ONOFF_CONFIGURATION_ATTRS;
   info_conf->attrTbl             = cluster->attr_infos;
   info_conf->clusterRegisterFunc = zcl_onoff_configuration_register;
   info_conf->clusterAppCb        = switch_cluster_callback_trampoline;
@@ -90,8 +126,8 @@ void switch_cluster_add_to_endpoint(zigbee_switch_cluster *cluster, zigbee_endpo
   zcl_specClusterInfo_t *info = zigbee_endpoint_reserve_info(endpoint);
   info->clusterId           = ZCL_CLUSTER_GEN_ON_OFF;
   info->manuCode            = MANUFACTURER_CODE_NONE;
-  info->attrNum             = 0;
-  info->attrTbl             = NULL;
+  info->attrNum             = 1;
+  info->attrTbl             = onOff_client_attrs;
   info->clusterRegisterFunc = zcl_onOff_register;
   info->clusterAppCb        = switch_cluster_callback_trampoline;
 
@@ -99,13 +135,14 @@ void switch_cluster_add_to_endpoint(zigbee_switch_cluster *cluster, zigbee_endpo
   SETUP_ATTR_FOR_TABLE(cluster->multistate_attr_infos, 1, ZCL_ATTRID_MULTISTATE_INPUT_OUT_OF_SERVICE, ZCL_DATA_TYPE_BOOLEAN, ACCESS_CONTROL_READ, multistate_out_of_service);
   SETUP_ATTR_FOR_TABLE(cluster->multistate_attr_infos, 2, ZCL_ATTRID_MULTISTATE_INPUT_PRESENT_VALUE, ZCL_DATA_TYPE_UINT16, ACCESS_CONTROL_READ | ACCESS_CONTROL_REPORTABLE, cluster->multistate_state);
   SETUP_ATTR_FOR_TABLE(cluster->multistate_attr_infos, 3, ZCL_ATTRID_MULTISTATE_INPUT_STATUS_FLAGS, ZCL_DATA_TYPE_BITMAP8, ACCESS_CONTROL_READ, multistate_flags);
+  SETUP_ATTR_FOR_TABLE(cluster->multistate_attr_infos, 4, ZCL_ATTRID_GLOBAL_CLUSTER_REVISION, ZCL_DATA_TYPE_UINT16, ACCESS_CONTROL_READ, multistate_input_cluster_revision);
 
   // Output
   zigbee_endpoint_add_cluster(endpoint, 1, ZCL_CLUSTER_GEN_MULTISTATE_INPUT_BASIC);
   zcl_specClusterInfo_t *info_multistate = zigbee_endpoint_reserve_info(endpoint);
   info_multistate->clusterId           = ZCL_CLUSTER_GEN_MULTISTATE_INPUT_BASIC;
   info_multistate->manuCode            = MANUFACTURER_CODE_NONE;
-  info_multistate->attrNum             = 4;
+  info_multistate->attrNum             = 5;
   info_multistate->attrTbl             = cluster->multistate_attr_infos;
   info_multistate->clusterRegisterFunc = zcl_multistate_input_register;
   info_multistate->clusterAppCb        = NULL;
@@ -115,9 +152,19 @@ void switch_cluster_add_to_endpoint(zigbee_switch_cluster *cluster, zigbee_endpo
   zcl_specClusterInfo_t *info_level = zigbee_endpoint_reserve_info(endpoint);
   info_level->clusterId           = ZCL_CLUSTER_GEN_LEVEL_CONTROL;
   info_level->manuCode            = MANUFACTURER_CODE_NONE;
-  info_level->attrNum             = 0;
-  info_level->attrTbl             = NULL;
+  info_level->attrNum             = 1;
+  info_level->attrTbl             = level_client_attrs;
   info_level->clusterRegisterFunc = zcl_level_register;
+  info_level->clusterAppCb        = switch_cluster_callback_trampoline;
+
+  // Scenes output for other devices
+  zigbee_endpoint_add_cluster(endpoint, 0, ZCL_CLUSTER_GEN_SCENES);
+  zcl_specClusterInfo_t *info_scenes = zigbee_endpoint_reserve_info(endpoint);
+  info_scenes->clusterId          = ZCL_CLUSTER_GEN_SCENES;
+  info_level->manuCode            = MANUFACTURER_CODE_NONE;
+  info_level->attrNum             = 1;
+  info_level->attrTbl             = scenes_client_attrs;
+  info_level->clusterRegisterFunc = zcl_scene_register;
   info_level->clusterAppCb        = switch_cluster_callback_trampoline;
 }
 
@@ -476,8 +523,10 @@ void switch_cluster_on_write_attr(zigbee_switch_cluster *cluster)
   switch_cluster_store_attrs_to_nv(cluster);
 }
 
-zigbee_switch_cluster_config nv_config_buffer;
-
+zigbee_switch_cluster_config nv_config_buffer = {
+  .out_scene_group_id = 0xffff,
+  .scene_recall_time =  0xffff,
+};
 
 void switch_cluster_store_attrs_to_nv(zigbee_switch_cluster *cluster)
 {
@@ -488,6 +537,10 @@ void switch_cluster_store_attrs_to_nv(zigbee_switch_cluster *cluster)
   nv_config_buffer.button_long_press_duration = cluster->button->long_press_duration_ms;
   nv_config_buffer.level_move_rate = cluster->level_move->rate;
   nv_config_buffer.binded_mode  = cluster->binded_mode;
+  nv_config_buffer.out_scene_count = cluster->out_scene_count;
+  nv_config_buffer.out_scene_start_offset = cluster->out_scene_start_offset;
+  nv_config_buffer.out_scene_group_id = cluster->out_scene_group_id;
+  nv_config_buffer.scene_recall_time = cluster->scene_recall_time;
 
   nv_flashWriteNew(1, NV_MODULE_APP, NV_ITEM_SWITCH_CLUSTER_DATA(cluster->switch_idx), sizeof(zigbee_switch_cluster_config), (u8 *)&nv_config_buffer);
 }
@@ -507,6 +560,10 @@ void switch_cluster_load_attrs_from_nv(zigbee_switch_cluster *cluster)
   cluster->button->long_press_duration_ms = nv_config_buffer.button_long_press_duration;
   cluster->level_move->rate = nv_config_buffer.level_move_rate;
   cluster->binded_mode  = nv_config_buffer.binded_mode;
+  cluster->out_scene_count = nv_config_buffer.out_scene_count;
+  cluster->out_scene_start_offset = nv_config_buffer.out_scene_start_offset;
+  cluster->out_scene_group_id = nv_config_buffer.out_scene_group_id;
+  cluster->scene_recall_time = nv_config_buffer.scene_recall_time;
 }
 
 void switch_cluster_report_action(zigbee_switch_cluster *cluster)
@@ -524,4 +581,119 @@ void switch_cluster_report_action(zigbee_switch_cluster *cluster)
     zcl_sendReportCmd(cluster->endpoint, &dstEpInfo, TRUE, ZCL_FRAME_SERVER_CLIENT_DIR,
                       ZCL_CLUSTER_GEN_MULTISTATE_INPUT_BASIC, pAttrEntry->id, pAttrEntry->type, pAttrEntry->data);
   }
+}
+
+static void switch_cluster_report_next_scene(zigbee_switch_cluster *cluster)
+{
+  if (zb_isDeviceJoinedNwk())
+  {
+    epInfo_t dstEpInfo;
+    TL_SETSTRUCTCONTENT(dstEpInfo, 0);
+
+    dstEpInfo.profileId   = HA_PROFILE_ID;
+    dstEpInfo.dstAddrMode = APS_DSTADDR_EP_NOTPRESETNT;
+
+    zclAttrInfo_t *pAttrEntry = &cluster->attr_infos[8];
+    zcl_sendReportCmd(cluster->endpoint, &dstEpInfo, TRUE, ZCL_FRAME_SERVER_CLIENT_DIR,
+                      ZCL_CLUSTER_GEN_ON_OFF_SWITCH_CONFIG, pAttrEntry->id, pAttrEntry->type, pAttrEntry->data);
+  }
+}
+
+static void switch_cluster_fixup_scene_attrs(zigbee_switch_cluster *cluster)
+{
+  u8 next_normal = cluster->out_scene_next - cluster->out_scene_start_offset;
+  if (next_normal < cluster->out_scene_count || next_normal == 0)
+  {
+    return;
+  }
+
+  // Basically reset to 0
+  cluster->out_scene_next = cluster->out_scene_start_offset;
+  switch_cluster_report_next_scene(cluster);
+}
+
+static void switch_cluster_binding_recall_scene(zigbee_switch_cluster *cluster)
+{
+  if (!switch_cluster_scenes_is_enabled(cluster) || !zb_isDeviceJoinedNwk())
+  {
+    return;
+  }
+
+  u8 next_scene = cluster->out_scene_next++;
+  if (cluster->out_scene_next - cluster->out_scene_start_offset > cluster->out_scene_count)
+    cluster->out_scene_next = cluster->out_scene_start_offset;
+
+  if (cluster->out_scene_group_id != 0xffff)
+  {
+    epInfo_t dstEpInfo;
+    TL_SETSTRUCTCONTENT(dstEpInfo, 0);
+
+    dstEpInfo.profileId   = HA_PROFILE_ID;
+    dstEpInfo.dstAddrMode = APS_DSTADDR_EP_NOTPRESETNT;
+
+    recallScene_t recallScene = {
+      .groupId = cluster->out_scene_group_id,
+      .sceneId = next_scene,
+      .transTime = cluster->scene_recall_time,
+    };
+
+    zcl_scene_recallScene(cluster->endpoint, &dstEpInfo, true, ZCL_SEQ_NUM, &recallScene);
+  }
+  else
+  {
+    aps_data_req_t scenesInfo;
+    TL_SETSTRUCTCONTENT(scenesInfo, 0);
+
+    scenesInfo.profile_id = HA_PROFILE_ID;
+    scenesInfo.cluster_id = ZCL_CLUSTER_GEN_SCENES;
+    scenesInfo.src_endpoint = cluster->endpoint;
+    scenesInfo.dst_addr_mode = 0x00;
+
+    bind_dst_list_tbl bindTbl;
+
+    if (aps_search_dst_from_bind_tbl(&scenesInfo, &bindTbl) != APS_STATUS_SUCCESS)
+    {
+      goto out;
+    }
+
+    for (u8 i = 0; i < bindTbl.txCnt; ++i)
+    {
+      bind_dst_list *l = bindTbl.list + i;
+
+      u16 group_id = 0xffff;
+
+      epInfo_t dstEpInfo;
+      TL_SETSTRUCTCONTENT(dstEpInfo, 0);
+
+      if (l->dst_addr_mode == APS_BIND_DST_ADDR_GROUP)
+      {
+        group_id = l->aps_addr.dst_group_addr;
+
+        dstEpInfo.profileId   = HA_PROFILE_ID;
+        dstEpInfo.dstAddrMode = APS_SHORT_GROUPADDR_NOEP;
+        dstEpInfo.dstAddr.shortAddr = l->aps_addr.dst_group_addr;
+      }
+      else
+      {
+        group_id = 0;
+
+        dstEpInfo.profileId = HA_PROFILE_ID;
+        dstEpInfo.dstAddrMode = APS_LONG_DSTADDR_WITHEP;
+        dstEpInfo.dstEp = l->aps_addr.dst_endpoint;
+
+        ZB_IEEE_ADDR_COPY(dstEpInfo.dstAddr.extAddr, l->aps_addr.dst_ext_addr);
+      }
+
+      recallScene_t recallScene = {
+        .groupId = cluster->out_scene_group_id,
+        .sceneId = next_scene,
+        .transTime = cluster->scene_recall_time,
+      };
+
+      zcl_scene_recallScene(cluster->endpoint, &dstEpInfo, true, ZCL_SEQ_NUM, &recallScene);
+    }
+  }
+
+out:
+  switch_cluster_report_next_scene(cluster);
 }
