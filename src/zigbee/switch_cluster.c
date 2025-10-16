@@ -10,6 +10,7 @@
 #include "zcl_include.h"
 #include "base_components/relay.h"
 #include "configs/nv_slots_cfg.h"
+#include "binding_table.h"
 
 #define MULTI_PRESS_CNT_TO_RESET    10
 
@@ -753,29 +754,22 @@ static void switch_cluster_binding_recall_scene(zigbee_switch_cluster *cluster)
     scenesInfo.src_endpoint = cluster->endpoint;
     scenesInfo.dst_addr_mode = 0x00;
 
-    bind_dst_list_tbl bindTbl;
+    aps_binding_entry_t *e;
 
-    if (aps_search_dst_from_bind_tbl(&scenesInfo, &bindTbl) != APS_STATUS_SUCCESS)
+    BINDING_TABLE_FOR_EACH(ZCL_CLUSTER_GEN_SCENES, cluster->endpoint, e)
     {
-      goto out;
-    }
-
-    for (u8 i = 0; i < bindTbl.txCnt; ++i)
-    {
-      bind_dst_list *l = bindTbl.list + i;
-
       u16 group_id = 0xffff;
 
       epInfo_t dstEpInfo;
       TL_SETSTRUCTCONTENT(dstEpInfo, 0);
 
-      if (l->dst_addr_mode == APS_BIND_DST_ADDR_GROUP)
+      if (e->dstAddrMode == APS_BIND_DST_ADDR_GROUP)
       {
-        group_id = l->aps_addr.dst_group_addr;
+        group_id = e->groupAddr;
 
         dstEpInfo.profileId   = HA_PROFILE_ID;
         dstEpInfo.dstAddrMode = APS_SHORT_GROUPADDR_NOEP;
-        dstEpInfo.dstAddr.shortAddr = l->aps_addr.dst_group_addr;
+        dstEpInfo.dstAddr.shortAddr = group_id;
       }
       else
       {
@@ -783,9 +777,9 @@ static void switch_cluster_binding_recall_scene(zigbee_switch_cluster *cluster)
 
         dstEpInfo.profileId = HA_PROFILE_ID;
         dstEpInfo.dstAddrMode = APS_LONG_DSTADDR_WITHEP;
-        dstEpInfo.dstEp = l->aps_addr.dst_endpoint;
+        dstEpInfo.dstEp = e->dstExtAddrInfo.dstEp;
 
-        ZB_IEEE_ADDR_COPY(dstEpInfo.dstAddr.extAddr, l->aps_addr.dst_ext_addr);
+        ZB_IEEE_ADDR_COPY(dstEpInfo.dstAddr.extAddr, e->dstExtAddrInfo.extAddr);
       }
 
       recallScene_t recallScene = {
@@ -798,7 +792,6 @@ static void switch_cluster_binding_recall_scene(zigbee_switch_cluster *cluster)
     }
   }
 
-out:
   switch_cluster_report_next_scene(cluster);
 }
 
