@@ -14,7 +14,12 @@ Also read:
 - [not_recommended.md](./not_recommended.md)
 
 | Z2M device name | Vendor name | Zigbee Manufacturer | Status | Issue |
-| --- | --- | --- | --- | --- |
+| --------------- | ----------- | ------------------- | ------ | ----- |
 {% for device in devices %}
-| [{{device.z2m_device}}](https://www.zigbee2mqtt.io/devices/{{device.z2m_device | replace(" ", "_")}}.html) | {{device.human_name}}  | {{device.tuya_manufacturer_name}} | {{device.status}} | {% if device.github_issue %} [link]({{device.github_issue}}) {% else %} - {% endif%} | 
+  {% set manufacturer = "`" ~ device.tuya_manufacturer_name ~ "`" %}
+  {% set human_name = device.human_name %}
+  {% set z2m_device = "[" ~ device.z2m_device ~ "](https://www.zigbee2mqtt.io/devices/" ~ (device.z2m_device | replace(" ", "_")) ~ ".html)" %}
+  {% set status = device.status %}
+  {% set issue = device.github_issue and ("[link](" ~ device.github_issue ~ ")") or "-" %}
+| {{z2m_device}} | {{human_name}} | {{manufacturer}} | {{status}} | {{issue}} | 
 {% endfor %}
