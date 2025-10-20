@@ -12,6 +12,7 @@ Information about all supported devices is kept inside `device_db.yaml`.
 |------------------------------|------------------------------------------------------------------------------------------------------------------------------|
 |**KEY** (e.g. `TS0004_AVATTO`)| **Given device name**: <br> • Used in project as `BOARD` <br> • Name of the device directory in `bin/`                       |
 |`human_name`                  | Full name of the device: <br> • Shown in [devices/supported.md](/docs/devices/supported.md)                                  |
+|`power`                       | Power source: <br> • `mains`, `USB`, `AAA`, `CR2032` etc. <br> • Shown in [devices/supported.md](/docs/devices/supported.md) |
 |`neutral`                     | Does the device have Neutral? <br> • `without` / `optional` / `required` <br> • Currently unused |
 |`device_type`                 | Default operation mode for custom FW: <br> • `end_device` ➡ Line-only devices <br> • `router` ➡ Line+Neutral devices <br> (Scripts build both variants for L-only devices) |
 |`tuya_model_name`             | **Zigbee Model** in Z2M on stock FW: <br> • Identifies the device <br> • Value hardcoded on the stock FW, can't be changed <br> • Currently unused|
@@ -28,7 +29,7 @@ Information about all supported devices is kept inside `device_db.yaml`.
 |`tuya_image_type`             | Stock FW identifier (usually 54179): <br> • Needed for stock OTA update <br> • Found in Z2M debug logs when attempting OTA   |
 |`firmware_image_type`         | Given custom FW identifier: <br> • Currently unique per device <br> • Increment for every new device                         |
 |`build`                       | Whether to build for this device or not <br> • `yes` / `no`                                                                  |
-|`status`                      | Device support status: <br> `🟩 fully_supported`, `🟨 mostly_supported`, <br> `🟧 in_progress`, `🟥 unsupported` <br> (Shown in [devices/supported.md](/docs/devices/supported.md)) |
+|`status`                      | Device support status: <br> `🟩 fully_supported`, `🟨 mostly_supported`, <br> `🟧 in_progress`, `🟥 unsupported` <br> • Shown in [devices/supported.md](/docs/devices/supported.md) |
 |`info`                        | Status explained briefly                                                                                               |
 |`github_issue`                | Link to device-related GitHub issue or pull request                                                                          |
 |`store`                       | Links to buy the exact same device: <br> • Preferably AliExpress (international, English, no affiliation)                     |
