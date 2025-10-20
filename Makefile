@@ -233,7 +233,7 @@ clean_z2m_index:
 	@$(RM) zigbee2mqtt/ota/*
 
 
-update_converters:
+converters:
 	python3 helper_scripts/make_z2m_tuya_converters.py device_db.yaml \
 		> zigbee2mqtt/converters/tuya_with_ota.js 
 	python3 helper_scripts/make_z2m_tuya_converters.py --z2m-v1 device_db.yaml \
@@ -243,7 +243,7 @@ update_converters:
 	python3 helper_scripts/make_z2m_custom_converters.py --z2m-v1 device_db.yaml \
 		> zigbee2mqtt/converters_v1/switch_custom.js 
 
-update_zha_quirk:
+quirks:
 	python3 helper_scripts/make_zha_quirk.py device_db.yaml > zha/switch_quirk.py
 
 

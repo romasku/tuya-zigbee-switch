@@ -59,11 +59,11 @@ jobs:
 
     - name: Update Z2M converters
       run: |
-        make update_converters
+        make converters
 
     - name: Update ZHA quirks
       run: |
-        make update_zha_quirk
+        make quirks
 
     - name: Update supported_devices.md
       run: |

@@ -40,6 +40,6 @@ yq -r 'to_entries | sort_by(.key)[] | "\(.key) \(.value.device_type) \(.value.bu
   fi
 done
 
-make update_converters
-make update_zha_quirk
+make converters
+make quirks
 make supported

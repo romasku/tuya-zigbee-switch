@@ -30,6 +30,6 @@ BOARD=$DEVICE DEVICE_TYPE=$TYPE make clean && BOARD=$DEVICE DEVICE_TYPE=$TYPE DE
 echo "Checking if files were created for board: $DEVICE ($TYPE)"
 ls -l bin/$TYPE/${DEVICE}_END_DEVICE/
 
-make update_converters
-make update_zha_quirk
+make converters
+make quirks
 make supported
