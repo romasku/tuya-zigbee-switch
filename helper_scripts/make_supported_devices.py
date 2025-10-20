@@ -30,10 +30,6 @@ if __name__ == "__main__":
 
     for device in devices:
 
-        # Skip if build == no. Defaults to yes
-        if not device.get("build", True):
-            continue
-
         manufacturer_name = device["tuya_manufacturer_name"]
         if manufacturer_name not in by_manufacturer_names:
             by_manufacturer_names[manufacturer_name] = {
