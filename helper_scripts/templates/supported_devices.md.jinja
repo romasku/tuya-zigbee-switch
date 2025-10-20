@@ -24,8 +24,8 @@
 
 ### Device list
 
-| 🚧 | 📦 | ⚡ | Zigbee Manufacturer | Name 🔗 Z2M page | Threads | Status |
-| -- | -- | -- | :-----------------: | ---------------- | ------: | ------ |
+| 🚧 | 📦 | ⚡ | Zigbee Manufacturer | Name 🔗 Z2M page | Store | Threads | Status |
+| -- | -- | -- | :-----------------: | ---------------- | ----: | ------: | ------ |
 {% for device in devices %}
   {% set manufacturer = "`" ~ (device.tuya_manufacturer_name or "    unknown     ") ~ "`" %}
   {% set z2m_name = device.override_z2m_device or device.stock_converter_model %}
@@ -47,6 +47,31 @@
     {% set threads = threads_list | join(" ") %}
   {% else %}
     {% set threads = "-" %}
+  {% endif %}
+  {% if device.store %}
+    {% if device.store is string %}
+      {% set store_links = [device.store] %}
+    {% else %}
+      {% set store_links = device.store %}
+    {% endif %}
+    {% set store_list = [] %}
+    {% for url in store_links %}
+      {% if "aliexpress" in url %}
+        {% set label = "`AlEx`" %}
+      {% elif "amazon" in url %}
+        {% set label = "`Amzn`" %}
+      {% elif "moes" in url %}
+        {% set label = "`Moes`" %}
+      {% elif "bseed" in url %}
+        {% set label = "`BSEED`" %}
+      {% else %}
+        {% set label = "Store" %}
+      {% endif %}
+      {% set _ = store_list.append("[" ~ label ~ "](" ~ url ~ ")") %}
+    {% endfor %}
+    {% set store = store_list | join(" ") %}
+  {% else %}
+    {% set store = " " %}
   {% endif %}
   {% if device.status == "fully_supported" %}
     {% set color = "🟩" %}
@@ -72,5 +97,5 @@
   {% else %}
     {% set power = "❓" %}
   {% endif %}
-| {{color}} | {{build}} | {{power}} | {{manufacturer}}  | {{human_name}} | {{threads}} | {{info}} | 
+| {{color}} | {{build}} | {{power}} | {{manufacturer}}  | {{human_name}} | {{store}} | {{threads}} | {{info}} | 
 {% endfor %}
