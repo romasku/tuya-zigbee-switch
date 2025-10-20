@@ -76,7 +76,7 @@
       {% elif "bseed" in url %}
         {% set label = "`BSEED`" %}
       {% else %}
-        {% set label = "Store" %}
+        {% set label = "`Store`" %}
       {% endif %}
       {% set _ = store_list.append("[" ~ label ~ "](" ~ url ~ ")") %}
     {% endfor %}
@@ -98,11 +98,11 @@
   {% else %}
     {% set build = "❌" %}
   {% endif %}
+  {% set batteries = ["AA", "AAA", "CR2016", "CR2025", "CR2032", "CR2450", "LR23A", "18650"] %}
   {% if device.power == "mains" %}
     {% set power = "🔌" %}
   {% elif device.power == "USB" %}
     {% set power = "🔱" %}
-  {% set batteries = ["AA", "AAA", "CR2016", "CR2025", "CR2032", "CR2450", "LR23A", "18650"] %}
   {% elif device.power|upper in batteries %}
     {% set power = "🔋" %}
   {% else %}
