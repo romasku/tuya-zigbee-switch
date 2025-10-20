@@ -22,6 +22,17 @@
 |   📦   | Build              | ✔️ Available       | ❌ Unavailable       |                    |                |
 |   ⚡   | Power              | 🔌 Mains           | 🔋 Battery           | 🔱 USB             |  ❓ Unknown    |
 
+<!-- 
+  This page (`supported.md`) is generated. Do not edit it directly! 
+
+  Instead, edit:
+  - `device_db.yaml`             - add or edit devices
+  - `supported_devices.md.jinja` - update the template
+  - `make_supported_devices.py`  - no need
+
+  Generate with: `make update_supported_devices`
+-->
+
 ### Device list
 
 | 🚧 | 📦 | ⚡ | Zigbee Manufacturer | Name 🔗 Z2M page | Store | Threads | Status |
@@ -46,7 +57,7 @@
     {% endfor %}
     {% set threads = threads_list | join(" ") %}
   {% else %}
-    {% set threads = "-" %}
+    {% set threads = " " %}
   {% endif %}
   {% if device.store %}
     {% if device.store is string %}
@@ -89,7 +100,7 @@
   {% endif %}
   {% if device.power == "mains" %}
     {% set power = "🔌" %}
-  {% elif device.power == "usb" %}
+  {% elif device.power == "USB" %}
     {% set power = "🔱" %}
   {% set batteries = ["AA", "AAA", "CR2016", "CR2025", "CR2032", "CR2450", "LR23A", "18650"] %}
   {% elif device.power|upper in batteries %}
