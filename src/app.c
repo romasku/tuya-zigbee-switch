@@ -1,0 +1,19 @@
+#include "device_config/config_parser.h"
+#include "hal/zigbee.h"
+#include "hal/zigbee_ota.h"
+#include "zigbee/general_commands.h"
+
+void app_init(void) {
+  parse_config(); // Does most of the setup, including all callbacks
+                  // registration
+  hal_zigbee_init_ota();
+  init_global_attr_write_callback();
+}
+
+void app_task() {
+  // TODO: add jitter to avoid all devices trying to join at once
+  if (hal_zigbee_get_network_status() != HAL_ZIGBEE_NETWORK_JOINED &&
+      hal_zigbee_get_network_status() != HAL_ZIGBEE_NETWORK_JOINING) {
+    hal_zigbee_start_network_steering();
+  }
+}

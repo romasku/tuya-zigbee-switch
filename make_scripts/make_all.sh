@@ -20,7 +20,9 @@ echo [] > zigbee2mqtt/ota/index_end_device.json
 echo [] > zigbee2mqtt/ota/index_router-FORCE.json 
 echo [] > zigbee2mqtt/ota/index_end_device-FORCE.json 
 
-yq -r 'to_entries | sort_by(.key)[] | "\(.key) \(.value.device_type) \(.value.build)"' device_db.yaml | while read ITER TYPE BUILD; do
+yq -r 'to_entries | sort_by(.key)[] | 
+  "\(.key) \(.value.device_type) \(.value.mcu) \(.value.build)" \(.value.config_str)"
+  ' device_db.yaml | while read ITER TYPE MCU BUILD CONFIG_STR; do
 
   if [ "$BUILD" = "no" ]; then
     echo "Skipping $ITER as building this model is disabled in the db."
@@ -28,6 +30,11 @@ yq -r 'to_entries | sort_by(.key)[] | "\(.key) \(.value.device_type) \(.value.bu
   fi
 
   echo "Building for board: $ITER (router)"
+
+  if [ "$MCU" = "TLSR8258" ]; then
+    make telink/clean && make telink/build -j16 BOARD=$ITER DEVICE_TYPE=router CONFIG_STR=$CONFIG_STR
+  fi
+
   BOARD=$ITER DEVICE_TYPE=router make clean && BOARD=$ITER DEVICE_TYPE=router make -j16
   echo "Checking if files were created for board: $ITER (router)"
   ls -l bin/router/$ITER/

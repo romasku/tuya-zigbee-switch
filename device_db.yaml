@@ -1,7 +1,9 @@
+# yaml-language-server: $schema=./device_db.schema.json
 AUBESS_TS0001:
   human_name: Aubess WHD02
   neutral: required
   device_type: end_device # specifically requested
+  mcu: TLSR8258 
   tuya_model_name: TS0001
   tuya_manufacturer_name: _TZ3000_46t1rvdu
   stock_converter_manufacturer: Tuya
@@ -26,6 +28,7 @@ AUBESS_TS0002:
   human_name: Aubess TMZ02
   neutral: required
   device_type: router
+  mcu: TLSR8258
   tuya_model_name: TS0002
   tuya_manufacturer_name: _TZ3000_lmlsduws
   stock_converter_manufacturer: Tuya
@@ -48,6 +51,7 @@ AUBESS_TS0003:
   human_name: Aubess 3-gang
   neutral: required
   device_type: router
+  mcu: TLSR8258
   tuya_model_name: TS0003
   tuya_manufacturer_name: _TZ3000_lvhy15ix
   stock_converter_manufacturer: Tuya
@@ -72,6 +76,7 @@ AUBESS_TS0004:
   human_name: Aubess 4-gang
   neutral: required
   device_type: router
+  mcu: TLSR8258
   tuya_model_name: TS0004
   tuya_manufacturer_name: _TZ3000_mmkbptmx
   stock_converter_manufacturer: Tuya
@@ -95,6 +100,7 @@ AVATTO_TOUCH_TS0003:
   human_name: AVATTO 3-gang touch switch
   neutral: required
   device_type: router
+  mcu: TLSR8258
   tuya_model_name: TS0003
   tuya_manufacturer_name: _TZ3000_avky2mvc
   stock_converter_manufacturer: Tuya
@@ -118,6 +124,7 @@ AVATTO_TS0001:
   human_name: AVATTO ZWSM16-1
   neutral: required
   device_type: router
+  mcu: TLSR8258
   tuya_model_name: TS0001
   tuya_manufacturer_name: _TZ3000_4rbqgcuv
   stock_converter_manufacturer: Tuya
@@ -145,6 +152,7 @@ AVATTO_TS0002:
   human_name: AVATTO ZWSM16-2
   neutral: required
   device_type: router
+  mcu: TLSR8258
   tuya_model_name: TS0002
   tuya_manufacturer_name: _TZ3000_mtnpt6ws
   stock_converter_manufacturer: Tuya
@@ -172,6 +180,7 @@ AVATTO_TS0003:
   human_name: AVATTO ZWSM16-3
   neutral: required
   device_type: router
+  mcu: TLSR8258
   tuya_model_name: TS0003
   tuya_manufacturer_name: _TZ3000_hbic3ka3
   stock_converter_manufacturer: Tuya
@@ -199,6 +208,7 @@ AVATTO_TS0004:
   human_name: AVATTO ZWSM16-4
   neutral: required
   device_type: router
+  mcu: TLSR8258
   tuya_model_name: TS0004
   tuya_manufacturer_name: _TZ3000_5ajpkyq6
   stock_converter_manufacturer: Tuya
@@ -227,6 +237,7 @@ AVATTO_TS0011:
   human_name: AVATTO LZWSM16-1
   neutral: without
   device_type: end_device
+  mcu: TLSR8258
   tuya_model_name: TS0011
   tuya_manufacturer_name: _TZ3000_hbxsdd6k
   stock_converter_manufacturer: AVATTO
@@ -251,6 +262,7 @@ AVATTO_TS0012:
   human_name: AVATTO LZWSM16-2
   neutral: without
   device_type: end_device
+  mcu: TLSR8258
   tuya_model_name: TS0012
   tuya_manufacturer_name: _TZ3000_ljhbw1c9
   stock_converter_manufacturer: Tuya
@@ -275,6 +287,7 @@ AVATTO_TS0013:
   human_name: AVATTO LZWSM16-3
   neutral: without
   device_type: end_device
+  mcu: TLSR8258
   tuya_model_name: TS0013
   tuya_manufacturer_name: _TZ3000_avotanj3
   stock_converter_manufacturer: Tuya
@@ -297,6 +310,7 @@ BSEED_SOCKET_PM_TS011F:
   human_name: BSEED PM socket
   neutral: required
   device_type: router
+  mcu: TLSR8258
   tuya_model_name: TS011F
   tuya_manufacturer_name: _TZ3000_b28wrpvx
   stock_converter_manufacturer: Tuya
@@ -322,6 +336,7 @@ BSEED_SOCKET_TS011F:
   human_name: BSEED socket
   neutral: required
   device_type: router
+  mcu: TLSR8258
   tuya_model_name: TS011F
   tuya_manufacturer_name: _TZ3000_o1jzcxou
   stock_converter_manufacturer: Tuya
@@ -345,6 +360,7 @@ BSEED_SWITCH_TS0726_2GANG:
   human_name: BSEED 2-gang switch
   neutral: required
   device_type: router
+  mcu: TLSR8258
   tuya_model_name: TS0726
   tuya_manufacturer_name: _TZ3002_zjuvw9zf
   stock_converter_manufacturer: Tuya
@@ -369,6 +385,7 @@ BSEED_TOUCH_1_TS0012:
   human_name: BSEED 2-gang touch switch
   neutral: without
   device_type: end_device
+  mcu: TLSR8258
   tuya_model_name: TS0012
   tuya_manufacturer_name: _TZ3000_f2slq5pj
   stock_converter_manufacturer: Tuya
@@ -393,6 +410,7 @@ BSEED_TOUCH_2_TS0012:
   human_name: BSEED 2-gang touch switch
   neutral: without
   device_type: end_device
+  mcu: TLSR8258
   tuya_model_name: TS0012
   tuya_manufacturer_name: _TZ3000_xk5udnd6
   stock_converter_manufacturer: Tuya
@@ -417,6 +435,7 @@ BSEED_TOUCH_TS0003:
   human_name: BSEED 3-gang touch switch
   neutral: required
   device_type: router
+  mcu: TLSR8258
   tuya_model_name: TS0003
   tuya_manufacturer_name: _TZ3000_7aqaupa9
   stock_converter_manufacturer: Tuya
@@ -439,6 +458,7 @@ GIRIER_TS0002:
   human_name: Girier 2-gang
   neutral: required
   device_type: router
+  mcu: TLSR8258
   tuya_model_name: TS0002
   tuya_manufacturer_name: _TZ3000_zmy4lslw
   stock_converter_manufacturer: Tuya
@@ -463,6 +483,7 @@ GIRIER_TS0013:
   human_name: Girier ZB08
   neutral: without
   device_type: end_device
+  mcu: TLSR8258
   tuya_model_name: TS0013
   tuya_manufacturer_name: _TZ3000_ypgri8yz
   stock_converter_manufacturer: Tuya
@@ -488,6 +509,7 @@ IHSENO_TOUCH_TS0001:
   human_name: iHseno 1-gang touch switch
   neutral: optional
   device_type: end_device
+  mcu: TLSR8258
   tuya_model_name: TS0001
   tuya_manufacturer_name: _TZ3000_qq9ahj6z
   stock_converter_manufacturer: Tuya
@@ -510,6 +532,7 @@ IHSENO_TOUCH_TS0002:
   human_name: iHseno 2-gang touch switch
   neutral: optional
   device_type: end_device
+  mcu: TLSR8258
   tuya_model_name: TS0002
   tuya_manufacturer_name: _TZ3000_zxrfobzw
   stock_converter_manufacturer: Tuya
@@ -532,6 +555,7 @@ IHSENO_TOUCH_TS0003:
   human_name: iHseno 3-gang touch switch
   neutral: optional
   device_type: end_device
+  mcu: TLSR8258
   tuya_model_name: TS0003
   tuya_manufacturer_name: null
   stock_converter_manufacturer: Tuya
@@ -554,6 +578,7 @@ IHSENO_TS0001:
   human_name: iHseno 1-gang
   neutral: required
   device_type: router
+  mcu: TLSR8258
   tuya_model_name: TS0001
   tuya_manufacturer_name: _TZ3000_pgq7ormg
   stock_converter_manufacturer: Tuya
@@ -576,6 +601,7 @@ IHSENO_TS0003:
   human_name: iHseno 3-gang
   neutral: required
   device_type: router
+  mcu: TLSR8258
   tuya_model_name: TS0003
   tuya_manufacturer_name: _TZ3000_mhhxxjrs
   stock_converter_manufacturer: Tuya
@@ -601,6 +627,7 @@ IHSENO_TS0004:
   human_name: iHseno 4-gang
   neutral: required
   device_type: router
+  mcu: TLSR8258
   tuya_model_name: TS0004
   tuya_manufacturer_name: _TZ3000_knoj8lpk
   stock_converter_manufacturer: Tuya
@@ -624,6 +651,7 @@ MANHOT_SWITCH_TS0013:
   human_name: Manhot 3-gang switch
   neutral: optional
   device_type: end_device
+  mcu: TLSR8258
   tuya_model_name: TS0013
   tuya_manufacturer_name: _TZ3000_tqwydnqn
   stock_converter_manufacturer: Tuya
@@ -648,6 +676,7 @@ MHCOZY_TS0004:
   human_name: MHCOZY TYWB 4ch-RF
   neutral: required
   device_type: router
+  mcu: TLSR8258
   tuya_model_name: TS0004
   tuya_manufacturer_name: _TZ3000_imaccztn
   stock_converter_manufacturer: Tuya
@@ -670,6 +699,7 @@ MOES_SWITCHES_TS0011:
   human_name: Moes 1-gang switches (button or touch)
   neutral: optional
   device_type: end_device
+  mcu: TLSR8258
   tuya_model_name: TS0011
   tuya_manufacturer_name: _TZ3000_hhiodade
   stock_converter_manufacturer: Moes
@@ -696,6 +726,7 @@ MOES_SWITCHES_TS0012:
   human_name: Moes 2-gang switches (buttons or touch)
   neutral: optional
   device_type: end_device
+  mcu: TLSR8258
   tuya_model_name: TS0012
   tuya_manufacturer_name: _TZ3000_18ejxno0
   stock_converter_manufacturer: Tuya
@@ -722,6 +753,7 @@ MOES_SWITCHES_TS0013:
   human_name: Moes 3-gang switches (buttons or touch)
   neutral: optional
   device_type: end_device
+  mcu: TLSR8258
   tuya_model_name: TS0013
   tuya_manufacturer_name: _TZ3000_qewo8dlz
   stock_converter_manufacturer: Tuya
@@ -748,6 +780,7 @@ MOES_TS0002:
   human_name: Moes ZM-104B-M
   neutral: required
   device_type: router
+  mcu: TLSR8258
   tuya_model_name: TS0002
   tuya_manufacturer_name: _TZ3000_qaa59zqd
   stock_converter_manufacturer: Tuya
@@ -770,6 +803,7 @@ MOES_TS0003:
   human_name: Moes MS-104CZ
   neutral: required
   device_type: router
+  mcu: TLSR8258
   tuya_model_name: TS0003
   tuya_manufacturer_name: _TZ3000_pfc7i3kt
   stock_converter_manufacturer: Tuya
@@ -793,6 +827,7 @@ OXT_TS0002:
   human_name: OXT 2-gang
   neutral: required
   device_type: router
+  mcu: TLSR8258
   tuya_model_name: TS0002
   tuya_manufacturer_name: _TZ3000_bvrlqyj7
   stock_converter_manufacturer: Tuya
@@ -816,6 +851,7 @@ TUYA_1_TS0001:
   human_name: Tuya 1-gang
   neutral: required
   device_type: router
+  mcu: TLSR8258
   tuya_model_name: TS0001
   tuya_manufacturer_name: _TZ3000_tqlv4ug4
   stock_converter_manufacturer: Tuya
@@ -839,6 +875,7 @@ TUYA_2_TS0001:
   human_name: Tuya 1-gang
   neutral: required
   device_type: router
+  mcu: TLSR8258
   tuya_model_name: TS0001
   tuya_manufacturer_name: _TZ3000_skueekg3
   stock_converter_manufacturer: Tuya
@@ -862,6 +899,7 @@ TUYA_3_TS0001:
   human_name: Tuya 1-gang
   neutral: required
   device_type: router
+  mcu: TLSR8258
   tuya_model_name: 
   - TS0001
   - TS000F
@@ -887,6 +925,7 @@ TUYA_4_TS0001:
   human_name: Tuya 1-gang
   neutral: required
   device_type: router
+  mcu: TLSR8258
   tuya_model_name: TS0001
   tuya_manufacturer_name: _TZ3000_skueekg3
   stock_converter_manufacturer: Tuya
@@ -910,6 +949,7 @@ TUYA_TS0002:
   human_name: Tuya 2-gang
   neutral: required
   device_type: router
+  mcu: TLSR8258
   tuya_model_name: TS0002
   tuya_manufacturer_name: _TZ3000_01gpyda5
   stock_converter_manufacturer: Tuya
@@ -933,6 +973,7 @@ TUYA_TS0004:
   human_name: Tuya 4-gang
   neutral: required
   device_type: router
+  mcu: TLSR8258
   tuya_model_name: TS0004
   tuya_manufacturer_name: _TZ3000_ltt60asa
   stock_converter_manufacturer: Tuya
@@ -956,6 +997,7 @@ TUYA_TS0011:
   human_name: Tuya 1-gang L-only
   neutral: without
   device_type: end_device
+  mcu: TLSR8258
   tuya_model_name: TS0011
   tuya_manufacturer_name: _TZ3000_ji4araar
   stock_converter_manufacturer: Tuya
@@ -979,6 +1021,7 @@ TUYA_TS0012:
   human_name: Tuya 2-gang L-only
   neutral: without
   device_type: end_device
+  mcu: TLSR8258
   tuya_model_name: TS0012
   tuya_manufacturer_name: _TZ3000_jl7qyupf
   stock_converter_manufacturer: Tuya
@@ -1005,6 +1048,7 @@ ZEMISMART_SWITCH_TS0012:
   human_name: Zemismart 2-gang switch
   neutral: optional
   device_type: end_device
+  mcu: TLSR8258
   tuya_model_name: TS0012
   tuya_manufacturer_name: _TZ3000_zmlunnhy
   stock_converter_manufacturer: Tuya

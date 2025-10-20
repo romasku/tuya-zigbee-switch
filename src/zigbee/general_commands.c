@@ -1,58 +1,22 @@
-#include "tl_common.h"
-#include "zcl_include.h"
-#include "zigbee/basic_cluster.h"
-#include "zigbee/relay_cluster.h"
-#include "zigbee/switch_cluster.h"
+#include "basic_cluster.h"
+#include "consts.h"
+#include "hal/printf_selector.h"
+#include "relay_cluster.h"
+#include "switch_cluster.h"
 
-
-#ifdef ZCL_REPORT
-
-void device_zclCfgReportCmd(u8 endpoint, u16 clusterId, zclCfgReportCmd_t *pCfgReportCmd)
-{
-  for (u8 i = 0; i < ZCL_REPORTING_TABLE_NUM; i++)
-  {
-    reportCfgInfo_t *pEntry = &reportingTab.reportCfgInfo[i];
-    if (pEntry->used && pEntry->clusterID == clusterId && pEntry->endPoint == endpoint)
-    {
-      pEntry->minIntCnt = 0;
-      pEntry->maxIntCnt = 0;
-    }
+static void zigbee_on_attr_change(uint8_t endpoint, uint8_t cluster_id,
+                                  uint16_t attribute_id) {
+  printf("Attribute changed, ep: %d, cluster: %d, attr: %d\r\n", endpoint,
+         cluster_id, attribute_id);
+  if (cluster_id == ZCL_CLUSTER_BASIC) {
+    basic_cluster_callback_attr_write_trampoline(attribute_id);
+  } else if (cluster_id == ZCL_CLUSTER_ON_OFF_SWITCH_CONFIG) {
+    switch_cluster_callback_attr_write_trampoline(endpoint, attribute_id);
+  } else if (cluster_id == ZCL_CLUSTER_ON_OFF) {
+    relay_cluster_callback_attr_write_trampoline(endpoint, attribute_id);
   }
 }
 
-#endif
-
-void device_zclWriteReqCmd(u8 endpoint, u16 clusterId, zclWriteCmd_t *pWriteReqCmd)
-{
-  if (clusterId == ZCL_CLUSTER_GEN_ON_OFF_SWITCH_CONFIG)
-  {
-    switch_cluster_callback_attr_write_trampoline(endpoint);
-  }
-  if (clusterId == ZCL_CLUSTER_GEN_ON_OFF)
-  {
-    relay_cluster_callback_attr_write_trampoline(endpoint, pWriteReqCmd);
-  }
-  if (clusterId == ZCL_CLUSTER_GEN_BASIC)
-  {
-    basic_cluster_callback_attr_write_trampoline(endpoint, pWriteReqCmd);
-  }
-}
-
-void device_zclProcessIncomingMsg(zclIncoming_t *pInHdlrMsg)
-{
-  u16 cluster = pInHdlrMsg->msg->indInfo.cluster_id;
-
-  switch (pInHdlrMsg->hdr.cmd)
-  {
-#ifdef ZCL_REPORT
-  case ZCL_CMD_CONFIG_REPORT:
-    device_zclCfgReportCmd(pInHdlrMsg->msg->indInfo.dst_ep, cluster, pInHdlrMsg->attrCmd);
-    break;
-  case ZCL_CMD_WRITE:
-    device_zclWriteReqCmd(pInHdlrMsg->msg->indInfo.dst_ep, cluster, pInHdlrMsg->attrCmd);
-    break;
-#endif
-  default:
-    break;
-  }
+void init_global_attr_write_callback() {
+  hal_zigbee_register_on_attribute_change_callback(zigbee_on_attr_change);
 }

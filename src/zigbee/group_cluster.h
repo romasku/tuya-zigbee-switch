@@ -1,17 +1,13 @@
 #ifndef _GROUP_CLUSTER_H_
 #define _GROUP_CLUSTER_H_
 
-#include "tl_common.h"
-#include "zb_common.h"
-#include "zcl_include.h"
+#include "hal/zigbee.h"
 
-#include "endpoint.h"
-
-typedef struct
-{  
-    zclAttrInfo_t attr_infos[1];
+typedef struct {
+  hal_zigbee_attribute attr_infos[1];
 } zigbee_group_cluster;
 
-void group_cluster_add_to_endpoint(zigbee_group_cluster *cluster, zigbee_endpoint *endpoint);
+void group_cluster_add_to_endpoint(zigbee_group_cluster *cluster,
+                                   hal_zigbee_endpoint *endpoint);
 
 #endif

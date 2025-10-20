@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<configurator>
+  <clusterExtension code="0x0000">
+    <attribute side="server" code="0xff00" define="DEVICE_CONFIG" type="CHAR_STRING" length="255" writable="false" default="" optional="true">device config</attribute>
+  </clusterExtension>
+</configurator>

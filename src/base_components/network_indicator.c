@@ -1,17 +1,16 @@
 #include "network_indicator.h"
-#include "tl_common.h"
-#include "millis.h"
+#include <stddef.h>
 
+void network_indicator_connected(network_indicator_t *indicator) {
+  network_indicator_from_manual_state(indicator);
+}
 
-void network_indicator_connected(network_indicator_t *indicator)
-{
+void network_indicator_from_manual_state(network_indicator_t *indicator) {
   led_t **led = indicator->leds;
 
-  while (*led != NULL)
-  {
+  while (*led != NULL) {
     (*led)->blink_times_left = 0;
-    if (indicator->has_dedicated_led)
-    {
+    if (indicator->has_dedicated_led) {
       if (indicator->manual_state_when_connected) {
         led_on(*led);
       } else {
@@ -22,25 +21,20 @@ void network_indicator_connected(network_indicator_t *indicator)
   }
 }
 
-void network_indicator_commission_success(network_indicator_t *indicator)
-{
+void network_indicator_commission_success(network_indicator_t *indicator) {
   led_t **led = indicator->leds;
 
-  while (*led != NULL)
-  {
+  while (*led != NULL) {
     led_blink(*led, 500, 500, 7);
     led++;
   }
 }
 
-void network_indicator_not_connected(network_indicator_t *indicator)
-{
+void network_indicator_not_connected(network_indicator_t *indicator) {
   led_t **led = indicator->leds;
 
-  while (*led != NULL)
-  {
-    if ((*led)->blink_times_left != LED_BLINK_FOREVER)
-    {
+  while (*led != NULL) {
+    if ((*led)->blink_times_left != LED_BLINK_FOREVER) {
       led_blink(*led, 500, 500, LED_BLINK_FOREVER);
     }
     led++;

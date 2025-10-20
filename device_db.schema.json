@@ -1,0 +1,190 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Device Database Schema",
+  "description": "Schema for Tuya Zigbee Switch device database",
+  "type": "object",
+  "patternProperties": {
+    "^[A-Z][A-Z0-9_]*$": {
+      "type": "object",
+      "properties": {
+        "human_name": {
+          "type": "string",
+          "description": "Human-readable device name"
+        },
+        "neutral": {
+          "type": "string",
+          "enum": ["required", "optional", "without"],
+          "description": "Whether neutral wire is required or optional"
+        },
+        "device_type": {
+          "type": "string",
+          "enum": ["router", "end_device"],
+          "description": "Zigbee device type"
+        },
+        "mcu": {
+          "type": "string",
+          "enum": ["TLSR8258", "EFR32MG21"],
+          "description": "Microcontroller unit type"
+        },
+        "tuya_model_name": {
+          "oneOf": [
+            {
+              "type": "array",
+              "items": {"type": "string"}
+            },
+            {"type": "string"}
+          ],
+          "description": "Tuya model name (e.g., TS0001, TS0002)"
+        },
+        "tuya_manufacturer_name": {
+          "oneOf": [
+            {"type": "null"},
+            {"type": "string"}
+          ],
+          "description": "Tuya manufacturer identifier"
+        },
+        "stock_converter_manufacturer": {
+          "type": "string",
+          "description": "Stock converter manufacturer"
+        },
+        "stock_converter_model": {
+          "type": "string",
+          "description": "Stock converter model"
+        },
+        "override_z2m_device": {
+          "oneOf": [
+            {"type": "string"},
+            {"type": "null"}
+          ],
+          "description": "Override device name for Zigbee2MQTT"
+        },
+        "zb_module": {
+          "oneOf": [
+            {
+              "type": "string",
+              "enum": ["ZT2S", "ZTU", "ZT3L", "ZT2S_without_shield"]
+            },
+            {"type": "null"}
+          ],
+          "description": "Zigbee module type"
+        },
+        "config_str": {
+          "type": "string",
+          "description": "Configuration string for device"
+        },
+        "alt_config_str": {
+          "oneOf": [
+            {
+              "type": "array",
+              "items": {"type": "string"}
+            },
+            {"type": "null"}
+          ],
+          "description": "Alternative configuration string"
+        },
+        "old_manufacturer_names": {
+          "oneOf": [
+            {
+              "type": "array",
+              "items": {"type": "string"}
+            },
+            {"type": "null"}
+          ],
+          "description": "Legacy manufacturer names"
+        },
+        "old_zb_models": {
+          "oneOf": [
+            {
+              "type": "array",
+              "items": {"type": "string"}
+            },
+            {"type": "null"}
+          ],
+          "description": "Legacy Zigbee model names"
+        },
+        "tuya_manufacturer_id": {
+          "type": "integer",
+          "description": "Tuya manufacturer ID"
+        },
+        "tuya_image_type": {
+          "type": "integer",
+          "description": "Tuya image type identifier"
+        },
+        "firmware_image_type": {
+          "type": "integer",
+          "description": "Firmware image type identifier"
+        },
+        "build": {
+          "type": "string",
+          "enum": ["yes", "no"],
+          "description": "Whether the device should be built"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["Supported", "In progress"],
+          "description": "Support status of the device"
+        },
+        "info": {
+          "oneOf": [
+            {"type": "string"},
+            {"type": "null"}
+          ],
+          "description": "Additional information about the device"
+        },
+        "github_issue": {
+          "oneOf": [
+            {
+              "type": "string",
+              "format": "uri"
+            },
+            {"type": "null"}
+          ],
+          "description": "GitHub issue URL"
+        },
+        "store": {
+          "oneOf": [
+            {
+              "type": "string",
+              "format": "uri"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "uri"
+              }
+            },
+            {"type": "null"}
+          ],
+          "description": "Store URL(s) where device can be purchased"
+        }
+      },
+      "required": [
+        "human_name",
+        "neutral",
+        "device_type",
+        "mcu",
+        "tuya_model_name",
+        "tuya_manufacturer_name",
+        "stock_converter_manufacturer",
+        "stock_converter_model",
+        "override_z2m_device",
+        "zb_module",
+        "config_str",
+        "alt_config_str",
+        "old_manufacturer_names",
+        "old_zb_models",
+        "tuya_manufacturer_id",
+        "tuya_image_type",
+        "firmware_image_type",
+        "build",
+        "status",
+        "info",
+        "github_issue",
+        "store"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}
