@@ -1,20 +1,31 @@
 # Supported devices
 
-**Z2M device name** usually represents a collection of devices.  
-Even if they work the same, rebranded versions have different internals and different pinouts (and therefore require custom builds).  
+> [!NOTE]  
+> **Z2M device name** usually represents a collection of devices.  
+> Even if they work the same, rebranded versions have different internals and different pinouts (and therefore require custom builds).  
 
-**Zigbee Manufacturer** is the most reliable unique device identifier. If the TZ3000 id of your device is not on this list, it requires porting. 
+**Zigbee Manufacturer** is the most reliable unique device identifier.  
+**If the TZ3000 id of your device is not on this list, it requires porting.**  
 
 For devices that contain a **supported Tuya Zigbee module** (ZTU, ZT2S, ZT3L), porting is relatively simple.  
 It consists of tracing (or guessing) the **board pinout**, adding an entry in the `device_db.yaml` file and running the build action. 
 
-Also read:  
+**Also read:**  
 - [contribute/porting_to_new_device.md](/docs/contribute/porting_to_new_device.md)
 - [recommended.md](./recommended.md)
 - [not_recommended.md](./not_recommended.md)
 
+### Legend
+
+| Symbol | Meaning              |                        |                  |                  |
+| :----: | -------------------- | ---------------------- | ---------------- | ---------------- |
+|   🚧   | `🟩 Fully supported` | `🟨 Mostly supported`  | `🟧 In progress` | `🟥 Unsupported` |
+|   📦   | `✔️ Build available` | `❌ Build unavailable` |                  |                  |
+
+### Device list
+
 | 🚧 | 📦 | Zigbee Manufacturer | Vendor name | Z2M device name | Threads | Status |
-| -- | -- | ------------------- | ----------- | --------------- | ------- | ------ |
+| -- | -- | :-----------------: | ----------- | --------------- | ------- | ------ |
 {% for device in devices %}
   {% set manufacturer = "`" ~ device.tuya_manufacturer_name ~ "`" %}
   {% set human_name = device.human_name %}
