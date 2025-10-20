@@ -94,7 +94,7 @@ They can easily be adapted for other distributions. (Please share your scripts)
 
 ## Further reading
 
-- [porting_to_new_device.md](./porting_to_new_device.md)
+- [porting.md](./porting.md)
 - [project_structure.md](./project_structure.md)
 - [device_db_explained.md](./device_db_explained.md)
 - [debugging.md](./debugging.md)
