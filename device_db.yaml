@@ -20,6 +20,7 @@ AUBESS_TS0001:
   stock_converter_model: WHD02
   override_z2m_device: null
   zb_module: ZT2S
+  mcu_family: Telink
   config_str: 46t1rvdu;WHD02-Aubess;BC4u;LD2;SB4u;RB5;
   alt_config_str: null
   old_manufacturer_names:
@@ -45,6 +46,7 @@ AUBESS_TS0002:
   stock_converter_model: TS0002_basic
   override_z2m_device: TMZ02
   zb_module: ZT2S
+  mcu_family: Telink
   config_str: lmlsduws;TS0002-AUB;BC4u;LB1;SC2u;RB7;SC3u;RB4;
   alt_config_str: null
   old_manufacturer_names: null
@@ -68,6 +70,7 @@ AUBESS_TS0003:
   stock_converter_model: TS0003_switch_module_2
   override_z2m_device: null
   zb_module: ZT2S
+  mcu_family: Telink
   config_str: lvhy15ix;TS0003-AUB;BC4u;LB1;SC2u;RB7;SC3u;RB4;SD2u;RB5;
   alt_config_str: null
   old_manufacturer_names: null
@@ -93,6 +96,7 @@ AUBESS_TS0004:
   stock_converter_model: TS0004_switch_module
   override_z2m_device: null
   zb_module: ZTU
+  mcu_family: Telink
   config_str: mmkbptmx;TS0004-custom;BB6u;LB1;SC1u;RB7;SC2u;RB5;SC3u;RB4;SD2u;RC4;
   alt_config_str: null
   old_manufacturer_names:
@@ -117,6 +121,7 @@ AVATTO_TOUCH_TS0003:
   stock_converter_model: TS0003_switch_3_gang
   override_z2m_device: null
   zb_module: ZTU
+  mcu_family: Telink
   config_str: avky2mvc;Avatto-3-touch;LB5;SD3u;RC2;SD7u;RC3;SD4u;RD2;M;
   alt_config_str: null
   old_manufacturer_names:
@@ -141,6 +146,7 @@ AVATTO_TS0001:
   stock_converter_model: TS0001_switch_module
   override_z2m_device: ZWSM16-1-Zigbee
   zb_module: ZTU
+  mcu_family: Telink
   config_str: 4rbqgcuv;TS0001-AVB;BC2u;LD2i;SD3u;RC0;
   alt_config_str: null
   old_manufacturer_names:
@@ -169,6 +175,7 @@ AVATTO_TS0002:
   stock_converter_model: TS0002_limited
   override_z2m_device: ZWSM16-2-Zigbee
   zb_module: ZTU
+  mcu_family: Telink
   config_str: mtnpt6ws;TS0002-AVB;BC2u;LD2i;SD3u;RC0;SD7u;RD4;
   alt_config_str: null
   old_manufacturer_names:
@@ -197,6 +204,7 @@ AVATTO_TS0003:
   stock_converter_model: TS0003_switch_module_2
   override_z2m_device: ZWSM16-3-Zigbee
   zb_module: ZTU
+  mcu_family: Telink
   config_str: hbic3ka3;TS0003-AVB;BC2u;LD2i;SD3u;RC0;SD7u;RD4;SB6u;RC1;
   alt_config_str: null
   old_manufacturer_names:
@@ -225,6 +233,7 @@ AVATTO_TS0004:
   stock_converter_model: TS0004_switch_module_2
   override_z2m_device: ZWSM16-4-Zigbee
   zb_module: ZTU
+  mcu_family: Telink
   config_str: 5ajpkyq6;TS0004-AVB;BC2u;LD2i;SD3u;RC0;SD7u;RD4;SB6u;RC1;SA0u;RC4;
   alt_config_str:
   - 5ajpkyq6;TS0004-AVB;BC2u;LD2i;SD7u;RB6;SC0u;RD4;SA0u;RC1;SA1u;RC4;
@@ -254,6 +263,7 @@ AVATTO_TS0011:
   stock_converter_model: LZWSM16-1
   override_z2m_device: null
   zb_module: ZTU
+  mcu_family: Telink
   config_str: hbxsdd6k;TS0011-avatto;BB4u;LB5;SC0u;RC2;
   alt_config_str: null
   old_manufacturer_names:
@@ -279,6 +289,7 @@ AVATTO_TS0012:
   stock_converter_model: TS0012_switch_module
   override_z2m_device: LZWSM16-2
   zb_module: ZTU
+  mcu_family: Telink
   config_str: ljhbw1c9;TS0012-avatto;BB4u;LB5;SC0u;RC2;SC3u;RC4;
   alt_config_str: null
   old_manufacturer_names:
@@ -304,6 +315,7 @@ AVATTO_TS0013:
   stock_converter_model: TS0013
   override_z2m_device: LZWSM16-3
   zb_module: ZTU
+  mcu_family: Telink
   config_str: avotanj3;TS0013-AVB;BB4u;LB5;SA1u;RC2;SC3u;RC4;SC0u;RD2;
   alt_config_str: null
   old_manufacturer_names: null
@@ -327,6 +339,7 @@ BSEED_SOCKET_PM_TS011F:
   stock_converter_model: TS011F_plug_1
   override_z2m_device: TS011F_plug_1_2
   zb_module: ZTU
+  mcu_family: Telink
   config_str: b28wrpvx;TS011F-BS-PM;LC3;SB5u;RD2;IB4;M;
   alt_config_str: null
   old_manufacturer_names: null
@@ -353,6 +366,7 @@ BSEED_SOCKET_TS011F:
   stock_converter_model: TS011F_plug_2
   override_z2m_device: _TZ3000_o1jzcxou
   zb_module: ZTU
+  mcu_family: Telink
   config_str: o1jzcxou;TS011F-BS;LC2;SB4u;RC3;ID2;M;
   alt_config_str: null
   old_manufacturer_names: null
@@ -377,6 +391,7 @@ BSEED_SWITCH_TS0726_2GANG:
   stock_converter_model: TS0726_2_gang_scene_switch
   override_z2m_device: EC-GL86ZPCS21
   zb_module: ZT3L
+  mcu_family: Telink
   config_str: zjuvw9zf;TS0726-2-BS;LC4;SB1u;RC2;IC0;SB7u;RC3;ID7;M;
   alt_config_str: null
   old_manufacturer_names: null
@@ -402,6 +417,7 @@ BSEED_TOUCH_1_TS0012:
   stock_converter_model: TS0012
   override_z2m_device: null
   zb_module: ZTU
+  mcu_family: Telink
   config_str: f2slq5pj;Bseed-2-gang;SB6u;RD3;IC2;SA1u;RC0;IB4;M;
   alt_config_str: null
   old_manufacturer_names:
@@ -427,6 +443,7 @@ BSEED_TOUCH_2_TS0012:
   stock_converter_model: TS0012
   override_z2m_device: null
   zb_module: ZTU
+  mcu_family: Telink
   config_str: xk5udnd6;Bseed-2-gang-2;LC3;SB5u;RC0B6;ID2;SD4u;RA1D7;ID3;M;
   alt_config_str: null
   old_manufacturer_names:
@@ -452,6 +469,7 @@ BSEED_TOUCH_TS0003:
   stock_converter_model: TS0003
   override_z2m_device: null
   zb_module: ZT3L
+  mcu_family: Telink
   config_str: 7aqaupa9;TS0003-BS;LA0i;SC3u;RC2;SB7u;RB4;SB5u;RC0;M;
   alt_config_str: null
   old_manufacturer_names: null
@@ -475,6 +493,7 @@ GIRIER_TS0002:
   stock_converter_model: TS0002_basic
   override_z2m_device: null
   zb_module: ZT2S
+  mcu_family: Telink
   config_str: zmy4lslw;TS0002-GIR;BD2u;LC2;SB5u;RC4;SB4u;RC3;
   alt_config_str: null
   old_manufacturer_names:
@@ -500,6 +519,7 @@ GIRIER_TS0013:
   stock_converter_model: TS0013_switch_module
   override_z2m_device: ZB08
   zb_module: null
+  mcu_family: Telink
   config_str: ypgri8yz;ZB08-custom;BA0u;LD7;SC2u;RC0;SC3u;RB4;SD2u;RB5;
   alt_config_str: null
   old_manufacturer_names:
@@ -526,6 +546,7 @@ IHSENO_TOUCH_TS0001:
   stock_converter_model: FZB-1
   override_z2m_device: _TZ3000_qq9ahj6z
   zb_module: ZT3L
+  mcu_family: Telink
   config_str: qq9ahj6z;TS0001-IHS-T;LC4i;SB4U;RC3;M;
   alt_config_str: null
   old_manufacturer_names: null
@@ -549,6 +570,7 @@ IHSENO_TOUCH_TS0002:
   stock_converter_model: TS0002
   override_z2m_device: _TZ3000_zxrfobzw
   zb_module: ZT3L
+  mcu_family: Telink
   config_str: zxrfobzw;TS0002-IHS-T;LC4i;SC0U;RC2;SB5U;RD2;M;
   alt_config_str: null
   old_manufacturer_names: null
@@ -572,6 +594,7 @@ IHSENO_TOUCH_TS0003:
   stock_converter_model: TS0003
   override_z2m_device: null
   zb_module: ZT3L
+  mcu_family: Telink
   config_str: null    ;TS0003-IHS-T;LC4i;SC0U;RC2;SB4U;RC3;SB5U;RD2;M;
   alt_config_str: null
   old_manufacturer_names: null
@@ -595,6 +618,7 @@ IHSENO_TS0001:
   stock_converter_model: _TZ3000_pgq7ormg
   override_z2m_device: null
   zb_module: ZTU
+  mcu_family: Telink
   config_str: pgq7ormg;TS0001-IHS;BC3u;LC2i;SB5u;RD2;
   alt_config_str: null
   old_manufacturer_names: null
@@ -618,6 +642,7 @@ IHSENO_TS0003:
   stock_converter_model: TS0003
   override_z2m_device: null
   zb_module: ZTU
+  mcu_family: Telink
   config_str: mhhxxjrs;TS0003-IHS;BC3u;LC2i;SD7u;RD2;SB4u;RD3;SB5u;RC0;
   alt_config_str: null
   old_manufacturer_names:
@@ -644,6 +669,7 @@ IHSENO_TS0004:
   stock_converter_model: TS0004
   override_z2m_device: null
   zb_module: ZTU
+  mcu_family: Telink
   config_str: knoj8lpk;TS0004-IHS;BC3u;LC2i;SB5u;RD2;SB4u;RD3;SD7u;RC0;SD4u;RC1;
   alt_config_str: null
   old_manufacturer_names:
@@ -668,6 +694,7 @@ MANHOT_SWITCH_TS0013:
   stock_converter_model: TS0013
   override_z2m_device: null
   zb_module: ZT3L
+  mcu_family: Telink
   config_str: tqwydnqn;TS0013-MH;SC4u;RB4A0;ID2;SD7u;RD4B5;IC3;SB7u;RC0C2;IB1;M;
   alt_config_str: null
   old_manufacturer_names: null
@@ -693,6 +720,7 @@ MHCOZY_TS0004:
   stock_converter_model: TS0004
   override_z2m_device: TYWB 4ch-RF
   zb_module: ZT3L
+  mcu_family: Telink
   config_str: imaccztn;TS0004-MC;LC3;SD7u;RD4;SC0u;RA0;SB5u;RD2;SB7u;RC2;M;
   alt_config_str: null
   old_manufacturer_names: null
@@ -716,6 +744,7 @@ MOES_SWITCHES_TS0011:
   stock_converter_model: ZS-EUB_1gang
   override_z2m_device: null
   zb_module: ZTU
+  mcu_family: Telink
   config_str: hhiodade;Moes-1-gang;SC1u;RB5;ID7;M;
   alt_config_str: null
   old_manufacturer_names:
@@ -743,6 +772,7 @@ MOES_SWITCHES_TS0012:
   stock_converter_model: TS0012
   override_z2m_device: ZS-EUB_2gang
   zb_module: ZTU
+  mcu_family: Telink
   config_str: 18ejxno0;Moes-2-gang;SB6u;RB5;ID3;SC4u;RB4;IC0;M;
   alt_config_str: null
   old_manufacturer_names:
@@ -770,6 +800,7 @@ MOES_SWITCHES_TS0013:
   stock_converter_model: TS0013
   override_z2m_device: null
   zb_module: ZTU
+  mcu_family: Telink
   config_str: qewo8dlz;Moes-3-gang;SB6u;RB5;ID3;SC1u;RB4;ID7;SC4u;RD2;IC0;M;
   alt_config_str: null
   old_manufacturer_names:
@@ -797,6 +828,7 @@ MOES_TS0002:
   stock_converter_model: TS0002_basic
   override_z2m_device: ZM-104B-M
   zb_module: ZT2S
+  mcu_family: Telink
   config_str: qaa59zqd;TS0002-MS;BB1u;LC3;SB5u;RD2;SB4u;RC2;
   alt_config_str: null
   old_manufacturer_names: null
@@ -820,6 +852,7 @@ MOES_TS0003:
   stock_converter_model: TS0003
   override_z2m_device: null
   zb_module: null
+  mcu_family: Telink
   config_str: pfc7i3kt;TS0003-custom;BD3u;SC1u;RB5;SD7u;RD4;SC3u;RB4;
   alt_config_str: null
   old_manufacturer_names:
@@ -844,6 +877,7 @@ OXT_TS0002:
   stock_converter_model: TS0002_basic
   override_z2m_device: null
   zb_module: ZT3L
+  mcu_family: Telink
   config_str: bvrlqyj7;TS0002-OXT-CUS;BD2u;LC0;SB4u;RC2;SB5u;RC3;
   alt_config_str: null
   old_manufacturer_names:
@@ -868,6 +902,7 @@ TUYA_1_TS0001:
   stock_converter_model: TS0001_switch_module
   override_z2m_device: null
   zb_module: null
+  mcu_family: Telink
   config_str: tqlv4ug4;TS0001-custom;BD2u;LC0;SB4u;RC2;
   alt_config_str: null
   old_manufacturer_names:
@@ -892,6 +927,7 @@ TUYA_2_TS0001:
   stock_converter_model: WHD02
   override_z2m_device: null
   zb_module: null
+  mcu_family: Telink
   config_str: skueekg3;WHD02-custom;BB4u;LD3;SB5u;RB1;
   alt_config_str: null
   old_manufacturer_names:
@@ -918,6 +954,7 @@ TUYA_3_TS0001:
   stock_converter_model: WHD02
   override_z2m_device: null
   zb_module: ZT2S_without_shield
+  mcu_family: Telink
   config_str: skueekg3;WHD02-custom;BB1u;LB4i;SD2u;RD3;
   alt_config_str: null
   old_manufacturer_names:
@@ -946,6 +983,7 @@ TUYA_4_TS0001:
   stock_converter_model: WHD02
   override_z2m_device: null
   zb_module: ZT2S_without_shield
+  mcu_family: Telink
   config_str: skueekg3;WHD02-custom;BB1u;LB4i;SD2u;RD3;
   alt_config_str: null
   old_manufacturer_names:
@@ -970,6 +1008,7 @@ TUYA_TS0002:
   stock_converter_model: TS0002_basic
   override_z2m_device: null
   zb_module: null
+  mcu_family: Telink
   config_str: 01gpyda5;TS0002-custom;BD2u;LC2;SB5u;RC4;SB4u;RC3;
   alt_config_str: null
   old_manufacturer_names:
@@ -994,6 +1033,7 @@ TUYA_TS0004:
   stock_converter_model: TS0004_switch_module
   override_z2m_device: null
   zb_module: ZTU
+  mcu_family: Telink
   config_str: ltt60asa;TS0004-Avv;BB5u;LC1;SB4u;RC0;SD2u;RC4;SC3u;RD4;SC2u;RD7;
   alt_config_str: null
   old_manufacturer_names:
@@ -1018,6 +1058,7 @@ TUYA_TS0011:
   stock_converter_model: TS0011_switch_module
   override_z2m_device: null
   zb_module: null
+  mcu_family: Telink
   config_str: ji4araar;TS0011-custom;BA0f;LD7;SC2f;RC0;
   alt_config_str: null
   old_manufacturer_names:
@@ -1042,6 +1083,7 @@ TUYA_TS0012:
   stock_converter_model: TS0012_switch_module
   override_z2m_device: null
   zb_module: null
+  mcu_family: Telink
   config_str: jl7qyupf;TS0012-custom;BA0f;LD7;SC2f;RC0;SC3f;RB4;
   alt_config_str: null
   old_manufacturer_names:
@@ -1069,6 +1111,7 @@ TUYA_REMOTE_TS0044:
   stock_converter_model: TS0044
   override_z2m_device: TS0044_1
   zb_module: ZT3L
+  mcu_family: Telink
   config_str: mh9px7cq;TS0044-CUS;LC0;SD2u;RD4;SC2u;RA0;SC3u;RD7;SB4u;RB5;M;
   alt_config_str: null
   old_manufacturer_names: null
@@ -1092,6 +1135,7 @@ ZEMISMART_SWITCH_TS0012:
   stock_converter_model: TS0012
   override_z2m_device: null
   zb_module: ZT3L
+  mcu_family: Telink
   config_str: zmlunnhy;Zemi-2-gang;SC3U;RB5C4;IB7;SD2U;RC2D4;ID7;
   alt_config_str: null
   old_manufacturer_names:
