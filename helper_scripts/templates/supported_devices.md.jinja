@@ -16,17 +16,18 @@
 
 ### Legend
 
-| Symbol | Meaning              |                        |                  |                  |
-| :----: | -------------------- | ---------------------- | ---------------- | ---------------- |
-|   🚧   | `🟩 Fully supported` | `🟨 Mostly supported`  | `🟧 In progress` | `🟥 Unsupported` |
-|   📦   | `✔️ Build available` | `❌ Build unavailable` |                  |                  |
+| Symbol | Meaning              |                        |                      |                  |
+| :----: | -------------------- | ---------------------- | -------------------- | ---------------- |
+|   🚧   | `🟩 Fully supported` | `🟨 Mostly supported`  | `🟧 In progress`     | `🟥 Unsupported` |
+|   📦   | `✔️ Build available` | `❌ Build unavailable` |                      |                  |
+|   ⚡   | `🔌 Mains-powered`   | `🔋 Battery-powered`   | `🔱 USB-powered`     |  `❓ Unknown`    |
 
 ### Device list
 
-| 🚧 | 📦 | Zigbee Manufacturer | Name 🔗 Z2M page | Threads | Status |
-| -- | -- | :-----------------: | ----------- | ------- | ------ |
+| 🚧 | 📦 | ⚡ | Zigbee Manufacturer | Name 🔗 Z2M page | Threads | Status |
+| -- | -- | -- | :-----------------: | ---------------- | ------- | ------ |
 {% for device in devices %}
-  {% set manufacturer = "`" ~ device.tuya_manufacturer_name ~ "`" %}
+  {% set manufacturer = "`" ~ (device.tuya_manufacturer_name or "    unknown     ") ~ "`" %}
   {% set z2m_name = device.override_z2m_device or device.stock_converter_model %}
   {% set z2m_link = "(https://www.zigbee2mqtt.io/devices/" ~ (z2m_name | replace(" ", "_")) ~ ".html)" %}
   {% set human_name = "[" ~ device.human_name ~ "]" ~ z2m_link %}
@@ -46,5 +47,15 @@
   {% else %}
     {% set build = "❌" %}
   {% endif %}
-| {{color}} | {{build}} | {{manufacturer}}  | {{human_name}} |  {{issue}} | {{info}} | 
+  {% if device.power == "mains" %}
+    {% set power = "🔌" %}
+  {% elif device.power == "usb" %}
+    {% set power = "🔱" %}
+  {% set batteries = ["AA", "AAA", "CR2016", "CR2025", "CR2032", "CR2450", "LR23A", "18650"] %}
+  {% elif device.power|upper in batteries %}
+    {% set power = "🔋" %}
+  {% else %}
+    {% set power = "❓" %}
+  {% endif %}
+| {{color}} | {{build}} | {{power}} | {{manufacturer}}  | {{human_name}} |  {{issue}} | {{info}} | 
 {% endfor %}
