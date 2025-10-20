@@ -13,13 +13,22 @@ Also read:
 - [recommended.md](./recommended.md)
 - [not_recommended.md](./not_recommended.md)
 
-| Zigbee Manufacturer | Vendor name | Z2M device name | Threads | Status |
-| ------------------- | ----------- | --------------- | ------- | ------ |
+| 🚧 | Zigbee Manufacturer | Vendor name | Z2M device name | Threads | Status |
+| -- | ------------------- | ----------- | --------------- | ------- | ------ |
 {% for device in devices %}
   {% set manufacturer = "`" ~ device.tuya_manufacturer_name ~ "`" %}
   {% set human_name = device.human_name %}
   {% set z2m_device = "[" ~ device.z2m_device ~ "](https://www.zigbee2mqtt.io/devices/" ~ (device.z2m_device | replace(" ", "_")) ~ ".html)" %}
-  {% set status = device.status %}
+  {% set info = device.info %}
   {% set issue = device.github_issue and ("[link](" ~ device.github_issue ~ ")") or "-" %}
-| {{manufacturer}}  | {{human_name}} | {{z2m_device}} | {{issue}} | {{status}} | 
+  {% if device.status == "fully_supported" %}
+      {% set color = "🟩" %}
+  {% elif device.status == "mostly_supported" %}
+      {% set color = "🟨" %}
+  {% elif device.status == "in_progress" %}
+      {% set color = "🟧" %}
+  {% elif device.status == "unsupported" %}
+      {% set color = "🟥" %}
+  {% endif %}
+| {{color}} | {{manufacturer}}  | {{human_name}} | {{z2m_device}} | {{issue}} | {{info}} | 
 {% endfor %}
