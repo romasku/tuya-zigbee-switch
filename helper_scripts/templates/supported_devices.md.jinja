@@ -29,7 +29,8 @@ It consists of tracing (or guessing) the **board pinout**, adding an entry in th
 {% for device in devices %}
   {% set manufacturer = "`" ~ device.tuya_manufacturer_name ~ "`" %}
   {% set human_name = device.human_name %}
-  {% set z2m_device = "[" ~ device.z2m_device ~ "](https://www.zigbee2mqtt.io/devices/" ~ (device.z2m_device | replace(" ", "_")) ~ ".html)" %}
+  {% set z2m_name = device.override_z2m_device or device.stock_converter_model %}
+  {% set z2m_device = "[" ~ z2m_name ~ "](https://www.zigbee2mqtt.io/devices/" ~ (z2m_name | replace(" ", "_")) ~ ".html)" %}
   {% set info = device.info %}
   {% set issue = device.github_issue and ("[link](" ~ device.github_issue ~ ")") or "-" %}
   {% if device.status == "fully_supported" %}
