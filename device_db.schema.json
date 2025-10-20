@@ -131,11 +131,18 @@
           ],
           "description": "Additional information about the device"
         },
-        "github_issue": {
+        "threads": {
           "oneOf": [
             {
               "type": "string",
               "format": "uri"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "uri"
+              }
             },
             {"type": "null"}
           ],
@@ -180,7 +187,7 @@
         "build",
         "status",
         "info",
-        "github_issue",
+        "threads",
         "store"
       ],
       "additionalProperties": false

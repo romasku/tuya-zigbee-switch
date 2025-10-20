@@ -16,23 +16,38 @@
 
 ### Legend
 
-| Symbol | Meaning              |                        |                      |                  |
-| :----: | -------------------- | ---------------------- | -------------------- | ---------------- |
-|   🚧   | `🟩 Fully supported` | `🟨 Mostly supported`  | `🟧 In progress`     | `🟥 Unsupported` |
-|   📦   | `✔️ Build available` | `❌ Build unavailable` |                      |                  |
-|   ⚡   | `🔌 Mains-powered`   | `🔋 Battery-powered`   | `🔱 USB-powered`     |  `❓ Unknown`    |
+| Symbol | Meaning            |                    |                      |                    |                |
+| :----: | ------------------ | ------------------ | -------------------- | ------------------ | -------------- |
+|   🚧   | Status             | 🟩 Fully supported | 🟨 Mostly supported  | 🟧 In progress     | 🟥 Unsupported |
+|   📦   | Build              | ✔️ Available       | ❌ Unavailable       |                    |                |
+|   ⚡   | Power              | 🔌 Mains           | 🔋 Battery           | 🔱 USB             |  ❓ Unknown    |
 
 ### Device list
 
 | 🚧 | 📦 | ⚡ | Zigbee Manufacturer | Name 🔗 Z2M page | Threads | Status |
-| -- | -- | -- | :-----------------: | ---------------- | ------- | ------ |
+| -- | -- | -- | :-----------------: | ---------------- | ------: | ------ |
 {% for device in devices %}
   {% set manufacturer = "`" ~ (device.tuya_manufacturer_name or "    unknown     ") ~ "`" %}
   {% set z2m_name = device.override_z2m_device or device.stock_converter_model %}
   {% set z2m_link = "(https://www.zigbee2mqtt.io/devices/" ~ (z2m_name | replace(" ", "_")) ~ ".html)" %}
   {% set human_name = "[" ~ device.human_name ~ "]" ~ z2m_link %}
   {% set info = device.info %}
-  {% set issue = device.github_issue and ("[link](" ~ device.github_issue ~ ")") or "-" %}
+  {% if device.threads %}
+    {% if device.threads is string %}
+      {% set threads_links = [device.threads] %}
+    {% else %}
+      {% set threads_links = device.threads %}
+    {% endif %}
+    {% set threads_list = [] %}
+    {% for url in threads_links %}
+      {% set num = url.split("/")[-1] | int %}
+      {% set num_str = "`#%03d`" | format(num) %}
+      {% set _ = threads_list.append("[" ~ num_str ~ "](" ~ url ~ ")") %}
+    {% endfor %}
+    {% set threads = threads_list | join(" ") %}
+  {% else %}
+    {% set threads = "-" %}
+  {% endif %}
   {% if device.status == "fully_supported" %}
     {% set color = "🟩" %}
   {% elif device.status == "mostly_supported" %}
@@ -57,5 +72,5 @@
   {% else %}
     {% set power = "❓" %}
   {% endif %}
-| {{color}} | {{build}} | {{power}} | {{manufacturer}}  | {{human_name}} |  {{issue}} | {{info}} | 
+| {{color}} | {{build}} | {{power}} | {{manufacturer}}  | {{human_name}} | {{threads}} | {{info}} | 
 {% endfor %}
