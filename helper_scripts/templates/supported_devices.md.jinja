@@ -1,14 +1,16 @@
 # Supported devices
 
 > [!NOTE]  
-> **Z2M device name** usually represents a collection of devices.  
-> Even if they work the same, rebranded versions have different internals and different pinouts (and therefore require custom builds).  
+> **Z2M page** usually represents a collection of devices.  
+> Even if they work the same, rebranded versions have different internals and pinouts  
+> (therefore requiring custom builds).  
 
-**Zigbee Manufacturer** is the most reliable unique device identifier.  
-**If the TZ3000 id of your device is not on this list, it requires porting.**  
-
-For devices that contain a **supported Tuya Zigbee module** (ZTU, ZT2S, ZT3L), porting is relatively simple.  
-It consists of tracing (or guessing) the **board pinout**, adding an entry in the `device_db.yaml` file and running the build action. 
+> [!IMPORTANT]  
+> **Zigbee Manufacturer** is the most reliable unique Tuya device identifier.  
+> **If the TZ3000 id of your device is not on this list, it requires porting!**  
+>
+> For devices that contain a **supported Tuya Zigbee module** (ZTU, ZT2S, ZT3L), porting is relatively simple.  
+> It consists of tracing (or guessing) the **board pinout**, adding an entry in the `device_db.yaml` file and running the build action.  
 
 **Also read:**  
 - [contribute/porting_to_new_device.md](/docs/contribute/porting_to_new_device.md)
@@ -24,13 +26,13 @@ It consists of tracing (or guessing) the **board pinout**, adding an entry in th
 
 ### Device list
 
-| 🚧 | 📦 | Zigbee Manufacturer | Vendor name | Z2M device name | Threads | Status |
-| -- | -- | :-----------------: | ----------- | --------------- | ------- | ------ |
+| 🚧 | 📦 | Zigbee Manufacturer | Name 🔗 Z2M page | Threads | Status |
+| -- | -- | :-----------------: | ----------- | ------- | ------ |
 {% for device in devices %}
   {% set manufacturer = "`" ~ device.tuya_manufacturer_name ~ "`" %}
-  {% set human_name = device.human_name %}
   {% set z2m_name = device.override_z2m_device or device.stock_converter_model %}
-  {% set z2m_device = "[" ~ z2m_name ~ "](https://www.zigbee2mqtt.io/devices/" ~ (z2m_name | replace(" ", "_")) ~ ".html)" %}
+  {% set z2m_link = "(https://www.zigbee2mqtt.io/devices/" ~ (z2m_name | replace(" ", "_")) ~ ".html)" %}
+  {% set human_name = "[" ~ device.human_name ~ "]" ~ z2m_link %}
   {% set info = device.info %}
   {% set issue = device.github_issue and ("[link](" ~ device.github_issue ~ ")") or "-" %}
   {% if device.status == "fully_supported" %}
@@ -47,5 +49,5 @@ It consists of tracing (or guessing) the **board pinout**, adding an entry in th
   {% else %}
     {% set build = "❌" %}
   {% endif %}
-| {{color}} | {{build}} | {{manufacturer}}  | {{human_name}} | {{z2m_device}} | {{issue}} | {{info}} | 
+| {{color}} | {{build}} | {{manufacturer}}  | {{human_name}} |  {{issue}} | {{info}} | 
 {% endfor %}
