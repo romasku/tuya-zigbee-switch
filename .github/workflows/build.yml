@@ -67,7 +67,7 @@ jobs:
 
     - name: Update supported_devices.md
       run: |
-        make update_supported_devices
+        make supported
 
     - name: Commit changes
       run: |

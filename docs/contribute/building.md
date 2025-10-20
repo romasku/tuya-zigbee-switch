@@ -79,7 +79,7 @@ They can easily be adapted for other distributions. (Please share your scripts)
 |`make_scripts/make_debug_single.sh` | (Re)builds for a single device, UART prints enabled: <br> firmware, index, converters, quirks, supported devices list |
 |`make update_converters`            | (Re)generates Z2M converters                    |
 |`make update_zha_quirk`             | (Re)generates ZHA quirks                        |
-|`make update_supported_devices`     | (Re)generates [devices/supported.md](/docs/devices/supported.md) |
+|`make supported`                    | (Re)generates [devices/supported.md](/docs/devices/supported.md) |
 |`make freeze_ota_links`             | Replaces branch with commit ID in index files. <br> Without it, old indexes will point to the latest fw |
 |`make clean_z2m_index`              | Deletes OTA indexes                             |
 |`make`                              | Builds fw and indexes for a single device       |

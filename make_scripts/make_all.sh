@@ -42,4 +42,4 @@ done
 
 make update_converters
 make update_zha_quirk
-make update_supported_devices
+make supported

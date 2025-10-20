@@ -32,4 +32,4 @@ ls -l bin/$TYPE/${DEVICE}_END_DEVICE/
 
 make update_converters
 make update_zha_quirk
-make update_supported_devices
+make supported
