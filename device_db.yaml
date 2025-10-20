@@ -20,7 +20,7 @@ AUBESS_TS0001:
   build: yes
   status: fully_supported
   info: Supported
-  github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/18
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/18
   store: null
 AUBESS_TS0002:
   human_name: Aubess TMZ02
@@ -42,7 +42,7 @@ AUBESS_TS0002:
   build: yes
   status: fully_supported
   info: Supported
-  github_issue: https://github.com/romasku/tuya-zigbee-switch/pull/153
+  threads: https://github.com/romasku/tuya-zigbee-switch/pull/153
   store: https://www.aliexpress.com/item/1005005748264739.html
 AUBESS_TS0003:
   human_name: Aubess 3-gang
@@ -64,7 +64,7 @@ AUBESS_TS0003:
   build: yes
   status: fully_supported
   info: Supported
-  github_issue: https://github.com/romasku/tuya-zigbee-switch/pull/151
+  threads: https://github.com/romasku/tuya-zigbee-switch/pull/151
   store:
   - https://www.amazon.co.uk/dp/B0DKC2CRFJ
   - https://www.aliexpress.com/item/1005005748264739.html
@@ -89,7 +89,7 @@ AUBESS_TS0004:
   build: yes
   status: fully_supported
   info: Supported
-  github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/66
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/66
   store: https://www.aliexpress.com/item/1005005748264739.html
 AVATTO_TOUCH_TS0003:
   human_name: AVATTO 3-gang touch switch
@@ -112,7 +112,7 @@ AVATTO_TOUCH_TS0003:
   build: yes
   status: mostly_supported
   info: Indicator LEDs can be controlled with C4?
-  github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/41
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/41
   store: https://www.aliexpress.com/item/1005007097427150.html
 AVATTO_TS0001:
   human_name: AVATTO ZWSM16-1
@@ -139,7 +139,7 @@ AVATTO_TS0001:
   build: yes
   status: fully_supported
   info: Supported
-  github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/9
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/9
   store: https://www.aliexpress.com/item/1005007247647375.html
 AVATTO_TS0002:
   human_name: AVATTO ZWSM16-2
@@ -166,7 +166,7 @@ AVATTO_TS0002:
   build: yes
   status: fully_supported
   info: Supported
-  github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/9
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/9
   store: https://www.aliexpress.com/item/1005007247647375.html
 AVATTO_TS0003:
   human_name: AVATTO ZWSM16-3
@@ -193,7 +193,7 @@ AVATTO_TS0003:
   build: yes
   status: fully_supported
   info: Supported
-  github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/56
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/56
   store: https://www.aliexpress.com/item/1005007247647375.html
 AVATTO_TS0004:
   human_name: AVATTO ZWSM16-4
@@ -221,7 +221,7 @@ AVATTO_TS0004:
   build: yes
   status: fully_supported
   info: Supported
-  github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/9
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/9
   store: https://www.aliexpress.com/item/1005007247647375.html
 AVATTO_TS0011:
   human_name: AVATTO LZWSM16-1
@@ -245,7 +245,7 @@ AVATTO_TS0011:
   build: yes
   status: fully_supported
   info: Supported
-  github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/9
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/9
   store: https://www.aliexpress.com/item/1005007247647375.html
 AVATTO_TS0012:
   human_name: AVATTO LZWSM16-2
@@ -269,7 +269,7 @@ AVATTO_TS0012:
   build: yes
   status: fully_supported
   info: Supported
-  github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/16
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/16
   store: https://www.aliexpress.com/item/1005007247647375.html
 AVATTO_TS0013:
   human_name: AVATTO LZWSM16-3
@@ -291,7 +291,7 @@ AVATTO_TS0013:
   build: yes
   status: fully_supported
   info: Supported
-  github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/135
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/135
   store: https://www.aliexpress.com/item/1005007247647375.html
 BSEED_SOCKET_PM_TS011F:
   human_name: BSEED PM socket
@@ -313,7 +313,7 @@ BSEED_SOCKET_PM_TS011F:
   build: yes
   status: in_progress
   info: PM not implemented
-  github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/145
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/145
   store:
   - https://www.aliexpress.com/item/1005004402438527.html
   - https://www.aliexpress.com/i/1005005835434423.html
@@ -338,7 +338,7 @@ BSEED_SOCKET_TS011F:
   build: yes
   status: fully_supported
   info: Supported
-  github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/145
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/145
   store:
   - https://www.aliexpress.com/item/1005004402438527.html
 BSEED_SWITCH_TS0726_2GANG:
@@ -361,7 +361,7 @@ BSEED_SWITCH_TS0726_2GANG:
   build: yes
   status: fully_supported
   info: Supported
-  github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/157
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/157
   store:
   - https://www.aliexpress.com/item/1005008749674564.html
   - https://www.bseed.com/products/bseed-smart-zigbee-light-switch-with-neutral-hub-required-switch-work-with-tuya-alexa?variant=46312889057435
@@ -387,7 +387,7 @@ BSEED_TOUCH_1_TS0012:
   build: yes
   status: mostly_supported
   info: Pin C3 disables both LEDs ?
-  github_issue: https://github.com/romasku/tuya-zigbee-switch/pull/23
+  threads: https://github.com/romasku/tuya-zigbee-switch/pull/23
   store: null
 BSEED_TOUCH_2_TS0012:
   human_name: BSEED 2-gang touch switch
@@ -411,7 +411,7 @@ BSEED_TOUCH_2_TS0012:
   build: yes
   status: fully_supported
   info: Supported
-  github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/51
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/51
   store: https://www.aliexpress.com/item/1005003324697513.html
 BSEED_TOUCH_TS0003:
   human_name: BSEED 3-gang touch switch
@@ -433,7 +433,7 @@ BSEED_TOUCH_TS0003:
   build: yes
   status: fully_supported
   info: Supported
-  github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/125
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/125
   store: https://www.aliexpress.com/item/1005003475686409.html
 GIRIER_TS0002:
   human_name: Girier 2-gang
@@ -457,7 +457,7 @@ GIRIER_TS0002:
   build: yes
   status: fully_supported
   info: Supported
-  github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/29
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/29
   store: https://www.aliexpress.com/item/1005006084763437.html
 GIRIER_TS0013:
   human_name: Girier ZB08
@@ -482,7 +482,7 @@ GIRIER_TS0013:
   build: yes
   status: fully_supported
   info: Supported
-  github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/37
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/37
   store: null
 IHSENO_TOUCH_TS0001:
   human_name: iHseno 1-gang touch switch
@@ -504,7 +504,7 @@ IHSENO_TOUCH_TS0001:
   build: yes
   status: mostly_supported
   info: Issues with touchpads?
-  github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/146
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/146
   store: https://www.aliexpress.com/item/1005007532195287.html
 IHSENO_TOUCH_TS0002:
   human_name: iHseno 2-gang touch switch
@@ -526,7 +526,7 @@ IHSENO_TOUCH_TS0002:
   build: yes
   status: mostly_supported
   info: Issues with touchpads?
-  github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/146
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/146
   store: https://www.aliexpress.com/item/1005007532195287.html
 IHSENO_TOUCH_TS0003:
   human_name: iHseno 3-gang touch switch
@@ -548,7 +548,7 @@ IHSENO_TOUCH_TS0003:
   build: no
   status: in_progress
   info: Need IDs + Issues with touchpads?
-  github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/146
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/146
   store: https://www.aliexpress.com/item/1005007532195287.html
 IHSENO_TS0001:
   human_name: iHseno 1-gang
@@ -570,7 +570,7 @@ IHSENO_TS0001:
   build: yes
   status: fully_supported
   info: Supported
-  github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/105
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/105
   store: https://www.aliexpress.com/item/1005008107698143.html
 IHSENO_TS0003:
   human_name: iHseno 3-gang
@@ -595,7 +595,7 @@ IHSENO_TS0003:
   build: yes
   status: fully_supported
   info: Supported
-  github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/85
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/85
   store: https://www.aliexpress.com/item/1005008107698143.html
 IHSENO_TS0004:
   human_name: iHseno 4-gang
@@ -618,7 +618,7 @@ IHSENO_TS0004:
   build: yes
   status: fully_supported
   info: Supported
-  github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/105
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/105
   store: https://www.aliexpress.com/item/1005008107698143.html
 MANHOT_SWITCH_TS0013:
   human_name: Manhot 3-gang switch
@@ -640,7 +640,7 @@ MANHOT_SWITCH_TS0013:
   build: no
   status: in_progress
   info: Bi-stable relays not implemented + can not toggle multiple relays at once
-  github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/128
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/128
   store:
   - https://www.aliexpress.com/item/1005008300010160.html
   - https://www.aliexpress.com/item/1005008867890261.html
@@ -664,7 +664,7 @@ MHCOZY_TS0004:
   build: yes
   status: mostly_supported
   info: Untesed? Unknown pins for reset button and blue LED? (C4, B4, B1)
-  github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/130
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/130
   store: https://www.aliexpress.com/item/1005005457296054.html
 MOES_SWITCHES_TS0011:
   human_name: Moes 1-gang switches (button or touch)
@@ -688,7 +688,7 @@ MOES_SWITCHES_TS0011:
   build: yes
   status: fully_supported
   info: Supported
-  github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/14
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/14
   store:
   - https://www.aliexpress.com/item/1005005178075186.html
   - https://moeshouse.com/collections/eu-star-ring
@@ -714,7 +714,7 @@ MOES_SWITCHES_TS0012:
   build: yes
   status: fully_supported
   info: Supported
-  github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/14
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/14
   store:
   - https://www.aliexpress.com/item/1005005178075186.html
   - https://moeshouse.com/collections/eu-star-ring
@@ -740,7 +740,7 @@ MOES_SWITCHES_TS0013:
   build: yes
   status: fully_supported
   info: Supported
-  github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/14
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/14
   store:
   - https://www.aliexpress.com/item/1005005178075186.html
   - https://moeshouse.com/collections/eu-star-ring
@@ -764,7 +764,7 @@ MOES_TS0002:
   build: yes
   status: mostly_supported
   info: Has buzzer instead of LED
-  github_issue: https://github.com/romasku/tuya-zigbee-switch/pull/147
+  threads: https://github.com/romasku/tuya-zigbee-switch/pull/147
   store: https://www.amazon.co.uk/dp/B0CKYP32CW?th=1
 MOES_TS0003:
   human_name: Moes MS-104CZ
@@ -787,7 +787,7 @@ MOES_TS0003:
   build: yes
   status: mostly_supported
   info: Has buzzer on C2
-  github_issue: https://github.com/romasku/tuya-zigbee-switch/pull/30
+  threads: https://github.com/romasku/tuya-zigbee-switch/pull/30
   store: https://www.aliexpress.com/item/1005004986958450.html
 OXT_TS0002:
   human_name: OXT 2-gang
@@ -810,7 +810,7 @@ OXT_TS0002:
   build: yes
   status: fully_supported
   info: Supported
-  github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/49
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/49
   store: null
 TUYA_1_TS0001:
   human_name: Tuya 1-gang
@@ -833,7 +833,7 @@ TUYA_1_TS0001:
   build: yes
   status: fully_supported
   info: Supported
-  github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/6
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/6
   store: null
 TUYA_2_TS0001:
   human_name: Tuya 1-gang
@@ -856,7 +856,7 @@ TUYA_2_TS0001:
   build: yes
   status: fully_supported
   info: Supported
-  github_issue: null
+  threads: null
   store: null
 TUYA_3_TS0001:
   human_name: Tuya 1-gang
@@ -881,7 +881,7 @@ TUYA_3_TS0001:
   build: yes
   status: fully_supported
   info: Supported
-  github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/24
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/24
   store: null
 TUYA_4_TS0001:
   human_name: Tuya 1-gang
@@ -904,7 +904,7 @@ TUYA_4_TS0001:
   build: yes
   status: fully_supported
   info: Supported
-  github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/44
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/44
   store: null
 TUYA_TS0002:
   human_name: Tuya 2-gang
@@ -927,7 +927,7 @@ TUYA_TS0002:
   build: yes
   status: fully_supported
   info: Supported
-  github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/6
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/6
   store: null
 TUYA_TS0004:
   human_name: Tuya 4-gang
@@ -950,7 +950,7 @@ TUYA_TS0004:
   build: yes
   status: mostly_supported
   info: Some issues with reporting and groups
-  github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/42
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/42
   store: null
 TUYA_TS0011:
   human_name: Tuya 1-gang L-only
@@ -973,7 +973,7 @@ TUYA_TS0011:
   build: yes
   status: fully_supported
   info: Supported
-  github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/4
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/4
   store: null
 TUYA_TS0012:
   human_name: Tuya 2-gang L-only
@@ -999,7 +999,7 @@ TUYA_TS0012:
   build: yes
   status: fully_supported
   info: Supported
-  github_issue: null
+  threads: null
   store: null
 ZEMISMART_SWITCH_TS0012:
   human_name: Zemismart 2-gang switch
@@ -1023,5 +1023,5 @@ ZEMISMART_SWITCH_TS0012:
   build: yes
   status: mostly_supported
   info: Untested
-  github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/19
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/19
   store: null
