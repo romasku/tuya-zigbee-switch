@@ -515,7 +515,7 @@ IHSENO_TOUCH_TS0001:
   stock_converter_model: FZB-1
   override_z2m_device: _TZ3000_qq9ahj6z
   zb_module: ZT3L
-  config_str: qq9ahj6z;TS0001-IHS-T;LC4i;SB4u;RC3;M;
+  config_str: qq9ahj6z;TS0001-IHS-T;LC4i;SB4U;RC3;M;
   alt_config_str: null
   old_manufacturer_names: null
   old_zb_models: null
@@ -538,7 +538,7 @@ IHSENO_TOUCH_TS0002:
   stock_converter_model: TS0002
   override_z2m_device: _TZ3000_zxrfobzw
   zb_module: ZT3L
-  config_str: zxrfobzw;TS0002-IHS-T;LC4i;SC0u;RC2;SB5u;RD2;M;
+  config_str: zxrfobzw;TS0002-IHS-T;LC4i;SC0U;RC2;SB5U;RD2;M;
   alt_config_str: null
   old_manufacturer_names: null
   old_zb_models: null
@@ -561,7 +561,7 @@ IHSENO_TOUCH_TS0003:
   stock_converter_model: TS0003
   override_z2m_device: null
   zb_module: ZT3L
-  config_str: null    ;TS0003-IHS-T;LC4i;SC0u;RC2;SB4u;RC3;SB5u;RD2;M;
+  config_str: null    ;TS0003-IHS-T;LC4i;SC0U;RC2;SB4U;RC3;SB5U;RD2;M;
   alt_config_str: null
   old_manufacturer_names: null
   old_zb_models: null
