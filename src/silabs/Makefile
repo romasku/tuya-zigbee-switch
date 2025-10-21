@@ -67,12 +67,18 @@ BOOTLOADER_BUILD_DIR := ../../build/silabs/bootloader
 BOOTLOADER_PROJECT_NAME := bootloader
 BOOTLOADER_PROJECT_FILE := bootloader.slcp
 
+# Files:
+OTA_FILE ?= $(ZIGBEE_BUILD_DIR)/build/release/$(ZIGBEE_PROJECT_NAME)_ota.bin
+
 # Generate project files
 gen:
 	rm -rf $(ZIGBEE_BUILD_DIR)
 	$(SLC_DIR)/slc configuration -gcc $(TOOLCHAIN_DIR)
 	$(SLC_DIR)/slc configuration --sdk $(GSDK_DIR)
 
+	@# Unset virtual environment variables to avoid conflicts 
+	env -u VIRTUAL_ENV -u PYTHONHOME -u PYTHONPATH \
+    PATH="$$(echo "$$PATH" | tr ':' '\n' | grep -v 'venv' | paste -sd: -)" \
 	$(SLC_DIR)/slc generate \
 		--project-file "$(PROJECT_FILE)" \
 		-np -nocp \
@@ -105,6 +111,7 @@ restart_dev:
 	$(COMMANDER_DIR)/commander-cli device --device EFR32MG21A020F768IM32 reset
 
 ota:
+	@mkdir -p $(dir $(OTA_FILE))
 	$(COMMANDER_DIR)/commander-cli gbl create \
 		"$(ZIGBEE_BUILD_DIR)/build/release/$(ZIGBEE_PROJECT_NAME).gbl" \
 		--app "$(ZIGBEE_BUILD_DIR)/build/release/$(ZIGBEE_PROJECT_NAME).s37" \
@@ -115,13 +122,16 @@ ota:
 		--manufacturer-id "${MANUFACTURER_ID}" \
 		--image-type "$(IMAGE_TYPE)" \
 		--string "Custom zigbee firmware" \
-		--outfile "$(ZIGBEE_BUILD_DIR)/build/release/$(ZIGBEE_PROJECT_NAME)_ota.bin"
+		--outfile "$(OTA_FILE)"
 	
 
 # Bootloader targets
 bootloader_gen:
 	rm -rf $(BOOTLOADER_BUILD_DIR)
 
+	@# Unset virtual environment variables to avoid conflicts 
+	env -u VIRTUAL_ENV -u PYTHONHOME -u PYTHONPATH \
+    PATH="$$(echo "$$PATH" | tr ':' '\n' | grep -v 'venv' | paste -sd: -)" \
 	$(SLC_DIR)/slc generate \
 		--project-file "$(BOOTLOADER_PROJECT_FILE)" \
 		-np -nocp \

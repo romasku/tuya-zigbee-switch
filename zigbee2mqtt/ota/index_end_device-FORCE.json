@@ -222,5 +222,19 @@
       "Zemi-2-gang",
       "zmlunnhy"
     ]
+  },
+  {
+    "fileName": "tlc_switch-21-forced.zigbee",
+    "fileVersion": 20,
+    "fileSize": 182882,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/main/bin/end_device/MOES_SWITCHES_TS0014_END_DEVICE/tlc_switch-21-forced.zigbee",
+    "imageType": 54179,
+    "manufacturerCode": 4169,
+    "sha512": "6b38982f806fab578d6004a7abd281a569fdf4fa3b02a973ca27464dc903e89facd7f18fff481538b3417c0113b63186648f744c4ac041cd15bbf709dc1c246f",
+    "otaHeaderString": "Custom zigbee firmware\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
+    "manufacturerName": [
+      "_TZ3000_mrduubod",
+      "mrduubod"
+    ]
   }
 ]
