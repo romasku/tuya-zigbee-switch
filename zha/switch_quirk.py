@@ -26,6 +26,12 @@ class SwitchActions(t.enum8):
     ToggleSmartOpposite = 0x04
 
 
+class SwitchType(t.enum8):
+    Toggle = 0x00
+    Momentary = 0x01
+    Momentary_NC = 0x02
+
+
 class CustomOnOffConfigurationCluster(CustomCluster, OnOffConfiguration):
 
     class AttributeDefs(OnOffConfiguration.AttributeDefs):
@@ -365,7 +371,7 @@ for config in CONFIGS:
                 endpoint_id=endpoint_id,
                 reporting_config=ReportingConfig(min_interval=0, max_interval=300, reportable_change=1),
                 device_class=SensorDeviceClass.ENUM,
-                attribute_converter = lambda x: {0: "released", 1: "press", 2: "long_press"}[int(x)]
+                attribute_converter = lambda x: {0: "released", 1: "press", 2: "long_press", 3: "position_on", 4: "position_off"}[int(x)]
             )
         )
     for endpoint_id in range(switch_cnt + 1, switch_cnt + indicators_cnt + 1):

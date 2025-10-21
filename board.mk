@@ -42,7 +42,12 @@ board: build-firmware generate-ota-files update-indexes
 
 # Build the firmware for the specified board
 build-firmware:
-	$(MAKE) $(PLATFORM_PREFIX)/clean
+ifeq ($(PLATFORM_PREFIX),silabs)
+	$(MAKE) silabs/gen
+endif
+ifeq ($(PLATFORM_PREFIX),telink)
+	$(MAKE) telink/clean
+endif
 	$(MAKE) $(PLATFORM_PREFIX)/build \
 		VERSION=$(VERSION) \
 		DEVICE_TYPE=$(DEVICE_TYPE) \
@@ -109,6 +114,10 @@ update_supported_devices:
 
 freeze_ota_links:
 	sed -i "s|refs\/heads\/$(shell git branch --show-current)|$(shell git rev-parse HEAD)|g" zigbee2mqtt/ota/*.json 
+
+
+unused_image_type:
+	@yq '[.[] | .firmware_image_type] | max + 1' device_db.yaml
 
 .PHONY: board build-firmware generate-ota-files generate-normal-ota generate-tuya-ota generate-force-ota update-indexes clean_z2m_index update_converters update_zha_quirk update_supported_devices freeze_ota_links
 

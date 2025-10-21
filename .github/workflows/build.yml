@@ -45,13 +45,13 @@ jobs:
           fi
   
           echo "Building for board: $ITER (router)"
-          BOARD=$ITER DEVICE_TYPE=router make clean && BOARD=$ITER DEVICE_TYPE=router make -j16 || exit 1
+          BOARD=$ITER DEVICE_TYPE=router make -f board.mk board || exit 1
           echo "Checking if files were created for board: $ITER (router)"
           ls -l bin/router/$ITER/
 
           if [ "$TYPE" = "end_device" ]; then
             echo "Building for board: $ITER (end_device)"
-            BOARD=${ITER} DEVICE_TYPE=end_device make clean && BOARD=${ITER} DEVICE_TYPE=end_device make -j16 || exit 1
+            BOARD=${ITER} DEVICE_TYPE=end_device make -f board.mk board || exit 1
             echo "Checking if files were created for board: $ITER (end_device)"
             ls -l bin/end_device/${ITER}_END_DEVICE/
           fi
