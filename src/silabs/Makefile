@@ -8,7 +8,7 @@ GCC_BIN            ?= arm-none-eabi-gcc
 # Version and board configuration
 VERSION ?= 20
 DEVICE_TYPE ?= router
-CONFIG_STR ?= jl7qyupf;TS0012-custom;BA0f;LD7;SC2f;RC0;SC3f;RB4;
+CONFIG_STR ?= jl7qyupf;TS0012-custom;SA0u;SA3u;SB0u;SB1u;RD0;RC2;RA5;RA6;
 MANUFACTURER_ID = 4169  # 0x1049, can be overridden via .zap file only
 IMAGE_TYPE ?= 54179
 
@@ -62,7 +62,12 @@ tools/%:
 # Build directories
 ZIGBEE_BUILD_DIR := ../../build/silabs/zigbee
 ZIGBEE_PROJECT_NAME := zigbee
-PROJECT_FILE := zigbee.slcp
+ifeq ($(DEVICE_TYPE), router)
+	PROJECT_FILE = zigbee.slcp
+endif
+ifeq ($(DEVICE_TYPE), end_device)
+	PROJECT_FILE = zigbee_end_device.slcp
+endif
 BOOTLOADER_BUILD_DIR := ../../build/silabs/bootloader
 BOOTLOADER_PROJECT_NAME := bootloader
 BOOTLOADER_PROJECT_FILE := bootloader.slcp

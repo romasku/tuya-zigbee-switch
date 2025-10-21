@@ -77,7 +77,7 @@ component:
 - {id: zigbee_ota_client}
 - {id: zigbee_ota_client_policy}
 - {id: zigbee_ota_storage_simple}
-- {id: zigbee_pro_stack}
+- {id: zigbee_pro_leaf_stack}
 - {id: zigbee_reporting}
 - {id: zigbee_scan_dispatch}
 - {id: zigbee_source_route}
@@ -100,7 +100,7 @@ configuration:
   name: SL_IOSTREAM_EUSART_VCOM_FLOW_CONTROL_TYPE
   value: eusartHwFlowControlCtsAndRts
 - {name: SL_CLI_MAX_INPUT_ARGUMENTS, value: '16'}
-- {name: SLI_ZIGBEE_PRIMARY_NETWORK_DEVICE_TYPE, value: SLI_ZIGBEE_NETWORK_DEVICE_TYPE_ROUTER}
+- {name: SLI_ZIGBEE_PRIMARY_NETWORK_DEVICE_TYPE, value: SLI_ZIGBEE_NETWORK_DEVICE_TYPE_END_DEVICE}
 - {name: SLI_ZIGBEE_PRIMARY_NETWORK_SECURITY_TYPE, value: SLI_ZIGBEE_NETWORK_SECURITY_TYPE_3_0}
 - condition: [device_series_1]
   name: NVM3_DEFAULT_NVM_SIZE
