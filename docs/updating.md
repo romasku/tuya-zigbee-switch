@@ -1,6 +1,7 @@
 # Updating
 
-This page describes updating supported devices OTA (both converting from original firmware and version bumps).
+This page describes updating supported devices OTA (both converting from original firmware and version bumps).  
+Open the **Outline** (table of contents) from the top right.  
 
 > [!CAUTION]  
 > OTA flashing and updates from the main branch are generally safe.  
@@ -23,46 +24,55 @@ Additionally, to use the new features, you must also **download and regularly up
 > Consider yourself invited to our [Discord](/readme.md#discord) community! 
 
 ## First-time update steps
-1. Read [known_issues.md](./known_issues.md)
-2. Download the custom [# Quirks / Converters](#quirks--converters)
-3. Apply the preferred [# OTA index](#ota-index) (not FORCE)
-4. Restart ZHA / Z2M
-5. If possible, bring the device closer to the coordinator (or add routers to boost signal)
-6. Optionally, tweak Z2M settings for [# Faster OTA updates](#faster-ota-updates)
-7. Perform the OTA update (can get stuck at 100%, it's ok)
-8. Permit join when the LED flashes
-9. Interview the device - option missing from ZHA, remove and re-pair if needed  
-10. Reconfigure the device  
-11. Be aware of [## Version update steps](#version-update-steps)
 
-When the update is finished, the device will go into pairing mode (indicated by blinking LED).  
+**Original fw ➡ custom fw:**
 
-**Joining the network, it might show up as a new device.**  
-In this case you will have 2 entries: old and new.  
-Force-remove the old, unresponsive entry.  
+1. Find your device on [devices/supported.md](./devices/supported.md) (Zigbee Manufacturer)
+2. Read [known_issues.md](./known_issues.md)
+3. Download the custom [# Quirks / Converters](#quirks--converters)
+4. Apply the preferred [# OTA index](#ota-index) (not FORCE)
+5. Restart ZHA / Z2M
+6. If possible, bring the device closer to the coordinator (or add routers to boost signal)
+7. Optionally, tweak Z2M settings for [# Faster OTA updates](#faster-ota-updates)
+8. Perform the OTA update (can get stuck at 100%, it's ok)
+9. **Permit join** when the LED flashes
+10. **Interview** the device **`i`**  
+⤷ option missing from ZHA, remove and re-pair if needed  
+11. **Reconfigure** the device **`🗘`** 
+12. Be aware of [## Version update steps](#version-update-steps)
+13. Read [faq.md](./faq.md) before reaching out for support
 
-**If the device still uses the old entry**: Interview and Reconfigure it.  
-– Use these whenever you're in doubt. The 2 options, along with better signal will resolve lots of issues (errors, missing clusters). They don't remove user settings or binds.  
+**If your device joins as the old entry**:  
+⤷ Interview and Reconfigure it!  
 
-Hopefully, you now have a working device with custom firmware! 😊  
+**If your device joins as a new entry**:  
+⤷ Force-remove the old & unresponsive entry.  
+
+> Hopefully, you now have a working device with custom firmware! 😊  
 
 ## Version update steps
-1. Read [changelog_fw.md](./changelog_fw.md) and [known_issues.md](./known_issues.md)
-2. Reset the device if mentioned at step 1  
-(resetting erases the configuration from flash memory so it can prevent issues)
-3. If possible, bring the device closer to the coordinator (or add routers to boost signal)
-4. Optionally, tweak Z2M settings for [# Faster OTA updates](#faster-ota-updates)
-5. Perform the OTA update
-6. Redownload the custom [# Quirks / Converters](#quirks--converters) and restart ZHA / Z2M
-7. Interview the device - option missing from ZHA, remove and re-pair instead  
+
+**Custom fw ➡ custom fw:**
+
+1. Check if you have the correct index
+2. Read [changelog_fw.md](./changelog_fw.md) and [known_issues.md](./known_issues.md)
+3. Write down your configurations and binds!  
+(Some updates erase the user settings - mentioned in step 2)
+4. If possible, bring the device closer to the coordinator (or add routers to boost signal)
+5. Optionally, tweak Z2M settings for [# Faster OTA updates](#faster-ota-updates)
+6. Perform the OTA update
+7. Redownload the custom [# Quirks / Converters](#quirks--converters) and restart ZHA / Z2M
+8. **Interview** the device **`i`**  
+⤷ option missing from ZHA, remove and re-pair instead  
 (updates endpoints, clusters and identifiers)
-8. Reconfigure the device  
+9. **Reconfigure** the device **`🗘`**  
 (resets reporting and stuff?, keeps user binds and settings)
+10. Re-do user settings if needed
 
 > [!NOTE]  
 > If your device is several versions behind, it will update directly to the latest version.
 
-## OTA index
+# OTA index
 
 The index is a list of links to firmware images.  
 We use a link to the latest custom index so it's always up to date.  
@@ -200,11 +210,13 @@ https://raw.githubusercontent.com/romasku/tuya-zigbee-switch/refs/heads/main/zig
 **Zigbee is very low bandwidth**.  
 By default, updates perform slowly to put less strain on the network and ensure stability.  
 This may take hours, so if your device has good signal and the network is not being actively used, you can lower the duration to a few minutes.  
+
 **Go to Z2M ➡ Settings ➡ OTA updates and tweak the values.**  
+50B + 50ms takes less than 3 minutes on an empty network.
 
 Read the [official Z2M docs][z2m_ota_speed] for more information.
 
-## Quirks / Converters
+# Quirks / Converters
 
 Quirks and converters work like a database.  
 They are responsible for recognizing devices and exposing all the supported features + showing correct name and picture.  
@@ -260,7 +272,7 @@ Updating the quirks / converters can:
 **Quirks / converters can independently be updated**, so you are advised to **regularly redownload them** even if there are no FW updates.  
 
 Normally, quirks and converters are backwards-compatible.  
-Meaning that if you have devices on different versions, you can safely use the latest files.
+Meaning that – if you have devices on different versions, you can safely use the latest files.
 
 > [!TIP]  
 > Follow the **#announcements** channel to stay up-to-date: [readme.md # Discord](/readme.md#discord)
