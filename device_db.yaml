@@ -6,7 +6,7 @@
 # Rules:
 # - Follow the format
 # - Fill empty values with null
-# - Keep KEYs in alphabetical order
+# - Keep KEYs in almost alphabetical order
 # - Keep attributes in the same order
 
 AUBESS_TS0001:
@@ -555,8 +555,8 @@ IHSENO_TOUCH_TS0001:
   tuya_image_type: 54179
   firmware_image_type: 43557
   build: yes
-  status: mostly_supported
-  info: Issues with touchpads?
+  status: fully_supported
+  info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/146
   store: https://www.aliexpress.com/item/1005007532195287.html
 IHSENO_TOUCH_TS0002:
@@ -579,8 +579,8 @@ IHSENO_TOUCH_TS0002:
   tuya_image_type: 54179
   firmware_image_type: 43558
   build: yes
-  status: mostly_supported
-  info: Issues with touchpads?
+  status: fully_supported
+  info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/146
   store: https://www.aliexpress.com/item/1005007532195287.html
 IHSENO_TOUCH_TS0003:
@@ -604,7 +604,7 @@ IHSENO_TOUCH_TS0003:
   firmware_image_type: 43559
   build: no
   status: in_progress
-  info: Need IDs + Issues with touchpads?
+  info: Needs IDs
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/146
   store: https://www.aliexpress.com/item/1005007532195287.html
 IHSENO_TS0001:
