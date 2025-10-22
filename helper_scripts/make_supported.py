@@ -13,7 +13,7 @@ env = Environment(
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
-        description="Update supported_devices.md to with all entries from device_db.yaml",
+        description="Update supported.md to with all entries from device_db.yaml",
     )
     parser.add_argument(
         "db_file", metavar="INPUT", type=str, help="File with device db"
@@ -26,7 +26,7 @@ if __name__ == "__main__":
 
     devices = list(db.values())
 
-    template = env.get_template("supported_devices.md.jinja")
+    template = env.get_template("supported.md.jinja")
     print(template.render(devices=devices))
     
     exit(0)

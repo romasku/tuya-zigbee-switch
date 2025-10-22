@@ -124,6 +124,17 @@ class OnOffWithIndicatorCluster(CustomCluster, OnOff):
             is_manufacturer_specific=True,
         )
 
+'''``````````````````````````````````````````````````````````````````
+  This file (`switch_quirk.py`) is generated. 
+  
+  You can edit it for testing, but for PRs please use:
+  - `device_db.yaml`                - add or edit devices
+  - `switch_quirk.md.jinja`         - update the template
+  - `make_zha_quirk.py`             - update generation script
+
+  Generate with: `make quirks`
+``````````````````````````````````````````````````````````````````'''
+
 CONFIGS = [
     {% for config in configs %}
     "{{ config }}",

@@ -52,7 +52,7 @@ if __name__ == "__main__":
                 configs.append(";".join(new_fields))
 
 
-    template = env.get_template("zha_quirk.py.jinja")
+    template = env.get_template("switch_quirk.py.jinja")
 
     print(template.render(configs=configs))
 

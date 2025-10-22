@@ -65,7 +65,7 @@ jobs:
       run: |
         make quirks
 
-    - name: Update supported_devices.md
+    - name: Update supported.md
       run: |
         make supported
 
