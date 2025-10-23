@@ -375,7 +375,7 @@ BSEED_TOUCH_1_TS0011:
   stock_converter_model: TS0011
   override_z2m_device: null
   zb_module: ZTU
-  config_str: hafsqare;Bseed-2-gang-2;LC2;SB5u;RC0B6;ID3;M;
+  config_str: hafsqare;Bseed-1-gang;LC2;SA0u;RD3;IB4;M;;
   alt_config_str: null
   old_manufacturer_names:
   - Bseed-1-gang
