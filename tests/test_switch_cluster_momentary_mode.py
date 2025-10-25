@@ -27,6 +27,7 @@ from tests.zcl_consts import (
     ZCL_ONOFF_CONFIGURATION_SWITCH_ACTION_TOGGLE_SIMPLE,
     ZCL_ONOFF_CONFIGURATION_SWITCH_ACTION_TOGGLE_SMART_SYNC,
     ZCL_ONOFF_CONFIGURATION_SWITCH_TYPE_MOMENTARY,
+    ZCL_ONOFF_CONFIGURATION_SWITCH_TYPE_MOMENTARY_NC,
 )
 
 
@@ -501,3 +502,78 @@ def test_momentary_mode_relay_index_invalid_values(
     momentary_device.click_button(relay_button_pair.button_pin)
 
     momentary_device.step_time(100)
+
+
+# Test multistate state
+
+
+def test_momentary_mode_multistate_value(
+    momentary_device: Device, relay_button_pair: RelayButtonPair
+):
+    assert (
+        momentary_device.zcl_switch_get_multistate_value(
+            relay_button_pair.switch_endpoint
+        )
+        == "0"
+    )
+
+    momentary_device.press_button(relay_button_pair.button_pin)
+
+    assert (
+        momentary_device.zcl_switch_get_multistate_value(
+            relay_button_pair.switch_endpoint
+        )
+        == "1"
+    )
+    momentary_device.step_time(2_000)  # Long press
+    assert (
+        momentary_device.zcl_switch_get_multistate_value(
+            relay_button_pair.switch_endpoint
+        )
+        == "2"
+    )
+
+    momentary_device.release_button(relay_button_pair.button_pin)
+
+    assert (
+        momentary_device.zcl_switch_get_multistate_value(
+            relay_button_pair.switch_endpoint
+        )
+        == "0"
+    )
+
+
+def test_momentary_mode_multistate_value_normaly_closed(
+    momentary_device: Device, relay_button_pair: RelayButtonPair
+):
+    momentary_device.zcl_switch_mode_set(
+        relay_button_pair.switch_endpoint,
+        ZCL_ONOFF_CONFIGURATION_SWITCH_TYPE_MOMENTARY_NC,
+    )
+
+    momentary_device.press_button(relay_button_pair.button_pin)
+    momentary_device.release_button(relay_button_pair.button_pin)
+
+    assert (
+        momentary_device.zcl_switch_get_multistate_value(
+            relay_button_pair.switch_endpoint
+        )
+        == "1"
+    )
+
+    momentary_device.step_time(2_000)  # Long press
+    assert (
+        momentary_device.zcl_switch_get_multistate_value(
+            relay_button_pair.switch_endpoint
+        )
+        == "2"
+    )
+
+    momentary_device.press_button(relay_button_pair.button_pin)
+
+    assert (
+        momentary_device.zcl_switch_get_multistate_value(
+            relay_button_pair.switch_endpoint
+        )
+        == "0"
+    )

@@ -8,11 +8,13 @@ import pytest
 from client import Event, StubProc
 
 from tests.zcl_consts import (
+    ZCL_ATTR_MULTISTATE_INPUT_PRESENT_VALUE,
     ZCL_ATTR_ONOFF,
     ZCL_ATTR_ONOFF_CONFIGURATION_SWITCH_ACTIONS,
     ZCL_ATTR_ONOFF_CONFIGURATION_SWITCH_BINDING_MODE,
     ZCL_ATTR_ONOFF_CONFIGURATION_SWITCH_MODE,
     ZCL_ATTR_ONOFF_CONFIGURATION_SWITCH_RELAY_MODE,
+    ZCL_CLUSTER_MULTISTATE_INPUT_BASIC,
     ZCL_CLUSTER_ON_OFF,
     ZCL_CLUSTER_ON_OFF_SWITCH_CONFIG,
     ZCL_CMD_ONOFF_OFF,
@@ -345,6 +347,13 @@ class Device:
             ZCL_CLUSTER_ON_OFF_SWITCH_CONFIG,
             ZCL_ATTR_ONOFF_CONFIGURATION_SWITCH_BINDING_MODE,
             binding_mode,
+        )
+
+    def zcl_switch_get_multistate_value(self, endpoint: int) -> str:
+        return self.read_zigbee_attr(
+            endpoint,
+            ZCL_CLUSTER_MULTISTATE_INPUT_BASIC,
+            ZCL_ATTR_MULTISTATE_INPUT_PRESENT_VALUE,
         )
 
 

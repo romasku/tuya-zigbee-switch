@@ -174,7 +174,7 @@ void switch_cluster_relay_action_off(zigbee_switch_cluster *cluster) {
   }
 }
 
-// Send OnOff command to bindinded device based on ON position (position 1 in
+// Send OnOff command to binded device based on ON position (position 1 in
 // ZCL docs)
 void switch_cluster_binding_action_on(zigbee_switch_cluster *cluster) {
   zigbee_relay_cluster *relay_cluster =
@@ -215,7 +215,7 @@ void switch_cluster_binding_action_on(zigbee_switch_cluster *cluster) {
   hal_zigbee_send_cmd_to_bindings(&c);
 }
 
-// Send OnOff command to bindinded device based on OFF position (position 2 in
+// Send OnOff command to binded device based on OFF position (position 2 in
 // ZCL docs)
 void switch_cluster_binding_action_off(zigbee_switch_cluster *cluster) {
   zigbee_relay_cluster *relay_cluster =
@@ -374,6 +374,13 @@ void switch_cluster_on_write_attr(zigbee_switch_cluster *cluster,
   if (attribute_id == ZCL_ATTR_ONOFF_CONFIGURATION_SWITCH_RELAY_INDEX) {
     if (cluster->relay_index < 1 || cluster->relay_index > relay_clusters_cnt) {
       cluster->relay_index = 1;
+    }
+  }
+  if (attribute_id == ZCL_ATTR_ONOFF_CONFIGURATION_SWITCH_MODE) {
+    if (cluster->mode == ZCL_ONOFF_CONFIGURATION_SWITCH_TYPE_MOMENTARY_NC) {
+      cluster->button->pressed_when_high = 1;
+    } else {
+      cluster->button->pressed_when_high = 0;
     }
   }
   switch_cluster_store_attrs_to_nv(cluster);
