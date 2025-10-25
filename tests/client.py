@@ -7,7 +7,7 @@ from dataclasses import dataclass
 from typing import Callable
 
 _RES_RE = re.compile(r"^RES\s+(OK|ERR)\s*(.*)?$")
-_EVT_RE = re.compile(r"^EVT\s+(\w+)\s+(.*)$")
+_EVT_RE = re.compile(r"^EVT\s+(\w+)\s*(.*)$")
 
 
 @dataclass

@@ -163,6 +163,13 @@ void hal_zigbee_start_network_steering(void) {
   }
 }
 
+hal_zigbee_status_t hal_zigbee_send_announce(void) {
+  if (zb_zdoSendDevAnnance() != RET_OK) {
+    return HAL_ZIGBEE_ERR_SEND_FAILED;
+  }
+  return HAL_ZIGBEE_OK;
+}
+
 // Internal interface functions
 
 void telink_zigbee_hal_network_init(void) {

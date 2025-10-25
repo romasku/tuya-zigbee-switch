@@ -80,3 +80,12 @@ def test_leaves_on_onboard_button_long_press() -> None:
         device.long_click_button("A0", 3000)
 
         assert device.status()["joined"] == str(HAL_ZIGBEE_NETWORK_JOINING)
+
+
+def test_announces_after_join() -> None:
+    with StubProc(device_config="A;B;LB0;", joined=False) as proc:
+        device = Device(proc)
+
+        device.set_network(HAL_ZIGBEE_NETWORK_JOINED)
+
+        device.wait_for_announce()

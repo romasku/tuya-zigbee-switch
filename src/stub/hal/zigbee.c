@@ -195,6 +195,12 @@ hal_zigbee_send_report_attr(uint8_t endpoint, uint16_t cluster_id,
   return HAL_ZIGBEE_OK;
 }
 
+hal_zigbee_status_t hal_zigbee_send_announce(void) {
+  io_log("ZIGBEE", "Sending Zigbee announce");
+  io_evt("zdo_announce");
+  return HAL_ZIGBEE_OK;
+}
+
 void stub_zigbee_set_network_status(hal_zigbee_network_status_t status) {
   network_status = status;
   io_log("ZIGBEE", "Network status set to %d", network_status);

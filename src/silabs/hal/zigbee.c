@@ -264,4 +264,11 @@ hal_zigbee_send_report_attr(uint8_t endpoint, uint16_t cluster_id,
   return (st == EMBER_SUCCESS) ? HAL_ZIGBEE_OK : HAL_ZIGBEE_ERR_SEND_FAILED;
 }
 
+hal_zigbee_status_t hal_zigbee_send_announce(void) {
+  if (emberSendDeviceAnnouncement() != EMBER_SUCCESS) {
+    return HAL_ZIGBEE_ERR_SEND_FAILED;
+  }
+  return HAL_ZIGBEE_OK;
+}
+
 void hal_zigbee_init_ota() {}

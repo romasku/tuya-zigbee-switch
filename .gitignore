@@ -7,3 +7,8 @@ toolchain
 
 telink_tools
 silabs_tools
+
+__pycache__
+*.pyc
+*.pyo
+*.pyd

@@ -162,6 +162,10 @@ hal_zigbee_status_t
 hal_zigbee_send_report_attr(uint8_t endpoint, uint16_t cluster_id,
                             uint16_t attr_id, uint8_t zcl_type_id,
                             const void *value, uint8_t value_len);
+/** Send Zigbee "announce" command to notify other devices of our presence
+ * @return HAL_ZIGBEE_OK on success, error code otherwise
+ */
+hal_zigbee_status_t hal_zigbee_send_announce(void);
 
 /** Find cluster definition by endpoint and cluster ID */
 static inline hal_zigbee_cluster *

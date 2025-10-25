@@ -276,6 +276,19 @@ class Device:
 
         return wait_not_none(_find_event, timeout=timeout, interval=interval)
 
+    def wait_for_announce(
+        self,
+        timeout: float = 2.0,
+        interval: float = 0.05,
+    ) -> None:
+        def _announce_sent() -> bool:
+            for e in self._events:
+                if e.kind == "zdo_announce":
+                    return True
+            return False
+
+        wait_for(_announce_sent, timeout=timeout, interval=interval)
+
     def zcl_list_cmds(
         self, endpoint: int | None = None, cluster: int | None = None
     ) -> list[ZCLCommandEvent]:
