@@ -551,6 +551,7 @@ def test_momentary_mode_multistate_value_normaly_closed(
         ZCL_ONOFF_CONFIGURATION_SWITCH_TYPE_MOMENTARY_NC,
     )
 
+    # Do one cycle to allow button to get to correct state
     momentary_device.press_button(relay_button_pair.button_pin)
     momentary_device.release_button(relay_button_pair.button_pin)
 

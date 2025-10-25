@@ -18,6 +18,8 @@ const uint16_t multistate_num_of_states = 3;
 #define MULTISTATE_NOT_PRESSED 0
 #define MULTISTATE_PRESS 1
 #define MULTISTATE_LONG_PRESS 2
+#define MULTISTATE_POSITION_ON 3
+#define MULTISTATE_POSITION_OFF 4
 
 extern zigbee_relay_cluster relay_clusters[];
 extern uint8_t relay_clusters_cnt;
@@ -290,6 +292,10 @@ void switch_cluster_on_button_press(zigbee_switch_cluster *cluster) {
       switch_cluster_relay_action_on(cluster);
     }
     switch_cluster_binding_action_on(cluster);
+    cluster->multistate_state = MULTISTATE_POSITION_ON;
+    hal_zigbee_notify_attribute_changed(
+        cluster->endpoint, ZCL_CLUSTER_MULTISTATE_INPUT_BASIC,
+        ZCL_ATTR_MULTISTATE_INPUT_PRESENT_VALUE);
     return;
   }
 
@@ -315,6 +321,10 @@ void switch_cluster_on_button_release(zigbee_switch_cluster *cluster) {
       switch_cluster_relay_action_off(cluster);
     }
     switch_cluster_binding_action_off(cluster);
+    cluster->multistate_state = MULTISTATE_POSITION_OFF;
+    hal_zigbee_notify_attribute_changed(
+        cluster->endpoint, ZCL_CLUSTER_MULTISTATE_INPUT_BASIC,
+        ZCL_ATTR_MULTISTATE_INPUT_PRESENT_VALUE);
     return;
   }
 
@@ -368,6 +378,27 @@ void switch_cluster_on_button_multi_press(zigbee_switch_cluster *cluster,
   }
 }
 
+void synchronize_multistate_state(zigbee_switch_cluster *cluster) {
+  if (cluster->mode == ZCL_ONOFF_CONFIGURATION_SWITCH_TYPE_TOGGLE) {
+    if (cluster->button->pressed) {
+      cluster->multistate_state = MULTISTATE_POSITION_ON;
+    } else {
+      cluster->multistate_state = MULTISTATE_POSITION_OFF;
+    }
+  } else {
+    if (cluster->button->long_pressed) {
+      cluster->multistate_state = MULTISTATE_LONG_PRESS;
+    } else if (cluster->button->pressed) {
+      cluster->multistate_state = MULTISTATE_PRESS;
+    } else {
+      cluster->multistate_state = MULTISTATE_NOT_PRESSED;
+    }
+  }
+  hal_zigbee_notify_attribute_changed(cluster->endpoint,
+                                      ZCL_CLUSTER_MULTISTATE_INPUT_BASIC,
+                                      ZCL_ATTR_MULTISTATE_INPUT_PRESENT_VALUE);
+}
+
 void switch_cluster_on_write_attr(zigbee_switch_cluster *cluster,
                                   uint16_t attribute_id) {
   printf("Index at write attr: %d\r\n", cluster->switch_idx);
@@ -377,6 +408,7 @@ void switch_cluster_on_write_attr(zigbee_switch_cluster *cluster,
     }
   }
   if (attribute_id == ZCL_ATTR_ONOFF_CONFIGURATION_SWITCH_MODE) {
+    synchronize_multistate_state(cluster);
     if (cluster->mode == ZCL_ONOFF_CONFIGURATION_SWITCH_TYPE_MOMENTARY_NC) {
       cluster->button->pressed_when_high = 1;
     } else {

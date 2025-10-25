@@ -283,3 +283,29 @@ def test_relay_not_controlled_if_detached(
     toggle_device.release_button(relay_button_pair.button_pin)
     assert toggle_device.zcl_relay_get(relay_button_pair.relay_endpoint) == "1"
     assert toggle_device.get_gpio(relay_button_pair.relay_pin) == 1
+
+
+# Test multistate state
+
+
+def test_toggle_mode_multistate_value(
+    toggle_device: Device, relay_button_pair: RelayButtonPair
+):
+    assert (
+        toggle_device.zcl_switch_get_multistate_value(relay_button_pair.switch_endpoint)
+        == "4"
+    )
+
+    toggle_device.press_button(relay_button_pair.button_pin)
+
+    assert (
+        toggle_device.zcl_switch_get_multistate_value(relay_button_pair.switch_endpoint)
+        == "3"
+    )
+
+    toggle_device.release_button(relay_button_pair.button_pin)
+
+    assert (
+        toggle_device.zcl_switch_get_multistate_value(relay_button_pair.switch_endpoint)
+        == "4"
+    )
