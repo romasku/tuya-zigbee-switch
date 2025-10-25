@@ -2,15 +2,18 @@
 
 # Default target
 help:
-	@echo "Silicon Labs Zigbee Smart Home Device Project"
+	@echo "Tuya Zigbee Switch"
 	@echo "============================================="
-	@echo ""
-	@echo "This project supports both hardware (EFR32MG21) and simulation development."
 	@echo ""
 	@echo "Quick Start:"
 	@echo "  make stub/build    - Build stub device for testing/simulation"
 	@echo "  make stub/run      - Run stub device interactively"
-	@echo "  make test          - Run automated tests (builds stub first)"
+	@echo "  make tests          - Run automated tests (builds stub first)"
+	@echo ""
+	@echo "Telink Development:"
+	@echo "  make telink/tools/all - Download and install Telink tools"
+	@echo "  make telink/build     - Build firmware for Telink TC32"
+	@echo "  make telink/help      - Show Telink build system help"
 	@echo ""
 	@echo "Silabs Development:"
 	@echo "  make silabs/tools/all - Download and install Silicon Labs tools"
@@ -19,27 +22,27 @@ help:
 	@echo "  make silabs/build     - Build firmware for EFR32MG21"
 	@echo "  make silabs/install   - Flash firmware to device"
 	@echo ""
-	@echo "Telink Development:"
-	@echo "  make telink/tools/all - Download and install Telink tools"
-	@echo "  make telink/build     - Build firmware for Telink TC32"
-	@echo ""
 	@echo "Stub/Simulation Development:"
 	@echo "  make stub/help     - Show detailed stub commands"
 	@echo "  make stub/build    - Build host-native simulation binary"
 	@echo "  make stub/run      - Run stub device with REPL interface"
-	@echo "  make stub/test     - Run basic stub functionality test"
 	@echo "  make stub/clean    - Clean stub build and NVM data"
 	@echo ""
 	@echo "Testing:"
-	@echo "  make test          - Run full pytest suite against stub device"
-	@echo ""
-	@echo "Device Management:"
-	@echo "  make silabs/erase_dev   - Mass erase device flash"
-	@echo "  make silabs/restart_dev - Reset device"
+	@echo "  make tests          - Run full pytest suite against stub device"
 	@echo ""
 	@echo "Bootloader:"
 	@echo "  make silabs/bootloader_build   - Build bootloader"
 	@echo "  make silabs/bootloader_install - Flash bootloader"
+	@echo ""
+	@echo "Tools:"
+	@echo "  make tools/help                    - Show all available tools commands"
+	@echo "  make tools/clean_z2m_index         - Clear all Zigbee2MQTT OTA index files"
+	@echo "  make tools/update_converters       - Generate Z2M converter files"
+	@echo "  make tools/update_zha_quirk        - Generate ZHA quirks file"
+	@echo "  make tools/update_supported_devices - Generate supported devices documentation"
+	@echo "  make tools/freeze_ota_links        - Replace branch refs with commit hashes"
+	@echo "  make tools/unused_image_type       - Show next available firmware image type ID"
 	@echo ""
 	@echo "For detailed help on specific targets:"
 	@echo "  make silabs/help       - Show Silicon Labs build system help"
@@ -47,12 +50,6 @@ help:
 	@echo "  make telink/help       - Show Telink build system help" 
 	@echo "  make telink/tools/help - Show Telink tools help"
 	@echo "  make stub/help         - Show stub device build system help"
-	@echo ""
-	@echo "Architecture Overview:"
-	@echo "  • src/silabs/      - EFR32MG21 hardware build system"
-	@echo "  • src/telink/      - Telink TC32 hardware build system"
-	@echo "  • src/stub/        - Host simulation environment"
-	@echo "  • tests/           - Python test suite for stub device"
 	@echo ""
 
 stub/%:
@@ -64,9 +61,19 @@ silabs/%:
 telink/%:
 	$(MAKE) -C src/telink $*
 
+tools/%:
+	$(MAKE) -f tools.mk $*
+
 # Run pytest tests (requires stub to be built)
-test: stub/build
+tests: stub/build
 	python -m pytest tests/ -v
 
+setup_venv:
+	python3 -m venv .venv
+	. .venv/bin/activate && pip install -r requirements.txt
+
+setup: silabs/tools/all telink/tools/all setup_venv
+
+
 # Define available targets for help
-.PHONY: help stub/% silabs/% telink/% test
+.PHONY: help setup stub/% silabs/% telink/% tests tools/%

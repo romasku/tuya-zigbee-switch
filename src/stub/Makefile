@@ -14,7 +14,6 @@ help:
 	@echo ""
 	@echo "Run Targets:"
 	@echo "  run                - Build and run the stub device in interactive mode"
-	@echo "  test               - Build and run basic non-interactive test"
 	@echo ""
 	@echo "Cleanup:"
 	@echo "  clean              - Remove build artifacts and NVM data"
@@ -74,12 +73,6 @@ build: $(BUILD_DIR)
 
 run: build
 	./$(BINARY)
-
-test: build
-	./$(BINARY) --non-interactive &
-	sleep 2
-	pkill -f stub_device || true
-	@echo "Basic stub test completed"
 
 clean:
 	rm -rf $(BUILD_DIR)
