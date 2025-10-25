@@ -7,7 +7,7 @@ TOOLS_DIR := $(PROJECT_ROOT)/telink_tools
 DOWNLOAD_DIR := $(TOOLS_DIR)/downloads
 
 # Tool versions and URLs
-SDK_VERSION := 3.7.1.4
+SDK_VERSION := 3.7.2.0
 SDK_REPO := https://github.com/telink-semi/telink_zigbee_sdk
 SDK_ARCHIVE := V$(SDK_VERSION).zip
 SDK_URL := $(SDK_REPO)/archive/refs/tags/$(SDK_ARCHIVE)
