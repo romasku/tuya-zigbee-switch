@@ -44,6 +44,7 @@ Also read:
 | [ZS-EUB_1gang](https://www.zigbee2mqtt.io/devices/ZS-EUB_1gang.html) | Moes 1-gang switches (button or touch)  | _TZ3000_hhiodade | router / end_device | Supported |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/14)  | 
 | [ZS-EUB_2gang](https://www.zigbee2mqtt.io/devices/ZS-EUB_2gang.html) | Moes 2-gang switches (buttons or touch)  | _TZ3000_18ejxno0 | router / end_device | Supported |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/14)  | 
 | [TS0013](https://www.zigbee2mqtt.io/devices/TS0013.html) | Moes 3-gang switches (buttons or touch)  | _TZ3000_qewo8dlz | router / end_device | Supported |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/14)  | 
+| [TS0014](https://www.zigbee2mqtt.io/devices/TS0014.html) | Moes 4-gang switches (buttons or touch)  | _TZ3000_mrduubod | router / end_device | Supported |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/14)  | 
 | [ZM-104B-M](https://www.zigbee2mqtt.io/devices/ZM-104B-M.html) | Moes ZM-104B-M  | _TZ3000_qaa59zqd | router | In progress |   [link](https://github.com/romasku/tuya-zigbee-switch/pull/147)  | 
 | [TS0003](https://www.zigbee2mqtt.io/devices/TS0003.html) | Moes MS-104CZ  | _TZ3000_pfc7i3kt | router | In progress |   [link](https://github.com/romasku/tuya-zigbee-switch/pull/30)  | 
 | [TS0002_basic](https://www.zigbee2mqtt.io/devices/TS0002_basic.html) | OXT 2-gang  | _TZ3000_bvrlqyj7 | router | Supported |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/49)  | 
