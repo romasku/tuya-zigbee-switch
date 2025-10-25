@@ -37,14 +37,14 @@ echo "Building debug firmware for device: $DEVICE (MCU: $MCU, Platform: $PLATFOR
 # Build router version with debug enabled
 echo "=== Building router version with debug ==="
 TYPE=router
-BOARD=$DEVICE DEVICE_TYPE=$TYPE DEBUG=1 make -f board.mk build-firmware
+BOARD=$DEVICE DEVICE_TYPE=$TYPE DEBUG=1 make board/build-firmware
 echo "Checking if files were created for board: $DEVICE ($TYPE)"
 ls -l bin/$TYPE/$DEVICE/ 2>/dev/null || echo "No router files found"
 
 # Build end_device version with debug enabled  
 echo "=== Building end_device version with debug ==="
 TYPE=end_device
-BOARD=$DEVICE DEVICE_TYPE=$TYPE DEBUG=1 make -f board.mk build-firmware
+BOARD=$DEVICE DEVICE_TYPE=$TYPE DEBUG=1 make board/build-firmware
 echo "Checking if files were created for board: $DEVICE ($TYPE)"
 ls -l bin/$TYPE/${DEVICE}_END_DEVICE/ 2>/dev/null || echo "No end_device files found"
 

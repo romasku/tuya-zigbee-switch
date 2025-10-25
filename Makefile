@@ -44,7 +44,18 @@ help:
 	@echo "  make tools/freeze_ota_links        - Replace branch refs with commit hashes"
 	@echo "  make tools/unused_image_type       - Show next available firmware image type ID"
 	@echo ""
+	@echo "Device-Specific Builds:"
+	@echo "  BOARD=DEVICE_NAME make board/build - Build specific device from device_db.yaml"
+	@echo ""
+	@echo "Bulk Operations:"
+	@echo "  make_scripts/make_all.sh     - Build all devices (CI pipeline equivalent)"
+	@echo ""
+	@echo "Setup and Environment:"
+	@echo "  make setup           - Install all tools and setup Python venv"
+	@echo "  make setup_venv      - Setup Python virtual environment only"
+	@echo ""
 	@echo "For detailed help on specific targets:"
+	@echo "  make board/help        - Show device database build system help"
 	@echo "  make silabs/help       - Show Silicon Labs build system help"
 	@echo "  make silabs/tools/help - Show Silicon Labs tools help"
 	@echo "  make telink/help       - Show Telink build system help" 
@@ -64,6 +75,9 @@ telink/%:
 tools/%:
 	$(MAKE) -f tools.mk $*
 
+board/%:
+	$(MAKE) -f board.mk $*
+
 # Run pytest tests (requires stub to be built)
 tests: stub/build
 	python -m pytest tests/ -v
@@ -76,4 +90,4 @@ setup: silabs/tools/all telink/tools/all setup_venv
 
 
 # Define available targets for help
-.PHONY: help setup stub/% silabs/% telink/% tests tools/%
+.PHONY: help setup setup_venv stub/% silabs/% telink/% tests tools/% board/%

@@ -1,6 +1,28 @@
 # ==============================================================================
 # Configuration Variables
 # ==============================================================================
+
+# Help target
+help:
+	@echo "Board-Specific Build System"
+	@echo "==========================="
+	@echo ""
+	@echo "Device Database Build:"
+	@echo "  build              - Build firmware for specified BOARD (from device_db.yaml)"
+	@echo ""
+	@echo "Configuration:"
+	@echo "  BOARD              - Device name from device_db.yaml (default: $(BOARD))"
+	@echo "  VERSION            - Firmware version (default: $(VERSION))"
+	@echo "  DEVICE_TYPE        - Extracted from database (current: $(DEVICE_TYPE))"
+	@echo ""
+	@echo "Generated Files:"
+	@echo "  OTA Files          - Standard, Tuya migration, and force upgrade variants"
+	@echo "  Z2M Indexes        - Zigbee2MQTT OTA index updates"
+	@echo ""
+	@echo "Example Usage:"
+	@echo "  BOARD=TUYA_TS0012 make build"
+	@echo "  BOARD=MOES_3_GANG_SWITCH DEVICE_TYPE=router make build"
+	@echo ""
 VERSION := 21
 PROJECT_NAME := tlc_switch
 BOARD ?= TUYA_TS0012
@@ -38,7 +60,7 @@ Z2M_INDEX_FILE := zigbee2mqtt/ota/index_$(DEVICE_TYPE).json
 Z2M_FORCE_INDEX_FILE := zigbee2mqtt/ota/index_$(DEVICE_TYPE)-FORCE.json
 
 # Main target - builds firmware and generates all OTA files
-board: build-firmware generate-ota-files update-indexes
+build: build-firmware generate-ota-files update-indexes
 
 # Build the firmware for the specified board
 build-firmware:
@@ -65,12 +87,14 @@ generate-normal-ota:
 		OTA_FILE=../../$(OTA_FILE)
 
 generate-tuya-ota:
+ifneq ($(PLATFORM_PREFIX),silabs)  # Silabs platform does not support Tuya migration OTAs
 	$(MAKE) $(PLATFORM_PREFIX)/ota \
 		OTA_VERSION=0xFFFFFFFF \
 		DEVICE_TYPE=$(DEVICE_TYPE) \
 		OTA_IMAGE_TYPE=$(FROM_TUYA_IMAGE_TYPE) \
 		OTA_MANUFACTURER_ID=$(FROM_TUYA_MANUFACTURER_ID) \
 		OTA_FILE=../../$(FROM_TUYA_OTA_FILE)
+endif
 
 generate-force-ota:
 	$(MAKE) $(PLATFORM_PREFIX)/ota \
@@ -82,10 +106,12 @@ generate-force-ota:
 # Update Zigbee2MQTT index files
 update-indexes:
 	@python3 $(HELPERS_PATH)/make_z2m_ota_index.py --db_file $(DEVICE_DB_FILE) $(OTA_FILE) $(Z2M_INDEX_FILE) --board $(BOARD)
+ifneq ($(PLATFORM_PREFIX),silabs)  # Silabs platform does not support Tuya migration OTAs
 	@python3 $(HELPERS_PATH)/make_z2m_ota_index.py --db_file $(DEVICE_DB_FILE) $(FROM_TUYA_OTA_FILE) $(Z2M_INDEX_FILE) --board $(BOARD)
+endif
 	@python3 $(HELPERS_PATH)/make_z2m_ota_index.py --db_file $(DEVICE_DB_FILE) $(FORCE_OTA_FILE) $(Z2M_FORCE_INDEX_FILE) --board $(BOARD)
 
 
-.PHONY: board build-firmware generate-ota-files generate-normal-ota generate-tuya-ota generate-force-ota update-indexes clean_z2m_index update_converters update_zha_quirk update_supported_devices freeze_ota_links
+.PHONY: help build build-firmware generate-ota-files generate-normal-ota generate-tuya-ota generate-force-ota update-indexes clean_z2m_index update_converters update_zha_quirk update_supported_devices freeze_ota_links
 
 

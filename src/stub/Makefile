@@ -26,7 +26,6 @@ help:
 	@echo "Usage Example:"
 	@echo "  make build         # Compile stub device"
 	@echo "  make run           # Run interactively"
-	@echo "  make test          # Run automated test"
 	@echo ""
 
 # Source files for stub build

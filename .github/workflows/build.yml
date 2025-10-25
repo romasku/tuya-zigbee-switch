@@ -17,26 +17,43 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
       with:
-        fetch-depth: 0  # Получить полную историю коммитов
+        fetch-depth: 0  
 
     - name: Install dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y make python3 python3-jinja2 python3-yaml yq unzip wget
+        sudo apt-get install -y make python3 yq unzip wget
+
+    - name: Cache Silicon Labs Tools
+      uses: actions/cache@v3
+      with:
+        path: silabs_tools
+        key: silabs-tools-v4.4.6
+
+    - name: Cache Telink Tools
+      uses: actions/cache@v3
+      with:
+        path: telink_tools
+        key: telink-tools-v3.7.2.0
+
+    - name: Cache Python Virtual Environment
+      uses: actions/cache@v3
+      with:
+        path: .venv
+        key: python-venv-${{ hashFiles('requirements.txt') }}
 
     - name: Install SDK and Toolchain
       run: |
-        make install
+        make setup
 
     - name: Clear out index files
       run: |
-        echo [] > zigbee2mqtt/ota/index_router.json 
-        echo [] > zigbee2mqtt/ota/index_end_device.json 
-        echo [] > zigbee2mqtt/ota/index_router-FORCE.json 
-        echo [] > zigbee2mqtt/ota/index_end_device-FORCE.json 
+        source .venv/bin/activate
+        make tools/clean_z2m_index 
 
     - name: Build for all boards
       run: |
+        source .venv/bin/activate
         yq -r 'to_entries | sort_by(.key)[] | "\(.key) \(.value.device_type) \(.value.build)"' device_db.yaml | while read ITER TYPE BUILD; do
 
           if [ "$BUILD" = "no" ]; then
@@ -45,13 +62,13 @@ jobs:
           fi
   
           echo "Building for board: $ITER (router)"
-          BOARD=$ITER DEVICE_TYPE=router make -f board.mk board || exit 1
+          BOARD=$ITER DEVICE_TYPE=router make board/build || exit 1
           echo "Checking if files were created for board: $ITER (router)"
           ls -l bin/router/$ITER/
 
           if [ "$TYPE" = "end_device" ]; then
             echo "Building for board: $ITER (end_device)"
-            BOARD=${ITER} DEVICE_TYPE=end_device make -f board.mk board || exit 1
+            BOARD=${ITER} DEVICE_TYPE=end_device make board/build || exit 1
             echo "Checking if files were created for board: $ITER (end_device)"
             ls -l bin/end_device/${ITER}_END_DEVICE/
           fi
@@ -59,23 +76,27 @@ jobs:
 
     - name: Update Z2M converters
       run: |
-        make update_converters
+        source .venv/bin/activate
+        make tools/update_converters
 
     - name: Update ZHA quirks
       run: |
-        make update_zha_quirk
+        source .venv/bin/activate
+        make tools/update_zha_quirk
 
     - name: Update supported_devices.md
       run: |
-        make update_supported_devices
+        source .venv/bin/activate
+        make tools/update_supported_devices
 
     - name: Commit changes
       run: |
+        source .venv/bin/activate
         git config --global user.name "GitHub Actions"
         git config --global user.email "actions@github.com"
         git add bin/* zigbee2mqtt/* zha/* docs/devices/supported.md
         git diff --cached --quiet || git commit -m "Update firmware files, converters, quirks and supported devices list"
-        make freeze_ota_links
+        make tools/freeze_ota_links
         git add zigbee2mqtt/*
         git diff --cached --quiet || git commit -m "Freeze links in OTA index files"
         git push

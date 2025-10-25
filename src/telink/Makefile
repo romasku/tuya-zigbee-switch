@@ -221,7 +221,7 @@ build: all
 ota: $(BIN_FILE)
 	@echo 'Creating OTA file $(OTA_FILE)'
 	@echo ' '
-	@mkdir -p $(dir $@)
+	@mkdir -p $(dir $(OTA_FILE))
 	@python3 $(SRC_DIR)/telink/make_ota.py create-ota \
 	  --manufacturer-id $(OTA_MANUFACTURER_ID) \
 	  --image-type $(OTA_IMAGE_TYPE) \

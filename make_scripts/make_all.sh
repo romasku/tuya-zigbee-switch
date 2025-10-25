@@ -28,18 +28,18 @@ yq -r 'to_entries | sort_by(.key)[] | "\(.key) \(.value.device_type) \(.value.bu
   fi
 
   echo "Building for board: $ITER (router)"
-  BOARD=$ITER DEVICE_TYPE=router make -f board.mk board
+  BOARD=$ITER DEVICE_TYPE=router make board/build
   echo "Checking if files were created for board: $ITER (router)"
   ls -l bin/router/$ITER/
 
   if [ "$TYPE" = "end_device" ]; then
     echo "Building for board: $ITER (end_device)"
-    BOARD=${ITER} DEVICE_TYPE=end_device make -f board.mk board
+    BOARD=${ITER} DEVICE_TYPE=end_device make board/build
     echo "Checking if files were created for board: $ITER (end_device)"
     ls -l bin/end_device/${ITER}_END_DEVICE/
   fi
 done
 
-make -f board.mk update_converters
-make -f board.mk update_zha_quirk
-make -f board.mk update_supported_devices
+make tools/update_converters
+make tools/update_zha_quirk
+make tools/update_supported_devices
