@@ -12,7 +12,7 @@
 
 /* Debug Output Configuration */
 #ifndef UART_PRINTF_MODE
-#define UART_PRINTF_MODE 1 /* UART debug output mode */
+#define UART_PRINTF_MODE 0 /* UART debug output mode */
 /* UART Configuration */
 #endif
 #define DEBUG_BAUDRATE 115200      /* UART baud rate */
@@ -22,7 +22,6 @@
 #ifndef PM_ENABLE
 #define PM_ENABLE 0 /* Power management enable */
 #endif
-#define PM_SLEEP_DURATION_MS 50 /* Sleep duration in milliseconds */
 
 /* Power Amplifier */
 #define PA_ENABLE 0 /* External power amplifier enable */
@@ -32,7 +31,6 @@
 
 /* RF Configuration */
 #define RF_TX_POWER_DEF RF_POWER_P10p46dBm /* Default TX power */
-#define ZIGBEE_TUYA_OTA 1                  /* Enable Tuya OTA support */
 
 /* Module Enables */
 #define MODULE_WATCHDOG_ENABLE 0 /* Watchdog module */

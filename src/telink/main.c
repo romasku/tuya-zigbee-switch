@@ -2,12 +2,14 @@
 #include "stdint.h"
 #include "tl_common.h"
 #include "zb_common.h"
+#include "zcl_include.h"
 
 #include "telink_size_t_hack.h"
 
 #include "app.h"
 #include "hal/gpio.h"
 #include "hal/tasks.h"
+#include "hal/telink_zigbee_hal.h"
 #include "hal/zigbee.h"
 
 int real_main(startup_state_e state);
@@ -53,6 +55,21 @@ int real_main(startup_state_e state) {
     tl_zbTaskProcedure();
     app_task();
     report_handler();
+
+#if PM_ENABLE
+    if (!tl_stackBusy() && zb_isTaskDone()) {
+      telink_gpio_hal_setup_wake_ups();
+      ev_timer_event_t *timerEvt = ev_timer_nearestGet();
+      u32 sleepDuration = 1000;
+      if (timerEvt) {
+        sleepDuration = timerEvt->timeout;
+      }
+      printf("Enter low power (%d ms)\r\n", sleepDuration);
+      drv_pm_sleep(PM_SLEEP_MODE_SUSPEND,
+                   PM_WAKEUP_SRC_PAD | PM_WAKEUP_SRC_TIMER, sleepDuration);
+      printf("Exit low power\r\n");
+    }
+#endif
   }
 
   return 0;

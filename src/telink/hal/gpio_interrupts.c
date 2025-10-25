@@ -77,6 +77,9 @@ static void gpio_isr_callback(void) {
                      (current_state & pin_to_mask(info->gpio_pin))
                          ? GPIO_FALLING_EDGE
                          : GPIO_RISING_EDGE);
+    // cpu_set_gpio_wakeup(info->gpio_pin,
+    //                     (current_state & pin_to_mask(info->gpio_pin)) ? 0 :
+    //                     1, 1);
   }
 
   prev_gpio_state = current_state;
@@ -134,5 +137,16 @@ void hal_gpio_unreg_callback(hal_gpio_pin_t gpio_pin) {
 
       break;
     }
+  }
+}
+
+void telink_gpio_hal_setup_wake_ups() {
+  for (gpio_callback_info_t *info = gpio_callbacks;
+       info < gpio_callbacks + MAX_GPIO_CALLBACKS; info++) {
+    if (info->gpio_pin == HAL_INVALID_PIN) {
+      continue;
+    }
+    cpu_set_gpio_wakeup(info->gpio_pin, (hal_gpio_read(info->gpio_pin)) ? 0 : 1,
+                        1);
   }
 }

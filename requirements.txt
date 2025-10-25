@@ -2,3 +2,4 @@ Jinja2==3.1.6
 MarkupSafe==3.0.2
 PyYAML==6.0.2
 pytest==8.4.2
+pyserial==3.5

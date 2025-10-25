@@ -31,6 +31,7 @@ void _btn_gpio_callback(hal_gpio_pin_t pin, void *arg) {
   hal_tasks_unschedule(&button->update_task);
   button->debounce_last_state = hal_gpio_read(button->pin);
   button->debounce_last_change = hal_millis();
+  printf("Button value changed to %d\r\n", button->debounce_last_state);
   hal_tasks_schedule(&button->update_task, DEBOUNCE_DELAY_MS);
 }
 

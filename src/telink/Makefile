@@ -10,6 +10,7 @@ SRC_DIR := $(PROJECT_ROOT)/src
 VERSION ?= 20
 FIRMWARE_BASENAME ?= tlc_switch
 DEVICE_TYPE ?= router
+DEBUG ?= 0
 CONFIG_STR ?= jl7qyupf;TS0012-custom;BA0f;LD7;SC2f;RC0;SC3f;RB4;
 MANUFACTURER_ID ?= 4417
 IMAGE_TYPE ?= 54179
@@ -43,6 +44,7 @@ ifeq ($(DEVICE_TYPE), end_device)
 	TEL_CHIP := -DMCU_CORE_8258=1 -DEND_DEVICE=1 -DMCU_STARTUP_8258=1 -DPM_ENABLE
 	LIBS := -ldrivers_8258 -lzb_ed
 endif
+
 
 # Compiler and linker flags
 GCC_FLAGS := \
@@ -83,6 +85,10 @@ DEVICE_DEFS := \
 	-DIMAGE_TYPE=$(IMAGE_TYPE) \
 	-DHAL_TELINK \
 	$(TEL_CHIP) 
+
+ifeq ($(DEBUG), 1)
+	DEVICE_DEFS := $(DEVICE_DEFS) -DUART_PRINTF_MODE=1
+endif
 
 # Include paths (SDK paths first to avoid conflicts)
 INCLUDE_PATHS := \

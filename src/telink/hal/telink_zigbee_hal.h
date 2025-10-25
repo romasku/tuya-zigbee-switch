@@ -20,3 +20,5 @@ void telink_zigbee_hal_bdb_init(af_simple_descriptor_t *endpoint_descriptor);
 void telink_zigbee_hal_zcl_init(hal_zigbee_endpoint *endpoints,
                                 uint8_t endpoints_cnt);
 af_simple_descriptor_t *telink_zigbee_hal_zcl_get_descriptors(void);
+
+void telink_gpio_hal_setup_wake_ups();
