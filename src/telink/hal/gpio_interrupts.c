@@ -42,19 +42,6 @@ static void gpio_dispatch_handler(void *arg) {
   }
 }
 
-static void gpio_dispatch_init(void) {
-  if (gpio_dispatch_task.handler == NULL) {
-    gpio_dispatch_task.handler = gpio_dispatch_handler;
-    gpio_dispatch_task.arg = NULL;
-    hal_tasks_init(&gpio_dispatch_task);
-    for (int i = 0; i < MAX_GPIO_CALLBACKS; ++i) {
-      gpio_callbacks[i].gpio_pin = HAL_INVALID_PIN;
-      gpio_callbacks[i].callback = NULL;
-      gpio_callbacks[i].arg = NULL;
-    }
-  }
-}
-
 static void gpio_isr_callback(void) {
   uint32_t current_state = 0;
   drv_gpio_read_all((uint8_t *)&current_state);
@@ -85,9 +72,40 @@ static void gpio_isr_callback(void) {
   prev_gpio_state = current_state;
 }
 
+static void gpio_dispatch_init(void) {
+  if (gpio_dispatch_task.handler == NULL) {
+    gpio_dispatch_task.handler = gpio_dispatch_handler;
+    gpio_dispatch_task.arg = NULL;
+    hal_tasks_init(&gpio_dispatch_task);
+    for (int i = 0; i < MAX_GPIO_CALLBACKS; ++i) {
+      gpio_callbacks[i].gpio_pin = HAL_INVALID_PIN;
+      gpio_callbacks[i].callback = NULL;
+      gpio_callbacks[i].arg = NULL;
+    }
+  }
+}
+
+static bool is_isr_initialized = false;
+
+static void init_isr() {
+  if (is_isr_initialized) {
+    return;
+  }
+  // PIN and EDGE doesn't matter here, SDK selects callbacks only
+  // by mode
+  int result = drv_gpio_irq_config(GPIO_IRQ_MODE, 0, 0, gpio_isr_callback);
+  if (result != 0) {
+    printf("Failed to configure GPIO interrupt: %d\r\n", result);
+  } else {
+    is_isr_initialized = true;
+    printf("GPIO interrupt configured\r\n");
+  }
+}
+
 void hal_gpio_callback(hal_gpio_pin_t gpio_pin, gpio_callback_t callback,
                        void *arg) {
   gpio_dispatch_init();
+  init_isr();
 
   gpio_callback_info_t *slot = NULL;
 
@@ -119,11 +137,8 @@ void hal_gpio_callback(hal_gpio_pin_t gpio_pin, gpio_callback_t callback,
   }
   drv_enable_irq();
 
-  int result = drv_gpio_irq_config(GPIO_IRQ_MODE, (u32)gpio_pin, edge,
-                                   gpio_isr_callback);
-  if (result != 0) {
-    printf("Failed to configure GPIO interrupt: %d\r\n", result);
-  }
+  drv_gpio_irq_set((u32)gpio_pin, edge);
+
   drv_gpio_irq_en((u32)gpio_pin);
 }
 
