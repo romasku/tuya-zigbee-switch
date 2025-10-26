@@ -73,6 +73,16 @@
           ],
           "description": "Zigbee module type"
         },
+        "mcu_family": {
+          "oneOf": [
+            {
+              "type": "string",
+              "enum": ["Telink", "Silabs"]
+            },
+            {"type": "null"}
+          ],
+          "description": "Zigbee module type"
+        },
         "config_str": {
           "type": "string",
           "description": "Configuration string for device"
@@ -183,6 +193,7 @@
         "stock_converter_model",
         "override_z2m_device",
         "zb_module",
+        "mcu_family",
         "config_str",
         "alt_config_str",
         "old_manufacturer_names",
