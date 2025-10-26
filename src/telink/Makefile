@@ -7,14 +7,14 @@ TELINK_TOOLS_DIR := $(PROJECT_ROOT)/telink_tools
 SRC_DIR := $(PROJECT_ROOT)/src
 
 # Version and board configuration
-VERSION ?= 20
+VERSION ?= 1
 FIRMWARE_BASENAME ?= tlc_switch
 DEVICE_TYPE ?= router
 DEBUG ?= 0
 CONFIG_STR ?= jl7qyupf;TS0012-custom;BA0f;LD7;SC2f;RC0;SC3f;RB4;
 MANUFACTURER_ID ?= 4417
-IMAGE_TYPE ?= 54179
-OTA_VERSION ?= ${VERSION}
+IMAGE_TYPE ?= 43521
+OTA_VERSION ?= 
 OTA_MANUFACTURER_ID ?= ${MANUFACTURER_ID}
 OTA_IMAGE_TYPE ?= ${IMAGE_TYPE}
 
@@ -217,6 +217,10 @@ $(BUILD_DIR)/common/%.o: $(SRC_DIR)/%.c
 # Build with tools check
 build: all
 
+ifdef OTA_VERSION
+OTA_VERSION_ARG := --file-version $(OTA_VERSION)
+endif
+
 # Make an ota file
 ota: $(BIN_FILE)
 	@echo 'Creating OTA file $(OTA_FILE)'
@@ -225,7 +229,7 @@ ota: $(BIN_FILE)
 	@python3 $(SRC_DIR)/telink/make_ota.py create-ota \
 	  --manufacturer-id $(OTA_MANUFACTURER_ID) \
 	  --image-type $(OTA_IMAGE_TYPE) \
-	  --file-version $(OTA_VERSION) \
+	  $(OTA_VERSION_ARG) \
 	  $(BIN_FILE) $(OTA_FILE)
 	@echo ' '
 

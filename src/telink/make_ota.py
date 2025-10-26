@@ -74,7 +74,7 @@ def make_ota_image(
     image_data: bytes,
     manufacturer_id: int,
     image_type: int,
-    file_version: int,
+    file_version: int | None,
     header_string: str,
 ) -> bytes:
     hs = str.encode(header_string)
@@ -85,6 +85,8 @@ def make_ota_image(
     total_image_size = (
         OTA_HDR_STRUCT.size + OTA_SUB_ELEMENT_HDR_STRUCT.size + len(image_data)
     )
+    if file_version is None:
+        file_version = int.from_bytes(image_data[2:6], byteorder="little")
 
     ota_header = OTAHeader(
         manufacturer_code=manufacturer_id,
@@ -159,8 +161,9 @@ INT_OR_HEX = IntOrHexParamType()
 @click.option(
     "--file-version",
     type=INT_OR_HEX,
-    required=True,
-    help="File Version (e.g., 0x00000001)",
+    required=False,
+    default=None,
+    help="File Version (e.g., 0x00000001), uses value from firmware if not set",
 )
 @click.option(
     "--header-string",
@@ -174,7 +177,7 @@ def create_ota(
     output_file: str,
     manufacturer_id: int,
     image_type: int,
-    file_version: int,
+    file_version: int | None,
     header_string: str,
 ) -> None:
     with open(input_file, "rb") as f:

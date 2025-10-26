@@ -81,7 +81,6 @@ generate-ota-files: generate-normal-ota generate-tuya-ota generate-force-ota
 
 generate-normal-ota:
 	$(MAKE) $(PLATFORM_PREFIX)/ota \
-		OTA_VERSION=$(VERSION) \
 		DEVICE_TYPE=$(DEVICE_TYPE) \
 		OTA_IMAGE_TYPE=$(FIRMWARE_IMAGE_TYPE) \
 		OTA_FILE=../../$(OTA_FILE)
