@@ -74,6 +74,7 @@ BOOTLOADER_PROJECT_FILE := bootloader.slcp
 
 # Files:
 OTA_FILE ?= $(ZIGBEE_BUILD_DIR)/build/release/$(ZIGBEE_PROJECT_NAME)_ota.bin
+BIN_FILE ?= $(ZIGBEE_BUILD_DIR)/build/release/$(ZIGBEE_PROJECT_NAME).s37
 
 # Generate project files
 gen:
@@ -103,6 +104,10 @@ gen:
 # Build targets
 build:
 	cd $(ZIGBEE_BUILD_DIR) && make -f $(ZIGBEE_PROJECT_NAME).Makefile -j32 release EXTRA_C_DEFS='$(EXTRA_C_DEFS)'
+	@if ! cmp -s $(ZIGBEE_BUILD_DIR)/build/release/$(ZIGBEE_PROJECT_NAME).s37 $(BIN_FILE); then \
+		cp $(ZIGBEE_BUILD_DIR)/build/release/$(ZIGBEE_PROJECT_NAME).s37 $(BIN_FILE); \
+	fi
+
 
 # Flash targets
 install:

@@ -36,7 +36,7 @@
 #define STACK_RELEASE 0x30 /* BCD stack release version (3.0) */
 
 #ifndef STACK_BUILD
-#define STACK_BUILD 0x00 /* BCD stack build version */
+#define STACK_BUILD 0x00    /* BCD stack build version */
 #endif
 
 /*

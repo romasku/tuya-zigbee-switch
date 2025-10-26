@@ -1,8 +1,12 @@
+import binascii
 import struct
 from dataclasses import dataclass
 from typing import Callable
 
 import click
+
+ZIGBEE_OTA_MAGIC = 0xBEEF11E
+TELINK_OTA_MAGIC = b"\x5d\x02"
 
 OTA_HDR_STRUCT = struct.Struct("<I5HIH32sI")
 
@@ -26,7 +30,7 @@ class OTAHeader:
     52      4       Total Image Size
     """
 
-    upgrade_file_identifier: int = 0xBEEF11E  # Zigbee OTA magic number
+    upgrade_file_identifier: int = ZIGBEE_OTA_MAGIC  # Zigbee OTA magic number
     header_version: int = 0x100  # Version 1.0
     header_length: int = 56  # Fixed size
     field_control: int = 0  # No optional fields
@@ -77,6 +81,22 @@ def make_ota_image(
     file_version: int | None,
     header_string: str,
 ) -> bytes:
+    # Prepare image itself:
+
+    if image_data[6:8] != TELINK_OTA_MAGIC:
+        # Ensure FW size is multiple of 16
+        padding = 16 - len(image_data) % 16
+        if padding < 16:
+            image_data += b"\xff" * padding
+        # Fix FW length
+        image_data = bytearray(image_data)
+        image_data[0x18:0x1C] = (len(image_data) + 4).to_bytes(4, byteorder="little")
+        # Add magic constant
+        image_data[6:8] = TELINK_OTA_MAGIC
+        # Add CRC
+        crc = binascii.crc32(image_data) ^ 0xFFFFFFFF
+        image_data += crc.to_bytes(4, byteorder="little")
+
     hs = str.encode(header_string)
     if len(hs) > 31:
         print("Error: header_string size is too long!")

@@ -51,6 +51,11 @@ BIN_PATH := bin/$(DEVICE_TYPE)/$(BOARD_DIR)
 HELPERS_PATH := ./helper_scripts
 
 # OTA Files
+ifeq ($(PLATFORM_PREFIX),silabs)
+BIN_FILE := $(BIN_PATH)/$(PROJECT_NAME)-$(VERSION).s37
+else
+BIN_FILE := $(BIN_PATH)/$(PROJECT_NAME)-$(VERSION).bin
+endif
 OTA_FILE := $(BIN_PATH)/$(PROJECT_NAME)-$(VERSION).zigbee
 FROM_TUYA_OTA_FILE := $(BIN_PATH)/$(PROJECT_NAME)-$(VERSION)-from_tuya.zigbee
 FORCE_OTA_FILE := $(BIN_PATH)/$(PROJECT_NAME)-$(VERSION)-forced.zigbee
@@ -74,8 +79,9 @@ endif
 		VERSION=$(VERSION) \
 		DEVICE_TYPE=$(DEVICE_TYPE) \
 		CONFIG_STR="$(CONFIG_STR)" \
-		IMAGE_TYPE=$(FIRMWARE_IMAGE_TYPE) -j32
-
+		IMAGE_TYPE=$(FIRMWARE_IMAGE_TYPE) \
+		BIN_FILE=../../$(BIN_FILE) \
+		 -j32
 # Generate all three types of OTA files
 generate-ota-files: generate-normal-ota generate-tuya-ota generate-force-ota
 
