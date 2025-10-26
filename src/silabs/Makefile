@@ -105,6 +105,7 @@ gen:
 build:
 	cd $(ZIGBEE_BUILD_DIR) && make -f $(ZIGBEE_PROJECT_NAME).Makefile -j32 release EXTRA_C_DEFS='$(EXTRA_C_DEFS)'
 	@if ! cmp -s $(ZIGBEE_BUILD_DIR)/build/release/$(ZIGBEE_PROJECT_NAME).s37 $(BIN_FILE); then \
+		mkdir -p $(dir $(BIN_FILE)); \
 		cp $(ZIGBEE_BUILD_DIR)/build/release/$(ZIGBEE_PROJECT_NAME).s37 $(BIN_FILE); \
 	fi
 
