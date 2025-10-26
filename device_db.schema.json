@@ -121,7 +121,7 @@
         },
         "status": {
           "type": "string",
-          "enum": ["Supported", "In progress"],
+          "enum": ["fully_supported", "mostly_supported", "in_progress", "unsupported"],
           "description": "Support status of the device"
         },
         "info": {

@@ -20,8 +20,8 @@ AUBESS_TS0001:
   tuya_image_type: 54179
   firmware_image_type: 43531
   build: yes
-  status: Supported
-  info: null
+  status: fully_supported
+  info: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/18
   store: null
 AUBESS_TS0002:
@@ -43,8 +43,8 @@ AUBESS_TS0002:
   tuya_image_type: 54179
   firmware_image_type: 43553
   build: yes
-  status: Supported
-  info: null
+  status: fully_supported
+  info: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/pull/153
   store: https://www.aliexpress.com/item/1005005748264739.html
 AUBESS_TS0003:
@@ -66,8 +66,8 @@ AUBESS_TS0003:
   tuya_image_type: 54179
   firmware_image_type: 43561
   build: yes
-  status: Supported
-  info: null
+  status: fully_supported
+  info: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/pull/151
   store:
   - https://www.amazon.co.uk/dp/B0DKC2CRFJ
@@ -92,8 +92,8 @@ AUBESS_TS0004:
   tuya_image_type: 54179
   firmware_image_type: 43545
   build: yes
-  status: Supported
-  info: null
+  status: fully_supported
+  info: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/66
   store: https://www.aliexpress.com/item/1005005748264739.html
 AVATTO_TOUCH_TS0003:
@@ -116,8 +116,8 @@ AVATTO_TOUCH_TS0003:
   tuya_image_type: 54179
   firmware_image_type: 43542
   build: yes
-  status: In progress
-  info: Indicator LEDs are hard wired to buttons, but they can be forced on with C4?
+  status: mostly_supported
+  info: Indicator LEDs can be controlled with C4?
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/41
   store: https://www.aliexpress.com/item/1005007097427150.html
 AVATTO_TS0001:
@@ -144,8 +144,8 @@ AVATTO_TS0001:
   tuya_image_type: 54179
   firmware_image_type: 43527
   build: yes
-  status: Supported
-  info: null
+  status: fully_supported
+  info: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/9
   store: https://www.aliexpress.com/item/1005007247647375.html
 AVATTO_TS0002:
@@ -172,8 +172,8 @@ AVATTO_TS0002:
   tuya_image_type: 54179
   firmware_image_type: 43528
   build: yes
-  status: Supported
-  info: null
+  status: fully_supported
+  info: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/9
   store: https://www.aliexpress.com/item/1005007247647375.html
 AVATTO_TS0003:
@@ -200,8 +200,8 @@ AVATTO_TS0003:
   tuya_image_type: 54179
   firmware_image_type: 43543
   build: yes
-  status: Supported
-  info: null
+  status: fully_supported
+  info: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/56
   store: https://www.aliexpress.com/item/1005007247647375.html
 AVATTO_TS0004:
@@ -229,8 +229,8 @@ AVATTO_TS0004:
   tuya_image_type: 54179
   firmware_image_type: 43529
   build: yes
-  status: Supported
-  info: null
+  status: fully_supported
+  info: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/9
   store: https://www.aliexpress.com/item/1005007247647375.html
 AVATTO_TS0011:
@@ -254,8 +254,8 @@ AVATTO_TS0011:
   tuya_image_type: 54179
   firmware_image_type: 43537
   build: yes
-  status: Supported
-  info: null
+  status: fully_supported
+  info: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/9
   store: https://www.aliexpress.com/item/1005007247647375.html
 AVATTO_TS0012:
@@ -279,8 +279,8 @@ AVATTO_TS0012:
   tuya_image_type: 54179
   firmware_image_type: 43530
   build: yes
-  status: Supported
-  info: null
+  status: fully_supported
+  info: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/16
   store: https://www.aliexpress.com/item/1005007247647375.html
 AVATTO_TS0013:
@@ -302,8 +302,8 @@ AVATTO_TS0013:
   tuya_image_type: 54179
   firmware_image_type: 43552
   build: yes
-  status: Supported
-  info: null
+  status: fully_supported
+  info: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/135
   store: https://www.aliexpress.com/item/1005007247647375.html
 BSEED_SOCKET_PM_TS011F:
@@ -325,7 +325,7 @@ BSEED_SOCKET_PM_TS011F:
   tuya_image_type: 54179
   firmware_image_type: 43556
   build: yes
-  status: In progress
+  status: in_progress
   info: PM not implemented
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/145
   store:
@@ -351,8 +351,8 @@ BSEED_SOCKET_TS011F:
   tuya_image_type: 54179
   firmware_image_type: 43555
   build: yes
-  status: Supported
-  info: null
+  status: fully_supported
+  info: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/145
   store:
   - https://www.aliexpress.com/item/1005004402438527.html
@@ -375,8 +375,8 @@ BSEED_SWITCH_TS0726_2GANG:
   tuya_image_type: 54179
   firmware_image_type: 43562
   build: yes
-  status: Supported
-  info: null
+  status: fully_supported
+  info: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/157
   store:
   - https://www.aliexpress.com/item/1005008749674564.html
@@ -402,7 +402,7 @@ BSEED_TOUCH_1_TS0012:
   tuya_image_type: 54179
   firmware_image_type: 43534
   build: yes
-  status: In progress
+  status: mostly_supported
   info: Pin C3 disables both LEDs ?
   github_issue: https://github.com/romasku/tuya-zigbee-switch/pull/23
   store: null
@@ -427,8 +427,8 @@ BSEED_TOUCH_2_TS0012:
   tuya_image_type: 54179
   firmware_image_type: 43544
   build: yes
-  status: Supported
-  info: null
+  status: fully_supported
+  info: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/51
   store: https://www.aliexpress.com/item/1005003324697513.html
 BSEED_TOUCH_TS0003:
@@ -450,8 +450,8 @@ BSEED_TOUCH_TS0003:
   tuya_image_type: 54179
   firmware_image_type: 43549
   build: yes
-  status: Supported
-  info: null
+  status: fully_supported
+  info: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/125
   store: https://www.aliexpress.com/item/1005003475686409.html
 GIRIER_TS0002:
@@ -475,8 +475,8 @@ GIRIER_TS0002:
   tuya_image_type: 54179
   firmware_image_type: 43526
   build: yes
-  status: Supported
-  info: null
+  status: fully_supported
+  info: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/29
   store: https://www.aliexpress.com/item/1005006084763437.html
 GIRIER_TS0013:
@@ -501,8 +501,8 @@ GIRIER_TS0013:
   tuya_image_type: 54179
   firmware_image_type: 43539
   build: yes
-  status: Supported
-  info: null
+  status: fully_supported
+  info: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/37
   store: null
 IHSENO_TOUCH_TS0001:
@@ -524,7 +524,7 @@ IHSENO_TOUCH_TS0001:
   tuya_image_type: 54179
   firmware_image_type: 43557
   build: yes
-  status: In progress
+  status: mostly_supported
   info: Issues with touchpads?
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/146
   store: https://www.aliexpress.com/item/1005007532195287.html
@@ -547,7 +547,7 @@ IHSENO_TOUCH_TS0002:
   tuya_image_type: 54179
   firmware_image_type: 43558
   build: yes
-  status: In progress
+  status: mostly_supported
   info: Issues with touchpads?
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/146
   store: https://www.aliexpress.com/item/1005007532195287.html
@@ -570,7 +570,7 @@ IHSENO_TOUCH_TS0003:
   tuya_image_type: 54179
   firmware_image_type: 43559
   build: no
-  status: In progress
+  status: in_progress
   info: Need IDs + Issues with touchpads?
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/146
   store: https://www.aliexpress.com/item/1005007532195287.html
@@ -593,8 +593,8 @@ IHSENO_TS0001:
   tuya_image_type: 54179
   firmware_image_type: 43554
   build: yes
-  status: Supported
-  info: null
+  status: fully_supported
+  info: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/105
   store: https://www.aliexpress.com/item/1005008107698143.html
 IHSENO_TS0003:
@@ -619,8 +619,8 @@ IHSENO_TS0003:
   tuya_image_type: 54179
   firmware_image_type: 43546
   build: yes
-  status: Supported
-  info: null
+  status: fully_supported
+  info: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/85
   store: https://www.aliexpress.com/item/1005008107698143.html
 IHSENO_TS0004:
@@ -643,8 +643,8 @@ IHSENO_TS0004:
   tuya_image_type: 54179
   firmware_image_type: 43548
   build: yes
-  status: Supported
-  info: null
+  status: fully_supported
+  info: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/105
   store: https://www.aliexpress.com/item/1005008107698143.html
 MANHOT_SWITCH_TS0013:
@@ -666,7 +666,7 @@ MANHOT_SWITCH_TS0013:
   tuya_image_type: 54179
   firmware_image_type: 43550
   build: no
-  status: In progress
+  status: in_progress
   info: Bi-stable relays not implemented + can not toggle multiple relays at once
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/128
   store:
@@ -691,7 +691,7 @@ MHCOZY_TS0004:
   tuya_image_type: 54179
   firmware_image_type: 43551
   build: yes
-  status: In progress
+  status: mostly_supported
   info: Untesed? Unknown pins for reset button and blue LED? (C4, B4, B1)
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/130
   store: https://www.aliexpress.com/item/1005005457296054.html
@@ -716,8 +716,8 @@ MOES_SWITCHES_TS0011:
   tuya_image_type: 54179
   firmware_image_type: 43532
   build: yes
-  status: Supported
-  info: null
+  status: fully_supported
+  info: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/14
   store:
   - https://www.aliexpress.com/item/1005005178075186.html
@@ -743,8 +743,8 @@ MOES_SWITCHES_TS0012:
   tuya_image_type: 54179
   firmware_image_type: 43510
   build: yes
-  status: Supported
-  info: null
+  status: fully_supported
+  info: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/14
   store:
   - https://www.aliexpress.com/item/1005005178075186.html
@@ -770,8 +770,8 @@ MOES_SWITCHES_TS0013:
   tuya_image_type: 54179
   firmware_image_type: 43533
   build: yes
-  status: Supported
-  info: null
+  status: fully_supported
+  info: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/14
   store:
   - https://www.aliexpress.com/item/1005005178075186.html
@@ -795,8 +795,8 @@ MOES_SWITCHES_TS0014:
   tuya_image_type: 5634
   firmware_image_type: 43563
   build: yes
-  status: Supported
-  info: null
+  status: in_progress
+  info: Needs pinout. First SiLabs device!!
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/14
   store:
   - https://www.aliexpress.com/item/1005005178075186.html
@@ -820,7 +820,7 @@ MOES_TS0002:
   tuya_image_type: 54179
   firmware_image_type: 43560
   build: yes
-  status: In progress
+  status: mostly_supported
   info: Has buzzer instead of LED
   github_issue: https://github.com/romasku/tuya-zigbee-switch/pull/147
   store: https://www.amazon.co.uk/dp/B0CKYP32CW?th=1
@@ -844,7 +844,7 @@ MOES_TS0003:
   tuya_image_type: 54179
   firmware_image_type: 43538
   build: yes
-  status: In progress
+  status: mostly_supported
   info: Has buzzer on C2
   github_issue: https://github.com/romasku/tuya-zigbee-switch/pull/30
   store: https://www.aliexpress.com/item/1005004986958450.html
@@ -868,8 +868,8 @@ OXT_TS0002:
   tuya_image_type: 54179
   firmware_image_type: 43547
   build: yes
-  status: Supported
-  info: null
+  status: fully_supported
+  info: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/49
   store: null
 TUYA_1_TS0001:
@@ -892,8 +892,8 @@ TUYA_1_TS0001:
   tuya_image_type: 54179
   firmware_image_type: 43525
   build: yes
-  status: Supported
-  info: null
+  status: fully_supported
+  info: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/6
   store: null
 TUYA_2_TS0001:
@@ -916,8 +916,8 @@ TUYA_2_TS0001:
   tuya_image_type: 524
   firmware_image_type: 43522
   build: yes
-  status: Supported
-  info: null
+  status: fully_supported
+  info: Supported
   github_issue: null
   store: null
 TUYA_3_TS0001:
@@ -942,8 +942,8 @@ TUYA_3_TS0001:
   tuya_image_type: 54179
   firmware_image_type: 43535
   build: yes
-  status: Supported
-  info: null
+  status: fully_supported
+  info: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/24
   store: null
 TUYA_4_TS0001:
@@ -966,8 +966,8 @@ TUYA_4_TS0001:
   tuya_image_type: 518
   firmware_image_type: 43541
   build: yes
-  status: Supported
-  info: null
+  status: fully_supported
+  info: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/44
   store: null
 TUYA_TS0002:
@@ -990,8 +990,8 @@ TUYA_TS0002:
   tuya_image_type: 54179
   firmware_image_type: 43523
   build: yes
-  status: Supported
-  info: null
+  status: fully_supported
+  info: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/6
   store: null
 TUYA_TS0004:
@@ -1014,7 +1014,7 @@ TUYA_TS0004:
   tuya_image_type: 54179
   firmware_image_type: 43540
   build: yes
-  status: In progress
+  status: mostly_supported
   info: Some issues with reporting and groups
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/42
   store: null
@@ -1038,8 +1038,8 @@ TUYA_TS0011:
   tuya_image_type: 54179
   firmware_image_type: 43524
   build: yes
-  status: Supported
-  info: null
+  status: fully_supported
+  info: Supported
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/4
   store: null
 TUYA_TS0012:
@@ -1065,8 +1065,8 @@ TUYA_TS0012:
   tuya_image_type: 54179
   firmware_image_type: 43521
   build: yes
-  status: Supported
-  info: null
+  status: fully_supported
+  info: Supported
   github_issue: null
   store: null
 ZEMISMART_SWITCH_TS0012:
@@ -1090,7 +1090,7 @@ ZEMISMART_SWITCH_TS0012:
   tuya_image_type: 54179
   firmware_image_type: 43536
   build: yes
-  status: In progress
+  status: mostly_supported
   info: Untested
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/19
   store: null
