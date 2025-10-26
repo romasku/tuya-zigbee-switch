@@ -10,7 +10,7 @@
 > **If the TZ3000 id of your device is not on this list, it requires [contribute/porting.md](/docs/contribute/porting.md)!**  
 >
 > For devices that contain a **supported Tuya Zigbee module** (ZTU, ZT2S, ZT3L), porting is relatively simple.  
-> It consists of tracing (or guessing) the **board pinout**, adding an entry in the `device_db.yaml` file and running the build action.  
+> It consists of tracing (or guessing) the **board pinout**, adding an entry in the [`device_db.yaml`](/device_db.yaml) file and running the build action.  
 
 **Also read:** [recommended.md](./recommended.md) & [not_recommended.md](./not_recommended.md)  
 
@@ -22,16 +22,16 @@
 |   📦   | Build              | ✔️ Available       | ❌ Unavailable       |                    |                |
 |   ⚡   | Power              | 🔌 Mains           | 🔋 Battery           | 🔱 USB             |  ❓ Unknown    |
 
-<!-- 
-  This page (`supported.md`) is generated. Do not edit it directly! 
-
-  Instead, edit:
+<!-------------------------------------------------------------------
+  This page (`supported.md`) is generated. 
+  
+  Do not edit it directly! Instead, edit:
   - `device_db.yaml`             - add or edit devices
   - `supported_devices.md.jinja` - update the template
-  - `make_supported_devices.py`  - no need
+  - `make_supported_devices.py`  - update generation script
 
   Generate with: `make update_supported_devices`
--->
+-------------------------------------------------------------------->
 
 ### Device list
 
@@ -110,3 +110,5 @@
   {% endif %}
 | {{color}} | {{build}} | {{power}} | {{manufacturer}}  | {{human_name}} | {{store}} | {{threads}} | {{info}} | 
 {% endfor %}
+
+Data from [`device_db.yaml`](/device_db.yaml)
