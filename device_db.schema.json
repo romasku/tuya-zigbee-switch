@@ -11,6 +11,11 @@
           "type": "string",
           "description": "Human-readable device name"
         },
+        "power": {
+          "type": "string",
+          "enum": ["mains", "USB", "AA", "AAA", "CR2016", "CR2025", "CR2032", "CR2450", "LR23A", "18650"],
+          "description": "Power source"
+        },
         "neutral": {
           "type": "string",
           "enum": ["required", "optional", "without"],
@@ -168,6 +173,7 @@
       },
       "required": [
         "human_name",
+        "power",
         "neutral",
         "device_type",
         "mcu",
