@@ -1,4 +1,18 @@
 # yaml-language-server: $schema=./device_db.schema.json
+
+# ========== Device database ========== 
+# 
+# Please refer to device_db_explained.md
+# 
+# And use the schema for validation!
+#   (e.g. in VSCode with YAML extension)
+# 
+# Rules:
+# - Follow the format
+# - Fill empty values with null
+# - Keep KEYs in alphabetical order
+# - Keep attributes in the same order
+
 AUBESS_TS0001:
   human_name: Aubess WHD02
   power: mains
@@ -397,7 +411,7 @@ BSEED_SWITCH_TS0726_2GANG:
   - https://www.aliexpress.com/item/1005008749674564.html
   - https://www.bseed.com/products/bseed-smart-zigbee-light-switch-with-neutral-hub-required-switch-work-with-tuya-alexa?variant=46312889057435
 BSEED_TOUCH_1_TS0012:
-  human_name: BSEED 2-gang touch switch
+  human_name: BSEED 2-gang touch switch 🅰
   power: mains
   neutral: without
   device_type: end_device
@@ -423,7 +437,7 @@ BSEED_TOUCH_1_TS0012:
   threads: https://github.com/romasku/tuya-zigbee-switch/pull/23
   store: null
 BSEED_TOUCH_2_TS0012:
-  human_name: BSEED 2-gang touch switch
+  human_name: BSEED 2-gang touch switch 🅱
   power: mains
   neutral: without
   device_type: end_device
@@ -908,7 +922,7 @@ OXT_TS0002:
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/49
   store: null
 TUYA_1_TS0001:
-  human_name: Tuya 1-gang
+  human_name: Tuya 1-gang 🅰
   power: mains
   neutral: required
   device_type: router
@@ -933,7 +947,7 @@ TUYA_1_TS0001:
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/6
   store: null
 TUYA_2_TS0001:
-  human_name: Tuya 1-gang
+  human_name: Tuya 1-gang 🅱
   power: mains
   neutral: required
   device_type: router
@@ -958,7 +972,7 @@ TUYA_2_TS0001:
   threads: null
   store: null
 TUYA_3_TS0001:
-  human_name: Tuya 1-gang
+  human_name: Tuya 1-gang 🅲
   power: mains
   neutral: required
   device_type: router
@@ -982,15 +996,19 @@ TUYA_3_TS0001:
   build: yes
   status: fully_supported
   info: Supported
-  threads: https://github.com/romasku/tuya-zigbee-switch/issues/24
+  threads: 
+  - https://github.com/romasku/tuya-zigbee-switch/issues/24
+  - https://github.com/romasku/tuya-zigbee-switch/issues/80
   store: null
 TUYA_4_TS0001:
-  human_name: Tuya 1-gang
+  human_name: Tuya 1-gang 🅳
   power: mains
   neutral: required
   device_type: router
   mcu: TLSR8258
-  tuya_model_name: TS0001
+  tuya_model_name: 
+  - TS0001
+  - TS000F
   tuya_manufacturer_name: _TZ3000_skueekg3
   stock_converter_manufacturer: Tuya
   stock_converter_model: WHD02
