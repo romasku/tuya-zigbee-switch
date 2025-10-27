@@ -49,11 +49,17 @@
           "description": "Tuya manufacturer identifier"
         },
         "stock_converter_manufacturer": {
-          "type": "string",
+          "oneOf": [
+            {"type": "null"},
+            {"type": "string"}
+          ],
           "description": "Stock converter manufacturer"
         },
         "stock_converter_model": {
-          "type": "string",
+          "oneOf": [
+            {"type": "null"},
+            {"type": "string"}
+          ],
           "description": "Stock converter model"
         },
         "override_z2m_device": {
