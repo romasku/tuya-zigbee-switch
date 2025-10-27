@@ -425,6 +425,31 @@ BSEED_SWITCH_TS0726_2GANG:
   store:
   - https://www.aliexpress.com/item/1005008749674564.html
   - https://www.bseed.com/products/bseed-smart-zigbee-light-switch-with-neutral-hub-required-switch-work-with-tuya-alexa?variant=46312889057435
+BSEED_TOUCH_TS0011:
+  human_name: BSEED 1-gang touch switch
+  power: mains
+  neutral: without
+  device_type: end_device
+  mcu: TLSR8258
+  tuya_model_name: TS0011
+  tuya_manufacturer_name: _TZ3000_hafsqare
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0011
+  override_z2m_device: null
+  zb_module: ZTU
+  mcu_family: Telink
+  config_str: hafsqare;TS0011-BS-T;LC2;SA0u;RD3;IB4;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 43564
+  build: yes
+  status: fully_supported
+  info: Supported
+  threads: https://github.com/romasku/tuya-zigbee-switch/pull/176
+  store: https://www.bseed.com/products/bseed-zigbee-switch-wall-smart-light-switch-1gang-2-way-single-live-line?_pos=1&_psq=SL-GL86ZTS11B&_ss=e&_v=1.0&variant=42090992730267
 BSEED_TOUCH_1_TS0012:
   human_name: BSEED 2-gang touch switch 🅰
   power: mains
