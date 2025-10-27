@@ -31,8 +31,8 @@
  */
 #define FIRMWARE_TYPE_PREFIX 0xaa /* Firmware type identifier */
 
-#define APP_RELEASE 0x01   /* BCD application release version (0.1) */
-#define APP_BUILD 0x03     /* BCD application build version (0.3) */
+#define APP_RELEASE 0x03   /* BCD application release version (0.3) */
+#define APP_BUILD 0x01     /* BCD application build version (1) */
 #define STACK_RELEASE 0x30 /* BCD stack release version (3.0) */
 
 #ifndef STACK_BUILD
