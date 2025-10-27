@@ -981,6 +981,106 @@ OXT_TS0002:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/49
   store: null
+TUYA_SWITCH_TS0001:
+  human_name: Tuya 1-gang switch
+  power: mains
+  neutral: required
+  device_type: router
+  mcu: TLSR8258
+  tuya_model_name: TS0001
+  tuya_manufacturer_name: _TZ3000_u6ocpapf
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0001
+  override_z2m_device: null
+  zb_module: null
+  mcu_family: Telink
+  config_str: u6ocpapf;TS0001-CUS;LB1;SC3u;RD2;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 45568
+  build: yes
+  status: mostly_supported
+  info: Needs netled on A0
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/181
+  store: null
+TUYA_SWITCH_TS0002:
+  human_name: Tuya 2-gang switch
+  power: mains
+  neutral: required
+  device_type: router
+  mcu: TLSR8258
+  tuya_model_name: TS0002
+  tuya_manufacturer_name: null
+  stock_converter_manufacturer: null
+  stock_converter_model: null
+  override_z2m_device: null
+  zb_module: null
+  mcu_family: Telink
+  config_str: null____;TS0002-CUS;LB1;SC3u;RD2;SD7u;RB5;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 45569
+  build: no
+  status: in_progress
+  info: Needs ID and netled on A0
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/181
+  store: null
+TUYA_SWITCH_TS0003:
+  human_name: Tuya 3-gang switch
+  power: mains
+  neutral: required
+  device_type: router
+  mcu: TLSR8258
+  tuya_model_name: TS0003
+  tuya_manufacturer_name: null
+  stock_converter_manufacturer: null
+  stock_converter_model: null
+  override_z2m_device: null
+  zb_module: null
+  mcu_family: Telink
+  config_str: null____;TS0003-CUS;LB1;SC3u;RD2;SD7u;RB5;SC2u;RB4;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 45570
+  build: no
+  status: in_progress
+  info: Needs ID and netled on A0
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/181
+  store: null
+TUYA_SWITCH_TS0004:
+  human_name: Tuya 4-gang switch
+  power: mains
+  neutral: required
+  device_type: router
+  mcu: TLSR8258
+  tuya_model_name: TS0004
+  tuya_manufacturer_name: _TZ3000_gbdxbmwz
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0004
+  override_z2m_device: null
+  zb_module: null
+  mcu_family: Telink
+  config_str: gbdxbmwz;TS0004-CUS;LB1;SC3u;RD2;SD7u;RB5;SC2u;RB4;SB7u;RC0;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 45567
+  build: yes
+  status: mostly_supported
+  info: Needs netled on A0
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/181
+  store: null
 TUYA_1_TS0001:
   human_name: Tuya 1-gang 🅰
   power: mains
