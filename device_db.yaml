@@ -955,6 +955,31 @@ MOES_TS0003:
   info: Has buzzer on C2
   threads: https://github.com/romasku/tuya-zigbee-switch/pull/30
   store: https://www.aliexpress.com/item/1005004986958450.html
+MOES_2_TS0002:
+  human_name: Moes ZM4LT2
+  power: mains
+  neutral: required
+  device_type: router
+  mcu: TLSR8258
+  tuya_model_name: TS0002
+  tuya_manufacturer_name: _TZ3000_criiahcg
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: null
+  override_z2m_device: null
+  zb_module: ZT2S
+  mcu_family: Telink
+  config_str: criiahcg;TS0002-MS;TODO;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 45571
+  build: no
+  status: in_progress
+  info: Needs pinout
+  threads: null
+  store: https://www.aliexpress.com/item/1005009640015785.html
 MOES_2_TS0003:
   human_name: Moes ZM4LT3
   power: mains
@@ -964,7 +989,7 @@ MOES_2_TS0003:
   tuya_model_name: TS0003
   tuya_manufacturer_name: _TZ3000_mzcp0of6
   stock_converter_manufacturer: Tuya
-  stock_converter_model: TS0003
+  stock_converter_model: null
   override_z2m_device: null
   zb_module: ZTU
   mcu_family: Telink
