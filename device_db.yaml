@@ -584,6 +584,33 @@ GIRIER_TS0013:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/37
   store: null
+IHSENO_REMOTE_TS0044:
+  human_name: Tuya 4-button remote
+  power: LR23A
+  neutral: without
+  device_type: end_device
+  mcu: TLSR8258
+  tuya_model_name: TS0044
+  tuya_manufacturer_name: _TZ3000_mh9px7cq
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0044
+  override_z2m_device: _TZ3000_mh9px7cq
+  zb_module: ZT3L
+  mcu_family: Telink
+  config_str: mh9px7cq;TS0044-CUS;LC0;SD2u;RD4;SC2u;RA0;SC3u;RD7;SB4u;RB5;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 43563
+  build: yes
+  status: in_progress
+  info: Huge battery drain! Does not have relays.
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/171
+  store: 
+  - https://www.aliexpress.com/item/1005005792534172.html
+  - https://allegro.pl/oferta/pilot-atlo-rc4-tuya-zigbee-tuya-smart-da-16513965398
 IHSENO_TOUCH_TS0001:
   human_name: iHseno 1-gang touch switch
   power: mains
@@ -1348,31 +1375,6 @@ TUYA_TS0012:
   info: Supported
   threads: null
   store: null
-TUYA_REMOTE_TS0044:
-  human_name: Tuya 4-button remote
-  power: LR23A
-  neutral: without
-  device_type: end_device
-  mcu: TLSR8258
-  tuya_model_name: TS0044
-  tuya_manufacturer_name: _TZ3000_mh9px7cq
-  stock_converter_manufacturer: Tuya
-  stock_converter_model: TS0044
-  override_z2m_device: TS0044_1
-  zb_module: ZT3L
-  mcu_family: Telink
-  config_str: mh9px7cq;TS0044-CUS;LC0;SD2u;RD4;SC2u;RA0;SC3u;RD7;SB4u;RB5;M;
-  alt_config_str: null
-  old_manufacturer_names: null
-  old_zb_models: null
-  tuya_manufacturer_id: 4417
-  tuya_image_type: 54179
-  firmware_image_type: 43563
-  build: yes
-  status: in_progress
-  info: Huge battery drain! Does not have relays.
-  threads: https://github.com/romasku/tuya-zigbee-switch/issues/171
-  store: https://allegro.pl/oferta/pilot-atlo-rc4-tuya-zigbee-tuya-smart-da-16513965398
 ZEMISMART_SWITCH_TS0012:
   human_name: Zemismart 2-gang switch
   power: mains
