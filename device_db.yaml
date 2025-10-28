@@ -711,6 +711,31 @@ IHSENO_TS0001:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/105
   store: https://www.aliexpress.com/item/1005008107698143.html
+IHSENO_TS0002:
+  human_name: iHseno 2-gang
+  power: mains
+  neutral: required
+  device_type: router
+  mcu: TLSR8258
+  tuya_model_name: TS0002
+  tuya_manufacturer_name: null
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: null
+  override_z2m_device: null
+  zb_module: ZTU
+  mcu_family: Telink
+  config_str: null____;TS0002-IHS;BC3u;LC2i;SB5u;RD2;SB4u;RD3;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 45572
+  build: no
+  status: in_progress
+  info: Needs ID, pinout confirmation
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/105
+  store: https://www.aliexpress.com/item/1005008107698143.html
 IHSENO_TS0003:
   human_name: iHseno 3-gang
   power: mains
@@ -720,8 +745,8 @@ IHSENO_TS0003:
   tuya_model_name: TS0003
   tuya_manufacturer_name: _TZ3000_mhhxxjrs
   stock_converter_manufacturer: Tuya
-  stock_converter_model: TS0003
-  override_z2m_device: null
+  stock_converter_model: TS0003_switch_module_2
+  override_z2m_device: _TZ3000_mhhxxjrs
   zb_module: ZTU
   mcu_family: Telink
   config_str: mhhxxjrs;TS0003-IHS;BC3u;LC2i;SD7u;RD2;SB4u;RD3;SB5u;RC0;
@@ -748,8 +773,8 @@ IHSENO_TS0004:
   tuya_model_name: TS0004
   tuya_manufacturer_name: _TZ3000_knoj8lpk
   stock_converter_manufacturer: Tuya
-  stock_converter_model: TS0004
-  override_z2m_device: null
+  stock_converter_model: TS0004_switch_module_2
+  override_z2m_device: _TZ3000_knoj8lpk
   zb_module: ZTU
   mcu_family: Telink
   config_str: knoj8lpk;TS0004-IHS;BC3u;LC2i;SB5u;RD2;SB4u;RD3;SD7u;RC0;SD4u;RC1;
