@@ -578,3 +578,25 @@ def test_momentary_mode_multistate_value_normaly_closed(
         )
         == "0"
     )
+
+
+def test_momentary_mode_multistate_action_reporting(
+        momentary_device: Device, relay_button_pair: RelayButtonPair
+):
+    momentary_device.press_button(relay_button_pair.button_pin)
+    assert (
+        momentary_device.zcl_switch_await_multistate_value_reported_change(relay_button_pair.switch_endpoint)
+        == "1"
+    )
+
+    momentary_device.step_time(2_000)
+    assert (
+        momentary_device.zcl_switch_await_multistate_value_reported_change(relay_button_pair.switch_endpoint)
+        == "2"
+    )
+
+    momentary_device.release_button(relay_button_pair.button_pin)
+    assert (
+        momentary_device.zcl_switch_await_multistate_value_reported_change(relay_button_pair.switch_endpoint)
+        == "0"
+    )
