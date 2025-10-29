@@ -217,7 +217,17 @@ const definitions = [
         meta: { multiEndpoint: true },
         configure: async (device, coordinatorEndpoint, logger) => {
             {% for switchName in device.switchNames %}
-            await reporting.bind(device.getEndpoint({{loop.index}}), coordinatorEndpoint, ["genMultistateInput"]);
+            const endpoint{{loop.index}} = device.getEndpoint({{loop.index}});
+            await reporting.bind(endpoint{{loop.index}}, coordinatorEndpoint, ["genMultistateInput"]);
+            // switch action:
+            await endpoint{{loop.index}}.configureReporting("genMultistateInput", [
+                {
+                    attribute: {ID: 0x0055 /* presentValue */, type: 0x21}, // uint16
+                    minimumReportInterval: 0,
+                    maximumReportInterval: constants.repInterval.MAX,
+                    reportableChange: 1,
+                },
+            ]);
             {% endfor %}
             {% for relayName in device.relayNames %}
             const endpoint{{loop.index  + (device.switchNames | length)}} = device.getEndpoint({{loop.index  + (device.switchNames | length)}});
@@ -226,6 +236,15 @@ const definitions = [
                 max: constants.repInterval.MINUTE,
                 change: 1,
             });
+            // indicator:
+            await endpoint{{loop.index  + (device.switchNames | length)}}.configureReporting("genOnOff", [
+                {
+                    attribute: {ID: 0xff02, type: 0x10}, // Boolean
+                    minimumReportInterval: 0,
+                    maximumReportInterval: constants.repInterval.MAX,
+                    reportableChange: 1,
+                },
+            ]);
             {% endfor %}
         },
         {% if z2m_v1 %}
