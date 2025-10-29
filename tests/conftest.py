@@ -356,6 +356,14 @@ class Device:
             ZCL_ATTR_MULTISTATE_INPUT_PRESENT_VALUE,
         )
 
+    def zcl_switch_await_multistate_value_reported_change(self, endpoint: int) -> str:
+        self.wait_for_attr_change(
+            endpoint,
+            ZCL_CLUSTER_MULTISTATE_INPUT_BASIC,
+            ZCL_ATTR_MULTISTATE_INPUT_PRESENT_VALUE,
+        )
+        return self.zcl_switch_get_multistate_value(endpoint)
+
 
 def wait_for(
     condition_fn: Callable[[], bool], timeout: float = 2.0, interval: float = 0.1
