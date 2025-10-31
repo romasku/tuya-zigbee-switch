@@ -7,10 +7,10 @@ TOOLS_DIR := $(PROJECT_ROOT)/silabs_tools
 DOWNLOAD_DIR := $(TOOLS_DIR)/downloads
 
 # Tool versions and URLs
-GECKO_SDK_VERSION := 4.4.6
+GECKO_SDK_VERSION := 4.5.0
 GECKO_SDK_REPO := https://github.com/SiliconLabs/gecko_sdk
-GECKO_SDK_ARCHIVE := gecko-sdk.zip
-GECKO_SDK_URL := $(GECKO_SDK_REPO)/releases/download/v$(GECKO_SDK_VERSION)/$(GECKO_SDK_ARCHIVE)
+GECKO_SDK_ARCHIVE := gecko-sdk-$(GECKO_SDK_VERSION).zip
+GECKO_SDK_URL := $(GECKO_SDK_REPO)/releases/download/v$(GECKO_SDK_VERSION)/gecko-sdk.zip
 
 # Silicon Labs download URLs
 COMMANDER_URL := https://www.silabs.com/documents/public/software/SimplicityCommander-Linux.zip
