@@ -13,7 +13,8 @@ SDK_ARCHIVE := V$(SDK_VERSION).zip
 SDK_URL := $(SDK_REPO)/archive/refs/tags/$(SDK_ARCHIVE)
 
 # Telink toolchain URL
-TOOLCHAIN_URL := http://shyboy.oss-cn-shenzhen.aliyuncs.com/readonly/tc32_gcc_v2.0.tar.bz2
+TOOLCHAIN_URL := https://shyboy.oss-cn-shenzhen.aliyuncs.com/readonly/tc32_gcc_v2.0.tar.bz2
+TOOLCHAIN_CHECKSUM := 33b854be3e3db3dba4b4dacdda2cd4ea1c94dfd4d562864a095956de7991b430
 TOOLCHAIN_ARCHIVE := tc32_gcc_v2.0.tar.bz2
 
 # TlsrPgm programmer tool URL
@@ -114,6 +115,9 @@ $(TOOLS_DIR)/toolchain: | $(DOWNLOAD_DIR)
 			}; \
 		fi; \
 	fi
+	@echo "Verifying TC32 GCC toolchain checksum..."
+	@echo "$(TOOLCHAIN_CHECKSUM) $(DOWNLOAD_DIR)/$(TOOLCHAIN_ARCHIVE)" | sha256sum -c - \
+	   || (rm -f $(DOWNLOAD_DIR)/$(TOOLCHAIN_ARCHIVE) && false)
 	@echo "Extracting TC32 GCC toolchain..."
 	@rm -rf $(TOOLS_DIR)/toolchain
 	@mkdir -p $(TOOLS_DIR)/toolchain
