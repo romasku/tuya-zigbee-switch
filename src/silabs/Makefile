@@ -3,6 +3,7 @@ GSDK_VERSION       ?= v4.4.6
 GSDK_DIR           ?= ../../silabs_tools/gecko_sdk
 SLC_DIR            ?= ../../silabs_tools/slc-cli
 COMMANDER_DIR      ?= ../../silabs_tools/commander
+ZAP_DIR            ?= ../../silabs_tools/zap
 GCC_BIN            ?= arm-none-eabi-gcc
 
 # Version and board configuration
@@ -82,8 +83,9 @@ gen:
 	$(SLC_DIR)/slc configuration -gcc $(TOOLCHAIN_DIR)
 	$(SLC_DIR)/slc configuration --sdk $(GSDK_DIR)
 
-	@# Unset virtual environment variables to avoid conflicts 
+	@# Unset virtual environment variables to avoid conflicts and set ZAP environment
 	env -u VIRTUAL_ENV -u PYTHONHOME -u PYTHONPATH \
+		STUDIO_ADAPTER_PACK_PATH="$(abspath $(ZAP_DIR))" \
     PATH="$$(echo "$$PATH" | tr ':' '\n' | grep -v 'venv' | paste -sd: -)" \
 	$(SLC_DIR)/slc generate \
 		--project-file "$(PROJECT_FILE)" \

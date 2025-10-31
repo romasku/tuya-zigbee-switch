@@ -26,7 +26,7 @@ TLSRPGM_FILE := TlsrPgm.py
 .PHONY: install-sdk install-toolchain install-tlsrpgm clean-sdk clean-toolchain clean-tlsrpgm
 
 # Default target
-all: sdk toolchain tlsrpgm
+all: sdk toolchain tlsrpgm verify
 	@echo "All Telink tools have been downloaded and installed to $(TOOLS_DIR)"
 
 # Help target
@@ -203,6 +203,7 @@ verify:
 		fi; \
 	else \
 		echo "✗ Telink Zigbee SDK: Not installed"; \
+		exit 1; \
 	fi
 	@if [ -d "$(TOOLS_DIR)/toolchain" ]; then \
 		echo "✓ TC32 GCC Toolchain: $(TOOLS_DIR)/toolchain"; \
@@ -214,6 +215,7 @@ verify:
 		fi; \
 	else \
 		echo "✗ TC32 GCC Toolchain: Not installed"; \
+		exit 1; \
 	fi
 	@if [ -f "$(TOOLS_DIR)/tlsrpgm/$(TLSRPGM_FILE)" ]; then \
 		echo "✓ TlsrPgm Tool: $(TOOLS_DIR)/tlsrpgm/$(TLSRPGM_FILE)"; \
@@ -221,6 +223,7 @@ verify:
 		echo "  Status: $$VERSION"; \
 	else \
 		echo "✗ TlsrPgm Tool: Not installed"; \
+		exit 1; \
 	fi
 
 # Show current status

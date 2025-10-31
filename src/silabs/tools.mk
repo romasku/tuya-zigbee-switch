@@ -16,15 +16,20 @@ GECKO_SDK_URL := $(GECKO_SDK_REPO)/releases/download/v$(GECKO_SDK_VERSION)/gecko
 COMMANDER_URL := https://www.silabs.com/documents/public/software/SimplicityCommander-Linux.zip
 SLC_CLI_URL := https://www.silabs.com/documents/public/software/slc_cli_linux.zip
 
+# ZAP tool configuration
+ZAP_VERSION := 2025.10.23
+ZAP_ARCHIVE := zap-linux-x64.zip
+ZAP_URL := https://github.com/project-chip/zap/releases/download/v$(ZAP_VERSION)/$(ZAP_ARCHIVE)
+
 .PHONY: all clean clean-downloads help status verify trust
-.PHONY: gecko_sdk commander slc-cli
-.PHONY: install-gecko_sdk install-commander install-slc-cli
+.PHONY: gecko_sdk commander slc-cli zap
+.PHONY: install-gecko_sdk install-commander install-slc-cli install-zap
 
 # Default target
-all: gecko_sdk commander slc-cli
+all: gecko_sdk commander slc-cli zap trust verify
 	@echo "All Silicon Labs tools have been downloaded and installed to $(TOOLS_DIR)"
 
-# Trust SDK signature
+# Trust SDK signature and configure ZAP
 trust:
 	@echo "Trusting Silicon Labs SDK signature..."
 	$(TOOLS_DIR)/slc-cli/slc signature trust --sdk $(TOOLS_DIR)/gecko_sdk
@@ -38,7 +43,8 @@ help:
 	@echo "  gecko_sdk    - Download and install Gecko SDK from GitHub"
 	@echo "  commander    - Download and install Simplicity Commander"
 	@echo "  slc-cli      - Download and install SLC CLI tool"
-	@echo "  trust        - Trust SDK signature (run after SDK installation)"
+	@echo "  zap          - Download and install ZAP (Zigbee Application Processor)"
+	@echo "  trust        - Trust SDK signature and configure ZAP (run after installation)"
 	@echo "  status       - Show installation status and verify tools"
 	@echo "  verify       - Verify installed tools and system requirements"
 	@echo "  clean        - Remove installed tools (keeps downloads)"
@@ -158,6 +164,27 @@ $(TOOLS_DIR)/slc-cli: | $(DOWNLOAD_DIR)
 	@chmod +x $(TOOLS_DIR)/slc-cli/slc $(TOOLS_DIR)/slc-cli/bin/slc-cli 2>/dev/null || true
 	@echo "SLC CLI installed to $(TOOLS_DIR)/slc-cli"
 
+# ZAP (Zigbee Application Processor)
+zap: $(TOOLS_DIR)/zap
+	@echo "ZAP installed successfully"
+
+$(TOOLS_DIR)/zap: | $(DOWNLOAD_DIR)
+	@echo "Downloading ZAP v$(ZAP_VERSION)..."
+	@if [ ! -f "$(DOWNLOAD_DIR)/$(ZAP_ARCHIVE)" ]; then \
+		echo "Downloading $(ZAP_URL)"; \
+		curl -L "$(ZAP_URL)" \
+			-o "$(DOWNLOAD_DIR)/$(ZAP_ARCHIVE)" \
+			--fail --show-error; \
+	fi
+	@echo "Extracting ZAP..."
+	@rm -rf $(TOOLS_DIR)/zap
+	@mkdir -p $(TOOLS_DIR)/zap
+	@unzip -q "$(DOWNLOAD_DIR)/$(ZAP_ARCHIVE)" -d $(TOOLS_DIR)/zap
+	@# Make zap executable
+	@chmod +x $(TOOLS_DIR)/zap/zap* 2>/dev/null || true
+	@echo "ZAP v$(ZAP_VERSION) installed to $(TOOLS_DIR)/zap"
+	@echo ""
+
 # Install targets (for manual installation from downloaded archives)
 install-gecko_sdk: $(TOOLS_DIR)/gecko_sdk
 
@@ -165,10 +192,12 @@ install-commander: $(TOOLS_DIR)/commander
 
 install-slc-cli: $(TOOLS_DIR)/slc-cli
 
+install-zap: $(TOOLS_DIR)/zap
+
 # Clean targets
 clean:
 	@echo "Removing installed tools from $(TOOLS_DIR)..."
-	@rm -rf $(TOOLS_DIR)/gecko_sdk $(TOOLS_DIR)/commander $(TOOLS_DIR)/slc-cli
+	@rm -rf $(TOOLS_DIR)/gecko_sdk $(TOOLS_DIR)/commander $(TOOLS_DIR)/slc-cli $(TOOLS_DIR)/zap
 	@echo "Tools removed (downloads preserved)"
 
 clean-downloads:
@@ -184,18 +213,29 @@ verify:
 		echo "  Version info: $$(head -1 $(TOOLS_DIR)/gecko_sdk/platform/release-highlights.txt 2>/dev/null || echo 'Unknown')"; \
 	else \
 		echo "✗ Gecko SDK: Not installed"; \
+		exit 1; \
 	fi
 	@if [ -f "$(TOOLS_DIR)/commander/commander-cli" ]; then \
 		echo "✓ Simplicity Commander: $(TOOLS_DIR)/commander/commander-cli"; \
 		echo "  Version: $$($(TOOLS_DIR)/commander/commander-cli --version 2>/dev/null | grep "Simplicity Commander" | head -1 || echo 'Unknown')"; \
 	else \
 		echo "✗ Simplicity Commander: Not installed"; \
+		exit 1; \
 	fi
 	@if [ -f "$(TOOLS_DIR)/slc-cli/slc" ]; then \
 		echo "✓ SLC CLI: $(TOOLS_DIR)/slc-cli/slc"; \
 		echo "  Version: $$($(TOOLS_DIR)/slc-cli/slc --version 2>/dev/null || echo 'Unknown')"; \
 	else \
 		echo "✗ SLC CLI: Not installed"; \
+		exit 1; \
+	fi
+	@ZAP_EXEC=$$(find $(TOOLS_DIR)/zap -name "zap" -type f -executable 2>/dev/null | head -1); \
+	if [ -n "$$ZAP_EXEC" ]; then \
+		echo "✓ ZAP: $$ZAP_EXEC"; \
+		echo "  Version: $$($$ZAP_EXEC --version 2>/dev/null | head -1 || echo 'Unknown')"; \
+	else \
+		echo "✗ ZAP: Not installed"; \
+		exit 1; \
 	fi
 	@echo ""
 	@echo "System Requirements:"
@@ -205,6 +245,20 @@ verify:
 		echo "  Version: $$(arm-none-eabi-gcc --version 2>/dev/null | head -1 || echo 'Unknown')"; \
 	else \
 		echo "✗ ARM GCC Toolchain: Not found (install arm-none-eabi-gcc)"; \
+		exit 1; \
+	fi
+	@JAVA_PATH=$$(command -v java 2>/dev/null); \
+	if [ -n "$$JAVA_PATH" ]; then \
+		JAVA_VERSION=$$(java -version 2>&1 | head -1 | sed -n 's/.*"\([0-9]*\)\..*".*/\1/p' || echo "0"); \
+		if [ "$$JAVA_VERSION" -lt 21 ]; then \
+			echo "✗ Java: Version $$JAVA_VERSION found, but version >= 21 is required"; \
+			exit 1; \
+		else \
+			echo "✓ Java: $$JAVA_PATH (Version >= 21)"; \
+		fi; \
+	else \
+		echo "✗ Java: Not found (install Java >= 21)"; \
+		exit 1; \
 	fi
 
 # Show current status
@@ -213,4 +267,4 @@ status:
 	@echo "Tools directory: $(TOOLS_DIR)"
 	@echo "Download directory: $(DOWNLOAD_DIR)"
 	@echo ""
-	@$(MAKE) -f tools.mk verify
+	@$(MAKE) -f $(lastword $(MAKEFILE_LIST)) verify

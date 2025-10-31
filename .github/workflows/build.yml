@@ -22,13 +22,19 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y make python3 yq unzip wget
+        sudo apt-get install -y make python3 yq unzip wget gcc-arm-none-eabi
+
+    - name: Set up JDK 21
+      uses: actions/setup-java@v4
+      with:
+        distribution: temurin
+        java-version: 21
 
     - name: Cache Silicon Labs Tools
       uses: actions/cache@v3
       with:
         path: silabs_tools
-        key: silabs-tools-v4.4.6
+        key: silabs-tools-v4.5.0
 
     - name: Cache Telink Tools
       uses: actions/cache@v3
@@ -44,7 +50,10 @@ jobs:
 
     - name: Install SDK and Toolchain
       run: |
-        make setup
+        make setup || (
+          echo "dumping log:" &&
+          cat /home/runner/work/tuya-zigbee-switch/tuya-zigbee-switch/silabs_tools/slc-cli/bin/slc-cli/configuration/*.log
+        )
 
     - name: Clear out index files
       run: |
