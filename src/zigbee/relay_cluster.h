@@ -29,6 +29,6 @@ void relay_cluster_report(zigbee_relay_cluster *cluster);
 void update_relay_clusters();
 
 void relay_cluster_callback_attr_write_trampoline(uint8_t endpoint,
-                                                  uint8_t attribute_id);
+                                                  uint16_t attribute_id);
 
 #endif

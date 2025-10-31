@@ -176,7 +176,7 @@ def test_indicator_mode_manual_controlled(indicator_device: Device) -> None:
         ZCL_ATTR_ONOFF_INDICATOR_STATE,
         "1",
     )
-    assert not indicator_device.get_gpio("A1")
+    assert indicator_device.get_gpio("A1")
     indicator_device.write_zigbee_attr(
         relay_endpoint,
         ZCL_CLUSTER_ON_OFF,
