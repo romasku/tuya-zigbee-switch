@@ -109,7 +109,7 @@ make stub/build
 Run all tests:
 
 ```bash
-make test
+make tests
 # Or directly:
 pytest tests/
 ```
