@@ -31,14 +31,6 @@
  */
 #define FIRMWARE_TYPE_PREFIX 0xaa /* Firmware type identifier */
 
-#define APP_RELEASE 0x03   /* BCD application release version (0.3) */
-#define APP_BUILD 0x01     /* BCD application build version (1) */
-#define STACK_RELEASE 0x30 /* BCD stack release version (3.0) */
-
-#ifndef STACK_BUILD
-#define STACK_BUILD 0x00    /* BCD stack build version */
-#endif
-
 /*
  * OTA Update Configuration
  * These values are checked during OTA upgrades according to ZCL OTA
@@ -52,8 +44,9 @@
 
 /* Combined file version for OTA (32-bit): APP_REL | APP_BUILD | STACK_REL |
  * STACK_BUILD */
-#define FILE_VERSION                                                           \
-  ((APP_RELEASE << 24) | (APP_BUILD << 16) | (STACK_RELEASE << 8) | STACK_BUILD)
+#ifndef FILE_VERSION
+#define FILE_VERSION 0
+#endif
 
 /*
  * Linker Configuration

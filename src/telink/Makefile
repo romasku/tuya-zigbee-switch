@@ -7,7 +7,9 @@ TELINK_TOOLS_DIR := $(PROJECT_ROOT)/telink_tools
 SRC_DIR := $(PROJECT_ROOT)/src
 
 # Version and board configuration
-VERSION ?= 1
+VERSION_STR ?= "0.0.0"
+FILE_VERSION ?= 0
+
 FIRMWARE_BASENAME ?= tlc_switch
 DEVICE_TYPE ?= router
 DEBUG ?= 0
@@ -80,7 +82,8 @@ ASM_FLAGS := \
 
 # Device definitions
 DEVICE_DEFS := \
-	-DSTACK_BUILD=$(VERSION) \
+    -DVERSION_STR=\"$(VERSION_STR)\" \
+	-DFILE_VERSION=$(FILE_VERSION) \
 	-DDEFAULT_CONFIG="$(CONFIG_STR)" \
 	-DIMAGE_TYPE=$(IMAGE_TYPE) \
 	-DHAL_TELINK \
@@ -297,7 +300,10 @@ help:
 	@echo "  flasher             - Run programmer tool with custom ARGS"
 	@echo ""
 	@echo "Configuration Variables:"
-	@echo "  VERSION             - Firmware version (default: $(VERSION))"
+	@echo "  APP_RELEASE         - Application release version (default: $(APP_RELEASE))"
+	@echo "  APP_BUILD           - Application build version (default: $(APP_BUILD))"
+	@echo "  STACK_RELEASE       - Stack release version (default: $(STACK_RELEASE))"
+	@echo "  STACK_BUILD         - Stack build version (default: $(STACK_BUILD))"
 	@echo "  DEVICE_TYPE         - router or end_device (default: $(DEVICE_TYPE))"
 	@echo "  CONFIG_STR          - Device pin configuration string"
 	@echo "  DEBUG               - Enable debug output (0/1, default: $(DEBUG))"

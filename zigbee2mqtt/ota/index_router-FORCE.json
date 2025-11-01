@@ -583,22 +583,6 @@
     ]
   },
   {
-    "fileName": "1141-aa01-ffffffff-tlc_switch-forced.zigbee",
-    "fileVersion": 4294967295,
-    "fileSize": 166882,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/d7c603a8afde8e6c128597b4cd0ce674c04f5d36/bin/router/TUYA_TS0012/1141-aa01-ffffffff-tlc_switch-forced.zigbee",
-    "imageType": 43521,
-    "manufacturerCode": 4417,
-    "sha512": "447c9ad0924c8df60d874166ec94454d55a343a1ec5bbcc37f574cb112825f7dc6444723f158f5fe376048c29b395741de74333d7f17acdb600e40ea5abf2015",
-    "otaHeaderString": "Telink Zigbee OTA\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
-    "manufacturerName": [
-      "_TZ3000_jl7qyupf",
-      "Tuya-CUSTOM",
-      "Tuya-TS0012-custom",
-      "jl7qyupf"
-    ]
-  },
-  {
     "fileName": "1141-aa10-ffffffff-tlc_switch-forced.zigbee",
     "fileVersion": 4294967295,
     "fileSize": 166882,
@@ -611,6 +595,22 @@
       "_TZ3000_zmlunnhy",
       "Zemi-2-gang",
       "zmlunnhy"
+    ]
+  },
+  {
+    "fileName": "tlc_switch-1.1.0.rs_develop-forced.zigbee",
+    "fileVersion": 4294967295,
+    "fileSize": 176706,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/main/bin/router/TUYA_TS0012/tlc_switch-1.1.0.rs_develop-forced.zigbee",
+    "imageType": 43521,
+    "manufacturerCode": 4417,
+    "sha512": "ff65007ef8e45ffcd9fa648fd095c10c53c068a9c801d67f93efb5b51dbc6564f57e8ab48df84c21885fe481cacfaed6900532a5e8b6133b7f227b2466a7722b",
+    "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
+    "manufacturerName": [
+      "_TZ3000_jl7qyupf",
+      "Tuya-CUSTOM",
+      "Tuya-TS0012-custom",
+      "jl7qyupf"
     ]
   }
 ]

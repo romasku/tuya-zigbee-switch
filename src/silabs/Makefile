@@ -7,13 +7,16 @@ ZAP_DIR            ?= ../../silabs_tools/zap
 GCC_BIN            ?= arm-none-eabi-gcc
 
 # Version and board configuration
-VERSION ?= 20
+VERSION_STR ?= 0.0.0
+FILE_VERSION ?= 0
+
+
 DEVICE_TYPE ?= router
 CONFIG_STR ?= jl7qyupf;TS0012-custom;SA0u;SA3u;SB0u;SB1u;RD0;RC2;RA5;RA6;
 MANUFACTURER_ID = 4169  # 0x1049, can be overridden via .zap file only
 IMAGE_TYPE ?= 54179
 
-EXTRA_C_DEFS = -DVERSION=$(VERSION) -DDEFAULT_CONFIG="$(CONFIG_STR)" -DIMAGE_TYPE=$(IMAGE_TYPE) -DHAL_SILABS
+EXTRA_C_DEFS = -DFILE_VERSION=$(FILE_VERSION) -DVERSION_STR="$(VERSION_STR)" -DDEFAULT_CONFIG="$(CONFIG_STR)" -DIMAGE_TYPE=$(IMAGE_TYPE) -DHAL_SILABS
 
 # Default target
 help:
