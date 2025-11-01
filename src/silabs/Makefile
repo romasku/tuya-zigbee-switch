@@ -134,7 +134,7 @@ ota:
 		--compress lzma
 	$(COMMANDER_DIR)/commander-cli ota create \
 		--upgrade-image "$(ZIGBEE_BUILD_DIR)/build/release/$(ZIGBEE_PROJECT_NAME).gbl" \
-		--firmware-version "$(VERSION)" \
+		--firmware-version "$(FILE_VERSION)" \
 		--manufacturer-id "${MANUFACTURER_ID}" \
 		--image-type "$(IMAGE_TYPE)" \
 		--string "Custom zigbee firmware" \

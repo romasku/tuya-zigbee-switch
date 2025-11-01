@@ -18,7 +18,7 @@ const uint8_t hwVersion = 0x00;
 const uint8_t powerSource = 0x01; // POWER_SOURCE_MAINS_1_PHASE
 
 const uint16_t cluster_revision = 0x01;
-DEF_STR(VERSION_STR, swBuildId);
+DEF_STR(STRINGIFY_VALUE(VERSION_STR), swBuildId);
 extern network_indicator_t network_indicator;
 
 void basic_cluster_store_attrs_to_nv();
