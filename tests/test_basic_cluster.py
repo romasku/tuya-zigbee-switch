@@ -96,7 +96,7 @@ def test_basic_cluster_read_date_code(device: Device):
 def test_basic_cluster_read_sw_build_id(device: Device):
     assert device.read_zigbee_attr(
         1, ZCL_CLUSTER_BASIC, ZCL_ATTR_BASIC_SW_BUILD_ID
-    ).startswith("1.0")
+    ).startswith("0.0.0")
 
 
 def test_network_led_control(device: Device) -> None:
