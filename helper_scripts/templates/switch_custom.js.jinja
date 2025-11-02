@@ -233,7 +233,7 @@ const definitions = [
             const endpoint{{loop.index  + (device.switchNames | length)}} = device.getEndpoint({{loop.index  + (device.switchNames | length)}});
             await reporting.onOff(endpoint{{loop.index  + (device.switchNames | length)}}, {
                 min: 0,
-                max: constants.repInterval.MINUTE,
+                max: constants.repInterval.MAX,
                 change: 1,
             });
             // indicator:
