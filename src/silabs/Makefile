@@ -9,6 +9,7 @@ GCC_BIN            ?= arm-none-eabi-gcc
 # Version and board configuration
 VERSION_STR ?= 0.0.0
 FILE_VERSION ?= 0
+DEBUG ?= 0
 
 
 DEVICE_TYPE ?= router
@@ -80,6 +81,13 @@ BOOTLOADER_PROJECT_FILE := bootloader.slcp
 OTA_FILE ?= $(ZIGBEE_BUILD_DIR)/build/release/$(ZIGBEE_PROJECT_NAME)_ota.bin
 BIN_FILE ?= $(ZIGBEE_BUILD_DIR)/build/release/$(ZIGBEE_PROJECT_NAME).s37
 
+# Component exclusion based on DEBUG flag
+ifeq ($(DEBUG), 0)
+	WITHOUT_COMPONENTS = --without=iostream_usart:inst,iostream_recommended_stream
+else
+	WITHOUT_COMPONENTS =
+endif
+
 # Generate project files
 gen:
 	rm -rf $(ZIGBEE_BUILD_DIR)
@@ -96,6 +104,7 @@ gen:
 		-d "$(ZIGBEE_BUILD_DIR)" \
 		-name $(ZIGBEE_PROJECT_NAME) \
 		--with EFR32MG21A020F768IM32 \
+		$(WITHOUT_COMPONENTS) \
 		--toolchain=gcc \
 		--output-type=makefile
 	
