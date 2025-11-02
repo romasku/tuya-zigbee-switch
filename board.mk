@@ -33,11 +33,10 @@ VERSION_MINOR := $(word 2,$(VERSION_PARTS))
 VERSION_PATCH := $(word 3,$(VERSION_PARTS))
 
 # Get git info
-GIT_BRANCH := $(shell git rev-parse --abbrev-ref HEAD 2>/dev/null | tr '/' '_' || echo "")
 GIT_HASH   := $(shell git rev-parse --short HEAD 2>/dev/null || echo "")
 
 # Limites to 16 characters
-VERSION_STR := $(shell echo "$(VERSION_FILE_CONTENT).$(GIT_BRANCH)-$(GIT_HASH)" | cut -c1-16)
+VERSION_STR := $(shell echo "$(VERSION_FILE_CONTENT)-$(GIT_HASH)" | cut -c1-16)
 
 # Zigbee file version 4 bytes are:
 # APP_RELEASE, APP_BUILD, STACK_RELEASE, STACK_BUILD
