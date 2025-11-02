@@ -15,6 +15,7 @@
 
 AUBESS_TS0001:
   human_name: Aubess WHD02
+  category: module
   power: mains
   neutral: required
   device_type: end_device # specifically requested
@@ -42,6 +43,7 @@ AUBESS_TS0001:
   store: null
 AUBESS_TS0002:
   human_name: Aubess TMZ02
+  category: module
   power: mains
   neutral: required
   device_type: router
@@ -67,6 +69,7 @@ AUBESS_TS0002:
   store: https://www.aliexpress.com/item/1005005748264739.html
 AUBESS_TS0003:
   human_name: Aubess 3-gang
+  category: module
   power: mains
   neutral: required
   device_type: router
@@ -94,6 +97,7 @@ AUBESS_TS0003:
   - https://www.aliexpress.com/item/1005005748264739.html
 AUBESS_TS0004:
   human_name: Aubess 4-gang
+  category: module
   power: mains
   neutral: required
   device_type: router
@@ -120,6 +124,7 @@ AUBESS_TS0004:
   store: https://www.aliexpress.com/item/1005005748264739.html
 AVATTO_TOUCH_TS0003:
   human_name: AVATTO 3-gang touch switch
+  category: switch
   power: mains
   neutral: required
   device_type: router
@@ -146,6 +151,7 @@ AVATTO_TOUCH_TS0003:
   store: https://www.aliexpress.com/item/1005007097427150.html
 AVATTO_TS0001:
   human_name: AVATTO ZWSM16-1
+  category: module
   power: mains
   neutral: required
   device_type: router
@@ -176,6 +182,7 @@ AVATTO_TS0001:
   store: https://www.aliexpress.com/item/1005007247647375.html
 AVATTO_TS0002:
   human_name: AVATTO ZWSM16-2
+  category: module
   power: mains
   neutral: required
   device_type: router
@@ -206,6 +213,7 @@ AVATTO_TS0002:
   store: https://www.aliexpress.com/item/1005007247647375.html
 AVATTO_TS0003:
   human_name: AVATTO ZWSM16-3
+  category: module
   power: mains
   neutral: required
   device_type: router
@@ -236,6 +244,7 @@ AVATTO_TS0003:
   store: https://www.aliexpress.com/item/1005007247647375.html
 AVATTO_TS0004:
   human_name: AVATTO ZWSM16-4
+  category: module
   power: mains
   neutral: required
   device_type: router
@@ -267,6 +276,7 @@ AVATTO_TS0004:
   store: https://www.aliexpress.com/item/1005007247647375.html
 AVATTO_TS0011:
   human_name: AVATTO LZWSM16-1
+  category: module
   power: mains
   neutral: without
   device_type: end_device
@@ -294,6 +304,7 @@ AVATTO_TS0011:
   store: https://www.aliexpress.com/item/1005007247647375.html
 AVATTO_TS0012:
   human_name: AVATTO LZWSM16-2
+  category: module
   power: mains
   neutral: without
   device_type: end_device
@@ -321,6 +332,7 @@ AVATTO_TS0012:
   store: https://www.aliexpress.com/item/1005007247647375.html
 AVATTO_TS0013:
   human_name: AVATTO LZWSM16-3
+  category: module
   power: mains
   neutral: without
   device_type: end_device
@@ -346,6 +358,7 @@ AVATTO_TS0013:
   store: https://www.aliexpress.com/item/1005007247647375.html
 BSEED_SOCKET_PM_TS011F:
   human_name: BSEED PM socket
+  category: outlet
   power: mains
   neutral: required
   device_type: router
@@ -374,6 +387,7 @@ BSEED_SOCKET_PM_TS011F:
   - https://www.aliexpress.com/item/1005003350696939.html
 BSEED_SOCKET_TS011F:
   human_name: BSEED socket
+  category: outlet
   power: mains
   neutral: required
   device_type: router
@@ -400,6 +414,7 @@ BSEED_SOCKET_TS011F:
   - https://www.aliexpress.com/item/1005004402438527.html
 BSEED_SWITCH_TS0726_2GANG:
   human_name: BSEED 2-gang switch
+  category: switch
   power: mains
   neutral: required
   device_type: router
@@ -427,6 +442,7 @@ BSEED_SWITCH_TS0726_2GANG:
   - https://www.bseed.com/products/bseed-smart-zigbee-light-switch-with-neutral-hub-required-switch-work-with-tuya-alexa?variant=46312889057435
 BSEED_TOUCH_TS0011:
   human_name: BSEED 1-gang touch switch
+  category: switch
   power: mains
   neutral: without
   device_type: end_device
@@ -452,6 +468,7 @@ BSEED_TOUCH_TS0011:
   store: https://www.bseed.com/products/bseed-zigbee-switch-wall-smart-light-switch-1gang-2-way-single-live-line?_pos=1&_psq=SL-GL86ZTS11B&_ss=e&_v=1.0&variant=42090992730267
 BSEED_TOUCH_1_TS0012:
   human_name: BSEED 2-gang touch switch 🅰
+  category: switch
   power: mains
   neutral: without
   device_type: end_device
@@ -479,6 +496,7 @@ BSEED_TOUCH_1_TS0012:
   store: null
 BSEED_TOUCH_2_TS0012:
   human_name: BSEED 2-gang touch switch 🅱
+  category: switch
   power: mains
   neutral: without
   device_type: end_device
@@ -506,6 +524,7 @@ BSEED_TOUCH_2_TS0012:
   store: https://www.aliexpress.com/item/1005003324697513.html
 BSEED_TOUCH_TS0003:
   human_name: BSEED 3-gang touch switch
+  category: switch
   power: mains
   neutral: required
   device_type: router
@@ -531,6 +550,7 @@ BSEED_TOUCH_TS0003:
   store: https://www.aliexpress.com/item/1005003475686409.html
 GIRIER_TS0002:
   human_name: Girier 2-gang
+  category: module
   power: mains
   neutral: required
   device_type: router
@@ -558,6 +578,7 @@ GIRIER_TS0002:
   store: https://www.aliexpress.com/item/1005006084763437.html
 GIRIER_TS0013:
   human_name: Girier ZB08
+  category: module
   power: mains
   neutral: without
   device_type: end_device
@@ -586,6 +607,7 @@ GIRIER_TS0013:
   store: null
 IHSENO_REMOTE_TS0044:
   human_name: Tuya 4-button remote
+  category: remote
   power: LR23A
   neutral: without
   device_type: end_device
@@ -613,6 +635,7 @@ IHSENO_REMOTE_TS0044:
   - https://allegro.pl/oferta/pilot-atlo-rc4-tuya-zigbee-tuya-smart-da-16513965398
 IHSENO_TOUCH_TS0001:
   human_name: iHseno 1-gang touch switch
+  category: switch
   power: mains
   neutral: optional
   device_type: end_device
@@ -638,6 +661,7 @@ IHSENO_TOUCH_TS0001:
   store: https://www.aliexpress.com/item/1005007532195287.html
 IHSENO_TOUCH_TS0002:
   human_name: iHseno 2-gang touch switch
+  category: switch
   power: mains
   neutral: optional
   device_type: end_device
@@ -663,6 +687,7 @@ IHSENO_TOUCH_TS0002:
   store: https://www.aliexpress.com/item/1005007532195287.html
 IHSENO_TOUCH_TS0003:
   human_name: iHseno 3-gang touch switch
+  category: switch
   power: mains
   neutral: optional
   device_type: end_device
@@ -688,6 +713,7 @@ IHSENO_TOUCH_TS0003:
   store: https://www.aliexpress.com/item/1005007532195287.html
 IHSENO_TS0001:
   human_name: iHseno 1-gang
+  category: module
   power: mains
   neutral: required
   device_type: router
@@ -713,6 +739,7 @@ IHSENO_TS0001:
   store: https://www.aliexpress.com/item/1005008107698143.html
 IHSENO_TS0002:
   human_name: iHseno 2-gang
+  category: module
   power: mains
   neutral: required
   device_type: router
@@ -738,6 +765,7 @@ IHSENO_TS0002:
   store: https://www.aliexpress.com/item/1005008107698143.html
 IHSENO_TS0003:
   human_name: iHseno 3-gang
+  category: module
   power: mains
   neutral: required
   device_type: router
@@ -766,6 +794,7 @@ IHSENO_TS0003:
   store: https://www.aliexpress.com/item/1005008107698143.html
 IHSENO_TS0004:
   human_name: iHseno 4-gang
+  category: module
   power: mains
   neutral: required
   device_type: router
@@ -792,6 +821,7 @@ IHSENO_TS0004:
   store: https://www.aliexpress.com/item/1005008107698143.html
 MANHOT_SWITCH_TS0013:
   human_name: Manhot 3-gang switch
+  category: switch
   power: mains
   neutral: optional
   device_type: end_device
@@ -819,6 +849,7 @@ MANHOT_SWITCH_TS0013:
   - https://www.aliexpress.com/item/1005008867890261.html
 MHCOZY_TS0004:
   human_name: MHCOZY TYWB 4ch-RF
+  category: board
   power: mains
   neutral: required
   device_type: router
@@ -844,6 +875,7 @@ MHCOZY_TS0004:
   store: https://www.aliexpress.com/item/1005005457296054.html
 MOES_SWITCHES_TS0011:
   human_name: Moes 1-gang switches (button or touch)
+  category: switch
   power: mains
   neutral: optional
   device_type: end_device
@@ -873,6 +905,7 @@ MOES_SWITCHES_TS0011:
   - https://moeshouse.com/collections/eu-star-ring
 MOES_SWITCHES_TS0012:
   human_name: Moes 2-gang switches (buttons or touch)
+  category: switch
   power: mains
   neutral: optional
   device_type: end_device
@@ -902,6 +935,7 @@ MOES_SWITCHES_TS0012:
   - https://moeshouse.com/collections/eu-star-ring
 MOES_SWITCHES_TS0013:
   human_name: Moes 3-gang switches (buttons or touch)
+  category: switch
   power: mains
   neutral: optional
   device_type: end_device
@@ -931,6 +965,7 @@ MOES_SWITCHES_TS0013:
   - https://moeshouse.com/collections/eu-star-ring
 MOES_SWITCHES_TS0014:
   human_name: Moes 4-gang switches (buttons or touch)
+  category: switch
   power: mains
   neutral: optional
   device_type: end_device
@@ -958,6 +993,7 @@ MOES_SWITCHES_TS0014:
   - https://moeshouse.com/collections/eu-star-ring
 MOES_TS0002:
   human_name: Moes ZM-104B-M
+  category: module
   power: mains
   neutral: required
   device_type: router
@@ -983,6 +1019,7 @@ MOES_TS0002:
   store: https://www.amazon.co.uk/dp/B0CKYP32CW?th=1
 MOES_TS0003:
   human_name: Moes MS-104CZ
+  category: module
   power: mains
   neutral: required
   device_type: router
@@ -1009,6 +1046,7 @@ MOES_TS0003:
   store: https://www.aliexpress.com/item/1005004986958450.html
 MOES_2_TS0002:
   human_name: Moes ZM4LT2
+  category: module
   power: mains
   neutral: required
   device_type: router
@@ -1034,6 +1072,7 @@ MOES_2_TS0002:
   store: https://www.aliexpress.com/item/1005009640015785.html
 MOES_2_TS0003:
   human_name: Moes ZM4LT3
+  category: module
   power: mains
   neutral: required
   device_type: router
@@ -1059,6 +1098,7 @@ MOES_2_TS0003:
   store: https://www.aliexpress.com/item/1005009640015785.html
 OXT_TS0002:
   human_name: OXT 2-gang
+  category: module
   power: mains
   neutral: required
   device_type: router
@@ -1085,6 +1125,7 @@ OXT_TS0002:
   store: null
 TUYA_SWITCH_TS0001:
   human_name: Tuya 1-gang switch
+  category: switch
   power: mains
   neutral: required
   device_type: router
@@ -1110,6 +1151,7 @@ TUYA_SWITCH_TS0001:
   store: null
 TUYA_SWITCH_TS0002:
   human_name: Tuya 2-gang switch
+  category: switch
   power: mains
   neutral: required
   device_type: router
@@ -1135,6 +1177,7 @@ TUYA_SWITCH_TS0002:
   store: null
 TUYA_SWITCH_TS0003:
   human_name: Tuya 3-gang switch
+  category: switch
   power: mains
   neutral: required
   device_type: router
@@ -1160,6 +1203,7 @@ TUYA_SWITCH_TS0003:
   store: null
 TUYA_SWITCH_TS0004:
   human_name: Tuya 4-gang switch
+  category: switch
   power: mains
   neutral: required
   device_type: router
@@ -1185,6 +1229,7 @@ TUYA_SWITCH_TS0004:
   store: null
 TUYA_1_TS0001:
   human_name: Tuya 1-gang 🅰
+  category: module
   power: mains
   neutral: required
   device_type: router
@@ -1211,6 +1256,7 @@ TUYA_1_TS0001:
   store: null
 TUYA_2_TS0001:
   human_name: Tuya 1-gang 🅱
+  category: module
   power: mains
   neutral: required
   device_type: router
@@ -1237,6 +1283,7 @@ TUYA_2_TS0001:
   store: null
 TUYA_3_TS0001:
   human_name: Tuya 1-gang 🅲
+  category: module
   power: mains
   neutral: required
   device_type: router
@@ -1267,6 +1314,7 @@ TUYA_3_TS0001:
   store: null
 TUYA_4_TS0001:
   human_name: Tuya 1-gang 🅳
+  category: module
   power: mains
   neutral: required
   device_type: router
@@ -1295,6 +1343,7 @@ TUYA_4_TS0001:
   store: null
 TUYA_TS0002:
   human_name: Tuya 2-gang
+  category: module
   power: mains
   neutral: required
   device_type: router
@@ -1321,6 +1370,7 @@ TUYA_TS0002:
   store: null
 TUYA_TS0004:
   human_name: Tuya 4-gang
+  category: module
   power: mains
   neutral: required
   device_type: router
@@ -1347,6 +1397,7 @@ TUYA_TS0004:
   store: null
 TUYA_TS0011:
   human_name: Tuya 1-gang L-only
+  category: module
   power: mains
   neutral: without
   device_type: end_device
@@ -1373,6 +1424,7 @@ TUYA_TS0011:
   store: null
 TUYA_TS0012:
   human_name: Tuya 2-gang L-only
+  category: module
   power: mains
   neutral: without
   device_type: end_device
@@ -1402,6 +1454,7 @@ TUYA_TS0012:
   store: null
 ZEMISMART_SWITCH_TS0012:
   human_name: Zemismart 2-gang switch
+  category: switch
   power: mains
   neutral: optional
   device_type: end_device

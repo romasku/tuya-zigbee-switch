@@ -11,6 +11,11 @@
           "type": "string",
           "description": "Human-readable device name"
         },
+        "category": {
+          "type": "string",
+          "enum": ["module", "switch", "remote", "outlet", "board"],
+          "description": "Device category"
+        },
         "power": {
           "type": "string",
           "enum": ["mains", "USB", "AA", "AAA", "CR2016", "CR2025", "CR2032", "CR2450", "LR23A", "18650"],
@@ -189,6 +194,7 @@
       },
       "required": [
         "human_name",
+        "category",
         "power",
         "neutral",
         "device_type",
