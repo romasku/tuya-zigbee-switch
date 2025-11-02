@@ -576,6 +576,32 @@ GIRIER_TS0002:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/29
   store: https://www.aliexpress.com/item/1005006084763437.html
+GIRIER_TS0003:
+  human_name: Girier 3-gang
+  category: module
+  power: mains
+  neutral: required
+  device_type: router
+  mcu: TLSR8258
+  tuya_model_name: TS0003
+  tuya_manufacturer_name: _TZ3000_odzoiovu
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0003_switch_module_2
+  override_z2m_device: null
+  zb_module: ZT3L
+  mcu_family: Telink
+  config_str: odzoiovu;TS0003-GR;BB1u;LD7;SC2u;RC0;SC3u;RB4;SD2u;RB5;i45573;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 45573
+  build: yes
+  status: fully_supported
+  info: Supported
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/183
+  store: https://www.aliexpress.com/item/1005006084705740.html
 GIRIER_TS0013:
   human_name: Girier ZB08
   category: module
