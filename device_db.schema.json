@@ -74,7 +74,7 @@
           ],
           "description": "Override device name for Zigbee2MQTT"
         },
-        "zb_module": {
+        "tuya_module": {
           "oneOf": [
             {
               "type": "string",
@@ -204,7 +204,7 @@
         "stock_converter_manufacturer",
         "stock_converter_model",
         "override_z2m_device",
-        "zb_module",
+        "tuya_module",
         "mcu_family",
         "config_str",
         "alt_config_str",
