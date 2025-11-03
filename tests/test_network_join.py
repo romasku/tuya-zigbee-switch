@@ -1,5 +1,5 @@
 from tests.client import StubProc
-from tests.conftest import Device
+from tests.conftest import Device, wait_for
 
 HAL_ZIGBEE_NETWORK_NOT_JOINED = 0
 HAL_ZIGBEE_NETWORK_JOINED = 1
@@ -77,9 +77,10 @@ def test_leaves_on_onboard_button_long_press() -> None:
         device = Device(proc)
         assert device.status()["joined"] == str(HAL_ZIGBEE_NETWORK_JOINED)
 
-        device.long_click_button("A0", 3000)
+        device.press_button("A0")
+        device.step_time(3000)
 
-        assert device.status()["joined"] == str(HAL_ZIGBEE_NETWORK_JOINING)
+        wait_for(lambda: not proc.is_running(), timeout=5.0)
 
 
 def test_announces_after_join() -> None:

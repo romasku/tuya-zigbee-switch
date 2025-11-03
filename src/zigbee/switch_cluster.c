@@ -5,7 +5,10 @@
 #include "consts.h"
 #include "device_config/nvm_items.h"
 #include "hal/nvm.h"
+
 #include "hal/printf_selector.h"
+#include "hal/system.h"
+#include "hal/tasks.h"
 #include "relay_cluster.h"
 #include "zigbee_commands.h"
 
@@ -371,10 +374,19 @@ void switch_cluster_on_button_long_press(zigbee_switch_cluster *cluster) {
                                       ZCL_ATTR_MULTISTATE_INPUT_PRESENT_VALUE);
 }
 
+hal_task_t restart_task;
+
+void reset_tasks_handler(void *arg) { hal_system_reset(); }
+
 void switch_cluster_on_button_multi_press(zigbee_switch_cluster *cluster,
                                           uint8_t press_count) {
   if (press_count > MULTI_PRESS_CNT_TO_RESET) {
     hal_zigbee_leave_network();
+    // Give it time to leave network before restart
+    restart_task.handler = reset_tasks_handler;
+    restart_task.arg = NULL;
+    hal_tasks_init(&restart_task);
+    hal_tasks_schedule(&restart_task, 2000);
   }
 }
 

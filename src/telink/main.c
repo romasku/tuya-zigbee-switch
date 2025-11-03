@@ -64,10 +64,8 @@ int real_main(startup_state_e state) {
       if (timerEvt) {
         sleepDuration = timerEvt->timeout;
       }
-      printf("Enter low power (%d ms)\r\n", sleepDuration);
       drv_pm_sleep(PM_SLEEP_MODE_SUSPEND,
                    PM_WAKEUP_SRC_PAD | PM_WAKEUP_SRC_TIMER, sleepDuration);
-      printf("Exit low power\r\n");
     }
 #endif
   }

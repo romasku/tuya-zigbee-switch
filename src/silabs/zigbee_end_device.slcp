@@ -36,6 +36,8 @@ source:
 - {path: ../device_config/config_parser.c}
 - {path: ../device_config/config_parser.h}
 - {path: ../device_config/nvm_items.h}
+- {path: ../device_config/reset.c}
+- {path: ../device_config/reset.h}
 - {path: ../zigbee/basic_cluster.c}
 - {path: ../zigbee/general_commands.c}
 - {path: ../zigbee/group_cluster.c}

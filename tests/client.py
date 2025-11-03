@@ -70,7 +70,7 @@ class StubProc:
         return self
 
     def stop(self, kill_after: float = 0.02) -> None:
-        if not self.proc:
+        if not self.proc or not self.is_running():
             return
         try:
             self.exec("q", timeout=0.2)

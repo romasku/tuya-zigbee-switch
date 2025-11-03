@@ -34,8 +34,6 @@ void device_config_write_to_nv() {
   }
 }
 
-void device_config_remove_from_nv() { hal_nvm_delete(NV_ITEM_DEVICE_CONFIG); }
-
 void device_config_read_from_nv() {
   hal_nvm_status_t st = 0;
 
