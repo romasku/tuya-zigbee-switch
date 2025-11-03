@@ -632,7 +632,7 @@ GIRIER_TS0013:
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/37
   store: null
 IHSENO_REMOTE_TS0044:
-  human_name: Tuya 4-button remote
+  human_name: iHseno 4-button remote
   category: remote
   power: LR23A
   neutral: without
@@ -1506,3 +1506,29 @@ ZEMISMART_SWITCH_TS0012:
   info: Untested. Higher power draw (Wrong bi-stable relay implementation)
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/19
   store: null
+ZIGBEE_BOARD_ZTU_2:
+  human_name: ZTU dev board 2
+  category: board
+  power: USB
+  neutral: without
+  device_type: router
+  tuya_model_name: null
+  tuya_manufacturer_name: null
+  stock_converter_manufacturer: null
+  stock_converter_model: null
+  override_z2m_device: Zigbee_SoC_Board_V2_(ZTU)
+  tuya_module: ZTU
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: TUYA;DEV-ZTU2;LD7;SA0u;RC1;IB6;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: null
+  tuya_image_type: null
+  firmware_image_type: 45574
+  build: no
+  status: fully_supported
+  info: Supported
+  threads: null
+  store: https://www.aliexpress.com/item/1005007599675462.html

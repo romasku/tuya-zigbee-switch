@@ -38,6 +38,7 @@
         },
         "tuya_model_name": {
           "oneOf": [
+            {"type": "null"},
             {
               "type": "array",
               "items": {"type": "string"}
@@ -129,11 +130,17 @@
           "description": "Legacy Zigbee model names"
         },
         "tuya_manufacturer_id": {
-          "type": "integer",
+          "oneOf": [
+            {"type": "integer"},
+            {"type": "null"}
+          ],
           "description": "Tuya manufacturer ID"
         },
         "tuya_image_type": {
-          "type": "integer",
+          "oneOf": [
+            {"type": "integer"},
+            {"type": "null"}
+          ],
           "description": "Tuya image type identifier"
         },
         "firmware_image_type": {
