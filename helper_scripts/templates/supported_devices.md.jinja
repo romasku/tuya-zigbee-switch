@@ -20,8 +20,9 @@
 | :----: | ---------| ------------------ | -------------------- | ------------------ | -------------- | ----------|
 |   🚧   | Status   | 🟩 Fully supported | 🟨 Mostly supported  | 🟧 In progress     | 🟥 Unsupported |           |
 |   📦   | Build    | ✔️ Available       | ❌ Unavailable       |                    |                |           |
-|   💡   | Category | `M` Module         | `S` Switch           | `O` Outlet         | `R` Remote     | `B` Board | 
+|   💡   | Category | `M` Module         | `S` Switch           | `O` Outlet         | `R` Remote     | `B` Board |
 |   ⚡   | Power    | 🔌 Mains           | 🔋 Battery           | 🔱 USB             |  ❓ Unknown    |           |
+|   🏭   | MCU      | `TL` Telink        | `SL` Silicon Labs    |                    |                |           |
 
 <!-------------------------------------------------------------------
   This page (`supported.md`) is generated. 
@@ -36,8 +37,8 @@
 
 ### Device list
 
-| 🚧 | 📦 | 💡 | ⚡ | Zigbee Manufacturer | Name 🔗 Z2M page | Store | Threads | Status |
-| -- | -- | -- | -- | :-----------------: | ---------------- | ----: | ------: | ------ |
+| 🚧 | 📦 | 💡 | ⚡ | 🏭 | Zigbee Manufacturer | Name 🔗 Z2M page | Store | Threads | Status |
+| -- | -- | -- | -- | -- | :-----------------: | ---------------- | ----: | ------: | ------ |
 {% for device in devices %}
   {% set manufacturer = "`" ~ (device.tuya_manufacturer_name or "    unknown     ") ~ "`" %}
   {% set z2m_name = device.override_z2m_device or device.stock_converter_model %}
@@ -94,7 +95,7 @@
   {% elif device.status == "unsupported" %}
     {% set color = "🟥" %}
   {% endif %}
-  {% set category = '`' ~ device.category[0]|upper ~ '`' %}
+  {% set category = '**`' ~ device.category[0]|upper ~ '`**' %}
   {% if device.build %}
     {% set build = "✔️" %}
   {% else %}
@@ -110,7 +111,14 @@
   {% else %}
     {% set power = "❓" %}
   {% endif %}
-| {{color}} | {{build}} | {{category}} | {{power}} | {{manufacturer}}  | {{human_name}} | {{store}} | {{threads}} | {{info}} | 
+  {% if device.mcu_family == "Telink" %}
+    {% set family = "**`TL`**" %}
+  {% elif device.mcu_family == "Silabs" %}
+    {% set family = "**`SL`**" %}
+  {% else %}
+    {% set family = "❓" %}
+  {% endif %}
+| {{color}} | {{build}} | {{category}} | {{power}} | {{family}} | {{manufacturer}}  | {{human_name}} | {{store}} | {{threads}} | {{info}} | 
 {% endfor %}
 
 Data from [`device_db.yaml`](/device_db.yaml)
