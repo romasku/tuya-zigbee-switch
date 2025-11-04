@@ -1,18 +1,11 @@
 # Supported devices
 
-> [!NOTE]  
-> **Z2M page** usually represents a collection of devices.  
-> Even if they work the same, rebranded versions have different internals and pinouts  
-> (therefore requiring custom builds).  
-
 > [!IMPORTANT]  
-> **Zigbee Manufacturer** is the most reliable unique Tuya device identifier.  
-> **If the TZ3000 id of your device is not on this list, it requires [contribute/porting.md](/docs/contribute/porting.md)!**  
->
-> For devices that contain a **supported Tuya Zigbee module** (ZTU, ZT2S, ZT3L), porting is relatively simple.  
-> It consists of tracing (or guessing) the **board pinout**, adding an entry in the [`device_db.yaml`](/device_db.yaml) file and running the build action.  
+> Tuya devices share model names.  
+> **Identify your device by Zigbee Manufacturer.** Do not install if it does not match!  
 
-**Also read:** [recommended.md](./recommended.md) & [not_recommended.md](./not_recommended.md)  
+To support a new device, read [`contribute/porting.md`](/docs/contribute/porting.md) and ask for help.  
+**Also read:** [`recommended.md`](./recommended.md) & [`not_recommended.md`](./not_recommended.md)  
 
 ### Legend
 
@@ -21,8 +14,12 @@
 |   🚧   | Status   | 🟩 Fully supported | 🟨 Mostly supported  | 🟧 In progress     | 🟥 Unsupported |           |
 |   📦   | Build    | ✔️ Available       | ❌ Unavailable       |                    |                |           |
 |   💡   | Category | `M` Module         | `S` Switch           | `O` Outlet         | `R` Remote     | `B` Board |
-|   ⚡   | Power    | 🔌 Mains           | 🔋 Battery           | 🔱 USB             |  ❓ Unknown    |           |
+|   ⚡   | Power    | 🔌 Mains           | 🔋 Battery           | 🔱 USB             |                |           |
 |   🏭   | MCU      | `TL` Telink        | `SL` Silicon Labs    |                    |                |           |
+
+> [!NOTE]  
+> The Z2M pages are very generic.  
+> **Look up devices in the linked threads and store listings!**
 
 <!-------------------------------------------------------------------
   This page (`supported.md`) is generated. 

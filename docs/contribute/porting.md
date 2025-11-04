@@ -2,6 +2,9 @@
 
 This guide describes how firmware can be adapted to other switches or patched to work properly if a device partially misbehaves.  
 
+For devices that contain a **supported Tuya Zigbee module** (ZTU, ZT2S, ZT3L), porting is relatively simple.  
+It consists of tracing (or guessing) the **board pinout**, adding an entry in the [`device_db.yaml`](/device_db.yaml) file and running the build action.  
+
 ## Requirements
 - supported microchip / Zigbee module
 - pinout
