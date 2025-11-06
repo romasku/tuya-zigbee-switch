@@ -1,140 +1,119 @@
-# How to Port Firmware to a New Device  
+# Porting  
 
-This guide describes how firmware can be adapted to other switches or patched to work properly if a device partially misbehaves.  
+Follow this guide if [devices/supported.md](/docs/devices/supported.md) does not include your device.  
+Open the **Outline** (table of contents) from the top right.  
 
-For devices that contain a **supported Tuya Zigbee module** (ZTU, ZT2S, ZT3L), porting is relatively simple.  
-It consists of tracing (or guessing) the **board pinout**, adding an entry in the [`device_db.yaml`](/device_db.yaml) file and running the build action.  
+### Steps
+1. Check compatibility
+2. **Obtain the board pinout**
+3. Build and install the firmware
 
-## Requirements
-- supported microchip / Zigbee module
-- pinout
-- OTA cluster (otherwise flash by wire)
-- Zigbee manufacturer (_TZ3000_abcdefgh)
-- stock converter model
-- imageType and manufacturerCode
+## Compatibility 
 
-## Verify That the Device Uses the Correct Controller Module  
+[ZT series]: https://developer.tuya.com/en/docs/iot/zt-series-module?id=Kaiuym8ctid7k
+[ZS series]: https://developer.tuya.com/en/docs/iot/zs-series-module?id=Kaiuyljrfi0wv
+[updating.md]: /docs/updating.md
+[flashing_via_wire.md]: ./flashing_via_wire.md
+[IEEE Address]: /docs/.images/screen_telink_mac.png
 
-The firmware works on the TLSR8258 microchip, which is the heart of Tuya-branded modules [ZT series modules](https://developer.tuya.com/en/docs/iot/zt-series-module?id=Kaiuym8ctid7k).  
-Currently the **ZTU, ZT2S and ZT3L** are supported.  
+The firmware works on **Telink** (TLSR8258) and **Silabs** (EFR32MG21) microcontrollers.  
+⤷ Check the **[IEEE Address]** or open the device to identify the MCU.  
 
-This can be checked in Z2M by verifying the device IEEE (MAC) address. It should start with `0xa4c138`:  
+|                   | Telink                                      | Silabs                                        |
+|------------------:|---------------------------------------------|-----------------------------------------------|
+| Devices           | most Tuya devices after 2023                | some Tuya remotes, switches. all SONOFF, IKEA |
+| Tuya modules      | [ZT series]: ZTU, ZT2S, ZT3L                | [ZS series]: ZS3L                             |
+| IEEE Address      | `0xa4c138xxxxxxxxxx`                        | Use 'MAC lookup' website
+| Stock ➡ Custom FW | OTA [updating.md] or [flashing_via_wire.md] | flashing_via_wire_silabs (needs guide)        |
 
-![Telink MAC](/docs/.images/screen_telink_mac.png)  
+## Pinout
 
-Alternatively, you can open your device and check for such a module. It should look like this:  
+Every device has a different GPIO mapping.  
+⤷ You must find **which pins the peripherals are connected to.**  
 
-![Wiring](/docs/.images/ts0012_wires.jpg)  
+_Example: button on D2, LED on C2, switch on B5, relay on C4._  
+After flashing, the pins can easily be changed in Z2M (but not in ZHA).
 
-**IMPORTANT**  
-The firmware will not work for non-Telink devices, and trying to apply the steps below to other devices will almost certainly break your device.  
+[labels]: https://github.com/romasku/tuya-zigbee-switch/issues/145#issuecomment-3303035527
+[visible traces]: https://github.com/romasku/tuya-zigbee-switch/issues/146#issuecomment-3302750944
+[solder points]: https://github.com/romasku/tuya-zigbee-switch/issues/183#issuecomment-3491147138
+[follow pattern]: https://github.com/romasku/tuya-zigbee-switch/issues/181#:~:text=Pictures-,Configs,-We%20obtained%20the
 
-## Enable OTA Support for Stock Firmware  
+There are multiple safe ways to obtain the pinout:
+- **Look for clues on the PCB**: [labels], [visible traces] and [solder points]
+- **Test continuity** (resistance) with a multimeter
+- **Try each pin** until something works (brute force)
+- Truncate the pinout of a higher-gang model ([follow pattern])
+- Extract pinout from original firmware (memory dump)
+- Ask someone else to do it 🙂
 
-Tuya devices come with OTA support, but this is disabled and hidden from Z2M as there are no OTA updates publicly available for them. To flash the device via OTA, you'll need to enable it.  
+> [!CAUTION]  
+> Tuya devices do not have galvanic isolation! *The DC circuit may operate at 230-235V.*  
+> **Do not plug a dissasembled device into mains power!** 
 
-First, find the device "model" name from the Z2M interface:  
+### Config string
 
-![Z2M Model](/docs/.images/screen_z2m_model.png)  
+The next step is filling the device config string for the database entry.
 
-Then download the [converter for the original device](https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/main/zigbee2mqtt/converters/tuya_with_ota.js) and place it into the `external_converters` subfolder of your Zigbee2mqtt data folder. If the `external_converters` folder doesn't exist, create it.  
+Format:  
+⤷ `<new manufacturer>;<new model>;<pin setup 1>;<pin setup 2>;...;<pin setup n>;`  
+Minimum example (1-gang module with LED on `A2`, switch on `A3` and relay on `A4`):  
+⤷ `ljasd9as;TS0001-ABC;LA2;SA3u;RA4;`  
+Complex example (2-gang switch with bi-stable relays):  
+⤷ `osap2dsa;TS0002-ABC;BC3u;LC2i;SB5u;RD2D4;IA0;SB4u;RD3B1;IA1;M;i43533;`
 
-Then modify the `tuyaModels` list to include your model. If it is already there, just skip this step.  
+| Ch      | Peripheral    | Function                                                                            |
+|--------:|---------------|-------------------------------------------------------------------------------------|
+| **`B`** | Reset button  | • Puts device in pairing                                                            |
+| **`L`** | Network led   | • Blinks while pairing <br> • Is the backlight sometimes                            |
+| **`S`** | Switch        | • User input <br> • Tactile, touch or external button (wire) <br> • Spam to put in pairing mode |
+| **`R`** | Relay         | • Non-latching: `RC1` - 1 pin - toggle <br> • Latching: `RC2C3` - 2 pins - on, off  |                                               |
+| **`I`** | Indicator LED | • 1 per relay, follows state <br> • Blinks while pairing if there is no network led |
 
-![Add](/docs/.images/screen_add_model_to_ota.png)  
+There are 4 (A,B,C,D) x 8 (0-7) = 32 GPIO pins on the TLSR8258 ?  
+⤷ Here are the **exposed pins**, usable for peripherals:
 
-Now you can restart your Z2M and verify that your device is visible in the OTA tab.  
+[ZTU]: https://developer.tuya.com/en/docs/iot/ztu-module-datasheet?id=Ka45nl4ywgabp
+[ZT3L]: https://developer.tuya.com/en/docs/iot/zt3l-module-datasheet?id=Ka438n1j8nuvu
+[ZT2S]: https://developer.tuya.com/en/docs/iot/zt2s-module-datasheet?id=Kas9gdtath9p0
 
-![OTA visible](/docs/.images/device_added_to_ota.png)  
+| Module      | Pins |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |
+|------------:|------|------|------|------|------|------|------|------|------|------|------|------|------|------|------|------|
+| **[ZTU]**   | `A0` | `A1` | `B1` | `B4` | `B5` | `B6` | `B7` | `C0` | `C1` | `C2` | `C3` | `C4` | `D2` | `D3` | `D4` | `D7` |
+| **[ZT3L]**  | `A0` |      | `B1` | `B4` | `B5` |      | `B7` | `C0` |      | `C2` | `C3` | `C4` | `D2` |      | `D4` | `D7` |
+| **[ZT2S]**  |      |      | `B1` | `B4` | `B5` |      | `B7` |      |      | `C2` | `C3` | `C4` | `D2` |      |      |      |
 
-If your device is not visible, it might be a rebranded model.  
-Search this file for your Zigbee manufacturer (_TZ3000_abcdefgh): [devices/tuya.ts](https://github.com/Koenkk/zigbee-herdsman-converters/blob/master/src/devices/tuya.ts) and use the original model name you find there.  
-```
-fingerprint: tuya.fingerprint("TS0003", ["_TZ3000_4o16jdca", "_TZ3000_odzoiovu", "_TZ3000_hbic3ka3", "_TZ3000_lvhy15ix"]),
-model: "TS0003_switch_module_2", <-- this one
-vendor: "Tuya",
-```
-Also check the Z2M logs to see if the converters were loaded.
+If you want to **guess the pinout** after flashing (brute-force):  
+⤷ **Assign the unused pins**: `A2`, `A3`, `A4`, `A5`, `A6`, `A7`, `B0`, `B2`, `B3`, `C5`, `C6`, `C7`, `D0`, `D1`, `D5`, `D6`
 
-## Prepare OTA Index  
+For buttons (`B`) and switches (`S`), the next character determines the pull-up/down resistor:  
+⤷ **`u`: up 10K**, `U`: up 1M, `d`: down 100K, `f`: float  
 
-Now that Z2M recognizes that the device can be updated via OTA, you need to provide it with a file to flash. Z2M uses JSON index files for this.  
-
-Add a custom index as described in [updating.md](/docs/updating.md). Then open this index file in a text editor and find the entry for the device that is most similar to your device. Replace the `manufacturerName` list with the "Zigbee Manufacturer" value from the Z2M device info screen. It should be something like `_TZ3000_...`. Save the file, restart Z2M, and check for updates for your device in the OTA tab.  
-
-If Z2M shows that OTA is available, you are ready to proceed.  
-
-If the update is not available, this may mean that the device uses a non-standard `imageType` and `manufacturerCode`. Enable logs and look for messages like the following (search for `manufacturerCode`):  
-
-```
-[2025-01-18 16:37:38] debug: 	zh:controller: Received payload: clusterID=25, address=44312, groupID=0, endpoint=1, destinationEndpoint=1, wasBroadcast=false, linkQuality=160, frame={"header":{"frameControl":{"frameType":1,"manufacturerSpecific":false,"direction":0,"disableDefaultResponse":false,"reservedBits":0},"transactionSequenceNumber":79,"commandIdentifier":1},"payload":{"fieldControl":0,"manufacturerCode":4417,"imageType":43521,"fileVersion":16986117},"command":{"ID":1,"response":2,"parameters":[{"name":"fieldControl","type":32},{"name":"manufacturerCode","type":33},{"name":"imageType","type":33},{"name":"fileVersion","type":35}],"name":"queryNextImageRequest"}}
-```  
-
-When you see such logs, please open an issue, as updating your device will require a customized OTA header.  
-
-**IMPORTANT**  
-Flashing firmware via OTA may break your device. Fixing it will require soldering some wires and flashing the device via UART. Proceed with caution.  
-
-## Setting Up the Device After Update  
-
-First, install the [converter for custom firmware](https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/main/zigbee2mqtt/converters/switch_custom.js) to control the reflashed device. This is done the same way as for the converter for stock firmware.  
-
-If everything goes correctly, the device will reboot and rejoin after the update. If it reboots but doesn't rejoin, wait at least 5 minutes, then try removing it from Z2M and resetting it by long-pressing the reset button or pressing a switch multiple times quickly. If nothing works, you'll need to disassemble the device and flash it by wire.  
-
-If everything is set up correctly and the device appears in Z2M, re-interview it just to be sure, and then open the "Exposes" tab. You'll need the "Device Config" text field. This field specifies the device model, manufacturer, and GPIO pin setup of your device, e.g., how the switches, relays, LEDs, and buttons are connected to the ZT module. The format is as follows:  
-
-```
-<device manufacturer name>;<device model name>;<pin setup 1>;<pin setup 2>;...;<pin setup n>;
-```  
-
-The string is a list of entries separated by `;`. The first two entries specify the "manufacturer name" and "model name." Each command then sets the function of a single pin.  
-
-Pin setup entries start with one of the following characters:  
-- `B`: Onboard reset button  
-- `L`: Onboard LED  
-- `S`: Switch  
-- `R`: Relay  
-- `I`: Indicator LED (for switches that have per button led)
-- `i`: Change image_type for OTA (to migrate device to firmware for another device)  
-- `M`: Force momentary mode and hide this setting from Z2M. Usefull for devices that are complete switches, i.e. have buttons built-in.
-
-Next, two characters specify the pin name, e.g., `A4` or `C2`, as described in the [Tuya docs](https://developer.tuya.com/en/docs/iot/zt-series-module?id=Kaiuym8ctid7k).  
-
-For buttons (`B`) and switches (`S`), the next character determines the pull-up/pull-down resistor:  
-- `u`: Up 10K  
-- `U`: Up 1M  
-- `d`: Down 100K  
-- `f`: Float  
-
-If unsure, use `u` or `U`. `f` may cause fake clicks, and the device can get stuck in a boot loop, so use it only if you are sure.  
+99% of the time, pressing the button bridges the GPIO pin to Ground (low).  
+⤷ So we need a pull-up resistor `u` to hold it at VCC (high) while not pressed.
 
 For LEDs, add `i` to invert the state.
 
-As some Relays are bi-stable and use two pins to control, where one pin turns it on and another one turns it off, it is possible to specify
-the second pin like this: `RC2D2;`
+Additional options: 
+| Format       | Option     | Function                                                                  |
+|-------------:|------------|---------------------------------------------------------------------------|
+| **`i00000`** | Image type | • Change OTA image_type (migrate to another build)                        |
+| **`M`**      | Momentary  | • Defaults buttons to momentary mode (for devices with built-in switches) |
 
-Here is an example config:  
+In Z2M, update the config with different pins until the device works properly.   
 
-```
-Tuya-WHD02-custom;WHD02-custom;BB4u;LD3;SB5u;RB1;
-```  
+## Build and install
 
-The manufacturer is `"Tuya-WHD02-custom"`, the model is `"WHD02-custom"`, `BB4u` means a reset button on pin `B4` with a 10K pull-up (`u`), `LD3` specifies an onboard LED on pin `D3`, `SB5u` specifies a switch on pin `B5` with a 10K pull-up, and `RB1` specifies a relay on pin `B1`. This describes a device with a single switch and a single relay.  
+[`device_db.yaml`]: /device_db.yaml
+[device_db_explained.md]: ./device_db_explained.md
+[building.md]: ./building.md
 
-Here is another example config:  
+1. Fork the repository and add an entry to [`device_db.yaml`]. *Remove other devices to build faster.*   
+Follow [device_db_explained.md] and validate with `device_db.schema.json` (e.g. YAML VSCode extension).  
 
-```
-Example-switch;Example-switch;SB5u;RC2D2;ID3;
-```  
+2. Visit GitHub Actions on your fork (web) and run `build.yml`. More info: [building.md]
 
-In this example we have no on-board led and no on board reset button, only one switch on pin `B5`, with bi-stable relay controlled by pins `C2` and `D2`, and indicator led on pin `D3`.
-
-Try updating the config with different pins until the device works properly. You can either guess the pins (e.g., a 4-gang model may use the same pins as a 3-gang model plus two additional pins that are neighbors on the ZT module) or trace the pins using a multimeter.  
-
-## Update Custom Adapter  
-
-To see all buttons and relays in Z2M, you'll need the proper converter. Devices with the same number of switches use the same converter, so you can copy an existing one and then change the `zigbeeModel` to work with your device.  
-
-If you manage to port your firmware, please create an issue or even a PR with your findings so that newcomers can benefit!  
+3. Follow [updating.md] with the index and converters from your branch.  
+Alternatively, try [flashing_via_wire.md].
 
 Thank you for trying this firmware!  
