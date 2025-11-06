@@ -1,7 +1,7 @@
 # Updating
 
 This page describes updating supported devices OTA (both converting from original firmware and version bumps).  
-Open the **Outline** (table of contents) from the top right.  
+*Open the **Outline** (table of contents) from the top right.*  
 
 > [!CAUTION]  
 > OTA flashing and updates from the main branch are generally safe.  

@@ -1,7 +1,7 @@
 # ⚠️ Open issues
 
 These issues are not yet fixed, and they affect every device.  
-Open the **Outline** (table of contents) from the top right.  
+*Open the **Outline** (table of contents) from the top right.*  
 If you have devices on older versions of the custom firmware, also read [# Closed issues](#closed-issues).
 
 ## Bi-stable relays draw too much power
