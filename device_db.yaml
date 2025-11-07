@@ -907,7 +907,7 @@ TUYA_4_TS0001:
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/44
   store: null
 TUYA_5_TS0001:
-  human_name: Tuya 1-gang
+  human_name: Tuya 1-gang touch switch
   neutral: required
   device_type: router
   tuya_model_name: TS0001
@@ -926,9 +926,9 @@ TUYA_5_TS0001:
   firmware_image_type: 0
   build: yes
   status: Supported
-  info: null
+  info: https://ae01.alicdn.com/kf/A0d4f51d05b034cf590851b76b6c428e5w.jpg_800x800.jpeg_.webp
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/44
-  store: null
+  store: https://aliexpress.ru/store/2064083?spm=a2g2w.detail.0.0.2c06560aao7AXW&page=1
 TUYA_TS0002:
   human_name: Tuya 2-gang
   neutral: required
