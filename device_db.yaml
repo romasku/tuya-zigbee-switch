@@ -906,6 +906,29 @@ TUYA_4_TS0001:
   info: null
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/44
   store: null
+TUYA_5_TS0001:
+  human_name: Tuya 1-gang
+  neutral: required
+  device_type: router
+  tuya_model_name: TS0001
+  tuya_manufacturer_name: _TZ3000_9akmi5ly
+  stock_converter_manufacturer: Tuya
+  stock_converter_model:TS0001
+  override_z2m_device: null
+  zb_module: ZTU
+  config_str: nul l ;TS0001;LB4i;SC2u;RC3;LB4i;M;
+  alt_config_str: null
+  old_manufacturer_names:
+  - Tuya-TS0001-custom
+  old_zb_models: null
+  tuya_manufacturer_id: 0
+  tuya_image_type: 0
+  firmware_image_type: 0
+  build: yes
+  status: Supported
+  info: null
+  github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/44
+  store: null
 TUYA_TS0002:
   human_name: Tuya 2-gang
   neutral: required
@@ -1025,3 +1048,4 @@ ZEMISMART_SWITCH_TS0012:
   info: Untested
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/19
   store: null
+ 
