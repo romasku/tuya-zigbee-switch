@@ -1474,7 +1474,7 @@ TUYA_TS0004:
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/42
   store: null
 TUYA_TS0011:
-  human_name: Tuya 1-gang L-only
+  human_name: Tuya 1-gang L-only 🅰
   category: module
   power: mains
   neutral: without
@@ -1499,6 +1499,32 @@ TUYA_TS0011:
   status: fully_supported
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/4
+  store: null
+TUYA_TS0011_2:
+  human_name: Tuya 1-gang L-only 🅱
+  category: module
+  power: mains
+  neutral: without
+  device_type: end_device
+  tuya_model_name: TS0011
+  tuya_manufacturer_name: _TZ3000_ji4araar
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0011_switch_module
+  override_z2m_device: null
+  tuya_module: null
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: ji4araar;TS0011-CUS-2;BA0u;LD7;SC2u;RC0;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 515
+  firmware_image_type: 45576
+  build: yes
+  status: fully_supported
+  info: Supported
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/187
   store: null
 TUYA_TS0012:
   human_name: Tuya 2-gang L-only
