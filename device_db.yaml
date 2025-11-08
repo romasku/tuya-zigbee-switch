@@ -929,6 +929,29 @@ TUYA_5_TS0001:
   info: https://ae01.alicdn.com/A8af9ad5cc2db4ead9b04f14b9f2aa2c2z.jpg_800x800.jpeg_.webp
   github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/44
   store: https://aliexpress.ru/store/2346015?spm=a2g2w.detail.0.0.13726650gtkN5z&page=1 
+TUYA_6_TS0002:
+  human_name: Tuya 2-gang touch switch
+  neutral: required
+  device_type: router
+  tuya_model_name: TS0002
+  tuya_manufacturer_name: _TZ3000_cauq1okq
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0002
+  override_z2m_device: null
+  zb_module: ZTU
+  config_str: null ;LC4;SB5u;RC2;SD2u;RC3;IB4i;M;;
+  alt_config_str: null
+  old_manufacturer_names:
+  - Tuya-TS0002-custom
+  old_zb_models: null
+  tuya_manufacturer_id: 0
+  tuya_image_type: 0
+  firmware_image_type: 0
+  build: yes
+  status: Supported
+  info: https://aliexpress.ru/item/4000086550778.html?sku_id=12000016444618498&spm=a2g2w.stores.seller_list.5.50b71cdcdp9DxJ
+  github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/44
+  store: https://aliexpress.ru/store/2346015?spm=a2g2w.detail.0.0.13726650gtkN5z&page=1 
 TUYA_TS0002:
   human_name: Tuya 2-gang
   neutral: required
