@@ -548,6 +548,32 @@ BSEED_TOUCH_TS0001:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/pull/186
   store: null
+BSEED_TOUCH_TS0002:
+  human_name: BSEED 2-gang touch switch
+  category: switch
+  power: mains
+  neutral: required
+  device_type: router
+  tuya_model_name: TS0002
+  tuya_manufacturer_name: _TZ3000_cauq1okq
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0002
+  override_z2m_device: null
+  tuya_module: ZTU
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: cauq1okq;TS0002-CUS-T;LC4;SB5u;RC2;IB4i;SD2u;RC3;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 45578
+  build: yes
+  status: in_progress
+  info: Missing state indicator
+  threads: https://github.com/romasku/tuya-zigbee-switch/pull/188
+  store: https://aliexpress.ru/item/4000086550778.html
 BSEED_TOUCH_TS0003:
   human_name: BSEED 3-gang touch switch
   category: switch
