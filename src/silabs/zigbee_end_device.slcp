@@ -79,7 +79,9 @@ component:
 - {id: zigbee_ota_client}
 - {id: zigbee_ota_client_policy}
 - {id: zigbee_ota_storage_simple}
+- {id: zigbee_end_device_support}
 - {id: zigbee_pro_leaf_stack}
+- {id: zigbee_fragmentation}
 - {id: zigbee_reporting}
 - {id: zigbee_scan_dispatch}
 - {id: zigbee_source_route}
@@ -102,7 +104,7 @@ configuration:
   name: SL_IOSTREAM_EUSART_VCOM_FLOW_CONTROL_TYPE
   value: eusartHwFlowControlCtsAndRts
 - {name: SL_CLI_MAX_INPUT_ARGUMENTS, value: '16'}
-- {name: SLI_ZIGBEE_PRIMARY_NETWORK_DEVICE_TYPE, value: SLI_ZIGBEE_NETWORK_DEVICE_TYPE_END_DEVICE}
+- {name: SLI_ZIGBEE_PRIMARY_NETWORK_DEVICE_TYPE, value: SLI_ZIGBEE_NETWORK_DEVICE_TYPE_SLEEPY_END_DEVICE}
 - {name: SLI_ZIGBEE_PRIMARY_NETWORK_SECURITY_TYPE, value: SLI_ZIGBEE_NETWORK_SECURITY_TYPE_3_0}
 - condition: [device_series_1]
   name: NVM3_DEFAULT_NVM_SIZE
@@ -113,13 +115,13 @@ configuration:
 - {name: SL_PSA_ITS_SUPPORT_V1_DRIVER, value: '0'}
 - {name: SL_PSA_ITS_SUPPORT_V2_DRIVER, value: '0'}
 - {name: SL_PSA_ITS_SUPPORT_V3_DRIVER, value: '1'}
-- {name: EMBER_AF_PLUGIN_REPORTING_TABLE_SIZE, value: '32'}
-- {name: EMBER_BINDING_TABLE_SIZE, value: '32'}
-- {name: EMBER_AF_PLUGIN_OTA_STORAGE_SIMPLE_EEPROM_STORAGE_START, value: '458752'}
-- {name: EMBER_AF_PLUGIN_OTA_STORAGE_SIMPLE_EEPROM_STORAGE_END, value: '753664'}
-- {name: EMBER_AF_PLUGIN_OTA_CLIENT_AUTO_START, value: '1'}
-- {name: EMBER_AF_PLUGIN_OTA_CLIENT_POLICY_FIRMWARE_VERSION, value: 'FILE_VERSION'}
-- {name: EMBER_AF_PLUGIN_OTA_CLIENT_POLICY_IMAGE_TYPE_ID, value: 'IMAGE_TYPE'}
+- {name: SL_ZIGBEE_AF_PLUGIN_REPORTING_TABLE_SIZE, value: '32'}
+- {name: SL_ZIGBEE_BINDING_TABLE_SIZE, value: '32'}
+- {name: SL_ZIGBEE_AF_PLUGIN_OTA_STORAGE_SIMPLE_EEPROM_STORAGE_START, value: '458752'}
+- {name: SL_ZIGBEE_AF_PLUGIN_OTA_STORAGE_SIMPLE_EEPROM_STORAGE_END, value: '835584'}
+- {name: SL_ZIGBEE_AF_PLUGIN_OTA_CLIENT_AUTO_START, value: '1'}
+- {name: SL_ZIGBEE_AF_PLUGIN_OTA_CLIENT_POLICY_FIRMWARE_VERSION, value: 'FILE_VERSION'}
+- {name: SL_ZIGBEE_AF_PLUGIN_OTA_CLIENT_POLICY_IMAGE_TYPE_ID, value: 'IMAGE_TYPE'}
 - {name: SL_IOSTREAM_USART_INST_PERIPHERAL, value: 'USART0'}
 - {name: SL_IOSTREAM_USART_INST_PERIPHERAL_NO, value: '0'}
 - {name: SL_IOSTREAM_USART_INST_TX_PORT, value: 'gpioPortA'}

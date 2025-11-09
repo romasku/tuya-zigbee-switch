@@ -7,10 +7,10 @@ TOOLS_DIR := $(PROJECT_ROOT)/silabs_tools
 DOWNLOAD_DIR := $(TOOLS_DIR)/downloads
 
 # Tool versions and URLs
-GECKO_SDK_VERSION := 4.5.0
-GECKO_SDK_REPO := https://github.com/SiliconLabs/gecko_sdk
-GECKO_SDK_ARCHIVE := gecko-sdk-$(GECKO_SDK_VERSION).zip
-GECKO_SDK_URL := $(GECKO_SDK_REPO)/releases/download/v$(GECKO_SDK_VERSION)/gecko-sdk.zip
+SIMPLICITY_SDK_VERSION := 2025.6.2
+SIMPLICITY_SDK_REPO := https://github.com/SiliconLabs/simplicity_sdk
+SIMPLICITY_SDK_ARCHIVE := simplicity-sdk-$(SIMPLICITY_SDK_VERSION).zip
+SIMPLICITY_SDK_URL := $(SIMPLICITY_SDK_REPO)/releases/download/v$(SIMPLICITY_SDK_VERSION)/simplicity-sdk.zip
 
 # Silicon Labs download URLs
 COMMANDER_URL := https://www.silabs.com/documents/public/software/SimplicityCommander-Linux.zip
@@ -22,17 +22,17 @@ ZAP_ARCHIVE := zap-linux-x64.zip
 ZAP_URL := https://github.com/project-chip/zap/releases/download/v$(ZAP_VERSION)/$(ZAP_ARCHIVE)
 
 .PHONY: all clean clean-downloads help status verify trust
-.PHONY: gecko_sdk commander slc-cli zap
-.PHONY: install-gecko_sdk install-commander install-slc-cli install-zap
+.PHONY: simplicity_sdk commander slc-cli zap
+.PHONY: install-simplicity_sdk install-commander install-slc-cli install-zap
 
 # Default target
-all: gecko_sdk commander slc-cli zap trust verify
+all: simplicity_sdk commander slc-cli zap trust verify
 	@echo "All Silicon Labs tools have been downloaded and installed to $(TOOLS_DIR)"
 
 # Trust SDK signature and configure ZAP
 trust:
 	@echo "Trusting Silicon Labs SDK signature..."
-	$(TOOLS_DIR)/slc-cli/slc signature trust --sdk $(TOOLS_DIR)/gecko_sdk
+	$(TOOLS_DIR)/slc-cli/slc signature trust --sdk $(TOOLS_DIR)/simplicity_sdk
 
 # Help target
 help:
@@ -40,7 +40,7 @@ help:
 	@echo ""
 	@echo "Available targets:"
 	@echo "  all          - Download and install all tools"
-	@echo "  gecko_sdk    - Download and install Gecko SDK from GitHub"
+	@echo "  simplicity_sdk - Download and install Simplicity SDK from GitHub"
 	@echo "  commander    - Download and install Simplicity Commander"
 	@echo "  slc-cli      - Download and install SLC CLI tool"
 	@echo "  zap          - Download and install ZAP (Zigbee Application Processor)"
@@ -68,28 +68,28 @@ $(TOOLS_DIR):
 $(DOWNLOAD_DIR): | $(TOOLS_DIR)
 	mkdir -p $(DOWNLOAD_DIR)
 
-# Gecko SDK from GitHub
-gecko_sdk: $(TOOLS_DIR)/gecko_sdk
-	@echo "Gecko SDK installed successfully"
+# Simplicity SDK from GitHub
+simplicity_sdk: $(TOOLS_DIR)/simplicity_sdk
+	@echo "Simplicity SDK installed successfully"
 
-$(TOOLS_DIR)/gecko_sdk: | $(DOWNLOAD_DIR)
-	@echo "Downloading Gecko SDK v$(GECKO_SDK_VERSION) from GitHub..."
-	@if [ ! -f "$(DOWNLOAD_DIR)/$(GECKO_SDK_ARCHIVE)" ]; then \
-		echo "Downloading $(GECKO_SDK_URL)"; \
-		curl -L "$(GECKO_SDK_URL)" \
-			-o "$(DOWNLOAD_DIR)/$(GECKO_SDK_ARCHIVE)" \
+$(TOOLS_DIR)/simplicity_sdk: | $(DOWNLOAD_DIR)
+	@echo "Downloading Simplicity SDK v$(SIMPLICITY_SDK_VERSION) from GitHub..."
+	@if [ ! -f "$(DOWNLOAD_DIR)/$(SIMPLICITY_SDK_ARCHIVE)" ]; then \
+		echo "Downloading $(SIMPLICITY_SDK_URL)"; \
+		curl -L "$(SIMPLICITY_SDK_URL)" \
+			-o "$(DOWNLOAD_DIR)/$(SIMPLICITY_SDK_ARCHIVE)" \
 			--fail --show-error; \
 	fi
-	@echo "Extracting Gecko SDK..."
-	@rm -rf $(TOOLS_DIR)/gecko_sdk
-	@mkdir -p $(TOOLS_DIR)/gecko_sdk
-	@unzip -q "$(DOWNLOAD_DIR)/$(GECKO_SDK_ARCHIVE)" -d $(TOOLS_DIR)/gecko_sdk
+	@echo "Extracting Simplicity SDK..."
+	@rm -rf $(TOOLS_DIR)/simplicity_sdk
+	@mkdir -p $(TOOLS_DIR)/simplicity_sdk
+	@unzip -q "$(DOWNLOAD_DIR)/$(SIMPLICITY_SDK_ARCHIVE)" -d $(TOOLS_DIR)/simplicity_sdk
 	@# Move files from subdirectory if needed
-	@if [ -d "$(TOOLS_DIR)/gecko_sdk/gecko_sdk-$(GECKO_SDK_VERSION)" ]; then \
-		mv $(TOOLS_DIR)/gecko_sdk/gecko_sdk-$(GECKO_SDK_VERSION)/* $(TOOLS_DIR)/gecko_sdk/; \
-		rmdir $(TOOLS_DIR)/gecko_sdk/gecko_sdk-$(GECKO_SDK_VERSION); \
+	@if [ -d "$(TOOLS_DIR)/simplicity_sdk/simplicity_sdk-$(SIMPLICITY_SDK_VERSION)" ]; then \
+		mv $(TOOLS_DIR)/simplicity_sdk/simplicity_sdk-$(SIMPLICITY_SDK_VERSION)/* $(TOOLS_DIR)/simplicity_sdk/; \
+		rmdir $(TOOLS_DIR)/simplicity_sdk/simplicity_sdk-$(SIMPLICITY_SDK_VERSION); \
 	fi
-	@echo "Gecko SDK v$(GECKO_SDK_VERSION) installed to $(TOOLS_DIR)/gecko_sdk"
+	@echo "Simplicity SDK v$(SIMPLICITY_SDK_VERSION) installed to $(TOOLS_DIR)/simplicity_sdk"
 
 # Simplicity Commander
 commander: $(TOOLS_DIR)/commander
@@ -186,7 +186,7 @@ $(TOOLS_DIR)/zap: | $(DOWNLOAD_DIR)
 	@echo ""
 
 # Install targets (for manual installation from downloaded archives)
-install-gecko_sdk: $(TOOLS_DIR)/gecko_sdk
+install-simplicity_sdk: $(TOOLS_DIR)/simplicity_sdk
 
 install-commander: $(TOOLS_DIR)/commander
 
@@ -197,7 +197,7 @@ install-zap: $(TOOLS_DIR)/zap
 # Clean targets
 clean:
 	@echo "Removing installed tools from $(TOOLS_DIR)..."
-	@rm -rf $(TOOLS_DIR)/gecko_sdk $(TOOLS_DIR)/commander $(TOOLS_DIR)/slc-cli $(TOOLS_DIR)/zap
+	@rm -rf $(TOOLS_DIR)/simplicity_sdk $(TOOLS_DIR)/commander $(TOOLS_DIR)/slc-cli $(TOOLS_DIR)/zap
 	@echo "Tools removed (downloads preserved)"
 
 clean-downloads:
@@ -208,11 +208,11 @@ clean-downloads:
 # Verification targets
 verify:
 	@echo "Verifying installed tools..."
-	@if [ -d "$(TOOLS_DIR)/gecko_sdk" ]; then \
-		echo "✓ Gecko SDK: $(TOOLS_DIR)/gecko_sdk"; \
-		echo "  Version info: $$(head -1 $(TOOLS_DIR)/gecko_sdk/platform/release-highlights.txt 2>/dev/null || echo 'Unknown')"; \
+	@if [ -d "$(TOOLS_DIR)/simplicity_sdk" ]; then \
+		echo "✓ Simplicity SDK: $(TOOLS_DIR)/simplicity_sdk"; \
+		echo "  Version: $$(grep '^sdk_version:' $(TOOLS_DIR)/simplicity_sdk/simplicity_sdk.slcs 2>/dev/null | sed 's/sdk_version: "\(.*\)"/\1/' || echo 'Unknown')"; \
 	else \
-		echo "✗ Gecko SDK: Not installed"; \
+		echo "✗ Simplicity SDK: Not installed"; \
 		exit 1; \
 	fi
 	@if [ -f "$(TOOLS_DIR)/commander/commander-cli" ]; then \

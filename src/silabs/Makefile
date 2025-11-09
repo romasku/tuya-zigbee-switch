@@ -1,6 +1,5 @@
 # Silicon Labs build configuration
-GSDK_VERSION       ?= v4.4.6
-GSDK_DIR           ?= ../../silabs_tools/gecko_sdk
+SIMPLICITY_SDK_DIR ?= ../../silabs_tools/simplicity_sdk
 SLC_DIR            ?= ../../silabs_tools/slc-cli
 COMMANDER_DIR      ?= ../../silabs_tools/commander
 ZAP_DIR            ?= ../../silabs_tools/zap
@@ -83,19 +82,22 @@ BIN_FILE ?= $(ZIGBEE_BUILD_DIR)/build/release/$(ZIGBEE_PROJECT_NAME).s37
 
 # Component exclusion based on DEBUG flag
 ifeq ($(DEBUG), 0)
-	WITHOUT_COMPONENTS = --without=iostream_usart:inst,iostream_recommended_stream
+	WITHOUT_COMPONENTS = --without=iostream_usart:inst
+	WITH_COMPONENTS = --with=iostream_dummy:inst
 else
 	WITHOUT_COMPONENTS =
+	WITH_COMPONENTS =
 endif
 
 # Generate project files
 gen:
 	rm -rf $(ZIGBEE_BUILD_DIR)
 	$(SLC_DIR)/slc configuration -gcc $(TOOLCHAIN_DIR)
-	$(SLC_DIR)/slc configuration --sdk $(GSDK_DIR)
+	$(SLC_DIR)/slc configuration --sdk $(SIMPLICITY_SDK_DIR)
 
 	@# Unset virtual environment variables to avoid conflicts and set ZAP environment
 	env -u VIRTUAL_ENV -u PYTHONHOME -u PYTHONPATH \
+		CUSTOM_ZCL_XML="$(abspath custom-zcl.xml)" \
 		STUDIO_ADAPTER_PACK_PATH="$(abspath $(ZAP_DIR))" \
     PATH="$$(echo "$$PATH" | tr ':' '\n' | grep -v 'venv' | paste -sd: -)" \
 	$(SLC_DIR)/slc generate \
@@ -105,6 +107,7 @@ gen:
 		-name $(ZIGBEE_PROJECT_NAME) \
 		--with EFR32MG21A020F768IM32 \
 		$(WITHOUT_COMPONENTS) \
+		$(WITH_COMPONENTS) \
 		--toolchain=gcc \
 		--output-type=makefile
 	
@@ -156,7 +159,8 @@ bootloader_gen:
 
 	@# Unset virtual environment variables to avoid conflicts 
 	env -u VIRTUAL_ENV -u PYTHONHOME -u PYTHONPATH \
-    PATH="$$(echo "$$PATH" | tr ':' '\n' | grep -v 'venv' | paste -sd: -)" \
+		CUSTOM_ZCL_XML="$(abspath custom-zcl.xml)" \
+		PATH="$$(echo "$$PATH" | tr ':' '\n' | grep -v 'venv' | paste -sd: -)" \
 	$(SLC_DIR)/slc generate \
 		--project-file "$(BOOTLOADER_PROJECT_FILE)" \
 		-np -nocp \

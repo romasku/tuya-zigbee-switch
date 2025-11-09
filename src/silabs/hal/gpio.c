@@ -52,7 +52,7 @@ typedef struct {
   uint8_t pull_dir; // for EM4WU polarity selection
   gpio_callback_t user_cb;
   void *arg;
-  sl_zigbee_event_t af_event;
+  sli_zigbee_event_t af_event;
 } int_slot_t;
 
 static int_slot_t s_slots[MAX_INT_LINES]; // 16 EXTI lines total
@@ -79,7 +79,7 @@ static void _dispatch_regular(uint8_t intNo, void *ctx) {
   (void)intNo;
   int_slot_t *slot = (int_slot_t *)ctx;
   if (slot) {
-    sl_zigbee_event_set_active(&slot->af_event);
+    sl_zigbee_af_event_set_active(&slot->af_event);
   }
 }
 
@@ -87,11 +87,11 @@ static void _dispatch_em4wu(uint8_t intNo, void *ctx) {
   (void)intNo;
   int_slot_t *slot = (int_slot_t *)ctx;
   if (slot) {
-    sl_zigbee_event_set_active(&slot->af_event);
+    sl_zigbee_af_event_set_active(&slot->af_event);
   }
 }
 
-static void _af_event_handler(sl_zigbee_event_t *event) {
+static void _af_event_handler(sli_zigbee_event_t *event) {
   int_slot_t *slot = (int_slot_t *)event->data;
   if (slot->user_cb) {
     slot->user_cb(slot->hal_pin, slot->arg);
