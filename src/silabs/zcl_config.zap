@@ -33,8 +33,8 @@
       "version": "zigbee-v0"
     },
     {
-      "pathRelativity": "relativeToZap",
-      "path": "../../../../../src/silabs/custom-zcl.xml",
+      "pathRelativity": "resolveEnvVars",
+      "path": "$CUSTOM_ZCL_XML",
       "type": "zcl-xml-standalone"
     }
   ],

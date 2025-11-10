@@ -13,6 +13,7 @@
 #include "base_components/led.h"
 #include "base_components/network_indicator.h"
 #include "config_nv.h"
+#include "device_config/reset.h"
 #include "hal/system.h"
 #include "hal/zigbee.h"
 #include "hal/zigbee_ota.h"
@@ -52,12 +53,11 @@ uint8_t relay_clusters_cnt = 0;
 hal_zigbee_cluster clusters[32];
 hal_zigbee_endpoint endpoints[10];
 
-void reset_to_default_config();
 uint32_t parse_int(const char *s);
 char *seek_until(char *cursor, char needle);
 char *extract_next_entry(char **cursor);
 
-void onResetClicked(void *_) { hal_zigbee_leave_network(); }
+void on_reset_clicked(void *_) { reset_all(); }
 
 void parse_config() {
   device_config_read_from_nv();
@@ -68,7 +68,7 @@ void parse_config() {
   basic_cluster.manuName[0] = strlen(zb_manufacturer);
   if (basic_cluster.manuName[0] > 31) {
     printf("Manufacturer too big\r\n");
-    reset_to_default_config();
+    reset_all();
   }
   memcpy(basic_cluster.manuName + 1, zb_manufacturer,
          basic_cluster.manuName[0]);
@@ -77,7 +77,7 @@ void parse_config() {
   basic_cluster.modelId[0] = strlen(zb_model);
   if (basic_cluster.modelId[0] > 31) {
     printf("Model too big\r\n");
-    reset_to_default_config();
+    reset_all();
   }
   memcpy(basic_cluster.modelId + 1, zb_model, basic_cluster.modelId[0]);
 
@@ -93,7 +93,7 @@ void parse_config() {
       buttons[buttons_cnt].pin = pin;
       buttons[buttons_cnt].long_press_duration_ms = 2000;
       buttons[buttons_cnt].multi_press_duration_ms = 800;
-      buttons[buttons_cnt].on_long_press = onResetClicked;
+      buttons[buttons_cnt].on_long_press = on_reset_clicked;
       buttons_cnt++;
     } else if (entry[0] == 'L') {
       hal_gpio_pin_t pin = hal_gpio_parse_pin(entry + 1);
@@ -276,12 +276,6 @@ void init_reporting() {
 }
 
 // Helper functions
-
-__attribute__((noreturn)) void reset_to_default_config() {
-  printf("RESET reset_to_default_config\r\n");
-  device_config_remove_from_nv();
-  hal_system_reset();
-}
 
 char *seek_until(char *cursor, char needle) {
   while (*cursor != needle && *cursor != '\0') {

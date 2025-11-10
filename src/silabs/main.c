@@ -30,6 +30,9 @@
 #include "zigbee/relay_cluster.h"
 #include "zigbee/switch_cluster.h"
 
+// TODO: make configurable via ZCL
+#define POLLING_INTERVAL_MS 100
+
 int main(void) {
   // Initialize Silicon Labs device, system, service(s) and protocol stack(s).
   // Note that if the kernel is present, processing task(s) will be created by
@@ -37,6 +40,11 @@ int main(void) {
   sl_system_init();
 
   app_init();
+
+  // Switch should never "long poll", as it should always be somewhat reactive
+  // to ZCL commands.
+  sl_zigbee_af_set_short_poll_interval_ms_cb(POLLING_INTERVAL_MS);
+  sl_zigbee_af_set_long_poll_interval_ms_cb(POLLING_INTERVAL_MS);
 
 #if defined(SL_CATALOG_KERNEL_PRESENT)
   // Start the kernel. Task(s) created in app_init() will start running.

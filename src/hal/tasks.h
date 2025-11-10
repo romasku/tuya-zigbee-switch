@@ -10,7 +10,7 @@ typedef void (*task_handler_t)(void *arg);
 
 #include "zigbee_app_framework_event.h"
 
-typedef sl_zigbee_event_t hal_platfrom_struct_t;
+typedef sli_zigbee_event_t hal_platfrom_struct_t;
 
 #endif
 
