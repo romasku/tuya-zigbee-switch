@@ -1419,6 +1419,32 @@ TUYA_4_TS0001:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/44
   store: null
+TUYA_5_TS0001:
+  human_name: Tuya 1-gang 🅴
+  category: module
+  power: mains
+  neutral: required
+  device_type: router
+  tuya_model_name: ZG-301Z
+  tuya_manufacturer_name: null
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: ZG-301Z
+  override_z2m_device: ZG-301Z
+  tuya_module: none
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: ZG-301Z;TS0001-HOB;BB1u;LD4i;SB6u;RA1;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: null
+  tuya_image_type: null
+  firmware_image_type: 45579
+  build: yes
+  status: fully_supported
+  info: Must be flashed by wire
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/189
+  store: null
 TUYA_TS0002:
   human_name: Tuya 2-gang
   category: module
@@ -1605,7 +1631,7 @@ ZIGBEE_BOARD_ZTU_2:
   tuya_manufacturer_id: null
   tuya_image_type: null
   firmware_image_type: 45574
-  build: no
+  build: yes
   status: fully_supported
   info: Supported
   threads: null
