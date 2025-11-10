@@ -34,10 +34,25 @@ To support a new device, read [contribute/porting.md](/docs/contribute/porting.m
 
 ### Device list
 
-| 🚧 | 📦 | 💡 | ⚡ | 🏭 | Zigbee Manufacturer | Name 🔗 Z2M page | Store | Threads | Status |
-| -- | -- | -- | -- | -- | :-----------------: | ---------------- | ----: | ------: | ------ |
+| 🚧 | 📦 | 💡 | ⚡ | 🏭 | Zb&nbsp;Manufacturer <br> Zb&nbsp;Model | Name <br> Z2M&nbsp;page&nbsp;🔗 | Store | Threads | Status |
+| -- | -- | -- | -- | -- | :-------------------------------------- | :------------------------------ | ----: | ------: | :----- |
 {% for device in devices %}
-  {% set manufacturer = "`" ~ (device.tuya_manufacturer_name or "    unknown     ") ~ "`" %}
+  {% set manufacturer = "`" ~ (device.tuya_manufacturer_name or "unknown") ~ "`" %}
+  {% set ns = namespace(model="") %}
+  {% if device.tuya_model_name is none %}
+    {% set ns.model = "`unknown`" %}
+  {% elif device.tuya_model_name is string %}
+    {% set ns.model = "`" ~ device.tuya_model_name ~ "`" %}
+  {% else %}
+    {% for m in device.tuya_model_name %}
+      {% if loop.first %}
+        {% set ns.model = "`" ~ m ~ "`" %}
+      {% else %}
+        {% set ns.model = ns.model ~ " " ~ "`" ~ m ~ "`" %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+  {% set model = ns.model %}
   {% set z2m_name = device.override_z2m_device or device.stock_converter_model %}
   {% set z2m_link = "(https://www.zigbee2mqtt.io/devices/" ~ (z2m_name | replace(" ", "_")) ~ ".html)" %}
   {% set human_name = "[" ~ device.human_name ~ "]" ~ z2m_link %}
@@ -115,7 +130,7 @@ To support a new device, read [contribute/porting.md](/docs/contribute/porting.m
   {% else %}
     {% set family = "❓" %}
   {% endif %}
-| {{color}} | {{build}} | {{category}} | {{power}} | {{family}} | {{manufacturer}}  | {{human_name}} | {{store}} | {{threads}} | {{info}} | 
+| {{color}} | {{build}} | {{category}} | {{power}} | {{family}} | {{manufacturer}} <br> {{model}} | {{human_name}} | {{store}} | {{threads}} | {{info}} | 
 {% endfor %}
 
 Data from [`device_db.yaml`](/device_db.yaml)
