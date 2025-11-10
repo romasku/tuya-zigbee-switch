@@ -13,7 +13,7 @@ To support a new device, read [contribute/porting.md](/docs/contribute/porting.m
 | :----: | ---------| ------------------ | -------------------- | ------------------ | -------------- | ----------|
 |   🚧   | Status   | 🟩 Fully supported | 🟨 Mostly supported  | 🟧 In progress     | 🟥 Unsupported |           |
 |   📦   | Build    | ✔️ Available       | ❌ Unavailable       |                    |                |           |
-|   💡   | Category | `M` Module         | `S` Switch           | `O` Outlet         | `R` Remote     | `B` Board |
+|   💡   | Category | 🇲 Module          | 🇸 Switch            | 🇴  Outlet         | 🇷 Remote      | 🇧  Board |
 |   ⚡   | Power    | 🔌 Mains           | 🔋 Battery           | 🔱 USB             |                |           |
 |   🏭   | MCU      | `TL` Telink        | `SL` Silicon Labs    |                    |                |           |
 
@@ -107,7 +107,19 @@ To support a new device, read [contribute/porting.md](/docs/contribute/porting.m
   {% elif device.status == "unsupported" %}
     {% set color = "🟥" %}
   {% endif %}
-  {% set category = '**`' ~ device.category[0]|upper ~ '`**' %}
+  {% if device.category == "module" %}
+    {% set category = "🇲" %}
+  {% elif device.category == "switch" %}
+    {% set category = "🇸" %}
+  {% elif device.category == "remote" %}
+    {% set category = "🇷" %}
+  {% elif device.category == "outlet" %}
+    {% set category = "🇴" %}
+  {% elif device.category == "board" %}
+    {% set category = "🇧" %}
+  {% else %}
+    {% set category = "❓" %}
+  {% endif %}
   {% if device.build %}
     {% set build = "✔️" %}
   {% else %}
@@ -124,9 +136,9 @@ To support a new device, read [contribute/porting.md](/docs/contribute/porting.m
     {% set power = "❓" %}
   {% endif %}
   {% if device.mcu_family == "Telink" %}
-    {% set family = "**`TL`**" %}
+    {% set family = "**TL**" %}
   {% elif device.mcu_family == "Silabs" %}
-    {% set family = "**`SL`**" %}
+    {% set family = "**SL**" %}
   {% else %}
     {% set family = "❓" %}
   {% endif %}
