@@ -15,6 +15,7 @@ To support a new device, read [contribute/porting.md](/docs/contribute/porting.m
 |   📦   | Build    | ✔️ Available       | ❌ Unavailable       |                    |                |           |
 |   💡   | Category | 🇲 Module          | 🇸 Switch            | 🇴  Outlet         | 🇷 Remote      | 🇧  Board |
 |   ⚡   | Power    | 🔌 Mains           | 🔋 Battery           | 🔱 USB             |                |           |
+|   📲   | Install  | 🛜 Wireless        | ➿ By wire           |                    |                |           |
 |   🏭   | MCU      | `TL` Telink        | `SL` Silicon Labs    |                    |                |           |
 
 > [!NOTE]  
@@ -34,8 +35,8 @@ To support a new device, read [contribute/porting.md](/docs/contribute/porting.m
 
 ### Device list
 
-| 🚧 | 📦 | 💡 | ⚡ | 🏭 | Zb&nbsp;Manufacturer <br> Zb&nbsp;Model | Name <br> Z2M&nbsp;page&nbsp;🔗 | Store | Threads | Status |
-| -- | -- | -- | -- | -- | :-------------------------------------- | :------------------------------ | ----: | ------: | :----- |
+| 🚧 | 📦 | 💡 | ⚡ | 📲 | 🏭 | Zb&nbsp;Manufacturer <br> Zb&nbsp;Model | Name <br> Z2M&nbsp;page&nbsp;🔗 | Store | Threads | Status |
+| -- | -- | -- | -- | -- | -- | :-------------------------------------- | :------------------------------ | ----: | ------: | :----- |
 {% for device in devices %}
   {% set manufacturer = "`" ~ (device.tuya_manufacturer_name or "unknown") ~ "`" %}
   {% set ns = namespace(model="") %}
@@ -135,6 +136,12 @@ To support a new device, read [contribute/porting.md](/docs/contribute/porting.m
   {% else %}
     {% set power = "❓" %}
   {% endif %}
+  {% set install = "🛜" %}
+  {% if device.mcu_family == "Silabs" %}
+    {% set install = "➿" %}
+  {% elif (device.tuya_manufacturer_id is none or device.tuya_image_type is none) and device.build %}
+    {% set install = "➿" %}
+  {% endif %}
   {% if device.mcu_family == "Telink" %}
     {% set family = "**TL**" %}
   {% elif device.mcu_family == "Silabs" %}
@@ -142,7 +149,7 @@ To support a new device, read [contribute/porting.md](/docs/contribute/porting.m
   {% else %}
     {% set family = "❓" %}
   {% endif %}
-| {{color}} | {{build}} | {{category}} | {{power}} | {{family}} | {{manufacturer}} <br> {{model}} | {{human_name}} | {{store}} | {{threads}} | {{info}} | 
+| {{color}} | {{build}} | {{category}} | {{power}} | {{install}} | {{family}} | {{manufacturer}} <br> {{model}} | {{human_name}} | {{store}} | {{threads}} | {{info}} | 
 {% endfor %}
 
 Data from [`device_db.yaml`](/device_db.yaml)
