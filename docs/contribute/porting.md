@@ -21,7 +21,7 @@ The firmware works on **Telink** (TLSR8258) and **Silabs** (EFR32MG21) microcont
 
 |                   | Telink                                      | Silabs                                        |
 |------------------:|---------------------------------------------|-----------------------------------------------|
-| Devices           | most Tuya devices after 2023                | some Tuya remotes, switches. all SONOFF, IKEA |
+| Devices           | Most Tuya devices after 2023                | Some Tuya remotes, switches. All SONOFF, IKEA |
 | Tuya modules      | [ZT series]: ZTU, ZT2S, ZT3L                | [ZS series]: ZS3L                             |
 | IEEE Address      | `0xa4c138xxxxxxxxxx`                        | Use 'MAC lookup' website                      |
 | Stock ➡ Custom FW | OTA [updating.md] or [flashing_via_wire.md] | flashing_via_wire_silabs (needs guide)        |
@@ -36,12 +36,14 @@ After flashing, the pins can easily be changed in Z2M (but not in ZHA).
 
 [labels]: https://github.com/romasku/tuya-zigbee-switch/issues/145#issuecomment-3303035527
 [visible traces]: https://github.com/romasku/tuya-zigbee-switch/issues/146#issuecomment-3302750944
+[lamp trick]: https://github.com/romasku/tuya-zigbee-switch/pull/188#issuecomment-3506916760
 [solder points]: https://github.com/romasku/tuya-zigbee-switch/issues/183#issuecomment-3491147138
 [follow pattern]: https://github.com/romasku/tuya-zigbee-switch/issues/181#:~:text=Pictures-,Configs,-We%20obtained%20the
 
 ### Obtaining
+
 There are multiple safe ways to obtain the pinout:
-- **Look for clues on the PCB**: [labels], [visible traces] and [solder points]
+- **Look for clues on the PCB**: [labels], [solder points] and [visible traces] ([lamp trick]) 
 - **Test continuity** (resistance) with a multimeter
 - **Try each pin** until something works (brute force)
 - Truncate the pinout of a higher-gang model ([follow pattern])
@@ -51,6 +53,41 @@ There are multiple safe ways to obtain the pinout:
 > [!CAUTION]  
 > Tuya devices do not have galvanic isolation! *The DC circuit may operate at 230-235V.*  
 > ***Do not plug a dissasembled device into mains power!*** 
+
+### Tuya modules
+
+There are 4 (A,B,C,D) × 8 (0-7) = 32 GPIO pins on the TLSR8258 ?  
+⤷ Here are the **exposed pins** for each module (usable for peripherals):
+
+[`ZTU`]: https://developer.tuya.com/en/docs/iot/ztu-module-datasheet?id=Ka45nl4ywgabp
+[`ZT3L`]: https://developer.tuya.com/en/docs/iot/zt3l-module-datasheet?id=Ka438n1j8nuvu
+[`ZT2S`]: https://developer.tuya.com/en/docs/iot/zt2s-module-datasheet?id=Kas9gdtath9p0
+[`ZT2Sᶠ`]: https://github.com/romasku/tuya-zigbee-switch/issues/6#issuecomment-2568045792
+
+| Module        | Pins |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |
+|--------------:|------|------|------|------|------|------|------|------|------|------|------|------|------|------|------|------|
+| **[`ZTU`]**   | `A0` | `A1` | `B1` | `B4` | `B5` | `B6` | `B7` | `C0` | `C1` | `C2` | `C3` | `C4` | `D2` | `D3` | `D4` | `D7` |
+| **[`ZT3L`]**  | `A0` |      | `B1` | `B4` | `B5` |      | `B7` | `C0` |      | `C2` | `C3` | `C4` | `D2` |      | `D4` | `D7` |
+| **[`ZT2S`]**  |      |      | `B1` | `B4` | `B5` |      | `B7` |      |      | `C2` | `C3` | `C4` | `D2` |      |      |      |
+| **[`ZT2Sᶠ`]** | `A0` | `A1` | `B1` | `B4` | `B5` |      |      |      |      |      |      |      | `D2` | `D3` | `D7` |      |
+
+If you want to **guess the pinout** after flashing (brute-force):  
+⤷ **Assign the unused pins**: `A2`, `A3`, `A4`, `A5`, `A6`, `A7`, `B0`, `B2`, `B3`, `C5`, `C6`, `C7`, `D0`, `D1`, `D5`, `D6`
+
+#### Diagrams
+
+<p>
+<img src="../pinouts/ZTU_front.png" align="top" width="21%">
+<img src="../pinouts/ZTU_back.png" align="top" width="21%">
+<img src="../pinouts/ZT3L_front.png" align="top" width="21%">
+<img src="../pinouts/ZT3L_back.png" align="top" width="21%">
+</p>
+<p>
+<img src="../pinouts/ZT2S_real_front.png" align="top" width="21%">
+<img src="../pinouts/ZT2S_real_back.png" align="top" width="21%">
+<img src="../pinouts/ZT2S_fake_front.png" align="top" width="21%">
+<img src="../pinouts/ZT2S_fake_back.png" align="top" width="21%">
+</p>
 
 ### Config string
 
@@ -72,22 +109,6 @@ The next step is filling the device config string for the database entry.
 | **`S`** | Switch        | • User input <br> • Tactile, touch or external button (wire) <br> • Spam to put in pairing mode |
 | **`R`** | Relay         | • Non-latching: `RC1` - 1 pin - toggle <br> • Latching: `RC2C3` - 2 pins - on, off  |                                               |
 | **`I`** | Indicator LED | • 1 per relay, follows state <br> • Blinks while pairing if there is no network led |
-
-There are 4 (A,B,C,D) × 8 (0-7) = 32 GPIO pins on the TLSR8258 ?  
-⤷ Here are the **exposed pins**, usable for peripherals:
-
-[ZTU]: https://developer.tuya.com/en/docs/iot/ztu-module-datasheet?id=Ka45nl4ywgabp
-[ZT3L]: https://developer.tuya.com/en/docs/iot/zt3l-module-datasheet?id=Ka438n1j8nuvu
-[ZT2S]: https://developer.tuya.com/en/docs/iot/zt2s-module-datasheet?id=Kas9gdtath9p0
-
-| Module      | Pins |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |
-|------------:|------|------|------|------|------|------|------|------|------|------|------|------|------|------|------|------|
-| **[ZTU]**   | `A0` | `A1` | `B1` | `B4` | `B5` | `B6` | `B7` | `C0` | `C1` | `C2` | `C3` | `C4` | `D2` | `D3` | `D4` | `D7` |
-| **[ZT3L]**  | `A0` |      | `B1` | `B4` | `B5` |      | `B7` | `C0` |      | `C2` | `C3` | `C4` | `D2` |      | `D4` | `D7` |
-| **[ZT2S]**  |      |      | `B1` | `B4` | `B5` |      | `B7` |      |      | `C2` | `C3` | `C4` | `D2` |      |      |      |
-
-If you want to **guess the pinout** after flashing (brute-force):  
-⤷ **Assign the unused pins**: `A2`, `A3`, `A4`, `A5`, `A6`, `A7`, `B0`, `B2`, `B3`, `C5`, `C6`, `C7`, `D0`, `D1`, `D5`, `D6`
 
 For buttons (`B`) and switches (`S`), the next character determines the pull-up/down resistor:  
 ⤷ **`u`: up 10K**, `U`: up 1M, `d`: down 100K, `f`: float  
