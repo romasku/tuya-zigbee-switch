@@ -226,15 +226,20 @@ endif
 
 # Make an ota file
 ota: $(BIN_FILE)
-	@echo 'Creating OTA file $(OTA_FILE)'
-	@echo ' '
-	@mkdir -p $(dir $(OTA_FILE))
-	@python3 $(SRC_DIR)/telink/make_ota.py create-ota \
-	  --manufacturer-id $(OTA_MANUFACTURER_ID) \
-	  --image-type $(OTA_IMAGE_TYPE) \
-	  $(OTA_VERSION_ARG) \
-	  $(BIN_FILE) $(OTA_FILE)
-	@echo ' '
+	@if [ '$(OTA_MANUFACTURER_ID)' = 'null' ] || [ -z '$(OTA_IMAGE_TYPE)' = 'null' ]; then \
+	    echo 'Skipping OTA file generation: missing arguments'; \
+			echo ' '; \
+	else \
+	    echo 'Creating OTA file $(OTA_FILE)'; \
+			echo ' '; \
+	    mkdir -p $(dir $(OTA_FILE)); \
+	    python3 $(SRC_DIR)/telink/make_ota.py create-ota \
+	      --manufacturer-id $(OTA_MANUFACTURER_ID) \
+	      --image-type $(OTA_IMAGE_TYPE) \
+	      $(OTA_VERSION_ARG) \
+	      $(BIN_FILE) $(OTA_FILE); \
+	    echo ''; \
+	fi
 
 # Flash binary to device
 flash: $(BIN_FILE)
