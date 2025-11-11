@@ -412,6 +412,35 @@ BSEED_SOCKET_TS011F:
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/145
   store:
   - https://www.aliexpress.com/item/1005004402438527.html
+BSEED_SWITCH_TS0726_1GANG:
+  human_name: BSEED 1-gang switch
+  category: switch
+  power: mains
+  neutral: required
+  device_type: router
+  tuya_model_name: TS0726
+  tuya_manufacturer_name: _TZ3002_jn2x20tg
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0726_1_gang_scene_switch
+  override_z2m_device: EC-GL86ZPCS11
+  tuya_module: ZT3L
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: jn2x20tg;TS0726-1-BS;LC4;SB1u;RC2;IC0;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 45580
+  build: yes
+  status: in_progress
+  info: Untested
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/157
+  store:
+  - https://www.aliexpress.com/item/1005008635350349.html
+  - https://www.aliexpress.com/item/1005008749674564.html
+  - https://www.bseed.com/products/bseed-smart-zigbee-light-switch-with-neutral-hub-required-switch-work-with-tuya-alexa?variant=46312889024667
 BSEED_SWITCH_TS0726_2GANG:
   human_name: BSEED 2-gang switch
   category: switch
