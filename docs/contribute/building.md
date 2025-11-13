@@ -40,10 +40,13 @@ Two branches are recommended to avoid conflicts between generated files.
 8. Add the updated converters/quirks to your Z2M/ZHA instance  
    (if new ones were generated)
 9. Prepare the update
+
    - For wireless update, use the corresponding index in your OTA settings  
      (user + **build_branch** + device_type)
    - For wire update, get the binary file for your device  
-     (`bin/DEVICE_TYPE/BOARD/tlc_switch.bin`)
+     (telink uses `bin/DEVICE_TYPE/BOARD/tlc_switch-X.Y.Z-<commit-hash>.bin`,
+     silabs uses `bin/DEVICE_TYPE/BOARD/tlc_switch-X.Y.Z-<commit-hash>.s37`)
+
 10. Perform device update and test: [readme.md # Flashing](/readme.md#-flashing)
 11. Create a Pull Request (**code_branch** → **romasku/main**)
 12. Check the unit tests result
