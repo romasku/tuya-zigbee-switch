@@ -251,6 +251,9 @@ for config in CONFIGS:
                 translation_key="relay_led_state_"+str(endpoint_id),
                 fallback_name="Relay led state "+str(endpoint_id),
                 endpoint_id=endpoint_id,
+                reporting_config=ReportingConfig(
+                    min_interval=0, max_interval=300, reportable_change=1
+                ),
             )
         )
 
