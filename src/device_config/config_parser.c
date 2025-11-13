@@ -57,7 +57,7 @@ uint32_t parse_int(const char *s);
 char *seek_until(char *cursor, char needle);
 char *extract_next_entry(char **cursor);
 
-void on_reset_clicked(void *_) { reset_all(); }
+void on_reset_clicked(void *_) { hal_factory_reset(); }
 
 void parse_config() {
   device_config_read_from_nv();

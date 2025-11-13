@@ -381,12 +381,7 @@ void reset_tasks_handler(void *arg) { hal_system_reset(); }
 void switch_cluster_on_button_multi_press(zigbee_switch_cluster *cluster,
                                           uint8_t press_count) {
   if (press_count > MULTI_PRESS_CNT_TO_RESET) {
-    hal_zigbee_leave_network();
-    // Give it time to leave network before restart
-    restart_task.handler = reset_tasks_handler;
-    restart_task.arg = NULL;
-    hal_tasks_init(&restart_task);
-    hal_tasks_schedule(&restart_task, 2000);
+    hal_factory_reset();
   }
 }
 

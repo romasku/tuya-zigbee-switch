@@ -141,7 +141,6 @@ PLATFORM_OBJS := $(PLATFORM_OBJS:$(SDK_PATH)/%.S=$(BUILD_DIR)/sdk/%.o)
 PROJ_OBJS := $(PROJ_SOURCES:$(SDK_PATH)/%.c=$(BUILD_DIR)/sdk/%.o)
 ZIGBEE_OBJS := $(ZIGBEE_SOURCES:$(SDK_PATH)/%.c=$(BUILD_DIR)/sdk/%.o)
 
-
 # All SDK object files
 SDK_OBJS := $(ALL_SDK_SOURCES:$(SDK_PATH)/%.c=$(BUILD_DIR)/sdk/%.o)
 SDK_OBJS := $(SDK_OBJS:$(SDK_PATH)/%.S=$(BUILD_DIR)/sdk/%.o)
@@ -161,6 +160,9 @@ sdk-clean:
 
 # Include SDK dependency files (if they exist)
 -include $(SDK_DEPS)
+
+# Special compiler flags for specific SDK files
+$(BUILD_DIR)/sdk/proj/drivers/drv_nv.o: GCC_FLAGS += -Dnv_resetToFactoryNew=nv_resetToFactoryNew__sdk
 
 # Compile SDK C files
 $(BUILD_DIR)/sdk/%.o: $(SDK_PATH)/%.c

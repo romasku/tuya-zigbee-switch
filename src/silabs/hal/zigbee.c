@@ -203,7 +203,7 @@ void sl_zigbee_af_stack_status_callback(sl_status_t status) {
 }
 
 void hal_zigbee_leave_network() {
-  sl_zigbee_leave_network(SL_ZIGBEE_LEAVE_NWK_WITH_OPTION_REJOIN);
+  sl_zigbee_leave_network(SL_ZIGBEE_LEAVE_NWK_WITH_NO_OPTION);
 }
 
 void hal_zigbee_start_network_steering() {

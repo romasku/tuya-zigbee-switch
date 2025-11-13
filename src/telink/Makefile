@@ -135,7 +135,8 @@ TELINK_SOURCES := \
 	hal/zigbee_ota.c \
 	libc_polyfills/atoi.c \
 	custom_zcl/zcl_multistate_input.c \
-	custom_zcl/zcl_onoff_configuration.c
+	custom_zcl/zcl_onoff_configuration.c \
+	patch_sdk/drv_nv.c
 
 # Common source files (shared with Silicon Labs build)
 COMMON_SOURCES := \
