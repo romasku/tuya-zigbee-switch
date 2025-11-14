@@ -4,6 +4,8 @@
 #include "hal/tasks.h"
 #include "hal/timer.h"
 
+#include <stdio.h>
+
 void led_init(led_t *led) { led_off(led); }
 
 void led_on(led_t *led) {
@@ -38,6 +40,11 @@ static void led_blink_handler(void *arg) {
 
 void led_blink(led_t *led, uint16_t on_time_ms, uint16_t off_time_ms,
                uint16_t times) {
+  if (led->blink_times_left != 0) {
+    led->blink_times_left = times;
+    return;
+  }
+
   hal_gpio_write(led->pin, led->on_high);
   led->on = 1;
   led->blink_time_on = on_time_ms;

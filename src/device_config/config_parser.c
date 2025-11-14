@@ -187,6 +187,9 @@ void parse_config() {
 
   periferals_init();
 
+  printf("Initializing Zigbee with %d switches and %d relays\r\n",
+         switch_clusters_cnt, relay_clusters_cnt);
+
   uint8_t total_endpoints = switch_clusters_cnt + relay_clusters_cnt;
 
   hal_zigbee_cluster *cluster_ptr = clusters;
@@ -234,10 +237,13 @@ void parse_config() {
       *cursor = ';';
     }
   }
+
+  printf("Config parsed successfully\r\n");
 }
 
 void network_indicator_on_network_status_change(
     hal_zigbee_network_status_t new_status) {
+  printf("Network status changed to %d\r\n", new_status);
   if (new_status == HAL_ZIGBEE_NETWORK_JOINED) {
     network_indicator_connected(&network_indicator);
   } else {
@@ -256,23 +262,6 @@ void periferals_init() {
   }
   hal_register_on_network_status_change_callback(
       network_indicator_on_network_status_change);
-}
-
-void init_reporting() {
-  //  u32 reportableChange = 1;
-  //
-  //  for (int index = 0; index < relay_clusters_cnt; index++)
-  //  {
-  //    bdb_defaultReportingCfg(
-  //      switch_clusters_cnt + index + 1,
-  //      HA_PROFILE_ID,
-  //      ZCL_CLUSTER_GEN_ON_OFF,
-  //      ZCL_ATTRID_ONOFF,
-  //      0,
-  //      60,
-  //      (u8 *)&reportableChange
-  //      );
-  //  }
 }
 
 // Helper functions

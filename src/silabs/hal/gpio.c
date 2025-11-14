@@ -4,11 +4,17 @@
 #include "em_gpio.h"
 #include "gpiointerrupt.h"
 #include <stdbool.h>
+#include <stddef.h>
 #include <string.h>
 
 #include "zigbee_app_framework_event.h"
 
 #include "hal/gpio.h"
+#include <stdio.h>
+
+// Get container structure from embedded member pointer
+#define container_of(ptr, type, member)                                        \
+  ((type *)((char *)(ptr) - offsetof(type, member)))
 
 // ------ Encoding helpers ------
 // hal_gpio_pin_t: upper byte = port index (A=0, B=1, ...), lower byte = pin
@@ -47,7 +53,6 @@ static void hal_gpio_ensure_gpioint(void) {
 // ------ Per-interrupt bookkeeping ------
 typedef struct {
   bool in_use;
-  uint8_t em4wu_int_no;
   hal_gpio_pin_t hal_pin;
   uint8_t pull_dir; // for EM4WU polarity selection
   gpio_callback_t user_cb;
@@ -83,16 +88,9 @@ static void _dispatch_regular(uint8_t intNo, void *ctx) {
   }
 }
 
-static void _dispatch_em4wu(uint8_t intNo, void *ctx) {
-  (void)intNo;
-  int_slot_t *slot = (int_slot_t *)ctx;
-  if (slot) {
-    sl_zigbee_af_event_set_active(&slot->af_event);
-  }
-}
-
-static void _af_event_handler(sli_zigbee_event_t *event) {
-  int_slot_t *slot = (int_slot_t *)event->data;
+static void _af_event_handler(sl_zigbee_af_event_t *event) {
+  // Get int_slot_t from embedded af_event field
+  int_slot_t *slot = container_of(event, int_slot_t, af_event);
   if (slot->user_cb) {
     slot->user_cb(slot->hal_pin, slot->arg);
   }
@@ -172,7 +170,6 @@ void hal_gpio_callback(hal_gpio_pin_t gpio_pin, gpio_callback_t callback,
   slot->user_cb = callback;
   slot->arg = arg;
   sl_zigbee_af_isr_event_init(&slot->af_event, _af_event_handler);
-  slot->af_event.data = (uint32_t)slot;
 
   GPIO_Mode_TypeDef mode = GPIO_PinModeGet(port, pin_num);
   if (mode == gpioModeInputPull) {
@@ -185,25 +182,11 @@ void hal_gpio_callback(hal_gpio_pin_t gpio_pin, gpio_callback_t callback,
     slot->pull_dir = HAL_GPIO_PULL_NONE;
   }
 
-  // 1) Register regular edge-sensitive callback (both edges)
+  // Register regular edge-sensitive callback (both edges)
   unsigned int reg_int = GPIOINT_CallbackRegisterExt(
       line, (GPIOINT_IrqCallbackPtrExt_t)_dispatch_regular, slot);
   EFM_ASSERT(reg_int != INTERRUPT_UNAVAILABLE);
   GPIO_ExtIntConfig(port, pin_num, line, true, true, true);
-
-  // 2) Try to also register an EM4WU (level-sensitive) wake-up on this pin.
-  //    If unsupported, GPIOINT_EM4WUCallbackRegisterExt returns
-  //    INTERRUPT_UNAVAILABLE. Polarity: wake on the *active* level.
-  bool active_is_high = (slot->pull_dir == HAL_GPIO_PULL_DOWN);
-  unsigned int em4_line = GPIOINT_EM4WUCallbackRegisterExt(
-      port, pin_num, (GPIOINT_IrqCallbackPtrExt_t)_dispatch_em4wu, slot);
-  if (em4_line != INTERRUPT_UNAVAILABLE) {
-    GPIO_EM4WUExtIntConfig(port, pin_num, em4_line, active_is_high ? 1U : 0U,
-                           true);
-    slot->em4wu_int_no = em4_line;
-  } else {
-    slot->em4wu_int_no = LINE_MISSING;
-  }
 }
 
 // (Optional) helper to unregister an interrupt if you add
@@ -214,17 +197,10 @@ void hal_gpio_unreg_callback(hal_gpio_pin_t gpio_pin) {
   GPIO_Port_TypeDef port = hal_port_from_index(port_idx);
 
   uint8_t int_no = LINE_MISSING;
-  uint8_t em4wu_int_no = LINE_MISSING;
   for (uint8_t i = 0; i < MAX_INT_LINES; i++) {
     if (s_slots[i].in_use && s_slots[i].hal_pin == gpio_pin) {
       int_no = i;
-      em4wu_int_no = s_slots[i].em4wu_int_no;
     }
-  }
-
-  if (em4wu_int_no != LINE_MISSING) {
-    GPIO_EM4WUExtIntConfig(port, pin_num, em4wu_int_no, 0, false);
-    GPIOINT_EM4WUCallbackUnRegister(em4wu_int_no);
   }
 
   if (int_no != LINE_MISSING) {

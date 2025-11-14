@@ -12,7 +12,7 @@ DEBUG ?= 0
 
 
 DEVICE_TYPE ?= router
-CONFIG_STR ?= jl7qyupf;TS0012-custom;SA0u;SA3u;SB0u;SB1u;RD0;RC2;RA5;RA6;
+CONFIG_STR ?= mrduubod;Moes-4-gang;SA0u;RA4;IA6;SA3u;RC0;IA5;SB0u;RC1;IC2;SB1u;RD1;ID0;M;
 MANUFACTURER_ID = 4169  # 0x1049, can be overridden via .zap file only
 IMAGE_TYPE ?= 54179
 
