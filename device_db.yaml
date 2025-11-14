@@ -787,7 +787,7 @@ MOES_SWITCHES_TS0014:
   stock_converter_model: TS0014
   override_z2m_device: null
   zb_module: ZS3L
-  config_str: mrduubod;Moes-4-gang;SB6u;RB5;ID3;SC1u;RB4;ID7;SC4u;RD2;IC0;M;
+  config_str: mrduubod;Moes-4-gang;SA0u;RA4;IA6;SA3u;RC0;IA5;SB0u;RC1;IC2;SB1u;RD1;ID0;M;
   alt_config_str: null
   old_manufacturer_names: null
   old_zb_models: null
