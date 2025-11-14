@@ -22,54 +22,50 @@ typedef struct {
 static gpio_callback_info_t gpio_callbacks[MAX_GPIO_CALLBACKS];
 static hal_task_t gpio_dispatch_task;
 
+void ensure_valid_edges() {
+  uint32_t current_state = 0;
+  uint32_t prev_state = 0;
+  drv_gpio_read_all((uint8_t *)&current_state);
+  do {
+    prev_state = current_state;
+    for (gpio_callback_info_t *info = gpio_callbacks;
+         info < gpio_callbacks + MAX_GPIO_CALLBACKS; info++) {
+      if (info->gpio_pin == HAL_INVALID_PIN) {
+        continue;
+      }
+      drv_gpio_irq_set((u32)info->gpio_pin,
+                       (current_state & pin_to_mask(info->gpio_pin))
+                           ? GPIO_FALLING_EDGE
+                           : GPIO_RISING_EDGE);
+    }
+    drv_gpio_read_all((uint8_t *)&current_state);
+  } while (current_state != prev_state);
+}
+
 static volatile uint32_t prev_gpio_state = 0;
 static volatile uint32_t pending_gpio_mask = 0;
 
 static void gpio_dispatch_handler(void *arg) {
-  drv_disable_irq();
-  uint32_t current_pending = pending_gpio_mask;
-  pending_gpio_mask = 0;
-  drv_enable_irq();
+  uint32_t current_state = 0;
+  drv_gpio_read_all((uint8_t *)&current_state);
+  uint32_t changed = current_state ^ prev_gpio_state;
 
   for (gpio_callback_info_t *info = gpio_callbacks;
        info < gpio_callbacks + MAX_GPIO_CALLBACKS; info++) {
     if (info->gpio_pin == HAL_INVALID_PIN) {
       continue;
     }
-    if (current_pending & pin_to_mask(info->gpio_pin)) {
+    if (changed & pin_to_mask(info->gpio_pin)) {
       info->callback(info->gpio_pin, info->arg);
     }
   }
+  prev_gpio_state = current_state;
+  ensure_valid_edges();
 }
 
 static void gpio_isr_callback(void) {
-  uint32_t current_state = 0;
-  drv_gpio_read_all((uint8_t *)&current_state);
-  uint32_t changed = current_state ^ prev_gpio_state;
-
-  pending_gpio_mask |= changed;
-
-  if (changed) {
-    hal_tasks_unschedule(&gpio_dispatch_task);
-    hal_tasks_schedule(&gpio_dispatch_task, 0);
-  }
-
-  for (gpio_callback_info_t *info = gpio_callbacks;
-       info < gpio_callbacks + MAX_GPIO_CALLBACKS; info++) {
-    if (info->gpio_pin == HAL_INVALID_PIN ||
-        !(changed & pin_to_mask(info->gpio_pin))) {
-      continue;
-    }
-    drv_gpio_irq_set((u32)info->gpio_pin,
-                     (current_state & pin_to_mask(info->gpio_pin))
-                         ? GPIO_FALLING_EDGE
-                         : GPIO_RISING_EDGE);
-    // cpu_set_gpio_wakeup(info->gpio_pin,
-    //                     (current_state & pin_to_mask(info->gpio_pin)) ? 0 :
-    //                     1, 1);
-  }
-
-  prev_gpio_state = current_state;
+  hal_tasks_unschedule(&gpio_dispatch_task);
+  hal_tasks_schedule(&gpio_dispatch_task, 0);
 }
 
 static void gpio_dispatch_init(void) {
@@ -82,6 +78,8 @@ static void gpio_dispatch_init(void) {
       gpio_callbacks[i].callback = NULL;
       gpio_callbacks[i].arg = NULL;
     }
+    // Initialize previous GPIO state
+    drv_gpio_read_all((uint8_t *)&prev_gpio_state);
   }
 }
 
@@ -125,19 +123,7 @@ void hal_gpio_callback(hal_gpio_pin_t gpio_pin, gpio_callback_t callback,
   slot->callback = callback;
   slot->arg = arg;
 
-  drv_gpioPoll_e edge;
-  drv_disable_irq();
-  if (hal_gpio_read(gpio_pin)) {
-    prev_gpio_state |= pin_to_mask(gpio_pin);
-    edge = GPIO_FALLING_EDGE;
-  } else {
-
-    prev_gpio_state &= ~pin_to_mask(gpio_pin);
-    edge = GPIO_RISING_EDGE;
-  }
-  drv_enable_irq();
-
-  drv_gpio_irq_set((u32)gpio_pin, edge);
+  ensure_valid_edges();
 
   drv_gpio_irq_en((u32)gpio_pin);
 }
