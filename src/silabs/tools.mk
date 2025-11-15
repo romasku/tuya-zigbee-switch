@@ -115,13 +115,13 @@ $(TOOLS_DIR)/commander: | $(DOWNLOAD_DIR)
 	@# Detect architecture and extract appropriate tar.bz file
 	@ARCH=$$(uname -m); \
 	if [ "$$ARCH" = "x86_64" ]; then \
-		COMMANDER_FILE=$$(find $(TOOLS_DIR)/commander_temp -name "*linux_x86_64*.tar.bz" | head -1); \
+		COMMANDER_FILE=$$(find $(TOOLS_DIR)/commander_temp -name "*cli*linux_x86_64*.tar.bz" | head -1); \
 	elif [ "$$ARCH" = "aarch64" ]; then \
-		COMMANDER_FILE=$$(find $(TOOLS_DIR)/commander_temp -name "*linux_aarch64*.tar.bz" | head -1); \
+		COMMANDER_FILE=$$(find $(TOOLS_DIR)/commander_temp -name "*cli*linux_aarch64*.tar.bz" | head -1); \
 	elif [ "$$ARCH" = "armv7l" ]; then \
-		COMMANDER_FILE=$$(find $(TOOLS_DIR)/commander_temp -name "*linux_aarch32*.tar.bz" | head -1); \
+		COMMANDER_FILE=$$(find $(TOOLS_DIR)/commander_temp -name "*cli*linux_aarch32*.tar.bz" | head -1); \
 	else \
-		COMMANDER_FILE=$$(find $(TOOLS_DIR)/commander_temp -name "*linux_x86_64*.tar.bz" | head -1); \
+		COMMANDER_FILE=$$(find $(TOOLS_DIR)/commander_temp -name "*cli*linux_x86_64*.tar.bz" | head -1); \
 	fi; \
 	if [ -n "$$COMMANDER_FILE" ]; then \
 		echo "Extracting $$COMMANDER_FILE for $$ARCH"; \

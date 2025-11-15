@@ -34,7 +34,7 @@ jobs:
       uses: actions/cache@v3
       with:
         path: silabs_tools
-        key: silabs-tools-v4.5.0
+        key: silabs-tools-2025.6.2
 
     - name: Cache Telink Tools
       uses: actions/cache@v3
