@@ -15,10 +15,11 @@ void btn_init(button_t *button) {
   // be detected as user press. So, to avoid such situation, special init is
   // required.
   uint8_t state = hal_gpio_read(button->pin);
-  if (!state) {
+  if (state == button->pressed_when_high) {
     button->pressed = true;
     button->long_pressed = true;
   }
+  button->debounce_last_state = state;
   button->update_task.handler = _btn_update_callback;
   button->update_task.arg = button;
   hal_tasks_init(&button->update_task);
