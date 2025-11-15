@@ -13,6 +13,17 @@ const constants = require("zigbee-herdsman-converters/lib/constants");
 const ota = require("zigbee-herdsman-converters/lib/ota");
 {% endif%}
 
+/********************************************************************
+  This file (`switch_custom.js`) is generated. 
+  
+  You can edit it for testing, but for PRs please use:
+  - `device_db.yaml`                - add or edit devices
+  - `switch_custom.md.jinja`        - update the template
+  - `make_z2m_custom_converters.py` - update generation script
+
+  Generate with: `make converters`
+********************************************************************/
+
 const romasku = {
     switchAction: (name, endpointName) =>
         enumLookup({

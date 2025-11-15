@@ -11,6 +11,16 @@
           "type": "string",
           "description": "Human-readable device name"
         },
+        "category": {
+          "type": "string",
+          "enum": ["module", "switch", "remote", "outlet", "board"],
+          "description": "Device category"
+        },
+        "power": {
+          "type": "string",
+          "enum": ["mains", "USB", "AA", "AAA", "CR2016", "CR2025", "CR2032", "CR2450", "LR23A", "18650"],
+          "description": "Power source"
+        },
         "neutral": {
           "type": "string",
           "enum": ["required", "optional", "without"],
@@ -28,6 +38,7 @@
         },
         "tuya_model_name": {
           "oneOf": [
+            {"type": "null"},
             {
               "type": "array",
               "items": {"type": "string"}
@@ -44,11 +55,17 @@
           "description": "Tuya manufacturer identifier"
         },
         "stock_converter_manufacturer": {
-          "type": "string",
+          "oneOf": [
+            {"type": "null"},
+            {"type": "string"}
+          ],
           "description": "Stock converter manufacturer"
         },
         "stock_converter_model": {
-          "type": "string",
+          "oneOf": [
+            {"type": "null"},
+            {"type": "string"}
+          ],
           "description": "Stock converter model"
         },
         "override_z2m_device": {
@@ -58,11 +75,21 @@
           ],
           "description": "Override device name for Zigbee2MQTT"
         },
-        "zb_module": {
+        "tuya_module": {
           "oneOf": [
             {
               "type": "string",
-              "enum": ["ZT2S", "ZTU", "ZT3L", "ZT2S_without_shield", "ZS3L"]
+              "enum": ["ZT2S", "ZTU", "ZT3L", "ZT2S_without_shield", "ZS3L", "none"]
+            },
+            {"type": "null"}
+          ],
+          "description": "Zigbee module type"
+        },
+        "mcu_family": {
+          "oneOf": [
+            {
+              "type": "string",
+              "enum": ["Telink", "Silabs"]
             },
             {"type": "null"}
           ],
@@ -103,11 +130,17 @@
           "description": "Legacy Zigbee model names"
         },
         "tuya_manufacturer_id": {
-          "type": "integer",
+          "oneOf": [
+            {"type": "integer"},
+            {"type": "null"}
+          ],
           "description": "Tuya manufacturer ID"
         },
         "tuya_image_type": {
-          "type": "integer",
+          "oneOf": [
+            {"type": "integer"},
+            {"type": "null"}
+          ],
           "description": "Tuya image type identifier"
         },
         "firmware_image_type": {
@@ -121,7 +154,7 @@
         },
         "status": {
           "type": "string",
-          "enum": ["Supported", "In progress"],
+          "enum": ["fully_supported", "mostly_supported", "in_progress", "unsupported"],
           "description": "Support status of the device"
         },
         "info": {
@@ -131,11 +164,18 @@
           ],
           "description": "Additional information about the device"
         },
-        "github_issue": {
+        "threads": {
           "oneOf": [
             {
               "type": "string",
               "format": "uri"
+            },
+            {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "format": "uri"
+              }
             },
             {"type": "null"}
           ],
@@ -161,6 +201,8 @@
       },
       "required": [
         "human_name",
+        "category",
+        "power",
         "neutral",
         "device_type",
         "mcu",
@@ -169,7 +211,8 @@
         "stock_converter_manufacturer",
         "stock_converter_model",
         "override_z2m_device",
-        "zb_module",
+        "tuya_module",
+        "mcu_family",
         "config_str",
         "alt_config_str",
         "old_manufacturer_names",
@@ -180,7 +223,7 @@
         "build",
         "status",
         "info",
-        "github_issue",
+        "threads",
         "store"
       ],
       "additionalProperties": false

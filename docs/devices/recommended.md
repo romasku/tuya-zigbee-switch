@@ -1,7 +1,7 @@
 # Recommended devices
 
 This page lists devices that are fully supported and have been tested by our community.  
-Open the **Outline** (table of contents) from the top right.  
+*Open the **Outline** (table of contents) from the top right.*  
 Also check out: [not_recommended.md](./not_recommended.md)
 
 ## Coordinators
