@@ -22,7 +22,7 @@ typedef struct {
 static gpio_callback_info_t gpio_callbacks[MAX_GPIO_CALLBACKS];
 static hal_task_t gpio_dispatch_task;
 
-void ensure_valid_edges() {
+static void ensure_valid_edges() {
   uint32_t current_state = 0;
   uint32_t prev_state = 0;
   drv_gpio_read_all((uint8_t *)&current_state);
@@ -42,25 +42,16 @@ void ensure_valid_edges() {
   } while (current_state != prev_state);
 }
 
-static volatile uint32_t prev_gpio_state = 0;
-static volatile uint32_t pending_gpio_mask = 0;
-
 static void gpio_dispatch_handler(void *arg) {
-  uint32_t current_state = 0;
-  drv_gpio_read_all((uint8_t *)&current_state);
-  uint32_t changed = current_state ^ prev_gpio_state;
+  ensure_valid_edges();
 
   for (gpio_callback_info_t *info = gpio_callbacks;
        info < gpio_callbacks + MAX_GPIO_CALLBACKS; info++) {
     if (info->gpio_pin == HAL_INVALID_PIN) {
       continue;
     }
-    if (changed & pin_to_mask(info->gpio_pin)) {
-      info->callback(info->gpio_pin, info->arg);
-    }
+    info->callback(info->gpio_pin, info->arg);
   }
-  prev_gpio_state = current_state;
-  ensure_valid_edges();
 }
 
 static void gpio_isr_callback(void) {
@@ -78,8 +69,6 @@ static void gpio_dispatch_init(void) {
       gpio_callbacks[i].callback = NULL;
       gpio_callbacks[i].arg = NULL;
     }
-    // Initialize previous GPIO state
-    drv_gpio_read_all((uint8_t *)&prev_gpio_state);
   }
 }
 

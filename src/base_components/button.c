@@ -19,20 +19,24 @@ void btn_init(button_t *button) {
     button->pressed = true;
     button->long_pressed = true;
   }
-  hal_gpio_callback(button->pin, _btn_gpio_callback, button);
   button->update_task.handler = _btn_update_callback;
   button->update_task.arg = button;
   hal_tasks_init(&button->update_task);
+  hal_gpio_callback(button->pin, _btn_gpio_callback, button);
 }
 
 void _btn_gpio_callback(hal_gpio_pin_t pin, void *arg) {
   button_t *button = (button_t *)arg;
+  uint8_t new_state = hal_gpio_read(button->pin);
+  if (new_state == button->debounce_last_state) {
+    return;
+  }
 
   hal_tasks_unschedule(&button->update_task);
-  button->debounce_last_state = hal_gpio_read(button->pin);
+  button->debounce_last_state = new_state;
   button->debounce_last_change = hal_millis();
-  printf("Button value changed to %d\r\n", button->debounce_last_state);
   hal_tasks_schedule(&button->update_task, DEBOUNCE_DELAY_MS);
+  printf("Button value changed to %d\r\n", button->debounce_last_state);
 }
 
 void _btn_update_callback(void *arg) {
