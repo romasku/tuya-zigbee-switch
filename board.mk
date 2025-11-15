@@ -90,7 +90,7 @@ Z2M_INDEX_FILE := zigbee2mqtt/ota/index_$(DEVICE_TYPE).json
 Z2M_FORCE_INDEX_FILE := zigbee2mqtt/ota/index_$(DEVICE_TYPE)-FORCE.json
 
 # Main target - builds firmware and generates all OTA files
-build: build-firmware generate-ota-files update-indexes
+build: drop-old-files build-firmware generate-ota-files update-indexes
 
 # Build the firmware for the specified board
 build-firmware:
@@ -108,6 +108,12 @@ endif
 		IMAGE_TYPE=$(FIRMWARE_IMAGE_TYPE) \
 		BIN_FILE=../../$(BIN_FILE) \
 		 -j32
+
+drop-old-files:
+	rm -f $(BIN_PATH)/*.bin
+	rm -f $(BIN_PATH)/*.s37
+	rm -f $(BIN_PATH)/*.zigbee
+
 # Generate all three types of OTA files
 generate-ota-files: generate-normal-ota generate-tuya-ota generate-force-ota
 
@@ -147,6 +153,5 @@ flash_telink: build-firmware
 	@echo "Flashing $(BIN_FILE) to device via $(TLSRPGM_TTY)"
 	$(MAKE) telink/flasher ARGS="-t25 -a 20 --mrst we 0 ../../$(BIN_FILE)"
 
-.PHONY: help build build-firmware generate-ota-files generate-normal-ota generate-tuya-ota generate-force-ota update-indexes clean_z2m_index update_converters update_zha_quirk update_supported_devices freeze_ota_links
-
+.PHONY: help build build-firmware drop-old-files generate-ota-files generate-normal-ota generate-tuya-ota generate-force-ota update-indexes clean_z2m_index update_converters update_zha_quirk update_supported_devices freeze_ota_links
 
