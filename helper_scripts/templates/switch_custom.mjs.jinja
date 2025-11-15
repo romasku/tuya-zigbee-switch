@@ -1,7 +1,6 @@
 import { setupAttributes } from "zigbee-herdsman-converters/lib/modernExtend";
 import {
   assertString,
-  isDummyDevice,
   postfixWithEndpointName,
 } from "zigbee-herdsman-converters/lib/utils";
 import exposes from "zigbee-herdsman-converters/lib/exposes";
@@ -551,16 +550,22 @@ const registerCustomClusters = (device) => {
   }
 };
 
+function isDummyDevice(device) {
+  return device === undefined || "isDummyDevice" in device;
+}
+
 const baseDefinition = {
   vendor: "Tuya-custom",
   description: "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
   exposes: (device, options) => {
+    if (isDummyDevice(device)) {
+      return [customExposes.deviceConfig()];
+    }
+
     const dynExposes = [];
-    let config = !isDummyDevice(device)
-      ? device
-        .getEndpoint(1)
-        .getClusterAttributeValue("genBasic", "deviceConfig")
-      : null;
+    let config = device
+      .getEndpoint(1)
+      .getClusterAttributeValue("genBasic", "deviceConfig");
 
     if (!config) {
       return [customExposes.deviceConfig()];
