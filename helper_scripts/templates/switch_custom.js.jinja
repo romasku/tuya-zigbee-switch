@@ -236,7 +236,9 @@ const definitions = [
                 max: constants.repInterval.MAX,
                 change: 1,
             });
-            // indicator:
+            {% endfor %}
+
+            {% for relayName in device.relayIndicatorNames %}
             await endpoint{{loop.index  + (device.switchNames | length)}}.configureReporting("genOnOff", [
                 {
                     attribute: {ID: 0xff02, type: 0x10}, // Boolean
