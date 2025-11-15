@@ -1,58 +1,101 @@
 # Supported devices
 
-**Z2M device name** usually represents a collection of devices.  
-Even if they work the same, rebranded versions have different internals and different pinouts (and therefore require custom builds).  
+> [!IMPORTANT]  
+> Tuya devices share model names.  
+> **Identify your device by Zigbee Manufacturer.** *Do not install if it does not match!*  
 
-**Zigbee Manufacturer** is the most reliable unique device identifier. If the TZ3000 id of your device is not on this list, it requires porting. 
+To support a new device, read [contribute/porting.md](/docs/contribute/porting.md) and ask for help.  
+**Also read:** [recommended.md](./recommended.md) & [not_recommended.md](./not_recommended.md)  
 
-For devices that contain a **supported Tuya Zigbee module** (ZTU, ZT2S, ZT3L), porting is relatively simple.  
-It consists of tracing (or guessing) the **board pinout**, adding an entry in the `device_db.yaml` file and running the build action. 
+### Legend
 
-Also read:  
-- [contribute/porting_to_new_device.md](/docs/contribute/porting_to_new_device.md)
-- [recommended.md](./recommended.md)
-- [not_recommended.md](./not_recommended.md)
+| Symbol | Meaning  |                    |                      |                    |                |           |
+| :----: | ---------| ------------------ | -------------------- | ------------------ | -------------- | ----------|
+|   🚧   | Status   | 🟩 Fully supported | 🟨 Mostly supported  | 🟧 In progress     | 🟥 Unsupported |           |
+|   📦   | Build    | ✔️ Available       | ❌ Unavailable       |                    |                |           |
+|   💡   | Category | 🇲 Module          | 🇸 Switch            | 🇴  Outlet         | 🇷 Remote      | 🇧  Board |
+|   ⚡   | Power    | 🔌 Mains           | 🔋 Battery           | 🔱 USB             |                |           |
+|   📲   | Install  | 🛜 Wireless        | ➿ By wire           |                    |                |           |
+|   🏭   | MCU      | `TL` Telink        | `SL` Silicon Labs    |                    |                |           |
 
-| Z2M device name | Vendor name | Zigbee Manufacturer | Type | Status | Issue |
-| --- | --- | --- | --- | --- | --- |
-| [WHD02](https://www.zigbee2mqtt.io/devices/WHD02.html) | Aubess WHD02  | _TZ3000_46t1rvdu | router / end_device | Supported |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/18)  | 
-| [TMZ02](https://www.zigbee2mqtt.io/devices/TMZ02.html) | Aubess TMZ02  | _TZ3000_lmlsduws | router | Supported |   [link](https://github.com/romasku/tuya-zigbee-switch/pull/153)  | 
-| [TS0003_switch_module_2](https://www.zigbee2mqtt.io/devices/TS0003_switch_module_2.html) | Aubess 3-gang  | _TZ3000_lvhy15ix | router | Supported |   [link](https://github.com/romasku/tuya-zigbee-switch/pull/151)  | 
-| [TS0004_switch_module](https://www.zigbee2mqtt.io/devices/TS0004_switch_module.html) | Aubess 4-gang  | _TZ3000_mmkbptmx | router | Supported |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/66)  | 
-| [TS0003_switch_3_gang](https://www.zigbee2mqtt.io/devices/TS0003_switch_3_gang.html) | AVATTO 3-gang touch switch  | _TZ3000_avky2mvc | router | In progress |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/41)  | 
-| [ZWSM16-1-Zigbee](https://www.zigbee2mqtt.io/devices/ZWSM16-1-Zigbee.html) | AVATTO ZWSM16-1  | _TZ3000_4rbqgcuv | router | Supported |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/9)  | 
-| [ZWSM16-2-Zigbee](https://www.zigbee2mqtt.io/devices/ZWSM16-2-Zigbee.html) | AVATTO ZWSM16-2  | _TZ3000_mtnpt6ws | router | Supported |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/9)  | 
-| [ZWSM16-3-Zigbee](https://www.zigbee2mqtt.io/devices/ZWSM16-3-Zigbee.html) | AVATTO ZWSM16-3  | _TZ3000_hbic3ka3 | router | Supported |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/56)  | 
-| [ZWSM16-4-Zigbee](https://www.zigbee2mqtt.io/devices/ZWSM16-4-Zigbee.html) | AVATTO ZWSM16-4  | _TZ3000_5ajpkyq6 | router | Supported |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/9)  | 
-| [LZWSM16-1](https://www.zigbee2mqtt.io/devices/LZWSM16-1.html) | AVATTO LZWSM16-1  | _TZ3000_hbxsdd6k | router / end_device | Supported |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/9)  | 
-| [LZWSM16-2](https://www.zigbee2mqtt.io/devices/LZWSM16-2.html) | AVATTO LZWSM16-2  | _TZ3000_ljhbw1c9 | router / end_device | Supported |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/16)  | 
-| [LZWSM16-3](https://www.zigbee2mqtt.io/devices/LZWSM16-3.html) | AVATTO LZWSM16-3  | _TZ3000_avotanj3 | router / end_device | Supported |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/135)  | 
-| [TS011F_plug_1_2](https://www.zigbee2mqtt.io/devices/TS011F_plug_1_2.html) | BSEED PM socket  | _TZ3000_b28wrpvx | router | In progress |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/145)  | 
-| [_TZ3000_o1jzcxou](https://www.zigbee2mqtt.io/devices/_TZ3000_o1jzcxou.html) | BSEED socket  | _TZ3000_o1jzcxou | router | Supported |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/145)  | 
-| [EC-GL86ZPCS21](https://www.zigbee2mqtt.io/devices/EC-GL86ZPCS21.html) | BSEED 2-gang switch  | _TZ3002_zjuvw9zf | router | Supported |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/157)  | 
-| [TS0012](https://www.zigbee2mqtt.io/devices/TS0012.html) | BSEED 2-gang touch switch  | _TZ3000_f2slq5pj | router / end_device | In progress |   [link](https://github.com/romasku/tuya-zigbee-switch/pull/23)  | 
-| [TS0012](https://www.zigbee2mqtt.io/devices/TS0012.html) | BSEED 2-gang touch switch  | _TZ3000_xk5udnd6 | router / end_device | Supported |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/51)  | 
-| [TS0003](https://www.zigbee2mqtt.io/devices/TS0003.html) | BSEED 3-gang touch switch  | _TZ3000_7aqaupa9 | router | Supported |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/125)  | 
-| [TS0002_basic](https://www.zigbee2mqtt.io/devices/TS0002_basic.html) | Girier 2-gang  | _TZ3000_zmy4lslw | router | Supported |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/29)  | 
-| [ZB08](https://www.zigbee2mqtt.io/devices/ZB08.html) | Girier ZB08  | _TZ3000_ypgri8yz | router / end_device | Supported |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/37)  | 
-| [_TZ3000_qq9ahj6z](https://www.zigbee2mqtt.io/devices/_TZ3000_qq9ahj6z.html) | iHseno 1-gang touch switch  | _TZ3000_qq9ahj6z | router / end_device | In progress |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/146)  | 
-| [_TZ3000_zxrfobzw](https://www.zigbee2mqtt.io/devices/_TZ3000_zxrfobzw.html) | iHseno 2-gang touch switch  | _TZ3000_zxrfobzw | router / end_device | In progress |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/146)  | 
-| [_TZ3000_pgq7ormg](https://www.zigbee2mqtt.io/devices/_TZ3000_pgq7ormg.html) | iHseno 1-gang  | _TZ3000_pgq7ormg | router | Supported |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/105)  | 
-| [TS0003](https://www.zigbee2mqtt.io/devices/TS0003.html) | iHseno 3-gang  | _TZ3000_mhhxxjrs | router | Supported |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/85)  | 
-| [TS0004](https://www.zigbee2mqtt.io/devices/TS0004.html) | iHseno 4-gang  | _TZ3000_knoj8lpk | router | Supported |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/105)  | 
-| [TYWB 4ch-RF](https://www.zigbee2mqtt.io/devices/TYWB_4ch-RF.html) | MHCOZY TYWB 4ch-RF  | _TZ3000_imaccztn | router | In progress |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/130)  | 
-| [ZS-EUB_1gang](https://www.zigbee2mqtt.io/devices/ZS-EUB_1gang.html) | Moes 1-gang switches (button or touch)  | _TZ3000_hhiodade | router / end_device | Supported |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/14)  | 
-| [ZS-EUB_2gang](https://www.zigbee2mqtt.io/devices/ZS-EUB_2gang.html) | Moes 2-gang switches (buttons or touch)  | _TZ3000_18ejxno0 | router / end_device | Supported |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/14)  | 
-| [TS0013](https://www.zigbee2mqtt.io/devices/TS0013.html) | Moes 3-gang switches (buttons or touch)  | _TZ3000_qewo8dlz | router / end_device | Supported |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/14)  | 
-| [TS0014](https://www.zigbee2mqtt.io/devices/TS0014.html) | Moes 4-gang switches (buttons or touch)  | _TZ3000_mrduubod | router / end_device | Supported |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/14)  | 
-| [ZM-104B-M](https://www.zigbee2mqtt.io/devices/ZM-104B-M.html) | Moes ZM-104B-M  | _TZ3000_qaa59zqd | router | In progress |   [link](https://github.com/romasku/tuya-zigbee-switch/pull/147)  | 
-| [TS0003](https://www.zigbee2mqtt.io/devices/TS0003.html) | Moes MS-104CZ  | _TZ3000_pfc7i3kt | router | In progress |   [link](https://github.com/romasku/tuya-zigbee-switch/pull/30)  | 
-| [TS0002_basic](https://www.zigbee2mqtt.io/devices/TS0002_basic.html) | OXT 2-gang  | _TZ3000_bvrlqyj7 | router | Supported |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/49)  | 
-| [TS0001_switch_module](https://www.zigbee2mqtt.io/devices/TS0001_switch_module.html) | Tuya 1-gang  | _TZ3000_tqlv4ug4 | router | Supported |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/6)  | 
-| [WHD02](https://www.zigbee2mqtt.io/devices/WHD02.html) | Tuya 1-gang  | _TZ3000_skueekg3 | router | Supported |    -  | 
-| [TS0002_basic](https://www.zigbee2mqtt.io/devices/TS0002_basic.html) | Tuya 2-gang  | _TZ3000_01gpyda5 | router | Supported |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/6)  | 
-| [TS0004_switch_module](https://www.zigbee2mqtt.io/devices/TS0004_switch_module.html) | Tuya 4-gang  | _TZ3000_ltt60asa | router | In progress |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/42)  | 
-| [TS0011_switch_module](https://www.zigbee2mqtt.io/devices/TS0011_switch_module.html) | Tuya 1-gang L-only  | _TZ3000_ji4araar | router / end_device | Supported |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/4)  | 
-| [TS0012_switch_module](https://www.zigbee2mqtt.io/devices/TS0012_switch_module.html) | Tuya 2-gang L-only  | _TZ3000_jl7qyupf | router / end_device | Supported |    -  | 
-| [TS0012](https://www.zigbee2mqtt.io/devices/TS0012.html) | Zemismart 2-gang switch  | _TZ3000_zmlunnhy | router / end_device | In progress |   [link](https://github.com/romasku/tuya-zigbee-switch/issues/19)  | 
+> [!NOTE]  
+> Z2M pages are sometimes generic.  
+> ***Look up devices in the linked threads and store listings!***
 
+<!-------------------------------------------------------------------
+  This page (`supported.md`) is generated. 
+  
+  Do not edit it directly! Instead, edit:
+  - `device_db.yaml`             - add or edit devices
+  - `supported_devices.md.jinja` - update the template
+  - `make_supported_devices.py`  - update generation script
+
+  Generate with: `make update_supported_devices`
+-------------------------------------------------------------------->
+
+### Device list
+
+| 🚧 | 📦 | 💡 | ⚡ | 📲 | 🏭 | Zb&nbsp;Manufacturer <br> Zb&nbsp;Model | Name <br> Z2M&nbsp;page&nbsp;🔗 | Store | Threads | Status |
+| -- | -- | -- | -- | -- | -- | :-------------------------------------- | :------------------------------ | ----: | ------: | :----- |
+| 🟩 | ✔️ | 🇲 | 🔌 | 🛜 | **TL** | `_TZ3000_46t1rvdu` <br> `TS0001` | [Aubess WHD02](https://www.zigbee2mqtt.io/devices/WHD02.html) |   | [`#018`](https://github.com/romasku/tuya-zigbee-switch/issues/18) | Supported | 
+| 🟩 | ✔️ | 🇲 | 🔌 | 🛜 | **TL** | `_TZ3000_lmlsduws` <br> `TS0002` | [Aubess TMZ02](https://www.zigbee2mqtt.io/devices/TMZ02.html) | [`AlEx`](https://www.aliexpress.com/item/1005005748264739.html) | [`#153`](https://github.com/romasku/tuya-zigbee-switch/pull/153) | Supported | 
+| 🟩 | ✔️ | 🇲 | 🔌 | 🛜 | **TL** | `_TZ3000_lvhy15ix` <br> `TS0003` | [Aubess 3-gang](https://www.zigbee2mqtt.io/devices/TS0003_switch_module_2.html) | [`amzn`](https://www.amazon.co.uk/dp/B0DKC2CRFJ) [`AlEx`](https://www.aliexpress.com/item/1005005748264739.html) | [`#151`](https://github.com/romasku/tuya-zigbee-switch/pull/151) | Supported | 
+| 🟩 | ✔️ | 🇲 | 🔌 | 🛜 | **TL** | `_TZ3000_mmkbptmx` <br> `TS0004` | [Aubess 4-gang](https://www.zigbee2mqtt.io/devices/TS0004_switch_module.html) | [`AlEx`](https://www.aliexpress.com/item/1005005748264739.html) | [`#066`](https://github.com/romasku/tuya-zigbee-switch/issues/66) | Supported | 
+| 🟨 | ✔️ | 🇸 | 🔌 | 🛜 | **TL** | `_TZ3000_avky2mvc` <br> `TS0003` | [AVATTO 3-gang touch switch](https://www.zigbee2mqtt.io/devices/TS0003_switch_3_gang.html) | [`AlEx`](https://www.aliexpress.com/item/1005007097427150.html) | [`#041`](https://github.com/romasku/tuya-zigbee-switch/issues/41) | Indicator LEDs can be controlled with C4? | 
+| 🟩 | ✔️ | 🇲 | 🔌 | 🛜 | **TL** | `_TZ3000_4rbqgcuv` <br> `TS0001` | [AVATTO ZWSM16-1](https://www.zigbee2mqtt.io/devices/ZWSM16-1-Zigbee.html) | [`AlEx`](https://www.aliexpress.com/item/1005007247647375.html) | [`#009`](https://github.com/romasku/tuya-zigbee-switch/issues/9) | Supported | 
+| 🟩 | ✔️ | 🇲 | 🔌 | 🛜 | **TL** | `_TZ3000_mtnpt6ws` <br> `TS0002` | [AVATTO ZWSM16-2](https://www.zigbee2mqtt.io/devices/ZWSM16-2-Zigbee.html) | [`AlEx`](https://www.aliexpress.com/item/1005007247647375.html) | [`#009`](https://github.com/romasku/tuya-zigbee-switch/issues/9) | Supported | 
+| 🟩 | ✔️ | 🇲 | 🔌 | 🛜 | **TL** | `_TZ3000_hbic3ka3` <br> `TS0003` | [AVATTO ZWSM16-3](https://www.zigbee2mqtt.io/devices/ZWSM16-3-Zigbee.html) | [`AlEx`](https://www.aliexpress.com/item/1005007247647375.html) | [`#056`](https://github.com/romasku/tuya-zigbee-switch/issues/56) | Supported | 
+| 🟩 | ✔️ | 🇲 | 🔌 | 🛜 | **TL** | `_TZ3000_5ajpkyq6` <br> `TS0004` | [AVATTO ZWSM16-4](https://www.zigbee2mqtt.io/devices/ZWSM16-4-Zigbee.html) | [`AlEx`](https://www.aliexpress.com/item/1005007247647375.html) | [`#009`](https://github.com/romasku/tuya-zigbee-switch/issues/9) | Supported | 
+| 🟩 | ✔️ | 🇲 | 🔌 | 🛜 | **TL** | `_TZ3000_hbxsdd6k` <br> `TS0011` | [AVATTO LZWSM16-1](https://www.zigbee2mqtt.io/devices/LZWSM16-1.html) | [`AlEx`](https://www.aliexpress.com/item/1005007247647375.html) | [`#009`](https://github.com/romasku/tuya-zigbee-switch/issues/9) | Supported | 
+| 🟩 | ✔️ | 🇲 | 🔌 | 🛜 | **TL** | `_TZ3000_ljhbw1c9` <br> `TS0012` | [AVATTO LZWSM16-2](https://www.zigbee2mqtt.io/devices/LZWSM16-2.html) | [`AlEx`](https://www.aliexpress.com/item/1005007247647375.html) | [`#016`](https://github.com/romasku/tuya-zigbee-switch/issues/16) | Supported | 
+| 🟩 | ✔️ | 🇲 | 🔌 | 🛜 | **TL** | `_TZ3000_avotanj3` <br> `TS0013` | [AVATTO LZWSM16-3](https://www.zigbee2mqtt.io/devices/LZWSM16-3.html) | [`AlEx`](https://www.aliexpress.com/item/1005007247647375.html) | [`#135`](https://github.com/romasku/tuya-zigbee-switch/issues/135) | Supported | 
+| 🟧 | ✔️ | 🇴 | 🔌 | 🛜 | **TL** | `_TZ3000_b28wrpvx` <br> `TS011F` | [BSEED PM socket](https://www.zigbee2mqtt.io/devices/TS011F_plug_1_2.html) | [`AlEx`](https://www.aliexpress.com/item/1005004402438527.html) [`AlEx`](https://www.aliexpress.com/i/1005005835434423.html) [`AlEx`](https://www.aliexpress.com/item/1005003350696939.html) | [`#145`](https://github.com/romasku/tuya-zigbee-switch/issues/145) | PM not implemented | 
+| 🟩 | ✔️ | 🇴 | 🔌 | 🛜 | **TL** | `_TZ3000_o1jzcxou` <br> `TS011F` | [BSEED socket](https://www.zigbee2mqtt.io/devices/_TZ3000_o1jzcxou.html) | [`AlEx`](https://www.aliexpress.com/item/1005004402438527.html) | [`#145`](https://github.com/romasku/tuya-zigbee-switch/issues/145) | Supported | 
+| 🟩 | ✔️ | 🇸 | 🔌 | 🛜 | **TL** | `_TZ3002_zjuvw9zf` <br> `TS0726` | [BSEED 2-gang switch](https://www.zigbee2mqtt.io/devices/EC-GL86ZPCS21.html) | [`AlEx`](https://www.aliexpress.com/item/1005008635350349.html) [`AlEx`](https://www.aliexpress.com/item/1005008749674564.html) [`BSEED`](https://www.bseed.com/products/bseed-smart-zigbee-light-switch-with-neutral-hub-required-switch-work-with-tuya-alexa?variant=46312889057435) | [`#157`](https://github.com/romasku/tuya-zigbee-switch/issues/157) | Supported | 
+| 🟧 | ✔️ | 🇸 | 🔌 | 🛜 | **TL** | `_TZ3002_iedhxgyi` <br> `TS0726` | [BSEED 3-gang switch](https://www.zigbee2mqtt.io/devices/TS0726_3_gang.html) | [`AlEx`](https://www.aliexpress.com/item/1005008635350349.html) [`AlEx`](https://www.aliexpress.com/item/1005008749674564.html) [`BSEED`](https://www.bseed.com/products/bseed-smart-zigbee-light-switch-with-neutral-hub-required-switch-work-with-tuya-alexa?variant=46312889090203) | [`#157`](https://github.com/romasku/tuya-zigbee-switch/issues/157) | Missing right state indicator | 
+| 🟩 | ✔️ | 🇸 | 🔌 | 🛜 | **TL** | `_TZ3000_hafsqare` <br> `TS0011` | [BSEED 1-gang touch switch](https://www.zigbee2mqtt.io/devices/TS0011.html) | [`BSEED`](https://www.bseed.com/products/bseed-zigbee-switch-wall-smart-light-switch-1gang-2-way-single-live-line?_pos=1&_psq=SL-GL86ZTS11B&_ss=e&_v=1.0&variant=42090992730267) | [`#176`](https://github.com/romasku/tuya-zigbee-switch/pull/176) | Supported | 
+| 🟨 | ✔️ | 🇸 | 🔌 | 🛜 | **TL** | `_TZ3000_f2slq5pj` <br> `TS0012` | [BSEED 2-gang touch switch 🅰](https://www.zigbee2mqtt.io/devices/TS0012.html) |   | [`#023`](https://github.com/romasku/tuya-zigbee-switch/pull/23) | Pin C3 disables both LEDs ? | 
+| 🟨 | ✔️ | 🇸 | 🔌 | 🛜 | **TL** | `_TZ3000_xk5udnd6` <br> `TS0012` | [BSEED 2-gang touch switch 🅱](https://www.zigbee2mqtt.io/devices/TS0012.html) | [`AlEx`](https://www.aliexpress.com/item/1005003324697513.html) | [`#051`](https://github.com/romasku/tuya-zigbee-switch/issues/51) | Higher power draw (Wrong bi-stable relay implementation) | 
+| 🟩 | ✔️ | 🇸 | 🔌 | 🛜 | **TL** | `_TZ3000_9akmi5ly` <br> `TS0001` | [BSEED 1-gang touch switch](https://www.zigbee2mqtt.io/devices/TS0001.html) |   | [`#186`](https://github.com/romasku/tuya-zigbee-switch/pull/186) | Supported | 
+| 🟧 | ✔️ | 🇸 | 🔌 | 🛜 | **TL** | `_TZ3000_cauq1okq` <br> `TS0002` | [BSEED 2-gang touch switch](https://www.zigbee2mqtt.io/devices/TS0002.html) | [`AlEx`](https://aliexpress.ru/item/4000086550778.html) | [`#188`](https://github.com/romasku/tuya-zigbee-switch/pull/188) | Missing state indicator | 
+| 🟩 | ✔️ | 🇸 | 🔌 | 🛜 | **TL** | `_TZ3000_7aqaupa9` <br> `TS0003` | [BSEED 3-gang touch switch](https://www.zigbee2mqtt.io/devices/TS0003.html) | [`AlEx`](https://www.aliexpress.com/item/1005003475686409.html) | [`#125`](https://github.com/romasku/tuya-zigbee-switch/issues/125) | Supported | 
+| 🟩 | ✔️ | 🇲 | 🔌 | 🛜 | **TL** | `_TZ3000_zmy4lslw` <br> `TS0002` | [Girier 2-gang](https://www.zigbee2mqtt.io/devices/TS0002_basic.html) | [`AlEx`](https://www.aliexpress.com/item/1005006084763437.html) | [`#029`](https://github.com/romasku/tuya-zigbee-switch/issues/29) | Supported | 
+| 🟩 | ✔️ | 🇲 | 🔌 | 🛜 | **TL** | `_TZ3000_odzoiovu` <br> `TS0003` | [Girier 3-gang](https://www.zigbee2mqtt.io/devices/TS0003_switch_module_2.html) | [`AlEx`](https://www.aliexpress.com/item/1005006084705740.html) | [`#183`](https://github.com/romasku/tuya-zigbee-switch/issues/183) | Supported | 
+| 🟩 | ✔️ | 🇲 | 🔌 | 🛜 | **TL** | `_TZ3000_ypgri8yz` <br> `TS0013` | [Girier ZB08](https://www.zigbee2mqtt.io/devices/ZB08.html) |   | [`#037`](https://github.com/romasku/tuya-zigbee-switch/issues/37) | Supported | 
+| 🟧 | ✔️ | 🇷 | 🔋 | 🛜 | **TL** | `_TZ3000_mh9px7cq` <br> `TS0044` | [iHseno 4-button remote](https://www.zigbee2mqtt.io/devices/_TZ3000_mh9px7cq.html) | [`AlEx`](https://www.aliexpress.com/item/1005005792534172.html) [`Store`](https://allegro.pl/oferta/pilot-atlo-rc4-tuya-zigbee-tuya-smart-da-16513965398) | [`#171`](https://github.com/romasku/tuya-zigbee-switch/issues/171) | Huge battery drain! Does not have relays. | 
+| 🟩 | ✔️ | 🇸 | 🔌 | 🛜 | **TL** | `_TZ3000_qq9ahj6z` <br> `TS0001` | [iHseno 1-gang touch switch](https://www.zigbee2mqtt.io/devices/_TZ3000_qq9ahj6z.html) | [`AlEx`](https://www.aliexpress.com/item/1005007532195287.html) | [`#146`](https://github.com/romasku/tuya-zigbee-switch/issues/146) | Supported | 
+| 🟩 | ✔️ | 🇸 | 🔌 | 🛜 | **TL** | `_TZ3000_zxrfobzw` <br> `TS0002` | [iHseno 2-gang touch switch](https://www.zigbee2mqtt.io/devices/_TZ3000_zxrfobzw.html) | [`AlEx`](https://www.aliexpress.com/item/1005007532195287.html) | [`#146`](https://github.com/romasku/tuya-zigbee-switch/issues/146) | Supported | 
+| 🟧 | ❌ | 🇸 | 🔌 | 🛜 | **TL** | `unknown` <br> `TS0003` | [iHseno 3-gang touch switch](https://www.zigbee2mqtt.io/devices/TS0003.html) | [`AlEx`](https://www.aliexpress.com/item/1005007532195287.html) | [`#146`](https://github.com/romasku/tuya-zigbee-switch/issues/146) | Needs IDs | 
+| 🟩 | ✔️ | 🇲 | 🔌 | 🛜 | **TL** | `_TZ3000_pgq7ormg` <br> `TS0001` | [iHseno 1-gang](https://www.zigbee2mqtt.io/devices/_TZ3000_pgq7ormg.html) | [`AlEx`](https://www.aliexpress.com/item/1005008107698143.html) | [`#105`](https://github.com/romasku/tuya-zigbee-switch/issues/105) | Supported | 
+| 🟧 | ❌ | 🇲 | 🔌 | 🛜 | **TL** | `unknown` <br> `TS0002` | [iHseno 2-gang](https://www.zigbee2mqtt.io/devices/None.html) | [`AlEx`](https://www.aliexpress.com/item/1005008107698143.html) | [`#105`](https://github.com/romasku/tuya-zigbee-switch/issues/105) | Needs ID, pinout confirmation | 
+| 🟩 | ✔️ | 🇲 | 🔌 | 🛜 | **TL** | `_TZ3000_mhhxxjrs` <br> `TS0003` | [iHseno 3-gang](https://www.zigbee2mqtt.io/devices/_TZ3000_mhhxxjrs.html) | [`AlEx`](https://www.aliexpress.com/item/1005008107698143.html) | [`#085`](https://github.com/romasku/tuya-zigbee-switch/issues/85) | Supported | 
+| 🟩 | ✔️ | 🇲 | 🔌 | 🛜 | **TL** | `_TZ3000_knoj8lpk` <br> `TS0004` | [iHseno 4-gang](https://www.zigbee2mqtt.io/devices/_TZ3000_knoj8lpk.html) | [`AlEx`](https://www.aliexpress.com/item/1005008107698143.html) | [`#105`](https://github.com/romasku/tuya-zigbee-switch/issues/105) | Supported | 
+| 🟧 | ❌ | 🇸 | 🔌 | 🛜 | **TL** | `_TZ3000_tqwydnqn` <br> `TS0013` | [Manhot 3-gang switch](https://www.zigbee2mqtt.io/devices/TS0013.html) | [`AlEx`](https://www.aliexpress.com/item/1005008300010160.html) [`AlEx`](https://www.aliexpress.com/item/1005008867890261.html) | [`#128`](https://github.com/romasku/tuya-zigbee-switch/issues/128) | Bi-stable relays not implemented + can't toggle multiple relays at once | 
+| 🟨 | ✔️ | 🇧 | 🔌 | 🛜 | **TL** | `_TZ3000_imaccztn` <br> `TS0004` | [MHCOZY TYWB 4ch-RF](https://www.zigbee2mqtt.io/devices/TYWB_4ch-RF.html) | [`AlEx`](https://www.aliexpress.com/item/1005005457296054.html) | [`#130`](https://github.com/romasku/tuya-zigbee-switch/issues/130) | Untesed? Unknown pins for reset button and blue LED? (C4, B4, B1) | 
+| 🟩 | ✔️ | 🇸 | 🔌 | 🛜 | **TL** | `_TZ3000_hhiodade` <br> `TS0011` | [Moes 1-gang switches (button or touch)](https://www.zigbee2mqtt.io/devices/ZS-EUB_1gang.html) | [`AlEx`](https://www.aliexpress.com/item/1005005178075186.html) [`Moes`](https://moeshouse.com/collections/eu-star-ring) | [`#014`](https://github.com/romasku/tuya-zigbee-switch/issues/14) | Supported | 
+| 🟩 | ✔️ | 🇸 | 🔌 | 🛜 | **TL** | `_TZ3000_18ejxno0` <br> `TS0012` | [Moes 2-gang switches (buttons or touch)](https://www.zigbee2mqtt.io/devices/ZS-EUB_2gang.html) | [`AlEx`](https://www.aliexpress.com/item/1005005178075186.html) [`Moes`](https://moeshouse.com/collections/eu-star-ring) | [`#014`](https://github.com/romasku/tuya-zigbee-switch/issues/14) | Supported | 
+| 🟩 | ✔️ | 🇸 | 🔌 | 🛜 | **TL** | `_TZ3000_qewo8dlz` <br> `TS0013` | [Moes 3-gang switches (buttons or touch)](https://www.zigbee2mqtt.io/devices/TS0013.html) | [`AlEx`](https://www.aliexpress.com/item/1005005178075186.html) [`Moes`](https://moeshouse.com/collections/eu-star-ring) | [`#014`](https://github.com/romasku/tuya-zigbee-switch/issues/14) | Supported | 
+| 🟧 | ✔️ | 🇸 | 🔌 | ➿ | **SL** | `_TZ3000_mrduubod` <br> `TS0014` | [Moes 4-gang switches (buttons or touch)](https://www.zigbee2mqtt.io/devices/TS0014.html) | [`AlEx`](https://www.aliexpress.com/item/1005005178075186.html) [`Moes`](https://moeshouse.com/collections/eu-star-ring) | [`#014`](https://github.com/romasku/tuya-zigbee-switch/issues/14) | Needs pinout. First SiLabs device!! | 
+| 🟨 | ✔️ | 🇲 | 🔌 | 🛜 | **TL** | `_TZ3000_qaa59zqd` <br> `TS0002` | [Moes ZM-104B-M](https://www.zigbee2mqtt.io/devices/ZM-104B-M.html) | [`amzn`](https://www.amazon.co.uk/dp/B0CKYP32CW?th=1) | [`#147`](https://github.com/romasku/tuya-zigbee-switch/pull/147) | Has buzzer instead of LED | 
+| 🟨 | ✔️ | 🇲 | 🔌 | 🛜 | **TL** | `_TZ3000_pfc7i3kt` <br> `TS0003` | [Moes MS-104CZ](https://www.zigbee2mqtt.io/devices/TS0003.html) | [`AlEx`](https://www.aliexpress.com/item/1005004986958450.html) | [`#030`](https://github.com/romasku/tuya-zigbee-switch/pull/30) | Has buzzer on C2 | 
+| 🟧 | ❌ | 🇲 | 🔌 | 🛜 | **TL** | `_TZ3000_criiahcg` <br> `TS0002` | [Moes ZM4LT2](https://www.zigbee2mqtt.io/devices/None.html) | [`AlEx`](https://www.aliexpress.com/item/1005009640015785.html) |   | Needs pinout | 
+| 🟧 | ❌ | 🇲 | 🔌 | 🛜 | **TL** | `_TZ3000_mzcp0of6` <br> `TS0003` | [Moes ZM4LT3](https://www.zigbee2mqtt.io/devices/None.html) | [`AlEx`](https://www.aliexpress.com/item/1005009640015785.html) |   | Needs pinout | 
+| 🟩 | ✔️ | 🇲 | 🔌 | 🛜 | **TL** | `_TZ3000_bvrlqyj7` <br> `TS0002` | [OXT 2-gang](https://www.zigbee2mqtt.io/devices/TS0002_basic.html) |   | [`#049`](https://github.com/romasku/tuya-zigbee-switch/issues/49) | Supported | 
+| 🟨 | ✔️ | 🇸 | 🔌 | 🛜 | **TL** | `_TZ3000_u6ocpapf` <br> `TS0001` | [Tuya 1-gang switch](https://www.zigbee2mqtt.io/devices/TS0001.html) |   | [`#181`](https://github.com/romasku/tuya-zigbee-switch/issues/181) | Needs netled on A0 | 
+| 🟧 | ❌ | 🇸 | 🔌 | 🛜 | **TL** | `unknown` <br> `TS0002` | [Tuya 2-gang switch](https://www.zigbee2mqtt.io/devices/None.html) |   | [`#181`](https://github.com/romasku/tuya-zigbee-switch/issues/181) | Needs ID and netled on A0 | 
+| 🟧 | ❌ | 🇸 | 🔌 | 🛜 | **TL** | `unknown` <br> `TS0003` | [Tuya 3-gang switch](https://www.zigbee2mqtt.io/devices/None.html) |   | [`#181`](https://github.com/romasku/tuya-zigbee-switch/issues/181) | Needs ID and netled on A0 | 
+| 🟨 | ✔️ | 🇸 | 🔌 | 🛜 | **TL** | `_TZ3000_gbdxbmwz` <br> `TS0004` | [Tuya 4-gang switch](https://www.zigbee2mqtt.io/devices/TS0004.html) |   | [`#181`](https://github.com/romasku/tuya-zigbee-switch/issues/181) | Needs netled on A0 | 
+| 🟩 | ✔️ | 🇲 | 🔌 | 🛜 | **TL** | `_TZ3000_tqlv4ug4` <br> `TS0001` | [Tuya 1-gang 🅰](https://www.zigbee2mqtt.io/devices/TS0001_switch_module.html) |   | [`#006`](https://github.com/romasku/tuya-zigbee-switch/issues/6) | Supported | 
+| 🟩 | ✔️ | 🇲 | 🔌 | 🛜 | **TL** | `_TZ3000_skueekg3` <br> `TS0001` | [Tuya 1-gang 🅱](https://www.zigbee2mqtt.io/devices/WHD02.html) |   |   | Supported | 
+| 🟩 | ✔️ | 🇲 | 🔌 | 🛜 | **TL** | `_TZ3000_skueekg3` <br> `TS0001` `TS000F` | [Tuya 1-gang 🅲](https://www.zigbee2mqtt.io/devices/WHD02.html) |   | [`#024`](https://github.com/romasku/tuya-zigbee-switch/issues/24) [`#080`](https://github.com/romasku/tuya-zigbee-switch/issues/80) | Supported | 
+| 🟩 | ✔️ | 🇲 | 🔌 | 🛜 | **TL** | `_TZ3000_skueekg3` <br> `TS0001` `TS000F` | [Tuya 1-gang 🅳](https://www.zigbee2mqtt.io/devices/WHD02.html) |   | [`#044`](https://github.com/romasku/tuya-zigbee-switch/issues/44) | Supported | 
+| 🟩 | ✔️ | 🇲 | 🔌 | ➿ | **TL** | `unknown` <br> `ZG-301Z` | [Tuya 1-gang 🅴](https://www.zigbee2mqtt.io/devices/ZG-301Z.html) |   | [`#189`](https://github.com/romasku/tuya-zigbee-switch/issues/189) | Supported | 
+| 🟩 | ✔️ | 🇲 | 🔌 | 🛜 | **TL** | `_TZ3000_01gpyda5` <br> `TS0002` | [Tuya 2-gang](https://www.zigbee2mqtt.io/devices/TS0002_basic.html) |   | [`#006`](https://github.com/romasku/tuya-zigbee-switch/issues/6) | Supported | 
+| 🟨 | ✔️ | 🇲 | 🔌 | 🛜 | **TL** | `_TZ3000_ltt60asa` <br> `TS0004` | [Tuya 4-gang](https://www.zigbee2mqtt.io/devices/TS0004_switch_module.html) |   | [`#042`](https://github.com/romasku/tuya-zigbee-switch/issues/42) | Some issues with reporting and groups | 
+| 🟩 | ✔️ | 🇲 | 🔌 | 🛜 | **TL** | `_TZ3000_ji4araar` <br> `TS0011` | [Tuya 1-gang L-only 🅰](https://www.zigbee2mqtt.io/devices/TS0011_switch_module.html) |   | [`#004`](https://github.com/romasku/tuya-zigbee-switch/issues/4) | Supported | 
+| 🟩 | ✔️ | 🇲 | 🔌 | 🛜 | **TL** | `_TZ3000_ji4araar` <br> `TS0011` | [Tuya 1-gang L-only 🅱](https://www.zigbee2mqtt.io/devices/TS0011_switch_module.html) |   | [`#187`](https://github.com/romasku/tuya-zigbee-switch/issues/187) | Supported | 
+| 🟩 | ✔️ | 🇲 | 🔌 | 🛜 | **TL** | `_TZ3000_jl7qyupf` <br> `TS0012` | [Tuya 2-gang L-only](https://www.zigbee2mqtt.io/devices/TS0012_switch_module.html) |   |   | Supported | 
+| 🟨 | ✔️ | 🇸 | 🔌 | 🛜 | **TL** | `_TZ3000_zmlunnhy` <br> `TS0012` | [Zemismart 2-gang switch](https://www.zigbee2mqtt.io/devices/TS0012.html) |   | [`#019`](https://github.com/romasku/tuya-zigbee-switch/issues/19) | Untested. Higher power draw (Wrong bi-stable relay implementation) | 
+| 🟩 | ✔️ | 🇧 | 🔱 | ➿ | **TL** | `unknown` <br> `unknown` | [ZTU dev board 2](https://www.zigbee2mqtt.io/devices/Zigbee_SoC_Board_V2_(ZTU).html) | [`AlEx`](https://www.aliexpress.com/item/1005007599675462.html) |   | Supported | 
+
+Data from [`device_db.yaml`](/device_db.yaml)
