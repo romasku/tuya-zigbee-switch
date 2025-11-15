@@ -322,9 +322,10 @@ const customToZigbee = {
       await entity.read("genOnOff", ["relayIndicator"]);
     },
   },
-  deviceConfig: {
+   deviceConfig: {
     key: ["device_config"],
     convertSet: async (entity, key, value, meta) => {
+      value = value.device_config_main;
       validateConfig(value);
       await entity.write("genBasic", { deviceConfig: value });
       return { state: { [key]: value } };
@@ -464,7 +465,7 @@ const customFromZigbee = {
         `customFromZigbee.deviceConfig ${JSON.stringify(result)}`,
         NS
       );
-      return result;
+      return { device_config: result };
     },
   },
 };
@@ -608,7 +609,11 @@ const baseDefinition = {
     if (deviceConfig.hasNetworkLed) {
       dynExposes.push(customExposes.networkIndicator());
     }
-    dynExposes.push(customExposes.deviceConfig());
+    dynExposes.push(
+      e
+        .composite("device_config", "device_config", ea.ALL)
+        .withFeature(customExposes.deviceConfig())
+    );
 
     return dynExposes;
   },
