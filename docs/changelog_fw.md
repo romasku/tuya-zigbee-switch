@@ -6,12 +6,28 @@
 
 ### New features:
 
+## v1.1.0:
+
+This release doesn't bring new features, but contains substantial refactoring and
+restructuring of the firmware architecture. In general, updated SDK + improved power
+efficiency should improve stability.
+
+### Changes:
+
+- Moved to new Telink SDK version 3.7.2.0
+- Added support for Silabs chips by introducing HAL middleware
+- Replaced GPIO polling with GPIO interrupts for power efficiency
+- Update versioning approach to include commit hash
+- And many more technical improvements.
+
 ## v1.0.21:
 
 ### Changes:
+
 - Keep device configuration (user settings) when it is removed from the network
 
 ### New features:
+
 - Add support for Zigbee commands: **off_with_effect** (0x40) and **on_with_recall_global_scene** (0x41)
 - Add support for **normally-closed momentary buttons**
 - Add **action states for toggle buttons**: position_on and position_off
@@ -19,32 +35,37 @@
 ## v1.0.20:
 
 ### Changes:
+
 - (technical) Updated memory map: moved NV items from ZCL to APP.  
-**Due to this change, device configuration (user settings) may reset after OTA update.**
+  **Due to this change, device configuration (user settings) may reset after OTA update.**
 
 ### Bugs:
+
 - Fixed bug: changing device config string crashed 3 and 4 gang devices.
 - Fixed bug: detached mode didn't work for Toggle switches.
 
 ## v1.0.19:
 
 ### New features:
+
 - Add support for the **levelCtrl** cluster.  
-This enables brightness control of compatible Zigbee bulbs via Zigbee binding.  
-The feature works only for momentary switches using long press: once a long press is detected, brightness will begin to slowly change. Each subsequent long press reverses the direction (increase/decrease).  
-Requires manual update of converters and reconfiguration. 
+  This enables brightness control of compatible Zigbee bulbs via Zigbee binding.  
+  The feature works only for momentary switches using long press: once a long press is detected, brightness will begin to slowly change. Each subsequent long press reverses the direction (increase/decrease).  
+  Requires manual update of converters and reconfiguration.
 
 ### Changes:
+
 - Increase the number of **presses required to reset the device to 10.**
 - Update manufacturer names to match the stock firmware.  
-(requires interview; but it's not mandatory, as backwards compatibility is kept)
+  (requires interview; but it's not mandatory, as backwards compatibility is kept)
 
 ### Bugs:
+
 - New bug: detached mode doesn't work for Toggle switches
 
 ## v1.0.18
 
-- Partly fix an issue where setting the config string could brick the device.  
+- Partly fix an issue where setting the config string could brick the device.
 - Technical: introduce a method to update data stored in NVRAM in new releases.
 
 ## v1.0.17
