@@ -1580,8 +1580,8 @@ TUYA_TS0004:
   tuya_image_type: 54179
   firmware_image_type: 43540
   build: yes
-  status: mostly_supported
-  info: Some issues with reporting and groups
+  status: fully_supported
+  info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/42
   store: null
 TUYA_TS0011:
