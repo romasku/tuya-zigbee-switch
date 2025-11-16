@@ -1364,6 +1364,32 @@ TUYA_SWITCH_TS0004:
   info: Needs netled on A0
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/181
   store: null
+TUYA_TOUCH_TS0011:
+  human_name: Tuya 1-gang touch switch
+  category: switch
+  power: mains
+  neutral: without
+  device_type: end_device
+  tuya_model_name: null
+  tuya_manufacturer_name: _TZ3000_5rpu3r0d
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0001
+  override_z2m_device: null
+  tuya_module: null
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: 5rpu3r0d;TS0011-CUS-T; null
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 45581
+  build: no
+  status: in_progress
+  info: Needs pinout
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/104
+  store: null
 TUYA_1_TS0001:
   human_name: Tuya 1-gang 🅰
   category: module
