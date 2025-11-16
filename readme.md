@@ -3,31 +3,33 @@
 [![StandWithUkraine](https://raw.githubusercontent.com/vshymanskyy/StandWithUkraine/main/badges/StandWithUkraine.svg)](https://github.com/vshymanskyy/StandWithUkraine/blob/main/docs/README.md)
 [![Discord](https://img.shields.io/discord/1405486711412359278.svg?logo=discord&logoColor=white&label=Chat&color=blue)](https://discord.gg/4HAg2Fr565)
 
-
 # 🔓 Custom firmware for Tuya Zigbee switches
 
-Feature-rich custom firmware for Telink-based Tuya Zigbee switches, switch-modules and sockets.  
+Feature-rich custom firmware for Telink-based Tuya Zigbee switches, switch-modules and sockets.
 
 ## 🔌 Supported devices
 
-There are already **40+** [devices/supported.md](/docs/devices/supported.md).  
-  
-> [!TIP]   
+There are already **40+** [devices/supported.md](/docs/devices/supported.md).
+
+> [!TIP]  
 > If your device contains a **supported Tuya Zigbee module** (ZTU, ZT2S, ZT3L), porting is relatively simple.  
-> It consists of tracing (or guessing) the **board pinout**, adding an entry in `device_db.yaml` and rebuilding. 
- 
-Further reading:  
+> It consists of tracing (or guessing) the **board pinout**, adding an entry in `device_db.yaml` and rebuilding.
+
+Further reading:
+
 - [contribute/porting.md](/docs/contribute/porting.md)
 - [devices/recommended.md](/docs/devices/recommended.md)
 - [devices/not_recommended.md](/docs/devices/not_recommended.md)
 
 ## 🤔 Why?
 
-The main driver for this project was a **frustrating bug in the factory firmware**:  
+The main driver for this project was a **frustrating bug in the factory firmware**:
+
 > When you pressed one button, the device **ignored input from the others** for ~0.5 seconds. As a result, pressing two buttons simultaneously toggled a single relay.
 
-Users also consider this *the missing piece of a reliable smart home* because it allows **using a light switch as a Zigbee remote**.  
-> Most of the cheap switches on the market do not allow **binding to other devices out-of-the-box.** 
+Users also consider this _the missing piece of a reliable smart home_ because it allows **using a light switch as a Zigbee remote**.
+
+> Most of the cheap switches on the market do not allow **binding to other devices out-of-the-box.**
 
 ## ✨ Features
 
@@ -45,14 +47,16 @@ Users also consider this *the missing piece of a reliable smart home* because it
 ## 📲 Flashing
 
 If your device is already on [devices/supported.md](/docs/devices/supported.md), the firmware can be **installed and updated**:
+
 - wirelessly on Z2M / ZHA: [updating.md](/docs/updating.md)
 - by wire: [contribute/flashing_via_wire.md](/docs/contribute/flashing_via_wire.md)
+- by wire for silicon labs MCU: [contribute/flashing_via_wire_silabs.md](/docs/contribute/flashing_via_wire_silabs.md)
 
 Otherwise, check [contribute/porting.md](/docs/contribute/porting.md).
 
 ## 📝 Changelog
 
-Read the firmware release notes here: [changelog_fw.md](/docs/changelog_fw.md).  
+Read the firmware release notes here: [changelog_fw.md](/docs/changelog_fw.md).
 
 ## 🚨 ️Known issues
 
@@ -62,19 +66,20 @@ Stay up to date with the [known_issues.md](/docs/known_issues.md) to prevent bri
 
 Read the [faq.md](/docs/faq.md) and feel free to ask more questions or suggest useful information.  
 Also read [endpoints.md](/docs/usage/endpoints.md) for information about groups and binding.  
-To switch between EndDevice and Router, follow [change_device_type.md](/docs/usage/change_device_type.md).  
+To switch between EndDevice and Router, follow [change_device_type.md](/docs/usage/change_device_type.md).
 
 ## Discord
 
-Join the discussion, ask for help or just follow the news on:  
+Join the discussion, ask for help or just follow the news on:
 
-[![Discord](https://discord.com/api/guilds/1405486711412359278/widget.png?style=banner3)](https://discord.gg/4HAg2Fr565)  
+[![Discord](https://discord.com/api/guilds/1405486711412359278/widget.png?style=banner3)](https://discord.gg/4HAg2Fr565)
 
 Keep important topics on GitHub!
 
 ## 🛠️ Building and Contributing
 
-**Welcome to the team!** Please read:  
+**Welcome to the team!** Please read:
+
 - [porting.md](/docs/contribute/porting.md)
 - [building.md](/docs/contribute/building.md)
 - [project_structure.md](/docs/contribute/project_structure.md)
@@ -85,11 +90,11 @@ Keep important topics on GitHub!
 ## 🙏 Acknowledgements
 
 - https://github.com/pvvx/ZigbeeTLc  
-(fw for Telink-based temperature & humidity sensors) - the base of this project
+  (fw for Telink-based temperature & humidity sensors) - the base of this project
 - https://github.com/doctor64/tuyaZigbee  
-(fw for some other Tuya Zigbee devices) - helpful examples
+  (fw for some other Tuya Zigbee devices) - helpful examples
 - https://medium.com/@omaslyuchenko  
-for the **Hello Zigbee World** series - very useful references on how to program a Zigbee device
+  for the **Hello Zigbee World** series - very useful references on how to program a Zigbee device
 
 ## ⭐ Star History
 
