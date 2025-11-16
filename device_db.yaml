@@ -122,8 +122,60 @@ AUBESS_TS0004:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/66
   store: https://www.aliexpress.com/item/1005005748264739.html
+AVATTO_TOUCH_TS0001:
+  human_name: AVATTO ZTS02RD-US-W1
+  category: switch
+  power: mains
+  neutral: required
+  device_type: router
+  tuya_model_name: TS0001
+  tuya_manufacturer_name: _TZ3000_w1tcofu8
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0001_switch_1_gang
+  override_z2m_device: RoomsAI_37022454
+  tuya_module: ZTU
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: w1tcofu8;TS0001-AVT;LB5;SD7u;RC3;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 45583
+  build: yes
+  status: mostly_supported
+  info: Untested. Backlight on C4
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/41
+  store: https://www.aliexpress.com/item/1005007097427150.html
+AVATTO_TOUCH_TS0002:
+  human_name: AVATTO ZTS02RD-US-W2
+  category: switch
+  power: mains
+  neutral: required
+  device_type: router
+  tuya_model_name: TS0002
+  tuya_manufacturer_name: _TZ3000_ogpla3lh
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0002_limited
+  override_z2m_device: 37022463-2
+  tuya_module: ZTU
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: ogpla3lh;TS0002-AVT;LB5;SD3u;RC2;SD4u;RD2;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 45584
+  build: yes
+  status: mostly_supported
+  info: Untested. Backlight on C4
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/41
+  store: https://www.aliexpress.com/item/1005007097427150.html
 AVATTO_TOUCH_TS0003:
-  human_name: AVATTO 3-gang touch switch
+  human_name: AVATTO ZTS02RD-US-W3
   category: switch
   power: mains
   neutral: required
@@ -132,21 +184,22 @@ AVATTO_TOUCH_TS0003:
   tuya_manufacturer_name: _TZ3000_avky2mvc
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0003_switch_3_gang
-  override_z2m_device: null
+  override_z2m_device: 37022474_2
   tuya_module: ZTU
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: avky2mvc;Avatto-3-touch;LB5;SD3u;RC2;SD7u;RC3;SD4u;RD2;M;
+  config_str: avky2mvc;TS0003-AVT;LB5;SD3u;RC2;SD7u;RC3;SD4u;RD2;M;
   alt_config_str: null
   old_manufacturer_names:
   - Avatto-3-touch
-  old_zb_models: null
+  old_zb_models:
+  - Avatto-3-touch
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
   firmware_image_type: 43542
   build: yes
   status: mostly_supported
-  info: Indicator LEDs can be controlled with C4?
+  info: Backlight on C4
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/41
   store: https://www.aliexpress.com/item/1005007097427150.html
 AVATTO_TS0001:
