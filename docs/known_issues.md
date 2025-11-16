@@ -12,20 +12,6 @@ Bi-stable (latching) relays are sometimes found in switches without Neutral.
 They require a pulse instead of constant power, **which is not implemented yet**.  
 The higher power draw than stock firmware might **prevent the device from functioning properly**.  
 
-## Device randomly freezes (until power-cycled)
-
-Discussion: [#122](https://github.com/romasku/tuya-zigbee-switch/issues/122) + Discord  
-
-There have been reports from 2 users occasionally finding their devices unresponsive.  
-The devices recover after a reboot.
-
-This is a routing error that happens on big networks, when the custom device attempts routing some specific devices through it.
-
-This problem was fixed in a newer SDK version, but we haven't migrated yet.  
-(Upgrading from original fw to custom fw is not working currently)
-
-So, **the issue can be avoided by trying out firmware built with the latest SDK** or, potentially, by using end_device firmware (it disables routing). 
-
 ## Error message on boot
 
 Discussion: [#40](https://github.com/romasku/tuya-zigbee-switch/issues/40)
