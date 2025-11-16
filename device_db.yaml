@@ -1233,6 +1233,32 @@ MOES_2_TS0003:
   info: Needs pinout
   threads: null
   store: https://www.aliexpress.com/item/1005009640015785.html
+NOUS_TS0002:
+  human_name: Nous L13Z
+  category: module
+  power: mains
+  neutral: required
+  device_type: router
+  tuya_model_name: TS0002
+  tuya_manufacturer_name: _TZ3000_ruxexjfz
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0002_basic
+  override_z2m_device: L13Z
+  tuya_module: null
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: ruxexjfz;TS0001-NS; null;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 45582
+  build: no
+  status: in_progress
+  info: Needs pinout
+  threads: null
+  store: https://nous.technology/product/l13z.html
 OXT_TS0002:
   human_name: OXT 2-gang
   category: module
@@ -1401,7 +1427,7 @@ TUYA_1_TS0001:
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0001_switch_module
   override_z2m_device: null
-  tuya_module: null
+  tuya_module: ZT3L
   mcu_family: Telink
   mcu: TLSR8258
   config_str: tqlv4ug4;TS0001-custom;BD2u;LC0;SB4u;RC2;
