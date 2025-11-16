@@ -24,7 +24,7 @@ The firmware works on **Telink** (TLSR8258) and **Silabs** (EFR32MG21) microcont
 | Devices           | Most Tuya devices after 2023                | Some Tuya remotes, switches. All SONOFF, IKEA |
 | Tuya modules      | [ZT series]: ZTU, ZT2S, ZT3L                | [ZS series]: ZS3L                             |
 | IEEE Address      | `0xa4c138xxxxxxxxxx`                        | Use 'MAC lookup' website                      |
-| Stock ➡ Custom FW | OTA [updating.md] or [flashing_via_wire.md] | flashing_via_wire_silabs (needs guide)        |
+| Stock ➡ Custom FW | OTA [updating.md] or [flashing_via_wire.md] | [flashing_via_wire_silabs.md]                 |
 
 ## Pinout
 
