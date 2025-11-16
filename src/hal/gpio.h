@@ -10,7 +10,8 @@ typedef uint16_t hal_gpio_pin_t;
 typedef enum {
   HAL_GPIO_PULL_NONE = 0,
   HAL_GPIO_PULL_UP = 1,
-  HAL_GPIO_PULL_DOWN = 2,
+  HAL_GPIO_PULL_UP_1M = 2,
+  HAL_GPIO_PULL_DOWN = 3,
   HAL_GPIO_PULL_INVALID = 0xFF,
 } hal_gpio_pull_t;
 

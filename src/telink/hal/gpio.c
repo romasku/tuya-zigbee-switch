@@ -4,7 +4,6 @@
 #include "tl_common.h"
 #include <stdint.h>
 #include <string.h>
-
 // hal_gpio_pin_t directly stores GPIO_PinTypeDef values
 
 // Convert HAL pull type to Telink pull type
@@ -14,6 +13,8 @@ static GPIO_PullTypeDef hal_to_telink_pull(hal_gpio_pull_t pull) {
     return PM_PIN_UP_DOWN_FLOAT;
   case HAL_GPIO_PULL_UP:
     return PM_PIN_PULLUP_10K;
+  case HAL_GPIO_PULL_UP_1M:
+    return PM_PIN_PULLUP_1M;
   case HAL_GPIO_PULL_DOWN:
     return PM_PIN_PULLDOWN_100K;
   default:
@@ -99,8 +100,9 @@ hal_gpio_pull_t hal_gpio_parse_pull(const char *pull_str) {
 
   switch (pull_str[0]) {
   case 'u':
-  case 'U':
     return HAL_GPIO_PULL_UP;
+  case 'U':
+    return HAL_GPIO_PULL_UP_1M;
   case 'd':
   case 'D':
     return HAL_GPIO_PULL_DOWN;

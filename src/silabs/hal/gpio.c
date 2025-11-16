@@ -219,7 +219,7 @@ hal_gpio_pin_t hal_gpio_parse_pin(const char *s) {
 }
 
 hal_gpio_pull_t hal_gpio_parse_pull(const char *pull_str) {
-  if (pull_str[0] == 'u') {
+  if (pull_str[0] == 'u' || pull_str[0] == 'U') {
     return HAL_GPIO_PULL_UP;
   }
   if (pull_str[0] == 'd') {
