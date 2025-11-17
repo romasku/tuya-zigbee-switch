@@ -1009,8 +1009,8 @@ IHSENO_TS0004:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/105
   store: https://www.aliexpress.com/item/1005008107698143.html
-MANHOT_SWITCH_TS0013:
-  human_name: Manhot 3-gang switch
+MANHOT_SWITCH_1_TS0013:
+  human_name: Manhot 3-gang switch 🅰
   category: switch
   power: mains
   neutral: optional
@@ -1037,6 +1037,32 @@ MANHOT_SWITCH_TS0013:
   store:
   - https://www.aliexpress.com/item/1005008300010160.html
   - https://www.aliexpress.com/item/1005008867890261.html
+MANHOT_SWITCH_2_TS0013:
+  human_name: Manhot 3-gang switch 🅱
+  category: switch
+  power: mains
+  neutral: optional
+  device_type: end_device
+  tuya_model_name: TS0013
+  tuya_manufacturer_name: _TZ3000_snq47izk
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0013
+  override_z2m_device: null
+  tuya_module: ZS3L
+  mcu_family: Silabs
+  mcu: EFR32MG21
+  config_str: snq47izk;TS0013-MH-2;LA1;SA2u;RA7;IB2;SB3u;RB4;IB5;SB6u;RB7;IC3;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: 4098
+  tuya_image_type: 5634
+  firmware_image_type: 45586
+  build: yes
+  status: in_progress
+  info: Needs pinout
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/197
+  store: https://www.aliexpress.com/item/1005006877282435.html
 MHCOZY_TS0004:
   human_name: MHCOZY TYWB 4ch-RF
   category: board
@@ -1175,8 +1201,8 @@ MOES_SWITCHES_TS0014:
   tuya_image_type: 5634
   firmware_image_type: 43566
   build: yes
-  status: in_progress
-  info: Needs pinout. First SiLabs device!!
+  status: fully_supported
+  info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/14
   store:
   - https://www.aliexpress.com/item/1005005178075186.html
