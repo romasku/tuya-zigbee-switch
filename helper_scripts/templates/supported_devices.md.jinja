@@ -1,20 +1,155 @@
 # Supported devices
 
-**Z2M device name** usually represents a collection of devices.  
-Even if they work the same, rebranded versions have different internals and different pinouts (and therefore require custom builds).  
+> [!IMPORTANT]  
+> Tuya devices share model names.  
+> **Identify your device by Zigbee Manufacturer.** *Do not install if it does not match!*  
 
-**Zigbee Manufacturer** is the most reliable unique device identifier. If the TZ3000 id of your device is not on this list, it requires porting. 
+To support a new device, read [contribute/porting.md](/docs/contribute/porting.md) and ask for help.  
+**Also read:** [recommended.md](./recommended.md) & [not_recommended.md](./not_recommended.md)  
 
-For devices that contain a **supported Tuya Zigbee module** (ZTU, ZT2S, ZT3L), porting is relatively simple.  
-It consists of tracing (or guessing) the **board pinout**, adding an entry in the `device_db.yaml` file and running the build action. 
+### Legend
 
-Also read:  
-- [contribute/porting_to_new_device.md](/docs/contribute/porting_to_new_device.md)
-- [recommended.md](./recommended.md)
-- [not_recommended.md](./not_recommended.md)
+| Symbol | Meaning  |                    |                      |                    |                |           |
+| :----: | ---------| ------------------ | -------------------- | ------------------ | -------------- | ----------|
+|   🚧   | Status   | 🟩 Fully supported | 🟨 Mostly supported  | 🟧 In progress     | 🟥 Unsupported |           |
+|   📦   | Build    | ✔️ Available       | ❌ Unavailable       |                    |                |           |
+|   💡   | Category | 🇲 Module          | 🇸 Switch            | 🇴  Outlet         | 🇷 Remote      | 🇧  Board |
+|   ⚡   | Power    | 🔌 Mains           | 🔋 Battery           | 🔱 USB             |                |           |
+|   📲   | Install  | 🛜 Wireless        | ➿ By wire           |                    |                |           |
+|   🏭   | MCU      | `TL` Telink        | `SL` Silicon Labs    |                    |                |           |
 
-| Z2M device name | Vendor name | Zigbee Manufacturer | Type | Status | Issue |
-| --- | --- | --- | --- | --- | --- |
+> [!NOTE]  
+> Z2M pages are sometimes generic.  
+> ***Look up devices in the linked threads and store listings!***
+
+<!-------------------------------------------------------------------
+  This page (`supported.md`) is generated. 
+  
+  Do not edit it directly! Instead, edit:
+  - `device_db.yaml`             - add or edit devices
+  - `supported_devices.md.jinja` - update the template
+  - `make_supported_devices.py`  - update generation script
+
+  Generate with: `make update_supported_devices`
+-------------------------------------------------------------------->
+
+### Device list
+
+| 🚧 | 📦 | 💡 | ⚡ | 📲 | 🏭 | Zb&nbsp;Manufacturer <br> Zb&nbsp;Model | Name <br> Z2M&nbsp;page&nbsp;🔗 | Store | Threads | Status |
+| -- | -- | -- | -- | -- | -- | :-------------------------------------- | :------------------------------ | ----: | ------: | :----- |
 {% for device in devices %}
-| [{{device.z2m_device}}](https://www.zigbee2mqtt.io/devices/{{device.z2m_device | replace(" ", "_")}}.html) | {{device.human_name}}  | {{device.tuya_manufacturer_name}} | {{ device.device_types | join(' / ') }} | {{device.status}} |  {% if device.github_issue %} [link]({{device.github_issue}}) {% else %}  - {% endif%} | 
+  {% set manufacturer = "`" ~ (device.tuya_manufacturer_name or "unknown") ~ "`" %}
+  {% set ns = namespace(model="") %}
+  {% if device.tuya_model_name is none %}
+    {% set ns.model = "`unknown`" %}
+  {% elif device.tuya_model_name is string %}
+    {% set ns.model = "`" ~ device.tuya_model_name ~ "`" %}
+  {% else %}
+    {% for m in device.tuya_model_name %}
+      {% if loop.first %}
+        {% set ns.model = "`" ~ m ~ "`" %}
+      {% else %}
+        {% set ns.model = ns.model ~ " " ~ "`" ~ m ~ "`" %}
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+  {% set model = ns.model %}
+  {% set z2m_name = device.override_z2m_device or device.stock_converter_model %}
+  {% set z2m_link = "(https://www.zigbee2mqtt.io/devices/" ~ (z2m_name | replace(" ", "_")) ~ ".html)" %}
+  {% set human_name = "[" ~ device.human_name ~ "]" ~ z2m_link %}
+  {% set info = device.info %}
+  {% if device.threads %}
+    {% if device.threads is string %}
+      {% set threads_links = [device.threads] %}
+    {% else %}
+      {% set threads_links = device.threads %}
+    {% endif %}
+    {% set threads_list = [] %}
+    {% for url in threads_links %}
+      {% set num = url.split("/")[-1] | int %}
+      {% set num_str = "`#%03d`" | format(num) %}
+      {% set _ = threads_list.append("[" ~ num_str ~ "](" ~ url ~ ")") %}
+    {% endfor %}
+    {% set threads = threads_list | join(" ") %}
+  {% else %}
+    {% set threads = " " %}
+  {% endif %}
+  {% if device.store %}
+    {% if device.store is string %}
+      {% set store_links = [device.store] %}
+    {% else %}
+      {% set store_links = device.store %}
+    {% endif %}
+    {% set store_list = [] %}
+    {% for url in store_links %}
+      {% if "aliexpress" in url %}
+        {% set label = "`AlEx`" %}
+      {% elif "amazon" in url %}
+        {% set label = "`amzn`" %}
+      {% elif "moes" in url %}
+        {% set label = "`Moes`" %}
+      {% elif "bseed" in url %}
+        {% set label = "`BSEED`" %}
+      {% else %}
+        {% set label = "`Store`" %}
+      {% endif %}
+      {% set _ = store_list.append("[" ~ label ~ "](" ~ url ~ ")") %}
+    {% endfor %}
+    {% set store = store_list | join(" ") %}
+  {% else %}
+    {% set store = " " %}
+  {% endif %}
+  {% if device.status == "fully_supported" %}
+    {% set color = "🟩" %}
+  {% elif device.status == "mostly_supported" %}
+    {% set color = "🟨" %}
+  {% elif device.status == "in_progress" %}
+    {% set color = "🟧" %}
+  {% elif device.status == "unsupported" %}
+    {% set color = "🟥" %}
+  {% endif %}
+  {% if device.category == "module" %}
+    {% set category = "🇲" %}
+  {% elif device.category == "switch" %}
+    {% set category = "🇸" %}
+  {% elif device.category == "remote" %}
+    {% set category = "🇷" %}
+  {% elif device.category == "outlet" %}
+    {% set category = "🇴" %}
+  {% elif device.category == "board" %}
+    {% set category = "🇧" %}
+  {% else %}
+    {% set category = "❓" %}
+  {% endif %}
+  {% if device.build %}
+    {% set build = "✔️" %}
+  {% else %}
+    {% set build = "❌" %}
+  {% endif %}
+  {% set batteries = ["AA", "AAA", "CR2016", "CR2025", "CR2032", "CR2450", "LR23A", "18650"] %}
+  {% if device.power == "mains" %}
+    {% set power = "🔌" %}
+  {% elif device.power == "USB" %}
+    {% set power = "🔱" %}
+  {% elif device.power|upper in batteries %}
+    {% set power = "🔋" %}
+  {% else %}
+    {% set power = "❓" %}
+  {% endif %}
+  {% set install = "🛜" %}
+  {% if device.mcu_family == "Silabs" %}
+    {% set install = "➿" %}
+  {% elif (device.tuya_manufacturer_id is none or device.tuya_image_type is none) and device.build %}
+    {% set install = "➿" %}
+  {% endif %}
+  {% if device.mcu_family == "Telink" %}
+    {% set family = "**TL**" %}
+  {% elif device.mcu_family == "Silabs" %}
+    {% set family = "**SL**" %}
+  {% else %}
+    {% set family = "❓" %}
+  {% endif %}
+| {{color}} | {{build}} | {{category}} | {{power}} | {{install}} | {{family}} | {{manufacturer}} <br> {{model}} | {{human_name}} | {{store}} | {{threads}} | {{info}} | 
 {% endfor %}
+
+Data from [`device_db.yaml`](/device_db.yaml)

@@ -1,6 +1,19 @@
 # Frequently Asked Questions
 
 <details>
+  <summary>
+    <b> Something doesn't work </b>
+  </summary>
+
+  Before reporting any issues:   
+  - **interview and reconfigure the device!**
+  - restart Z2M?
+  - reset the device?
+  - boost signal and try again
+  - read [known_issues.md](./known_issues.md) 
+</details>
+
+<details>
 <summary>
 How do the Action modes work?
 </summary>

@@ -1,6 +1,7 @@
-# Open issues
+# ⚠️ Open issues
 
 These issues are not yet fixed, and they affect every device.  
+*Open the **Outline** (table of contents) from the top right.*  
 If you have devices on older versions of the custom firmware, also read [# Closed issues](#closed-issues).
 
 ## Bi-stable relays draw too much power
@@ -44,7 +45,7 @@ The devices don't bind correctly and flood the network with broadcast messages.
 
 This issue was possibly fixed in a newer SDK version, but we haven't migrated yet.
 
-# Closed issues
+# ✅ Closed issues
 
 The following issues were already fixed. They only affect devices on older versions.  
 They are still mentioned here because **they cause bricking and prevent updates**.  

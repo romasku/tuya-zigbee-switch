@@ -10,14 +10,14 @@ Feature-rich custom firmware for Telink-based Tuya Zigbee switches, switch-modul
 
 ## 🔌 Supported devices
 
-There are already **30+** [devices/supported.md](/docs/devices/supported.md).  
+There are already **40+** [devices/supported.md](/docs/devices/supported.md).  
   
 > [!TIP]   
 > If your device contains a **supported Tuya Zigbee module** (ZTU, ZT2S, ZT3L), porting is relatively simple.  
 > It consists of tracing (or guessing) the **board pinout**, adding an entry in `device_db.yaml` and rebuilding. 
  
 Further reading:  
-- [contribute/porting_to_new_device.md](/docs/contribute/porting_to_new_device.md)
+- [contribute/porting.md](/docs/contribute/porting.md)
 - [devices/recommended.md](/docs/devices/recommended.md)
 - [devices/not_recommended.md](/docs/devices/not_recommended.md)
 
@@ -48,7 +48,7 @@ If your device is already on [devices/supported.md](/docs/devices/supported.md),
 - wirelessly on Z2M / ZHA: [updating.md](/docs/updating.md)
 - by wire: [contribute/flashing_via_wire.md](/docs/contribute/flashing_via_wire.md)
 
-Otherwise, check [contribute/porting_to_new_device.md](/docs/contribute/porting_to_new_device.md).
+Otherwise, check [contribute/porting.md](/docs/contribute/porting.md).
 
 ## 📝 Changelog
 
@@ -75,7 +75,7 @@ Keep important topics on GitHub!
 ## 🛠️ Building and Contributing
 
 **Welcome to the team!** Please read:  
-- [porting_to_new_device.md](/docs/contribute/porting_to_new_device.md)
+- [porting.md](/docs/contribute/porting.md)
 - [building.md](/docs/contribute/building.md)
 - [project_structure.md](/docs/contribute/project_structure.md)
 - [device_db_explained.md](docs/contribute/device_db_explained.md)
