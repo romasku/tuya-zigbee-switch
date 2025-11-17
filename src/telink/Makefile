@@ -9,6 +9,7 @@ SRC_DIR := $(PROJECT_ROOT)/src
 # Version and board configuration
 VERSION_STR ?= "0.0.0"
 FILE_VERSION ?= 0
+NVM_MIGRATIONS_VERSION ?= $(shell cat ../../NVM_MIGRATIONS_VERSION 2>/dev/null || echo "1")
 
 FIRMWARE_BASENAME ?= tlc_switch
 DEVICE_TYPE ?= router
@@ -84,6 +85,7 @@ ASM_FLAGS := \
 DEVICE_DEFS := \
     -DVERSION_STR="$(VERSION_STR)" \
 	-DFILE_VERSION=$(FILE_VERSION) \
+	-DNVM_MIGRATIONS_VERSION=$(NVM_MIGRATIONS_VERSION) \
 	-DDEFAULT_CONFIG="$(CONFIG_STR)" \
 	-DIMAGE_TYPE=$(IMAGE_TYPE) \
 	-DHAL_TELINK \
@@ -148,6 +150,7 @@ COMMON_SOURCES := \
 	$(SRC_DIR)/device_config/config_nv.c \
 	$(SRC_DIR)/device_config/reset.c \
 	$(SRC_DIR)/device_config/config_parser.c \
+	$(SRC_DIR)/device_config/nvm_migrations.c \
 	$(SRC_DIR)/zigbee/basic_cluster.c \
 	$(SRC_DIR)/zigbee/general_commands.c \
 	$(SRC_DIR)/zigbee/group_cluster.c \

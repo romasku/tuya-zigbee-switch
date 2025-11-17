@@ -38,6 +38,7 @@ source:
 - {path: ../device_config/nvm_items.h}
 - {path: ../device_config/reset.c}
 - {path: ../device_config/reset.h}
+- {path: ../device_config/nvm_migrations.c}
 - {path: ../zigbee/basic_cluster.c}
 - {path: ../zigbee/general_commands.c}
 - {path: ../zigbee/group_cluster.c}

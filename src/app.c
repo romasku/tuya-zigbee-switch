@@ -4,6 +4,7 @@
 #include "zigbee/general_commands.h"
 
 void app_init(void) {
+  handle_version_changes();
   parse_config(); // Does most of the setup, including all callbacks
                   // registration
   hal_zigbee_init_ota();
