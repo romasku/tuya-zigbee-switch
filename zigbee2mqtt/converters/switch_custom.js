@@ -88,7 +88,7 @@ const romasku = {
             name,
             endpointName,
             access: "STATE_GET",
-            lookup: { released: 0, press: 1, long_press: 2, position_on: 3, position_off: 4 },
+            lookup: { released: 0, single_press: 1, long_press: 2, position_on: 3, position_off: 4, double_press: 5, single_release: 6 },
             cluster: "genMultistateInput",
             attribute: "presentValue",
             description: "Action of the switch: 'released' or 'press' or 'long_press'",
@@ -123,6 +123,50 @@ const romasku = {
             attribute: {ID: 0xff01, type: 0x10},  // Boolean
             description: "State of the network indicator LED",
             access: "ALL",
+        }),
+    nextScene:(name, endpointName) =>
+        numeric({
+            name,
+            endpointNames: [endpointName],
+            cluster: "genOnOffSwitchCfg",
+            attribute: { ID: 0xff06, type: 0x20 }, // uint8
+            description: "Next scene to be recalled",
+            valueMin: 0,
+            valueMax: 255,
+        }),
+    sceneCount: (name, endpointName) =>
+        numeric({
+            name,
+            endpointNames: [endpointName],
+            cluster: "genOnOffSwitchCfg",
+            attribute: { ID: 0xff07, type: 0x20 }, // uint8
+            description: "Number of scenes to iterate through",
+            valueMin: 0,
+            valueMax: 255,
+        }),
+    sceneOffset: (name, endpointName) =>
+        numeric({
+            name,
+            endpointNames: [endpointName],
+            cluster: "genOnOffSwitchCfg",
+            attribute: { ID: 0xff08, type: 0x20 }, // uint8
+            description: "Offset of the first scene",
+        }),
+    sceneGroupId: (name, endpointName) =>
+        numeric({
+            name,
+            endpointNames: [endpointName],
+            cluster: "genOnOffSwitchCfg",
+            attribute: { ID: 0xff09, type: 0x21 }, // uint16
+            description: "Scene cluster for scene recall commands. 0xffff means infer from bindings",
+        }),
+    sceneRecallTime: (name, endpointName) =>
+        numeric({
+            name,
+            endpointNames: [endpointName],
+            cluster: "genOnOffSwitchCfg",
+            attribute: { ID: 0xff0a, type: 0x21 }, // uint16
+            description: "Recall time for the scene recall commands. 0xffff is default.",
         }),
     deviceConfig: (name, endpointName) =>
         text({
@@ -1857,6 +1901,11 @@ const definitions = [
             romasku.bindedMode("switch_left_binded_mode", "switch_left"),
             romasku.longPressDuration("switch_left_long_press_duration", "switch_left"),
             romasku.levelMoveRate("switch_left_level_move_rate", "switch_left"),
+            romasku.nextScene("switch_left_next_scene", "switch_left"),
+            romasku.sceneCount("switch_left_scene_count", "switch_left"),
+            romasku.sceneOffset("switch_left_scene_offset", "switch_left"),
+            romasku.sceneGroupId("switch_left_scene_group_id", "switch_left"),
+            romasku.sceneRecallTime("switch_left_scene_recall_time", "switch_left"),
             romasku.pressAction("switch_right_press_action", "switch_right"),
             romasku.switchMode("switch_right_mode", "switch_right"),
             romasku.switchAction("switch_right_action_mode", "switch_right"),
@@ -1865,6 +1914,11 @@ const definitions = [
             romasku.bindedMode("switch_right_binded_mode", "switch_right"),
             romasku.longPressDuration("switch_right_long_press_duration", "switch_right"),
             romasku.levelMoveRate("switch_right_level_move_rate", "switch_right"),
+            romasku.nextScene("switch_right_next_scene", "switch_right"),
+            romasku.sceneCount("switch_right_scene_count", "switch_right"),
+            romasku.sceneOffset("switch_right_scene_offset", "switch_right"),
+            romasku.sceneGroupId("switch_right_scene_group_id", "switch_right"),
+            romasku.sceneRecallTime("switch_right_scene_recall_time", "switch_right"),
         ],
         meta: { multiEndpoint: true },
         configure: async (device, coordinatorEndpoint, logger) => {

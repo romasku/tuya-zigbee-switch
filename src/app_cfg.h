@@ -91,6 +91,7 @@ extern "C" {
 #define TOUCHLINK_SUPPORT         0
 #define FIND_AND_BIND_SUPPORT     0
 #define REJOIN_FAILURE_TIMER      1
+#define ZCL_SCENE_SUPPORT         1
 
 #define GP_SUPPORT_ENABLE         1
 

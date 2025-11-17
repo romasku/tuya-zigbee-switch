@@ -116,7 +116,8 @@ INCLUDE_PATHS := -I$(SRC_PATH) -I$(SRC_PATH)/includes -I$(SRC_PATH)/common  -I$(
 -I$(SDK_PATH)/zigbee/zbapi \
 -I$(SDK_PATH)/zigbee/zbhci \
 -I$(SDK_PATH)/zigbee/zcl \
--I$(SDK_PATH)/zigbee/zdo
+-I$(SDK_PATH)/zigbee/zdo \
+-I$(SDK_PATH)/zigbee/aps
 
 GCC_FLAGS += $(TEL_CHIP) $(DEVICE_DEFS)
 

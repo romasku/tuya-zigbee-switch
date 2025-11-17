@@ -16,6 +16,7 @@ void btn_init(button_t *button)
      button->pressed = true;
      button->long_pressed = true;
      button->long_released = true;
+     button->timed_out = true;
   }
 }
 
@@ -50,10 +51,8 @@ void btn_update_debounced(button_t *button, u8 is_pressed)
     printf("Press detected\r\n");
     button->pressed_at_ms = now;
     button->long_released = false;
-    if (button->on_press != NULL)
-    {
-      button->on_press(button->callback_param);
-    }
+    button->timed_out     = false;
+
     if (now - button->released_at_ms < button->multi_press_duration_ms)
     {
       button->multi_press_cnt += 1;
@@ -66,6 +65,12 @@ void btn_update_debounced(button_t *button, u8 is_pressed)
     else
     {
       button->multi_press_cnt = 1;
+      button->multi_release_cnt = 0;
+    }
+
+    if (button->on_press != NULL)
+    {
+      button->on_press(button->callback_param);
     }
   }
   else if (button->pressed && !is_pressed)
@@ -73,16 +78,23 @@ void btn_update_debounced(button_t *button, u8 is_pressed)
     printf("Release detected\r\n");
     button->released_at_ms = now;
     button->long_pressed   = false;
+    button->timed_out      = false;
+    if (now - button->pressed_at_ms > button->multi_press_duration_ms)
+    {
+      button->multi_press_cnt = 0;
+      button->multi_release_cnt = 1;
+    } else {
+      button->multi_release_cnt++;
+    }
+
     if (button->on_release != NULL)
     {
       button->on_release(button->callback_param);
     }
-    if (now - button->pressed_at_ms > button->multi_press_duration_ms)
-    {
-      button->multi_press_cnt = 0;
-    }
   }
+
   button->pressed = is_pressed;
+  
   if (is_pressed && !button->long_pressed && (button->long_press_duration_ms > 0) && (button->long_press_duration_ms < (now - button->pressed_at_ms)))
   {
     button->long_pressed = true;
@@ -102,5 +114,18 @@ void btn_update_debounced(button_t *button, u8 is_pressed)
       button->on_long_release(button->callback_param);
     }
   }
-  ;
+  
+  if (!button->timed_out)
+  {
+    if (is_pressed && button->pressed_at_ms + button->timeout_duration_ms < now && button->on_timeout_pressed)
+    {
+      button->timed_out = true;
+      button->on_timeout_pressed(button->callback_param);
+    }
+    else if (!is_pressed && button->released_at_ms + button->timeout_duration_ms < now && button->on_timeout_released)
+    {
+      button->timed_out = true;
+      button->on_timeout_released(button->callback_param);
+    }
+  }
 }
