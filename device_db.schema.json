@@ -22,8 +22,13 @@
           "description": "Power source"
         },
         "neutral": {
-          "type": "string",
-          "enum": ["required", "optional", "without"],
+          "oneOf": [
+            {"type": "null"},
+            {
+              "type": "string",
+              "enum": ["required", "optional", "without"]
+            }
+          ],
           "description": "Whether neutral wire is required or optional"
         },
         "device_type": {
