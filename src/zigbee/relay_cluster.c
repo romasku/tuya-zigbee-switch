@@ -4,6 +4,7 @@
 #include "device_config/nvm_items.h"
 #include "hal/nvm.h"
 #include "hal/printf_selector.h"
+#include <stdbool.h>
 
 hal_zigbee_cmd_result_t relay_cluster_callback(zigbee_relay_cluster *cluster,
                                                uint8_t command_id,
@@ -127,17 +128,62 @@ void sync_indicator_led(zigbee_relay_cluster *cluster) {
 }
 
 void relay_cluster_on(zigbee_relay_cluster *cluster) {
-  relay_on(cluster->relay);
+  relay_cluster_on_impl(cluster, false);
+}
+
+void relay_cluster_on_from_startup(zigbee_relay_cluster *cluster) {
+  relay_cluster_on_impl(cluster, true);
+}
+
+void relay_cluster_on_impl(zigbee_relay_cluster *cluster, bool from_startup) {
+
+  bool relay_detached = false;
+
+  if (!from_startup) {
+    relay_detached = (cluster->detached_mode == ZCL_ONOFF_RELAY_MODE_DETACHED);
+  }
+
+  relay_on(cluster->relay, relay_detached);
   sync_indicator_led(cluster);
 }
 
 void relay_cluster_off(zigbee_relay_cluster *cluster) {
-  relay_off(cluster->relay);
+  relay_cluster_off_impl(cluster, false);
+}
+
+void relay_cluster_off_from_startup(zigbee_relay_cluster *cluster) {
+  relay_cluster_off_impl(cluster, true);
+}
+
+void relay_cluster_off_impl(zigbee_relay_cluster *cluster, bool from_startup) {
+
+  bool relay_detached = false;
+
+  if (!from_startup) {
+    relay_detached = (cluster->detached_mode == ZCL_ONOFF_RELAY_MODE_DETACHED);
+  }
+
+  relay_off(cluster->relay, relay_detached);
   sync_indicator_led(cluster);
 }
 
 void relay_cluster_toggle(zigbee_relay_cluster *cluster) {
-  relay_toggle(cluster->relay);
+  relay_cluster_toggle_impl(cluster, false);
+}
+
+void relay_cluster_toggle_from_startup(zigbee_relay_cluster *cluster) {
+  relay_cluster_toggle_impl(cluster, true);
+}
+
+void relay_cluster_toggle_impl(zigbee_relay_cluster *cluster, bool from_startup) {
+
+  bool relay_detached = false;
+  
+  if (!from_startup) {
+    relay_detached = (cluster->detached_mode == ZCL_ONOFF_RELAY_MODE_DETACHED);
+  }
+
+  relay_toggle(cluster->relay, relay_detached);
   sync_indicator_led(cluster);
 }
 
@@ -213,26 +259,26 @@ void relay_cluster_handle_startup_mode(zigbee_relay_cluster *cluster) {
 
   switch (cluster->startup_mode) {
   case ZCL_START_UP_ONOFF_SET_ONOFF_TO_OFF:
-    relay_cluster_off(cluster);
+    relay_cluster_off_from_startup(cluster);
     break;
 
   case ZCL_START_UP_ONOFF_SET_ONOFF_TO_ON:
-    relay_cluster_on(cluster);
+    relay_cluster_on_from_startup(cluster);
     break;
 
   case ZCL_START_UP_ONOFF_SET_ONOFF_TOGGLE:
     if (prev_on) {
-      relay_cluster_off(cluster);
+      relay_cluster_off_from_startup(cluster);
     } else {
-      relay_cluster_on(cluster);
+      relay_cluster_on_from_startup(cluster);
     }
     break;
 
   case ZCL_START_UP_ONOFF_SET_ONOFF_TO_PREVIOUS:
     if (prev_on) {
-      relay_cluster_on(cluster);
+      relay_cluster_on_from_startup(cluster);
     } else {
-      relay_cluster_off(cluster);
+      relay_cluster_off_from_startup(cluster);
     }
     break;
   }
