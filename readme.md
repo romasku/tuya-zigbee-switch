@@ -50,9 +50,11 @@ If your device is already on [devices/supported.md](/docs/devices/supported.md),
 
 Otherwise, check [contribute/porting_to_new_device.md](/docs/contribute/porting_to_new_device.md).
 
-## 📝 Changelog
+## 📝 Changelogs
 
-Read the firmware release notes here: [changelog_fw.md](/docs/changelog_fw.md).  
+Read the release notes here: 
+- [changelog_fw.md](/docs/changelog_fw.md)
+- [changelog_converters.md](/docs/changelog_converters.md)  
 
 ## 🚨 ️Known issues
 
