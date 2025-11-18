@@ -1,6 +1,7 @@
 #include "relay.h"
 #include "tl_common.h"
 #include "millis.h"
+#include "../zigbee/relay_cluster.h"
 
 
 void relay_init(relay_t *relay)
@@ -49,4 +50,10 @@ void relay_toggle(relay_t *relay)
   {
     relay_on(relay);
   }
+}
+
+void relay_poll(relay_t *relay)
+{
+  if (relay->poll_callback)
+    relay->poll_callback(relay->callback_param);
 }

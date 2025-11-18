@@ -26,6 +26,7 @@ $(BUILD_PATH)/$(SRC_DIR)/zigbee/basic_cluster.o \
 $(BUILD_PATH)/$(SRC_DIR)/zigbee/group_cluster.o \
 $(BUILD_PATH)/$(SRC_DIR)/zigbee/switch_cluster.o \
 $(BUILD_PATH)/$(SRC_DIR)/zigbee/relay_cluster.o \
+$(BUILD_PATH)/$(SRC_DIR)/zigbee/scene_cluster.o \
 $(BUILD_PATH)/$(SRC_DIR)/zigbee/endpoint.o \
 $(BUILD_PATH)/$(SRC_DIR)/zigbee/bdb_callbacks.o \
 $(BUILD_PATH)/$(SRC_DIR)/zigbee/general.o \

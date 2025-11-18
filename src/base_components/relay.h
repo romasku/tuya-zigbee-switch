@@ -4,16 +4,18 @@
 #include "types.h"
 
 typedef void (*ev_relay_callback_t)(void *, u8);
+typedef void (*poll_relay_callback_t)(void *);
 
 
 typedef struct
 {
-  u32                 pin;
-  u32                 off_pin;
-  u8                  on_high;
-  u8                  on;
-  ev_relay_callback_t on_change;
-  void *              callback_param;
+  u32                   pin;
+  u32                   off_pin;
+  u8                    on_high;
+  u8                    on;
+  ev_relay_callback_t   on_change;
+  void *                callback_param;
+  poll_relay_callback_t poll_callback;
 } relay_t;
 
 
@@ -45,5 +47,7 @@ void relay_off(relay_t *relay);
  * @return     none
  */
 void relay_toggle(relay_t *relay);
+
+void relay_poll(relay_t *relay);
 
 #endif

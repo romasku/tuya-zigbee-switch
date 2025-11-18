@@ -3,6 +3,7 @@
 #include "zigbee/group_cluster.h"
 #include "zigbee/relay_cluster.h"
 #include "zigbee/switch_cluster.h"
+#include "zigbee/scene_cluster.h"
 #include "zigbee/general.h"
 #include "ota.h"
 
@@ -42,6 +43,10 @@ u8 switch_clusters_cnt = 0;
 
 zigbee_relay_cluster relay_clusters[4];
 u8 relay_clusters_cnt = 0;
+
+// Each relay cluster should have one scene cluster
+zigbee_scene_cluster scene_clusters[4];
+#define scene_clusters_cnt relay_clusters_cnt
 
 zigbee_endpoint endpoints[10];
 
@@ -222,25 +227,33 @@ void parse_config()
   for (int index = 0; index < total_endpoints; index++)
   {
     endpoints[index].index = index + 1;
-    zigbee_endpoint_init(&endpoints[index]);
   }
 
-  basic_cluster_add_to_endpoint(&basic_cluster, &endpoints[0]);
+  basic_cluster_populate(&basic_cluster);
   zigbee_endpoint_add_cluster(&endpoints[0], 0, ZCL_CLUSTER_OTA);
 
   for (int index = 0; index < switch_clusters_cnt; index++)
   {
+    zigbee_endpoint_init(&endpoints[index], HA_DEV_ONOFF_SWITCH);
     switch_cluster_add_to_endpoint(&switch_clusters[index], &endpoints[index]);
   }
   for (int index = 0; index < relay_clusters_cnt; index++)
   {
+    relay_clusters[index].scene_cluster = scene_clusters + index;
+    scene_clusters[index].relay_cluster = relay_clusters + index;
+
+    zigbee_endpoint_init(&endpoints[index], HA_DEV_ONOFF_OUTPUT);
+
     relay_cluster_add_to_endpoint(&relay_clusters[index], &endpoints[switch_clusters_cnt + index]);
     // Group cluster is stateless, safe to add to multiple endpoints
     group_cluster_add_to_endpoint(&group_cluster, &endpoints[switch_clusters_cnt + index]);
+
+    scene_cluster_add_to_endpoint(scene_clusters + index, &endpoints[switch_clusters_cnt + index]);
   }
 
   for (int index = 0; index < total_endpoints; index++)
   {
+    basic_cluster_add_to_endpoint(&basic_cluster, &endpoints[index]);
     zigbee_endpoint_register_self(&endpoints[index]);
   }
   cursor--;
@@ -274,6 +287,10 @@ void periferals_update()
   for (int index = 0; index < buttons_cnt; index++)
   {
     btn_update(&buttons[index]);
+  }
+  for (int index = 0; index < relays_cnt; ++index)
+  {
+    relay_poll(&relays[index]);
   }
 }
 
