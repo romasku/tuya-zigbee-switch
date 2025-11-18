@@ -50,11 +50,19 @@ int real_main(startup_state_e state) {
 
   app_init();
 
+  drv_wd_setInterval(1000);
+  drv_wd_start();
+
   while (1) {
+    drv_wd_clear();
     ev_main();
+    drv_wd_clear();
     tl_zbTaskProcedure();
+    drv_wd_clear();
     app_task();
+    drv_wd_clear();
     report_handler();
+    drv_wd_clear();
 
 #if PM_ENABLE
     if (!tl_stackBusy() && zb_isTaskDone()) {
