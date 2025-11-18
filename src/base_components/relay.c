@@ -81,7 +81,7 @@ void relay_off(relay_t *relay)
   // Clear both pins first to ensure mutual exclusion
   hal_gpio_write(relay->pin, !relay->on_high);
 
-  if (relay->off_pin)
+  if (!relay->off_pin)
   {
     // Normal relay: turn OFF
     hal_gpio_write(relay->pin, !relay->on_high);
