@@ -6,6 +6,7 @@
 
 // Maximum number of GPIO interrupts we can handle
 #define MAX_GPIO_CALLBACKS 16
+#define MAX_REARM_TRIES 50
 
 static inline uint32_t pin_to_mask(hal_gpio_pin_t pin) {
   uint32_t pin_one_hot = (pin & 0xFF);
@@ -25,7 +26,16 @@ static hal_task_t gpio_dispatch_task;
 static void ensure_valid_edges() {
   uint32_t current_state = 0;
   uint32_t prev_state = 0;
+  uint32_t used_pin_mask = 0;
+  for (gpio_callback_info_t *info = gpio_callbacks;
+       info < gpio_callbacks + MAX_GPIO_CALLBACKS; info++) {
+    if (info->gpio_pin != HAL_INVALID_PIN) {
+      used_pin_mask |= pin_to_mask(info->gpio_pin);
+    }
+  }
   drv_gpio_read_all((uint8_t *)&current_state);
+  current_state &= used_pin_mask;
+  uint8_t tries = 0;
   do {
     prev_state = current_state;
     for (gpio_callback_info_t *info = gpio_callbacks;
@@ -39,7 +49,9 @@ static void ensure_valid_edges() {
                            : GPIO_RISING_EDGE);
     }
     drv_gpio_read_all((uint8_t *)&current_state);
-  } while (current_state != prev_state);
+    current_state &= used_pin_mask;
+    tries++;
+  } while (current_state != prev_state && tries < MAX_REARM_TRIES);
 }
 
 static void gpio_dispatch_handler(void *arg) {
