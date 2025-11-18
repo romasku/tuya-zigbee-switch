@@ -459,4 +459,11 @@ void switch_cluster_load_attrs_from_nv(zigbee_switch_cluster *cluster) {
       nv_config_buffer.button_long_press_duration;
   cluster->level_move_rate = nv_config_buffer.level_move_rate;
   cluster->binded_mode = nv_config_buffer.binded_mode;
+
+  // Validate relay_index to prevent out-of-bounds access
+  if (cluster->relay_index < 1 || cluster->relay_index > relay_clusters_cnt) {
+    printf("Invalid relay_index %d in NV, resetting to default\r\n",
+           cluster->relay_index);
+    cluster->relay_index = cluster->switch_idx + 1;
+  }
 }
