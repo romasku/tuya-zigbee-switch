@@ -42,7 +42,7 @@ void relay_init(relay_t *relay)
   // Mark that no task is active
   relay->clear_task_active = 0;
   
-  // Prepare the task structure once
+  // Prepare the task structure *once*
   relay->clear_task.handler = relay_clear_handler;
   relay->clear_task.arg = relay;
   hal_tasks_init(&relay->clear_task);
@@ -59,25 +59,23 @@ void relay_on(relay_t *relay)
   }
   printf("relay_on\r\n");
   
-  // Invalidate any pending task by clearing the flag
+  // Invalidate any pending task
   relay->clear_task_active = 0;
 
   if (!relay->off_pin)
   {
     // Normal relay: drive continuously
     hal_gpio_write(relay->pin, relay->on_high);
-  } else {
-    //Bi-stable relay:
-    // - clear both pins first to ensure mutual exclusion
+  } 
+  else 
+  {
+    // Bi-stable relay
     hal_gpio_write(relay->pin, !relay->on_high);
     hal_gpio_write(relay->off_pin, !relay->on_high);
-    // then set ON pin
+
     hal_gpio_write(relay->pin, relay->on_high);
-    
-    // and schedule task to clear both pins after RELAY_PULSE_MS
-    relay->clear_task.handler = relay_clear_handler;
-    relay->clear_task.arg = relay;
-    hal_tasks_init(&relay->clear_task);
+
+    // Schedule already-initialized task
     relay->clear_task_active = 1;
     hal_tasks_schedule(&relay->clear_task, RELAY_PULSE_MS);
   }
@@ -98,29 +96,26 @@ void relay_off(relay_t *relay)
   }
   printf("relay_off\r\n");
   
-  // Invalidate any pending task by clearing the flag
+  // Invalidate any pending task
   relay->clear_task_active = 0;
   
-  // Clear both pins first to ensure mutual exclusion
+  // Clear both pins
   hal_gpio_write(relay->pin, !relay->on_high);
 
-  if (relay->off_pin)
+  if (!relay->off_pin)
   {
-    // Normal relay: turn OFF
+    // Normal relay
     hal_gpio_write(relay->pin, !relay->on_high);
-  } else {
-    //Bi-stable relay:
-    // - clear both pins first
+  } 
+  else 
+  {
+    // Bi-stable relay
     hal_gpio_write(relay->pin, !relay->on_high);
     hal_gpio_write(relay->off_pin, !relay->on_high);
- 
-    // then set OFF pin
+
     hal_gpio_write(relay->off_pin, relay->on_high);
-    
-    // and schedule task to clear both pins after RELAY_PULSE_MS
-    relay->clear_task.handler = relay_clear_handler;
-    relay->clear_task.arg = relay;
-    hal_tasks_init(&relay->clear_task);
+
+    // Schedule already-initialized task
     relay->clear_task_active = 1;
     hal_tasks_schedule(&relay->clear_task, RELAY_PULSE_MS);
   }
