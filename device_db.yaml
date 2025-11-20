@@ -712,6 +712,62 @@ BSEED_TOUCH_TS0003:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/125
   store: https://www.aliexpress.com/item/1005003475686409.html
+EMOS_TS0001: 
+  human_name: GoSmart IP-2101SZ <br> EMOS H5101
+  category: module
+  power: mains
+  neutral: required
+  device_type: router
+  tuya_model_name: TS0001
+  tuya_manufacturer_name: _TZ3000_hyziup76
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0001
+  override_z2m_device: null
+  tuya_module: ZT3L
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: hyziup76;TS0001-GS;BA0u;LC0;SB4u;RC2;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 45587
+  build: yes
+  status: fully_supported
+  info: Supported
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/199
+  store:
+  - https://www.emosgosmart.eu/en/products/gosmart-switch-module-ip-2101sz-zigbee-1-channel/
+  - https://www.amazon.de/dp/B0DDCJ53Y4
+EMOS_TS0002: 
+  human_name: GoSmart IP-2102SZ <br> EMOS H5102
+  category: module
+  power: mains
+  neutral: required
+  device_type: router
+  tuya_model_name: TS0002
+  tuya_manufacturer_name: _TZ3000_wxtmgjbd
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0002
+  override_z2m_device: null
+  tuya_module: ZT3L
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: wxtmgjbd;TS0002-GS;BA0u;LC0;SB4u;RC2;SB5u;RC3;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 45588
+  build: yes
+  status: fully_supported
+  info: Supported
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/199
+  store:
+  - https://www.emosgosmart.eu/en/products/gosmart-switch-module-ip-2102sz-zigbee-2-channel/
+  - https://www.amazon.de/dp/B0DDCKHXDL
 GIRIER_TS0002:
   human_name: Girier 2-gang
   category: module
