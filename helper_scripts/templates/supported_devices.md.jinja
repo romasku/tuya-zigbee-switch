@@ -15,8 +15,9 @@ To support a new device, read [contribute/porting.md](/docs/contribute/porting.m
 |   📦   | Build    | ✔️ Available       | ❌ Unavailable       |                    |                |           |
 |   💡   | Category | 🇲 Module          | 🇸 Switch            | 🇴  Outlet         | 🇷 Remote      | 🇧  Board |
 |   ⚡   | Power    | 🔌 Mains           | 🔋 Battery           | 🔱 USB             |                |           |
-|   📲   | Install  | 🛜 Wireless        | ➿ By wire           |                    |                |           |
+|   📲   | Install  | 🛜 Wireless        | ➿ By wire           | ❓ Some by wire    |                |           |
 |   🏭   | MCU      | `TL` Telink        | `SL` Silicon Labs    |                    |                |           |
+|   🅰    | Variant  | 🅰                  | 🅱                    | 🅲                  | 🅳              | 🅴         |
 
 > [!NOTE]  
 > Z2M pages are sometimes generic.  
@@ -37,7 +38,7 @@ To support a new device, read [contribute/porting.md](/docs/contribute/porting.m
 
 | 🚧 | 📦 | 💡 | ⚡ | 📲 | 🏭 | Zb&nbsp;Manufacturer <br> Zb&nbsp;Model | Name <br> Z2M&nbsp;page&nbsp;🔗 | Store | Threads | Status |
 | -- | -- | -- | -- | -- | -- | :-------------------------------------- | :------------------------------ | ----: | ------: | :----- |
-{% for device in devices %}
+{% for device_key, device in devices %}
   {% set manufacturer = "`" ~ (device.tuya_manufacturer_name or "unknown") ~ "`" %}
   {% set ns = namespace(model="") %}
   {% if device.tuya_model_name is none %}
@@ -141,6 +142,8 @@ To support a new device, read [contribute/porting.md](/docs/contribute/porting.m
     {% set install = "➿" %}
   {% elif (device.tuya_manufacturer_id is none or device.tuya_image_type is none) and device.build %}
     {% set install = "➿" %}
+  {% elif device_key == "TUYA_3_TS0001" %}
+    {% set install = "❓" %}
   {% endif %}
   {% if device.mcu_family == "Telink" %}
     {% set family = "**TL**" %}

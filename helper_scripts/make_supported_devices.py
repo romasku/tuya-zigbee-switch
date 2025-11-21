@@ -24,7 +24,7 @@ if __name__ == "__main__":
     db_str = Path(args.db_file).read_text()
     db = yaml.safe_load(db_str)
 
-    devices = list(db.values())
+    devices = db.items()
 
     template = env.get_template("supported_devices.md.jinja")
     print(template.render(devices=devices))
