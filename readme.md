@@ -9,7 +9,7 @@ Feature-rich custom firmware for Telink-based Tuya Zigbee switches, switch-modul
 
 ## 🔌 Supported devices
 
-There are already **40+** [devices/supported.md](/docs/devices/supported.md).
+There are already **60+** [devices/supported.md](/docs/devices/supported.md).
 
 > [!TIP]  
 > If your device contains a **supported Tuya Zigbee module** (ZTU, ZT2S, ZT3L), porting is relatively simple.  
