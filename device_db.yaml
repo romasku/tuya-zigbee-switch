@@ -1447,6 +1447,32 @@ OXT_TS0002:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/49
   store: null
+QS_TS0012:
+  human_name: QS-Zigbee-S04-2C-ML-C
+  category: module
+  power: mains
+  neutral: optional
+  device_type: end_device
+  tuya_model_name: TS0012
+  tuya_manufacturer_name: _TZ3000_c4muk4ys
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0012
+  override_z2m_device: null
+  tuya_module: ZTU
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: c4muk4ys;TS0012-QS;BB4u;LC2;SD2u;RA0B6;SC3u;RC0D7;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 45590
+  build: yes
+  status: fully_supported
+  info: Supported
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/144
+  store: https://www.aliexpress.com/item/1005008663303208.html?sku_id=12000046146359997
 TUYA_SWITCH_TS0001:
   human_name: Tuya 1-gang switch
   category: switch
