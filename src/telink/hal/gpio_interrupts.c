@@ -1,6 +1,9 @@
+#pragma pack(push, 1)
+#include "tl_common.h"
+#pragma pack(pop)
+
 #include "hal/gpio.h"
 #include "hal/tasks.h"
-#include "tl_common.h"
 #include <stdint.h>
 #include <string.h>
 
@@ -22,6 +25,24 @@ typedef struct {
 
 static gpio_callback_info_t gpio_callbacks[MAX_GPIO_CALLBACKS];
 static hal_task_t gpio_dispatch_task;
+
+static void disable_all_gpio_irqs() {
+  for (gpio_callback_info_t *info = gpio_callbacks;
+       info < gpio_callbacks + MAX_GPIO_CALLBACKS; info++) {
+    if (info->gpio_pin != HAL_INVALID_PIN) {
+      drv_gpio_irq_dis((u32)info->gpio_pin);
+    }
+  }
+}
+
+static void enable_all_gpio_irqs() {
+  for (gpio_callback_info_t *info = gpio_callbacks;
+       info < gpio_callbacks + MAX_GPIO_CALLBACKS; info++) {
+    if (info->gpio_pin != HAL_INVALID_PIN) {
+      drv_gpio_irq_en((u32)info->gpio_pin);
+    }
+  }
+}
 
 static void ensure_valid_edges() {
   uint32_t current_state = 0;
@@ -56,6 +77,7 @@ static void ensure_valid_edges() {
 
 static void gpio_dispatch_handler(void *arg) {
   ensure_valid_edges();
+  enable_all_gpio_irqs();
 
   for (gpio_callback_info_t *info = gpio_callbacks;
        info < gpio_callbacks + MAX_GPIO_CALLBACKS; info++) {
@@ -68,7 +90,10 @@ static void gpio_dispatch_handler(void *arg) {
 
 static void gpio_isr_callback(void) {
   hal_tasks_unschedule(&gpio_dispatch_task);
-  hal_tasks_schedule(&gpio_dispatch_task, 0);
+  // Schedule with small delay, and disable further IRQs until dispatched
+  // So that constantly bouncing pins don't flood the system with interrupts
+  hal_tasks_schedule(&gpio_dispatch_task, 3);
+  disable_all_gpio_irqs();
 }
 
 static void gpio_dispatch_init(void) {

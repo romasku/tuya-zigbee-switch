@@ -55,7 +55,6 @@ GCC_FLAGS := \
 	-ffunction-sections \
 	-fdata-sections \
 	-Wall \
-	-fpack-struct \
 	-fshort-enums \
 	-finline-small-functions \
 	-std=gnu99 \

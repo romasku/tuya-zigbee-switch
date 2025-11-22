@@ -1,9 +1,12 @@
 #pragma once
 
 #include "hal/zigbee.h"
+
+#pragma pack(push, 1)
 #include "tl_common.h"
 #include "zb_api.h"
 #include "zcl_include.h"
+#pragma pack(pop)
 
 // Shared constants
 #define MAX_ENDPOINTS 8

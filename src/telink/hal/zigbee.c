@@ -1,5 +1,7 @@
 #include "telink_size_t_hack.h"
+#pragma pack(push, 1)
 #include "tl_common.h"
+#pragma pack(pop)
 
 #include "hal/zigbee.h"
 #include "telink_zigbee_hal.h"

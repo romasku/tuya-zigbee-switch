@@ -1,5 +1,7 @@
 #include "hal/tasks.h"
+#pragma pack(push, 1)
 #include "tl_common.h"
+#pragma pack(pop)
 
 // Wrapper callback to adapt between Telink's int return signature and HAL's
 // void signature
@@ -24,8 +26,7 @@ void hal_tasks_init(hal_task_t *task) {
 void hal_tasks_schedule(hal_task_t *task, uint32_t delay_ms) {
   // Cancel any existing scheduled task
   if (task->platform_struct.ev_timer_handle != NULL) {
-    ev_timer_taskCancel(
-        (ev_timer_event_t **)&task->platform_struct.ev_timer_handle);
+    ev_timer_taskCancel(&task->platform_struct.ev_timer_handle);
   }
 
   // Schedule new task using Telink's event timer system
@@ -39,8 +40,6 @@ void hal_tasks_schedule(hal_task_t *task, uint32_t delay_ms) {
 void hal_tasks_unschedule(hal_task_t *task) {
   // Cancel the scheduled task if it exists
   if (task->platform_struct.ev_timer_handle != NULL) {
-    ev_timer_taskCancel(
-        (ev_timer_event_t **)&task->platform_struct.ev_timer_handle);
-    task->platform_struct.ev_timer_handle = NULL;
+    ev_timer_taskCancel(&task->platform_struct.ev_timer_handle);
   }
 }

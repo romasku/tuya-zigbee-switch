@@ -1,7 +1,10 @@
 #include "hal/gpio.h"
 #include "atoi.h"
 #include "hal/tasks.h"
+#pragma pack(push, 1)
 #include "tl_common.h"
+#pragma pack(pop)
+
 #include <stdint.h>
 #include <string.h>
 // hal_gpio_pin_t directly stores GPIO_PinTypeDef values

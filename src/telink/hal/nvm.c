@@ -1,5 +1,7 @@
 #include "hal/nvm.h"
+#pragma pack(push, 1)
 #include "tl_common.h"
+#pragma pack(pop)
 #include <stdint.h>
 #include <string.h>
 

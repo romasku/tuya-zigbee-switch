@@ -108,7 +108,8 @@
 #endif
 
 /* Default RF Configuration */
-#define ZB_DEFAULT_TX_POWER_IDX RF_POWER_INDEX_P10p46dBm /* Maximum TX power   \
-                                                          */
+#define ZB_DEFAULT_TX_POWER_IDX                                                \
+  RF_POWER_INDEX_P10p46dBm /* Maximum TX power                                 \
+                            */
 
 #endif /* ZB_CONFIG_H */

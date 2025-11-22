@@ -1,5 +1,7 @@
 #include "hal/timer.h"
+#pragma pack(push, 1)
 #include "tl_common.h"
+#pragma pack(pop)
 #include <stdint.h>
 
 uint32_t hal_millis() {

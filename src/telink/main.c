@@ -1,8 +1,11 @@
 #include "ota_reformating/ensure_ota_scheme.h"
 #include "stdint.h"
+
+#pragma pack(push, 1)
 #include "tl_common.h"
 #include "zb_common.h"
 #include "zcl_include.h"
+#pragma pack(pop)
 
 #include "telink_size_t_hack.h"
 

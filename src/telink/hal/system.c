@@ -1,5 +1,8 @@
 #include "hal/system.h"
+#pragma pack(push, 1)
 #include "tl_common.h"
+#include "zb_api.h"
+#pragma pack(pop)
 #include <stdbool.h>
 #include <stdint.h>
 

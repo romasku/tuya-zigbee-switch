@@ -164,6 +164,8 @@ sdk-clean:
 # Special compiler flags for specific SDK files
 $(BUILD_DIR)/sdk/proj/drivers/drv_nv.o: GCC_FLAGS += -Dnv_resetToFactoryNew=nv_resetToFactoryNew__sdk
 
+$(SDK_OBJS): GCC_FLAGS += -fpack-struct
+
 # Compile SDK C files
 $(BUILD_DIR)/sdk/%.o: $(SDK_PATH)/%.c
 	@echo "Compiling SDK $<"

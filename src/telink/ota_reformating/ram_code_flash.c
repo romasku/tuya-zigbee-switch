@@ -1,5 +1,7 @@
+#pragma pack(push, 1)
 #include "chip_8258/flash.h"
 #include "tl_common.h"
+#pragma pack(pop)
 
 // Definitions of private function are from SDK's flash.c:
 

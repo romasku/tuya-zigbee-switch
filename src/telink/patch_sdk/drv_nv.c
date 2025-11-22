@@ -1,5 +1,6 @@
-
+#pragma pack(push, 1)
 #include "tl_common.h"
+#pragma pack(pop)
 
 nv_sts_t nv_resetToFactoryNew(void) {
   if (!nv_facrotyNewRstFlagCheck()) {

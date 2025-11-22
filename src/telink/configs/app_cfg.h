@@ -33,7 +33,7 @@
 #define RF_TX_POWER_DEF RF_POWER_P10p46dBm /* Default TX power */
 
 /* Module Enables */
-#define MODULE_WATCHDOG_ENABLE 0 /* Watchdog module */
+#define MODULE_WATCHDOG_ENABLE 1 /* Watchdog module */
 #define MODULE_UART_ENABLE 0     /* UART module */
 
 /* Host Controller Interface */

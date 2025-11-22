@@ -1,7 +1,8 @@
+#pragma pack(push, 1)
 #include "tl_common.h"
 #include "zcl_include.h"
-
 #include "ota.h"
+#pragma pack(pop)
 
 #include "telink_size_t_hack.h"
 

@@ -25,9 +25,13 @@
  * of flash functions.
  */
 #include "ota_reformating/ensure_ota_scheme.h"
-#include "chip_8258/flash.h"
+
 #include "ota_reformating/ram_code_flash.h"
+
+#pragma pack(push, 1)
+#include "chip_8258/flash.h"
 #include "tl_common.h"
+#pragma pack(pop)
 
 // Ramcode versions of flash read/write functions
 
