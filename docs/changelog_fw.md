@@ -6,6 +6,8 @@
 
 ### New features:
 
+- **Detached relay mode:** Detach physical relay from its virtual state
+
 ## v1.1.0:
 
 This release doesn't bring new features, but contains substantial refactoring and
