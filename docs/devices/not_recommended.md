@@ -1,7 +1,7 @@
 # Not recommended devices
 
 This page lists devices that you should avoid or be careful with.  
-Open the **Outline** (table of contents) from the top right.  
+*Open the **Outline** (table of contents) from the top right.*  
 Also check out: [recommended.md](./recommended.md)
 
 ## Coordinators

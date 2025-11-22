@@ -72,6 +72,12 @@ if __name__ == "__main__":
         if relay_key in config_dict:
             pin = pin_map[config_dict[relay_key]]
             custom_config += f"R{pin};"
+        relay_on_key = f"rl_on{gang_index}_pin"
+        relay_off_key = f"rl_off{gang_index}_pin"
+        if relay_on_key in config_dict and relay_off_key in config_dict:
+            on_pin = pin_map[config_dict[relay_on_key]]
+            off_pin = pin_map[config_dict[relay_off_key]]
+            custom_config += f"R{on_pin}{off_pin};"
         led_key = f"led{gang_index}_pin"
         if led_key in config_dict:
             pin = pin_map[config_dict[led_key]]

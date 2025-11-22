@@ -13,6 +13,17 @@ const constants = require("zigbee-herdsman-converters/lib/constants");
 const ota = require("zigbee-herdsman-converters/lib/ota");
 {% endif%}
 
+/********************************************************************
+  This file (`switch_custom.js`) is generated. 
+  
+  You can edit it for testing, but for PRs please use:
+  - `device_db.yaml`                - add or edit devices
+  - `switch_custom.md.jinja`        - update the template
+  - `make_z2m_custom_converters.py` - update generation script
+
+  Generate with: `make converters`
+********************************************************************/
+
 const romasku = {
     switchAction: (name, endpointName) =>
         enumLookup({
@@ -217,15 +228,36 @@ const definitions = [
         meta: { multiEndpoint: true },
         configure: async (device, coordinatorEndpoint, logger) => {
             {% for switchName in device.switchNames %}
-            await reporting.bind(device.getEndpoint({{loop.index}}), coordinatorEndpoint, ["genMultistateInput"]);
+            const endpoint{{loop.index}} = device.getEndpoint({{loop.index}});
+            await reporting.bind(endpoint{{loop.index}}, coordinatorEndpoint, ["genMultistateInput"]);
+            // switch action:
+            await endpoint{{loop.index}}.configureReporting("genMultistateInput", [
+                {
+                    attribute: {ID: 0x0055 /* presentValue */, type: 0x21}, // uint16
+                    minimumReportInterval: 0,
+                    maximumReportInterval: constants.repInterval.MAX,
+                    reportableChange: 1,
+                },
+            ]);
             {% endfor %}
             {% for relayName in device.relayNames %}
             const endpoint{{loop.index  + (device.switchNames | length)}} = device.getEndpoint({{loop.index  + (device.switchNames | length)}});
             await reporting.onOff(endpoint{{loop.index  + (device.switchNames | length)}}, {
                 min: 0,
-                max: constants.repInterval.MINUTE,
+                max: constants.repInterval.MAX,
                 change: 1,
             });
+            {% endfor %}
+
+            {% for relayName in device.relayIndicatorNames %}
+            await endpoint{{loop.index  + (device.switchNames | length)}}.configureReporting("genOnOff", [
+                {
+                    attribute: {ID: 0xff02, type: 0x10}, // Boolean
+                    minimumReportInterval: 0,
+                    maximumReportInterval: constants.repInterval.MAX,
+                    reportableChange: 1,
+                },
+            ]);
             {% endfor %}
         },
         {% if z2m_v1 %}

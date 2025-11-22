@@ -124,6 +124,17 @@ class OnOffWithIndicatorCluster(CustomCluster, OnOff):
             is_manufacturer_specific=True,
         )
 
+'''``````````````````````````````````````````````````````````````````
+  This file (`zha_quirk.py`) is generated. 
+  
+  You can edit it for testing, but for PRs please use:
+  - `device_db.yaml`                - add or edit devices
+  - `switch_quirk.md.jinja`         - update the template
+  - `make_zha_quirk.py`             - update generation script
+
+  Generate with: `make quirks`
+``````````````````````````````````````````````````````````````````'''
+
 CONFIGS = [
     "46t1rvdu;WHD02-Aubess;BC4u;LD2;SB4u;RB5;",
     "46t1rvdu;WHD02-Aubess-ED;BC4u;LD2;SB4u;RB5;",
@@ -195,6 +206,8 @@ CONFIGS = [
     "b28wrpvx;TS011F-BS-PM;LC3;SB5u;RD2;IB4;M;",
     "o1jzcxou;TS011F-BS;LC2;SB4u;RC3;ID2;M;",
     "zjuvw9zf;TS0726-2-BS;LC4;SB1u;RC2;IC0;SB7u;RC3;ID7;M;",
+    "iedhxgyi;TS0726-3-BS;LC4;SB1u;RC2;IC0;SB7u;RC3;ID7;SB4u;RD2;IB5;M;",
+    "hafsqare;TS0011-BS-T;LC2;SA0u;RD3;IB4;M;",
     "f2slq5pj;Bseed-2-gang;SB6u;RD3;IC2;SA1u;RC0;IB4;M;",
     "f2slq5pj;Bseed-2-gang-ED;SB6u;RD3;IC2;SA1u;RC0;IB4;M;",
     "Bseed-2-gang;Bseed-2-gang;SB6u;RD3;IC2;SA1u;RC0;IB4;M;",
@@ -203,19 +216,23 @@ CONFIGS = [
     "xk5udnd6;Bseed-2-gang-2-ED;LC3;SB5u;RC0B6;ID2;SD4u;RA1D7;ID3;M;",
     "Bseed-2-gang-2;Bseed-2-gang-2;LC3;SB5u;RC0B6;ID2;SD4u;RA1D7;ID3;M;",
     "Bseed-2-gang-2;Bseed-2-gang-2-ED;LC3;SB5u;RC0B6;ID2;SD4u;RA1D7;ID3;M;",
+    "9akmi5ly;TS0001-CUS-T;LB4i;SC2u;RC3;ID2i;M;",
+    "cauq1okq;TS0002-CUS-T;LC4;SB5u;RC2;IB4i;SD2u;RC3;M;",
     "7aqaupa9;TS0003-BS;LA0i;SC3u;RC2;SB7u;RB4;SB5u;RC0;M;",
     "zmy4lslw;TS0002-GIR;BD2u;LC2;SB5u;RC4;SB4u;RC3;",
     "zmy4lslw;TS0002-custom;BD2u;LC2;SB5u;RC4;SB4u;RC3;",
     "Tuya-TS0002-custom;TS0002-GIR;BD2u;LC2;SB5u;RC4;SB4u;RC3;",
     "Tuya-TS0002-custom;TS0002-custom;BD2u;LC2;SB5u;RC4;SB4u;RC3;",
+    "odzoiovu;TS0003-GR;BB1u;LD7;SC2u;RC0;SC3u;RB4;SD2u;RB5;",
     "ypgri8yz;ZB08-custom;BA0u;LD7;SC2u;RC0;SC3u;RB4;SD2u;RB5;",
     "ypgri8yz;ZB08-custom-ED;BA0u;LD7;SC2u;RC0;SC3u;RB4;SD2u;RB5;",
     "Girier-ZB08-custom;ZB08-custom;BA0u;LD7;SC2u;RC0;SC3u;RB4;SD2u;RB5;",
     "Girier-ZB08-custom;ZB08-custom-ED;BA0u;LD7;SC2u;RC0;SC3u;RB4;SD2u;RB5;",
     "Girier-ZB08-custom-ED;ZB08-custom;BA0u;LD7;SC2u;RC0;SC3u;RB4;SD2u;RB5;",
     "Girier-ZB08-custom-ED;ZB08-custom-ED;BA0u;LD7;SC2u;RC0;SC3u;RB4;SD2u;RB5;",
-    "qq9ahj6z;TS0001-IHS-T;LC4i;SB4u;RC3;M;",
-    "zxrfobzw;TS0002-IHS-T;LC4i;SC0u;RC2;SB5u;RD2;M;",
+    "mh9px7cq;TS0044-CUS;LC0;SD2u;RD4;SC2u;RA0;SC3u;RD7;SB4u;RB5;M;",
+    "qq9ahj6z;TS0001-IHS-T;LC4i;SB4U;RC3;M;",
+    "zxrfobzw;TS0002-IHS-T;LC4i;SC0U;RC2;SB5U;RD2;M;",
     "pgq7ormg;TS0001-IHS;BC3u;LC2i;SB5u;RD2;",
     "mhhxxjrs;TS0003-IHS;BC3u;LC2i;SD7u;RD2;SB4u;RD3;SB5u;RC0;",
     "mhhxxjrs;TS0003-3CH-cus;BC3u;LC2i;SD7u;RD2;SB4u;RD3;SB5u;RC0;",
@@ -238,11 +255,14 @@ CONFIGS = [
     "qewo8dlz;Moes-3-gang-ED;SB6u;RB5;ID3;SC1u;RB4;ID7;SC4u;RD2;IC0;M;",
     "Moes-3-gang;Moes-3-gang;SB6u;RB5;ID3;SC1u;RB4;ID7;SC4u;RD2;IC0;M;",
     "Moes-3-gang;Moes-3-gang-ED;SB6u;RB5;ID3;SC1u;RB4;ID7;SC4u;RD2;IC0;M;",
+    "mrduubod;Moes-4-gang;SA0u;RA4;IA6;SA3u;RC0;IA5;SB0u;RC1;IC2;SB1u;RD1;ID0;M;",
     "qaa59zqd;TS0002-MS;BB1u;LC3;SB5u;RD2;SB4u;RC2;",
     "pfc7i3kt;TS0003-custom;BD3u;SC1u;RB5;SD7u;RD4;SC3u;RB4;",
     "Tuya-TS0003-custom;TS0003-custom;BD3u;SC1u;RB5;SD7u;RD4;SC3u;RB4;",
     "bvrlqyj7;TS0002-OXT-CUS;BD2u;LC0;SB4u;RC2;SB5u;RC3;",
     "TS0002-OXT-CUS;TS0002-OXT-CUS;BD2u;LC0;SB4u;RC2;SB5u;RC3;",
+    "u6ocpapf;TS0001-CUS;LB1;SC3u;RD2;M;",
+    "gbdxbmwz;TS0004-CUS;LB1;SC3u;RD2;SD7u;RB5;SC2u;RB4;SB7u;RC0;M;",
     "tqlv4ug4;TS0001-custom;BD2u;LC0;SB4u;RC2;",
     "Tuya-TS0001-custom;TS0001-custom;BD2u;LC0;SB4u;RC2;",
     "skueekg3;WHD02-custom;BB4u;LD3;SB5u;RB1;",
@@ -251,12 +271,14 @@ CONFIGS = [
     "Tuya-WHD02-custom;WHD02-custom;BB1u;LB4i;SD2u;RD3;",
     "skueekg3;WHD02-custom;BB1u;LB4i;SD2u;RD3;",
     "Tuya-WHD02-custom;WHD02-custom;BB1u;LB4i;SD2u;RD3;",
+    "ZG-301Z;TS0001-HOB;BB1u;LD4i;SB6u;RA1;",
     "01gpyda5;TS0002-custom;BD2u;LC2;SB5u;RC4;SB4u;RC3;",
     "Tuya-TS0002-custom;TS0002-custom;BD2u;LC2;SB5u;RC4;SB4u;RC3;",
     "ltt60asa;TS0004-Avv;BB5u;LC1;SB4u;RC0;SD2u;RC4;SC3u;RD4;SC2u;RD7;",
     "TS0004-Avv;TS0004-Avv;BB5u;LC1;SB4u;RC0;SD2u;RC4;SC3u;RD4;SC2u;RD7;",
     "ji4araar;TS0011-custom;BA0f;LD7;SC2f;RC0;",
     "Tuya-TS0011-custom;TS0011-custom;BA0f;LD7;SC2f;RC0;",
+    "ji4araar;TS0011-CUS-2;BA0u;LD7;SC2u;RC0;",
     "jl7qyupf;TS0012-custom;BA0f;LD7;SC2f;RC0;SC3f;RB4;",
     "jl7qyupf;TS0042-CUSTOM;BA0f;LD7;SC2f;RC0;SC3f;RB4;",
     "jl7qyupf;TS0012-custom-end-device;BA0f;LD7;SC2f;RC0;SC3f;RB4;",
@@ -270,6 +292,7 @@ CONFIGS = [
     "zmlunnhy;Zemi-2-gang-ED;SC3U;RB5C4;IB7;SD2U;RC2D4;ID7;",
     "Zemi-2-gang;Zemi-2-gang;SC3U;RB5C4;IB7;SD2U;RC2D4;ID7;",
     "Zemi-2-gang;Zemi-2-gang-ED;SC3U;RB5C4;IB7;SD2U;RC2D4;ID7;",
+    "TUYA;DEV-ZTU2;LD7;SA0u;RC1;IB6;M;",
 ]
 
 for config in CONFIGS:
@@ -393,6 +416,9 @@ for config in CONFIGS:
                 translation_key="relay_led_state_"+str(endpoint_id),
                 fallback_name="Relay led state "+str(endpoint_id),
                 endpoint_id=endpoint_id,
+                reporting_config=ReportingConfig(
+                    min_interval=0, max_interval=300, reportable_change=1
+                ),
             )
         )
 

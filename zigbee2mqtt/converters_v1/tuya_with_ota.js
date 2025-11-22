@@ -9,9 +9,20 @@ moesDefinitions = moesDefinitions.definitions ?? moesDefinitions;
 avattoDefinitions = avattoDefinitions.definitions ?? avattoDefinitions;
 
 const definitions = [];
-const multiplePinoutsDescription = "WARNING! There are multiple known pinouts for this device! Before flashing custom firmware, it is recommended you disassemble the device and trace the board pinout. Please check https://github.com/romasku/tuya-zigbee-switch/tree/main/docs/devices/multiple_pinouts.md";
+const multiplePinoutsDescription = "WARNING! There are multiple known pinouts for the AVATTO ZSWM16 4gang! Before flashing custom firmware, it is recommended you disassemble the device and trace the board pinout. Please check https://github.com/romasku/tuya-zigbee-switch/tree/main/docs/devices/multiple_pinouts.md";
 
 const ota = require("zigbee-herdsman-converters/lib/ota");
+
+/********************************************************************
+  This file (`tuya_with_ota.js`) is generated. 
+  
+  You can edit it for testing, but for PRs please use:
+  - `device_db.yaml`                - add or edit devices
+  - `tuya_with_ota.md.jinja`        - update the template
+  - `make_z2m_tuya_converters.py`   - update generation script
+
+  Generate with: `make converters`
+********************************************************************/
 
 const tuyaModels = [
     "FZB-1",
@@ -26,15 +37,20 @@ const tuyaModels = [
     "TS0004",
     "TS0004_switch_module",
     "TS0004_switch_module_2",
+    "TS0011",
     "TS0011_switch_module",
     "TS0012",
     "TS0012_switch_module",
     "TS0013",
     "TS0013_switch_module",
+    "TS0014",
+    "TS0044",
     "TS011F_plug_1",
     "TS011F_plug_2",
     "TS0726_2_gang_scene_switch",
+    "TS0726_3_gang",
     "WHD02",
+    "ZG-301Z",
     "_TZ3000_pgq7ormg",
 ];
 

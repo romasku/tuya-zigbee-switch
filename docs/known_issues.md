@@ -1,6 +1,7 @@
-# Open issues
+# ⚠️ Open issues
 
 These issues are not yet fixed, and they affect every device.  
+*Open the **Outline** (table of contents) from the top right.*  
 If you have devices on older versions of the custom firmware, also read [# Closed issues](#closed-issues).
 
 ## Bi-stable relays draw too much power
@@ -10,20 +11,6 @@ Discussion: [#70](https://github.com/romasku/tuya-zigbee-switch/issues/70) + Dis
 Bi-stable (latching) relays are sometimes found in switches without Neutral.  
 They require a pulse instead of constant power, **which is not implemented yet**.  
 The higher power draw than stock firmware might **prevent the device from functioning properly**.  
-
-## Device randomly freezes (until power-cycled)
-
-Discussion: [#122](https://github.com/romasku/tuya-zigbee-switch/issues/122) + Discord  
-
-There have been reports from 2 users occasionally finding their devices unresponsive.  
-The devices recover after a reboot.
-
-This is a routing error that happens on big networks, when the custom device attempts routing some specific devices through it.
-
-This problem was fixed in a newer SDK version, but we haven't migrated yet.  
-(Upgrading from original fw to custom fw is not working currently)
-
-So, **the issue can be avoided by trying out firmware built with the latest SDK** or, potentially, by using end_device firmware (it disables routing). 
 
 ## Error message on boot
 
@@ -44,7 +31,7 @@ The devices don't bind correctly and flood the network with broadcast messages.
 
 This issue was possibly fixed in a newer SDK version, but we haven't migrated yet.
 
-# Closed issues
+# ✅ Closed issues
 
 The following issues were already fixed. They only affect devices on older versions.  
 They are still mentioned here because **they cause bricking and prevent updates**.  

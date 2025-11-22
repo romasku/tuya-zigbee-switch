@@ -1,21 +1,19 @@
 #ifndef _RELAY_H_
 #define _RELAY_H_
 
-#include "types.h"
+#include "hal/gpio.h"
+#include <stdint.h>
 
-typedef void (*ev_relay_callback_t)(void *, u8);
+typedef void (*ev_relay_callback_t)(void *, uint8_t);
 
-
-typedef struct
-{
-  u32                 pin;
-  u32                 off_pin;
-  u8                  on_high;
-  u8                  on;
+typedef struct {
+  hal_gpio_pin_t pin;
+  hal_gpio_pin_t off_pin;
+  uint8_t on_high;
+  uint8_t on;
   ev_relay_callback_t on_change;
-  void *              callback_param;
+  void *callback_param;
 } relay_t;
-
 
 /**
  * @brief      Initialize relay (set initial state)
@@ -23,7 +21,6 @@ typedef struct
  * @return     none
  */
 void relay_init(relay_t *relay);
-
 
 /**
  * @brief      Enable the relay
@@ -40,7 +37,7 @@ void relay_on(relay_t *relay);
 void relay_off(relay_t *relay);
 
 /**
- * @brief      Close the relay
+ * @brief      Toggle the relay
  * @param	   *relay - Relay to use
  * @return     none
  */
