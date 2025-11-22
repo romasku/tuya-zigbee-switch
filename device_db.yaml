@@ -1854,8 +1854,8 @@ TUYA_TS0012:
   info: Supported
   threads: null
   store: null
-ZEMISMART_SWITCH_TS0012:
-  human_name: Zemismart 2-gang switch
+ZEMISMART_SWITCH_1_TS0012:
+  human_name: Zemismart 2-gang switch 🅰
   category: switch
   power: mains
   neutral: optional
@@ -1882,6 +1882,32 @@ ZEMISMART_SWITCH_TS0012:
   info: Untested. Higher power draw (Wrong bi-stable relay implementation)
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/19
   store: null
+ZEMISMART_SWITCH_2_TS0012:
+  human_name: Zemismart 2-gang switch 🅱
+  category: switch
+  power: mains
+  neutral: without
+  device_type: end_device
+  tuya_model_name: TS0012
+  tuya_manufacturer_name: _TZ3000_rbl8c85w
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0012
+  override_z2m_device: null
+  tuya_module: ZS3L
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: rbl8c85w;TS0012-ZS;LA1;SA2u;RA7;IB2;SB3u;RB4;IB5;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 45589
+  build: yes
+  status: in_progress
+  info: Needs pinout. Bi-stable relays. Must toggle relays sequentially.
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/22
+  store: https://www.zemismart.com/products/kes-606us-z?VariantsId=14160
 ZIGBEE_BOARD_ZTU_2:
   human_name: ZTU dev board 2
   category: board
