@@ -487,8 +487,8 @@ BSEED_SWITCH_TS0726_1GANG:
   tuya_image_type: 54179
   firmware_image_type: 45580
   build: yes
-  status: in_progress
-  info: Untested
+  status: fully_supported
+  info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/157
   store:
   - https://www.aliexpress.com/item/1005008635350349.html
@@ -808,7 +808,7 @@ GIRIER_TS0001:
   tuya_module: ZT2S
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: _TZ3000_zw7yf6yk;TS0001-GIR;BB1u;LC3;SB5u;RD2;
+  config_str: zw7yf6yk;TS0001-GIR;BB1u;LC3i;SB5u;RD2;
   alt_config_str: null
   old_manufacturer_names: null
   old_zb_models: null
@@ -1185,14 +1185,14 @@ MANHOT_SWITCH_2_TS0013:
   tuya_module: ZS3L
   mcu_family: Silabs
   mcu: EFR32MG21
-  config_str: snq47izk;TS0013-MH-2;LA1;SA2u;RA7;IB2;SB3u;RB4;IB5;SB6u;RB7;IC3;M;
+  config_str: snq47izk;TS0013-MH-2; null
   alt_config_str: null
   old_manufacturer_names: null
   old_zb_models: null
   tuya_manufacturer_id: 4098
   tuya_image_type: 5634
   firmware_image_type: 45586
-  build: yes
+  build: no
   status: in_progress
   info: Needs pinout
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/197
@@ -1211,7 +1211,7 @@ MHCOZY_TS0004:
   tuya_module: ZT3L
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: imaccztn;TS0004-MC;LC3;SD7u;RD4;SC0u;RA0;SB5u;RD2;SB7u;RC2;M;
+  config_str: imaccztn;TS0004-MC;LC3i;SD7u;RD4;SC0u;RA0;SB5u;RD2;SB7u;RC2;M;
   alt_config_str: null
   old_manufacturer_names: null
   old_zb_models: null
@@ -1778,11 +1778,11 @@ TUYA_5_TS0001:
   tuya_model_name: ZG-301Z
   tuya_manufacturer_name: null
   stock_converter_manufacturer: Tuya
-  stock_converter_model: ZG-301Z
+  stock_converter_model: WHD02
   override_z2m_device: ZG-301Z
   tuya_module: none
   mcu_family: Telink
-  mcu: TLSR8258
+  mcu: TLSR8253
   config_str: ZG-301Z;TS0001-HOB;BB1u;LD4i;SB6u;RA1;
   alt_config_str: null
   old_manufacturer_names: null
@@ -1974,14 +1974,14 @@ ZEMISMART_SWITCH_2_TS0012:
   tuya_module: ZS3L
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: rbl8c85w;TS0012-ZS;LA1;SA2u;RA7;IB2;SB3u;RB4;IB5;M;
+  config_str: rbl8c85w;TS0012-ZS; null
   alt_config_str: null
   old_manufacturer_names: null
   old_zb_models: null
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
   firmware_image_type: 45589
-  build: yes
+  build: no
   status: in_progress
   info: Needs pinout. Bi-stable relays. Must toggle relays sequentially.
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/22
