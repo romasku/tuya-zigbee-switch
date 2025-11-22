@@ -712,6 +712,32 @@ BSEED_TOUCH_TS0003:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/125
   store: https://www.aliexpress.com/item/1005003475686409.html
+EKF_TS0012:
+  human_name: EKF ssh-2g-zb-nn
+  category: module
+  power: mains
+  neutral: without
+  device_type: end_device
+  tuya_model_name: TS0012
+  tuya_manufacturer_name: _TZ3000_num4zd6s
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0012
+  override_z2m_device: null
+  tuya_module: ZT3L
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: num4zd6s;TS0012-EKF;BA0u;LD7;SC2u;RC0;SC3u;RB4;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 45592
+  build: yes
+  status: fully_supported
+  info: Supported
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/205
+  store: https://ekfgroup.com/ru/catalog/products/umnoe-rele-v-podrozetnik-2-kanalnoe-bez-nejtrali-zigbee-ekf-connect-select
 EMOS_TS0001: 
   human_name: GoSmart IP-2101SZ <br> EMOS H5101
   category: module
