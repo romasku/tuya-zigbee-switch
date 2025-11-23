@@ -1,12 +1,14 @@
 let tuyaDefinitions = require("zigbee-herdsman-converters/devices/tuya");
 let moesDefinitions = require("zigbee-herdsman-converters/devices/moes");
 let avattoDefinitions = require("zigbee-herdsman-converters/devices/avatto");
+let girierDefinitions = require("zigbee-herdsman-converters/devices/girier");
 let tuya = require("zigbee-herdsman-converters/lib/tuya");
 
 // Support Z2M 2.1.3-1
 tuyaDefinitions = tuyaDefinitions.definitions ?? tuyaDefinitions;
 moesDefinitions = moesDefinitions.definitions ?? moesDefinitions;
 avattoDefinitions = avattoDefinitions.definitions ?? avattoDefinitions;
+girierDefinitions = girierDefinitions.definitions ?? girierDefinitions;
 
 const definitions = [];
 const multiplePinoutsDescription = "WARNING! There are multiple known pinouts for the AVATTO ZSWM16 4gang! Before flashing custom firmware, it is recommended you disassemble the device and trace the board pinout. Please check https://github.com/romasku/tuya-zigbee-switch/tree/main/docs/devices/multiple_pinouts.md";
@@ -27,6 +29,7 @@ const ota = require("zigbee-herdsman-converters/lib/ota");
 const tuyaModels = [
     "FZB-1",
     "TS0001",
+    "TS0001_switch_1_gang",
     "TS0001_switch_module",
     "TS0002",
     "TS0002_basic",
@@ -47,10 +50,10 @@ const tuyaModels = [
     "TS0044",
     "TS011F_plug_1",
     "TS011F_plug_2",
+    "TS0726_1_gang_scene_switch",
     "TS0726_2_gang_scene_switch",
     "TS0726_3_gang",
     "WHD02",
-    "ZG-301Z",
     "_TZ3000_pgq7ormg",
 ];
 
@@ -121,6 +124,36 @@ const avattoMultiplePinoutsModels = [
 for (let definition of avattoDefinitions) {
     if (avattoModels.includes(definition.model)) {
         if (avattoMultiplePinoutsModels.includes(definition.model)) {
+            definitions.push(
+                {
+                    ...definition,
+                    description: multiplePinoutsDescription,
+                    whiteLabel: definition.whiteLabel.map(entry => ({...entry, description: multiplePinoutsDescription,})),
+                    ota: ota.zigbeeOTA,
+                }
+            )
+        }
+        else {
+            definitions.push(
+                {
+                    ...definition,
+                    ota: ota.zigbeeOTA,
+                }
+            )
+        }
+    }
+}
+
+const girierModels = [
+    "JR-ZDS01",
+];
+
+const girierMultiplePinoutsModels = [
+];
+
+for (let definition of girierDefinitions) {
+    if (girierModels.includes(definition.model)) {
+        if (girierMultiplePinoutsModels.includes(definition.model)) {
             definitions.push(
                 {
                     ...definition,
