@@ -127,6 +127,15 @@ const romasku = {
             description: "State of the relay indicator LED",
             access: "ALL",
         }),
+    relayDetachedMode: (name, endpointName) =>
+        enumLookup({
+            name,
+            endpointName,
+            lookup: { attached: 0, detached: 1 },
+            cluster: "genOnOff",
+            attribute: { ID: 0xff03, type: 0x10 }, // Boolean
+            description: "Detach physical relay from its virtual state (Option ignored by power-on behavior)",
+        }),
     networkIndicator: (name, endpointName) =>
         binary({
             name,
@@ -223,6 +232,9 @@ const definitions = [
             {% for relayName in device.relayIndicatorNames %}
             romasku.relayIndicatorMode("{{relayName}}_indicator_mode", "{{relayName}}"),
             romasku.relayIndicator("{{relayName}}_indicator", "{{relayName}}"),
+            {% endfor %}
+            {% for relayName in device.relayNames %}
+            romasku.relayDetachedMode("{{relayName}}_detached_mode", "{{relayName}}"),
             {% endfor %}
         ],
         meta: { multiEndpoint: true },

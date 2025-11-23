@@ -12,6 +12,7 @@ typedef struct {
   uint8_t endpoint;
   uint8_t startup_mode;
   uint8_t indicator_led_mode;
+  uint8_t detached_mode;
   hal_zigbee_attribute attr_infos[4];
   relay_t *relay;
   led_t *indicator_led;
@@ -23,6 +24,14 @@ void relay_cluster_add_to_endpoint(zigbee_relay_cluster *cluster,
 void relay_cluster_on(zigbee_relay_cluster *cluster);
 void relay_cluster_off(zigbee_relay_cluster *cluster);
 void relay_cluster_toggle(zigbee_relay_cluster *cluster);
+
+void relay_cluster_on_from_startup(zigbee_relay_cluster *cluster);
+void relay_cluster_off_from_startup(zigbee_relay_cluster *cluster);
+void relay_cluster_toggle_from_startup(zigbee_relay_cluster *cluster);
+
+void relay_cluster_on_impl(zigbee_relay_cluster *cluster, bool from_startup);
+void relay_cluster_off_impl(zigbee_relay_cluster *cluster, bool from_startup);
+void relay_cluster_toggle_impl(zigbee_relay_cluster *cluster, bool from_startup);
 
 void relay_cluster_report(zigbee_relay_cluster *cluster);
 

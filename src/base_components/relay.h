@@ -3,6 +3,7 @@
 
 #include "hal/gpio.h"
 #include <stdint.h>
+#include <stdbool.h>
 
 typedef void (*ev_relay_callback_t)(void *, uint8_t);
 
@@ -25,22 +26,25 @@ void relay_init(relay_t *relay);
 /**
  * @brief      Enable the relay
  * @param	   *relay - Relay to use
+ * @param      detached - do not change physical state
  * @return     none
  */
-void relay_on(relay_t *relay);
+void relay_on(relay_t *relay, bool detached);
 
 /**
  * @brief      Disable the relay
  * @param	   *relay - Relay to use
+ * @param      detached - do not change physical state
  * @return     none
  */
-void relay_off(relay_t *relay);
+void relay_off(relay_t *relay, bool detached);
 
 /**
  * @brief      Toggle the relay
  * @param	   *relay - Relay to use
+ * @param      detached - do not change physical state
  * @return     none
  */
-void relay_toggle(relay_t *relay);
+void relay_toggle(relay_t *relay, bool detached);
 
 #endif
