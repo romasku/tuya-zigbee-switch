@@ -6,6 +6,19 @@
 
 ### New features:
 
+## v1.1.1
+
+This release is a bug-fix update for version 1.1.0.
+
+### Changes
+
+- Added a hardware watchdog on Telink devices that automatically reboots  
+  the device if it becomes stuck.
+
+### Bug Fixes
+
+- Fixed an issue that caused some devices to freeze and become unresponsive.
+
 ## v1.1.0:
 
 This release doesn't bring new features, but contains substantial refactoring and
