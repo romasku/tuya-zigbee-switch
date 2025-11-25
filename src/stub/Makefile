@@ -4,6 +4,8 @@ SRC_DIR            := ..
 BUILD_DIR          := ../../build/stub
 BINARY             := $(BUILD_DIR)/stub_device
 
+CONFIG ?= X;Y;BA0u;LA1;SA2u;RA3;IA4;
+
 # Default target
 help:
 	@echo "Stub Device Build System"
@@ -76,7 +78,7 @@ build: $(BUILD_DIR)
 	@echo "Stub binary built: $(BINARY)"
 
 run: build
-	./$(BINARY)
+	./$(BINARY) --device-config "$(CONFIG)"
 
 clean:
 	rm -rf $(BUILD_DIR)

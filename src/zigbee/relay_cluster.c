@@ -47,8 +47,7 @@ void relay_cluster_add_to_endpoint(zigbee_relay_cluster *cluster,
   relay_cluster_load_attrs_from_nv(cluster);
 
   cluster->relay->callback_param = cluster;
-  cluster->relay->on_change =
-      (ev_relay_callback_t)relay_cluster_on_relay_change;
+  cluster->relay->on_change = (relay_callback_t)relay_cluster_on_relay_change;
 
   relay_cluster_handle_startup_mode(cluster);
   sync_indicator_led(cluster);

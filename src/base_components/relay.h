@@ -7,25 +7,14 @@
 
 typedef void (*relay_callback_t)(void *param, uint8_t state);
 
-// Backwards compatibility alias
-typedef relay_callback_t ev_relay_callback_t;
-
 typedef struct {
-  hal_gpio_pin_t pin;
-  uint8_t turn_off;
-  hal_task_t task;
-  uint8_t in_use;
-} relay_pulse_t;
-
-typedef struct {
-    int pin;                    // ON pin
-    int off_pin;                // OFF pin (optional, for bistable relays)
-    int on_high;                // 1 if "on" is HIGH, 0 if "on" is LOW
-    int on;                     // Current state (0 = off, 1 = on)
-    hal_task_t clear_task;      // Task to clear pulse for bistable relays
-    int clear_task_active;      // Flag to indicate if the clear task is active
-    void (*on_change)(void *, int); // Optional callback for state change
-    void *callback_param;       // Parameter passed to callback
+  int pin;                    // ON pin
+  int off_pin;                // OFF pin (optional, for bistable relays)
+  int on_high;                // 1 if "on" is HIGH, 0 if "on" is LOW
+  int on;                     // Current state (0 = off, 1 = on)
+  hal_task_t bistable_task;   // Task to clear pulse for bistable relays
+  relay_callback_t on_change; // Optional callback for state change
+  void *callback_param;       // Parameter passed to callback
 } relay_t;
 
 /**
