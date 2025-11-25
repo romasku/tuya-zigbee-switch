@@ -255,6 +255,12 @@ void periferals_init() {
   for (int index = 0; index < buttons_cnt; index++) {
     btn_init(&buttons[index]);
   }
+  for (int index = 0; index < leds_cnt; index++) {
+    led_init(&leds[index]);
+  }
+  for (int index = 0; index < relays_cnt; index++) {
+    relay_init(&relays[index]);
+  }
   if (hal_zigbee_get_network_status() == HAL_ZIGBEE_NETWORK_JOINED) {
     network_indicator_connected(&network_indicator);
   } else {
