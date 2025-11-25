@@ -4,6 +4,7 @@ sdk
 toolchain
 .vscode
 .venv
+stub_nvm_data
 
 telink_tools
 silabs_tools
