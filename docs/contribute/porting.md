@@ -119,10 +119,11 @@ For buttons (`B`) and switches (`S`), the next character determines the pull-up/
 For LEDs, add `i` to invert the state.
 
 Additional options: 
-| Format       | Option     | Function                                                                  |
-|-------------:|------------|---------------------------------------------------------------------------|
-| **`i00000`** | Image type | • Change OTA image_type (migrate to another build)                        |
-| **`M`**      | Momentary  | • Defaults buttons to momentary mode (for devices with built-in switches) |
+| Format       | Option                       | Function                                                                          |
+|-------------:|------------------------------|-----------------------------------------------------------------------------------|
+| **`i00000`** | Image type                   | • Change OTA image_type (migrate to another build)                                |
+| **`M`**      | Momentary                    | • Defaults buttons to momentary mode (for devices with built-in switches)         |
+| **`SLP`**    | Simultaneous Latching Pulses |  • Enable simultaneous pulses for latching relays (they are disallowed by default)|
 
 *In Z2M, update the config with different pins until the device works properly.*   
 

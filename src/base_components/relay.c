@@ -8,29 +8,31 @@
 #define RELAY_PULSE_MS 125
 #endif
 
-#ifndef BISTABLE_WAIT_END_MS
-#define BISTABLE_WAIT_END_MS 50
+#ifndef PULSE_WAIT_END_MS
+#define PULSE_WAIT_END_MS 50
 #endif
+
+extern uint8_t allow_simultaneous_latching_pulses;
 
 static relay_t *pulse_relay = NULL;
 
-static void relay_start_bistable_pulse(relay_t *relay);
-static void relay_end_bistable_pulse(relay_t *relay);
+static void relay_start_latching_pulse(relay_t *relay);
+static void relay_end_latching_pulse(relay_t *relay);
 
-static void relay_end_bistable_pulse_handler(void *arg);
-static void relay_start_bistable_pulse_handler(void *arg);
+static void relay_end_latching_pulse_handler(void *arg);
+static void relay_start_latching_pulse_handler(void *arg);
 
-static void relay_end_bistable_pulse_handler(void *arg) {
+static void relay_end_latching_pulse_handler(void *arg) {
   printf("relay_clear_handler %d\r\n", arg);
-  relay_end_bistable_pulse((relay_t *)arg);
+  relay_end_latching_pulse((relay_t *)arg);
 }
 
-static void relay_start_bistable_pulse_handler(void *arg) {
+static void relay_start_latching_pulse_handler(void *arg) {
   printf("relay_start_handler\r\n");
-  relay_start_bistable_pulse((relay_t *)arg);
+  relay_start_latching_pulse((relay_t *)arg);
 }
 
-static void relay_end_bistable_pulse(relay_t *relay) {
+static void relay_end_latching_pulse(relay_t *relay) {
   hal_gpio_write(relay->pin, !relay->on_high);
   hal_gpio_write(relay->off_pin, !relay->on_high);
   if (pulse_relay == relay) {
@@ -39,25 +41,25 @@ static void relay_end_bistable_pulse(relay_t *relay) {
   }
 }
 
-static void relay_start_bistable_pulse(relay_t *relay) {
+static void relay_start_latching_pulse(relay_t *relay) {
   hal_gpio_pin_t pin = relay->on ? relay->pin : relay->off_pin;
 
-  if (pulse_relay == NULL) {
+  if (pulse_relay == NULL || allow_simultaneous_latching_pulses) {
     // Start new pulse
     hal_gpio_write(pin, relay->on_high);
     pulse_relay = relay;
-    relay->bistable_task.handler = relay_end_bistable_pulse_handler;
-    hal_tasks_schedule(&relay->bistable_task, RELAY_PULSE_MS);
+    relay->latching_task.handler = relay_end_latching_pulse_handler;
+    hal_tasks_schedule(&relay->latching_task, RELAY_PULSE_MS);
   } else {
-    printf("relay_start_bistable_pulse: another pulse is active\r\n");
-    relay->bistable_task.handler = relay_start_bistable_pulse_handler;
-    hal_tasks_schedule(&relay->bistable_task, BISTABLE_WAIT_END_MS);
+    printf("relay_start_latching_pulse: another pulse is active\r\n");
+    relay->latching_task.handler = relay_start_latching_pulse_handler;
+    hal_tasks_schedule(&relay->latching_task, PULSE_WAIT_END_MS);
   }
 }
 
 void relay_init(relay_t *relay) {
-  relay->bistable_task.arg = relay;
-  hal_tasks_init(&relay->bistable_task);
+  relay->latching_task.arg = relay;
+  hal_tasks_init(&relay->latching_task);
 
   // switch off relay
   if (!relay->off_pin) {
@@ -82,9 +84,9 @@ void relay_on(relay_t *relay) {
     hal_gpio_write(relay->pin, relay->on_high);
   } else {
     // Bi-stable relay
-    relay_end_bistable_pulse(relay);
-    hal_tasks_unschedule(&relay->bistable_task);
-    relay_start_bistable_pulse(relay);
+    relay_end_latching_pulse(relay);
+    hal_tasks_unschedule(&relay->latching_task);
+    relay_start_latching_pulse(relay);
   }
 
   if (relay->on_change != NULL) {
@@ -107,9 +109,9 @@ void relay_off(relay_t *relay) {
     hal_gpio_write(relay->pin, !relay->on_high);
   } else {
     // Bi-stable relay
-    relay_end_bistable_pulse(relay);
-    hal_tasks_unschedule(&relay->bistable_task);
-    relay_start_bistable_pulse(relay);
+    relay_end_latching_pulse(relay);
+    hal_tasks_unschedule(&relay->latching_task);
+    relay_start_latching_pulse(relay);
   }
 
   if (relay->on_change != NULL) {

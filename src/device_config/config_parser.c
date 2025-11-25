@@ -53,6 +53,8 @@ uint8_t relay_clusters_cnt = 0;
 hal_zigbee_cluster clusters[32];
 hal_zigbee_endpoint endpoints[10];
 
+uint8_t allow_simultaneous_latching_pulses = 0;
+
 uint32_t parse_int(const char *s);
 char *seek_until(char *cursor, char needle);
 char *extract_next_entry(char **cursor);
@@ -85,7 +87,10 @@ void parse_config() {
   char *entry;
   for (entry = extract_next_entry(&cursor); *entry != '\0';
        entry = extract_next_entry(&cursor)) {
-    if (entry[0] == 'B') {
+    if (entry[0] == 'S' && entry[1] == 'L' && entry[2] == 'P') {
+      // Simultaneous Latching Pulses == SLP
+      allow_simultaneous_latching_pulses = 1;
+    } else if (entry[0] == 'B') {
       hal_gpio_pin_t pin = hal_gpio_parse_pin(entry + 1);
       hal_gpio_pull_t pull = hal_gpio_parse_pull(entry + 3);
       hal_gpio_init(pin, 1, pull);
