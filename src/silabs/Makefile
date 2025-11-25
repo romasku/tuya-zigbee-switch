@@ -145,6 +145,13 @@ erase_dev:
 restart_dev:
 	$(COMMANDER_DIR)/commander-cli device --device EFR32MG21A020F768IM32 reset
 
+
+ifdef OTA_VERSION
+OTA_VERSION_ARG := --firmware-version $(OTA_VERSION)
+else
+OTA_VERSION_ARG := --firmware-version "$(FILE_VERSION)"
+endif
+
 ota:
 	@mkdir -p $(dir $(OTA_FILE))
 	$(COMMANDER_DIR)/commander-cli gbl create \
@@ -153,7 +160,7 @@ ota:
 		--compress lzma
 	$(COMMANDER_DIR)/commander-cli ota create \
 		--upgrade-image "$(ZIGBEE_BUILD_DIR)/build/release/$(ZIGBEE_PROJECT_NAME).gbl" \
-		--firmware-version "$(FILE_VERSION)" \
+		$(OTA_VERSION_ARG) \
 		--manufacturer-id "${MANUFACTURER_ID}" \
 		--image-type "$(IMAGE_TYPE)" \
 		--string "Custom zigbee firmware" \
