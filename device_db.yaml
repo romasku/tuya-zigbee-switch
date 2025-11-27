@@ -820,6 +820,32 @@ GIRIER_TS0001:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/202
   store: null
+GIRIER_TS0001_1:
+  human_name: Girier JR-ZDS01 🅲
+  category: module
+  power: mains
+  neutral: required
+  device_type: router
+  tuya_model_name: TS0001
+  tuya_manufacturer_name: _TZ3000_6axxqqi2
+  stock_converter_manufacturer: Girier
+  stock_converter_model: JR-ZDS01
+  override_z2m_device: null
+  tuya_module: ZTU
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: 6axxqqi2;TS0001-GIR-1;BC2u;LB5i;SB4u;RD2;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 45585
+  build: yes
+  status: fully_supported
+  info: Supported
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/212
+  store: null
 GIRIER_TS0002:
   human_name: Girier 2-gang
   category: module
