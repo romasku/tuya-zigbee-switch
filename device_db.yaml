@@ -545,8 +545,8 @@ BSEED_SWITCH_TS0726_3GANG:
   tuya_image_type: 54179
   firmware_image_type: 45577
   build: yes
-  status: in_progress
-  info: Missing right state indicator
+  status: fully_supported
+  info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/157
   store:
   - https://www.aliexpress.com/item/1005008635350349.html
@@ -1198,7 +1198,7 @@ MANHOT_SWITCH_2_TS0013:
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/197
   store: https://www.aliexpress.com/item/1005006877282435.html
 MHCOZY_TS0004:
-  human_name: MHCOZY TYWB 4ch-RF
+  human_name: MHCOZY TYWB 4ch-RF / ZG-005(-RF)
   category: board
   power: mains
   neutral: required
@@ -1219,8 +1219,8 @@ MHCOZY_TS0004:
   tuya_image_type: 54179
   firmware_image_type: 43551
   build: yes
-  status: mostly_supported
-  info: Untesed? Unknown pins for reset button and blue LED? (C4, B4, B1)
+  status: fully_supported
+  info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/130
   store: https://www.aliexpress.com/item/1005005457296054.html
 MOES_SWITCHES_TS0011:
@@ -1327,7 +1327,7 @@ MOES_SWITCHES_TS0014:
   tuya_module: ZS3L
   mcu_family: Silabs
   mcu: EFR32MG21
-  config_str: mrduubod;Moes-4-gang;SA0u;RA4;IA6;SA3u;RC0;IA5;SB0u;RC1;IC2;SB1u;RD1;ID0;M;
+  config_str: mrduubod;MS4;SB1u;RA4;ID0;SB0u;RC0;IC2;SA3u;RC1;IA5;SA0u;RD1;IA6;M;
   alt_config_str: null
   old_manufacturer_names: null
   old_zb_models: null
@@ -1573,8 +1573,8 @@ QS_TS0012:
   tuya_image_type: 54179
   firmware_image_type: 45590
   build: yes
-  status: fully_supported
-  info: Supported
+  status: mostly_supported
+  info: Bi-stable relays
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/144
   store: https://www.aliexpress.com/item/1005008663303208.html?sku_id=12000046146359997
 TUYA_SWITCH_TS0001:
