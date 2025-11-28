@@ -2012,3 +2012,26 @@ ZIGBEE_BOARD_ZTU_2:
   info: Supported
   threads: null
   store: https://www.aliexpress.com/item/1005007599675462.html
+ZG_807Z:
+  human_name: HOBEIAN ZG-807Z
+  neutral: required
+  device_type: router
+  mcu: TLSR8258
+  tuya_model_name: TS0001
+  tuya_manufacturer_name: _TZ3000_piuensvr
+  config_str: _TZ3000_piuensvr;TS0001;BD4u;LD2i;
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: ZG-807Z
+  override_z2m_device: ZG-807Z
+  zb_module: TLSR8253
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 43527
+  build: yes
+  status: Supported
+  info: Firmware for ZG-807Z Router, it implements PA support, fine-tuned for stable RF signal, spoofs a Tuya switch as  "CK-BL702-ROUTER-01(7018)" is somehow truncated and device in Z2M is shown as not supported, Button works, LED not.
+  github_issue: https://github.com/romasku/tuya-zigbee-switch/issues/208
+  store: null
