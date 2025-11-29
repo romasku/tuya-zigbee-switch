@@ -685,7 +685,7 @@ BSEED_TOUCH_TS0001_2:
   status: mostly_supported
   info: Missing backlight (D4)
   threads: https://github.com/romasku/tuya-zigbee-switch/discussions/221
-  store: null
+  store: https://www.aliexpress.com/item/1005004187227246.html
 BSEED_TOUCH_TS0002:
   human_name: BSEED 2-gang touch switch
   category: switch
@@ -1535,20 +1535,20 @@ NOUS_TS0002:
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0002_basic
   override_z2m_device: L13Z
-  tuya_module: null
+  tuya_module: ZT2S
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: ruxexjfz;TS0001-NS; null;
+  config_str: ruxexjfz;TS0002-NS;BB5u;LB4;SB7u;RD2;SB1u;RC3;
   alt_config_str: null
   old_manufacturer_names: null
   old_zb_models: null
-  tuya_manufacturer_id: 4417
-  tuya_image_type: 54179
+  tuya_manufacturer_id: 4107
+  tuya_image_type: 517
   firmware_image_type: 45582
-  build: no
+  build: yes
   status: in_progress
-  info: Needs pinout
-  threads: null
+  info: Needs pinout confirmation
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/216
   store: https://nous.technology/product/l13z.html
 NOVATO_TS000F_1:
   human_name: NOVATO ZRM01
@@ -2112,8 +2112,8 @@ ZEMISMART_SWITCH_1_TS0012:
   tuya_image_type: 54179
   firmware_image_type: 43536
   build: yes
-  status: mostly_supported
-  info: Untested. Higher power draw (Wrong bi-stable relay implementation)
+  status: in_progress
+  info: Wait for bi-stable relay fix!
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/19
   store: null
 ZEMISMART_SWITCH_2_TS0012:
