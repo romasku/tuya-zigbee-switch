@@ -1,85 +1,111 @@
+*Open the **Outline** (table of contents) from the top right.*  
+
 # Firmware Changelog
 
-## Upcoming:
+<!------------------------------------------------------
 
-### Changes:
+Please describe what you are working on:
 
-### New features:
+
+
+
+
+
+
+
+
+
+------------------------------------------------------->
 
 ## v1.1.2
 
-### Bug Fixes
+### Bugs
 
-- Fixed device freeze when long_press_duration set to 0.
-- Properly restore indicator state after end device re-joins
+- **Fixed** 
+  - Setting 'long press duration' to 0ms crashes device
+  - Can't change device imageType in config string
+  - Option 'Relay indicator - manual on' is not kept after reboot
+  - ? Relay indicators sometimes go out-of-sync ([#38](https://github.com/romasku/tuya-zigbee-switch/issues/38))
 
 ## v1.1.1
 
-This release is a bug-fix update for version 1.1.0.
+*Bug-fix update for previous version*
 
 ### Changes
 
-- Added a hardware watchdog on Telink devices that automatically reboots  
-  the device if it becomes stuck.
+- Added a **hardware watchdog** on Telink devices that automatically reboots the device when it's stuck
 
-### Bug Fixes
+### Bugs
 
-- Fixed an issue that caused some devices to freeze and become unresponsive.
+- **Fixed:** Floating pin (or other device conditions) freezes the device
 
-## v1.1.0:
+## v1.1.0
 
-This release doesn't bring new features, but contains substantial refactoring and
-restructuring of the firmware architecture. In general, updated SDK + improved power
-efficiency should improve stability.
+*Contains **substantial restructuring** of the firmware architecture, but doesn't bring new features*
 
-### Changes:
+### Changes
 
-- Moved to new Telink SDK version 3.7.2.0
-- Added support for Silabs chips by introducing HAL middleware
-- Replaced GPIO polling with GPIO interrupts for power efficiency
-- Update versioning approach to include commit hash
-- And many more technical improvements.
+- Updated **Telink SDK** to v3.7.2.0 for **stability**
+- Added support for **Silabs chips** by introducing **HAL middleware**
+- Replaced GPIO polling with GPIO interrupts for **power efficiency**
+- Improve **versioning** to include commit hash
+- Many more technical improvements
 
-## v1.0.21:
+### Bugs
 
-### Changes:
+- **Fixed** 
+  - Old SDK freezes device in some network conditions
+- **New** 
+  - Floating pin (or other device conditions) **freezes device**
+  - Setting 'long press duration' to 0ms **crashes device**
+  - Can't change device imageType in config string
+  - Option 'Relay indicator - manual on' is not kept after reboot
+  - Relay indicators sometimes go out-of-sync ([#38](https://github.com/romasku/tuya-zigbee-switch/issues/38))
+  - End_device sleeping? ([#217](https://github.com/romasku/tuya-zigbee-switch/issues/217))
+
+## v1.0.21
+
+### Changes
 
 - Keep device configuration (user settings) when it is removed from the network
 
-### New features:
+### New features
 
-- Add support for Zigbee commands: **off_with_effect** (0x40) and **on_with_recall_global_scene** (0x41)
+- Add support for Zigbee commands: 
+  - **off_with_effect** (0x40)
+  - **on_with_recall_global_scene** (0x41)
 - Add support for **normally-closed momentary buttons**
 - Add **action states for toggle buttons**: position_on and position_off
 
-## v1.0.20:
+## v1.0.20
 
-### Changes:
+### Changes
 
 - (technical) Updated memory map: moved NV items from ZCL to APP.  
   **Due to this change, device configuration (user settings) may reset after OTA update.**
 
-### Bugs:
+### Bugs
 
-- Fixed bug: changing device config string crashed 3 and 4 gang devices.
-- Fixed bug: detached mode didn't work for Toggle switches.
+- **Fixed**
+  - Canging config string crashed 3-4 gang devices
+  - Detached mode didn't work for Toggle switches
 
-## v1.0.19:
+## v1.0.19
 
-### New features:
+### New features
 
-- Add support for the **levelCtrl** cluster.  
-  This enables brightness control of compatible Zigbee bulbs via Zigbee binding.  
-  The feature works only for momentary switches using long press: once a long press is detected, brightness will begin to slowly change. Each subsequent long press reverses the direction (increase/decrease).  
-  Requires manual update of converters and reconfiguration.
+- Add support for the **levelCtrl** cluster  
+  - This enables brightness control of compatible Zigbee bulbs via Zigbee binding.  
+  - The feature works only for momentary switches using long press: once a long press is detected, brightness will begin to slowly change. Each subsequent long press reverses the direction (increase/decrease).  
+  - Requires manual update of converters and reconfiguration.
 
-### Changes:
+### Changes
 
 - Increase the number of **presses required to reset the device to 10.**
 - Update manufacturer names to match the stock firmware.  
   (requires interview; but it's not mandatory, as backwards compatibility is kept)
 
-### Bugs:
+### Bugs
 
 - New bug: detached mode doesn't work for Toggle switches
 
