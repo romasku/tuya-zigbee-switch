@@ -581,22 +581,47 @@ def test_momentary_mode_multistate_value_normaly_closed(
 
 
 def test_momentary_mode_multistate_action_reporting(
-        momentary_device: Device, relay_button_pair: RelayButtonPair
+    momentary_device: Device, relay_button_pair: RelayButtonPair
 ):
     momentary_device.press_button(relay_button_pair.button_pin)
     assert (
-        momentary_device.zcl_switch_await_multistate_value_reported_change(relay_button_pair.switch_endpoint)
+        momentary_device.zcl_switch_await_multistate_value_reported_change(
+            relay_button_pair.switch_endpoint
+        )
         == "1"
     )
 
     momentary_device.step_time(2_000)
     assert (
-        momentary_device.zcl_switch_await_multistate_value_reported_change(relay_button_pair.switch_endpoint)
+        momentary_device.zcl_switch_await_multistate_value_reported_change(
+            relay_button_pair.switch_endpoint
+        )
         == "2"
     )
 
     momentary_device.release_button(relay_button_pair.button_pin)
     assert (
-        momentary_device.zcl_switch_await_multistate_value_reported_change(relay_button_pair.switch_endpoint)
+        momentary_device.zcl_switch_await_multistate_value_reported_change(
+            relay_button_pair.switch_endpoint
+        )
         == "0"
     )
+
+
+def test_long_press_duration_zero_doesnt_freeze_device(
+    momentary_device: Device, relay_button_pair: RelayButtonPair
+):
+    momentary_device.zcl_switch_relay_mode_set(
+        relay_button_pair.switch_endpoint, ZCL_ONOFF_CONFIGURATION_RELAY_MODE_LONG
+    )
+    momentary_device.write_zigbee_attr(
+        relay_button_pair.switch_endpoint,
+        ZCL_CLUSTER_ON_OFF_SWITCH_CONFIG,
+        ZCL_ATTR_ONOFF_CONFIGURATION_SWITCH_LONG_PRESS_DUR,
+        0,
+    )
+
+    momentary_device.press_button(relay_button_pair.button_pin)
+
+    # Just to check device is responsive
+    momentary_device.get_gpio(relay_button_pair.relay_pin, refresh=True)

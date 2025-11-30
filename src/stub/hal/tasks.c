@@ -21,19 +21,23 @@ void stub_tasks_poll(void) {
   uint32_t current_time = hal_millis();
   int tasks_executed = 0;
 
-  // Check all tasks for execution
-  for (int i = 0; i < MAX_TASKS; i++) {
-    if (tasks[i].active && current_time >= tasks[i].scheduled_time) {
-      if (tasks[i].task && tasks[i].task->handler) {
-        io_log("TASKS", "Executing task %p from slot %d", (void *)tasks[i].task,
-               i);
-        tasks[i].task->handler(tasks[i].task->arg);
-        tasks_executed++;
+  // Check all tasks for execution, keep looping until no tasks are executed in
+  // a pass, to more agressively tests for tasks that reschedule themselves.
+  do {
+    tasks_executed = 0;
+    for (int i = 0; i < MAX_TASKS; i++) {
+      if (tasks[i].active && current_time >= tasks[i].scheduled_time) {
+        if (tasks[i].task && tasks[i].task->handler) {
+          io_log("TASKS", "Executing task %p from slot %d",
+                 (void *)tasks[i].task, i);
+          tasks[i].task->handler(tasks[i].task->arg);
+          tasks_executed++;
+        }
+        tasks[i].active = 0;
+        io_log("TASKS", "Task completed and removed from slot %d", i);
       }
-      tasks[i].active = 0;
-      io_log("TASKS", "Task completed and removed from slot %d", i);
     }
-  }
+  } while (tasks_executed > 0);
 }
 
 void hal_tasks_init(hal_task_t *task) {

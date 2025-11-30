@@ -83,7 +83,6 @@ void btn_update_debounced(button_t *button, uint8_t is_pressed,
 
   uint32_t now = hal_millis();
   if (is_pressed && !button->long_pressed &&
-      (button->long_press_duration_ms > 0) &&
       (button->long_press_duration_ms < (now - button->pressed_at_ms))) {
     button->long_pressed = true;
     printf("Long press detected\r\n");
