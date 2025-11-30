@@ -6,6 +6,8 @@
 
 ### New features:
 
+## v1.1.2
+
 ### Bug Fixes
 
 - Fixed device freeze when long_press_duration set to 0.
