@@ -230,10 +230,11 @@ endif
 
 # Make an ota file
 ota: $(BIN_FILE)
-	@if [ '$(OTA_MANUFACTURER_ID)' = 'null' ] || [ -z '$(OTA_IMAGE_TYPE)' = 'null' ]; then \
-	    echo 'Skipping OTA file generation: missing arguments'; \
-			echo ' '; \
-	else \
+	@if [ -z "$(OTA_MANUFACTURER_ID)" ] || [ "$(OTA_MANUFACTURER_ID)" = "null" ] || \
+      [ -z "$(OTA_IMAGE_TYPE)" ]      || [ "$(OTA_IMAGE_TYPE)" = "null" ]; then \
+        echo "Skipping OTA file generation: missing arguments"; \
+        echo " "; \
+    else \
 	    echo 'Creating OTA file $(OTA_FILE)'; \
 			echo ' '; \
 	    mkdir -p $(dir $(OTA_FILE)); \
