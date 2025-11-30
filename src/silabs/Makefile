@@ -16,6 +16,9 @@ DEVICE_TYPE ?= router
 CONFIG_STR ?= mrduubod;Moes-4-gang;SA0u;RA4;IA6;SA3u;RC0;IA5;SB0u;RC1;IC2;SB1u;RD1;ID0;M;
 MANUFACTURER_ID = 4169  # 0x1049, can be overridden via .zap file only
 IMAGE_TYPE ?= 54179
+OTA_VERSION ?= 
+OTA_MANUFACTURER_ID ?= ${MANUFACTURER_ID}
+OTA_IMAGE_TYPE ?= ${IMAGE_TYPE}
 
 EXTRA_C_DEFS = \
     -DFILE_VERSION=$(FILE_VERSION) \
@@ -161,8 +164,8 @@ ota:
 	$(COMMANDER_DIR)/commander-cli ota create \
 		--upgrade-image "$(ZIGBEE_BUILD_DIR)/build/release/$(ZIGBEE_PROJECT_NAME).gbl" \
 		$(OTA_VERSION_ARG) \
-		--manufacturer-id "${MANUFACTURER_ID}" \
-		--image-type "$(IMAGE_TYPE)" \
+		--manufacturer-id "${OTA_MANUFACTURER_ID}" \
+		--image-type "$(OTA_IMAGE_TYPE)" \
 		--string "Custom zigbee firmware" \
 		--outfile "$(OTA_FILE)"
 	
