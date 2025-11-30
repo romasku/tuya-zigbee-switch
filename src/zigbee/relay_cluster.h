@@ -15,6 +15,7 @@ typedef struct {
   hal_zigbee_attribute attr_infos[4];
   relay_t *relay;
   led_t *indicator_led;
+  uint8_t indicator_state;
 } zigbee_relay_cluster;
 
 void relay_cluster_add_to_endpoint(zigbee_relay_cluster *cluster,

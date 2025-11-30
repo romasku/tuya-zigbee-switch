@@ -231,6 +231,92 @@ def test_indicator_mode_restored_after_network_loss(indicator_device: Device) ->
     assert not indicator_device.get_gpio("A1")
 
 
+def test_indicator_mode_restored_after_network_loss_manual(
+    indicator_device: Device,
+) -> None:
+    relay_endpoint = 2
+
+    indicator_device.write_zigbee_attr(
+        relay_endpoint,
+        ZCL_CLUSTER_ON_OFF,
+        ZCL_ATTR_ONOFF_INDICATOR_MODE,
+        ZCL_ONOFF_INDICATOR_MODE_MANUAL,
+    )
+    indicator_device.write_zigbee_attr(
+        relay_endpoint,
+        ZCL_CLUSTER_ON_OFF,
+        ZCL_ATTR_ONOFF_INDICATOR_STATE,
+        "1",
+    )
+
+    _toggle_network(indicator_device)
+
+    assert indicator_device.get_gpio("A1")
+    assert (
+        indicator_device.read_zigbee_attr(
+            relay_endpoint, ZCL_CLUSTER_ON_OFF, ZCL_ATTR_ONOFF_INDICATOR_STATE
+        )
+        == "1"
+    )
+
+    indicator_device.write_zigbee_attr(
+        relay_endpoint,
+        ZCL_CLUSTER_ON_OFF,
+        ZCL_ATTR_ONOFF_INDICATOR_STATE,
+        "0",
+    )
+
+    _toggle_network(indicator_device)
+
+    assert (
+        indicator_device.read_zigbee_attr(
+            relay_endpoint, ZCL_CLUSTER_ON_OFF, ZCL_ATTR_ONOFF_INDICATOR_STATE
+        )
+        == "0"
+    )
+    assert not indicator_device.get_gpio("A1")
+
+
+@pytest.mark.parametrize(
+    "indicator_state",
+    [
+        "1",
+        "0",
+    ],
+)
+def test_manual_indicator_preserver_after_reboot(indicator_state: bool) -> None:
+    device_config = "A;B;RB0;IB1;"
+    endpoint = 1
+
+    # First session: set mode and relay state
+    with StubProc(device_config=device_config) as proc:
+        device = Device(proc)
+        device.write_zigbee_attr(
+            endpoint,
+            ZCL_CLUSTER_ON_OFF,
+            ZCL_ATTR_ONOFF_INDICATOR_MODE,
+            ZCL_ONOFF_INDICATOR_MODE_MANUAL,
+        )
+        device.write_zigbee_attr(
+            endpoint,
+            ZCL_CLUSTER_ON_OFF,
+            ZCL_ATTR_ONOFF_INDICATOR_STATE,
+            indicator_state,
+        )
+
+    # Second session: restart device and check indicator state
+    with StubProc(device_config=device_config) as proc:
+        device = Device(proc)
+
+        assert device.get_gpio("B1") == (indicator_state == "1")
+        assert (
+            device.read_zigbee_attr(
+                endpoint, ZCL_CLUSTER_ON_OFF, ZCL_ATTR_ONOFF_INDICATOR_STATE
+            )
+            == indicator_state
+        )
+
+
 @pytest.mark.parametrize(
     "mode,before_state,after_state",
     [

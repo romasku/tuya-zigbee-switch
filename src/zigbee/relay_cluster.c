@@ -61,7 +61,7 @@ void relay_cluster_add_to_endpoint(zigbee_relay_cluster *cluster,
     SETUP_ATTR(2, ZCL_ATTR_ONOFF_INDICATOR_MODE, ZCL_DATA_TYPE_ENUM8,
                ATTR_WRITABLE, cluster->indicator_led_mode);
     SETUP_ATTR(3, ZCL_ATTR_ONOFF_INDICATOR_STATE, ZCL_DATA_TYPE_BOOLEAN,
-               ATTR_WRITABLE, cluster->indicator_led->on);
+               ATTR_WRITABLE, cluster->indicator_state);
   }
 
   endpoint->clusters[endpoint->cluster_count].cluster_id = ZCL_CLUSTER_ON_OFF;
@@ -108,19 +108,20 @@ hal_zigbee_cmd_result_t relay_cluster_callback(zigbee_relay_cluster *cluster,
 }
 
 void sync_indicator_led(zigbee_relay_cluster *cluster) {
-  if (cluster->indicator_led_mode == ZCL_ONOFF_INDICATOR_MODE_MANUAL ||
-      cluster->indicator_led == NULL) {
+  if (cluster->indicator_led == NULL) {
     return;
   }
 
-  uint8_t turn_on_led = cluster->relay->on;
-
-  if (cluster->indicator_led_mode == ZCL_ONOFF_INDICATOR_MODE_OPPOSITE) {
-    turn_on_led = !turn_on_led;
+  if (cluster->indicator_led_mode != ZCL_ONOFF_INDICATOR_MODE_MANUAL) {
+    if (cluster->indicator_led_mode == ZCL_ONOFF_INDICATOR_MODE_SAME) {
+      cluster->indicator_state = cluster->relay->on;
+    } else {
+      cluster->indicator_state = !cluster->relay->on;
+    }
   }
 
-  turn_on_led ? led_on(cluster->indicator_led)
-              : led_off(cluster->indicator_led);
+  cluster->indicator_state ? led_on(cluster->indicator_led)
+                           : led_off(cluster->indicator_led);
 
   hal_zigbee_notify_attribute_changed(cluster->endpoint, ZCL_CLUSTER_ON_OFF,
                                       ZCL_ATTR_ONOFF_INDICATOR_STATE);
@@ -154,11 +155,7 @@ void relay_cluster_on_relay_change(zigbee_relay_cluster *cluster,
 void relay_cluster_on_write_attr(zigbee_relay_cluster *cluster,
                                  uint16_t attribute_id) {
   if (attribute_id == ZCL_ATTR_ONOFF_INDICATOR_STATE) {
-    if (cluster->indicator_led->on) {
-      led_on(cluster->indicator_led);
-    } else {
-      led_off(cluster->indicator_led);
-    }
+    sync_indicator_led(cluster);
   }
   if (cluster->indicator_led_mode != ZCL_ONOFF_INDICATOR_MODE_MANUAL) {
     sync_indicator_led(cluster);
@@ -181,7 +178,7 @@ void relay_cluster_store_attrs_to_nv(zigbee_relay_cluster *cluster) {
   nv_config_buffer.startup_mode = cluster->startup_mode;
   nv_config_buffer.indicator_led_mode = cluster->indicator_led_mode;
   if (cluster->indicator_led != NULL) {
-    nv_config_buffer.indicator_led_on = cluster->indicator_led->on;
+    nv_config_buffer.indicator_led_on = cluster->indicator_state;
   }
 
   hal_nvm_write(NV_ITEM_RELAY_CLUSTER_DATA(cluster->relay_idx),
@@ -199,6 +196,7 @@ void relay_cluster_load_attrs_from_nv(zigbee_relay_cluster *cluster) {
 
   cluster->startup_mode = nv_config_buffer.startup_mode;
   cluster->indicator_led_mode = nv_config_buffer.indicator_led_mode;
+  cluster->indicator_state = nv_config_buffer.indicator_led_on;
 }
 
 void relay_cluster_handle_startup_mode(zigbee_relay_cluster *cluster) {
@@ -237,13 +235,6 @@ void relay_cluster_handle_startup_mode(zigbee_relay_cluster *cluster) {
     break;
   }
 
-  // Restore indicator led
-  if (cluster->indicator_led == NULL) {
-    return;
-  }
-
-  if (cluster->indicator_led_mode == ZCL_ONOFF_INDICATOR_MODE_MANUAL) {
-    nv_config_buffer.indicator_led_on ? led_on(cluster->indicator_led)
-                                      : led_off(cluster->indicator_led);
-  }
+  // Restore indicator LED state
+  sync_indicator_led(cluster);
 }
