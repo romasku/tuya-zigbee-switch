@@ -91,6 +91,9 @@ void hal_zigbee_leave_network(void);
 /** Start searching for and joining Zigbee networks (pairing mode) */
 void hal_zigbee_start_network_steering(void);
 
+/** Set Zigbee OTA image type */
+void hal_zigbee_set_image_type(uint16_t image_type);
+
 // Attributes
 
 /**

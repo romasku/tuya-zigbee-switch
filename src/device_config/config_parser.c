@@ -175,8 +175,8 @@ void parse_config() {
       relays_cnt++;
       relay_clusters_cnt++;
     } else if (entry[0] == 'i') {
-      //      u32 image_type = parseInt(entry + 1);
-      //      baseEndpoint_otaInfo.imageType = image_type;
+      uint32_t image_type = parse_int(entry + 1);
+      hal_zigbee_set_image_type(image_type);
     } else if (entry[0] == 'M') {
       for (int index = 0; index < switch_clusters_cnt; index++) {
         switch_clusters[index].mode =

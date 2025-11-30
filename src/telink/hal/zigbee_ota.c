@@ -50,3 +50,7 @@ void hal_zigbee_init_ota() {
   ota_init(OTA_TYPE_CLIENT, telink_zigbee_hal_zcl_get_descriptors(),
            &ota_preamble, &ota_callback);
 }
+
+void hal_zigbee_set_image_type(uint16_t image_type) {
+  ota_preamble.imageType = image_type;
+}

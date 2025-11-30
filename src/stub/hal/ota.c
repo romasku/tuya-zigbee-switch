@@ -45,3 +45,7 @@ void hal_ota_cluster_setup(hal_zigbee_cluster *cluster) {
 void hal_zigbee_init_ota() {
   // Stub implementation - no initialization needed
 }
+
+void hal_zigbee_set_image_type(uint16_t image_type) {
+  // Stub implementation - image type setting not supported
+}

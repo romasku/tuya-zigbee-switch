@@ -35,3 +35,9 @@ void hal_ota_cluster_setup(hal_zigbee_cluster *cluster) {
   cluster->attributes = attrs;
   cluster->cmd_callback = NULL;
 }
+
+void hal_zigbee_set_image_type(uint16_t image_type) {
+  // Silabs doesn't support dynamic image type setting
+  // This can be probably hacked in, but it requires patching their SDK
+  // internals so it's out of scope for now
+}
