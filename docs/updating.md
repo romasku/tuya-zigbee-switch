@@ -1,7 +1,8 @@
+*Open the **Outline** (table of contents) from the top right.*  
+
 # Updating
 
 This page describes updating supported devices OTA (both converting from original firmware and version bumps).  
-*Open the **Outline** (table of contents) from the top right.*  
 
 > [!CAUTION]  
 > OTA flashing and updates from the main branch are generally safe.  
@@ -15,12 +16,9 @@ To receive custom FW updates, your ZHA / Z2M instance must have a **custom OTA i
 Additionally, to use the new features, you must also **download and regularly update the quirks / converters**.  
 
 > [!TIP]  
-> **Zigbee2MQTT is recommended**, prioritized and used by the contributors.  
+> **Zigbee2MQTT is recommended** and prioritized by the contributors.  
 > **ZHA is missing the interview button**, so devices might require re-pairing after version updates (to support new features).
 >  
-> **EmberZNet coordinators are [recommended](/docs/devices/recommended.md)**.  
-> **zStack coordinators are [not_recommended](/docs/devices/not_recommended.md)** (unreliable for large networks). 
-> 
 > Consider yourself invited to our [Discord](/readme.md#discord) community! 
 
 ## First-time update steps
@@ -32,10 +30,11 @@ Additionally, to use the new features, you must also **download and regularly up
 3. Download the custom [# Quirks / Converters](#quirks--converters)
 4. Apply the preferred [# OTA index](#ota-index) (not FORCE)
 5. Restart ZHA / Z2M
-6. If possible, bring the device closer to the coordinator (or add routers to boost signal)
+6. Bring the device closer to the coordinator, or add routers to boost signal
+(Pairing requires stronger signal than normal usage)
 7. Optionally, tweak Z2M settings for [# Faster OTA updates](#faster-ota-updates)
 8. Perform the OTA update (can get stuck at 100%, it's ok)
-9. **Permit join** when the LED flashes
+9. **Permit join** when it's done (the LED flashes if mapped correctly)
 10. **Interview** the device **`i`**  
 ⤷ option missing from ZHA, remove and re-pair if needed  
 11. **Reconfigure** the device **`🗘`** 
@@ -56,9 +55,10 @@ Additionally, to use the new features, you must also **download and regularly up
 
 1. Check if you have the correct index
 2. Read [changelog_fw.md](./changelog_fw.md) and [known_issues.md](./known_issues.md)
-3. Write down your configurations and binds!  
+3. Write down your configurations and binds  
 (Some updates erase the user settings - mentioned in step 2)
-4. If possible, bring the device closer to the coordinator (or add routers to boost signal)
+4. Bring the device closer to the coordinator, or add routers to boost signal
+(Pairing requires stronger signal than normal usage)
 5. Optionally, tweak Z2M settings for [# Faster OTA updates](#faster-ota-updates)
 6. Perform the OTA update
 7. Redownload the custom [# Quirks / Converters](#quirks--converters) and restart ZHA / Z2M

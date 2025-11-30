@@ -5,31 +5,21 @@
 
 # 🔓 Custom firmware for Tuya Zigbee switches
 
-Feature-rich custom firmware for Telink-based Tuya Zigbee switches, switch-modules and sockets.
+Feature-rich custom firmware for Telink/Silabs Zigbee switches, modules, sockets
 
-## 🔌 Supported devices
-
-There are already **60+** [devices/supported.md](/docs/devices/supported.md).
-
-> [!TIP]  
-> If your device contains a **supported Tuya Zigbee module** (ZTU, ZT2S, ZT3L), porting is relatively simple.  
-> It consists of tracing (or guessing) the **board pinout**, adding an entry in `device_db.yaml` and rebuilding.
-
-Further reading:
-
-- [contribute/porting.md](/docs/contribute/porting.md)
-- [devices/recommended.md](/docs/devices/recommended.md)
-- [devices/not_recommended.md](/docs/devices/not_recommended.md)
+- Already **60+** [devices/supported.md](/docs/devices/supported.md)
+- Port new devices: [contribute/porting.md](/docs/contribute/porting.md)
 
 ## 🤔 Why?
 
-The main driver for this project was a **frustrating bug in the factory firmware**:
+The main driver for this project was a **frustrating bug in the factory firmware:**
 
-> When you pressed one button, the device **ignored input from the others** for ~0.5 seconds. As a result, pressing two buttons simultaneously toggled a single relay.
+> When you pressed one button, the device shortly ignored input from the others.  
+> As a result, simultaneously **pressing two buttons toggled a single relay.**
 
-Users also consider this _the missing piece of a reliable smart home_ because it allows **using a light switch as a Zigbee remote**.
+Users also consider this _the missing piece of a reliable smart home,_ because it allows **using a light switch as a Zigbee remote**.
 
-> Most of the cheap switches on the market do not allow **binding to other devices out-of-the-box.**
+> Most of the cheap switches on the market do not allow **binding to other devices** out-of-the-box.
 
 ## ✨ Features
 

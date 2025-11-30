@@ -1,12 +1,14 @@
+*Open the **Outline** (table of contents) from the top right.*  
+
 # Porting  
 
-Follow this guide if [devices/supported.md](/docs/devices/supported.md) does not include your device.  
-*Open the **Outline** (table of contents) from the top right.*  
+*Follow this guide if [devices/supported.md](/docs/devices/supported.md) does not include your device.* 
 
 ### Steps
 1. Check compatibility
 2. **Obtain the board pinout**
-3. Build and install the firmware
+3. Add an entry to [`device_db.yaml`](../../device_db.yaml)
+4. Build and install the firmware
 
 ## Compatibility 
 
@@ -14,6 +16,7 @@ Follow this guide if [devices/supported.md](/docs/devices/supported.md) does not
 [ZS series]: https://developer.tuya.com/en/docs/iot/zs-series-module?id=Kaiuyljrfi0wv
 [updating.md]: /docs/updating.md
 [flashing_via_wire.md]: ./flashing_via_wire.md
+[flashing_via_wire_silabs.md]: ./flashing_via_wire_silabs.md
 [IEEE Address]: /docs/.images/screen_telink_mac.png
 
 The firmware works on **Telink** (TLSR8258) and **Silabs** (EFR32MG21) microcontrollers.  
@@ -56,47 +59,28 @@ There are multiple safe ways to obtain the pinout:
 
 ### Tuya modules
 
-There are 4 (A,B,C,D) × 8 (0-7) = 32 GPIO pins on the TLSR8258 ?  
-⤷ Here are the **exposed pins** for each module (usable for peripherals):
-
 [`ZTU`]: https://developer.tuya.com/en/docs/iot/ztu-module-datasheet?id=Ka45nl4ywgabp
 [`ZT3L`]: https://developer.tuya.com/en/docs/iot/zt3l-module-datasheet?id=Ka438n1j8nuvu
 [`ZT2S`]: https://developer.tuya.com/en/docs/iot/zt2s-module-datasheet?id=Kas9gdtath9p0
 [`ZT2Sᶠ`]: https://github.com/romasku/tuya-zigbee-switch/issues/6#issuecomment-2568045792
+[`ZS3L`]: https://developer.tuya.com/en/docs/iot/zs3l?id=K97r37j19f496
 
-| Module        | Pins |      |      |      |      |      |      |      |      |      |      |      |      |      |      |      |
-|--------------:|------|------|------|------|------|------|------|------|------|------|------|------|------|------|------|------|
-| **[`ZTU`]**   | `A0` | `A1` | `B1` | `B4` | `B5` | `B6` | `B7` | `C0` | `C1` | `C2` | `C3` | `C4` | `D2` | `D3` | `D4` | `D7` |
-| **[`ZT3L`]**  | `A0` |      | `B1` | `B4` | `B5` |      | `B7` | `C0` |      | `C2` | `C3` | `C4` | `D2` |      | `D4` | `D7` |
-| **[`ZT2S`]**  |      |      | `B1` | `B4` | `B5` |      | `B7` |      |      | `C2` | `C3` | `C4` | `D2` |      |      |      |
-| **[`ZT2Sᶠ`]** | `A0` | `A1` | `B1` | `B4` | `B5` |      |      |      |      |      |      |      | `D2` | `D3` | `D7` |      |
+- Tuya usually packages the Zigbee chips in more accessible modules:  
+**[`ZTU`]** **[`ZT3L`]** **[`ZT2S`]** **[`ZT2Sᶠ`]** **[`ZS3L`]**
 
-If you want to **guess the pinout** after flashing (brute-force):  
-⤷ **Assign the unused pins**: `A2`, `A3`, `A4`, `A5`, `A6`, `A7`, `B0`, `B2`, `B3`, `C5`, `C6`, `C7`, `D0`, `D1`, `D5`, `D6`
+- **Their diagrams are available in [`docs/pinouts/`](../pinouts/)**  
+(with some improvements over Tuya docs)
 
-#### Diagrams
-
-<p>
-<img src="../pinouts/ZTU_front.png" align="top" width="21%">
-<img src="../pinouts/ZTU_back.png" align="top" width="21%">
-<img src="../pinouts/ZT3L_front.png" align="top" width="21%">
-<img src="../pinouts/ZT3L_back.png" align="top" width="21%">
-</p>
-<p>
-<img src="../pinouts/ZT2S_real_front.png" align="top" width="21%">
-<img src="../pinouts/ZT2S_real_back.png" align="top" width="21%">
-<img src="../pinouts/ZT2S_fake_front.png" align="top" width="21%">
-<img src="../pinouts/ZT2S_fake_back.png" align="top" width="21%">
-</p>
+- Tip: you can temporarily assign unused pins (e.g. C6, C7, D5, D6)
 
 ### Config string
 
-The next step is filling the device config string for the database entry.
+The next step is preparing the *device config string* for the database entry.
 
 **Format**:  
 ⤷ `<new manufacturer>;<new model>;<pin setup 1>;<pin setup 2>;...;<pin setup n>;`  
 
-**Minimum example** (1-gang module with LED on `A2`, switch on `A3` and relay on `A4`):  
+**Simple example** (1-gang module with LED on `A2`, switch on `A3` and relay on `A4`):  
 ⤷ `ljasd9as;TS0001-ABC;LA2;SA3u;RA4;`  
 
 **Complex example** (2-gang switch with bi-stable relays):  
@@ -106,25 +90,25 @@ The next step is filling the device config string for the database entry.
 |--------:|---------------|-------------------------------------------------------------------------------------|
 | **`B`** | Reset button  | • Puts device in pairing                                                            |
 | **`L`** | Network led   | • Blinks while pairing <br> • Is the backlight sometimes                            |
-| **`S`** | Switch        | • User input <br> • Tactile, touch or external button (wire) <br> • Spam to put in pairing mode |
-| **`R`** | Relay         | • Non-latching: `RC1` - 1 pin - toggle <br> • Latching: `RC2C3` - 2 pins - on, off  |                                               |
+| **`S`** | Switch        | • User input <br> • Tactile/touch button or external switch <br> • Spam to put in pairing mode |
+| **`R`** | Relay / Triac | • Output <br> • Non-latching: `RC1` - 1 pin: toggle <br> • Latching: `RC2C3` - 2 pins: on, off  |                                               |
 | **`I`** | Indicator LED | • 1 per relay, follows state <br> • Blinks while pairing if there is no network led |
 
-For buttons (`B`) and switches (`S`), the next character determines the pull-up/down resistor:  
-⤷ **`u`: up 10K**, `U`: up 1M, `d`: down 100K, `f`: float  
+For buttons (`B`) and switches (`S`), the next character chooses the internal pull-up/down resistor:  
+⤷ **`u`: up 10K**, `U`: up 1M, `d`: down 100K, `f`: float (external resistor)  
 
-99% of the time, pressing the button bridges the GPIO pin to Ground (active low).  
-⤷ So we need a pull-up resistor `u` to hold it at VCC (high) while not pressed.
+Usually, pressing the button bridges the GPIO pin to Ground (active low).  
+⤷ So we need a pull-up resistor `u`: to hold it at VCC (high) while not-pressed.
 
 For LEDs, add `i` to invert the state.
 
 Additional options: 
 | Format       | Option     | Function                                                                  |
 |-------------:|------------|---------------------------------------------------------------------------|
-| **`i00000`** | Image type | • Change OTA image_type (migrate to another build)                        |
+| **`i00000`** | Image type | • Change OTA imageType (migrate to another build)                        |
 | **`M`**      | Momentary  | • Defaults buttons to momentary mode (for devices with built-in switches) |
 
-*In Z2M, update the config with different pins until the device works properly.*   
+*In Z2M, you can update the config with different pins until the device works properly.*
 
 ## Build and install
 
@@ -132,7 +116,8 @@ Additional options:
 [device_db_explained.md]: ./device_db_explained.md
 [building.md]: ./building.md
 
-1. Fork the repository and add an entry to [`device_db.yaml`]. *Remove other devices to build faster.*   
+1. Fork the repository and add an entry to [`device_db.yaml`].  
+*Remove other devices to build faster (or use build: no).*   
 Follow [device_db_explained.md] and validate with `device_db.schema.json` (e.g. YAML VSCode extension).  
 
 2. Visit GitHub Actions on your fork (web) and run `build.yml`. More info: [building.md]
