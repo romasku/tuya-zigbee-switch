@@ -4,6 +4,10 @@ import pytest
 
 from tests.client import StubProc
 from tests.conftest import Device, RelayButtonPair
+from tests.test_network_join import (
+    HAL_ZIGBEE_NETWORK_JOINED,
+    HAL_ZIGBEE_NETWORK_NOT_JOINED,
+)
 from tests.zcl_consts import (
     ZCL_ATTR_ONOFF,
     ZCL_ATTR_ONOFF_INDICATOR_MODE,
@@ -182,6 +186,47 @@ def test_indicator_mode_manual_controlled(indicator_device: Device) -> None:
         ZCL_CLUSTER_ON_OFF,
         ZCL_ATTR_ONOFF_INDICATOR_STATE,
         "0",
+    )
+    assert not indicator_device.get_gpio("A1")
+
+
+def _toggle_network(indicator_device: Device) -> None:
+    indicator_device.set_network(HAL_ZIGBEE_NETWORK_NOT_JOINED)
+    indicator_device.step_time(500)
+    indicator_device.set_network(HAL_ZIGBEE_NETWORK_JOINED)
+    indicator_device.step_time(500)
+
+
+def test_indicator_mode_restored_after_network_loss(indicator_device: Device) -> None:
+    relay_endpoint = 2
+
+    indicator_device.write_zigbee_attr(
+        relay_endpoint,
+        ZCL_CLUSTER_ON_OFF,
+        ZCL_ATTR_ONOFF_INDICATOR_MODE,
+        ZCL_ONOFF_INDICATOR_MODE_SAME,
+    )
+    indicator_device.zcl_relay_on(relay_endpoint)
+
+    _toggle_network(indicator_device)
+
+    assert indicator_device.get_gpio("A1")
+    assert (
+        indicator_device.read_zigbee_attr(
+            relay_endpoint, ZCL_CLUSTER_ON_OFF, ZCL_ATTR_ONOFF_INDICATOR_STATE
+        )
+        == "1"
+    )
+
+    indicator_device.zcl_relay_off(relay_endpoint)
+
+    _toggle_network(indicator_device)
+
+    assert (
+        indicator_device.read_zigbee_attr(
+            relay_endpoint, ZCL_CLUSTER_ON_OFF, ZCL_ATTR_ONOFF_INDICATOR_STATE
+        )
+        == "0"
     )
     assert not indicator_device.get_gpio("A1")
 

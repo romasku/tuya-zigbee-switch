@@ -6,6 +6,11 @@
 
 ### New features:
 
+### Bug Fixes
+
+- Fixed device freeze when long_press_duration set to 0.
+- Properly restore indicator state after end device re-joins
+
 ## v1.1.1
 
 This release is a bug-fix update for version 1.1.0.
