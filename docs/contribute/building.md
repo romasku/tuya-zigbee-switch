@@ -10,7 +10,7 @@ Building consists of multiple steps:
 6. generating new index files
 7. updating Z2M converters (for old and new Z2M versions)
 8. updating ZHA quirks
-9. updating [devices/supported.md](/docs/devices/supported.md)
+9. updating [supported_devices.md](/docs/supported_devices.md)
 10. (manual) updating [changelog_fw.md](/docs/changelog_fw.md)
 11. running unit tests (automated on push and merge)
 12. (online) freezing OTA links
@@ -92,7 +92,7 @@ They can easily be adapted for other distributions. (Please share your scripts)
 | `make silabs/install`                 | Flash firmware to connected device                        |
 | `make tools/update_converters`        | Generate Zigbee2MQTT converters                           |
 | `make tools/update_zha_quirk`         | Generate ZHA quirks                                       |
-| `make tools/update_supported_devices` | Update [devices/supported.md](/docs/devices/supported.md) |
+| `make tools/update_supported_devices` | Update [supported_devices.md](/docs/supported_devices.md) |
 | `make tools/freeze_ota_links`         | Replace branch refs with commit IDs in OTA indexes        |
 | `make tools/clean_z2m_index`          | Clear Zigbee2MQTT OTA index files                         |
 

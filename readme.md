@@ -7,7 +7,7 @@
 
 Feature-rich custom firmware for Telink/Silabs Zigbee switches, modules, sockets
 
-- Already **60+** [devices/supported.md](/docs/devices/supported.md)
+- Already **60+** [supported_devices.md](/docs/supported_devices.md)
 - Port new devices: [contribute/porting.md](/docs/contribute/porting.md)
 
 ## 🤔 Why?
@@ -36,7 +36,7 @@ Users also consider this _the missing piece of a reliable smart home,_ because i
 
 ## 📲 Flashing
 
-If your device is already on [devices/supported.md](/docs/devices/supported.md), the firmware can be **installed and updated**:
+If your device is already on [supported_devices.md](./docs/supported_devices.md), the firmware can be **installed and updated**:
 
 - wirelessly on Z2M / ZHA: [updating.md](/docs/updating.md)
 - by wire: [contribute/flashing_via_wire.md](/docs/contribute/flashing_via_wire.md)

@@ -25,7 +25,7 @@ Additionally, to use the new features, you must also **download and regularly up
 
 **Original fw ➡ custom fw:**
 
-1. Find your device on [devices/supported.md](./devices/supported.md) (Zigbee Manufacturer)
+1. Find your device on [supported_devices.md](./supported_devices.md) (Zigbee Manufacturer)
 2. Read [known_issues.md](./known_issues.md)
 3. Download the custom [# Quirks / Converters](#quirks--converters)
 4. Apply the preferred [# OTA index](#ota-index) (not FORCE)
