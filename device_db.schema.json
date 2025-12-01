@@ -84,7 +84,7 @@
           "oneOf": [
             {
               "type": "string",
-              "enum": ["ZT2S", "ZTU", "ZT3L", "ZT2S_without_shield", "ZS3L", "none"]
+              "enum": ["ZT2S", "ZTU", "ZT3L", "ZT2S_without_shield", "ZS3L", "ZT5", "none"]
             },
             {"type": "null"}
           ],
