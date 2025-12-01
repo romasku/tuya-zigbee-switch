@@ -68,8 +68,7 @@ There are multiple safe ways to obtain the pinout:
 - Tuya usually packages the Zigbee chips in more accessible modules:  
 **[`ZTU`]** **[`ZT3L`]** **[`ZT2S`]** **[`ZT2Sᶠ`]** **[`ZS3L`]**
 
-- **Their diagrams are available in [`docs/pinouts/`](../pinouts/)**  
-(with some improvements over Tuya docs)
+- **See [diagrams/](../diagrams/)** (some improvements over Tuya docs)
 
 - Tip: you can temporarily assign unused pins (e.g. C6, C7, D5, D6)
 
