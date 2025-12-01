@@ -1,11 +1,10 @@
 # Supported devices
 
-> [!IMPORTANT]  
-> Tuya devices share model names.  
-> **Identify your device by Zigbee Manufacturer.** *Do not install if it does not match!*  
+### Quick-picks
+- **modules:** AVATTO, Aubess, iHseno
+- **switches:** BSEED, Moes
 
-To support a new device, read [contribute/porting.md](/docs/contribute/porting.md) and ask for help.  
-**Also read:** [recommended.md](./recommended.md) & [not_recommended.md](./not_recommended.md)  
+Support new devices: [contribute/porting.md](/docs/contribute/porting.md)  
 
 ### Legend
 
@@ -19,20 +18,20 @@ To support a new device, read [contribute/porting.md](/docs/contribute/porting.m
 |   🏭   | MCU      | `TL` Telink        | `SL` Silicon Labs    |                    |                |           |
 |   🅰    | Variant  | 🅰                  | 🅱                    | 🅲                  | 🅳              | 🅴         |
 
-> [!NOTE]  
-> Z2M pages are sometimes generic.  
-> ***Look up devices in the linked threads and store listings!***
-
 <!-------------------------------------------------------------------
-  This page (`supported.md`) is generated. 
+  `supported.md` is generated. 
   
   Do not edit it directly! Instead, edit:
   - `device_db.yaml`             - add or edit devices
   - `supported_devices.md.jinja` - update the template
   - `make_supported_devices.py`  - update generation script
 
-  Generate with: `make update_supported_devices`
+  Generate with: `make tools/update_supported_devices`
 -------------------------------------------------------------------->
+
+> [!IMPORTANT]  
+> Identify your device by **Zigbee Manufacturer** and linked threads/stores!  
+> *Z2M pages are sometimes generic.*
 
 ### Device list
 

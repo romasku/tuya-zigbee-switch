@@ -2,7 +2,7 @@
 
 # Porting  
 
-*Follow this guide if [devices/supported.md](/docs/devices/supported.md) does not include your device.* 
+*Follow this guide if [supported_devices.md](/docs/supported_devices.md) does not include your device.* 
 
 ### Steps
 1. Check compatibility
