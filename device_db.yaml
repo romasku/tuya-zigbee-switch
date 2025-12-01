@@ -1224,7 +1224,7 @@ MANHOT_SWITCH_2_TS0013:
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/197
   store: https://www.aliexpress.com/item/1005006877282435.html
 MHCOZY_TS0004:
-  human_name: MHCOZY TYWB 4ch-RF / ZG-005(-RF)
+  human_name: MHCOZY TYWB 4ch-RF / ZG-005(-RF) 🅰
   category: board
   power: mains
   neutral: required
@@ -1249,6 +1249,32 @@ MHCOZY_TS0004:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/130
   store: https://www.aliexpress.com/item/1005005457296054.html
+MHCOZY_TS0004_2:
+  human_name: MHCOZY TYWB 4ch-RF / ZG-005(-RF) 🅱
+  category: board
+  power: mains
+  neutral: required
+  device_type: router
+  tuya_model_name: TS0004
+  tuya_manufacturer_name: _TZ3000_u3oupgdy
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0004
+  override_z2m_device: TYWB 4ch-RF
+  tuya_module: ZT3L
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: u3oupgdy;TS0004-MC2;LC5i;SD7u;RD4;SC0u;RD2;SC6u;RB5;SB7u;RC2;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 45594
+  build: yes
+  status: in_progress
+  info: Dummy pins for LED and button3
+  threads: null
+  store: null
 MOES_SWITCHES_TS0011:
   human_name: Moes 1-gang switches (button or touch)
   category: switch
