@@ -1496,7 +1496,7 @@ NOVATO_TS0011:
   build: yes
   status: fully_supported
   info: Supported
-  threads: null
+  threads: https://github.com/romasku/tuya-zigbee-switch/pull/222
   store: https://novato.com.tr/urun/tuya-mini-zigbee-notrsuz-tek-cikisli-role/
 OXT_TS0002:
   human_name: OXT 2-gang
