@@ -1,3 +1,5 @@
+*Open the **Outline** (table of contents) from the top right.*  
+
 # 🛠️ Building
 
 Building consists of multiple steps:
@@ -19,7 +21,7 @@ The process is automated with scripts that you can run locally or online.
 
 > [!IMPORTANT]  
 > We currently generate a dedicated firmware binary **for each device**.  
-> The only difference between binaries is the **pre-defined config string** (device name and pinout).  
+> The only difference between binaries is the **pre-defined config string** (device name and pinout) + imageType.  
 > We are slowly moving towards a unified build **(with an empty config string)** where the user will have to select the appropriate config string.
 
 Below are explicit instructions for building, installing and contributing.
@@ -44,8 +46,8 @@ Two branches are recommended to avoid conflicts between generated files.
    - For wireless update, use the corresponding index in your OTA settings  
      (user + **build_branch** + device_type)
    - For wire update, get the binary file for your device  
-     (telink uses `bin/DEVICE_TYPE/BOARD/tlc_switch-X.Y.Z-<commit-hash>.bin`,
-     silabs uses `bin/DEVICE_TYPE/BOARD/tlc_switch-X.Y.Z-<commit-hash>.s37`)
+     - Telink: `bin/DEVICE_TYPE/BOARD/tlc_switch-X.Y.Z-<commit-hash>.bin`
+     - Silabs: `bin/DEVICE_TYPE/BOARD/tlc_switch-X.Y.Z-<commit-hash>.s37`
 
 10. Perform device update and test: [readme.md # Flashing](/readme.md#-flashing)
 11. Create a Pull Request (**code_branch** → **romasku/main**)

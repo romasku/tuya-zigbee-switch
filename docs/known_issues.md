@@ -11,7 +11,6 @@
 
 ## Bugs
 
-- ? Relay indicators sometimes go out-of-sync ([#38](https://github.com/romasku/tuya-zigbee-switch/issues/38))
 - End_device sleeping? ([#217](https://github.com/romasku/tuya-zigbee-switch/issues/217))
 
 ## Failed to read state of 'Switch' after reconnect 
@@ -24,7 +23,7 @@
 
 # ✅ Closed issues
 
-*Issues already fixed, only present on **old fw versions**.*
+*Some of the already already fixed issues, only present on **old fw versions**.*
 
 ## Custom config string bricks unit
 
