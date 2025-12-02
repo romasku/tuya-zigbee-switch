@@ -1472,6 +1472,32 @@ NOUS_TS0002:
   info: Needs pinout
   threads: null
   store: https://nous.technology/product/l13z.html
+NOVATO_TS000F_1:
+  human_name: NOVATO ZRM01
+  category: module
+  power: mains
+  neutral: required
+  device_type: router
+  tuya_model_name: TS000F
+  tuya_manufacturer_name: _TZ3000_hdc8bbha
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: QS-Zigbee-SEC01-U
+  override_z2m_device: null
+  tuya_module: ZTLC9
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: hdc8bbha;NovatoZRM01;BB4u;LC2;SC4f;RD2;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: null
+  tuya_image_type: null
+  firmware_image_type: 45595
+  build: yes
+  status: mostly_supported
+  info: RF daughterboard not supported
+  threads: https://github.com/romasku/tuya-zigbee-switch/pull/223
+  store: null
 NOVATO_TS0011:
   human_name: NOVATO ZNR01
   category: module
