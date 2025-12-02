@@ -19,17 +19,19 @@ Please describe what you are working on:
 
 ## v1.1.2
 
+*Bug-fix update*
+
 ### Bugs
 
 - **Fixed** 
   - Setting 'long press duration' to 0ms crashes device
   - Can't change device imageType in config string
   - Option 'Relay indicator - manual on' is not kept after reboot
-  - ? Relay indicators sometimes go out-of-sync ([#38](https://github.com/romasku/tuya-zigbee-switch/issues/38))
+  - Relay indicators sometimes go out-of-sync ([#38](https://github.com/romasku/tuya-zigbee-switch/issues/38))
 
 ## v1.1.1
 
-*Bug-fix update for previous version*
+*Critical bug-fix update for previous version*
 
 ### Changes
 
