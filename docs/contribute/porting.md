@@ -25,7 +25,7 @@ The firmware works on **Telink** (TLSR8258) and **Silabs** (EFR32MG21) microcont
 |                   | Telink                                      | Silabs                                        |
 |------------------:|---------------------------------------------|-----------------------------------------------|
 | Devices           | Most Tuya devices after 2023                | Some Tuya remotes, switches. All SONOFF, IKEA |
-| Tuya modules      | [ZT series]: ZTU, ZT2S, ZT3L                | [ZS series]: ZS3L                             |
+| Tuya modules      | [ZT series]: ZTU, ZT2S, ZT2Sᶠ, ZT3L, ZT5    | [ZS series]: ZS3L                             |
 | IEEE Address      | `0xa4c138xxxxxxxxxx`                        | Use 'MAC lookup' website                      |
 | Stock ➡ Custom FW | OTA [updating.md] or [flashing_via_wire.md] | [flashing_via_wire_silabs.md]                 |
 
@@ -64,9 +64,10 @@ There are multiple safe ways to obtain the pinout:
 [`ZT2S`]: https://developer.tuya.com/en/docs/iot/zt2s-module-datasheet?id=Kas9gdtath9p0
 [`ZT2Sᶠ`]: https://github.com/romasku/tuya-zigbee-switch/issues/6#issuecomment-2568045792
 [`ZS3L`]: https://developer.tuya.com/en/docs/iot/zs3l?id=K97r37j19f496
+[`ZT5`]: https://developer.tuya.com/en/docs/iot/ZT5-Module-Datasheet?id=Kan388vhu20ar
 
 - Tuya usually packages the Zigbee chips in more accessible modules:  
-**[`ZTU`]** **[`ZT3L`]** **[`ZT2S`]** **[`ZT2Sᶠ`]** **[`ZS3L`]**
+**[`ZTU`]** **[`ZT2S`]** **[`ZT2Sᶠ`]** **[`ZT3L`]** **[`ZS3L`]** **[`ZT5`]**
 
 - **See [diagrams/](../diagrams/)** (some improvements over Tuya docs)
 
