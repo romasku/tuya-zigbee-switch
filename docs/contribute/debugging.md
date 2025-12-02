@@ -1,8 +1,5 @@
 # Debugging
 
-[ZTU]: https://developer.tuya.com/en/docs/iot/ztu-module-datasheet?id=Ka45nl4ywgabp
-[ZT2S]: https://developer.tuya.com/en/docs/iot/zt2s-module-datasheet?id=Kas9gdtath9p0
-[ZT3L]: https://developer.tuya.com/en/docs/iot/zt3l-module-datasheet?id=Ka438n1j8nuvu
 [3D_model]: https://www.printables.com/model/763948-tuya-cbu-flashing-jig
 
 
@@ -12,7 +9,7 @@ It consists of adding **prints in the code** and building with the DEBUG flag en
 (See [`make_scripts/make_debug_single.sh`](/make_scripts/make_debug_single.sh).)  
 
 After you flash the debug build, the device will output messages to the **UART TX pin**.  
-The TX pin is usually shared with the B1 GPIO pin. Check the diagrams: [ZTU], [ZT2S], [ZT3L].  
+The TX pin is usually shared with the B1 GPIO pin. Check the [diagrams/](../diagrams/)  
 It is defined in [app_cfg.h](/src/app_cfg.h).  
 
 You can safely power and use the device with 3.3V DC from the programmer.  
