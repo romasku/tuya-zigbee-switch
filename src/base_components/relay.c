@@ -5,7 +5,7 @@
 #include <stddef.h>
 
 #ifndef RELAY_PULSE_MS
-#define RELAY_PULSE_MS 125
+#define RELAY_PULSE_MS 100
 #endif
 
 #ifndef PULSE_WAIT_END_MS
@@ -61,13 +61,9 @@ void relay_init(relay_t *relay) {
   relay->latching_task.arg = relay;
   hal_tasks_init(&relay->latching_task);
 
-  // switch off relay
-  if (!relay->off_pin) {
-    // Normal relay
-    hal_gpio_write(relay->pin, !relay->on_high);
-  } else {
-    // Bi-stable relay
-    hal_gpio_write(relay->pin, !relay->on_high);
+  // Turn off all pins
+  hal_gpio_write(relay->pin, !relay->on_high);
+  if (relay->off_pin) {
     hal_gpio_write(relay->off_pin, !relay->on_high);
   }
 }
@@ -99,9 +95,6 @@ void relay_off(relay_t *relay) {
     return;
   }
   printf("relay_off\r\n");
-
-  // Clear both pins
-  hal_gpio_write(relay->pin, !relay->on_high);
 
   relay->on = 0;
   if (!relay->off_pin) {
