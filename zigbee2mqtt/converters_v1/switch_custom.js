@@ -164,7 +164,9 @@ const romasku = {
                 const parts = value.slice(0, -1).split(';');  // Drop last ;
                 if (parts.length < 2) throw new Error("Model and/or manufacturer missing");
                 for (const part of parts.slice(2)) {
-                    if (part[0] == 'B' || part[0] == 'S') {
+                    if (part == 'SLP') {
+                        continue;   
+                    } if (part[0] == 'B' || part[0] == 'S') {
                         validatePin(part.slice(1,3));
                         if (!["u", "U", "d", "f"].includes(part[3])) {
                             throw new Error(`Pull up down ${part[3]} is invalid. Valid options are u, U, d, f`);
@@ -174,7 +176,7 @@ const romasku = {
                     } else if(part[0] == 'M') {
                         ;
                     } else if(part[0] == 'i') {
-                        ; // TODO: write validatetion
+                        ; // TODO: write validation
                     } else {
                         throw new Error(`Invalid entry ${part}. Should start with one of B, R, L, S, I`);
                     }
