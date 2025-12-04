@@ -11,7 +11,7 @@ avattoDefinitions = avattoDefinitions.definitions ?? avattoDefinitions;
 girierDefinitions = girierDefinitions.definitions ?? girierDefinitions;
 
 const definitions = [];
-const multiplePinoutsDescription = "WARNING! There are multiple known pinouts for the AVATTO ZSWM16 4gang! Before flashing custom firmware, it is recommended you disassemble the device and trace the board pinout. Please check https://github.com/romasku/tuya-zigbee-switch/tree/main/docs/devices/multiple_pinouts.md";
+const multiplePinoutsDescription = "WARNING! There are multiple known pinouts for the AVATTO ZWSM16 4gang! If the device is very very old, you may need the alt_config";
 
 const ota = require("zigbee-herdsman-converters/lib/ota");
 
