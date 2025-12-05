@@ -620,7 +620,7 @@ BSEED_TOUCH_2_TS0012:
   tuya_module: ZTU
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: xk5udnd6;Bseed-2-gang-2;LC3;SB5u;RC0B6;ID2;SD4u;RA1D7;ID3;M;
+  config_str: xk5udnd6;Bseed-2-gang-2;LC3;SB5u;RC0B6;ID2;SD4u;RA1D7;ID3;M;SLP
   alt_config_str: null
   old_manufacturer_names:
   - Bseed-2-gang-2
