@@ -1209,7 +1209,7 @@ MANHOT_SWITCH_1_TS0013:
   tuya_module: ZT3L
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: tqwydnqn;TS0013-MH;SC4u;RB4A0;ID2;SD7u;RD4B5;IC3;SB7u;RC0C2;IB1;M;
+  config_str: tqwydnqn;TS0013-MH;SC4u;RB4A0;ID2;SD7u;RD4B5;IC3;SB7u;RC0C2;IB1;M;SLP;
   alt_config_str: null
   old_manufacturer_names: null
   old_zb_models: null
@@ -1643,7 +1643,7 @@ QS_TS0012:
   tuya_module: ZTU
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: c4muk4ys;TS0012-QS;BB4u;LC2;SD2u;RA0B6;SC3u;RC0D7;
+  config_str: c4muk4ys;TS0012-QS;BB4u;LC2;SD2u;RA0B6;SC3u;RC0D7;SLP;
   alt_config_str: null
   old_manufacturer_names: null
   old_zb_models: null
@@ -2102,7 +2102,7 @@ ZEMISMART_SWITCH_1_TS0012:
   tuya_module: ZT3L
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: zmlunnhy;Zemi-2-gang;SC3U;RB5C4;IB7;SD2U;RC2D4;ID7;
+  config_str: zmlunnhy;Zemi-2-gang;SC3U;RB5C4;IB7;SD2U;RC2D4;ID7;SLP;
   alt_config_str: null
   old_manufacturer_names:
   - Zemi-2-gang
