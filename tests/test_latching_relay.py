@@ -100,39 +100,78 @@ def test_mutual_exclusion_between_pins(
         latching_device.step_time(200)  # Allow pulse to finish
 
 
-def test_mutual_exclusion_between_relays_all_on(
+@dataclass
+class PulseInfo:
+    pin: str
+    pulse_start_time: int
+    pulse_end_time: int | None
+
+    @property
+    def duration(self) -> int | None:
+        if self.pulse_end_time is None:
+            return None
+        return self.pulse_end_time - self.pulse_start_time
+
+
+class PulseTracker:
+    def __init__(self, gpios: list[str]) -> None:
+        self.pulses: list[PulseInfo] = []
+        self.current_time = 0
+        self.gpios = gpios
+
+    def reset(self) -> None:
+        self.pulses = []
+
+    def ended_pulses(self) -> list[PulseInfo]:
+        return [p for p in self.pulses if p.pulse_end_time is not None]
+
+    def active_pulses(self) -> list[PulseInfo]:
+        return [p for p in self.pulses if p.pulse_end_time is None]
+
+    def refresh(self, time_passed: int, device: Device) -> None:
+        self.current_time += time_passed
+        for pin in self.gpios:
+            pin_state = device.get_gpio(pin)
+            pulse = next(
+                (p for p in self.pulses if p.pin == pin and p.pulse_end_time is None),
+                None,
+            )
+            if pin_state is True and pulse is None:
+                # New pulse started
+                self.pulses.append(
+                    PulseInfo(
+                        pin=pin, pulse_start_time=self.current_time, pulse_end_time=None
+                    )
+                )
+            elif pin_state is False and pulse is not None:
+                # Pulse ended
+                pulse.pulse_end_time = self.current_time
+
+
+def test_mutual_exclusion_between_relays(
     latching_device: Device, pins_config: list[LatchingRelayTestConfig]
 ) -> None:
-    for cfg in pins_config:
-        latching_device.call_zigbee_cmd(cfg.ep, ZCL_CLUSTER_ON_OFF, 0x01)
+    def toggle_all_relays(cmd: int) -> None:
+        for cfg in pins_config:
+            latching_device.call_zigbee_cmd(cfg.ep, ZCL_CLUSTER_ON_OFF, cmd)
 
-    relays_activated = [False] * len(pins_config)
-    while not all(relays_activated):
-        for i, cfg in enumerate(pins_config):
-            if not relays_activated[i]:
-                if latching_device.get_gpio(cfg.on_pin) is True:
-                    relays_activated[i] = True
-        assert count_pins_high(latching_device, pins_config) <= 1
-        latching_device.step_time(10)
+    tracker = PulseTracker(
+        gpios=[cfg.on_pin for cfg in pins_config] + [cfg.off_pin for cfg in pins_config]
+    )
 
+    for iteration in range(10):
+        tracker.reset()
+        toggle_all_relays(0x01 if iteration % 2 == 0 else 0x00)
+        tracker.refresh(0, latching_device)
 
-def test_mutual_exclusion_between_relays_all_off(
-    latching_device: Device, pins_config: list[LatchingRelayTestConfig]
-) -> None:
-    for cfg in pins_config:
-        latching_device.call_zigbee_cmd(cfg.ep, ZCL_CLUSTER_ON_OFF, 0x00)
+        while len(tracker.ended_pulses()) < len(pins_config):
+            latching_device.step_time(10)
+            tracker.refresh(10, latching_device)
+            assert len(tracker.active_pulses()) <= 1
 
-    relays_activated = [False] * len(pins_config)
-    time_passed = 0
-    while not all(relays_activated):
-        for i, cfg in enumerate(pins_config):
-            if not relays_activated[i]:
-                if latching_device.get_gpio(cfg.off_pin) is True:
-                    relays_activated[i] = True
-        assert count_pins_high(latching_device, pins_config) <= 1
-        latching_device.step_time(10)
-        time_passed += 10
-    assert time_passed > 200  # Longer than a single pulse
+        for pulse in tracker.ended_pulses():
+            assert pulse.duration is not None
+            assert 80 <= pulse.duration <= 120
 
 
 def test_mutual_no_exclusion_between_relays_all_on(
@@ -149,4 +188,4 @@ def test_mutual_no_exclusion_between_relays_all_on(
                     relays_activated[i] = True
         latching_simultenious_device.step_time(10)
         time_passed += 10
-    assert time_passed <= 200  # No longer than a single pulse
+    assert time_passed <= 120  # No longer than a single pulse
