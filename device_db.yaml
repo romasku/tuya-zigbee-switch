@@ -592,7 +592,7 @@ BSEED_TOUCH_1_TS0012:
   tuya_module: ZTU
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: f2slq5pj;Bseed-2-gang;SB6u;RD3;IC2;SA1u;RC0;IB4;M;
+  config_str: f2slq5pj;Bseed-2-gang;LC3;SB6u;RD3;IC2;SA1u;RC0;IB4;M;
   alt_config_str: null
   old_manufacturer_names:
   - Bseed-2-gang
@@ -602,8 +602,8 @@ BSEED_TOUCH_1_TS0012:
   tuya_image_type: 54179
   firmware_image_type: 43534
   build: yes
-  status: mostly_supported
-  info: Pin C3 disables both LEDs ?
+  status: fully_supported
+  info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/pull/23
   store: null
 BSEED_TOUCH_2_TS0012:
