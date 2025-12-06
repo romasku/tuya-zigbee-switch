@@ -97,7 +97,15 @@ build: drop-old-files build-firmware generate-ota-files update-indexes
 # Build the firmware for the specified board
 build-firmware:
 ifeq ($(PLATFORM_PREFIX),silabs)
-	$(MAKE) silabs/gen
+	$(MAKE) silabs/gen \
+		VERSION_STR=$(VERSION_STR) \
+		NVM_MIGRATIONS_VERSION=$(NVM_MIGRATIONS_VERSION) \
+		FILE_VERSION=$(FILE_VERSION) \
+		DEVICE_TYPE=$(DEVICE_TYPE) \
+		CONFIG_STR="$(CONFIG_STR)" \
+		IMAGE_TYPE=$(FIRMWARE_IMAGE_TYPE) \
+		BIN_FILE=../../$(BIN_FILE) \
+		MCU=$(MCU) 
 endif
 ifeq ($(PLATFORM_PREFIX),telink)
 	$(MAKE) telink/clean

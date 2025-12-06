@@ -1,7 +1,7 @@
 #include "hal/zigbee.h"
 
 #include "app/framework/include/af.h"
-#include "app/framework/plugin/ota-client/ota-client.h"
+// #include "app/framework/plugin/ota-client/ota-client.h"
 #include "network-steering.h"
 #include <stddef.h>
 #include <string.h>
