@@ -631,7 +631,7 @@ BSEED_TOUCH_2_TS0012:
   firmware_image_type: 43544
   build: yes
   status: mostly_supported
-  info: Higher power draw (Wrong bi-stable relay implementation)
+  info: Bi-stable relays implementation needs confirmation
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/51
   store: https://www.aliexpress.com/item/1005003324697513.html
 BSEED_TOUCH_3_TS0012:
@@ -1235,7 +1235,7 @@ MANHOT_SWITCH_1_TS0013:
   tuya_module: ZT3L
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: tqwydnqn;TS0013-MH;SC4u;RB4A0;ID2;SD7u;RD4B5;IC3;SB7u;RC0C2;IB1;M;SLP;
+  config_str: tqwydnqn;TS0013-MH;SC4u;RB4A0;ID2;SD7u;RD4B5;IC3;SB7u;RC0C2;IB1;M;
   alt_config_str: null
   old_manufacturer_names: null
   old_zb_models: null
@@ -1243,8 +1243,8 @@ MANHOT_SWITCH_1_TS0013:
   tuya_image_type: 54179
   firmware_image_type: 43550
   build: no
-  status: in_progress
-  info: Bi-stable relays not implemented + can't toggle multiple relays at once
+  status: mostly_supported
+  info: Bi-stable relays implementation needs confirmation
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/128
   store:
   - https://www.aliexpress.com/item/1005008300010160.html
@@ -1704,7 +1704,7 @@ QS_TS0012:
   firmware_image_type: 45590
   build: yes
   status: mostly_supported
-  info: Bi-stable relays
+  info: Bi-stable relays implementation needs confirmation
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/144
   store: https://www.aliexpress.com/item/1005008663303208.html?sku_id=12000046146359997
 TUYA_SWITCH_TS0001:
@@ -2164,8 +2164,8 @@ ZEMISMART_SWITCH_1_TS0012:
   tuya_image_type: 54179
   firmware_image_type: 43536
   build: yes
-  status: in_progress
-  info: Wait for bi-stable relay fix!
+  status: mostly_supported
+  info: Bi-stable relays implementation needs confirmation
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/19
   store: null
 ZEMISMART_SWITCH_2_TS0012:
