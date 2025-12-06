@@ -1576,6 +1576,32 @@ NOVATO_TS000F_1:
   info: RF daughterboard not supported
   threads: https://github.com/romasku/tuya-zigbee-switch/pull/223
   store: null
+NOVATO_TS000F_2:
+  human_name: NOVATO ZRM02
+  category: module
+  power: mains
+  neutral: required
+  device_type: router
+  tuya_model_name: TS000F
+  tuya_manufacturer_name: _TZ3000_m8f3z8ju
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: QS-Zigbee-SEC02-U
+  override_z2m_device: null
+  tuya_module: ZTLC9
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: m8f3z8ju;NovatoZRM02;BC3u;LC4;SC2f;RB5;SB4f;RD2;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: null
+  tuya_image_type: null
+  firmware_image_type: 45628
+  build: yes
+  status: mostly_supported
+  info: RF daughterboard not supported
+  threads: https://github.com/romasku/tuya-zigbee-switch/pull/231
+  store: https://novato.com.tr/urun/tuya-mini-zigbee-iki-cikisli-akilli-role/
 NOVATO_TS0011:
   human_name: NOVATO ZNR01
   category: module
