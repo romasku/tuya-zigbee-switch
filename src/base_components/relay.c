@@ -19,19 +19,6 @@ static relay_t *pulse_relay = NULL;
 static void relay_start_latching_pulse(relay_t *relay);
 static void relay_end_latching_pulse(relay_t *relay);
 
-static void relay_end_latching_pulse_handler(void *arg);
-static void relay_start_latching_pulse_handler(void *arg);
-
-static void relay_end_latching_pulse_handler(void *arg) {
-  printf("relay_clear_handler %d\r\n", arg);
-  relay_end_latching_pulse((relay_t *)arg);
-}
-
-static void relay_start_latching_pulse_handler(void *arg) {
-  printf("relay_start_handler\r\n");
-  relay_start_latching_pulse((relay_t *)arg);
-}
-
 static void relay_end_latching_pulse(relay_t *relay) {
   hal_gpio_write(relay->pin, !relay->on_high);
   hal_gpio_write(relay->off_pin, !relay->on_high);
@@ -48,11 +35,11 @@ static void relay_start_latching_pulse(relay_t *relay) {
     // Start new pulse
     hal_gpio_write(pin, relay->on_high);
     pulse_relay = relay;
-    relay->latching_task.handler = relay_end_latching_pulse_handler;
+    relay->latching_task.handler = (task_handler_t)relay_end_latching_pulse;
     hal_tasks_schedule(&relay->latching_task, RELAY_PULSE_MS);
   } else {
     printf("relay_start_latching_pulse: another pulse is active\r\n");
-    relay->latching_task.handler = relay_start_latching_pulse_handler;
+    relay->latching_task.handler = (task_handler_t)relay_start_latching_pulse;
     hal_tasks_schedule(&relay->latching_task, PULSE_WAIT_END_MS);
   }
 }
@@ -98,7 +85,7 @@ void relay_off(relay_t *relay) {
 
   relay->on = 0;
   if (!relay->off_pin) {
-    // Normal relay
+    // Normal relay:  drive continuously
     hal_gpio_write(relay->pin, !relay->on_high);
   } else {
     // Bi-stable relay

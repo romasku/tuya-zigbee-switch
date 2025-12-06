@@ -1,0 +1,43 @@
+project_name: bootloader
+package: bootloader
+quality: production
+label: Bootloader - SPI Flash Storage (1MB SPI flash)
+description: >
+  This sample configuration of the Gecko bootloader configures the bootloader to use the internal main flash to store firmware update images. The storage configuration is set up to store a single firmware update image at a time, in a single storage slot. The storage slot is configured to start at address 0x5C000 (or 0x805C000 for device with 0x8000000 flash base), and have a size of 368 kB. This can be configured on the "Storage" tab.
+
+category: Example|Bootloader
+filter:
+  - name: "Device Type"
+    value: ["SoC"]
+  - name: "Project Difficulty"
+    value: ["Advanced"]
+  - name: "MCU"
+    value: ["Bootloader"]
+
+
+component:
+  - id: bootloader_core
+  - id: bootloader_crc
+  - id: bootloader_aes_sha_ecdsa
+  - id: bootloader_delay_driver
+  - id: bootloader_image_parser
+  - id: bootloader_common_storage
+  - id: bootloader_token_management
+  - id: bootloader_spiflash_storage_sfdp
+  - id: bootloader_spi_controller_driver 
+  - id: bootloader_debug
+  - id: bootloader_compression_lzma
+config_file:
+  - override:
+      component: bootloader_spi_controller_usart_driver
+      file_id: btl_spi_controller_usart_driver_cfg
+    path: ../../silabs/config/btl_spi_controller_usart_driver_cfg.h
+configuration:
+  - name: BTL_STORAGE_BASE_ADDRESS
+    value: 0
+  - name: SLOT0_ENABLE
+    value: 1
+  - name: SLOT0_START
+    value: 0
+  - name: SLOT0_SIZE
+    value: 1048576

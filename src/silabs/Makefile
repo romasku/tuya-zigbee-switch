@@ -10,23 +10,33 @@ VERSION_STR ?= 0.0.0
 FILE_VERSION ?= 0
 NVM_MIGRATIONS_VERSION ?= $(shell cat ../../NVM_MIGRATIONS_VERSION 2>/dev/null || echo "1")
 DEBUG ?= 0
-
+MCU ?= EFR32MG21A020F768IM32
 
 DEVICE_TYPE ?= router
-CONFIG_STR ?= mrduubod;Moes-4-gang;SA0u;RA4;IA6;SA3u;RC0;IA5;SB0u;RC1;IC2;SB1u;RD1;ID0;M;
+CONFIG_STR ?= mrduubod;Moes-4-gang;SA6u;RA4A5;LC5i;
 MANUFACTURER_ID = 4169  # 0x1049, can be overridden via .zap file only
 IMAGE_TYPE ?= 54179
 OTA_VERSION ?= 
 OTA_MANUFACTURER_ID ?= ${MANUFACTURER_ID}
 OTA_IMAGE_TYPE ?= ${IMAGE_TYPE}
 
-EXTRA_C_DEFS = \
-    -DFILE_VERSION=$(FILE_VERSION) \
-	-DVERSION_STR="$(VERSION_STR)" \
-	-DNVM_MIGRATIONS_VERSION=$(NVM_MIGRATIONS_VERSION) \
-	-DDEFAULT_CONFIG="$(CONFIG_STR)" \
-	-DIMAGE_TYPE=$(IMAGE_TYPE) \
-	-DHAL_SILABS 
+
+BOOTLOADER_TYPE ?= internal
+
+# Build configuration as comma-separated list
+empty :=
+space := $(empty) $(empty)
+comma := ,
+
+CONFIG_ITEMS := \
+	SL_ZIGBEE_AF_PLUGIN_OTA_CLIENT_POLICY_FIRMWARE_VERSION:$(FILE_VERSION) \
+	SL_ZIGBEE_AF_PLUGIN_OTA_CLIENT_POLICY_IMAGE_TYPE_ID:$(IMAGE_TYPE) \
+	VERSION_STR:"$(VERSION_STR)" \
+	NVM_MIGRATIONS_VERSION:$(NVM_MIGRATIONS_VERSION) \
+	DEFAULT_CONFIG:"$(CONFIG_STR)"
+
+EXTRA_CONFIGURATION := $(subst $(space),$(comma),$(strip $(CONFIG_ITEMS)))
+
 
 # Default target
 help:
@@ -77,14 +87,19 @@ tools/%:
 ZIGBEE_BUILD_DIR := ../../build/silabs/zigbee
 ZIGBEE_PROJECT_NAME := zigbee
 ifeq ($(DEVICE_TYPE), router)
-	PROJECT_FILE = zigbee.slcp
+	PROJECT_FILE = slcp_files/zigbee.slcp
 endif
 ifeq ($(DEVICE_TYPE), end_device)
-	PROJECT_FILE = zigbee_end_device.slcp
+	PROJECT_FILE = slcp_files/zigbee_end_device.slcp
 endif
 BOOTLOADER_BUILD_DIR := ../../build/silabs/bootloader
 BOOTLOADER_PROJECT_NAME := bootloader
-BOOTLOADER_PROJECT_FILE := bootloader.slcp
+ifeq ($(BOOTLOADER_TYPE), internal)
+	BOOTLOADER_PROJECT_FILE := slcp_files/bootloader.slcp
+endif
+ifeq ($(BOOTLOADER_TYPE), spiflash)
+	BOOTLOADER_PROJECT_FILE := slcp_files/bootloader_spiflash.slcp
+endif
 
 # Files:
 OTA_FILE ?= $(ZIGBEE_BUILD_DIR)/build/release/$(ZIGBEE_PROJECT_NAME)_ota.bin
@@ -115,22 +130,16 @@ gen:
 		-np -nocp \
 		-d "$(ZIGBEE_BUILD_DIR)" \
 		-name $(ZIGBEE_PROJECT_NAME) \
-		--with EFR32MG21A020F768IM32 \
+		--with $(MCU) \
 		$(WITHOUT_COMPONENTS) \
 		$(WITH_COMPONENTS) \
 		--toolchain=gcc \
-		--output-type=makefile
-	
-	# Add support for extra C defines
-	@echo "" >> $(ZIGBEE_BUILD_DIR)/$(ZIGBEE_PROJECT_NAME).Makefile
-	@echo "# Support for additional C defines" >> $(ZIGBEE_BUILD_DIR)/$(ZIGBEE_PROJECT_NAME).Makefile
-	@echo "ifdef EXTRA_C_DEFS" >> $(ZIGBEE_BUILD_DIR)/$(ZIGBEE_PROJECT_NAME).Makefile
-	@echo "  C_DEFS += \$$(EXTRA_C_DEFS)" >> $(ZIGBEE_BUILD_DIR)/$(ZIGBEE_PROJECT_NAME).Makefile
-	@echo "endif" >> $(ZIGBEE_BUILD_DIR)/$(ZIGBEE_PROJECT_NAME).Makefile
+		--output-type=vscode,makefile \
+		--configuration $(EXTRA_CONFIGURATION)
 
 # Build targets
 build:
-	cd $(ZIGBEE_BUILD_DIR) && make -f $(ZIGBEE_PROJECT_NAME).Makefile -j32 release EXTRA_C_DEFS='$(EXTRA_C_DEFS)'
+	cd $(ZIGBEE_BUILD_DIR) && make -f $(ZIGBEE_PROJECT_NAME).Makefile -j32 release
 	@if ! cmp -s $(ZIGBEE_BUILD_DIR)/build/release/$(ZIGBEE_PROJECT_NAME).s37 $(BIN_FILE); then \
 		mkdir -p $(dir $(BIN_FILE)); \
 		cp $(ZIGBEE_BUILD_DIR)/build/release/$(ZIGBEE_PROJECT_NAME).s37 $(BIN_FILE); \
@@ -139,14 +148,13 @@ build:
 
 # Flash targets
 install:
-	$(COMMANDER_DIR)/commander-cli flash --device EFR32MG21A020F768IM32 $(ZIGBEE_BUILD_DIR)/build/release/$(ZIGBEE_PROJECT_NAME).s37
+	$(COMMANDER_DIR)/commander-cli flash --device $(MCU) $(ZIGBEE_BUILD_DIR)/build/release/$(ZIGBEE_PROJECT_NAME).s37
 
 # Device management
 erase_dev:
-	$(COMMANDER_DIR)/commander-cli device --device EFR32MG21A020F768IM32 masserase
-
+	$(COMMANDER_DIR)/commander-cli device --device $(MCU) masserase
 restart_dev:
-	$(COMMANDER_DIR)/commander-cli device --device EFR32MG21A020F768IM32 reset
+	$(COMMANDER_DIR)/commander-cli device --device $(MCU) reset
 
 
 ifdef OTA_VERSION
@@ -183,15 +191,15 @@ bootloader_gen:
 		-np -nocp \
 		-d "$(BOOTLOADER_BUILD_DIR)" \
 		-name $(BOOTLOADER_PROJECT_NAME) \
-		--with EFR32MG21A020F768IM32 \
+		--with $(MCU) \
 		--toolchain=gcc \
-		--output-type=makefile
+		--output-type=vscode,makefile
 
 bootloader_build: bootloader_gen
 	cd $(BOOTLOADER_BUILD_DIR) && make -f $(BOOTLOADER_PROJECT_NAME).Makefile -j32 release
 
 bootloader_install:
 	@echo "Flashing bootloader..."
-	$(COMMANDER_DIR)/commander-cli flash $(BOOTLOADER_BUILD_DIR)/build/release/$(BOOTLOADER_PROJECT_NAME).s37 --device EFR32MG21A020F768IM32
+	$(COMMANDER_DIR)/commander-cli flash $(BOOTLOADER_BUILD_DIR)/build/release/$(BOOTLOADER_PROJECT_NAME).s37 --device $(MCU)
 
 .PHONY: help tools/% gen build build_release install install_release erase_dev restart_dev bootloader_gen bootloader_build bootloader_install
