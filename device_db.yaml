@@ -592,7 +592,7 @@ BSEED_TOUCH_1_TS0012:
   tuya_module: ZTU
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: f2slq5pj;Bseed-2-gang;SB6u;RD3;IC2;SA1u;RC0;IB4;M;
+  config_str: f2slq5pj;Bseed-2-gang;LC3;SB6u;RD3;IC2;SA1u;RC0;IB4;M;
   alt_config_str: null
   old_manufacturer_names:
   - Bseed-2-gang
@@ -602,8 +602,8 @@ BSEED_TOUCH_1_TS0012:
   tuya_image_type: 54179
   firmware_image_type: 43534
   build: yes
-  status: mostly_supported
-  info: Pin C3 disables both LEDs ?
+  status: fully_supported
+  info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/pull/23
   store: null
 BSEED_TOUCH_2_TS0012:
@@ -630,12 +630,12 @@ BSEED_TOUCH_2_TS0012:
   tuya_image_type: 54179
   firmware_image_type: 43544
   build: yes
-  status: mostly_supported
-  info: Bi-stable relays implementation needs confirmation
+  status: fully_supported
+  info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/51
   store: https://www.aliexpress.com/item/1005003324697513.html
 BSEED_TOUCH_3_TS0012:
-  human_name: BSEED 2-gang touch switch (no neutral)
+  human_name: BSEED 2-gang touch switch 🅲
   category: switch
   power: mains
   neutral: without
@@ -1703,8 +1703,8 @@ QS_TS0012:
   tuya_image_type: 54179
   firmware_image_type: 45590
   build: yes
-  status: mostly_supported
-  info: Bi-stable relays implementation needs confirmation
+  status: fully_supported
+  info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/144
   store: https://www.aliexpress.com/item/1005008663303208.html?sku_id=12000046146359997
 TUYA_SWITCH_TS0001:
@@ -2154,7 +2154,7 @@ ZEMISMART_SWITCH_1_TS0012:
   tuya_module: ZT3L
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: zmlunnhy;Zemi-2-gang;SC3U;RB5C4;IB7;SD2U;RC2D4;ID7;SLP;
+  config_str: zmlunnhy;Zemi-2-gang;SC3U;RB5C4;IB7;SD2U;RC2D4;ID7;
   alt_config_str: null
   old_manufacturer_names:
   - Zemi-2-gang
