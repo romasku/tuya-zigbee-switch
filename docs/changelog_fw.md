@@ -7,12 +7,9 @@
 Please describe what you are working on:
 
 
+### Changes
 
-
-
-
-
-
+- Bi-stable (latching) relays have been reworked and now use proper pulses instead of continuously driving the coil.
 
 
 ------------------------------------------------------->
