@@ -217,10 +217,11 @@ CONFIGS = [
     "f2slq5pj;Bseed-2-gang-ED;SB6u;RD3;IC2;SA1u;RC0;IB4;M;",
     "Bseed-2-gang;Bseed-2-gang;SB6u;RD3;IC2;SA1u;RC0;IB4;M;",
     "Bseed-2-gang;Bseed-2-gang-ED;SB6u;RD3;IC2;SA1u;RC0;IB4;M;",
-    "xk5udnd6;Bseed-2-gang-2;LC3;SB5u;RC0B6;ID2;SD4u;RA1D7;ID3;M;",
-    "xk5udnd6;Bseed-2-gang-2-ED;LC3;SB5u;RC0B6;ID2;SD4u;RA1D7;ID3;M;",
-    "Bseed-2-gang-2;Bseed-2-gang-2;LC3;SB5u;RC0B6;ID2;SD4u;RA1D7;ID3;M;",
-    "Bseed-2-gang-2;Bseed-2-gang-2-ED;LC3;SB5u;RC0B6;ID2;SD4u;RA1D7;ID3;M;",
+    "xk5udnd6;Bseed-2-gang-2;LC3;SB5u;RC0B6;ID2;SD4u;RA1D7;ID3;M;SLP;",
+    "xk5udnd6;Bseed-2-gang-2-ED;LC3;SB5u;RC0B6;ID2;SD4u;RA1D7;ID3;M;SLP;",
+    "Bseed-2-gang-2;Bseed-2-gang-2;LC3;SB5u;RC0B6;ID2;SD4u;RA1D7;ID3;M;SLP;",
+    "Bseed-2-gang-2;Bseed-2-gang-2-ED;LC3;SB5u;RC0B6;ID2;SD4u;RA1D7;ID3;M;SLP;",
+    "e98krvvk;Bseed-2-gang-3;LC3;SB6u;RD3;IC2;SA1u;RC0;IB4;M;",
     "9akmi5ly;TS0001-CUS-T;LB4i;SC2u;RC3;ID2i;M;",
     "blhvsaqf;TS0001-BS-T;LC4;SC1u;RC3;IC2;M;",
     "cauq1okq;TS0002-CUS-T;LC4;SB5u;RC2;IB4i;SD2u;RC3;M;",
@@ -274,10 +275,11 @@ CONFIGS = [
     "Tuya-TS0003-custom;TS0003-custom;BD3u;SC1u;RB5;SD7u;RD4;SC3u;RB4;",
     "ruxexjfz;TS0002-NS;BB5u;LB4;SB7u;RD2;SB1u;RC3;",
     "hdc8bbha;NovatoZRM01;BB4u;LC2;SC4f;RD2;",
+    "m8f3z8ju;NovatoZRM02;BC3u;LC4;SC2f;RB5;SB4f;RD2;",
     "30jqysvd;NovatoZNR01;BB7u;LB1;SC2u;RB5;",
     "bvrlqyj7;TS0002-OXT-CUS;BD2u;LC0;SB4u;RC2;SB5u;RC3;",
     "TS0002-OXT-CUS;TS0002-OXT-CUS;BD2u;LC0;SB4u;RC2;SB5u;RC3;",
-    "c4muk4ys;TS0012-QS;BB4u;LC2;SD2u;RA0B6;SC3u;RC0D7;",
+    "c4muk4ys;TS0012-QS;BB4u;LC2;SD2u;RA0B6;SC3u;RC0D7;SLP;",
     "u6ocpapf;TS0001-CUS;LB1;SC3u;RD2;M;",
     "gbdxbmwz;TS0004-CUS;LB1;SC3u;RD2;SD7u;RB5;SC2u;RB4;SB7u;RC0;M;",
     "tqlv4ug4;TS0001-custom;BD2u;LC0;SB4u;RC2;",
@@ -306,10 +308,10 @@ CONFIGS = [
     "Tuya-TS0012-custom;TS0012-custom;BA0f;LD7;SC2f;RC0;SC3f;RB4;",
     "Tuya-TS0012-custom;TS0042-CUSTOM;BA0f;LD7;SC2f;RC0;SC3f;RB4;",
     "Tuya-TS0012-custom;TS0012-custom-end-device;BA0f;LD7;SC2f;RC0;SC3f;RB4;",
-    "zmlunnhy;Zemi-2-gang;SC3U;RB5C4;IB7;SD2U;RC2D4;ID7;",
-    "zmlunnhy;Zemi-2-gang-ED;SC3U;RB5C4;IB7;SD2U;RC2D4;ID7;",
-    "Zemi-2-gang;Zemi-2-gang;SC3U;RB5C4;IB7;SD2U;RC2D4;ID7;",
-    "Zemi-2-gang;Zemi-2-gang-ED;SC3U;RB5C4;IB7;SD2U;RC2D4;ID7;",
+    "zmlunnhy;Zemi-2-gang;SC3U;RB5C4;IB7;SD2U;RC2D4;ID7;SLP;",
+    "zmlunnhy;Zemi-2-gang-ED;SC3U;RB5C4;IB7;SD2U;RC2D4;ID7;SLP;",
+    "Zemi-2-gang;Zemi-2-gang;SC3U;RB5C4;IB7;SD2U;RC2D4;ID7;SLP;",
+    "Zemi-2-gang;Zemi-2-gang-ED;SC3U;RB5C4;IB7;SD2U;RC2D4;ID7;SLP;",
     "TUYA;DEV-ZTU2;LD7;SA0u;RC1;IB6;M;",
 ]
 
@@ -321,6 +323,8 @@ for config in CONFIGS:
     indicators_cnt = 0
     has_dedicated_net_led = False
     for peripheral in peripherals:
+        if peripheral == "SLP":
+            continue
         if peripheral[0] == "R":
             relay_cnt += 1
         if peripheral[0] == 'S':
