@@ -630,8 +630,8 @@ BSEED_TOUCH_2_TS0012:
   tuya_image_type: 54179
   firmware_image_type: 43544
   build: yes
-  status: mostly_supported
-  info: Bi-stable relays implementation needs confirmation
+  status: fully_supported
+  info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/51
   store: https://www.aliexpress.com/item/1005003324697513.html
 BSEED_TOUCH_3_TS0012:
