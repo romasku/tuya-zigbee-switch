@@ -635,7 +635,7 @@ BSEED_TOUCH_2_TS0012:
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/51
   store: https://www.aliexpress.com/item/1005003324697513.html
 BSEED_TOUCH_3_TS0012:
-  human_name: BSEED 2-gang touch switch (no neutral)
+  human_name: BSEED 2-gang touch switch 🅲
   category: switch
   power: mains
   neutral: without
@@ -1514,8 +1514,8 @@ MOES_2_TS0002:
   device_type: router
   tuya_model_name: TS0002
   tuya_manufacturer_name: _TZ3000_criiahcg
-  stock_converter_manufacturer: Tuya
-  stock_converter_model: null
+  stock_converter_manufacturer: Moes
+  stock_converter_model: ZM4LT2
   override_z2m_device: null
   tuya_module: ZT2S
   mcu_family: Telink
@@ -1929,6 +1929,7 @@ TUYA_3_TS0001:
   threads: 
   - https://github.com/romasku/tuya-zigbee-switch/issues/24
   - https://github.com/romasku/tuya-zigbee-switch/issues/80
+  - https://github.com/romasku/tuya-zigbee-switch/issues/219
   store: null
 TUYA_4_TS0001:
   human_name: Tuya 1-gang 🅳
