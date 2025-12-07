@@ -4,6 +4,10 @@
 #include "nvm_items.h"
 #include <string.h>
 
+#ifdef HAL_SILABS
+#include "silabs_config.h"
+#endif
+
 #ifndef STRINGIFY
 #define _STRINGIFY(x) #x
 #define STRINGIFY(x) _STRINGIFY(x)

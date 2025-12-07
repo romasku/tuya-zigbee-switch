@@ -2,6 +2,10 @@
 #include "hal/printf_selector.h"
 #include "nvm_items.h"
 
+#ifdef HAL_SILABS
+#include "silabs_config.h"
+#endif
+
 #define UNKNOWN_VERSION 0
 
 uint16_t read_version_in_nv() {

@@ -28,18 +28,11 @@ component:
   - id: bootloader_compression_lzma
 
 configuration:
+  - name: BTL_STORAGE_BASE_ADDRESS
+    value: 458752
   - name: SLOT0_ENABLE
     value: 1
   - name: SLOT0_SIZE
     value: 376832
-  ## device_sdid_200 ##
-  - name: BTL_STORAGE_BASE_ADDRESS
-    #value: 376832
-    value: 458752
-    condition: [device_sdid_200]
   - name: SLOT0_START
-    #value: 376832
     value: 458752
-    condition: [device_sdid_200]
-tag:
-  - hardware:device:flash:768

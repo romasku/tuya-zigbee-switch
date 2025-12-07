@@ -10,6 +10,10 @@
 #include "hal/tasks.h"
 #include <stddef.h>
 
+#ifdef HAL_SILABS
+#include "silabs_config.h"
+#endif
+
 const uint8_t zclVersion = 0x03;
 const uint8_t appVersion = 0x03;
 const uint8_t stackVersion = 0x02;
