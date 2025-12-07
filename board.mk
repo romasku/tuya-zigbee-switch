@@ -68,7 +68,7 @@ FIRMWARE_IMAGE_TYPE := $(shell yq -r .$(BOARD).firmware_image_type $(DEVICE_DB_F
 # ==============================================================================
 # Platform Configuration
 # ==============================================================================
-PLATFORM_PREFIX := $(if $(filter TLSR8258,$(MCU)),telink,silabs)
+PLATFORM_PREFIX := $(if $(filter TLSR%,$(MCU)),telink,silabs)
 
 # ==============================================================================
 # Path Variables
