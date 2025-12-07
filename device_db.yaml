@@ -1328,7 +1328,7 @@ MHCOZY_TS0004_2:
   threads: null
   store: null
 MOES_SWITCHES_TS0011:
-  human_name: Moes 1-gang switches (button or touch)
+  human_name: Moes 1-gang switches (all variants)
   category: switch
   power: mains
   neutral: optional
@@ -1355,10 +1355,12 @@ MOES_SWITCHES_TS0011:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/14
   store:
-  - https://www.aliexpress.com/item/1005005178075186.html
+  - https://moeshouse.com/collections/light-switch?gf_59186=ZigBee
   - https://moeshouse.com/collections/eu-star-ring
+  - https://www.aliexpress.com/item/1005005178075186.html
+  - https://www.aliexpress.com/item/1005005178430448.html
 MOES_SWITCHES_TS0012:
-  human_name: Moes 2-gang switches (buttons or touch)
+  human_name: Moes 2-gang switches (all variants)
   category: switch
   power: mains
   neutral: optional
@@ -1385,10 +1387,12 @@ MOES_SWITCHES_TS0012:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/14
   store:
-  - https://www.aliexpress.com/item/1005005178075186.html
+  - https://moeshouse.com/collections/light-switch?gf_59186=ZigBee
   - https://moeshouse.com/collections/eu-star-ring
+  - https://www.aliexpress.com/item/1005005178075186.html
+  - https://www.aliexpress.com/item/1005005178430448.html
 MOES_SWITCHES_TS0013:
-  human_name: Moes 3-gang switches (buttons or touch)
+  human_name: Moes 3-gang switches (all variants)
   category: switch
   power: mains
   neutral: optional
@@ -1415,10 +1419,12 @@ MOES_SWITCHES_TS0013:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/14
   store:
-  - https://www.aliexpress.com/item/1005005178075186.html
+  - https://moeshouse.com/collections/light-switch?gf_59186=ZigBee
   - https://moeshouse.com/collections/eu-star-ring
+  - https://www.aliexpress.com/item/1005005178075186.html
+  - https://www.aliexpress.com/item/1005005178430448.html
 MOES_SWITCHES_TS0014:
-  human_name: Moes 4-gang switches (buttons or touch)
+  human_name: Moes 4-gang switches (all variants)
   category: switch
   power: mains
   neutral: optional
@@ -1443,8 +1449,10 @@ MOES_SWITCHES_TS0014:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/14
   store:
-  - https://www.aliexpress.com/item/1005005178075186.html
+  - https://moeshouse.com/collections/light-switch?gf_59186=ZigBee
   - https://moeshouse.com/collections/eu-star-ring
+  - https://www.aliexpress.com/item/1005005178075186.html
+  - https://www.aliexpress.com/item/1005005178430448.html
 MOES_TS0002:
   human_name: Moes ZM-104B-M
   category: module
