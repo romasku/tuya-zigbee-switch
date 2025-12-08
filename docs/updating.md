@@ -7,7 +7,7 @@ This page describes **converting** and **updating** supported devices **wireless
 
 > [!CAUTION]  
 > The main branch is generally safe. However, bugs in the code **can brick your device**.  
-> - Recover / restore: [contribute/flashing_via_wire.md](/docs/contribute/flashing_via_wire.md).  
+> - Recover or restore: [flashing/](./flashing/)  
 > - Restoring the original FW requires a memory dump of the stock device: [`bin/_factory/`](../bin/_factory/)
 
 - To receive custom FW updates, your ZHA / Z2M instance must have a **custom OTA index** applied.  

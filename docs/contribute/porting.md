@@ -16,19 +16,18 @@
 [ZS series]: https://developer.tuya.com/en/docs/iot/zs-series-module?id=Kaiuyljrfi0wv
 [TYZS series]: https://developer.tuya.com/en/docs/iot/tyzs-series-module?id=Kaiuylr3s96a6
 [updating.md]: /docs/updating.md
-[flashing_via_wire.md]: ./flashing_via_wire.md
-[flashing_via_wire_silabs.md]: ./flashing_via_wire_silabs.md
+[flashing/]: ../flashing/
 [IEEE Address]: /docs/.images/screen_telink_mac.png
 
 The firmware works on **Telink** (TLSR82xx) and **Silabs** (EFR32MGxx) microcontrollers.  
 ⤷ Check the **[IEEE Address]** or open the device to identify the MCU.  
 
-|                   | Telink                                      | Silabs                                        |
-|------------------:|---------------------------------------------|-----------------------------------------------|
-| Devices           | Most Tuya devices after 2023                | Some Tuya remotes, switches. All SONOFF, IKEA |
-| Tuya modules      | [ZT series]                                 | [ZS series], [TYZS series]                    |
-| IEEE Address      | `0xa4c138xxxxxxxxxx`                        | Use *MAC lookup* website                      |
-| Stock ➡ Custom FW | OTA [updating.md] or [flashing_via_wire.md] | [flashing_via_wire_silabs.md]                 |
+|                   | Telink                                | Silabs                                                |
+|------------------:|---------------------------------------|-------------------------------------------------------|
+| Devices           | • Most Tuya devices after 2023        | • Some Tuya remotes, switches <br> • All SONOFF, IKEA |
+| Tuya modules      | [ZT series]                           | [ZS series], [TYZS series]                            |
+| IEEE Address      | `0xa4c138xxxxxxxxxx`                  | Use *MAC lookup* website                              |
+| Stock ➡ Custom FW | OTA [updating.md] or wire [flashing/] | wire [flashing/]                                      |
 
 ## Pinout
 

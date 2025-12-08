@@ -49,7 +49,7 @@ Two branches are recommended to avoid conflicts between generated files.
      - Telink: `bin/DEVICE_TYPE/BOARD/tlc_switch-X.Y.Z-<commit-hash>.bin`
      - Silabs: `bin/DEVICE_TYPE/BOARD/tlc_switch-X.Y.Z-<commit-hash>.s37`
 
-10. Perform device update and test: [readme.md # Flashing](/readme.md#-flashing)
+10. Perform device update and test: [flashing/](../flashing/)
 11. Create a Pull Request (**code_branch** ➡ **romasku/main**)
 12. Check the unit tests result
 
@@ -73,7 +73,7 @@ They can easily be adapted for other distributions. (Please share your scripts)
 5. Make changes
 6. Build with `make_scripts/make_all.sh` or `make_scripts/make_debug_single.sh`
 7. Run unit tests with `make tests`: [tests.md](./tests.md)
-8. Perform device update and test: [flashing_via_wire.md](./flashing_via_wire.md)
+8. Perform device update and test: [flashing/](../flashing/)
 9. Update `changelog_fw.md` (manual)
 10. Commit changes (without generated files) and push
 11. Create a Pull Request (**code_branch** ➡ **romasku/main**)
