@@ -69,7 +69,7 @@ Reverting to stock firmware is only possible via **wired flashing.**
 It additionally requires a **memory dump of the original device.**  
 *Some backups are available in [`bin/_factory/`](../bin/_factory/)*
 
-Follow the same steps outlined in [contribute/flashing_via_wire.md](/docs/contribute/flashing_via_wire.md), as you would for custom firmware.
+Follow the same steps outlined in [flashing/](./flashing/), as you would for custom firmware.
 
 </details>
 
@@ -79,6 +79,6 @@ How to recover an unresponsive device?
 </summary>
 <p></p>
 
-If your device does not join Z2M, and does not respond to commands or button-presses, the only way to bring it back is [contribute/flashing_via_wire.md](/docs/contribute/flashing_via_wire.md).
+If your device does not join Z2M, and does not respond to commands or button-presses, the only way to bring it back is [flashing/](./flashing/)
 
 </details>

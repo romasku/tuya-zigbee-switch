@@ -50,8 +50,7 @@ Users also consider this _the missing piece of a reliable smart home,_ because i
 If your device is already on [**supported_devices.md**](./docs/supported_devices.md), the firmware can be **installed**:
 
 - wirelessly on Z2M / ZHA (only Telink devices): [updating.md](./docs/updating.md)
-- by wire: [contribute/flashing_via_wire.md](./docs/contribute/flashing_via_wire.md)
-- by wire for silicon labs MCU: [contribute/flashing_via_wire_silabs.md](./docs/contribute/flashing_via_wire_silabs.md)
+- by wire: [flashing/](./docs/flashing/)
 
 Otherwise, check [contribute/porting.md](./docs/contribute/porting.md).
 
