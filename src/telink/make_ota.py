@@ -28,6 +28,7 @@ class OTAHeader:
     18      2       Zigbee Stack Version
     20      32      Header String
     52      4       Total Image Size
+    (little endian)
     """
 
     upgrade_file_identifier: int = ZIGBEE_OTA_MAGIC  # Zigbee OTA magic number

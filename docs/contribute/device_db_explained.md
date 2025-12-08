@@ -1,10 +1,7 @@
 # Device database
 
-Information about all supported devices is kept inside `device_db.yaml`.
-
-> [!TIP]  
-> That is the only file you need to edit for adding a new device  
-> that has a supported Zigbee module (ZTU, ZT2S, ZT3L)
+Information about all supported devices is kept inside [`device_db.yaml`](../../device_db.yaml).  
+⤷ the only file you need to edit for adding a new device (usually)
 
 [off_conv]: https://github.com/Koenkk/zigbee-herdsman-converters/tree/master/src/devices
 
