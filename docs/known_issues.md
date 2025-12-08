@@ -7,6 +7,7 @@
 ## Bugs
 
 - End_device sleeping? ([#217](https://github.com/romasku/tuya-zigbee-switch/issues/217))
+- Silabs version updates broken
 
 ## Failed to read state of 'Switch' after reconnect 
 
