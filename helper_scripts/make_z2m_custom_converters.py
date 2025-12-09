@@ -44,6 +44,8 @@ if __name__ == "__main__":
         indicators_cnt = 0
         has_dedicated_net_led = False
         for peripheral in peripherals:
+            if peripheral == "SLP":
+                continue
             if peripheral[0] == "R":
                 relay_cnt += 1
             if peripheral[0] == 'S':
