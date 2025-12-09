@@ -2163,7 +2163,7 @@ ZEMISMART_SWITCH_1_TS0012:
   tuya_module: ZT3L
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: zmlunnhy;Zemi-2-gang;SC3U;RB5C4;IB7;SD2U;RC2D4;ID7;
+  config_str: zmlunnhy;Zemi-2-gang;SC3u;RC2D4;IB7;SD2u;RB5C4;ID7;M;
   alt_config_str: null
   old_manufacturer_names:
   - Zemi-2-gang
