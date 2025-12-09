@@ -3,7 +3,7 @@
 # Updating OTA
 
 This page describes **converting** and **updating** supported devices **wirelessly.**  
-*Zigbee2MQTT is heavily recommended.*  
+***Zigbee2MQTT is heavily recommended.** ZHA can't re-interview and update pinouts.*
 
 > [!CAUTION]  
 > The main branch is generally safe. However, bugs in the code **can brick your device**.  
