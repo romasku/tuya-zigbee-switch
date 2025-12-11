@@ -735,7 +735,7 @@ BSEED_TOUCH_TS0002:
   firmware_image_type: 45578
   build: yes
   status: in_progress
-  info: Missing state indicator
+  info: Missing state indicators (specifc dimming implementation)
   threads: https://github.com/romasku/tuya-zigbee-switch/pull/188
   store: https://aliexpress.ru/item/4000086550778.html
 BSEED_TOUCH_TS0003:
@@ -981,6 +981,31 @@ GIRIER_TS0013:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/37
   store: null
+HOBEIAN_REMOTE_TS0044:
+  human_name: HOBEIAN ZG-101ZS
+  category: remote
+  power: CR2032
+  neutral: without
+  device_type: end_device
+  tuya_model_name: TS0044
+  tuya_manufacturer_name: _TZ3000_bgtzm4ny
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0044
+  override_z2m_device: ZG-101ZS
+  tuya_module: none
+  mcu_family: Telink
+  mcu: TLSR8253F512AT32
+  config_str: bgtzm4ny;TS0044-HOB;BA0u;BB1u;BD1u;BC0u;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 43570
+  build: no
+  status: in_progress
+  info: Huge battery drain! LEDs on D7, A1, C3, B6
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/237
 HOMMYN_TS0011:
   human_name: HOMMYN RLZBNN01
   category: module
@@ -1973,7 +1998,7 @@ TUYA_5_TS0001:
   override_z2m_device: ZG-301Z
   tuya_module: none
   mcu_family: Telink
-  mcu: TLSR8253
+  mcu: TLSR8253F512AT32
   config_str: ZG-301Z;TS0001-HOB;BB1u;LD4i;SB6u;RA1;
   alt_config_str: null
   old_manufacturer_names: null
