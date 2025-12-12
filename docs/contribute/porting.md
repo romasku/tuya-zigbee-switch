@@ -18,8 +18,9 @@
 [updating.md]: /docs/updating.md
 [flashing/]: ../flashing/
 [IEEE Address]: /docs/.images/screen_telink_mac.png
+[TLSR825x]: https://wiki.telink-semi.cn/wiki/chip-series/TLSR825x-Series/
 
-The firmware works on **Telink** (TLSR82xx) and **Silabs** (EFR32MGxx) microcontrollers.  
+The firmware works on **Telink** ([TLSR825x]) and **Silabs** (EFR32MGxx) microcontrollers.  
 ⤷ Check the **[IEEE Address]** or open the device to identify the MCU.  
 
 |                   | Telink                                | Silabs                                                |
@@ -38,7 +39,7 @@ Example: button on D2, LED on C2, switch on B5, relay on C4.
 
 ### Diagrams
 
-**See [`diagrams/`](../diagrams/) for some improvements over Tuya docs**
+**See [`diagrams/`](../diagrams/) for some simplifications and improvements over official datasheets.**
 
 [labels]: https://github.com/romasku/tuya-zigbee-switch/issues/145#issuecomment-3303035527
 [visible traces]: https://github.com/romasku/tuya-zigbee-switch/issues/146#issuecomment-3302750944
