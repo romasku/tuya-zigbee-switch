@@ -660,6 +660,32 @@ BSEED_TOUCH_3_TS0012:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/229
   store: https://www.aliexpress.com/item/1005002570240546.html
+BSEED_TOUCH_TS0013:
+  human_name: BSEED 3-gang touch switch
+  category: switch
+  power: mains
+  neutral: without
+  device_type: end_device
+  tuya_model_name: TS0013
+  tuya_manufacturer_name: _TZ3000_5e5ptb24
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0013
+  override_z2m_device: null
+  tuya_module: null
+  mcu_family: null
+  mcu: null
+  config_str: 5e5ptb24;TS0013-BS; null; M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: null
+  tuya_image_type: null
+  firmware_image_type: 43570
+  build: no
+  status: in_progress
+  info: Needs pinout
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/229
+  store: https://www.aliexpress.com/item/1005002570240546.html
 BSEED_TOUCH_TS0001:
   human_name: BSEED 1-gang touch switch 🅰
   category: switch
@@ -739,7 +765,7 @@ BSEED_TOUCH_TS0002:
   threads: https://github.com/romasku/tuya-zigbee-switch/pull/188
   store: https://aliexpress.ru/item/4000086550778.html
 BSEED_TOUCH_TS0003:
-  human_name: BSEED 3-gang touch switch
+  human_name: BSEED 3-gang touch switch 🅰
   category: switch
   power: mains
   neutral: required
@@ -1027,7 +1053,7 @@ HOBEIAN_REMOTE_TS0044:
   old_zb_models: null
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
-  firmware_image_type: 43570
+  firmware_image_type: 43572
   build: no
   status: in_progress
   info: Huge battery drain! LEDs on D7, A1, C3, B6
