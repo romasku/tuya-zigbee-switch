@@ -2331,6 +2331,84 @@ TUYA_TS0012:
   info: Supported
   threads: null
   store: null
+TUYA_REMOTE_TS0041:
+  human_name: Tuya/Moes 1-button wireless switch
+  category: remote
+  power: CR2430
+  neutral: without
+  device_type: end_device
+  tuya_model_name: TS0041
+  tuya_manufacturer_name: _TZ3000_4upl1fcj
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0041
+  override_z2m_device: Push_LE
+  tuya_module: ZS3L
+  mcu_family: Silabs
+  mcu: EFR32MG21
+  config_str: 4upl1fcj;TS0041-TUYA; null; M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: null
+  tuya_image_type: null
+  firmware_image_type: 43579
+  build: no
+  status: in_progress
+  info: Needs pinout, battery drain.
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/171
+  store: null
+TUYA_REMOTE_TS0044:
+  human_name: Tuya 4-button wireless switch 🅰
+  category: remote
+  power: CR2430
+  neutral: without
+  device_type: end_device
+  tuya_model_name: TS0044
+  tuya_manufacturer_name: _TZ3000_wkai4ga5
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0044
+  override_z2m_device: null
+  tuya_module: ZS3L
+  mcu_family: Silabs
+  mcu: EFR32MG21
+  config_str: wkai4ga5;TS0044-TUYA;SA0d;SA3d;SA4d;SB0d;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: null
+  tuya_image_type: null
+  firmware_image_type: 43577
+  build: no
+  status: in_progress
+  info: Huge battery drain! LEDs on C1, C2, C0, D0
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/171
+  store: null
+TUYA_REMOTE_TS004F:
+  human_name: Tuya 4-button wireless switch 🅱
+  category: remote
+  power: CR2430
+  neutral: without
+  device_type: end_device
+  tuya_model_name: TS004F
+  tuya_manufacturer_name: _TZ3000_xabckq1v
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS004F
+  override_z2m_device: null
+  tuya_module: ZS3L
+  mcu_family: Silabs
+  mcu: EFR32MG21
+  config_str: xabckq1v;TS004F-TUYA;SA0d;SA3d;SA4d;SB0d;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: null
+  tuya_image_type: null
+  firmware_image_type: 43578
+  build: no
+  status: in_progress
+  info: Huge battery drain! LEDs on C1, C2, C0, D0
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/171
+  store: null
 ZEMISMART_SWITCH_1_TS0012:
   human_name: Zemismart 2-gang switch 🅰
   category: switch
