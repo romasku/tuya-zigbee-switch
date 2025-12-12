@@ -698,7 +698,7 @@ BSEED_TOUCH_TS0013:
   stock_converter_model: TS0013
   override_z2m_device: null
   tuya_module: null
-  mcu_family: null
+  mcu_family: Telink
   mcu: null
   config_str: 5e5ptb24;TS0013-BS; null; M;
   alt_config_str: null
