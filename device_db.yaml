@@ -202,6 +202,32 @@ AVATTO_TOUCH_TS0003:
   info: Backlight on C4
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/41
   store: https://www.aliexpress.com/item/1005007097427150.html
+AVATTO_DRY_TS0001:
+  human_name: AVATTO 1-gang dry-contact
+  category: module
+  power: DC
+  neutral: without
+  device_type: router
+  tuya_model_name: TS0001
+  tuya_manufacturer_name: _TZ3000_gzggw2ia
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0001
+  override_z2m_device: null
+  tuya_module: ZTU
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: gzggw2ia;TS0001-AV-DRY;BC2u;LD2i;SD3u;RC0;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 43527
+  build: yes
+  status: mostly_supported
+  info: Reversed state?
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/138
+  store: https://www.aliexpress.com/item/1005007342942592.html
 AVATTO_TS0001:
   human_name: AVATTO ZWSM16-1
   category: module
