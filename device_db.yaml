@@ -2090,8 +2090,34 @@ TUYA_6_TS0001:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/225
   store: https://www.t-led.cz/p/smart-zigbee-3-0-spinac-zb2-68506
+TUYA_7_TS0001:
+  human_name: Tuya 1-gang 🅶
+  category: module
+  power: mains
+  neutral: required
+  device_type: router
+  tuya_model_name: TS0001
+  tuya_manufacturer_name: _TZ3000_rfexs4vs
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0001
+  override_z2m_device: null
+  tuya_module: ZT3L
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: rfexs4vs;TS0001-CUS7;null;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: null
+  tuya_image_type: null
+  firmware_image_type: 43573
+  build: no
+  status: in_progress
+  info: Needs pinout
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/32
+  store: null
 TUYA_TS0002:
-  human_name: Tuya 2-gang
+  human_name: Tuya 2-gang 🅰
   category: module
   power: mains
   neutral: required
@@ -2116,6 +2142,32 @@ TUYA_TS0002:
   status: fully_supported
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/6
+  store: null
+TUYA_TS0002_2:
+  human_name: Tuya 2-gang 🅱
+  category: module
+  power: mains
+  neutral: required
+  device_type: router
+  tuya_model_name: TS0002
+  tuya_manufacturer_name: _TZ3000_zbfya6h0
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0002_basic
+  override_z2m_device: TS0002_basic_2
+  tuya_module: ZT3L
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: zbfya6h0;TS0002-CUS2;null;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: null
+  tuya_image_type: null
+  firmware_image_type: 43574
+  build: no
+  status: in_progress
+  info: Needs pinout
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/32
   store: null
 TUYA_TS0004:
   human_name: Tuya 4-gang
