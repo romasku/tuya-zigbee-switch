@@ -38,6 +38,7 @@
         },
         "mcu": {
           "type": "string",
+          "enum": ["TLSR825x", "TLSR8253", "TLSR8253F512AT32", "TLSR8258", "EFR32MG21"],
           "description": "Microcontroller unit type"
         },
         "tuya_model_name": {
