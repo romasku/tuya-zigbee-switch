@@ -2359,6 +2359,32 @@ ZEMISMART_SWITCH_2_TS0012:
   info: Needs pinout. Bi-stable relays. Must toggle relays sequentially.
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/22
   store: https://www.zemismart.com/products/kes-606us-z?VariantsId=14160
+ZEMISMART_SWITCH_TS0601_6GANG:
+  human_name: Zemismart TB26-6
+  category: switch
+  power: mains
+  neutral: null
+  device_type: null
+  tuya_model_name: TS0601
+  tuya_manufacturer_name: _TZE200_r731zlxk
+  stock_converter_manufacturer: Zemismart
+  stock_converter_model: TB26-6
+  override_z2m_device: null
+  tuya_module: ZTU
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: r731zlxk;TS0601-ZS6; null
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: null
+  tuya_image_type: null
+  firmware_image_type: 43576
+  build: no
+  status: in_progress
+  info: Needs pinout. Secondary MCU. 6-gang!
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/209
+  store: https://www.zemismart.com/products/tb26-6
 ZIGBEE_BOARD_ZTU_2:
   human_name: ZTU dev board 2
   category: board

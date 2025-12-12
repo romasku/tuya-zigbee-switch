@@ -32,8 +32,13 @@
           "description": "Whether neutral wire is required or optional"
         },
         "device_type": {
-          "type": "string",
-          "enum": ["router", "end_device"],
+          "oneOf": [
+            {
+              "type": "string",
+              "enum": ["router", "end_device"]
+            },
+            {"type": "null"}
+          ],
           "description": "Zigbee device type"
         },
         "mcu": {
