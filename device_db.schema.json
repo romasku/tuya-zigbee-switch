@@ -37,8 +37,13 @@
           "description": "Zigbee device type"
         },
         "mcu": {
-          "type": "string",
-          "enum": ["TLSR825x", "TLSR8253", "TLSR8253F512AT32", "TLSR8258", "EFR32MG21"],
+          "oneOf": [
+            {
+              "type": "string",
+              "enum": ["TLSR825x", "TLSR8253", "TLSR8253F512AT32", "TLSR8258", "EFR32MG21"]
+            },
+            {"type": "null"}
+          ],
           "description": "Microcontroller unit type"
         },
         "tuya_model_name": {
