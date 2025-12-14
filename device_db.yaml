@@ -2026,7 +2026,7 @@ TUYA_8_TS0001:
   tuya_module: ZT2S
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: fdxihpp7;WHD02-FS02Z;BD2u;LB4i;SB5u;RC3;
+  config_str: fdxihpp7;WHD02-FS02Z;BD2u;LB4i;SB5u;RC3i;
   alt_config_str: null
   old_manufacturer_names: null
   old_zb_models: null
