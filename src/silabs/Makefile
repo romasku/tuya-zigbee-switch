@@ -165,7 +165,7 @@ endif
 
 ota:
 	@mkdir -p $(dir $(OTA_FILE))
-	$(COMMANDER_DIR)/commander-cli gbl4 create \
+	$(COMMANDER_DIR)/commander-cli gbl create \
 		"$(ZIGBEE_BUILD_DIR)/build/release/$(ZIGBEE_PROJECT_NAME).gbl" \
 		--app "$(ZIGBEE_BUILD_DIR)/build/release/$(ZIGBEE_PROJECT_NAME).s37" \
 		--compress lzma

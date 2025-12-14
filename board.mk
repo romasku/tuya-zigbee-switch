@@ -60,6 +60,7 @@ DEVICE_DB_FILE := device_db.yaml
 # ==============================================================================
 DEVICE_TYPE ?= $(shell yq -r .$(BOARD).device_type $(DEVICE_DB_FILE))
 MCU ?= $(shell yq -r .$(BOARD).mcu $(DEVICE_DB_FILE))
+MCU_FAMILY := $(shell yq -r .$(BOARD).mcu_family $(DEVICE_DB_FILE))
 CONFIG_STR := $(shell yq -r .$(BOARD).config_str $(DEVICE_DB_FILE))
 FROM_TUYA_MANUFACTURER_ID := $(shell yq -r .$(BOARD).tuya_manufacturer_id $(DEVICE_DB_FILE))
 FROM_TUYA_IMAGE_TYPE := $(shell yq -r .$(BOARD).tuya_image_type $(DEVICE_DB_FILE))
@@ -68,7 +69,8 @@ FIRMWARE_IMAGE_TYPE := $(shell yq -r .$(BOARD).firmware_image_type $(DEVICE_DB_F
 # ==============================================================================
 # Platform Configuration
 # ==============================================================================
-PLATFORM_PREFIX := $(if $(filter TLSR%,$(MCU)),telink,silabs)
+# TODO: make MCU_FAMILY lowercase in device_db.yaml and remove this line
+PLATFORM_PREFIX := $(shell echo $(MCU_FAMILY) | tr A-Z a-z)
 
 # ==============================================================================
 # Path Variables
