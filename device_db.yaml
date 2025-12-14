@@ -2539,7 +2539,6 @@ ZBMINIL2:
   build: yes
   status: fully_supported
   info: Supported
-  # TODO: FILL INFO below
-  threads: https://github.com/romasku/tuya-zigbee-switch/issues/XX
+  threads: https://github.com/romasku/tuya-zigbee-switch/pull/232
   store:
   - https://sonoff.tech/products/sonoff-zbmini-extreme-zigbee-smart-switch-zbminil2
