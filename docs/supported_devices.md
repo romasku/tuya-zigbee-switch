@@ -130,5 +130,6 @@ Support new devices: [contribute/porting.md](/docs/contribute/porting.md)
 | 🟧 | ❌️ | 🇸 | 🔌 | 🛜 | **TL** | `_TZ3000_rbl8c85w` <br> `TS0012` | [Zemismart 2-gang switch 🅱](https://www.zigbee2mqtt.io/devices/TS0012.html) | [`Store`](https://www.zemismart.com/products/kes-606us-z?VariantsId=14160) | [`#022`](https://github.com/romasku/tuya-zigbee-switch/issues/22) | Needs pinout. Bi-stable relays. Must toggle relays sequentially. | 
 | 🟧 | ❌️ | 🇸 | 🔌 | 🛜 | **TL** | `_TZE200_r731zlxk` <br> `TS0601` | [Zemismart TB26-6](https://www.zigbee2mqtt.io/devices/TB26-6.html) | [`Store`](https://www.zemismart.com/products/tb26-6) | [`#209`](https://github.com/romasku/tuya-zigbee-switch/issues/209) | Needs pinout. Secondary MCU. 6-gang! | 
 | 🟩 | ✔️ | 🇧 | 🔱 | ➿ | **TL** | `unknown` <br> `unknown` | [ZTU dev board 2](https://www.zigbee2mqtt.io/devices/Zigbee_SoC_Board_V2_(ZTU).html) | [`AlEx`](https://www.aliexpress.com/item/1005007599675462.html) |   | Supported | 
+| 🟩 | ✔️ | 🇲 | 🔌 | ➿ | **SL** | `unknown` <br> `unknown` | [Sonoff ZBMINIL2](https://www.zigbee2mqtt.io/devices/None.html) | [`Store`](https://sonoff.tech/products/sonoff-zbmini-extreme-zigbee-smart-switch-zbminil2) | [`#232`](https://github.com/romasku/tuya-zigbee-switch/pull/232) | Supported | 
 
 Data from [`device_db.yaml`](/device_db.yaml)
