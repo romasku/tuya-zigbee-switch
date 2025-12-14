@@ -61,7 +61,7 @@ int main(void) {
 
     // Let the CPU go to sleep if the system allow it.
 #if defined(SL_CATALOG_POWER_MANAGER_PRESENT)
-    // sl_power_manager_sleep();
+    sl_power_manager_sleep();
 #endif // SL_CATALOG_POWER_MANAGER_PRESENT
   }
 #endif // SL_CATALOG_KERNEL_PRESENT
