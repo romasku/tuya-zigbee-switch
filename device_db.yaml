@@ -1497,7 +1497,7 @@ MHCOZY_TS0004_2:
   tuya_module: ZT3L
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: u3oupgdy;TS0004-MC2;LC5i;SD7u;RD4;SC0u;RD2;SC6u;RB5;SB7u;RC2;M;
+  config_str: u3oupgdy;TS0004-MC2;LC3i;SD7u;RD4;SC0u;RA0;SB5u;RD2;SB7u;RC2;M;
   alt_config_str: null
   old_manufacturer_names: null
   old_zb_models: null
@@ -1505,9 +1505,9 @@ MHCOZY_TS0004_2:
   tuya_image_type: 54179
   firmware_image_type: 45594
   build: yes
-  status: in_progress
-  info: Dummy pins for LED and button3
-  threads: null
+  status: fully_supported
+  info: Supported
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/245
   store: null
 MOES_SWITCHES_TS0011:
   human_name: Moes 1-gang switches (all variants)
