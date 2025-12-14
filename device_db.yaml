@@ -871,7 +871,7 @@ FS02Z_TS0001:
   status: in_progress
   info: Device probably not supported as it is built on top of non-standard zt2s module. Stops responding after OTA update. Wired flashing also unsuccessful.
   threads: null
-  store: null
+  store: https://www.aliexpress.com/item/1005006908878393.html
 GIRIER_TS0001:
   human_name: Girier JR-ZDS01 🅱
   category: module
