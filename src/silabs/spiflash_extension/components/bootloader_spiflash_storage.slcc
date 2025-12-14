@@ -1,0 +1,31 @@
+id: bootloader_spiflash_storage_custom
+label: SPI Flash Storage
+package: bootloader
+description: >
+  The Bootloader SPI Flash Storage component provides storage using SPI flash.
+category: Platform|Bootloader|Storage
+quality: production
+source:
+  - path: spiflash/btl_storage_spiflash.c
+  - path: spiflash/btl_callbacks_stub.c
+include:
+  - path: spiflash
+    file_list:
+    - path: btl_storage_spiflash.h
+    - path: btl_storage_spiflash_configs.h
+define:
+  - name: BOOTLOADER_SUPPORT_STORAGE
+    value: 1
+  - name: BOOTLOADER_SUPPORT_EXTERNAL_STORAGE
+    value : 1
+config_file:
+  - path: config/btl_spiflash_storage_cfg.h
+    file_id: btl_spiflash_storage_cfg
+provides:
+  - name: bootloader_spiflash_storage
+  - name: bootloader_nonsecure_incompatible
+    condition: [bootloader_core_nonsecure]
+requires:
+  - name: bootloader_crc
+  - name: bootloader_spi_controller_driver
+  - name: bootloader_storage_slots

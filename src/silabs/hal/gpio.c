@@ -1,11 +1,10 @@
-#include "em_assert.h"
-#include "em_cmu.h"
-#include "em_device.h"
-#include "em_gpio.h"
-#include "gpiointerrupt.h"
+
 #include <stdbool.h>
 #include <stddef.h>
 #include <string.h>
+
+#include "sl_clock_manager.h"
+#include "sl_gpio.h"
 
 #include "zigbee_app_framework_event.h"
 
@@ -21,32 +20,34 @@
 // [0..15]
 #define HAL_GPIO_PIN_NUM(g) ((uint8_t)((g) & 0xFF))
 #define HAL_GPIO_PORT_INDEX(g) ((uint8_t)(((g) >> 8) & 0xFF))
+#define HAL_GPIO_TO_SL_GPIO(g)                                                 \
+  ((sl_gpio_t){.port = hal_port_from_index(HAL_GPIO_PORT_INDEX(g)),            \
+               .pin = HAL_GPIO_PIN_NUM(g)})
 
 #define LINE_MISSING 0xFF
 #define MAX_INT_LINES 16
 
-static inline GPIO_Port_TypeDef hal_port_from_index(uint8_t idx) {
-  static const GPIO_Port_TypeDef lut[] = {gpioPortA, gpioPortB, gpioPortC,
-                                          gpioPortD};
+static inline uint8_t hal_port_from_index(uint8_t idx) {
+  static const uint8_t lut[] = {gpioPortA, gpioPortB, gpioPortC, gpioPortD};
   EFM_ASSERT(idx < (sizeof(lut) / sizeof(lut[0])));
   return lut[idx];
 }
 
 // ------ One-time init guards ------
 static bool s_gpio_clock_enabled = false;
-static bool s_gpioint_inited = false;
+static bool s_gpio_inited = false;
 
 static void hal_gpio_ensure_clock(void) {
   if (!s_gpio_clock_enabled) {
-    CMU_ClockEnable(cmuClock_GPIO, true);
+    sl_clock_manager_enable_bus_clock(SL_BUS_CLOCK_GPIO);
     s_gpio_clock_enabled = true;
   }
 }
 
-static void hal_gpio_ensure_gpioint(void) {
-  if (!s_gpioint_inited) {
-    GPIOINT_Init(); // sets up EVEN/ODD IRQs
-    s_gpioint_inited = true;
+static void hal_gpio_ensure_gpio_init(void) {
+  if (!s_gpio_inited) {
+    sl_gpio_init();
+    s_gpio_inited = true;
   }
 }
 
@@ -54,28 +55,28 @@ static void hal_gpio_ensure_gpioint(void) {
 typedef struct {
   bool in_use;
   hal_gpio_pin_t hal_pin;
-  uint8_t pull_dir; // for EM4WU polarity selection
   gpio_callback_t user_cb;
+  int32_t line;
   void *arg;
   sli_zigbee_event_t af_event;
 } int_slot_t;
 
 static int_slot_t s_slots[MAX_INT_LINES]; // 16 EXTI lines total
 
-// Allocate a free EXTI line [0..15]; returns 0..15 or LINE_MISSING if none
-static uint8_t alloc_int_line(void) {
+static int32_t alloc_int_slot(void) {
   for (uint8_t i = 0; i < 16; i++) {
     if (!s_slots[i].in_use) {
       s_slots[i].in_use = true;
+      s_slots[i].line = SL_GPIO_INTERRUPT_UNAVAILABLE;
       return i;
     }
   }
   return LINE_MISSING;
 }
 
-static void free_int_line(uint8_t int_no) {
-  if (int_no < MAX_INT_LINES) {
-    memset(&s_slots[int_no], 0, sizeof(s_slots[int_no]));
+static void free_int_slot(int32_t slot_no) {
+  if (slot_no < MAX_INT_LINES) {
+    memset(&s_slots[slot_no], 0, sizeof(s_slots[slot_no]));
   }
 }
 
@@ -101,26 +102,25 @@ void hal_gpio_init(hal_gpio_pin_t gpio_pin, uint8_t is_input,
                    hal_gpio_pull_t pull_direction) {
   hal_gpio_ensure_clock();
 
-  const uint8_t port_idx = HAL_GPIO_PORT_INDEX(gpio_pin);
-  const uint8_t pin_num = HAL_GPIO_PIN_NUM(gpio_pin);
-  GPIO_Port_TypeDef port = hal_port_from_index(port_idx);
+  const sl_gpio_t sl_gpio = HAL_GPIO_TO_SL_GPIO(gpio_pin);
 
   if (is_input) {
     switch (pull_direction) {
     case HAL_GPIO_PULL_UP:
-      GPIO_PinModeSet(port, pin_num, gpioModeInputPull, 1); // DOUT=1 => pull-up
+      sl_gpio_set_pin_mode(&sl_gpio, SL_GPIO_MODE_INPUT_PULL,
+                           1); // DOUT=1 => pull-up
       break;
     case HAL_GPIO_PULL_DOWN:
-      GPIO_PinModeSet(port, pin_num, gpioModeInputPull,
-                      0); // DOUT=0 => pull-down
+      sl_gpio_set_pin_mode(&sl_gpio, SL_GPIO_MODE_INPUT_PULL,
+                           0); // DOUT=0 => pull-down
       break;
     default:
-      GPIO_PinModeSet(port, pin_num, gpioModeInput, 0);
+      sl_gpio_set_pin_mode(&sl_gpio, SL_GPIO_MODE_INPUT, 0);
       break;
     }
   } else {
     // Output: push-pull, initial low
-    GPIO_PinModeSet(port, pin_num, gpioModePushPull, 0);
+    sl_gpio_set_pin_mode(&sl_gpio, SL_GPIO_MODE_PUSH_PULL, 0);
   }
 
   // Optional: store pull direction for interrupt polarity later.
@@ -129,21 +129,20 @@ void hal_gpio_init(hal_gpio_pin_t gpio_pin, uint8_t is_input,
 }
 
 void hal_gpio_set(hal_gpio_pin_t gpio_pin) {
-  const uint8_t port_idx = HAL_GPIO_PORT_INDEX(gpio_pin);
-  const uint8_t pin_num = HAL_GPIO_PIN_NUM(gpio_pin);
-  GPIO_PinOutSet(hal_port_from_index(port_idx), pin_num);
+  const sl_gpio_t sl_gpio = HAL_GPIO_TO_SL_GPIO(gpio_pin);
+  sl_gpio_set_pin(&sl_gpio);
 }
 
 void hal_gpio_clear(hal_gpio_pin_t gpio_pin) {
-  const uint8_t port_idx = HAL_GPIO_PORT_INDEX(gpio_pin);
-  const uint8_t pin_num = HAL_GPIO_PIN_NUM(gpio_pin);
-  GPIO_PinOutClear(hal_port_from_index(port_idx), pin_num);
+  const sl_gpio_t sl_gpio = HAL_GPIO_TO_SL_GPIO(gpio_pin);
+  sl_gpio_clear_pin(&sl_gpio);
 }
 
 uint8_t hal_gpio_read(hal_gpio_pin_t gpio_pin) {
-  const uint8_t port_idx = HAL_GPIO_PORT_INDEX(gpio_pin);
-  const uint8_t pin_num = HAL_GPIO_PIN_NUM(gpio_pin);
-  return GPIO_PinInGet(hal_port_from_index(port_idx), pin_num);
+  const sl_gpio_t sl_gpio = HAL_GPIO_TO_SL_GPIO(gpio_pin);
+  bool value = 0;
+  sl_gpio_get_pin_input(&sl_gpio, &value);
+  return value;
 }
 
 // Register an interrupt that also attempts EM4 wake-up.
@@ -156,57 +155,43 @@ uint8_t hal_gpio_read(hal_gpio_pin_t gpio_pin) {
 void hal_gpio_callback(hal_gpio_pin_t gpio_pin, gpio_callback_t callback,
                        void *arg) {
   hal_gpio_ensure_clock();
-  hal_gpio_ensure_gpioint();
+  hal_gpio_ensure_gpio_init();
 
-  const uint8_t port_idx = HAL_GPIO_PORT_INDEX(gpio_pin);
-  const uint8_t pin_num = HAL_GPIO_PIN_NUM(gpio_pin);
-  GPIO_Port_TypeDef port = hal_port_from_index(port_idx);
+  const sl_gpio_t sl_gpio = HAL_GPIO_TO_SL_GPIO(gpio_pin);
 
   // Allocate a regular EXTI line (for edge interrupts while awake)
-  uint8_t line = alloc_int_line();
-  EFM_ASSERT(line != LINE_MISSING); // out of lines
-  int_slot_t *slot = &s_slots[line];
+  int32_t slot_no = alloc_int_slot();
+  if (slot_no == LINE_MISSING) {
+    printf("hal_gpio_callback: no free EXTI lines\r\n");
+    return;
+  }
+  int_slot_t *slot = &s_slots[slot_no];
   slot->hal_pin = gpio_pin;
   slot->user_cb = callback;
   slot->arg = arg;
   sl_zigbee_af_isr_event_init(&slot->af_event, _af_event_handler);
 
-  GPIO_Mode_TypeDef mode = GPIO_PinModeGet(port, pin_num);
-  if (mode == gpioModeInputPull) {
-    if (GPIO_PinOutGet(port, pin_num)) {
-      slot->pull_dir = HAL_GPIO_PULL_UP;
-    } else {
-      slot->pull_dir = HAL_GPIO_PULL_DOWN;
-    }
-  } else {
-    slot->pull_dir = HAL_GPIO_PULL_NONE;
-  }
-
   // Register regular edge-sensitive callback (both edges)
-  unsigned int reg_int = GPIOINT_CallbackRegisterExt(
-      line, (GPIOINT_IrqCallbackPtrExt_t)_dispatch_regular, slot);
-  EFM_ASSERT(reg_int != INTERRUPT_UNAVAILABLE);
-  GPIO_ExtIntConfig(port, pin_num, line, true, true, true);
+
+  sl_status_t status = sl_gpio_configure_external_interrupt(
+      &sl_gpio, &slot->line, SL_GPIO_INTERRUPT_RISING_FALLING_EDGE,
+      (sl_gpio_irq_callback_t)_dispatch_regular, slot);
+  printf("hal_gpio_callback: exti line %ld status %lu\r\n", slot->line,
+         (unsigned long)status);
 }
 
 // (Optional) helper to unregister an interrupt if you add
 // hal_gpio_int_disable() later
 void hal_gpio_unreg_callback(hal_gpio_pin_t gpio_pin) {
-  const uint8_t port_idx = HAL_GPIO_PORT_INDEX(gpio_pin);
-  const uint8_t pin_num = HAL_GPIO_PIN_NUM(gpio_pin);
-  GPIO_Port_TypeDef port = hal_port_from_index(port_idx);
+  printf("hal_gpio_unreg_callback pin %02X\r\n", gpio_pin);
 
-  uint8_t int_no = LINE_MISSING;
+  int32_t int_no = LINE_MISSING;
   for (uint8_t i = 0; i < MAX_INT_LINES; i++) {
     if (s_slots[i].in_use && s_slots[i].hal_pin == gpio_pin) {
-      int_no = i;
+      sl_gpio_deconfigure_external_interrupt(s_slots[i].line);
+      free_int_slot(i);
+      return;
     }
-  }
-
-  if (int_no != LINE_MISSING) {
-    GPIO_ExtIntConfig(port, pin_num, int_no, false, false, false);
-    GPIOINT_CallbackUnRegister(int_no);
-    free_int_line(int_no);
   }
 }
 

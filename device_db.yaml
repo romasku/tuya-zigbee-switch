@@ -1392,7 +1392,7 @@ MANHOT_SWITCH_2_TS0013:
   override_z2m_device: null
   tuya_module: ZS3L
   mcu_family: Silabs
-  mcu: EFR32MG21
+  mcu: EFR32MG21A020F768IM32
   config_str: snq47izk;TS0013-MH-2; null
   alt_config_str: null
   old_manufacturer_names: null
@@ -1566,7 +1566,7 @@ MOES_SWITCHES_TS0014:
   override_z2m_device: null
   tuya_module: ZS3L
   mcu_family: Silabs
-  mcu: EFR32MG21
+  mcu: EFR32MG21A020F768IM32
   config_str: mrduubod;MS4;SB1u;RA4;ID0;SB0u;RC0;IC2;SA3u;RC1;IA5;SA0u;RD1;IA6;M;
   alt_config_str: null
   old_manufacturer_names: null
@@ -2370,7 +2370,7 @@ TUYA_REMOTE_TS0041:
   override_z2m_device: Push_LE
   tuya_module: ZS3L
   mcu_family: Silabs
-  mcu: EFR32MG21
+  mcu: EFR32MG21A020F768IM32
   config_str: 4upl1fcj;TS0041-TUYA; null; M;
   alt_config_str: null
   old_manufacturer_names: null
@@ -2396,7 +2396,7 @@ TUYA_REMOTE_TS0044:
   override_z2m_device: null
   tuya_module: ZS3L
   mcu_family: Silabs
-  mcu: EFR32MG21
+  mcu: EFR32MG21A020F768IM32
   config_str: wkai4ga5;TS0044-TUYA;SA0d;SA3d;SA4d;SB0d;M;
   alt_config_str: null
   old_manufacturer_names: null
@@ -2422,7 +2422,7 @@ TUYA_REMOTE_TS004F:
   override_z2m_device: null
   tuya_module: ZS3L
   mcu_family: Silabs
-  mcu: EFR32MG21
+  mcu: EFR32MG21A020F768IM32
   config_str: xabckq1v;TS004F-TUYA;SA0d;SA3d;SA4d;SB0d;M;
   alt_config_str: null
   old_manufacturer_names: null
@@ -2541,3 +2541,30 @@ ZIGBEE_BOARD_ZTU_2:
   info: Supported
   threads: null
   store: https://www.aliexpress.com/item/1005007599675462.html
+ZBMINIL2:
+  human_name: Sonoff ZBMINIL2
+  category: module
+  power: mains
+  neutral: without
+  device_type: end_device
+  tuya_model_name: null
+  tuya_manufacturer_name: null
+  stock_converter_manufacturer: null
+  stock_converter_model: null
+  override_z2m_device: null
+  tuya_module: none
+  mcu_family: Silabs
+  mcu: EFR32MG22C224F512GN32
+  config_str: sonoff;ZBMINIL2-custom;BA0u;LC5i;SA6u;RA4A5;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: null
+  tuya_image_type: null
+  firmware_image_type: 45596
+  build: yes
+  status: fully_supported
+  info: Supported
+  threads: https://github.com/romasku/tuya-zigbee-switch/pull/232
+  store:
+  - https://sonoff.tech/products/sonoff-zbmini-extreme-zigbee-smart-switch-zbminil2

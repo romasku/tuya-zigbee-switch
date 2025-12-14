@@ -60,6 +60,7 @@ DEVICE_DB_FILE := device_db.yaml
 # ==============================================================================
 DEVICE_TYPE ?= $(shell yq -r .$(BOARD).device_type $(DEVICE_DB_FILE))
 MCU ?= $(shell yq -r .$(BOARD).mcu $(DEVICE_DB_FILE))
+MCU_FAMILY := $(shell yq -r .$(BOARD).mcu_family $(DEVICE_DB_FILE))
 CONFIG_STR := $(shell yq -r .$(BOARD).config_str $(DEVICE_DB_FILE))
 FROM_TUYA_MANUFACTURER_ID := $(shell yq -r .$(BOARD).tuya_manufacturer_id $(DEVICE_DB_FILE))
 FROM_TUYA_IMAGE_TYPE := $(shell yq -r .$(BOARD).tuya_image_type $(DEVICE_DB_FILE))
@@ -68,7 +69,8 @@ FIRMWARE_IMAGE_TYPE := $(shell yq -r .$(BOARD).firmware_image_type $(DEVICE_DB_F
 # ==============================================================================
 # Platform Configuration
 # ==============================================================================
-PLATFORM_PREFIX := $(if $(filter TLSR8258,$(MCU)),telink,silabs)
+# TODO: make MCU_FAMILY lowercase in device_db.yaml and remove this line
+PLATFORM_PREFIX := $(shell echo $(MCU_FAMILY) | tr A-Z a-z)
 
 # ==============================================================================
 # Path Variables
@@ -97,7 +99,15 @@ build: drop-old-files build-firmware generate-ota-files update-indexes
 # Build the firmware for the specified board
 build-firmware:
 ifeq ($(PLATFORM_PREFIX),silabs)
-	$(MAKE) silabs/gen
+	$(MAKE) silabs/gen \
+		VERSION_STR=$(VERSION_STR) \
+		NVM_MIGRATIONS_VERSION=$(NVM_MIGRATIONS_VERSION) \
+		FILE_VERSION=$(FILE_VERSION) \
+		DEVICE_TYPE=$(DEVICE_TYPE) \
+		CONFIG_STR="$(CONFIG_STR)" \
+		IMAGE_TYPE=$(FIRMWARE_IMAGE_TYPE) \
+		BIN_FILE=../../$(BIN_FILE) \
+		MCU=$(MCU) 
 endif
 ifeq ($(PLATFORM_PREFIX),telink)
 	$(MAKE) telink/clean
