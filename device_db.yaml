@@ -867,9 +867,9 @@ FS02Z_TS0001:
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
   firmware_image_type: 45629
-  build: yes
+  build: no
   status: in_progress
-  info: Testing pinout
+  info: Device probably not supported as it is built on top of non-standard zt2s module. Stops responding after OTA update. Wired flashing also unsuccessful.
   threads: null
   store: null
 GIRIER_TS0001:
