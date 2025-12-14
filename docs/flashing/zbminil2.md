@@ -22,19 +22,19 @@ Unplug the device from the mains. **Never attempt to disassemble it while it is 
 
 Pop-open the device body:
 
-![zmbmini disassembly](/docs/.images/zbminil2_open.jpg)
+![ZBMINIL2 disassembly](/docs/.images/zbminil2_open.jpg)
 
 You should be able to extract the device itself:
 
 
-![zmbmini inside](/docs/.images/zbminil2_inside.jpg)
+![ZBMINIL2 inside](/docs/.images/zbminil2_inside.jpg)
 
 ### Step 2: Attach pogopin holder
 
 Attach ground to L-in terminal, and that attach pogopin holder as on photo:
 
 
-![zmbmini inside](/docs/.images/zbminil2_with_pogo.jpg)
+![ZBMINIL2 with pogo](/docs/.images/zbminil2_with_pogo.jpg)
 
 Make sure that you line up it correctly, two pins should touch TCK and TMS pads.
 
@@ -42,9 +42,9 @@ Make sure that you line up it correctly, two pins should touch TCK and TMS pads.
 
 You'll need to solder 3 wires, to the pads as shown on photo:
 
-![zmbmini inside](/docs/.images/zbminil2_side.jpg)
+![ZBMINIL2 side](/docs/.images/zbminil2_side.jpg)
 
-![zmbmini inside](/docs/.images/zbminil2_bottom.jpg)
+![ZBMINIL2 bottom](/docs/.images/zbminil2_bottom.jpg)
 
 #### Connect wires to J-Link programmer:
 
