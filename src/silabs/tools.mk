@@ -33,6 +33,7 @@ all: simplicity_sdk commander slc-cli zap trust verify
 trust:
 	@echo "Trusting Silicon Labs SDK signature..."
 	$(TOOLS_DIR)/slc-cli/slc signature trust --sdk $(TOOLS_DIR)/simplicity_sdk
+	$(TOOLS_DIR)/slc-cli/slc signature trust -extpath $(abspath $(TOOLS_DIR)/spiflash_extension)
 
 # Help target
 help:
@@ -89,6 +90,8 @@ $(TOOLS_DIR)/simplicity_sdk: | $(DOWNLOAD_DIR)
 		mv $(TOOLS_DIR)/simplicity_sdk/simplicity_sdk-$(SIMPLICITY_SDK_VERSION)/* $(TOOLS_DIR)/simplicity_sdk/; \
 		rmdir $(TOOLS_DIR)/simplicity_sdk/simplicity_sdk-$(SIMPLICITY_SDK_VERSION); \
 	fi
+	@echo Adding simlinkt to extensions...
+	@ln -s ../src/silabs/spiflash_extension $(TOOLS_DIR)/spiflash_extension
 	@echo "Simplicity SDK v$(SIMPLICITY_SDK_VERSION) installed to $(TOOLS_DIR)/simplicity_sdk"
 
 # Simplicity Commander
@@ -197,7 +200,7 @@ install-zap: $(TOOLS_DIR)/zap
 # Clean targets
 clean:
 	@echo "Removing installed tools from $(TOOLS_DIR)..."
-	@rm -rf $(TOOLS_DIR)/simplicity_sdk $(TOOLS_DIR)/commander $(TOOLS_DIR)/slc-cli $(TOOLS_DIR)/zap
+	@rm -rf $(TOOLS_DIR)/simplicity_sdk $(TOOLS_DIR)/commander $(TOOLS_DIR)/slc-cli $(TOOLS_DIR)/zap $(TOOLS_DIR)/spiflash_extension
 	@echo "Tools removed (downloads preserved)"
 
 clean-downloads:

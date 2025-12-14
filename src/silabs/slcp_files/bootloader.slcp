@@ -33,6 +33,6 @@ configuration:
   - name: SLOT0_ENABLE
     value: 1
   - name: SLOT0_SIZE
-    value: 376832
+    value: 286720
   - name: SLOT0_START
     value: 458752

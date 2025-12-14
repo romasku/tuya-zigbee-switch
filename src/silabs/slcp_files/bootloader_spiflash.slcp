@@ -14,7 +14,9 @@ filter:
   - name: "MCU"
     value: ["Bootloader"]
 
-
+sdk_extension:
+  - id: spiflash_extension
+    version: 1.0.0
 component:
   - id: bootloader_core
   - id: bootloader_crc
@@ -23,9 +25,9 @@ component:
   - id: bootloader_image_parser
   - id: bootloader_common_storage
   - id: bootloader_token_management
-  - id: bootloader_spiflash_storage_sfdp
+  - id: bootloader_spiflash_storage_custom
+    from: spiflash_extension
   - id: bootloader_spi_controller_driver 
-  - id: bootloader_debug
   - id: bootloader_compression_lzma
 config_file:
   - override:
@@ -34,10 +36,10 @@ config_file:
     path: ../../silabs/config/btl_spi_controller_usart_driver_cfg.h
 configuration:
   - name: BTL_STORAGE_BASE_ADDRESS
-    value: 0
+    value: 524288
   - name: SLOT0_ENABLE
     value: 1
   - name: SLOT0_START
     value: 0
   - name: SLOT0_SIZE
-    value: 1048576
+    value: 524288

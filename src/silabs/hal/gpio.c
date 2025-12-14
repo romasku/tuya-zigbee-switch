@@ -91,7 +91,6 @@ static void _dispatch_regular(uint8_t intNo, void *ctx) {
 
 static void _af_event_handler(sl_zigbee_af_event_t *event) {
   // Get int_slot_t from embedded af_event field
-  printf("_af_event_handler\r\n");
   int_slot_t *slot = container_of(event, int_slot_t, af_event);
   if (slot->user_cb) {
     slot->user_cb(slot->hal_pin, slot->arg);
