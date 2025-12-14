@@ -202,6 +202,32 @@ AVATTO_TOUCH_TS0003:
   info: Backlight on C4
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/41
   store: https://www.aliexpress.com/item/1005007097427150.html
+AVATTO_DRY_TS0001:
+  human_name: AVATTO 1-gang dry-contact
+  category: module
+  power: DC
+  neutral: without
+  device_type: router
+  tuya_model_name: TS0001
+  tuya_manufacturer_name: _TZ3000_gzggw2ia
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0001
+  override_z2m_device: null
+  tuya_module: ZTU
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: gzggw2ia;TS0001-AV-DRY;BC2u;LD2i;SD3u;RC0;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 43527
+  build: yes
+  status: mostly_supported
+  info: Reversed state?
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/138
+  store: https://www.aliexpress.com/item/1005007342942592.html
 AVATTO_TS0001:
   human_name: AVATTO ZWSM16-1
   category: module
@@ -592,7 +618,7 @@ BSEED_TOUCH_1_TS0012:
   tuya_module: ZTU
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: f2slq5pj;Bseed-2-gang;SB6u;RD3;IC2;SA1u;RC0;IB4;M;
+  config_str: f2slq5pj;Bseed-2-gang;LC3;SB6u;RD3;IC2;SA1u;RC0;IB4;M;
   alt_config_str: null
   old_manufacturer_names:
   - Bseed-2-gang
@@ -602,8 +628,8 @@ BSEED_TOUCH_1_TS0012:
   tuya_image_type: 54179
   firmware_image_type: 43534
   build: yes
-  status: mostly_supported
-  info: Pin C3 disables both LEDs ?
+  status: fully_supported
+  info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/pull/23
   store: null
 BSEED_TOUCH_2_TS0012:
@@ -630,12 +656,12 @@ BSEED_TOUCH_2_TS0012:
   tuya_image_type: 54179
   firmware_image_type: 43544
   build: yes
-  status: mostly_supported
-  info: Bi-stable relays implementation needs confirmation
+  status: fully_supported
+  info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/51
   store: https://www.aliexpress.com/item/1005003324697513.html
 BSEED_TOUCH_3_TS0012:
-  human_name: BSEED 2-gang touch switch (no neutral)
+  human_name: BSEED 2-gang touch switch 🅲
   category: switch
   power: mains
   neutral: without
@@ -658,6 +684,32 @@ BSEED_TOUCH_3_TS0012:
   build: yes
   status: fully_supported
   info: Supported
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/229
+  store: https://www.aliexpress.com/item/1005002570240546.html
+BSEED_TOUCH_TS0013:
+  human_name: BSEED 3-gang touch switch
+  category: switch
+  power: mains
+  neutral: without
+  device_type: end_device
+  tuya_model_name: TS0013
+  tuya_manufacturer_name: _TZ3000_5e5ptb24
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0013
+  override_z2m_device: null
+  tuya_module: null
+  mcu_family: Telink
+  mcu: null
+  config_str: 5e5ptb24;TS0013-BS; null; M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: null
+  tuya_image_type: null
+  firmware_image_type: 43570
+  build: no
+  status: in_progress
+  info: Needs pinout
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/229
   store: https://www.aliexpress.com/item/1005002570240546.html
 BSEED_TOUCH_TS0001:
@@ -735,11 +787,11 @@ BSEED_TOUCH_TS0002:
   firmware_image_type: 45578
   build: yes
   status: in_progress
-  info: Missing state indicator
+  info: Missing state indicators (specifc dimming implementation)
   threads: https://github.com/romasku/tuya-zigbee-switch/pull/188
   store: https://aliexpress.ru/item/4000086550778.html
 BSEED_TOUCH_TS0003:
-  human_name: BSEED 3-gang touch switch
+  human_name: BSEED 3-gang touch switch 🅰
   category: switch
   power: mains
   neutral: required
@@ -764,6 +816,32 @@ BSEED_TOUCH_TS0003:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/125
   store: https://www.aliexpress.com/item/1005003475686409.html
+BSEED_TOUCH_TS0003_2:
+  human_name: BSEED 3-gang touch switch 🅱
+  category: switch
+  power: mains
+  neutral: required
+  device_type: router
+  tuya_model_name: TS0003
+  tuya_manufacturer_name: _TZ3000_qkixdnon
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0003
+  override_z2m_device: null
+  tuya_module: ZTU
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: qkixdnon;TS0003-BSEED;LC4i;SB5u;RC3;SC1u;RC2;SD3u;RD7;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 43571
+  build: yes
+  status: mostly_supported
+  info: Backlight on D4i
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/240
+  store: https://www.aliexpress.com/item/1005004187227246.html
 EKF_TS0012:
   human_name: EKF ssh-2g-zb-nn
   category: module
@@ -980,6 +1058,32 @@ GIRIER_TS0013:
   status: fully_supported
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/37
+  store: null
+HOBEIAN_REMOTE_TS0044:
+  human_name: HOBEIAN ZG-101ZS
+  category: remote
+  power: CR2032
+  neutral: without
+  device_type: end_device
+  tuya_model_name: TS0044
+  tuya_manufacturer_name: _TZ3000_bgtzm4ny
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0044
+  override_z2m_device: ZG-101ZS
+  tuya_module: none
+  mcu_family: Telink
+  mcu: TLSR8253F512AT32
+  config_str: bgtzm4ny;TS0044-HOB;BA0u;BB1u;BD1u;BC0u;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 43572
+  build: no
+  status: in_progress
+  info: Huge battery drain! LEDs on D7, A1, C3, B6
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/237
   store: null
 HOMMYN_TS0011:
   human_name: HOMMYN RLZBNN01
@@ -1242,7 +1346,7 @@ MANHOT_SWITCH_1_TS0013:
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
   firmware_image_type: 43550
-  build: no
+  build: yes
   status: mostly_supported
   info: Bi-stable relays implementation needs confirmation
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/128
@@ -1328,7 +1432,7 @@ MHCOZY_TS0004_2:
   threads: null
   store: null
 MOES_SWITCHES_TS0011:
-  human_name: Moes 1-gang switches (button or touch)
+  human_name: Moes 1-gang switches (all variants)
   category: switch
   power: mains
   neutral: optional
@@ -1355,10 +1459,12 @@ MOES_SWITCHES_TS0011:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/14
   store:
-  - https://www.aliexpress.com/item/1005005178075186.html
+  - https://moeshouse.com/collections/light-switch?gf_59186=ZigBee
   - https://moeshouse.com/collections/eu-star-ring
+  - https://www.aliexpress.com/item/1005005178075186.html
+  - https://www.aliexpress.com/item/1005005178430448.html
 MOES_SWITCHES_TS0012:
-  human_name: Moes 2-gang switches (buttons or touch)
+  human_name: Moes 2-gang switches (all variants)
   category: switch
   power: mains
   neutral: optional
@@ -1385,10 +1491,12 @@ MOES_SWITCHES_TS0012:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/14
   store:
-  - https://www.aliexpress.com/item/1005005178075186.html
+  - https://moeshouse.com/collections/light-switch?gf_59186=ZigBee
   - https://moeshouse.com/collections/eu-star-ring
+  - https://www.aliexpress.com/item/1005005178075186.html
+  - https://www.aliexpress.com/item/1005005178430448.html
 MOES_SWITCHES_TS0013:
-  human_name: Moes 3-gang switches (buttons or touch)
+  human_name: Moes 3-gang switches (all variants)
   category: switch
   power: mains
   neutral: optional
@@ -1415,10 +1523,12 @@ MOES_SWITCHES_TS0013:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/14
   store:
-  - https://www.aliexpress.com/item/1005005178075186.html
+  - https://moeshouse.com/collections/light-switch?gf_59186=ZigBee
   - https://moeshouse.com/collections/eu-star-ring
+  - https://www.aliexpress.com/item/1005005178075186.html
+  - https://www.aliexpress.com/item/1005005178430448.html
 MOES_SWITCHES_TS0014:
-  human_name: Moes 4-gang switches (buttons or touch)
+  human_name: Moes 4-gang switches (all variants)
   category: switch
   power: mains
   neutral: optional
@@ -1443,8 +1553,10 @@ MOES_SWITCHES_TS0014:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/14
   store:
-  - https://www.aliexpress.com/item/1005005178075186.html
+  - https://moeshouse.com/collections/light-switch?gf_59186=ZigBee
   - https://moeshouse.com/collections/eu-star-ring
+  - https://www.aliexpress.com/item/1005005178075186.html
+  - https://www.aliexpress.com/item/1005005178430448.html
 MOES_TS0002:
   human_name: Moes ZM-104B-M
   category: module
@@ -1498,6 +1610,32 @@ MOES_TS0003:
   info: Has buzzer on C2
   threads: https://github.com/romasku/tuya-zigbee-switch/pull/30
   store: https://www.aliexpress.com/item/1005004986958450.html
+MOES_2_TS0001:
+  human_name: Moes ZM4LT1
+  category: module
+  power: mains
+  neutral: required
+  device_type: router
+  tuya_model_name: TS0001
+  tuya_manufacturer_name: _TZ3000_afgzktgb
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0001_switch_module
+  override_z2m_device: null
+  tuya_module: ZTU
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: afgzktgb;TS0001-MS;TODO;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 43575
+  build: no
+  status: in_progress
+  info: Needs pinout
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/167
+  store: https://www.aliexpress.com/item/1005009640015785.html
 MOES_2_TS0002:
   human_name: Moes ZM4LT2
   category: module
@@ -1506,8 +1644,8 @@ MOES_2_TS0002:
   device_type: router
   tuya_model_name: TS0002
   tuya_manufacturer_name: _TZ3000_criiahcg
-  stock_converter_manufacturer: Tuya
-  stock_converter_model: null
+  stock_converter_manufacturer: Moes
+  stock_converter_model: ZM4LT2
   override_z2m_device: null
   tuya_module: ZT2S
   mcu_family: Telink
@@ -1703,8 +1841,8 @@ QS_TS0012:
   tuya_image_type: 54179
   firmware_image_type: 45590
   build: yes
-  status: mostly_supported
-  info: Bi-stable relays implementation needs confirmation
+  status: fully_supported
+  info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/144
   store: https://www.aliexpress.com/item/1005008663303208.html?sku_id=12000046146359997
 TUYA_SWITCH_TS0001:
@@ -1921,6 +2059,7 @@ TUYA_3_TS0001:
   threads: 
   - https://github.com/romasku/tuya-zigbee-switch/issues/24
   - https://github.com/romasku/tuya-zigbee-switch/issues/80
+  - https://github.com/romasku/tuya-zigbee-switch/issues/219
   store: null
 TUYA_4_TS0001:
   human_name: Tuya 1-gang 🅳
@@ -1964,7 +2103,7 @@ TUYA_5_TS0001:
   override_z2m_device: ZG-301Z
   tuya_module: none
   mcu_family: Telink
-  mcu: TLSR8253
+  mcu: TLSR8253F512AT32
   config_str: ZG-301Z;TS0001-HOB;BB1u;LD4i;SB6u;RA1;
   alt_config_str: null
   old_manufacturer_names: null
@@ -2003,8 +2142,34 @@ TUYA_6_TS0001:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/225
   store: https://www.t-led.cz/p/smart-zigbee-3-0-spinac-zb2-68506
+TUYA_7_TS0001:
+  human_name: Tuya 1-gang 🅶
+  category: module
+  power: mains
+  neutral: required
+  device_type: router
+  tuya_model_name: TS0001
+  tuya_manufacturer_name: _TZ3000_rfexs4vs
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0001
+  override_z2m_device: null
+  tuya_module: ZT3L
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: rfexs4vs;TS0001-CUS7;null;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: null
+  tuya_image_type: null
+  firmware_image_type: 43573
+  build: no
+  status: in_progress
+  info: Needs pinout
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/32
+  store: null
 TUYA_TS0002:
-  human_name: Tuya 2-gang
+  human_name: Tuya 2-gang 🅰
   category: module
   power: mains
   neutral: required
@@ -2029,6 +2194,32 @@ TUYA_TS0002:
   status: fully_supported
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/6
+  store: null
+TUYA_TS0002_2:
+  human_name: Tuya 2-gang 🅱
+  category: module
+  power: mains
+  neutral: required
+  device_type: router
+  tuya_model_name: TS0002
+  tuya_manufacturer_name: _TZ3000_zbfya6h0
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0002_basic
+  override_z2m_device: TS0002_basic_2
+  tuya_module: ZT3L
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: zbfya6h0;TS0002-CUS2;null;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: null
+  tuya_image_type: null
+  firmware_image_type: 43574
+  build: no
+  status: in_progress
+  info: Needs pinout
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/32
   store: null
 TUYA_TS0004:
   human_name: Tuya 4-gang
@@ -2140,6 +2331,84 @@ TUYA_TS0012:
   info: Supported
   threads: null
   store: null
+TUYA_REMOTE_TS0041:
+  human_name: Tuya/Moes 1-button wireless switch
+  category: remote
+  power: CR2430
+  neutral: without
+  device_type: end_device
+  tuya_model_name: TS0041
+  tuya_manufacturer_name: _TZ3000_4upl1fcj
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0041
+  override_z2m_device: Push_LE
+  tuya_module: ZS3L
+  mcu_family: Silabs
+  mcu: EFR32MG21
+  config_str: 4upl1fcj;TS0041-TUYA; null; M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: null
+  tuya_image_type: null
+  firmware_image_type: 43579
+  build: no
+  status: in_progress
+  info: Needs pinout, battery drain.
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/171
+  store: null
+TUYA_REMOTE_TS0044:
+  human_name: Tuya 4-button wireless switch 🅰
+  category: remote
+  power: CR2430
+  neutral: without
+  device_type: end_device
+  tuya_model_name: TS0044
+  tuya_manufacturer_name: _TZ3000_wkai4ga5
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0044
+  override_z2m_device: null
+  tuya_module: ZS3L
+  mcu_family: Silabs
+  mcu: EFR32MG21
+  config_str: wkai4ga5;TS0044-TUYA;SA0d;SA3d;SA4d;SB0d;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: null
+  tuya_image_type: null
+  firmware_image_type: 43577
+  build: no
+  status: in_progress
+  info: Huge battery drain! LEDs on C1, C2, C0, D0
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/171
+  store: null
+TUYA_REMOTE_TS004F:
+  human_name: Tuya 4-button wireless switch 🅱
+  category: remote
+  power: CR2430
+  neutral: without
+  device_type: end_device
+  tuya_model_name: TS004F
+  tuya_manufacturer_name: _TZ3000_xabckq1v
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS004F
+  override_z2m_device: null
+  tuya_module: ZS3L
+  mcu_family: Silabs
+  mcu: EFR32MG21
+  config_str: xabckq1v;TS004F-TUYA;SA0d;SA3d;SA4d;SB0d;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: null
+  tuya_image_type: null
+  firmware_image_type: 43578
+  build: no
+  status: in_progress
+  info: Huge battery drain! LEDs on C1, C2, C0, D0
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/171
+  store: null
 ZEMISMART_SWITCH_1_TS0012:
   human_name: Zemismart 2-gang switch 🅰
   category: switch
@@ -2154,7 +2423,7 @@ ZEMISMART_SWITCH_1_TS0012:
   tuya_module: ZT3L
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: zmlunnhy;Zemi-2-gang;SC3U;RB5C4;IB7;SD2U;RC2D4;ID7;SLP;
+  config_str: zmlunnhy;Zemi-2-gang;SC3u;RC2D4;IB7;SD2u;RB5C4;ID7;M;
   alt_config_str: null
   old_manufacturer_names:
   - Zemi-2-gang
@@ -2164,8 +2433,8 @@ ZEMISMART_SWITCH_1_TS0012:
   tuya_image_type: 54179
   firmware_image_type: 43536
   build: yes
-  status: mostly_supported
-  info: Bi-stable relays implementation needs confirmation
+  status: fully_supported
+  info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/19
   store: null
 ZEMISMART_SWITCH_2_TS0012:
@@ -2194,6 +2463,32 @@ ZEMISMART_SWITCH_2_TS0012:
   info: Needs pinout. Bi-stable relays. Must toggle relays sequentially.
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/22
   store: https://www.zemismart.com/products/kes-606us-z?VariantsId=14160
+ZEMISMART_SWITCH_TS0601_6GANG:
+  human_name: Zemismart TB26-6
+  category: switch
+  power: mains
+  neutral: null
+  device_type: null
+  tuya_model_name: TS0601
+  tuya_manufacturer_name: _TZE200_r731zlxk
+  stock_converter_manufacturer: Zemismart
+  stock_converter_model: TB26-6
+  override_z2m_device: null
+  tuya_module: ZTU
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: r731zlxk;TS0601-ZS6; null
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: null
+  tuya_image_type: null
+  firmware_image_type: 43576
+  build: no
+  status: in_progress
+  info: Needs pinout. Secondary MCU. 6-gang!
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/209
+  store: https://www.zemismart.com/products/tb26-6
 ZIGBEE_BOARD_ZTU_2:
   human_name: ZTU dev board 2
   category: board

@@ -4,14 +4,10 @@
 
 *Issues affecting the **latest version***
 
-## Bi-stable relays draw too much power
-
-- **will be fixed soon**
-- discussion: [#207](https://github.com/romasku/tuya-zigbee-switch/pull/207), [#70](https://github.com/romasku/tuya-zigbee-switch/issues/70)
-
 ## Bugs
 
 - End_device sleeping? ([#217](https://github.com/romasku/tuya-zigbee-switch/issues/217))
+- Silabs version updates broken
 
 ## Failed to read state of 'Switch' after reconnect 
 

@@ -18,7 +18,7 @@
         },
         "power": {
           "type": "string",
-          "enum": ["mains", "USB", "AA", "AAA", "CR2016", "CR2025", "CR2032", "CR2450", "LR23A", "18650"],
+          "enum": ["mains", "DC", "USB", "AA", "AAA", "CR2016", "CR2025", "CR2032", "CR2430", "CR2450", "LR23A", "18650"],
           "description": "Power source"
         },
         "neutral": {
@@ -32,13 +32,18 @@
           "description": "Whether neutral wire is required or optional"
         },
         "device_type": {
-          "type": "string",
-          "enum": ["router", "end_device"],
+          "oneOf": [
+            {
+              "type": "string",
+              "enum": ["router", "end_device"]
+            },
+            {"type": "null"}
+          ],
           "description": "Zigbee device type"
         },
         "mcu": {
           "type": "string",
-          "enum": ["TLSR8253", "TLSR8258", "EFR32MG21A020F768IM32", "EFR32MG22C224F512GN32"],
+          "enum": ["TLSR825x", "TLSR8253", "TLSR8253F512AT32", "TLSR8258", "EFR32MG21A020F768IM32", "EFR32MG22C224F512GN32"],
           "description": "Microcontroller unit type"
         },
         "tuya_model_name": {

@@ -7,8 +7,8 @@
 
 Feature-rich custom firmware for Telink/Silabs Zigbee switches, modules, sockets
 
-- Already **60+** [supported_devices.md](/docs/supported_devices.md)
-- Port new devices: [contribute/porting.md](/docs/contribute/porting.md)
+- Already **60+** [supported_devices.md](./docs/supported_devices.md)
+- Port new devices: [contribute/porting.md](./docs/contribute/porting.md)
 
 ## 🤔 Why?
 
@@ -19,72 +19,68 @@ The main driver for this project was a **frustrating bug in the factory firmware
 
 Users also consider this _the missing piece of a reliable smart home,_ because it allows **using a light switch as a Zigbee remote**.
 
-> Most of the cheap switches on the market do not allow **binding to other devices** out-of-the-box.
+> Most cheap switches on the market don't allow **binding to other devices** out-of-the-box.
 
 ## ✨ Features
 
-- **Super fast reaction time** (compared to stock firmware)
-- **Outgoing binds** (use switch to remotely control Zigbee lightbulbs - state & brightness)
+### Already implemented
+- **Super fast reaction time** (choose action moment: press / release)
+- **Detached mode** (unlink switch and relay)
+- **Outgoing binds**  (remotely control Zigbee lights - state & brightness)
 - Supports **all button types**: toggle, momentary NO, momentary NC
-- Configurable **Long press** for push-switches (custom action & duration)
-- Custom **switch action modes**, allowing to synchronize switch position or binded devices with relay state
+- Configurable **Long press** for push-switches (action & duration)
+- Custom **switch action modes** (sync: switch position - relay state - bound devices)
 - Both **Router** & **EndDevice** modes for no-Neutral devices
-- **Detached mode** (generate Zigbee events without triggering relays)
 - **Power-on behavior** (on, off, previous, toggle)
-- **Wireless flashing and updating** (OTA from original fw to custom fw, further OTA updates)
+- **Wireless flashing and updating** (OTA from original fw, further OTA updates)
 - Multiple **reset options** (10x switch press, on-board button)
 
-## 📲 Flashing
+### Work in progress
+- Wireless switches (battery-powered remotes)
+- FW-level multi-press (double or triple click)
+- Countdown timers (on_with_timed_off)
+- Inching (pulse relay output)
+- Scenes (send and receive)
+- Power monitoring
+- Touchlink
+- Integrate converters with Z2M
 
-If your device is already on [supported_devices.md](./docs/supported_devices.md), the firmware can be **installed and updated**:
+## 📲 Installation
 
-- wirelessly on Z2M / ZHA: [updating.md](/docs/updating.md)
-- by wire: [contribute/flashing_via_wire.md](/docs/contribute/flashing_via_wire.md)
-- by wire for silicon labs MCU: [contribute/flashing_via_wire_silabs.md](/docs/contribute/flashing_via_wire_silabs.md)
+If your device is already on [**supported_devices.md**](./docs/supported_devices.md), the firmware can be **installed**:
 
-Otherwise, check [contribute/porting.md](/docs/contribute/porting.md).
+- wirelessly on Z2M / ZHA (only Telink devices): [updating.md](./docs/updating.md)
+- by wire: [flashing/](./docs/flashing/)
 
-## 📝 Changelog
+Otherwise, check [contribute/porting.md](./docs/contribute/porting.md).
 
-Read the firmware release notes here: [changelog_fw.md](/docs/changelog_fw.md).
+## 📑 Documentation
 
-## 🚨 ️Known issues
+**Information and diagrams are available in [docs/](./docs/)**
 
-Stay up to date with the [known_issues.md](/docs/known_issues.md) to prevent bricking your device!
+Some quick links:
+- ❓ [**faq.md**](./docs/faq.md) ⬅ *Troubleshoot*
+- 🚨 ️[known_issues.md](./docs/known_issues.md)
+- 📝 [changelog_fw.md](./docs/changelog_fw.md)
+- 🛠️ [contribute/](./docs/contribute/)
+- ⚙️ [usage/](./docs/usage/)
+  - [endpoints.md](./docs/usage/endpoints.md) 
+  - [change_device_type.md](./docs/usage/change_device_type.md)
 
-## ❓ Frequently Asked Questions (FAQ)
+## 💬 Chat
 
-Read the [faq.md](/docs/faq.md) and feel free to ask more questions or suggest useful information.  
-Also read [endpoints.md](/docs/usage/endpoints.md) for information about groups and binding.  
-To switch between EndDevice and Router, follow [change_device_type.md](/docs/usage/change_device_type.md).
-
-## Discord
-
-Join the discussion, ask for help or just follow the news on:
+Discuss, troubleshoot and follow the updates on Discord 🙂
 
 [![Discord](https://discord.com/api/guilds/1405486711412359278/widget.png?style=banner3)](https://discord.gg/4HAg2Fr565)
 
-Keep important topics on GitHub!
-
-## 🛠️ Building and Contributing
-
-**Welcome to the team!** Please read:
-
-- [porting.md](/docs/contribute/porting.md)
-- [building.md](/docs/contribute/building.md)
-- [project_structure.md](/docs/contribute/project_structure.md)
-- [device_db_explained.md](docs/contribute/device_db_explained.md)
-- [debugging.md](/docs/contribute/debugging.md)
-- [tests.md](/docs/contribute/tests.md)
-
 ## 🙏 Acknowledgements
 
-- https://github.com/pvvx/ZigbeeTLc  
-  (fw for Telink-based temperature & humidity sensors) - the base of this project
-- https://github.com/doctor64/tuyaZigbee  
-  (fw for some other Tuya Zigbee devices) - helpful examples
-- https://medium.com/@omaslyuchenko  
-  for the **Hello Zigbee World** series - very useful references on how to program a Zigbee device
+- [pvvx/ZigbeeTLc](https://github.com/pvvx/ZigbeeTLc)  
+  ⤷ fw for Telink temp-humidity sensors (base of this project)
+- [doctor64/tuyaZigbee](https://github.com/doctor64/tuyaZigbee)  
+  ⤷ fw for other Tuya Zigbee devices (helpful examples)
+- [medium.com/@omaslyuchenko](https://medium.com/@omaslyuchenko)  
+  ⤷ **Hello Zigbee World** series (very useful Zigbee programming guides)
 
 ## ⭐ Star History
 

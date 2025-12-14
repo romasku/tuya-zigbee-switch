@@ -3,11 +3,11 @@
 # Updating OTA
 
 This page describes **converting** and **updating** supported devices **wirelessly.**  
-*Zigbee2MQTT is heavily recommended.*  
+***Zigbee2MQTT is heavily recommended.** ZHA can't re-interview and update pinouts.*
 
 > [!CAUTION]  
 > The main branch is generally safe. However, bugs in the code **can brick your device**.  
-> - Recover / restore: [contribute/flashing_via_wire.md](/docs/contribute/flashing_via_wire.md).  
+> - Recover or restore: [flashing/](./flashing/)  
 > - Restoring the original FW requires a memory dump of the stock device: [`bin/_factory/`](../bin/_factory/)
 
 - To receive custom FW updates, your ZHA / Z2M instance must have a **custom OTA index** applied.  
@@ -15,7 +15,7 @@ This page describes **converting** and **updating** supported devices **wireless
 
 ## Conversion
 
-**Original fw ➡ custom fw** update steps:
+**Original fw ➡ custom fw** update steps (only Telink devices):  
 
 1. Find your device on [supported_devices.md](./supported_devices.md)
 2. Read [known_issues.md](./known_issues.md)
@@ -38,7 +38,7 @@ This page describes **converting** and **updating** supported devices **wireless
 
 ## Version update
 
-**Custom fw ➡ custom fw** update steps:
+**Custom fw ➡ custom fw** update steps (all devices):
 
 1. Check if you have the correct [# OTA index](#ota-index)
 2. Read [changelog_fw.md](./changelog_fw.md)
@@ -104,8 +104,9 @@ zha:
 - Switch between them by re-installing (update again with FORCE index)
 - **Router is recommended** - draws more power, but works even for L-only devices  
 
-> L-only switches need at least a 3W load to function!  
-> *They may not work with smart bulbs (<1W when brightness=0)*
+> L-only switches need a big load to function (usually on L1 - consult manual).  
+> ⤷ Estimated values: >3W for end_device, >8W for router  
+> *They may not work at all with smart bulbs (<1W when brightness=0)*
 
 <details>
 <summary> <b> Index link format </b> </summary>  
