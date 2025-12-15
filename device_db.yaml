@@ -894,6 +894,32 @@ BSEED_TOUCH_2_TS0013:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/229
   store: https://www.aliexpress.com/item/1005002570240546.html
+BSEED_TOUCH_TS0004:
+  human_name: BSEED 4-gang touch switch
+  category: switch
+  power: mains
+  neutral: required
+  device_type: router
+  tuya_model_name: TS0004
+  tuya_manufacturer_name: _TZ3000_s6ma1nh4 
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0004
+  override_z2m_device: null
+  tuya_module: ZT3L
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: s6ma1nh4;TS0004-BS;LA0i;SC3u;RC2;SB7u;RB4;SB5u;RC0;SD7u;RD2;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 43582
+  build: yes
+  status: in_progress
+  info: Features work but devices fails to reconfigure with INSUFFICIENT_SPACE; post-interview config from Z2M UI does work.
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/246
+  store: https://www.bseed.com/products/bseed-zigbee-1-2-3gang-1-2-3way-switch-wall-smart-light-switch-for-staircase
 EKF_TS0012:
   human_name: EKF ssh-2g-zb-nn
   category: module
