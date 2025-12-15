@@ -80,7 +80,7 @@
 /*
  * Polling Rate Configuration
  */
-#define POLL_RATE (4 * POLL_RATE_QUARTERSECONDS) /* Normal poll rate (1s) */
+#define POLL_RATE POLL_RATE_QUARTERSECONDS /* Normal poll rate (1s) */
 #define RESPONSE_POLL_RATE                                                     \
   POLL_RATE_QUARTERSECONDS /* Response poll rate (250ms) */
 #define QUEUE_POLL_RATE POLL_RATE_QUARTERSECONDS /* Queue poll rate (250ms) */

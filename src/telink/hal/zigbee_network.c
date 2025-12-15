@@ -78,6 +78,10 @@ void bdb_init_callback(u8 status, u8 joinedNetwork) {
   if (status == BDB_INIT_STATUS_SUCCESS) {
     if (joinedNetwork) {
       ota_queryStart(OTA_QUERY_INTERVAL);
+      #ifdef ZB_ED_ROLE
+        zb_setPollRate(POLL_RATE);
+        printf("Set poll rate to %d\r\n", POLL_RATE);
+      #endif
     }
   } else {
     if (joinedNetwork) {
@@ -92,6 +96,10 @@ void bdb_commissioning_callback(u8 status, void *arg) {
   switch (status) {
   case BDB_COMMISSION_STA_SUCCESS:
     ota_queryStart(OTA_QUERY_INTERVAL);
+#ifdef ZB_ED_ROLE
+    zb_setPollRate(POLL_RATE);
+    printf("Set poll rate to %d\r\n", POLL_RATE);
+#endif
     steeringInProgress = 0;
     break;
   case BDB_COMMISSION_STA_IN_PROGRESS:
