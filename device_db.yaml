@@ -790,6 +790,32 @@ BSEED_TOUCH_TS0002:
   info: Missing state indicators (specifc dimming implementation)
   threads: https://github.com/romasku/tuya-zigbee-switch/pull/188
   store: https://aliexpress.ru/item/4000086550778.html
+BSEED_TOUCH_1_TS0002:
+  human_name: BSEED 2-gang touch switch 🅱
+  category: switch
+  power: mains
+  neutral: required
+  device_type: router
+  tuya_model_name: TS0002
+  tuya_manufacturer_name: _TZ3000_l9brjwau
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0002
+  override_z2m_device: null
+  tuya_module: ZTU
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: l9brjwau;TS0002-BS-1;LC4;SB5u;RD3;IC3;SD3u;RC2;ID7;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 43581
+  build: yes
+  status: fully_supported
+  info: Supported
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/246
+  store: https://www.aliexpress.com/item/1005003843553626.html
 BSEED_TOUCH_TS0003:
   human_name: BSEED 3-gang touch switch 🅰
   category: switch
