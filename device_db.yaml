@@ -636,6 +636,32 @@ BSEED_MELODY_TOUCH_TS0002:
   - https://www.bseed.com/products/bseed-zigbee-1-2-3gang-1-2-3way-switch-wall-smart-light-switch-for-staircase?variant=42163562086555
   - https://www.bseed.com/products/wifi-light-switch-function-key-diy-parts?variant=42014280056987
   - https://www.aliexpress.com/item/1005003475686409.html
+BSEED_LATCHING_TOUCH_TS0011:
+  human_name: BSEED latching-relays 1-gang touch switch
+  category: switch
+  power: mains
+  neutral: without
+  device_type: end_device
+  tuya_model_name: TS0011
+  tuya_manufacturer_name: _TZ3000_aetquff4
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0011
+  override_z2m_device: null
+  tuya_module: ZTU
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: aetquff4;BSLR1;LC3;SB4u;RA1D7;IC2;M;SLP;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 43585
+  build: yes
+  status: mostly_supported
+  info: Untested. Needs pinout confirmation
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/51
+  store: https://www.aliexpress.com/item/1005003324697513.html
 BSEED_TOUCH_TS0011:
   human_name: BSEED 1-gang touch switch
   category: switch
