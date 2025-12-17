@@ -116,6 +116,6 @@ Follow [device_db_explained.md] and validate with `device_db.schema.json` (e.g. 
 2. Visit GitHub Actions on your fork (web) and run `build.yml`. More info: [building.md]
 
 3. Follow [updating.md] with the index and converters from your branch.  
-Alternatively, try [flashing_via_wire.md].
+Alternatively, try [flashing/] via wire.
 
 > Thank you for trying this firmware!  
