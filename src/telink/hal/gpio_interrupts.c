@@ -88,11 +88,15 @@ static void gpio_dispatch_handler(void *arg) {
   }
 }
 
+static u8 pause = 3;
+
 static void gpio_isr_callback(void) {
-  hal_tasks_unschedule(&gpio_dispatch_task);
   // Schedule with small delay, and disable further IRQs until dispatched
   // So that constantly bouncing pins don't flood the system with interrupts
-  hal_tasks_schedule(&gpio_dispatch_task, 3);
+  hal_tasks_schedule(&gpio_dispatch_task, pause);
+  pause = (pause * 3) % 7; // Avoid constant delay to reduce chance of
+                           // repeated collisions if bounces are periodic
+                           // e.g. AC mains hum
   disable_all_gpio_irqs();
 }
 
