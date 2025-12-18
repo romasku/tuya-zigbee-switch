@@ -2056,7 +2056,7 @@ PSMART_T441_T451:
   firmware_image_type: null
   build: yes
   status: mostly_supported
-  info: Missing configuration for background. If relay is not use you can switch B0 with A5 and A0 with A0i to have a backlight and status switch. 
+  info: Missing configuration for backlight. If relay is not used you can switch B0 with A5 and A0 with A0i to have a backlight and status switch.
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/252
   store:
   - https://psmart.pl/pl/p/PSMART-Przelacznik-1-obwod-C-RM-ZigBee-TUYA/2053
