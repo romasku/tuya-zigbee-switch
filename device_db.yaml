@@ -2033,6 +2033,33 @@ OXT_TS0002:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/49
   store: null
+PSMART_T441_T451:
+  human_name: PSMART 1 Gang, Momentary, T441 / T451
+  category: switch
+  power: mains
+  neutral: optional
+  device_type: end_device
+  tuya_model_name: TS0001
+  tuya_manufacturer_name: _TZ3000_myaaknbq
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0001
+  override_z2m_device: null
+  tuya_module: ZS3L
+  mcu_family: Silabs
+  mcu: EFR32MG21A020F768IM32
+  config_str: myaaknbq;T441;SA6u;RB0;IA0;M;SLP;
+  alt_config_str: myaaknbq;T441;SA6u;RA5;IA0i;M;SLP;
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: null
+  tuya_image_type: null
+  firmware_image_type: null
+  build: yes
+  status: mostly_supported
+  info: Missing configuration for background. If relay is not use you can switch B0 with A5 and A0 with A0i to have a backlight and status switch. 
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/252
+  store:
+  - https://psmart.pl/pl/p/PSMART-Przelacznik-1-obwod-C-RM-ZigBee-TUYA/2053
 QS_TS0012:
   human_name: QS-Zigbee-S04-2C-ML-C
   category: module
