@@ -650,7 +650,7 @@ BSEED_LATCHING_TOUCH_TS0011:
   tuya_module: ZTU
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: aetquff4;BSLR1;LC3;SB4u;RA1D7;IC2;M;SLP;
+  config_str: aetquff4;BSLR1;LC3;SB4u;RC0B6;IC2;M;SLP;
   alt_config_str: null
   old_manufacturer_names: null
   old_zb_models: null
@@ -658,8 +658,8 @@ BSEED_LATCHING_TOUCH_TS0011:
   tuya_image_type: 54179
   firmware_image_type: 43585
   build: yes
-  status: mostly_supported
-  info: Untested. Needs pinout confirmation
+  status: fully_supported
+  info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/51
   store: https://www.aliexpress.com/item/1005003324697513.html
 BSEED_TOUCH_TS0011:
