@@ -52,8 +52,18 @@ jobs:
       run: |
         make setup || (
           echo "dumping log:" &&
-          cat /home/runner/work/tuya-zigbee-switch/tuya-zigbee-switch/silabs_tools/slc-cli/bin/slc-cli/configuration/*.log
+          cat /home/runner/work/tuya-zigbee-switch/tuya-zigbee-switch/silabs_tools/slc-cli/bin/slc-cli/configuration/*.log || true
         )
+    
+    - name: Verify Telink Tools Installation
+      run: |
+        if [ ! -f "telink_tools/toolchain/tc32/bin/tc32-elf-gcc" ]; then
+          echo "Telink toolchain not found, installing..."
+          make telink/tools/all || make -C src/telink tools/all
+        else
+          echo "Telink toolchain found"
+        fi
+        ls -la telink_tools/toolchain/tc32/bin/tc32-elf-gcc || echo "ERROR: Toolchain still not found"
 
     - name: Setup Python Virtual Environment
       run: |
