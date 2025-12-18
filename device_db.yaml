@@ -2691,7 +2691,7 @@ ZBMINIL2:
   tuya_module: none
   mcu_family: Silabs
   mcu: EFR32MG22C224F512GN32
-  config_str: sonoff;ZBMINIL2-custom;BA0u;LC5i;SA6u;RA4A5;
+  config_str: sonoff;ZBMINIL2-custom;BA0u;LC5i;SA6u;RA5A4;
   alt_config_str: null
   old_manufacturer_names: null
   old_zb_models: null
