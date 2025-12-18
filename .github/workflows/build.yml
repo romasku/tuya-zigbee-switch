@@ -55,6 +55,15 @@ jobs:
           cat /home/runner/work/tuya-zigbee-switch/tuya-zigbee-switch/silabs_tools/slc-cli/bin/slc-cli/configuration/*.log
         )
 
+    - name: Setup Python Virtual Environment
+      run: |
+        if [ ! -d ".venv" ]; then
+          python3 -m venv .venv
+          . .venv/bin/activate && pip install -r requirements.txt
+        else
+          . .venv/bin/activate && pip install -r requirements.txt
+        fi
+
     - name: Clear out index files
       run: |
         source .venv/bin/activate
