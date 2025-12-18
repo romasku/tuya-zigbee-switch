@@ -491,6 +491,32 @@ BSEED_SOCKET_TS011F:
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/145
   store:
   - https://www.aliexpress.com/item/1005004402438527.html
+TUYA_SOCKET_TS011F:
+  human_name: Tuya socket TS011F
+  category: outlet
+  power: mains
+  neutral: required
+  device_type: router
+  tuya_model_name: TS011F
+  tuya_manufacturer_name: _TZ3000_i9oy2rdq
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS011F_plug_1
+  override_z2m_device: null
+  tuya_module: ZTU
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: i9oy2rdq;TS011F-TUYA;LC2;SB4u;RC3;ID2;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 45629
+  build: yes
+  status: mostly_supported
+  info: Button pin may need adjustment - testing required
+  threads: null
+  store: null
 BSEED_SWITCH_TS0726_1GANG:
   human_name: BSEED 1-gang switch
   category: switch
