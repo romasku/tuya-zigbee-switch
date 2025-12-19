@@ -1981,33 +1981,33 @@ OXT_TS0002:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/49
   store: null
-PSMART_T441_T451:
-  human_name: PSMART 1 Gang, Momentary, T441 / T451
+PSMART_SWITCH_TS0001:
+  human_name: PSMART T441/T451
   category: switch
   power: mains
-  neutral: optional
+  neutral: required
   device_type: end_device
   tuya_model_name: TS0001
   tuya_manufacturer_name: _TZ3000_myaaknbq
   stock_converter_manufacturer: Tuya
-  stock_converter_model: TS0001
-  override_z2m_device: null
+  stock_converter_model: TS0001_switch_module_1
+  override_z2m_device: T441
   tuya_module: ZS3L
   mcu_family: Silabs
   mcu: EFR32MG21A020F768IM32
-  config_str: myaaknbq;T441;SA6u;RB0;IA0;M;
-  alt_config_str: myaaknbq;T441;SA6u;RA5;IA0i;M;
+  config_str: myaaknbq;TS0001-PS;LC0;SA6u;RB0;IA0;M;
+  alt_config_str: myaaknbq;TS0001-PS;LC0;SA6u;RA5;IA0i;M;
   old_manufacturer_names: null
-  old_zb_models: null
+  old_zb_models: 
+  - T441
   tuya_manufacturer_id: null
   tuya_image_type: null
-  firmware_image_type: 45629
+  firmware_image_type: 43588
   build: yes
   status: mostly_supported
-  info: Missing configuration for backlight. If relay is not used you can switch B0 with A5 and A0 with A0i to have a backlight and status switch.
+  info: Backlight on A5, netled on C0?. If relay is not used, see alt_config.
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/252
-  store:
-  - https://psmart.pl/pl/p/PSMART-Przelacznik-1-obwod-C-RM-ZigBee-TUYA/2053
+  store: https://psmart.pl/pl/p/PSMART-Przelacznik-1-obwod-C-RM-ZigBee-TUYA/2053
 QS_TS0012:
   human_name: QS-Zigbee-S04-2C-ML-C
   category: module
