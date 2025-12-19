@@ -2001,7 +2001,7 @@ PSMART_T441_T451:
   old_zb_models: null
   tuya_manufacturer_id: null
   tuya_image_type: null
-  firmware_image_type: null
+  firmware_image_type: 45629
   build: yes
   status: mostly_supported
   info: Missing configuration for backlight. If relay is not used you can switch B0 with A5 and A0 with A0i to have a backlight and status switch.
