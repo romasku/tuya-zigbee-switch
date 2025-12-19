@@ -514,7 +514,7 @@ TUYA_SOCKET_TS011F:
   firmware_image_type: 45629
   build: yes
   status: fully_supported
-  info: 2-way switch: S1→GND, S2→D2. Module button on C2 (SC2u) toggles relay + long press resets. Both switches control RC0.
+  info: "2-way switch: S1→GND, S2→D2. Module button on C2 (SC2u) toggles relay + long press resets. Both switches control RC0."
   threads: null
   store: null
 BSEED_SWITCH_TS0726_1GANG:
