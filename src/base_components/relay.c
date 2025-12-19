@@ -50,7 +50,7 @@ void relay_init(relay_t *relay) {
 
   // Turn off all pins
   hal_gpio_write(relay->pin, !relay->on_high);
-  if (relay->off_pin) {
+  if (relay->is_latching) {
     hal_gpio_write(relay->off_pin, !relay->on_high);
   }
 }
@@ -62,7 +62,7 @@ void relay_on(relay_t *relay) {
   printf("relay_on\r\n");
 
   relay->on = 1;
-  if (!relay->off_pin) {
+  if (!relay->is_latching) {
     // Normal relay: drive continuously
     hal_gpio_write(relay->pin, relay->on_high);
   } else {
@@ -84,7 +84,7 @@ void relay_off(relay_t *relay) {
   printf("relay_off\r\n");
 
   relay->on = 0;
-  if (!relay->off_pin) {
+  if (!relay->is_latching) {
     // Normal relay:  drive continuously
     hal_gpio_write(relay->pin, !relay->on_high);
   } else {

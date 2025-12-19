@@ -8,10 +8,11 @@
 typedef void (*relay_callback_t)(void *param, uint8_t state);
 
 typedef struct {
-  int pin;                    // ON pin
-  int off_pin;                // OFF pin (optional, for latching relays)
-  int on_high;                // 1 if "on" is HIGH, 0 if "on" is LOW
-  int on;                     // Current state (0 = off, 1 = on)
+  hal_gpio_pin_t pin;         // ON pin
+  hal_gpio_pin_t off_pin;     // OFF pin (optional, for latching relays)
+  uint8_t on_high;            // 1 if "on" is HIGH, 0 if "on" is LOW
+  uint8_t on;                 // Current state (0 = off, 1 = on)
+  uint8_t is_latching;        // 1 if latching relay, 0 if normal relay
   hal_task_t latching_task;   // Task to clear pulse for latching relays
   relay_callback_t on_change; // Optional callback for state change
   void *callback_param;       // Parameter passed to callback

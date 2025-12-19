@@ -172,6 +172,7 @@ void parse_config() {
         pin = hal_gpio_parse_pin(entry + 3);
         hal_gpio_init(pin, 0, HAL_GPIO_PULL_NONE);
         relays[relays_cnt].off_pin = pin;
+        relays[relays_cnt].is_latching = 1;
       }
 
       relay_clusters[relay_clusters_cnt].relay_idx = relay_clusters_cnt;

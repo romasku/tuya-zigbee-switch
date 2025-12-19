@@ -21,7 +21,7 @@ def pins_config() -> list[LatchingRelayTestConfig]:
         LatchingRelayTestConfig(on_pin="B0", off_pin="C0", ep=1),
         LatchingRelayTestConfig(on_pin="B1", off_pin="C1", ep=2),
         LatchingRelayTestConfig(on_pin="B2", off_pin="C2", ep=3),
-        LatchingRelayTestConfig(on_pin="B3", off_pin="C3", ep=4),
+        LatchingRelayTestConfig(on_pin="B3", off_pin="A3", ep=4),
     ]
 
 
@@ -189,3 +189,32 @@ def test_mutual_no_exclusion_between_relays_all_on(
         latching_simultenious_device.step_time(10)
         time_passed += 10
     assert time_passed <= 120  # No longer than a single pulse
+
+
+# A0 is encoded as 0, so this tests that it works correctly
+def test_off_pin_is_a0() -> None:
+    cfg = "X;Y;RC2A0;"
+    p = StubProc(device_config=cfg).start()
+    try:
+        device = Device(p)
+
+        device.call_zigbee_cmd(1, ZCL_CLUSTER_ON_OFF, 0x01)
+
+        time_passed = 0
+
+        while device.get_gpio("C2") is True:
+            device.step_time(10)
+            time_passed += 10
+            assert time_passed < 1000, "Timed out waiting for ON pulse to end"
+
+        time_passed = 0
+
+        device.call_zigbee_cmd(1, ZCL_CLUSTER_ON_OFF, 0x00)
+
+        while device.get_gpio("A0") is True:
+            device.step_time(10)
+            time_passed += 10
+            assert time_passed < 1000, "Timed out waiting for ON pulse to end"
+
+    finally:
+        p.stop()
