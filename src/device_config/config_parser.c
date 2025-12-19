@@ -96,7 +96,8 @@ void parse_config() {
       hal_gpio_init(pin, 1, pull);
 
       buttons[buttons_cnt].pin = pin;
-      buttons[buttons_cnt].long_press_duration_ms = 2000;
+      // Reset buttons get 5s long press to prevent accidental resets
+      buttons[buttons_cnt].long_press_duration_ms = 5000;
       buttons[buttons_cnt].multi_press_duration_ms = 800;
       buttons[buttons_cnt].on_long_press = on_reset_clicked;
       buttons_cnt++;
