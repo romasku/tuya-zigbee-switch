@@ -32,9 +32,11 @@ const tuyaModels = [
     "TS0001",
     "TS0001_switch_1_gang",
     "TS0001_switch_module",
+    "TS0001_switch_module_1",
     "TS0002",
     "TS0002_basic",
     "TS0002_limited",
+    "TS0002_switch_module_1",
     "TS0003",
     "TS0003_switch_3_gang",
     "TS0003_switch_module_2",
@@ -59,6 +61,8 @@ const tuyaModels = [
 ];
 
 const tuyaMultiplePinoutsModels = [
+    "TS0001_switch_module_1",
+    "TS0002_switch_module_1",
     "TS0004_switch_module_2",
 ];
 
