@@ -158,6 +158,10 @@ void parse_config() {
           ZCL_ONOFF_CONFIGURATION_RELAY_MODE_SHORT;
       switch_clusters[switch_clusters_cnt].binded_mode =
           ZCL_ONOFF_CONFIGURATION_BINDED_MODE_SHORT;
+      // Default relay_index: if there's only one relay, all switches control it
+      // Otherwise, each switch controls its own relay (1-indexed)
+      // Default: each switch controls its own relay (1-indexed)
+      // Will be updated after parsing if there's only one relay
       switch_clusters[switch_clusters_cnt].relay_index =
           switch_clusters_cnt + 1;
       switch_clusters[switch_clusters_cnt].button = &buttons[buttons_cnt];
@@ -190,6 +194,13 @@ void parse_config() {
         switch_clusters[index].mode =
             ZCL_ONOFF_CONFIGURATION_SWITCH_TYPE_MOMENTARY;
       }
+    }
+  }
+
+  // If there's only one relay, all switches should control it
+  if (relay_clusters_cnt == 1) {
+    for (int i = 0; i < switch_clusters_cnt; i++) {
+      switch_clusters[i].relay_index = 1;
     }
   }
 
