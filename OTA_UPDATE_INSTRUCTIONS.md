@@ -1,8 +1,8 @@
-# OTA Update Instructions for TUYA_SOCKET_TS011F
+# OTA Update Instructions for TUYA_MODULE_TS011F
 
 ## What We've Done
 
-✅ Added your device (`_TZ3000_i9oy2rdq`, `TS011F`) to the device database as `TUYA_SOCKET_TS011F`
+✅ Added your device (`_TZ3000_i9oy2rdq`, `TS011F`) to the device database as `TUYA_MODULE_TS011F`
 ✅ Configured it with button pin B4 (based on similar BSEED socket)
 ✅ Assigned firmware image type: 45629
 
@@ -28,7 +28,7 @@ You have two options to build the firmware:
 3. **Commit and push your changes:**
    ```bash
    git add device_db.yaml
-   git commit -m "Add TUYA_SOCKET_TS011F device entry"
+   git commit -m "Add TUYA_MODULE_TS011F device entry"
    git push origin main
    ```
 
@@ -44,7 +44,7 @@ You have two options to build the firmware:
 6. **Download the firmware:**
    - Go to the completed workflow run
    - Download the artifacts
-   - Extract `bin/router/TUYA_SOCKET_TS011F/tlc_switch-*.zigbee` file
+   - Extract `bin/router/TUYA_MODULE_TS011F/tlc_switch-*.zigbee` file
 
 ### Option 2: Build Locally (If you have build tools)
 
@@ -55,10 +55,10 @@ If you have the Telink toolchain installed:
 make_scripts/make_install.sh
 
 # Build firmware
-BOARD=TUYA_SOCKET_TS011F make board/build
+BOARD=TUYA_MODULE_TS011F make board/build
 ```
 
-The firmware will be in: `bin/router/TUYA_SOCKET_TS011F/tlc_switch-*.zigbee`
+The firmware will be in: `bin/router/TUYA_MODULE_TS011F/tlc_switch-*.zigbee`
 
 ## OTA Update Process
 
@@ -155,7 +155,7 @@ If none of the common pins work, you may need to:
 
 ## Current Configuration Details
 
-- **Device Key:** `TUYA_SOCKET_TS011F`
+- **Device Key:** `TUYA_MODULE_TS011F`
 - **Manufacturer ID:** `_TZ3000_i9oy2rdq`
 - **Firmware Image Type:** `45629`
 - **Config String:** `i9oy2rdq;TS011F-TUYA;LC2;SB4u;RC3;ID2;M;`
