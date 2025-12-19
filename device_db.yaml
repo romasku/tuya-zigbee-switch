@@ -1986,7 +1986,7 @@ PSMART_SWITCH_TS0001:
   category: switch
   power: mains
   neutral: required
-  device_type: end_device
+  device_type: router
   tuya_model_name: TS0001
   tuya_manufacturer_name: _TZ3000_myaaknbq
   stock_converter_manufacturer: Tuya
