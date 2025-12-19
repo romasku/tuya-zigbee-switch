@@ -491,7 +491,7 @@ BSEED_SOCKET_TS011F:
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/145
   store:
   - https://www.aliexpress.com/item/1005004402438527.html
-TUYA_SOCKET_TS011F:
+TUYA_MODULE_TS011F:
   human_name: Tuya switch module TS011F
   category: module
   power: mains
