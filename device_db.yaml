@@ -514,7 +514,7 @@ TUYA_MODULE_TS011F:
   firmware_image_type: 45629
   build: yes
   status: fully_supported
-  info: "2-way switch: S1→GND, S2→D2. Module button on C3 (BC3u) reset only (like Zbeacon TS0001). Wall switch (SD2u) controls RC0. Buttons not working - see TROUBLESHOOTING_BUTTONS.md"
+  info: "2-way switch: S1→GND, S2→D2. Module button on C3 (BC3u) reset only (5s long press). Wall switch (SD2u) controls RC3. Tested and working."
   threads: null
   store: https://www.aliexpress.us/item/3256809942562338.html
 BSEED_SWITCH_TS0726_1GANG:
