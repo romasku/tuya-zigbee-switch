@@ -322,7 +322,7 @@ CONFIGS = [
     "Zemi-2-gang;Zemi-2-gang;SC3u;RC2D4;IB7;SD2u;RB5C4;ID7;M;",
     "Zemi-2-gang;Zemi-2-gang-ED;SC3u;RC2D4;IB7;SD2u;RB5C4;ID7;M;",
     "TUYA;DEV-ZTU2;LD7;SA0u;RC1;IB6;M;",
-    "sonoff;ZBMINIL2-custom;BA0u;LC5i;SA6u;RA4A5;",
+    "sonoff;ZBMINIL2-custom;BA0u;LC5i;SA6u;RA5A4;",
 ]
 
 for config in CONFIGS:
