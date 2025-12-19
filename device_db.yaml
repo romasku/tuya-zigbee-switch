@@ -516,7 +516,7 @@ TUYA_MODULE_TS011F:
   status: fully_supported
   info: "2-way switch: S1→GND, S2→D2. Module button on C3 (SC3u) toggles relay + long press resets. Both switches control RC0."
   threads: null
-  store: null
+  store: https://www.aliexpress.us/item/3256809942562338.html
 BSEED_SWITCH_TS0726_1GANG:
   human_name: BSEED 1-gang switch
   category: switch
