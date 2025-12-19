@@ -500,7 +500,7 @@ TUYA_SOCKET_TS011F:
   tuya_model_name: TS011F
   tuya_manufacturer_name: _TZ3000_i9oy2rdq
   stock_converter_manufacturer: Tuya
-  stock_converter_model: TS011F_plug_1
+  stock_converter_model: TS011F_switch_module
   override_z2m_device: null
   tuya_module: ZTU
   mcu_family: Telink
