@@ -2047,8 +2047,8 @@ PSMART_T441_T451:
   tuya_module: ZS3L
   mcu_family: Silabs
   mcu: EFR32MG21A020F768IM32
-  config_str: myaaknbq;T441;SA6u;RB0;IA0;M;SLP;
-  alt_config_str: myaaknbq;T441;SA6u;RA5;IA0i;M;SLP;
+  config_str: myaaknbq;T441;SA6u;RB0;IA0;M;
+  alt_config_str: myaaknbq;T441;SA6u;RA5;IA0i;M;
   old_manufacturer_names: null
   old_zb_models: null
   tuya_manufacturer_id: null
