@@ -676,7 +676,7 @@ BSEED_LATCHING_TOUCH_TS0011:
   tuya_module: ZTU
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: aetquff4;BSLR1;LC3;SB4u;RA1D7;IC2;M;SLP;
+  config_str: aetquff4;BSLR1;LC3;SB4u;RC0B6;IC2;M;SLP;
   alt_config_str: null
   old_manufacturer_names: null
   old_zb_models: null
@@ -684,8 +684,8 @@ BSEED_LATCHING_TOUCH_TS0011:
   tuya_image_type: 54179
   firmware_image_type: 43585
   build: yes
-  status: mostly_supported
-  info: Untested. Needs pinout confirmation
+  status: fully_supported
+  info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/51
   store: https://www.aliexpress.com/item/1005003324697513.html
 BSEED_TOUCH_TS0011:
@@ -1541,8 +1541,60 @@ MANHOT_SWITCH_1_TS0013:
   store:
   - https://www.aliexpress.com/item/1005008300010160.html
   - https://www.aliexpress.com/item/1005008867890261.html
-MANHOT_SWITCH_2_TS0013:
-  human_name: Manhot 3-gang switch 🅱
+MANHOT_SWITCH_B_TS0011:
+  human_name: Manhot 🅱 1-gang switch
+  category: switch
+  power: mains
+  neutral: optional
+  device_type: end_device
+  tuya_model_name: TS0011
+  tuya_manufacturer_name: _TZ3000_bmzfjnbp
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0011
+  override_z2m_device: null
+  tuya_module: ZS3L
+  mcu_family: Silabs
+  mcu: EFR32MG21A020F768IM32
+  config_str: bmzfjnbp;TS0011-MHB;SA4u;RD1D0;IA6i;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: 4098
+  tuya_image_type: 5634
+  firmware_image_type: 43586
+  build: yes
+  status: in_progress
+  info: Needs pinout confirmation
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/197
+  store: https://www.aliexpress.com/item/1005006877282435.html
+MANHOT_SWITCH_B_TS0012:
+  human_name: Manhot 🅱 2-gang switch
+  category: switch
+  power: mains
+  neutral: optional
+  device_type: end_device
+  tuya_model_name: TS0012
+  tuya_manufacturer_name: _TZ3000_ugaem1nb
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0012
+  override_z2m_device: null
+  tuya_module: ZS3L
+  mcu_family: Silabs
+  mcu: EFR32MG21A020F768IM32
+  config_str: ugaem1nb;TS0012-MHB;SA3u;RD1D0;IB1i;SB0u;RC2A0;IA5i;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: 4098
+  tuya_image_type: 5634
+  firmware_image_type: 43587
+  build: yes
+  status: in_progress
+  info: Needs pinout confirmation
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/197
+  store: https://www.aliexpress.com/item/1005006877282435.html
+MANHOT_SWITCH_B_TS0013:
+  human_name: Manhot 🅱 3-gang switch
   category: switch
   power: mains
   neutral: optional
@@ -1555,16 +1607,16 @@ MANHOT_SWITCH_2_TS0013:
   tuya_module: ZS3L
   mcu_family: Silabs
   mcu: EFR32MG21A020F768IM32
-  config_str: snq47izk;TS0013-MH-2; null
+  config_str: snq47izk;TS0013-MHB;SA3u;RD1D0;IB1i;SA4u;RC2A0;IA6i;SB0u;RC0C1;IA5i;M;
   alt_config_str: null
   old_manufacturer_names: null
   old_zb_models: null
   tuya_manufacturer_id: 4098
   tuya_image_type: 5634
   firmware_image_type: 45586
-  build: no
-  status: in_progress
-  info: Needs pinout
+  build: yes
+  status: fully_supported
+  info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/197
   store: https://www.aliexpress.com/item/1005006877282435.html
 MHCOZY_TS0004:
@@ -2007,6 +2059,33 @@ OXT_TS0002:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/49
   store: null
+PSMART_SWITCH_TS0001:
+  human_name: PSMART T441/T451
+  category: switch
+  power: mains
+  neutral: required
+  device_type: router
+  tuya_model_name: TS0001
+  tuya_manufacturer_name: _TZ3000_myaaknbq
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0001_switch_module_1
+  override_z2m_device: T441
+  tuya_module: ZS3L
+  mcu_family: Silabs
+  mcu: EFR32MG21A020F768IM32
+  config_str: myaaknbq;TS0001-PS;LC0;SA6u;RB0;IA0;M;
+  alt_config_str: myaaknbq;TS0001-PS;LC0;SA6u;RA5;IA0i;M;
+  old_manufacturer_names: null
+  old_zb_models: 
+  - T441
+  tuya_manufacturer_id: null
+  tuya_image_type: null
+  firmware_image_type: 43588
+  build: yes
+  status: mostly_supported
+  info: Backlight on A5, netled on C0?. If relay is not used, see alt_config.
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/252
+  store: https://psmart.pl/pl/p/PSMART-Przelacznik-1-obwod-C-RM-ZigBee-TUYA/2053
 QS_TS0012:
   human_name: QS-Zigbee-S04-2C-ML-C
   category: module
