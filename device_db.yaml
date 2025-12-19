@@ -2060,6 +2060,33 @@ PSMART_SWITCH_TS0001:
   info: Backlight on A5, netled on C0?. If relay is not used, see alt_config.
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/252
   store: https://psmart.pl/pl/p/PSMART-Przelacznik-1-obwod-C-RM-ZigBee-TUYA/2053
+PSMART_SWITCH_TS0002:
+  human_name: PSMART T442/T452
+  category: switch
+  power: mains
+  neutral: required
+  device_type: router
+  tuya_model_name: TS0002
+  tuya_manufacturer_name: _TZ3000_mufwv0ry
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0002_switch_module_1
+  override_z2m_device: T442
+  tuya_module: ZS3L
+  mcu_family: Silabs
+  mcu: EFR32MG21A020F768IM32
+  config_str: mufwv0ry;TS0002-PS;LC2;SA3u;RA4;IC0;SB1u;RD1;IC1;M;
+  alt_config_str: mufwv0ry;TS0002-PS;SA3u;RA4;IC0;SB1u;RD1;IC1;SB0u;RC2;IA5;M;
+  old_manufacturer_names: null
+  old_zb_models: 
+  - T442
+  tuya_manufacturer_id: null
+  tuya_image_type: null
+  firmware_image_type: 43589
+  build: yes
+  status: mostly_supported
+  info: With alternative configuration you can control green led via Relay 3 and backlight via Relay 3 indicator led.
+  threads: null
+  store: https://psmart.pl/pl/p/PSMART-Przelacznik-2-obwody-C-RM-ZigBee-TUYA/2052
 QS_TS0012:
   human_name: QS-Zigbee-S04-2C-ML-C
   category: module
