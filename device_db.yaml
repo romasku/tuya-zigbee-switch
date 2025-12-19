@@ -2074,7 +2074,7 @@ PSMART_SWITCH_TS0002:
   tuya_module: ZS3L
   mcu_family: Silabs
   mcu: EFR32MG21A020F768IM32
-  config_str: mufwv0ry;TS0002-PS;LC2;SA3u;RA4;IC0;SB1u;RD1;IC1;M;
+  config_str: mufwv0ry;TS0002-PS;LC2;SA3u;RA4;IC0;SB1u;RD1;IC1;SB0u;RA5;IA5;M;
   alt_config_str: mufwv0ry;TS0002-PS;SA3u;RA4;IC0;SB1u;RD1;IC1;SB0u;RC2;IA5;M;
   old_manufacturer_names: null
   old_zb_models: 
