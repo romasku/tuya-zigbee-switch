@@ -210,6 +210,7 @@ CONFIGS = [
     "avotanj3;TS0013-AVB;BB4u;LB5;SA1u;RC2;SC3u;RC4;SC0u;RD2;",
     "b28wrpvx;TS011F-BS-PM;LC3;SB5u;RD2;IB4;M;",
     "o1jzcxou;TS011F-BS;LC2;SB4u;RC3;ID2;M;",
+    "i9oy2rdq;TS011F-TUYA;BC2u;LD2i;SD3u;RC0;",
     "jn2x20tg;TS0726-1-BS;LC4;SB1u;RC2;IC0;M;",
     "zjuvw9zf;TS0726-2-BS;LC4;SB1u;RC2;IC0;SB7u;RC3;ID7;M;",
     "iedhxgyi;TS0726-3-BS;LC4;SB1u;RC2;IC0;SB7u;RC3;ID7;SB4u;RD2;IB5;M;",
@@ -322,7 +323,7 @@ CONFIGS = [
     "Zemi-2-gang;Zemi-2-gang;SC3u;RC2D4;IB7;SD2u;RB5C4;ID7;M;",
     "Zemi-2-gang;Zemi-2-gang-ED;SC3u;RC2D4;IB7;SD2u;RB5C4;ID7;M;",
     "TUYA;DEV-ZTU2;LD7;SA0u;RC1;IB6;M;",
-    "sonoff;ZBMINIL2-custom;BA0u;LC5i;SA6u;RA4A5;",
+    "sonoff;ZBMINIL2-custom;BA0u;LC5i;SA6u;RA5A4;",
 ]
 
 for config in CONFIGS:
