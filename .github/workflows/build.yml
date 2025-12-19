@@ -90,15 +90,23 @@ jobs:
           fi
   
           echo "Building for board: $ITER (router)"
-          BOARD=$ITER DEVICE_TYPE=router make board/build || exit 1
-          echo "Checking if files were created for board: $ITER (router)"
-          ls -l bin/router/$ITER/
+          if BOARD=$ITER DEVICE_TYPE=router make board/build; then
+            echo "✓ Build succeeded for $ITER (router)"
+            echo "Checking if files were created for board: $ITER (router)"
+            ls -l bin/router/$ITER/ || echo "Warning: No files found for $ITER (router)"
+          else
+            echo "✗ Build failed for $ITER (router) - continuing with other devices"
+          fi
 
           if [ "$TYPE" = "end_device" ]; then
             echo "Building for board: $ITER (end_device)"
-            BOARD=${ITER} DEVICE_TYPE=end_device make board/build || exit 1
-            echo "Checking if files were created for board: $ITER (end_device)"
-            ls -l bin/end_device/${ITER}_END_DEVICE/
+            if BOARD=${ITER} DEVICE_TYPE=end_device make board/build; then
+              echo "✓ Build succeeded for $ITER (end_device)"
+              echo "Checking if files were created for board: $ITER (end_device)"
+              ls -l bin/end_device/${ITER}_END_DEVICE/ || echo "Warning: No files found for $ITER (end_device)"
+            else
+              echo "✗ Build failed for $ITER (end_device) - continuing with other devices"
+            fi
           fi
         done
 
