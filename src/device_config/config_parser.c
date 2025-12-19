@@ -100,6 +100,9 @@ void parse_config() {
       buttons[buttons_cnt].long_press_duration_ms = 5000;
       buttons[buttons_cnt].multi_press_duration_ms = 800;
       buttons[buttons_cnt].on_long_press = on_reset_clicked;
+      // For pull-up buttons (u), pressed = LOW (0), so pressed_when_high = 0
+      // For pull-down buttons (d), pressed = HIGH (1), so pressed_when_high = 1
+      buttons[buttons_cnt].pressed_when_high = (pull == HAL_GPIO_PULL_DOWN) ? 1 : 0;
       buttons_cnt++;
     } else if (entry[0] == 'L') {
       hal_gpio_pin_t pin = hal_gpio_parse_pin(entry + 1);
