@@ -1426,6 +1426,7 @@ const definitions = [
         extend: [
             deviceEndpoints({ endpoints: {"switch": 1, "relay": 2, } }),
             romasku.deviceConfig("device_config", "switch"),
+            romasku.networkIndicator("network_led", "switch"),
             onOff({ endpointNames: ["relay"] }),
             romasku.pressAction("switch_press_action", "switch"),
             romasku.switchMode("switch_mode", "switch"),
