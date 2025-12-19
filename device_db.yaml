@@ -505,7 +505,7 @@ TUYA_MODULE_TS011F:
   tuya_module: ZTU
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: i9oy2rdq;TS011F-TUYA;BC3u;SD2u;RC3;
+  config_str: i9oy2rdq;TS011F-TUYA;BC3d;LC2i;SD2u;RC3;
   alt_config_str: null
   old_manufacturer_names: null
   old_zb_models: null
