@@ -143,7 +143,10 @@ void parse_config() {
       hal_gpio_init(pin, 1, pull);
 
       buttons[buttons_cnt].pin = pin;
-      buttons[buttons_cnt].long_press_duration_ms = 800;
+      // First switch (module button) gets 5s long press for reset/pairing
+      // Other switches (wall switches) keep 800ms default
+      buttons[buttons_cnt].long_press_duration_ms = 
+          (switch_clusters_cnt == 0) ? 5000 : 800;
       buttons[buttons_cnt].multi_press_duration_ms = 800;
 
       switch_clusters[switch_clusters_cnt].switch_idx = switch_clusters_cnt;
