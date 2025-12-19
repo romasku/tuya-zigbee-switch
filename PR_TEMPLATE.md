@@ -60,6 +60,15 @@ Pinout was determined using multimeter continuity testing:
 - Long press duration extended to 5 seconds for the module button to prevent accidental factory resets
 - Both switches (module button and 2-way wall switch) control the same relay (RC0)
 
+## Board Photos (Optional but Helpful)
+
+If you have photos of the PCB/board, please include them here. They help:
+- Verify pinout connections
+- Help others identify the same device
+- Document the device for future reference
+
+You can drag & drop images directly into this PR description.
+
 ## Related
 
 - Based on similar ZTU module configurations (e.g., AVATTO_TS0001)
