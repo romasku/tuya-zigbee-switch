@@ -5,8 +5,8 @@
 #include "consts.h"
 #include "device_config/config_nv.h"
 #include "device_config/nvm_items.h"
+#include "device_config/reset.h"
 #include "hal/nvm.h"
-#include "hal/system.h"
 #include "hal/tasks.h"
 #include <stddef.h>
 
@@ -28,18 +28,13 @@ extern network_indicator_t network_indicator;
 void basic_cluster_store_attrs_to_nv();
 void basic_cluster_load_attrs_from_nv();
 
-void basic_cluster_reset_handler(void *arg) { hal_system_reset(); }
-
-static hal_task_t reset_task = {.handler = basic_cluster_reset_handler};
-
 void basic_cluster_callback_attr_write_trampoline(uint16_t attribute_id) {
   basic_cluster_store_attrs_to_nv();
   if (attribute_id == ZCL_ATTR_BASIC_DEVICE_CONFIG) {
     device_config_str.data[device_config_str.size] =
         0; // NULL terminate the string
     device_config_write_to_nv();
-    hal_tasks_init(&reset_task);
-    hal_tasks_schedule(&reset_task, 300);
+    schedule_reboot(0); // Use default delay
   }
   if (attribute_id == ZCL_ATTR_BASIC_STATUS_LED_STATE) {
     network_indicator_from_manual_state(&network_indicator);

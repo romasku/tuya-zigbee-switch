@@ -133,4 +133,5 @@ ui_hints: {}
 define: 
   - name: HAL_SILABS
     value: '1'
-
+  - name: END_DEVICE
+    value: '1'

@@ -1,0 +1,16 @@
+#ifndef _DEVICE_TYPE_H_
+#define _DEVICE_TYPE_H_
+
+enum device_type_t {
+  DEVICE_TYPE_UNKNOWN = 0,
+  DEVICE_TYPE_ROUTER = 1,
+  DEVICE_TYPE_END_DEVICE = 2,
+};
+
+#ifdef END_DEVICE
+#define CURRENT_DEVICE_TYPE DEVICE_TYPE_END_DEVICE
+#else
+#define CURRENT_DEVICE_TYPE DEVICE_TYPE_ROUTER
+#endif
+
+#endif

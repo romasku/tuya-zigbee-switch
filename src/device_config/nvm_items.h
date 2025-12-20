@@ -14,4 +14,8 @@
 #define NV_ITEM_RELAY_CLUSTER_DATA(relay_idx)                                  \
   (NV_ITEM_BASIC_CLUSTER_DATA + MAX_SWITCHES + 1 + relay_idx)
 
+// 3 + 5 (relays) + 5 (switches) = 13
+// Adding room for future items, so starting from 32
+#define NV_ITEM_DEVICE_TYPE 32
+
 #endif /* DEVICE_CONFIG_NVM_ITEMS_H_ */
