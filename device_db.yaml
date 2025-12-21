@@ -10,7 +10,7 @@
 # Rules:
 # - Follow the format
 # - Fill empty values with null
-# - Keep KEYs in almost alphabetical order
+# - Keep KEYs in (mostly) alphabetical order
 # - Keep attributes in the same order
 
 AUBESS_TS0001:
@@ -2069,12 +2069,12 @@ PSMART_SWITCH_TS0002:
   tuya_model_name: TS0002
   tuya_manufacturer_name: _TZ3000_mufwv0ry
   stock_converter_manufacturer: Tuya
-  stock_converter_model: TS0002_switch_module_1
+  stock_converter_model: TS0002_limited
   override_z2m_device: T442
   tuya_module: ZS3L
   mcu_family: Silabs
   mcu: EFR32MG21A020F768IM32
-  config_str: mufwv0ry;TS0002-PS;LC2;SA3u;RA4;IC0;SB1u;RD1;IC1;SB0u;RA5;IA5;M;
+  config_str: mufwv0ry;TS0002-PS;LC2;SA3u;RA4;IC0;SB1u;RD1;IC1;SB0u;RA5;IA6;M;
   alt_config_str: mufwv0ry;TS0002-PS;SA3u;RA4;IC0;SB1u;RD1;IC1;SB0u;RC2;IA5;M;
   old_manufacturer_names: null
   old_zb_models: 
@@ -2084,8 +2084,8 @@ PSMART_SWITCH_TS0002:
   firmware_image_type: 43589
   build: yes
   status: mostly_supported
-  info: With alternative configuration you can control green led via Relay 3 and backlight via Relay 3 indicator led.
-  threads: null
+  info: Backlight on A5 (3rd relay with alt_config)
+  threads: https://github.com/romasku/tuya-zigbee-switch/pull/256
   store: https://psmart.pl/pl/p/PSMART-Przelacznik-2-obwody-C-RM-ZigBee-TUYA/2052
 QS_TS0012:
   human_name: QS-Zigbee-S04-2C-ML-C
