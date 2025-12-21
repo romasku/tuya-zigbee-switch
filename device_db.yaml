@@ -1537,8 +1537,8 @@ MANHOT_SWITCH_B_TS0011:
   tuya_image_type: 5634
   firmware_image_type: 43586
   build: yes
-  status: in_progress
-  info: Needs pinout confirmation
+  status: fully_supported
+  info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/197
   store: https://www.aliexpress.com/item/1005006877282435.html
 MANHOT_SWITCH_B_TS0012:
@@ -1563,8 +1563,8 @@ MANHOT_SWITCH_B_TS0012:
   tuya_image_type: 5634
   firmware_image_type: 43587
   build: yes
-  status: in_progress
-  info: Needs pinout confirmation
+  status: fully_supported
+  info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/197
   store: https://www.aliexpress.com/item/1005006877282435.html
 MANHOT_SWITCH_B_TS0013:
