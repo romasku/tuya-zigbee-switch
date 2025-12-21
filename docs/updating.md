@@ -23,15 +23,17 @@ This page describes **converting** and **updating** supported devices **wireless
 4. **Apply** the preferred [# OTA index](#ota-index) (not FORCE)
 5. **Restart** HA / Z2M
 6. Bring the device closer to the coordinator, or add routers to **boost signal**  
-(Pairing requires stronger signal than normal usage)
+  (Pairing requires stronger signal than normal usage)
 7. Optionally, tweak Z2M settings for [# Faster OTA updates](#faster-ota-updates)
-8. **Start** the update (can get stuck at 100% - it's ok)
-9. **Permit join** when it's done (LED blinks if mapped correctly)
-10. **Interview** the device **`i`**  
-⤷ option missing from ZHA, remove and re-pair if needed  
-11. **Reconfigure** the device **`🗘`** 
-12. Be aware of [## Version update](#version-update) steps
-13. Read [faq.md](./faq.md) before reaching out for support
+8. **Check** for updates (blue cloud button) 
+9. **Start** the update (red download button)  
+  Progress bar may get stuck at 100% - it's ok
+10. **Permit join** when it's done (LED blinks if mapped correctly)
+11. **Interview** the device **`i`**  
+  ⤷ option missing from ZHA, remove and re-pair if needed  
+12. **Reconfigure** the device **`🗘`** 
+13. Be aware of [## Version update](#version-update) steps
+14. Read [faq.md](./faq.md) before reaching out for support
 
 > Hopefully, you now have a working device with custom firmware! 😊  
 > *Consider yourself invited to our [Discord](/readme.md#discord) community!* 

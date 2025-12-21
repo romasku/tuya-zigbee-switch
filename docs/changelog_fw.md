@@ -6,11 +6,28 @@
 
 Please describe what you are working on:
 
+### Features
+
+- Control cover motors (WIP)
 
 ### Changes
 
-- Bi-stable (latching) relays have been reworked and now use proper pulses instead of continuously driving the coil.
+- **Bi-stable (latching) relays** have been reworked
+  - They now use proper pulses instead of continuously driving the coil
+  - Pressing multiple buttons will toggle the relays with small delays in-between (safe)
+  - Add `SLP;` to the config string for simultaneous toggles (risky, might damage the device)
 
+### Bugs
+
+- **Fixed**
+  - Latching relays not working with off_pin A0
+  - Silabs version updates not working
+  - Telink End_device unreachable from Z2M after a while ([#217](https://github.com/romasku/tuya-zigbee-switch/issues/217))
+  - AC noise affecting Telink GPIO
+  - Changing device type breaks Silabs NVM data
+  - Reset needed 11 presses instead of 10
+- **New**
+  - SONOFF ZBMINIL2 version updates broken?
 
 ------------------------------------------------------->
 
@@ -60,7 +77,7 @@ Please describe what you are working on:
   - Can't change device imageType in config string
   - Option 'Relay indicator - manual on' is not kept after reboot
   - Relay indicators sometimes go out-of-sync ([#38](https://github.com/romasku/tuya-zigbee-switch/issues/38))
-  - End_device sleeping? ([#217](https://github.com/romasku/tuya-zigbee-switch/issues/217))
+  - Telink End_device unreachable from Z2M after a while ([#217](https://github.com/romasku/tuya-zigbee-switch/issues/217))
 
 ## v1.0.21
 

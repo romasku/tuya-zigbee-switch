@@ -1307,8 +1307,8 @@ MODULE_SONOFF_ZBMINIL2:
   stock_image_type: null
   firmware_image_type: 45596
   build: yes
-  status: fully_supported
-  info: Supported
+  status: mostly_supported
+  info: OTA WIP on BoyaMicro variant
   threads: https://github.com/romasku/tuya-zigbee-switch/pull/232
   store: https://sonoff.tech/products/sonoff-zbmini-extreme-zigbee-smart-switch-zbminil2
 MODULE_TLED_TS0001:
