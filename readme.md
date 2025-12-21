@@ -7,7 +7,7 @@
 
 Feature-rich custom firmware for Telink/Silabs Zigbee switches, modules, sockets
 
-- Already **60+** [supported_devices.md](./docs/supported_devices.md)
+- Already **100+** [supported_devices.md](./docs/supported_devices.md)
 - Port new devices: [contribute/porting.md](./docs/contribute/porting.md)
 
 ## 🤔 Why?
