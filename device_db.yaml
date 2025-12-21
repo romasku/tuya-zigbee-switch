@@ -2488,6 +2488,32 @@ TUYA_7_TS0001:
   info: Needs pinout
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/32
   store: null
+TUYA_8_TS0001:
+  human_name: Tuya 1-gang FS-02Z 
+  category: module
+  power: mains
+  neutral: required
+  device_type: router
+  tuya_model_name: TS0001
+  tuya_manufacturer_name: _TZ3000_fdxihpp7
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: WHD02
+  override_z2m_device: null
+  tuya_module: ZT2S_real_no_shield
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: fdxihpp7;WHD02-FS02Z;BD2u;LB4i;SB5u;RC3;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: 4107
+  tuya_image_type: 517
+  firmware_image_type: 43591
+  build: no
+  status: in_progress
+  info: Stops responding after OTA update?
+  threads: https://github.com/romasku/tuya-zigbee-switch/pull/243
+  store: https://www.aliexpress.com/item/1005006908878393.html
 TUYA_TS0002:
   human_name: Tuya 2-gang 🅰
   category: module
