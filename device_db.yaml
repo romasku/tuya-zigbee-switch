@@ -2082,8 +2082,8 @@ PSMART_SWITCH_TS0001:
   tuya_module: ZS3L
   mcu_family: Silabs
   mcu: EFR32MG21A020F768IM32
-  config_str: myaaknbq;TS0001-PS;LC0;SA6u;RB0;IA0;M;
-  alt_config_str: myaaknbq;TS0001-PS;LC0;SA6u;RA5;IA0i;M;
+  config_str: myaaknbq;TS0001-PS;LC2;SA6u;RB0;IA0;M;
+  alt_config_str: myaaknbq;TS0001-PS;LC2;SA6u;RA5;IA0i;M;
   old_manufacturer_names: null
   old_zb_models: 
   - T441
@@ -2092,7 +2092,7 @@ PSMART_SWITCH_TS0001:
   firmware_image_type: 43588
   build: yes
   status: mostly_supported
-  info: Backlight on A5, netled on C0?. If relay is not used, see alt_config.
+  info: Backlight on A5. If relay is not used, see alt_config.
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/252
   store: https://psmart.pl/pl/p/PSMART-Przelacznik-1-obwod-C-RM-ZigBee-TUYA/2053
 PSMART_SWITCH_TS0002:
@@ -2109,8 +2109,8 @@ PSMART_SWITCH_TS0002:
   tuya_module: ZS3L
   mcu_family: Silabs
   mcu: EFR32MG21A020F768IM32
-  config_str: mufwv0ry;TS0002-PS;LC2;SA3u;RA4;IC0;SB1u;RD1;IC1;SB0u;RA5;IA6;M;
-  alt_config_str: mufwv0ry;TS0002-PS;SA3u;RA4;IC0;SB1u;RD1;IC1;SB0u;RC2;IA5;M;
+  config_str: mufwv0ry;TS0002-PS;LC2;SA3u;RA4;IC0;SB1u;RD1;IC1;M;
+  alt_config_str: mufwv0ry;TS0002-PS;LC2;SA3u;RA4;IC0;SB1u;RD1;IC1;SB0u;RA5;IA6;M;
   old_manufacturer_names: null
   old_zb_models: 
   - T442
@@ -2120,8 +2120,34 @@ PSMART_SWITCH_TS0002:
   build: yes
   status: mostly_supported
   info: Backlight on A5 (3rd relay with alt_config)
-  threads: https://github.com/romasku/tuya-zigbee-switch/pull/256
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/252
   store: https://psmart.pl/pl/p/PSMART-Przelacznik-2-obwody-C-RM-ZigBee-TUYA/2052
+PSMART_SWITCH_TS0003:
+  human_name: PSMART T443/T453
+  category: switch
+  power: mains
+  neutral: required
+  device_type: router
+  tuya_model_name: TS0003
+  tuya_manufacturer_name: null
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: null
+  override_z2m_device: null
+  tuya_module: ZS3L
+  mcu_family: Silabs
+  mcu: EFR32MG21A020F768IM32
+  config_str: null____;TS0003-PS;LC2;SA3u;RA4;IC0;SA6u;RB0;IA0;SB1u;RD1;IC1;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: null
+  tuya_image_type: null
+  firmware_image_type: 43592
+  build: no
+  status: in_progress
+  info: Needs ID, pinout confirmation and backlight on A5
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/252
+  store: https://psmart.pl/pl/p/PSMART-Przelacznik-3-obwody-C-RM-ZigBee-TUYA/2051
 QS_TS0012:
   human_name: QS-Zigbee-S04-2C-ML-C
   category: module
