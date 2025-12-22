@@ -716,8 +716,8 @@ BSEED_TOUCH_1_TS0012:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/pull/23
   store: null
-BSEED_TOUCH_2_TS0012:
-  human_name: BSEED 2-gang touch switch 🅱
+BSEED_LATCHING_TOUCH_TS0012:
+  human_name: BSEED latching-relays 2-gang touch switch
   category: switch
   power: mains
   neutral: without
@@ -730,11 +730,12 @@ BSEED_TOUCH_2_TS0012:
   tuya_module: ZTU
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: xk5udnd6;Bseed-2-gang-2;LC3;SB5u;RC0B6;ID2;SD4u;RA1D7;ID3;M;SLP;
+  config_str: xk5udnd6;BSLR2;LC3;SB5u;RC0B6;ID2;SD4u;RA1D7;ID3;M;SLP;
   alt_config_str: null
   old_manufacturer_names:
   - Bseed-2-gang-2
   old_zb_models:
+  - Bseed-2-gang-2
   - Bseed-2-gang-2-ED
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
@@ -925,7 +926,10 @@ BSEED_TOUCH_TS0003:
   status: fully_supported
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/125
-  store: https://www.aliexpress.com/item/1005003475686409.html
+  store: 
+  - https://www.bseed.com/products/bseed-zigbee-1-2-3gang-1-2-3way-switch-wall-smart-light-switch-for-staircase?variant=42163562119323
+  - https://www.bseed.com/products/wifi-light-switch-function-key-diy-parts?variant=42014280089755
+  - https://www.aliexpress.com/item/1005003475686409.html
 BSEED_TOUCH_TS0003_2:
   human_name: BSEED 3-gang touch switch 🅱
   category: switch
@@ -952,8 +956,8 @@ BSEED_TOUCH_TS0003_2:
   info: Backlight on D4i
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/240
   store: https://www.aliexpress.com/item/1005004187227246.html
-BSEED_TOUCH_2_TS0013:
-  human_name: BSEED 3-gang touch switch
+BSEED_LATCHING_TOUCH_TS0013:
+  human_name: BSEED latching-relays 3-gang touch switch
   category: switch
   power: mains
   neutral: without
@@ -966,10 +970,11 @@ BSEED_TOUCH_2_TS0013:
   tuya_module: ZTU
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: kfwhmnvc;TS0013-2-BS;LC3;SB5u;RC0B6;ID2;SB4u;RA1D7;IC2;SD4u;RA0C1;ID3;M;SLP;
+  config_str: kfwhmnvc;BSLR3;LC3;SB5u;RC0B6;ID2;SB4u;RA1D7;IC2;SD4u;RA0C1;ID3;M;SLP;
   alt_config_str: null
   old_manufacturer_names: null
-  old_zb_models: null
+  old_zb_models: 
+  - TS0013-2-BS
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
   firmware_image_type: 43580
@@ -1003,7 +1008,9 @@ BSEED_TOUCH_TS0004:
   status: in_progress
   info: Features work but devices fails to reconfigure with INSUFFICIENT_SPACE; post-interview config from Z2M UI does work.
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/246
-  store: https://www.bseed.com/products/bseed-zigbee-1-2-3gang-1-2-3way-switch-wall-smart-light-switch-for-staircase
+  store: 
+  - https://www.bseed.com/products/bseed-zigbee-1-2-3gang-1-2-3way-switch-wall-smart-light-switch-for-staircase?variant=43409101750427
+  - https://www.bseed.com/products/wifi-light-switch-function-key-diy-parts?variant=44196176167067
 EKF_TS0012:
   human_name: EKF ssh-2g-zb-nn
   category: module
