@@ -901,8 +901,8 @@ BSEED_TOUCH_1_TS0002:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/246
   store: https://www.aliexpress.com/item/1005003843553626.html
-BSEED_TOUCH_TS0003:
-  human_name: BSEED 3-gang touch switch 🅰
+BSEED_MELODY_TOUCH_TS0003:
+  human_name: BSEED Melody 3-gang touch switch L+N
   category: switch
   power: mains
   neutral: required
@@ -915,10 +915,11 @@ BSEED_TOUCH_TS0003:
   tuya_module: ZT3L
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: 7aqaupa9;TS0003-BS;LA0i;SC3u;RC2;SB7u;RB4;SB5u;RC0;M;
+  config_str: 7aqaupa9;TS0003-BSMN;LA0i;SC3u;RC2;SB7u;RB4;SB5u;RC0;M;
   alt_config_str: null
   old_manufacturer_names: null
-  old_zb_models: null
+  old_zb_models: 
+  - TS0003-BS
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
   firmware_image_type: 43549
@@ -983,8 +984,8 @@ BSEED_LATCHING_TOUCH_TS0013:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/229
   store: https://www.aliexpress.com/item/1005002570240546.html
-BSEED_TOUCH_TS0004:
-  human_name: BSEED 4-gang touch switch
+BSEED_MELODY_TOUCH_TS0004:
+  human_name: BSEED Melody 4-gang touch switch L+N
   category: switch
   power: mains
   neutral: required
@@ -997,10 +998,11 @@ BSEED_TOUCH_TS0004:
   tuya_module: ZT3L
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: s6ma1nh4;TS0004-BS;LA0i;SC3u;RC2;SB7u;RB4;SB5u;RC0;SD7u;RD2;M;
+  config_str: s6ma1nh4;TS0004-BSMN;LA0i;SC3u;RC2;SB7u;RB4;SB5u;RC0;SD7u;RD2;M;
   alt_config_str: null
   old_manufacturer_names: null
-  old_zb_models: null
+  old_zb_models: 
+  - TS0004-BS
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
   firmware_image_type: 43582
