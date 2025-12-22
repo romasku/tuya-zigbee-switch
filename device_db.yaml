@@ -909,8 +909,8 @@ BSEED_TOUCH_TS0001:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/pull/186
   store: null
-BSEED_TOUCH_TS0001_2:
-  human_name: BSEED 1-gang touch switch 🅱
+BSEED_BACKLIGHT_TOUCH_TS0001:
+  human_name: BSEED dim-backlight 1-gang touch switch
   category: switch
   power: mains
   neutral: required
@@ -923,16 +923,17 @@ BSEED_TOUCH_TS0001_2:
   tuya_module: ZTU
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: blhvsaqf;TS0001-BS-T;LC4;SC1u;RC3;IC2;M;
+  config_str: blhvsaqf;TS0001-BSDB;LC4;SC1u;RC3;IC2;M;
   alt_config_str: null
   old_manufacturer_names: null
-  old_zb_models: null
+  old_zb_models:
+  - TS0001-BS-T
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
   firmware_image_type: 43567
   build: yes
   status: mostly_supported
-  info: Missing backlight (D4)
+  info: Backlight on D4i
   threads: https://github.com/romasku/tuya-zigbee-switch/discussions/221
   store: https://www.aliexpress.com/item/1005004187227246.html
 BSEED_TOUCH_TS0002:
@@ -961,8 +962,8 @@ BSEED_TOUCH_TS0002:
   info: Missing state indicators (specifc dimming implementation)
   threads: https://github.com/romasku/tuya-zigbee-switch/pull/188
   store: https://aliexpress.ru/item/4000086550778.html
-BSEED_TOUCH_1_TS0002:
-  human_name: BSEED 2-gang touch switch 🅱
+BSEED_BACKLIGHT_TOUCH_TS0002:
+  human_name: BSEED dim-backlight 2-gang touch switch
   category: switch
   power: mains
   neutral: required
@@ -975,20 +976,21 @@ BSEED_TOUCH_1_TS0002:
   tuya_module: ZTU
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: l9brjwau;TS0002-BS-1;LC4;SB5u;RD3;IC3;SD3u;RC2;ID7;M;
+  config_str: l9brjwau;TS0002-BSDB;LC4;SB5u;RD3;IC3;SD3u;RC2;ID7;M;
   alt_config_str: null
   old_manufacturer_names: null
-  old_zb_models: null
+  old_zb_models: 
+  - TS0002-BS-1
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
   firmware_image_type: 43581
   build: yes
-  status: fully_supported
-  info: Supported
+  status: mostly_supported
+  info: Backlight on D4i
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/246
   store: https://www.aliexpress.com/item/1005003843553626.html
-BSEED_TOUCH_TS0003_2:
-  human_name: BSEED 3-gang touch switch 🅱
+BSEED_BACKLIGHT_TOUCH_TS0003:
+  human_name: BSEED dim-backlight 3-gang touch switch
   category: switch
   power: mains
   neutral: required
@@ -1001,10 +1003,11 @@ BSEED_TOUCH_TS0003_2:
   tuya_module: ZTU
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: qkixdnon;TS0003-BSEED;LC4i;SB5u;RC3;SC1u;RC2;SD3u;RD7;M;
+  config_str: qkixdnon;TS0003-BSDB;LC4i;SB5u;RC3;SC1u;RC2;SD3u;RD7;M;
   alt_config_str: null
   old_manufacturer_names: null
-  old_zb_models: null
+  old_zb_models:
+  - TS0003-BSEED
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
   firmware_image_type: 43571
