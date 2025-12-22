@@ -1939,7 +1939,7 @@ NOUS_TS0002_1:
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0002_basic
   override_z2m_device: L13Z
-  tuya_module: ZT2S_without_shield
+  tuya_module: ZT2S_real_no_shield
   mcu_family: Telink
   mcu: TLSR8258
   config_str: ruxexjfz;TS0002-NS1;BD2u;LD3i;SA0u;SD7u;RB5;RB4;
@@ -2333,7 +2333,7 @@ TUYA_2_TS0001:
   stock_converter_manufacturer: Tuya
   stock_converter_model: WHD02
   override_z2m_device: null
-  tuya_module: ZT2S_without_shield
+  tuya_module: ZT2S_fake_no_shield
   mcu_family: Telink
   mcu: TLSR8258
   config_str: skueekg3;WHD02-custom;BB4u;LD3;SB5u;RB1;
@@ -2362,7 +2362,7 @@ TUYA_3_TS0001:
   stock_converter_manufacturer: Tuya
   stock_converter_model: WHD02
   override_z2m_device: null
-  tuya_module: ZT2S_without_shield
+  tuya_module: ZT2S_fake_no_shield
   mcu_family: Telink
   mcu: TLSR8258
   config_str: skueekg3;WHD02-custom;BB1u;LB4i;SD2u;RD3;
@@ -2394,7 +2394,7 @@ TUYA_4_TS0001:
   stock_converter_manufacturer: Tuya
   stock_converter_model: WHD02
   override_z2m_device: null
-  tuya_module: ZT2S_without_shield
+  tuya_module: ZT2S_fake_no_shield
   mcu_family: Telink
   mcu: TLSR8258
   config_str: skueekg3;WHD02-custom;BB1u;LB4i;SD2u;RD3;
