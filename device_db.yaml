@@ -636,6 +636,65 @@ BSEED_MELODY_TOUCH_TS0002:
   - https://www.bseed.com/products/bseed-zigbee-1-2-3gang-1-2-3way-switch-wall-smart-light-switch-for-staircase?variant=42163562086555
   - https://www.bseed.com/products/wifi-light-switch-function-key-diy-parts?variant=42014280056987
   - https://www.aliexpress.com/item/1005003475686409.html
+BSEED_MELODY_TOUCH_TS0003:
+  human_name: BSEED Melody 3-gang touch switch L+N
+  category: switch
+  power: mains
+  neutral: required
+  device_type: router
+  tuya_model_name: TS0003
+  tuya_manufacturer_name: _TZ3000_7aqaupa9
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0003
+  override_z2m_device: null
+  tuya_module: ZT3L
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: 7aqaupa9;TS0003-BSMN;LA0i;SC3u;RC2;SB7u;RB4;SB5u;RC0;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: 
+  - TS0003-BS
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 43549
+  build: yes
+  status: fully_supported
+  info: Supported
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/125
+  store: 
+  - https://www.bseed.com/products/bseed-zigbee-1-2-3gang-1-2-3way-switch-wall-smart-light-switch-for-staircase?variant=42163562119323
+  - https://www.bseed.com/products/wifi-light-switch-function-key-diy-parts?variant=42014280089755
+  - https://www.aliexpress.com/item/1005003475686409.html
+BSEED_MELODY_TOUCH_TS0004:
+  human_name: BSEED Melody 4-gang touch switch L+N
+  category: switch
+  power: mains
+  neutral: required
+  device_type: router
+  tuya_model_name: TS0004
+  tuya_manufacturer_name: _TZ3000_s6ma1nh4 
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0004
+  override_z2m_device: null
+  tuya_module: ZT3L
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: s6ma1nh4;TS0004-BSMN;LA0i;SC3u;RC2;SB7u;RB4;SB5u;RC0;SD7u;RD2;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: 
+  - TS0004-BS
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 43582
+  build: yes
+  status: in_progress
+  info: Features work but devices fails to reconfigure with INSUFFICIENT_SPACE; post-interview config from Z2M UI does work.
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/246
+  store: 
+  - https://www.bseed.com/products/bseed-zigbee-1-2-3gang-1-2-3way-switch-wall-smart-light-switch-for-staircase?variant=43409101750427
+  - https://www.bseed.com/products/wifi-light-switch-function-key-diy-parts?variant=44196176167067
 BSEED_LATCHING_TOUCH_TS0011:
   human_name: BSEED latching-relays 1-gang touch switch
   category: switch
@@ -662,6 +721,62 @@ BSEED_LATCHING_TOUCH_TS0011:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/51
   store: https://www.aliexpress.com/item/1005003324697513.html
+BSEED_LATCHING_TOUCH_TS0012:
+  human_name: BSEED latching-relays 2-gang touch switch
+  category: switch
+  power: mains
+  neutral: without
+  device_type: end_device
+  tuya_model_name: TS0012
+  tuya_manufacturer_name: _TZ3000_xk5udnd6
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0012
+  override_z2m_device: null
+  tuya_module: ZTU
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: xk5udnd6;BSLR2;LC3;SB5u;RC0B6;ID2;SD4u;RA1D7;ID3;M;SLP;
+  alt_config_str: null
+  old_manufacturer_names:
+  - Bseed-2-gang-2
+  old_zb_models:
+  - Bseed-2-gang-2
+  - Bseed-2-gang-2-ED
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 43544
+  build: yes
+  status: fully_supported
+  info: Supported
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/51
+  store: https://www.aliexpress.com/item/1005003324697513.html
+BSEED_LATCHING_TOUCH_TS0013:
+  human_name: BSEED latching-relays 3-gang touch switch
+  category: switch
+  power: mains
+  neutral: without
+  device_type: end_device
+  tuya_model_name: TS0013
+  tuya_manufacturer_name: _TZ3000_kfwhmnvc
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0013
+  override_z2m_device: null
+  tuya_module: ZTU
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: kfwhmnvc;BSLR3;LC3;SB5u;RC0B6;ID2;SB4u;RA1D7;IC2;SD4u;RA0C1;ID3;M;SLP;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: 
+  - TS0013-2-BS
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 43580
+  build: yes
+  status: fully_supported
+  info: Supported
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/229
+  store: https://www.aliexpress.com/item/1005002570240546.html
 BSEED_TOUCH_TS0011:
   human_name: BSEED 1-gang touch switch
   category: switch
@@ -716,35 +831,6 @@ BSEED_TOUCH_1_TS0012:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/pull/23
   store: null
-BSEED_LATCHING_TOUCH_TS0012:
-  human_name: BSEED latching-relays 2-gang touch switch
-  category: switch
-  power: mains
-  neutral: without
-  device_type: end_device
-  tuya_model_name: TS0012
-  tuya_manufacturer_name: _TZ3000_xk5udnd6
-  stock_converter_manufacturer: Tuya
-  stock_converter_model: TS0012
-  override_z2m_device: null
-  tuya_module: ZTU
-  mcu_family: Telink
-  mcu: TLSR8258
-  config_str: xk5udnd6;BSLR2;LC3;SB5u;RC0B6;ID2;SD4u;RA1D7;ID3;M;SLP;
-  alt_config_str: null
-  old_manufacturer_names:
-  - Bseed-2-gang-2
-  old_zb_models:
-  - Bseed-2-gang-2
-  - Bseed-2-gang-2-ED
-  tuya_manufacturer_id: 4417
-  tuya_image_type: 54179
-  firmware_image_type: 43544
-  build: yes
-  status: fully_supported
-  info: Supported
-  threads: https://github.com/romasku/tuya-zigbee-switch/issues/51
-  store: https://www.aliexpress.com/item/1005003324697513.html
 BSEED_TOUCH_3_TS0012:
   human_name: BSEED 2-gang touch switch 🅲
   category: switch
@@ -901,36 +987,6 @@ BSEED_TOUCH_1_TS0002:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/246
   store: https://www.aliexpress.com/item/1005003843553626.html
-BSEED_MELODY_TOUCH_TS0003:
-  human_name: BSEED Melody 3-gang touch switch L+N
-  category: switch
-  power: mains
-  neutral: required
-  device_type: router
-  tuya_model_name: TS0003
-  tuya_manufacturer_name: _TZ3000_7aqaupa9
-  stock_converter_manufacturer: Tuya
-  stock_converter_model: TS0003
-  override_z2m_device: null
-  tuya_module: ZT3L
-  mcu_family: Telink
-  mcu: TLSR8258
-  config_str: 7aqaupa9;TS0003-BSMN;LA0i;SC3u;RC2;SB7u;RB4;SB5u;RC0;M;
-  alt_config_str: null
-  old_manufacturer_names: null
-  old_zb_models: 
-  - TS0003-BS
-  tuya_manufacturer_id: 4417
-  tuya_image_type: 54179
-  firmware_image_type: 43549
-  build: yes
-  status: fully_supported
-  info: Supported
-  threads: https://github.com/romasku/tuya-zigbee-switch/issues/125
-  store: 
-  - https://www.bseed.com/products/bseed-zigbee-1-2-3gang-1-2-3way-switch-wall-smart-light-switch-for-staircase?variant=42163562119323
-  - https://www.bseed.com/products/wifi-light-switch-function-key-diy-parts?variant=42014280089755
-  - https://www.aliexpress.com/item/1005003475686409.html
 BSEED_TOUCH_TS0003_2:
   human_name: BSEED 3-gang touch switch 🅱
   category: switch
@@ -957,62 +1013,6 @@ BSEED_TOUCH_TS0003_2:
   info: Backlight on D4i
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/240
   store: https://www.aliexpress.com/item/1005004187227246.html
-BSEED_LATCHING_TOUCH_TS0013:
-  human_name: BSEED latching-relays 3-gang touch switch
-  category: switch
-  power: mains
-  neutral: without
-  device_type: end_device
-  tuya_model_name: TS0013
-  tuya_manufacturer_name: _TZ3000_kfwhmnvc
-  stock_converter_manufacturer: Tuya
-  stock_converter_model: TS0013
-  override_z2m_device: null
-  tuya_module: ZTU
-  mcu_family: Telink
-  mcu: TLSR8258
-  config_str: kfwhmnvc;BSLR3;LC3;SB5u;RC0B6;ID2;SB4u;RA1D7;IC2;SD4u;RA0C1;ID3;M;SLP;
-  alt_config_str: null
-  old_manufacturer_names: null
-  old_zb_models: 
-  - TS0013-2-BS
-  tuya_manufacturer_id: 4417
-  tuya_image_type: 54179
-  firmware_image_type: 43580
-  build: yes
-  status: fully_supported
-  info: Supported
-  threads: https://github.com/romasku/tuya-zigbee-switch/issues/229
-  store: https://www.aliexpress.com/item/1005002570240546.html
-BSEED_MELODY_TOUCH_TS0004:
-  human_name: BSEED Melody 4-gang touch switch L+N
-  category: switch
-  power: mains
-  neutral: required
-  device_type: router
-  tuya_model_name: TS0004
-  tuya_manufacturer_name: _TZ3000_s6ma1nh4 
-  stock_converter_manufacturer: Tuya
-  stock_converter_model: TS0004
-  override_z2m_device: null
-  tuya_module: ZT3L
-  mcu_family: Telink
-  mcu: TLSR8258
-  config_str: s6ma1nh4;TS0004-BSMN;LA0i;SC3u;RC2;SB7u;RB4;SB5u;RC0;SD7u;RD2;M;
-  alt_config_str: null
-  old_manufacturer_names: null
-  old_zb_models: 
-  - TS0004-BS
-  tuya_manufacturer_id: 4417
-  tuya_image_type: 54179
-  firmware_image_type: 43582
-  build: yes
-  status: in_progress
-  info: Features work but devices fails to reconfigure with INSUFFICIENT_SPACE; post-interview config from Z2M UI does work.
-  threads: https://github.com/romasku/tuya-zigbee-switch/issues/246
-  store: 
-  - https://www.bseed.com/products/bseed-zigbee-1-2-3gang-1-2-3way-switch-wall-smart-light-switch-for-staircase?variant=43409101750427
-  - https://www.bseed.com/products/wifi-light-switch-function-key-diy-parts?variant=44196176167067
 EKF_TS0012:
   human_name: EKF ssh-2g-zb-nn
   category: module
