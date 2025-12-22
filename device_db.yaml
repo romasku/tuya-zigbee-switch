@@ -695,6 +695,87 @@ BSEED_MELODY_TOUCH_TS0004:
   store: 
   - https://www.bseed.com/products/bseed-zigbee-1-2-3gang-1-2-3way-switch-wall-smart-light-switch-for-staircase?variant=43409101750427
   - https://www.bseed.com/products/wifi-light-switch-function-key-diy-parts?variant=44196176167067
+BSEED_BACKLIGHT_TOUCH_TS0001:
+  human_name: BSEED dim-backlight 1-gang touch switch
+  category: switch
+  power: mains
+  neutral: required
+  device_type: router
+  tuya_model_name: TS0001
+  tuya_manufacturer_name: _TZ3000_blhvsaqf
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0001
+  override_z2m_device: null
+  tuya_module: ZTU
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: blhvsaqf;TS0001-BSDB;LC4;SC1u;RC3;IC2;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models:
+  - TS0001-BS-T
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 43567
+  build: yes
+  status: mostly_supported
+  info: Backlight on D4i
+  threads: https://github.com/romasku/tuya-zigbee-switch/discussions/221
+  store: https://www.aliexpress.com/item/1005004187227246.html
+BSEED_BACKLIGHT_TOUCH_TS0002:
+  human_name: BSEED dim-backlight 2-gang touch switch
+  category: switch
+  power: mains
+  neutral: required
+  device_type: router
+  tuya_model_name: TS0002
+  tuya_manufacturer_name: _TZ3000_l9brjwau
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0002
+  override_z2m_device: null
+  tuya_module: ZTU
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: l9brjwau;TS0002-BSDB;LC4;SB5u;RD3;IC3;SD3u;RC2;ID7;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: 
+  - TS0002-BS-1
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 43581
+  build: yes
+  status: mostly_supported
+  info: Backlight on D4i
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/246
+  store: https://www.aliexpress.com/item/1005003843553626.html
+BSEED_BACKLIGHT_TOUCH_TS0003:
+  human_name: BSEED dim-backlight 3-gang touch switch
+  category: switch
+  power: mains
+  neutral: required
+  device_type: router
+  tuya_model_name: TS0003
+  tuya_manufacturer_name: _TZ3000_qkixdnon
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0003
+  override_z2m_device: null
+  tuya_module: ZTU
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: qkixdnon;TS0003-BSDB;LC4i;SB5u;RC3;SC1u;RC2;SD3u;RD7;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models:
+  - TS0003-BSEED
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 43571
+  build: yes
+  status: mostly_supported
+  info: Backlight on D4i
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/240
+  store: https://www.aliexpress.com/item/1005004187227246.html
 BSEED_LATCHING_TOUCH_TS0011:
   human_name: BSEED latching-relays 1-gang touch switch
   category: switch
@@ -909,33 +990,6 @@ BSEED_TOUCH_TS0001:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/pull/186
   store: null
-BSEED_BACKLIGHT_TOUCH_TS0001:
-  human_name: BSEED dim-backlight 1-gang touch switch
-  category: switch
-  power: mains
-  neutral: required
-  device_type: router
-  tuya_model_name: TS0001
-  tuya_manufacturer_name: _TZ3000_blhvsaqf
-  stock_converter_manufacturer: Tuya
-  stock_converter_model: TS0001
-  override_z2m_device: null
-  tuya_module: ZTU
-  mcu_family: Telink
-  mcu: TLSR8258
-  config_str: blhvsaqf;TS0001-BSDB;LC4;SC1u;RC3;IC2;M;
-  alt_config_str: null
-  old_manufacturer_names: null
-  old_zb_models:
-  - TS0001-BS-T
-  tuya_manufacturer_id: 4417
-  tuya_image_type: 54179
-  firmware_image_type: 43567
-  build: yes
-  status: mostly_supported
-  info: Backlight on D4i
-  threads: https://github.com/romasku/tuya-zigbee-switch/discussions/221
-  store: https://www.aliexpress.com/item/1005004187227246.html
 BSEED_TOUCH_TS0002:
   human_name: BSEED 2-gang touch switch
   category: switch
@@ -962,60 +1016,6 @@ BSEED_TOUCH_TS0002:
   info: Missing state indicators (specifc dimming implementation)
   threads: https://github.com/romasku/tuya-zigbee-switch/pull/188
   store: https://aliexpress.ru/item/4000086550778.html
-BSEED_BACKLIGHT_TOUCH_TS0002:
-  human_name: BSEED dim-backlight 2-gang touch switch
-  category: switch
-  power: mains
-  neutral: required
-  device_type: router
-  tuya_model_name: TS0002
-  tuya_manufacturer_name: _TZ3000_l9brjwau
-  stock_converter_manufacturer: Tuya
-  stock_converter_model: TS0002
-  override_z2m_device: null
-  tuya_module: ZTU
-  mcu_family: Telink
-  mcu: TLSR8258
-  config_str: l9brjwau;TS0002-BSDB;LC4;SB5u;RD3;IC3;SD3u;RC2;ID7;M;
-  alt_config_str: null
-  old_manufacturer_names: null
-  old_zb_models: 
-  - TS0002-BS-1
-  tuya_manufacturer_id: 4417
-  tuya_image_type: 54179
-  firmware_image_type: 43581
-  build: yes
-  status: mostly_supported
-  info: Backlight on D4i
-  threads: https://github.com/romasku/tuya-zigbee-switch/issues/246
-  store: https://www.aliexpress.com/item/1005003843553626.html
-BSEED_BACKLIGHT_TOUCH_TS0003:
-  human_name: BSEED dim-backlight 3-gang touch switch
-  category: switch
-  power: mains
-  neutral: required
-  device_type: router
-  tuya_model_name: TS0003
-  tuya_manufacturer_name: _TZ3000_qkixdnon
-  stock_converter_manufacturer: Tuya
-  stock_converter_model: TS0003
-  override_z2m_device: null
-  tuya_module: ZTU
-  mcu_family: Telink
-  mcu: TLSR8258
-  config_str: qkixdnon;TS0003-BSDB;LC4i;SB5u;RC3;SC1u;RC2;SD3u;RD7;M;
-  alt_config_str: null
-  old_manufacturer_names: null
-  old_zb_models:
-  - TS0003-BSEED
-  tuya_manufacturer_id: 4417
-  tuya_image_type: 54179
-  firmware_image_type: 43571
-  build: yes
-  status: mostly_supported
-  info: Backlight on D4i
-  threads: https://github.com/romasku/tuya-zigbee-switch/issues/240
-  store: https://www.aliexpress.com/item/1005004187227246.html
 EKF_TS0012:
   human_name: EKF ssh-2g-zb-nn
   category: module
