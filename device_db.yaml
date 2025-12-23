@@ -1836,7 +1836,7 @@ MOES_TS0003:
   info: Has buzzer on C2
   threads: https://github.com/romasku/tuya-zigbee-switch/pull/30
   store: https://www.aliexpress.com/item/1005004986958450.html
-MOES_2_TS0001:
+MOES_ZM4LT1_TS0001:
   human_name: Moes ZM4LT1
   category: module
   power: mains
@@ -1862,7 +1862,7 @@ MOES_2_TS0001:
   info: Needs pinout
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/167
   store: https://www.aliexpress.com/item/1005009640015785.html
-MOES_2_TS0002:
+MOES_ZM4LT2_TS0002:
   human_name: Moes ZM4LT2
   category: module
   power: mains
@@ -1886,9 +1886,9 @@ MOES_2_TS0002:
   build: no
   status: in_progress
   info: Needs pinout
-  threads: null
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/167
   store: https://www.aliexpress.com/item/1005009640015785.html
-MOES_2_TS0003:
+MOES_ZM4LT3_TS0003:
   human_name: Moes ZM4LT3
   category: module
   power: mains
@@ -1912,7 +1912,7 @@ MOES_2_TS0003:
   build: no
   status: in_progress
   info: Needs pinout
-  threads: null
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/167
   store: https://www.aliexpress.com/item/1005009640015785.html
 NOUS_TS0002:
   human_name: Nous L13Z
