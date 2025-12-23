@@ -2044,8 +2044,8 @@ NOVATO_TS0011:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/pull/222
   store: https://novato.com.tr/urun/tuya-mini-zigbee-notrsuz-tek-cikisli-role/
-OXT_TS0002:
-  human_name: OXT 2-gang
+TUYA_OXT_TS0002:
+  human_name: Tuya/OXT 2-gang
   category: module
   power: mains
   neutral: required
@@ -2058,8 +2058,8 @@ OXT_TS0002:
   tuya_module: ZT3L
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: bvrlqyj7;TS0002-OXT-CUS;BD2u;LC0;SB4u;RC2;SB5u;RC3;
-  alt_config_str: null
+  config_str: bvrlqyj7;TS0002-OXT-CUS;BD2u;LC0;SB4u;RC2;SB5u;RC3;     # old
+  alt_config_str: bvrlqyj7;TS0002-OXT-CUS;BA0u;LC0;SB4u;RC2;SB5u;RC3; # new
   old_manufacturer_names:
   - TS0002-OXT-CUS
   old_zb_models: null
@@ -2068,7 +2068,7 @@ OXT_TS0002:
   firmware_image_type: 43547
   build: yes
   status: fully_supported
-  info: Supported
+  info: Reset button on pin D2 (old) or A0 (new)
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/49
   store: null
 PSMART_SWITCH_TS0001:
@@ -2333,8 +2333,8 @@ TUYA_TS011F:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/261
   store: https://www.aliexpress.us/item/3256809942562338.html
-TUYA_1_TS0001:
-  human_name: Tuya 1-gang 🅰
+TUYA_OXT_TS0001:
+  human_name: Tuya/OXT 1-gang
   category: module
   power: mains
   neutral: required
@@ -2347,8 +2347,8 @@ TUYA_1_TS0001:
   tuya_module: ZT3L
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: tqlv4ug4;TS0001-custom;BD2u;LC0;SB4u;RC2;
-  alt_config_str: null
+  config_str: tqlv4ug4;TS0001-custom;BD2u;LC0;SB4u;RC2;     # old
+  alt_config_str: tqlv4ug4;TS0001-custom;BA0u;LC0;SB4u;RC2; # new
   old_manufacturer_names:
   - Tuya-TS0001-custom
   old_zb_models: null
@@ -2357,7 +2357,7 @@ TUYA_1_TS0001:
   firmware_image_type: 43525
   build: yes
   status: fully_supported
-  info: Supported
+  info: Reset button on pin D2 (old) or A0 (new)
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/6
   store: null
 TUYA_2_TS0001:
