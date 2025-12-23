@@ -1204,8 +1204,8 @@ GIRIER_TS0003:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/183
   store: https://www.aliexpress.com/item/1005006084705740.html
-GIRIER_TS0013:
-  human_name: Girier ZB08
+TUYA_GIRIER_TS0013:
+  human_name: Tuya/Girier 3-gang L-only
   category: module
   power: mains
   neutral: without
@@ -2632,8 +2632,8 @@ TUYA_TS0004:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/42
   store: null
-TUYA_TS0011:
-  human_name: Tuya 1-gang L-only 🅰
+TUYA_GIRIER_TS0011:
+  human_name: Tuya/Girier 1-gang L-only 🅰
   category: module
   power: mains
   neutral: without
@@ -2659,8 +2659,8 @@ TUYA_TS0011:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/4
   store: null
-TUYA_TS0011_2:
-  human_name: Tuya 1-gang L-only 🅱
+TUYA_GIRIER_TS0011_2:
+  human_name: Tuya/Girier 1-gang L-only 🅱
   category: module
   power: mains
   neutral: without
@@ -2685,8 +2685,8 @@ TUYA_TS0011_2:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/187
   store: null
-TUYA_TS0012:
-  human_name: Tuya 2-gang L-only
+TUYA_GIRIER_TS0012:
+  human_name: Tuya/Girier 2-gang L-only
   category: module
   power: mains
   neutral: without
