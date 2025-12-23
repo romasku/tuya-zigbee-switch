@@ -2448,8 +2448,8 @@ TUYA_4_TS0001:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/44
   store: null
-TUYA_5_TS0001:
-  human_name: Tuya 1-gang 🅴 HOBEIAN
+HOBEIAN_TS0001:
+  human_name: HOBEIAN 1-gang
   category: module
   power: mains
   neutral: required
