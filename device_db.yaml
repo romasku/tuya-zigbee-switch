@@ -1204,35 +1204,6 @@ GIRIER_TS0003:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/183
   store: https://www.aliexpress.com/item/1005006084705740.html
-TUYA_GIRIER_TS0013:
-  human_name: Tuya/Girier 3-gang L-only
-  category: module
-  power: mains
-  neutral: without
-  device_type: end_device
-  tuya_model_name: TS0013
-  tuya_manufacturer_name: _TZ3000_ypgri8yz
-  stock_converter_manufacturer: Tuya
-  stock_converter_model: TS0013_switch_module
-  override_z2m_device: ZB08
-  tuya_module: null
-  mcu_family: Telink
-  mcu: TLSR8258
-  config_str: ypgri8yz;ZB08-custom;BA0u;LD7;SC2u;RC0;SC3u;RB4;SD2u;RB5;
-  alt_config_str: null
-  old_manufacturer_names:
-  - Girier-ZB08-custom
-  - Girier-ZB08-custom-ED
-  old_zb_models:
-  - ZB08-custom-ED
-  tuya_manufacturer_id: 4417
-  tuya_image_type: 54179
-  firmware_image_type: 43539
-  build: yes
-  status: fully_supported
-  info: Supported
-  threads: https://github.com/romasku/tuya-zigbee-switch/issues/37
-  store: null
 HOBEIAN_REMOTE_TS0044:
   human_name: HOBEIAN ZG-101ZS
   category: remote
@@ -1258,6 +1229,32 @@ HOBEIAN_REMOTE_TS0044:
   status: in_progress
   info: Huge battery drain! LEDs on D7, A1, C3, B6
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/237
+  store: null
+HOBEIAN_TS0001:
+  human_name: HOBEIAN 1-gang
+  category: module
+  power: mains
+  neutral: required
+  device_type: router
+  tuya_model_name: ZG-301Z
+  tuya_manufacturer_name: null
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: WHD02
+  override_z2m_device: ZG-301Z
+  tuya_module: none
+  mcu_family: Telink
+  mcu: TLSR8253F512AT32
+  config_str: ZG-301Z;TS0001-HOB;BB1u;LD4i;SB6u;RA1;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: null
+  tuya_image_type: null
+  firmware_image_type: 45579
+  build: yes
+  status: fully_supported
+  info: Supported
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/189
   store: null
 HOMMYN_TS0011:
   human_name: HOMMYN RLZBNN01
@@ -2044,33 +2041,6 @@ NOVATO_TS0011:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/pull/222
   store: https://novato.com.tr/urun/tuya-mini-zigbee-notrsuz-tek-cikisli-role/
-TUYA_OXT_TS0002:
-  human_name: Tuya/OXT 2-gang
-  category: module
-  power: mains
-  neutral: required
-  device_type: router
-  tuya_model_name: TS0002
-  tuya_manufacturer_name: _TZ3000_bvrlqyj7
-  stock_converter_manufacturer: Tuya
-  stock_converter_model: TS0002_basic
-  override_z2m_device: null
-  tuya_module: ZT3L
-  mcu_family: Telink
-  mcu: TLSR8258
-  config_str: bvrlqyj7;TS0002-OXT-CUS;BD2u;LC0;SB4u;RC2;SB5u;RC3;     # old
-  alt_config_str: bvrlqyj7;TS0002-OXT-CUS;BA0u;LC0;SB4u;RC2;SB5u;RC3; # new
-  old_manufacturer_names:
-  - TS0002-OXT-CUS
-  old_zb_models: null
-  tuya_manufacturer_id: 4417
-  tuya_image_type: 54179
-  firmware_image_type: 43547
-  build: yes
-  status: fully_supported
-  info: Reset button on pin D2 (old) or A0 (new)
-  threads: https://github.com/romasku/tuya-zigbee-switch/issues/49
-  store: null
 PSMART_SWITCH_TS0001:
   human_name: PSMART T441/T451
   category: switch
@@ -2177,6 +2147,276 @@ QS_TS0012:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/144
   store: https://www.aliexpress.com/item/1005008663303208.html?sku_id=12000046146359997
+SONOFF_ZBMINIL2:
+  human_name: SONOFF ZBMINIL2
+  category: module
+  power: mains
+  neutral: without
+  device_type: end_device
+  tuya_model_name: null
+  tuya_manufacturer_name: null
+  stock_converter_manufacturer: null
+  stock_converter_model: null
+  override_z2m_device: null
+  tuya_module: none
+  mcu_family: Silabs
+  mcu: EFR32MG22C224F512GN32
+  config_str: sonoff;ZBMINIL2-custom;BA0u;LC5i;SA6u;RA5A4;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: null
+  tuya_image_type: null
+  firmware_image_type: 45596
+  build: yes
+  status: fully_supported
+  info: Supported
+  threads: https://github.com/romasku/tuya-zigbee-switch/pull/232
+  store: https://sonoff.tech/products/sonoff-zbmini-extreme-zigbee-smart-switch-zbminil2
+TUYA_GIRIER_TS0011:
+  human_name: Tuya/Girier 1-gang L-only 🅰
+  category: module
+  power: mains
+  neutral: without
+  device_type: end_device
+  tuya_model_name: TS0011
+  tuya_manufacturer_name: _TZ3000_ji4araar
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0011_switch_module
+  override_z2m_device: null
+  tuya_module: null
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: ji4araar;TS0011-custom;BA0f;LD7;SC2f;RC0;
+  alt_config_str: null
+  old_manufacturer_names:
+  - Tuya-TS0011-custom
+  old_zb_models: null
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 43524
+  build: yes
+  status: fully_supported
+  info: Supported
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/4
+  store: null
+TUYA_GIRIER_TS0011_2:
+  human_name: Tuya/Girier 1-gang L-only 🅱
+  category: module
+  power: mains
+  neutral: without
+  device_type: end_device
+  tuya_model_name: TS0011
+  tuya_manufacturer_name: _TZ3000_ji4araar
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0011_switch_module
+  override_z2m_device: null
+  tuya_module: null
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: ji4araar;TS0011-CUS-2;BA0u;LD7;SC2u;RC0;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 515
+  firmware_image_type: 45576
+  build: yes
+  status: fully_supported
+  info: Supported
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/187
+  store: null
+TUYA_GIRIER_TS0012:
+  human_name: Tuya/Girier 2-gang L-only
+  category: module
+  power: mains
+  neutral: without
+  device_type: end_device
+  tuya_model_name: TS0012
+  tuya_manufacturer_name: _TZ3000_jl7qyupf
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0012_switch_module
+  override_z2m_device: null
+  tuya_module: null
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: jl7qyupf;TS0012-custom;BA0f;LD7;SC2f;RC0;SC3f;RB4;
+  alt_config_str: null
+  old_manufacturer_names:
+  - Tuya-CUSTOM
+  - Tuya-TS0012-custom
+  old_zb_models:
+  - TS0042-CUSTOM
+  - TS0012-custom-end-device
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 43521
+  build: yes
+  status: fully_supported
+  info: Supported
+  threads: null
+  store: null
+TUYA_GIRIER_TS0013:
+  human_name: Tuya/Girier 3-gang L-only
+  category: module
+  power: mains
+  neutral: without
+  device_type: end_device
+  tuya_model_name: TS0013
+  tuya_manufacturer_name: _TZ3000_ypgri8yz
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0013_switch_module
+  override_z2m_device: ZB08
+  tuya_module: null
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: ypgri8yz;ZB08-custom;BA0u;LD7;SC2u;RC0;SC3u;RB4;SD2u;RB5;
+  alt_config_str: null
+  old_manufacturer_names:
+  - Girier-ZB08-custom
+  - Girier-ZB08-custom-ED
+  old_zb_models:
+  - ZB08-custom-ED
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 43539
+  build: yes
+  status: fully_supported
+  info: Supported
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/37
+  store: null
+TUYA_OXT_TS0001:
+  human_name: Tuya/OXT 1-gang
+  category: module
+  power: mains
+  neutral: required
+  device_type: router
+  tuya_model_name: TS0001
+  tuya_manufacturer_name: _TZ3000_tqlv4ug4
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0001_switch_module
+  override_z2m_device: null
+  tuya_module: ZT3L
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: tqlv4ug4;TS0001-custom;BD2u;LC0;SB4u;RC2;     # old
+  alt_config_str: tqlv4ug4;TS0001-custom;BA0u;LC0;SB4u;RC2; # new
+  old_manufacturer_names:
+  - Tuya-TS0001-custom
+  old_zb_models: null
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 43525
+  build: yes
+  status: fully_supported
+  info: Reset button on pin D2 (old) or A0 (new)
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/6
+  store: null
+TUYA_OXT_TS0002:
+  human_name: Tuya/OXT 2-gang
+  category: module
+  power: mains
+  neutral: required
+  device_type: router
+  tuya_model_name: TS0002
+  tuya_manufacturer_name: _TZ3000_bvrlqyj7
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0002_basic
+  override_z2m_device: null
+  tuya_module: ZT3L
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: bvrlqyj7;TS0002-OXT-CUS;BD2u;LC0;SB4u;RC2;SB5u;RC3;     # old
+  alt_config_str: bvrlqyj7;TS0002-OXT-CUS;BA0u;LC0;SB4u;RC2;SB5u;RC3; # new
+  old_manufacturer_names:
+  - TS0002-OXT-CUS
+  old_zb_models: null
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 43547
+  build: yes
+  status: fully_supported
+  info: Reset button on pin D2 (old) or A0 (new)
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/49
+  store: null
+TUYA_REMOTE_TS0041:
+  human_name: Tuya/Moes 1-button wireless switch
+  category: remote
+  power: CR2430
+  neutral: without
+  device_type: end_device
+  tuya_model_name: TS0041
+  tuya_manufacturer_name: _TZ3000_4upl1fcj
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0041
+  override_z2m_device: Push_LE
+  tuya_module: ZS3L
+  mcu_family: Silabs
+  mcu: EFR32MG21A020F768IM32
+  config_str: 4upl1fcj;TS0041-TUYA; null; M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: null
+  tuya_image_type: null
+  firmware_image_type: 43579
+  build: no
+  status: in_progress
+  info: Needs pinout, battery drain.
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/171
+  store: null
+TUYA_REMOTE_TS0044:
+  human_name: Tuya 4-button wireless switch 🅰
+  category: remote
+  power: CR2430
+  neutral: without
+  device_type: end_device
+  tuya_model_name: TS0044
+  tuya_manufacturer_name: _TZ3000_wkai4ga5
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0044
+  override_z2m_device: null
+  tuya_module: ZS3L
+  mcu_family: Silabs
+  mcu: EFR32MG21A020F768IM32
+  config_str: wkai4ga5;TS0044-TUYA;SA0d;SA3d;SA4d;SB0d;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: null
+  tuya_image_type: null
+  firmware_image_type: 43577
+  build: no
+  status: in_progress
+  info: Huge battery drain! LEDs on C1, C2, C0, D0
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/171
+  store: null
+TUYA_REMOTE_TS004F:
+  human_name: Tuya 4-button wireless switch 🅱
+  category: remote
+  power: CR2430
+  neutral: without
+  device_type: end_device
+  tuya_model_name: TS004F
+  tuya_manufacturer_name: _TZ3000_xabckq1v
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS004F
+  override_z2m_device: null
+  tuya_module: ZS3L
+  mcu_family: Silabs
+  mcu: EFR32MG21A020F768IM32
+  config_str: xabckq1v;TS004F-TUYA;SA0d;SA3d;SA4d;SB0d;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: null
+  tuya_image_type: null
+  firmware_image_type: 43578
+  build: no
+  status: in_progress
+  info: Huge battery drain! LEDs on C1, C2, C0, D0
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/171
+  store: null
 TUYA_SWITCH_TS0001:
   human_name: Tuya 1-gang switch
   category: switch
@@ -2333,33 +2573,6 @@ TUYA_TS011F:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/261
   store: https://www.aliexpress.us/item/3256809942562338.html
-TUYA_OXT_TS0001:
-  human_name: Tuya/OXT 1-gang
-  category: module
-  power: mains
-  neutral: required
-  device_type: router
-  tuya_model_name: TS0001
-  tuya_manufacturer_name: _TZ3000_tqlv4ug4
-  stock_converter_manufacturer: Tuya
-  stock_converter_model: TS0001_switch_module
-  override_z2m_device: null
-  tuya_module: ZT3L
-  mcu_family: Telink
-  mcu: TLSR8258
-  config_str: tqlv4ug4;TS0001-custom;BD2u;LC0;SB4u;RC2;     # old
-  alt_config_str: tqlv4ug4;TS0001-custom;BA0u;LC0;SB4u;RC2; # new
-  old_manufacturer_names:
-  - Tuya-TS0001-custom
-  old_zb_models: null
-  tuya_manufacturer_id: 4417
-  tuya_image_type: 54179
-  firmware_image_type: 43525
-  build: yes
-  status: fully_supported
-  info: Reset button on pin D2 (old) or A0 (new)
-  threads: https://github.com/romasku/tuya-zigbee-switch/issues/6
-  store: null
 TUYA_2_TS0001:
   human_name: Tuya 1-gang 🅱
   category: module
@@ -2447,32 +2660,6 @@ TUYA_4_TS0001:
   status: fully_supported
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/44
-  store: null
-HOBEIAN_TS0001:
-  human_name: HOBEIAN 1-gang
-  category: module
-  power: mains
-  neutral: required
-  device_type: router
-  tuya_model_name: ZG-301Z
-  tuya_manufacturer_name: null
-  stock_converter_manufacturer: Tuya
-  stock_converter_model: WHD02
-  override_z2m_device: ZG-301Z
-  tuya_module: none
-  mcu_family: Telink
-  mcu: TLSR8253F512AT32
-  config_str: ZG-301Z;TS0001-HOB;BB1u;LD4i;SB6u;RA1;
-  alt_config_str: null
-  old_manufacturer_names: null
-  old_zb_models: null
-  tuya_manufacturer_id: null
-  tuya_image_type: null
-  firmware_image_type: 45579
-  build: yes
-  status: fully_supported
-  info: Supported
-  threads: https://github.com/romasku/tuya-zigbee-switch/issues/189
   store: null
 TUYA_6_TS0001:
   human_name: Tuya 1-gang 🅵 T-LED
@@ -2632,167 +2819,6 @@ TUYA_TS0004:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/42
   store: null
-TUYA_GIRIER_TS0011:
-  human_name: Tuya/Girier 1-gang L-only 🅰
-  category: module
-  power: mains
-  neutral: without
-  device_type: end_device
-  tuya_model_name: TS0011
-  tuya_manufacturer_name: _TZ3000_ji4araar
-  stock_converter_manufacturer: Tuya
-  stock_converter_model: TS0011_switch_module
-  override_z2m_device: null
-  tuya_module: null
-  mcu_family: Telink
-  mcu: TLSR8258
-  config_str: ji4araar;TS0011-custom;BA0f;LD7;SC2f;RC0;
-  alt_config_str: null
-  old_manufacturer_names:
-  - Tuya-TS0011-custom
-  old_zb_models: null
-  tuya_manufacturer_id: 4417
-  tuya_image_type: 54179
-  firmware_image_type: 43524
-  build: yes
-  status: fully_supported
-  info: Supported
-  threads: https://github.com/romasku/tuya-zigbee-switch/issues/4
-  store: null
-TUYA_GIRIER_TS0011_2:
-  human_name: Tuya/Girier 1-gang L-only 🅱
-  category: module
-  power: mains
-  neutral: without
-  device_type: end_device
-  tuya_model_name: TS0011
-  tuya_manufacturer_name: _TZ3000_ji4araar
-  stock_converter_manufacturer: Tuya
-  stock_converter_model: TS0011_switch_module
-  override_z2m_device: null
-  tuya_module: null
-  mcu_family: Telink
-  mcu: TLSR8258
-  config_str: ji4araar;TS0011-CUS-2;BA0u;LD7;SC2u;RC0;
-  alt_config_str: null
-  old_manufacturer_names: null
-  old_zb_models: null
-  tuya_manufacturer_id: 4417
-  tuya_image_type: 515
-  firmware_image_type: 45576
-  build: yes
-  status: fully_supported
-  info: Supported
-  threads: https://github.com/romasku/tuya-zigbee-switch/issues/187
-  store: null
-TUYA_GIRIER_TS0012:
-  human_name: Tuya/Girier 2-gang L-only
-  category: module
-  power: mains
-  neutral: without
-  device_type: end_device
-  tuya_model_name: TS0012
-  tuya_manufacturer_name: _TZ3000_jl7qyupf
-  stock_converter_manufacturer: Tuya
-  stock_converter_model: TS0012_switch_module
-  override_z2m_device: null
-  tuya_module: null
-  mcu_family: Telink
-  mcu: TLSR8258
-  config_str: jl7qyupf;TS0012-custom;BA0f;LD7;SC2f;RC0;SC3f;RB4;
-  alt_config_str: null
-  old_manufacturer_names:
-  - Tuya-CUSTOM
-  - Tuya-TS0012-custom
-  old_zb_models:
-  - TS0042-CUSTOM
-  - TS0012-custom-end-device
-  tuya_manufacturer_id: 4417
-  tuya_image_type: 54179
-  firmware_image_type: 43521
-  build: yes
-  status: fully_supported
-  info: Supported
-  threads: null
-  store: null
-TUYA_REMOTE_TS0041:
-  human_name: Tuya/Moes 1-button wireless switch
-  category: remote
-  power: CR2430
-  neutral: without
-  device_type: end_device
-  tuya_model_name: TS0041
-  tuya_manufacturer_name: _TZ3000_4upl1fcj
-  stock_converter_manufacturer: Tuya
-  stock_converter_model: TS0041
-  override_z2m_device: Push_LE
-  tuya_module: ZS3L
-  mcu_family: Silabs
-  mcu: EFR32MG21A020F768IM32
-  config_str: 4upl1fcj;TS0041-TUYA; null; M;
-  alt_config_str: null
-  old_manufacturer_names: null
-  old_zb_models: null
-  tuya_manufacturer_id: null
-  tuya_image_type: null
-  firmware_image_type: 43579
-  build: no
-  status: in_progress
-  info: Needs pinout, battery drain.
-  threads: https://github.com/romasku/tuya-zigbee-switch/issues/171
-  store: null
-TUYA_REMOTE_TS0044:
-  human_name: Tuya 4-button wireless switch 🅰
-  category: remote
-  power: CR2430
-  neutral: without
-  device_type: end_device
-  tuya_model_name: TS0044
-  tuya_manufacturer_name: _TZ3000_wkai4ga5
-  stock_converter_manufacturer: Tuya
-  stock_converter_model: TS0044
-  override_z2m_device: null
-  tuya_module: ZS3L
-  mcu_family: Silabs
-  mcu: EFR32MG21A020F768IM32
-  config_str: wkai4ga5;TS0044-TUYA;SA0d;SA3d;SA4d;SB0d;M;
-  alt_config_str: null
-  old_manufacturer_names: null
-  old_zb_models: null
-  tuya_manufacturer_id: null
-  tuya_image_type: null
-  firmware_image_type: 43577
-  build: no
-  status: in_progress
-  info: Huge battery drain! LEDs on C1, C2, C0, D0
-  threads: https://github.com/romasku/tuya-zigbee-switch/issues/171
-  store: null
-TUYA_REMOTE_TS004F:
-  human_name: Tuya 4-button wireless switch 🅱
-  category: remote
-  power: CR2430
-  neutral: without
-  device_type: end_device
-  tuya_model_name: TS004F
-  tuya_manufacturer_name: _TZ3000_xabckq1v
-  stock_converter_manufacturer: Tuya
-  stock_converter_model: TS004F
-  override_z2m_device: null
-  tuya_module: ZS3L
-  mcu_family: Silabs
-  mcu: EFR32MG21A020F768IM32
-  config_str: xabckq1v;TS004F-TUYA;SA0d;SA3d;SA4d;SB0d;M;
-  alt_config_str: null
-  old_manufacturer_names: null
-  old_zb_models: null
-  tuya_manufacturer_id: null
-  tuya_image_type: null
-  firmware_image_type: 43578
-  build: no
-  status: in_progress
-  info: Huge battery drain! LEDs on C1, C2, C0, D0
-  threads: https://github.com/romasku/tuya-zigbee-switch/issues/171
-  store: null
 ZEMISMART_SWITCH_1_TS0012:
   human_name: Zemismart 2-gang switch 🅰
   category: switch
@@ -2899,29 +2925,3 @@ ZIGBEE_BOARD_ZTU_2:
   info: Supported
   threads: null
   store: https://www.aliexpress.com/item/1005007599675462.html
-SONOFF_ZBMINIL2:
-  human_name: SONOFF ZBMINIL2
-  category: module
-  power: mains
-  neutral: without
-  device_type: end_device
-  tuya_model_name: null
-  tuya_manufacturer_name: null
-  stock_converter_manufacturer: null
-  stock_converter_model: null
-  override_z2m_device: null
-  tuya_module: none
-  mcu_family: Silabs
-  mcu: EFR32MG22C224F512GN32
-  config_str: sonoff;ZBMINIL2-custom;BA0u;LC5i;SA6u;RA5A4;
-  alt_config_str: null
-  old_manufacturer_names: null
-  old_zb_models: null
-  tuya_manufacturer_id: null
-  tuya_image_type: null
-  firmware_image_type: 45596
-  build: yes
-  status: fully_supported
-  info: Supported
-  threads: https://github.com/romasku/tuya-zigbee-switch/pull/232
-  store: https://sonoff.tech/products/sonoff-zbmini-extreme-zigbee-smart-switch-zbminil2
