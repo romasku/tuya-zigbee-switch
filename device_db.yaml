@@ -2899,8 +2899,8 @@ ZIGBEE_BOARD_ZTU_2:
   info: Supported
   threads: null
   store: https://www.aliexpress.com/item/1005007599675462.html
-ZBMINIL2:
-  human_name: Sonoff ZBMINIL2
+SONOFF_ZBMINIL2:
+  human_name: SONOFF ZBMINIL2
   category: module
   power: mains
   neutral: without
@@ -2924,5 +2924,4 @@ ZBMINIL2:
   status: fully_supported
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/pull/232
-  store:
-  - https://sonoff.tech/products/sonoff-zbmini-extreme-zigbee-smart-switch-zbminil2
+  store: https://sonoff.tech/products/sonoff-zbmini-extreme-zigbee-smart-switch-zbminil2
