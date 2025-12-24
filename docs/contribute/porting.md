@@ -46,7 +46,9 @@ Example: button on D2, LED on C2, switch on B5, relay on C4.
 [lamp trick]: https://github.com/romasku/tuya-zigbee-switch/pull/188#issuecomment-3506916760
 [solder points]: https://github.com/romasku/tuya-zigbee-switch/issues/183#issuecomment-3491147138
 [follow pattern]: https://github.com/romasku/tuya-zigbee-switch/issues/181#:~:text=Pictures-,Configs,-We%20obtained%20the
-[Tasmota devices]: https://templates.blakadder.com/switch.html
+[Tasmota]: https://templates.blakadder.com/switch.html
+[ESPHome]: https://devices.esphome.io/type/switch
+[OpenBeken]: https://openbekeniot.github.io/webapp/devicesList.html
 [Tuya WiFi modules]: https://developer.tuya.com/en/docs/iot/wifi-module?id=Kaiuyi301kmk4
 
 ### Obtaining
@@ -57,7 +59,7 @@ There are multiple safe ways to obtain the pinout:
 - **Try each pin** until something works (edit *config string* in Z2M)
 - Extract pinout from original firmware (memory dump)
 - Truncate the pinout of a higher-gang model ([follow pattern])
-- Get pinout from WiFi variant ([Tasmota devices] ↔ [Tuya WiFi modules])
+- Get pinout from WiFi variant ([Tasmota], [ESPHome], [OpenBeken] devices ↔ [Tuya WiFi modules])
 - Ask someone else to do it 🙂
 
 > [!CAUTION]  
