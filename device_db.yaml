@@ -2818,8 +2818,8 @@ TUYA_COMMON_TS0001:
   info: Needs pinout confirmation
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/32
   store: null
-TUYA_8_TS0001:
-  human_name: Tuya 1-gang FS-02Z 
+FARYLINK_TS0001:
+  human_name: Farylink FS-02Z 
   category: module
   power: mains
   neutral: required
