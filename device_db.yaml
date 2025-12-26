@@ -13,7 +13,7 @@
 # - Keep KEYs in (mostly) alphabetical order
 # - Keep attributes in the same order
 
-AUBESS_TS0001:
+MODULE_AUBESS_TS0001:
   human_name: Aubess WHD02
   category: module
   power: mains
@@ -41,7 +41,7 @@ AUBESS_TS0001:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/18
   store: null
-AUBESS_TS0002:
+MODULE_AUBESS_TS0002:
   human_name: Aubess TMZ02
   category: module
   power: mains
@@ -67,7 +67,7 @@ AUBESS_TS0002:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/pull/153
   store: https://www.aliexpress.com/item/1005005748264739.html
-AUBESS_TS0003:
+MODULE_AUBESS_TS0003:
   human_name: Aubess 3-gang
   category: module
   power: mains
@@ -95,7 +95,7 @@ AUBESS_TS0003:
   store:
   - https://www.amazon.co.uk/dp/B0DKC2CRFJ
   - https://www.aliexpress.com/item/1005005748264739.html
-AUBESS_TS0004:
+MODULE_AUBESS_TS0004:
   human_name: Aubess 4-gang
   category: module
   power: mains
@@ -122,7 +122,7 @@ AUBESS_TS0004:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/66
   store: https://www.aliexpress.com/item/1005005748264739.html
-AVATTO_TOUCH_TS0001:
+SWITCH_AVATTO_TOUCH_TS0001:
   human_name: AVATTO ZTS02RD-US-W1
   category: switch
   power: mains
@@ -148,7 +148,7 @@ AVATTO_TOUCH_TS0001:
   info: Untested. Backlight on C4
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/41
   store: https://www.aliexpress.com/item/1005007097427150.html
-AVATTO_TOUCH_TS0002:
+SWITCH_AVATTO_TOUCH_TS0002:
   human_name: AVATTO ZTS02RD-US-W2
   category: switch
   power: mains
@@ -174,7 +174,7 @@ AVATTO_TOUCH_TS0002:
   info: Untested. Backlight on C4
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/41
   store: https://www.aliexpress.com/item/1005007097427150.html
-AVATTO_TOUCH_TS0003:
+SWITCH_AVATTO_TOUCH_TS0003:
   human_name: AVATTO ZTS02RD-US-W3
   category: switch
   power: mains
@@ -202,7 +202,7 @@ AVATTO_TOUCH_TS0003:
   info: Backlight on C4
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/41
   store: https://www.aliexpress.com/item/1005007097427150.html
-AVATTO_DRY_TS0001:
+MODULE_AVATTO_DRY_TS0001:
   human_name: AVATTO 1-gang dry-contact
   category: module
   power: DC
@@ -228,7 +228,7 @@ AVATTO_DRY_TS0001:
   info: Reversed state?
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/138
   store: https://www.aliexpress.com/item/1005007342942592.html
-AVATTO_TS0001:
+MODULE_AVATTO_TS0001:
   human_name: AVATTO ZWSM16-1
   category: module
   power: mains
@@ -259,7 +259,7 @@ AVATTO_TS0001:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/9
   store: https://www.aliexpress.com/item/1005007247647375.html
-AVATTO_TS0002:
+MODULE_AVATTO_TS0002:
   human_name: AVATTO ZWSM16-2
   category: module
   power: mains
@@ -290,7 +290,7 @@ AVATTO_TS0002:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/9
   store: https://www.aliexpress.com/item/1005007247647375.html
-AVATTO_TS0003:
+MODULE_AVATTO_TS0003:
   human_name: AVATTO ZWSM16-3
   category: module
   power: mains
@@ -321,7 +321,7 @@ AVATTO_TS0003:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/56
   store: https://www.aliexpress.com/item/1005007247647375.html
-AVATTO_TS0004:
+MODULE_AVATTO_TS0004:
   human_name: AVATTO ZWSM16-4
   category: module
   power: mains
@@ -353,7 +353,7 @@ AVATTO_TS0004:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/9
   store: https://www.aliexpress.com/item/1005007247647375.html
-AVATTO_TS0011:
+MODULE_AVATTO_TS0011:
   human_name: AVATTO LZWSM16-1
   category: module
   power: mains
@@ -381,7 +381,7 @@ AVATTO_TS0011:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/9
   store: https://www.aliexpress.com/item/1005007247647375.html
-AVATTO_TS0012:
+MODULE_AVATTO_TS0012:
   human_name: AVATTO LZWSM16-2
   category: module
   power: mains
@@ -409,7 +409,7 @@ AVATTO_TS0012:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/16
   store: https://www.aliexpress.com/item/1005007247647375.html
-AVATTO_TS0013:
+MODULE_AVATTO_TS0013:
   human_name: AVATTO LZWSM16-3
   category: module
   power: mains
@@ -435,8 +435,8 @@ AVATTO_TS0013:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/135
   store: https://www.aliexpress.com/item/1005007247647375.html
-BSEED_SOCKET_PM_TS011F:
-  human_name: BSEED PM socket
+OUTLET_BSEED_PM_TS011F:
+  human_name: BSEED PM outlet
   category: outlet
   power: mains
   neutral: required
@@ -464,8 +464,8 @@ BSEED_SOCKET_PM_TS011F:
   - https://www.aliexpress.com/item/1005004402438527.html
   - https://www.aliexpress.com/i/1005005835434423.html
   - https://www.aliexpress.com/item/1005003350696939.html
-BSEED_SOCKET_TS011F:
-  human_name: BSEED socket
+OUTLET_BSEED_TS011F:
+  human_name: BSEED outlet
   category: outlet
   power: mains
   neutral: required
@@ -491,7 +491,7 @@ BSEED_SOCKET_TS011F:
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/145
   store:
   - https://www.aliexpress.com/item/1005004402438527.html
-BSEED_SWITCH_TS0726_1GANG:
+SWITCH_BSEED_TS0726_1GANG:
   human_name: BSEED 1-gang switch
   category: switch
   power: mains
@@ -520,7 +520,7 @@ BSEED_SWITCH_TS0726_1GANG:
   - https://www.aliexpress.com/item/1005008635350349.html
   - https://www.aliexpress.com/item/1005008749674564.html
   - https://www.bseed.com/products/bseed-smart-zigbee-light-switch-with-neutral-hub-required-switch-work-with-tuya-alexa?variant=46312889024667
-BSEED_SWITCH_TS0726_2GANG:
+SWITCH_BSEED_TS0726_2GANG:
   human_name: BSEED 2-gang switch
   category: switch
   power: mains
@@ -549,7 +549,7 @@ BSEED_SWITCH_TS0726_2GANG:
   - https://www.aliexpress.com/item/1005008635350349.html
   - https://www.aliexpress.com/item/1005008749674564.html
   - https://www.bseed.com/products/bseed-smart-zigbee-light-switch-with-neutral-hub-required-switch-work-with-tuya-alexa?variant=46312889057435
-BSEED_SWITCH_TS0726_3GANG:
+SWITCH_BSEED_TS0726_3GANG:
   human_name: BSEED 3-gang switch
   category: switch
   power: mains
@@ -578,7 +578,7 @@ BSEED_SWITCH_TS0726_3GANG:
   - https://www.aliexpress.com/item/1005008635350349.html
   - https://www.aliexpress.com/item/1005008749674564.html
   - https://www.bseed.com/products/bseed-smart-zigbee-light-switch-with-neutral-hub-required-switch-work-with-tuya-alexa?variant=46312889090203
-BSEED_MELODY_TOUCH_TS0001:
+SWITCH_BSEED_TOUCH_MELODY_TS0001:
   human_name: BSEED Melody 1-gang touch switch L+N
   category: switch
   power: mains
@@ -607,7 +607,7 @@ BSEED_MELODY_TOUCH_TS0001:
   - https://www.bseed.com/products/bseed-zigbee-1-2-3gang-1-2-3way-switch-wall-smart-light-switch-for-staircase?variant=42163562053787
   - https://www.bseed.com/products/wifi-light-switch-function-key-diy-parts?variant=42014280024219
   - https://www.aliexpress.com/item/1005003475686409.html
-BSEED_MELODY_TOUCH_TS0002:
+SWITCH_BSEED_TOUCH_MELODY_TS0002:
   human_name: BSEED Melody 2-gang touch switch L+N
   category: switch
   power: mains
@@ -636,7 +636,7 @@ BSEED_MELODY_TOUCH_TS0002:
   - https://www.bseed.com/products/bseed-zigbee-1-2-3gang-1-2-3way-switch-wall-smart-light-switch-for-staircase?variant=42163562086555
   - https://www.bseed.com/products/wifi-light-switch-function-key-diy-parts?variant=42014280056987
   - https://www.aliexpress.com/item/1005003475686409.html
-BSEED_MELODY_TOUCH_TS0003:
+SWITCH_BSEED_TOUCH_MELODY_TS0003:
   human_name: BSEED Melody 3-gang touch switch L+N
   category: switch
   power: mains
@@ -666,7 +666,7 @@ BSEED_MELODY_TOUCH_TS0003:
   - https://www.bseed.com/products/bseed-zigbee-1-2-3gang-1-2-3way-switch-wall-smart-light-switch-for-staircase?variant=42163562119323
   - https://www.bseed.com/products/wifi-light-switch-function-key-diy-parts?variant=42014280089755
   - https://www.aliexpress.com/item/1005003475686409.html
-BSEED_MELODY_TOUCH_TS0004:
+SWITCH_BSEED_TOUCH_MELODY_TS0004:
   human_name: BSEED Melody 4-gang touch switch L+N
   category: switch
   power: mains
@@ -695,7 +695,7 @@ BSEED_MELODY_TOUCH_TS0004:
   store: 
   - https://www.bseed.com/products/bseed-zigbee-1-2-3gang-1-2-3way-switch-wall-smart-light-switch-for-staircase?variant=43409101750427
   - https://www.bseed.com/products/wifi-light-switch-function-key-diy-parts?variant=44196176167067
-BSEED_BACKLIGHT_TOUCH_TS0001:
+SWITCH_BSEED_TOUCH_BACKLIGHT_TS0001:
   human_name: BSEED dim-backlight 1-gang touch switch
   category: switch
   power: mains
@@ -722,7 +722,7 @@ BSEED_BACKLIGHT_TOUCH_TS0001:
   info: Backlight on D4i
   threads: https://github.com/romasku/tuya-zigbee-switch/discussions/221
   store: https://www.aliexpress.com/item/1005004187227246.html
-BSEED_BACKLIGHT_TOUCH_TS0002:
+SWITCH_BSEED_TOUCH_BACKLIGHT_TS0002:
   human_name: BSEED dim-backlight 2-gang touch switch
   category: switch
   power: mains
@@ -749,7 +749,7 @@ BSEED_BACKLIGHT_TOUCH_TS0002:
   info: Backlight on D4i
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/246
   store: https://www.aliexpress.com/item/1005003843553626.html
-BSEED_BACKLIGHT_TOUCH_TS0003:
+SWITCH_BSEED_TOUCH_BACKLIGHT_TS0003:
   human_name: BSEED dim-backlight 3-gang touch switch
   category: switch
   power: mains
@@ -776,7 +776,7 @@ BSEED_BACKLIGHT_TOUCH_TS0003:
   info: Backlight on D4i
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/240
   store: https://www.aliexpress.com/item/1005004187227246.html
-BSEED_LATCHING_TOUCH_TS0011:
+SWITCH_BSEED_TOUCH_LATCHING_TS0011:
   human_name: BSEED latching-relays 1-gang touch switch
   category: switch
   power: mains
@@ -802,7 +802,7 @@ BSEED_LATCHING_TOUCH_TS0011:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/51
   store: https://www.aliexpress.com/item/1005003324697513.html
-BSEED_LATCHING_TOUCH_TS0012:
+SWITCH_BSEED_TOUCH_LATCHING_TS0012:
   human_name: BSEED latching-relays 2-gang touch switch
   category: switch
   power: mains
@@ -831,7 +831,7 @@ BSEED_LATCHING_TOUCH_TS0012:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/51
   store: https://www.aliexpress.com/item/1005003324697513.html
-BSEED_LATCHING_TOUCH_TS0013:
+SWITCH_BSEED_TOUCH_LATCHING_TS0013:
   human_name: BSEED latching-relays 3-gang touch switch
   category: switch
   power: mains
@@ -858,7 +858,7 @@ BSEED_LATCHING_TOUCH_TS0013:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/229
   store: https://www.aliexpress.com/item/1005002570240546.html
-BSEED_TOUCH_TS0011:
+SWITCH_BSEED_TOUCH_TS0011:
   human_name: BSEED 1-gang touch switch
   category: switch
   power: mains
@@ -884,7 +884,7 @@ BSEED_TOUCH_TS0011:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/pull/176
   store: https://www.bseed.com/products/bseed-zigbee-switch-wall-smart-light-switch-1gang-2-way-single-live-line?_pos=1&_psq=SL-GL86ZTS11B&_ss=e&_v=1.0&variant=42090992730267
-BSEED_TOUCH_1_TS0012:
+SWITCH_BSEED_TOUCH_1_TS0012:
   human_name: BSEED 2-gang touch switch 🅰
   category: switch
   power: mains
@@ -912,7 +912,7 @@ BSEED_TOUCH_1_TS0012:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/pull/23
   store: null
-BSEED_TOUCH_3_TS0012:
+SWITCH_BSEED_TOUCH_3_TS0012:
   human_name: BSEED 2-gang touch switch 🅲
   category: switch
   power: mains
@@ -938,7 +938,7 @@ BSEED_TOUCH_3_TS0012:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/229
   store: https://www.aliexpress.com/item/1005002570240546.html
-BSEED_TOUCH_TS0013:
+SWITCH_BSEED_TOUCH_TS0013:
   human_name: BSEED 3-gang touch switch
   category: switch
   power: mains
@@ -964,7 +964,7 @@ BSEED_TOUCH_TS0013:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/229
   store: https://www.aliexpress.com/item/1005002570240546.html
-BSEED_TOUCH_TS0001:
+SWITCH_BSEED_TOUCH_TS0001:
   human_name: BSEED 1-gang touch switch 🅰
   category: switch
   power: mains
@@ -990,7 +990,7 @@ BSEED_TOUCH_TS0001:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/pull/186
   store: null
-BSEED_TOUCH_TS0002:
+SWITCH_BSEED_TOUCH_TS0002:
   human_name: BSEED 2-gang touch switch
   category: switch
   power: mains
@@ -1016,7 +1016,7 @@ BSEED_TOUCH_TS0002:
   info: Missing state indicators (specifc dimming implementation)
   threads: https://github.com/romasku/tuya-zigbee-switch/pull/188
   store: https://aliexpress.ru/item/4000086550778.html
-EKF_TS0011:
+MODULE_EKF_TS0011:
   human_name: EKF ssh-1g-zb-nn
   category: module
   power: mains
@@ -1042,7 +1042,7 @@ EKF_TS0011:
   info: Needs ID and pinout confirmation
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/205
   store: https://ekfgroup.com/ru/catalog/products/umnoe-rele-v-podrozetnik-1-kanalnoe-bez-nejtrali-zigbee-ekf-connect-select
-EKF_TS0012:
+MODULE_EKF_TS0012:
   human_name: EKF ssh-2g-zb-nn
   category: module
   power: mains
@@ -1068,7 +1068,7 @@ EKF_TS0012:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/205
   store: https://ekfgroup.com/ru/catalog/products/umnoe-rele-v-podrozetnik-2-kanalnoe-bez-nejtrali-zigbee-ekf-connect-select
-EKF_TS0013:
+MODULE_EKF_TS0013:
   human_name: EKF ssh-3g-zb-nn
   category: module
   power: mains
@@ -1094,7 +1094,7 @@ EKF_TS0013:
   info: Needs ID and pinout confirmation
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/205
   store: https://ekfgroup.com/ru/catalog/products/umnoe-rele-v-podrozetnik-3-kanalnoe-bez-nejtrali-zigbee-ekf-connect-select
-EMOS_TS0001: 
+MODULE_EMOS_TS0001: 
   human_name: GoSmart IP-2101SZ <br> EMOS H5101
   category: module
   power: mains
@@ -1122,7 +1122,7 @@ EMOS_TS0001:
   store:
   - https://www.emosgosmart.eu/en/products/gosmart-switch-module-ip-2101sz-zigbee-1-channel/
   - https://www.amazon.de/dp/B0DDCJ53Y4
-EMOS_TS0002: 
+MODULE_EMOS_TS0002: 
   human_name: GoSmart IP-2102SZ <br> EMOS H5102
   category: module
   power: mains
@@ -1150,7 +1150,7 @@ EMOS_TS0002:
   store:
   - https://www.emosgosmart.eu/en/products/gosmart-switch-module-ip-2102sz-zigbee-2-channel/
   - https://www.amazon.de/dp/B0DDCKHXDL
-GIRIER_TS0001:
+MODULE_GIRIER_TS0001:
   human_name: Girier JR-ZDS01 🅱
   category: module
   power: mains
@@ -1176,7 +1176,7 @@ GIRIER_TS0001:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/202
   store: null
-GIRIER_ZTU_TS0001:
+MODULE_GIRIER_ZTU_TS0001:
   human_name: Girier JR-ZDS01 🅲
   category: module
   power: mains
@@ -1202,7 +1202,7 @@ GIRIER_ZTU_TS0001:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/212
   store: null
-GIRIER_TS0002:
+MODULE_GIRIER_TS0002:
   human_name: Girier 2-gang
   category: module
   power: mains
@@ -1230,7 +1230,7 @@ GIRIER_TS0002:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/29
   store: https://www.aliexpress.com/item/1005006084763437.html
-GIRIER_A_TS0001:
+MODULE_GIRIER_A_TS0001:
   human_name: Girier 🅰 1-gang
   category: module
   power: mains
@@ -1256,7 +1256,7 @@ GIRIER_A_TS0001:
   info: Needs ID and pinout confirmation
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/183
   store: https://www.aliexpress.com/item/1005006084705740.html
-GIRIER_A_TS0002:
+MODULE_GIRIER_A_TS0002:
   human_name: Girier 🅰 2-gang
   category: module
   power: mains
@@ -1282,7 +1282,7 @@ GIRIER_A_TS0002:
   info: Needs ID and pinout confirmation
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/183
   store: https://www.aliexpress.com/item/1005006084705740.html
-GIRIER_A_TS0003:
+MODULE_GIRIER_A_TS0003:
   human_name: Girier 🅰 3-gang
   category: module
   power: mains
@@ -1309,7 +1309,7 @@ GIRIER_A_TS0003:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/183
   store: https://www.aliexpress.com/item/1005006084705740.html
-HOBEIAN_REMOTE_TS0044:
+REMOTE_HOBEIAN_TS0044:
   human_name: HOBEIAN ZG-101ZS
   category: remote
   power: CR2032
@@ -1335,7 +1335,7 @@ HOBEIAN_REMOTE_TS0044:
   info: Huge battery drain! LEDs on D7, A1, C3, B6
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/237
   store: null
-HOBEIAN_TS0001:
+MODULE_HOBEIAN_TS0001:
   human_name: HOBEIAN 1-gang
   category: module
   power: mains
@@ -1361,7 +1361,7 @@ HOBEIAN_TS0001:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/189
   store: null
-HOMMYN_TS0011:
+MODULE_HOMMYN_TS0011:
   human_name: HOMMYN RLZBNN01
   category: module
   power: mains
@@ -1387,7 +1387,7 @@ HOMMYN_TS0011:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/204
   store: https://www.rusklimat.ru/product/modul-rele-hommyn-zigbee-1-kanal-bez-neytrali-rlzbnn01
-IHSENO_REMOTE_TS0044:
+REMOTE_IHSENO_TS0044:
   human_name: iHseno 4-button remote
   category: remote
   power: LR23A
@@ -1415,7 +1415,7 @@ IHSENO_REMOTE_TS0044:
   store: 
   - https://www.aliexpress.com/item/1005005792534172.html
   - https://allegro.pl/oferta/pilot-atlo-rc4-tuya-zigbee-tuya-smart-da-16513965398
-IHSENO_TOUCH_TS0001:
+SWITCH_IHSENO_TOUCH_TS0001:
   human_name: iHseno 1-gang touch switch
   category: switch
   power: mains
@@ -1441,7 +1441,7 @@ IHSENO_TOUCH_TS0001:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/146
   store: https://www.aliexpress.com/item/1005007532195287.html
-IHSENO_TOUCH_TS0002:
+SWITCH_IHSENO_TOUCH_TS0002:
   human_name: iHseno 2-gang touch switch
   category: switch
   power: mains
@@ -1467,7 +1467,7 @@ IHSENO_TOUCH_TS0002:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/146
   store: https://www.aliexpress.com/item/1005007532195287.html
-IHSENO_TOUCH_TS0003:
+SWITCH_IHSENO_TOUCH_TS0003:
   human_name: iHseno 3-gang touch switch
   category: switch
   power: mains
@@ -1493,7 +1493,7 @@ IHSENO_TOUCH_TS0003:
   info: Needs IDs
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/146
   store: https://www.aliexpress.com/item/1005007532195287.html
-IHSENO_TS0001:
+MODULE_IHSENO_TS0001:
   human_name: iHseno 1-gang
   category: module
   power: mains
@@ -1519,7 +1519,7 @@ IHSENO_TS0001:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/105
   store: https://www.aliexpress.com/item/1005008107698143.html
-IHSENO_TS0002:
+MODULE_IHSENO_TS0002:
   human_name: iHseno 2-gang
   category: module
   power: mains
@@ -1545,7 +1545,7 @@ IHSENO_TS0002:
   info: Needs ID, pinout confirmation
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/105
   store: https://www.aliexpress.com/item/1005008107698143.html
-IHSENO_TS0003:
+MODULE_IHSENO_TS0003:
   human_name: iHseno 3-gang
   category: module
   power: mains
@@ -1574,7 +1574,7 @@ IHSENO_TS0003:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/85
   store: https://www.aliexpress.com/item/1005008107698143.html
-IHSENO_TS0004:
+MODULE_IHSENO_TS0004:
   human_name: iHseno 4-gang
   category: module
   power: mains
@@ -1601,7 +1601,7 @@ IHSENO_TS0004:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/105
   store: https://www.aliexpress.com/item/1005008107698143.html
-MANHOT_SWITCH_A_TS0013:
+SWITCH_MANHOT_A_TS0013:
   human_name: Manhot 3-gang switch 🅰
   category: switch
   power: mains
@@ -1629,7 +1629,7 @@ MANHOT_SWITCH_A_TS0013:
   store:
   - https://www.aliexpress.com/item/1005008300010160.html
   - https://www.aliexpress.com/item/1005008867890261.html
-MANHOT_SWITCH_B_TS0011:
+SWITCH_MANHOT_B_TS0011:
   human_name: Manhot 🅱 1-gang switch
   category: switch
   power: mains
@@ -1655,7 +1655,7 @@ MANHOT_SWITCH_B_TS0011:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/197
   store: https://www.aliexpress.com/item/1005006877282435.html
-MANHOT_SWITCH_B_TS0012:
+SWITCH_MANHOT_B_TS0012:
   human_name: Manhot 🅱 2-gang switch
   category: switch
   power: mains
@@ -1681,7 +1681,7 @@ MANHOT_SWITCH_B_TS0012:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/197
   store: https://www.aliexpress.com/item/1005006877282435.html
-MANHOT_SWITCH_B_TS0013:
+SWITCH_MANHOT_B_TS0013:
   human_name: Manhot 🅱 3-gang switch
   category: switch
   power: mains
@@ -1707,7 +1707,7 @@ MANHOT_SWITCH_B_TS0013:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/197
   store: https://www.aliexpress.com/item/1005006877282435.html
-MHCOZY_TS0004:
+BOARD__MHCOZY_TS0004:
   human_name: MHCOZY TYWB 4ch-RF / ZG-005(-RF) 🅰
   category: board
   power: mains
@@ -1733,7 +1733,7 @@ MHCOZY_TS0004:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/130
   store: https://www.aliexpress.com/item/1005005457296054.html
-MHCOZY_TS0004_2:
+BOARD__MHCOZY_TS0004_2:
   human_name: MHCOZY TYWB 4ch-RF / ZG-005(-RF) 🅱
   category: board
   power: mains
@@ -1759,7 +1759,7 @@ MHCOZY_TS0004_2:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/245
   store: null
-MOES_SWITCHES_TS0011:
+SWITCH_MOES_ALL_TS0011:
   human_name: Moes 1-gang switches (all variants)
   category: switch
   power: mains
@@ -1791,7 +1791,7 @@ MOES_SWITCHES_TS0011:
   - https://moeshouse.com/collections/eu-star-ring
   - https://www.aliexpress.com/item/1005005178075186.html
   - https://www.aliexpress.com/item/1005005178430448.html
-MOES_SWITCHES_TS0012:
+SWITCH_MOES_ALL_TS0012:
   human_name: Moes 2-gang switches (all variants)
   category: switch
   power: mains
@@ -1823,7 +1823,7 @@ MOES_SWITCHES_TS0012:
   - https://moeshouse.com/collections/eu-star-ring
   - https://www.aliexpress.com/item/1005005178075186.html
   - https://www.aliexpress.com/item/1005005178430448.html
-MOES_SWITCHES_TS0013:
+SWITCH_MOES_ALL_TS0013:
   human_name: Moes 3-gang switches (all variants)
   category: switch
   power: mains
@@ -1855,7 +1855,7 @@ MOES_SWITCHES_TS0013:
   - https://moeshouse.com/collections/eu-star-ring
   - https://www.aliexpress.com/item/1005005178075186.html
   - https://www.aliexpress.com/item/1005005178430448.html
-MOES_SWITCHES_TS0014:
+SWITCH_MOES_ALL_TS0014:
   human_name: Moes 4-gang switches (all variants)
   category: switch
   power: mains
@@ -1885,7 +1885,7 @@ MOES_SWITCHES_TS0014:
   - https://moeshouse.com/collections/eu-star-ring
   - https://www.aliexpress.com/item/1005005178075186.html
   - https://www.aliexpress.com/item/1005005178430448.html
-MOES_TS0002:
+MODULE_MOES_TS0002:
   human_name: Moes ZM-104B-M
   category: module
   power: mains
@@ -1911,7 +1911,7 @@ MOES_TS0002:
   info: Has buzzer instead of LED
   threads: https://github.com/romasku/tuya-zigbee-switch/pull/147
   store: https://www.amazon.co.uk/dp/B0CKYP32CW?th=1
-MOES_TS0003:
+MODULE_MOES_TS0003:
   human_name: Moes MS-104CZ
   category: module
   power: mains
@@ -1938,7 +1938,7 @@ MOES_TS0003:
   info: Has buzzer on C2
   threads: https://github.com/romasku/tuya-zigbee-switch/pull/30
   store: https://www.aliexpress.com/item/1005004986958450.html
-MOES_ZM4LT1_TS0001:
+MODULE_MOES_ZM4LT1_TS0001:
   human_name: Moes ZM4LT1
   category: module
   power: mains
@@ -1964,7 +1964,7 @@ MOES_ZM4LT1_TS0001:
   info: Needs pinout
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/167
   store: https://www.aliexpress.com/item/1005009640015785.html
-MOES_ZM4LT2_TS0002:
+MODULE_MOES_ZM4LT2_TS0002:
   human_name: Moes ZM4LT2
   category: module
   power: mains
@@ -1990,7 +1990,7 @@ MOES_ZM4LT2_TS0002:
   info: Needs pinout
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/167
   store: https://www.aliexpress.com/item/1005009640015785.html
-MOES_ZM4LT3_TS0003:
+MODULE_MOES_ZM4LT3_TS0003:
   human_name: Moes ZM4LT3
   category: module
   power: mains
@@ -2016,7 +2016,7 @@ MOES_ZM4LT3_TS0003:
   info: Needs pinout
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/167
   store: https://www.aliexpress.com/item/1005009640015785.html
-NOUS_TS0002:
+MODULE_NOUS_TS0002:
   human_name: Nous L13Z
   category: module
   power: mains
@@ -2042,7 +2042,7 @@ NOUS_TS0002:
   info: Needs pinout confirmation
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/216
   store: https://nous.technology/product/l13z.html
-NOUS_TS0002_1:
+MODULE_NOUS_TS0002_1:
   human_name: Nous L13Z UNSH
   category: module
   power: mains
@@ -2068,7 +2068,7 @@ NOUS_TS0002_1:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/216
   store: https://www.aliexpress.com/item/1005005710710150.html
-NOVATO_TS000F_1:
+MODULE_NOVATO_TS000F_1:
   human_name: NOVATO ZRM01
   category: module
   power: mains
@@ -2094,7 +2094,7 @@ NOVATO_TS000F_1:
   info: RF daughterboard not supported
   threads: https://github.com/romasku/tuya-zigbee-switch/pull/223
   store: null
-NOVATO_TS000F_2:
+MODULE_NOVATO_TS000F_2:
   human_name: NOVATO ZRM02
   category: module
   power: mains
@@ -2120,7 +2120,7 @@ NOVATO_TS000F_2:
   info: RF daughterboard not supported
   threads: https://github.com/romasku/tuya-zigbee-switch/pull/231
   store: https://novato.com.tr/urun/tuya-mini-zigbee-iki-cikisli-akilli-role/
-NOVATO_TS0011:
+MODULE_NOVATO_TS0011:
   human_name: NOVATO ZNR01
   category: module
   power: mains
@@ -2146,7 +2146,7 @@ NOVATO_TS0011:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/pull/222
   store: https://novato.com.tr/urun/tuya-mini-zigbee-notrsuz-tek-cikisli-role/
-PSMART_SWITCH_TS0001:
+SWITCH_PSMART_TS0001:
   human_name: PSMART T441/T451
   category: switch
   power: mains
@@ -2173,7 +2173,7 @@ PSMART_SWITCH_TS0001:
   info: Backlight on A5. If relay is not used, see alt_config.
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/252
   store: https://psmart.pl/pl/p/PSMART-Przelacznik-1-obwod-C-RM-ZigBee-TUYA/2053
-PSMART_SWITCH_TS0002:
+SWITCH_PSMART_TS0002:
   human_name: PSMART T442/T452
   category: switch
   power: mains
@@ -2200,7 +2200,7 @@ PSMART_SWITCH_TS0002:
   info: Backlight on A5 (3rd relay with alt_config)
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/252
   store: https://psmart.pl/pl/p/PSMART-Przelacznik-2-obwody-C-RM-ZigBee-TUYA/2052
-PSMART_SWITCH_TS0003:
+SWITCH_PSMART_TS0003:
   human_name: PSMART T443/T453
   category: switch
   power: mains
@@ -2226,7 +2226,7 @@ PSMART_SWITCH_TS0003:
   info: Needs ID, pinout confirmation and backlight on A5
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/252
   store: https://psmart.pl/pl/p/PSMART-Przelacznik-3-obwody-C-RM-ZigBee-TUYA/2051
-QS_TS0012:
+MODULE_QS_TS0012:
   human_name: QS-Zigbee-S04-2C-ML-C
   category: module
   power: mains
@@ -2252,7 +2252,7 @@ QS_TS0012:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/144
   store: https://www.aliexpress.com/item/1005008663303208.html?sku_id=12000046146359997
-SONOFF_ZBMINIL2:
+MODULE_SONOFF_ZBMINIL2:
   human_name: SONOFF ZBMINIL2
   category: module
   power: mains
@@ -2278,7 +2278,7 @@ SONOFF_ZBMINIL2:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/pull/232
   store: https://sonoff.tech/products/sonoff-zbmini-extreme-zigbee-smart-switch-zbminil2
-TUYA_GIRIER_TS0011:
+MODULE_TUYA_GIRIER_TS0011:
   human_name: Tuya/Girier 1-gang L-only 🅰
   category: module
   power: mains
@@ -2305,7 +2305,7 @@ TUYA_GIRIER_TS0011:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/4
   store: null
-TUYA_GIRIER_TS0011_2:
+MODULE_TUYA_GIRIER_TS0011_2:
   human_name: Tuya/Girier 1-gang L-only 🅱
   category: module
   power: mains
@@ -2331,7 +2331,7 @@ TUYA_GIRIER_TS0011_2:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/187
   store: null
-TUYA_GIRIER_TS0012:
+MODULE_TUYA_GIRIER_TS0012:
   human_name: Tuya/Girier 2-gang L-only
   category: module
   power: mains
@@ -2361,7 +2361,7 @@ TUYA_GIRIER_TS0012:
   info: Supported
   threads: null
   store: null
-TUYA_GIRIER_TS0013:
+MODULE_TUYA_GIRIER_TS0013:
   human_name: Tuya/Girier 3-gang L-only
   category: module
   power: mains
@@ -2390,7 +2390,7 @@ TUYA_GIRIER_TS0013:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/37
   store: null
-TUYA_OXT_TS0001:
+MODULE_TUYA_OXT_TS0001:
   human_name: Tuya/OXT 1-gang
   category: module
   power: mains
@@ -2417,7 +2417,7 @@ TUYA_OXT_TS0001:
   info: Reset button on pin D2 (old) or A0 (new)
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/6
   store: null
-TUYA_OXT_TS0002:
+MODULE_TUYA_OXT_TS0002:
   human_name: Tuya/OXT 2-gang
   category: module
   power: mains
@@ -2444,7 +2444,7 @@ TUYA_OXT_TS0002:
   info: Reset button on pin D2 (old) or A0 (new)
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/49
   store: null
-TUYA_REMOTE_TS0041:
+REMOTE_TUYA_TS0041:
   human_name: Tuya/Moes 1-button wireless switch
   category: remote
   power: CR2430
@@ -2470,7 +2470,7 @@ TUYA_REMOTE_TS0041:
   info: Needs pinout, battery drain.
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/171
   store: null
-TUYA_REMOTE_TS0044:
+REMOTE_TUYA_TS0044:
   human_name: Tuya 4-button wireless switch 🅰
   category: remote
   power: CR2430
@@ -2496,7 +2496,7 @@ TUYA_REMOTE_TS0044:
   info: Huge battery drain! LEDs on C1, C2, C0, D0
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/171
   store: null
-TUYA_REMOTE_TS004F:
+REMOTE_TUYA_TS004F:
   human_name: Tuya 4-button wireless switch 🅱
   category: remote
   power: CR2430
@@ -2522,7 +2522,7 @@ TUYA_REMOTE_TS004F:
   info: Huge battery drain! LEDs on C1, C2, C0, D0
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/171
   store: null
-TUYA_SWITCH_TS0001:
+SWITCH_TUYA_TS0001:
   human_name: Tuya 1-gang switch
   category: switch
   power: mains
@@ -2548,7 +2548,7 @@ TUYA_SWITCH_TS0001:
   info: Needs netled on A0
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/181
   store: null
-TUYA_SWITCH_TS0002:
+SWITCH_TUYA_TS0002:
   human_name: Tuya 2-gang switch
   category: switch
   power: mains
@@ -2574,7 +2574,7 @@ TUYA_SWITCH_TS0002:
   info: Needs ID and netled on A0
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/181
   store: null
-TUYA_SWITCH_TS0003:
+SWITCH_TUYA_TS0003:
   human_name: Tuya 3-gang switch
   category: switch
   power: mains
@@ -2600,7 +2600,7 @@ TUYA_SWITCH_TS0003:
   info: Needs ID and netled on A0
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/181
   store: null
-TUYA_SWITCH_TS0004:
+SWITCH_TUYA_TS0004:
   human_name: Tuya 4-gang switch
   category: switch
   power: mains
@@ -2626,7 +2626,7 @@ TUYA_SWITCH_TS0004:
   info: Needs netled on A0
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/181
   store: null
-TUYA_TOUCH_TS0011:
+SWITCH_TUYA_TOUCH_TS0011:
   human_name: Tuya 1-gang touch switch
   category: switch
   power: mains
@@ -2652,7 +2652,7 @@ TUYA_TOUCH_TS0011:
   info: Needs pinout
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/104
   store: null
-TUYA_TS011F:
+MODULE_TUYA_TS011F:
   human_name: Tuya 1-gang
   category: module
   power: mains
@@ -2678,7 +2678,7 @@ TUYA_TS011F:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/261
   store: https://www.aliexpress.us/item/3256809942562338.html
-TUYA_DEFAULT_B_TS0001:
+MODULE_TUYA_DEFAULT_B_TS0001:
   human_name: Tuya default 1-gang 🅱
   category: module
   power: mains
@@ -2705,7 +2705,7 @@ TUYA_DEFAULT_B_TS0001:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/6
   store: https://www.aliexpress.com/item/1005007295460273.html
-TUYA_DEFAULT_A_TS0001:
+MODULE_TUYA_DEFAULT_A_TS0001:
   human_name: Tuya default 1-gang 🅰 <br> Girier JR-ZDS01 🅰 <br> Zbeacon TS0001
   category: module
   power: mains
@@ -2737,7 +2737,7 @@ TUYA_DEFAULT_A_TS0001:
   - https://github.com/romasku/tuya-zigbee-switch/issues/80
   - https://github.com/romasku/tuya-zigbee-switch/issues/219
   store: null
-TUYA_DEFAULT_A_TS0001_2:
+MODULE_TUYA_DEFAULT_A_TS0001_2:
   human_name: Tuya default 1-gang 🅰
   category: module
   power: mains
@@ -2766,7 +2766,7 @@ TUYA_DEFAULT_A_TS0001_2:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/44
   store: null
-TLED_TS0001:
+MODULE_TLED_TS0001:
   human_name: T-LED 1-gang
   category: module
   power: mains
@@ -2792,7 +2792,7 @@ TLED_TS0001:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/225
   store: https://www.t-led.cz/p/smart-zigbee-3-0-spinac-zb2-68506
-TUYA_COMMON_TS0001:
+MODULE_TUYA_COMMON_TS0001:
   human_name: Tuya common 1-gang
   category: module
   power: mains
@@ -2818,7 +2818,7 @@ TUYA_COMMON_TS0001:
   info: Needs pinout confirmation
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/32
   store: null
-FARYLINK_TS0001:
+MODULE_FARYLINK_TS0001:
   human_name: Farylink FS-02Z 
   category: module
   power: mains
@@ -2844,7 +2844,7 @@ FARYLINK_TS0001:
   info: Stops responding after OTA update?
   threads: https://github.com/romasku/tuya-zigbee-switch/pull/243
   store: https://www.aliexpress.com/item/1005006908878393.html
-TUYA_TS0002:
+MODULE_TUYA_TS0002:
   human_name: Tuya 2-gang
   category: module
   power: mains
@@ -2871,7 +2871,7 @@ TUYA_TS0002:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/6
   store: null
-TUYA_COMMON_TS0002:
+MODULE_TUYA_COMMON_TS0002:
   human_name: Tuya common 2-gang
   category: module
   power: mains
@@ -2897,7 +2897,7 @@ TUYA_COMMON_TS0002:
   info: Needs pinout confirmation
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/32
   store: null
-TUYA_ZTU_TS0004:
+MODULE_TUYA_ZTU_TS0004:
   human_name: Tuya 4-gang
   category: module
   power: mains
@@ -2924,7 +2924,7 @@ TUYA_ZTU_TS0004:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/42
   store: null
-ZEMISMART_SWITCH_1_TS0012:
+SWITCH_ZEMISMART_1_TS0012:
   human_name: Zemismart 2-gang switch 🅰
   category: switch
   power: mains
@@ -2952,7 +2952,7 @@ ZEMISMART_SWITCH_1_TS0012:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/19
   store: null
-ZEMISMART_SWITCH_2_TS0012:
+SWITCH_ZEMISMART_2_TS0012:
   human_name: Zemismart 2-gang switch 🅱
   category: switch
   power: mains
@@ -2978,7 +2978,7 @@ ZEMISMART_SWITCH_2_TS0012:
   info: Needs pinout. Bi-stable relays. Must toggle relays sequentially.
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/22
   store: https://www.zemismart.com/products/kes-606us-z?VariantsId=14160
-ZEMISMART_SWITCH_TS0601_6GANG:
+SWITCH_ZEMISMART_TS0601_6GANG:
   human_name: Zemismart TB26-6
   category: switch
   power: mains
@@ -3004,7 +3004,7 @@ ZEMISMART_SWITCH_TS0601_6GANG:
   info: Needs pinout. Secondary MCU. 6-gang!
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/209
   store: https://www.zemismart.com/products/tb26-6
-ZIGBEE_BOARD_ZTU_2:
+BOARD__ZIGBEE_ZTU_2:
   human_name: ZTU dev board 2
   category: board
   power: USB
