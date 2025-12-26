@@ -2766,8 +2766,8 @@ TUYA_DEFAULT_A_TS0001_2:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/44
   store: null
-TUYA_6_TS0001:
-  human_name: Tuya 1-gang 🅵 T-LED
+TLED_TS0001:
+  human_name: T-LED 1-gang
   category: module
   power: mains
   neutral: required
