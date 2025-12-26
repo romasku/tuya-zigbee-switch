@@ -2705,7 +2705,7 @@ TUYA_2_TS0001:
   info: Supported
   threads: null
   store: null
-TUYA_3_TS0001:
+TUYA_DEFAULT_A_TS0001:
   human_name: Tuya 1-gang 🅲 <br> Girier JR-ZDS01 🅰 <br> Zbeacon TS0001
   category: module
   power: mains
@@ -2737,7 +2737,7 @@ TUYA_3_TS0001:
   - https://github.com/romasku/tuya-zigbee-switch/issues/80
   - https://github.com/romasku/tuya-zigbee-switch/issues/219
   store: null
-TUYA_4_TS0001:
+TUYA_DEFAULT_A_TS0001_2:
   human_name: Tuya 1-gang 🅳
   category: module
   power: mains
