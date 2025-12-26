@@ -1230,8 +1230,60 @@ GIRIER_TS0002:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/29
   store: https://www.aliexpress.com/item/1005006084763437.html
-GIRIER_TS0003:
-  human_name: Girier 3-gang
+GIRIER_A_TS0001:
+  human_name: Girier 🅰 1-gang
+  category: module
+  power: mains
+  neutral: required
+  device_type: router
+  tuya_model_name: TS0001
+  tuya_manufacturer_name: null
+  stock_converter_manufacturer: null
+  stock_converter_model: null
+  override_z2m_device: null
+  tuya_module: ZT3L
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: null____;TS0001-GRA;BB1u;LD7;SC2u;RC0;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 43595
+  build: no
+  status: in_progress
+  info: Needs ID and pinout confirmation
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/183
+  store: https://www.aliexpress.com/item/1005006084705740.html
+GIRIER_A_TS0002:
+  human_name: Girier 🅰 2-gang
+  category: module
+  power: mains
+  neutral: required
+  device_type: router
+  tuya_model_name: TS0002
+  tuya_manufacturer_name: null
+  stock_converter_manufacturer: null
+  stock_converter_model: null
+  override_z2m_device: null
+  tuya_module: ZT3L
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: null____;TS0002-GRA;BB1u;LD7;SC2u;RC0;SC3u;RB4;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 43596
+  build: no
+  status: in_progress
+  info: Needs ID and pinout confirmation
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/183
+  store: https://www.aliexpress.com/item/1005006084705740.html
+GIRIER_A_TS0003:
+  human_name: Girier 🅰 3-gang
   category: module
   power: mains
   neutral: required
@@ -1244,10 +1296,11 @@ GIRIER_TS0003:
   tuya_module: ZT3L
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: odzoiovu;TS0003-GR;BB1u;LD7;SC2u;RC0;SC3u;RB4;SD2u;RB5;
+  config_str: odzoiovu;TS0003-GRA;BB1u;LD7;SC2u;RC0;SC3u;RB4;SD2u;RB5;
   alt_config_str: null
   old_manufacturer_names: null
-  old_zb_models: null
+  old_zb_models: 
+  - TS0003-GR
   tuya_manufacturer_id: 4417
   tuya_image_type: 54179
   firmware_image_type: 45573
