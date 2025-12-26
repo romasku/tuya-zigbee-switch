@@ -2678,7 +2678,7 @@ TUYA_TS011F:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/261
   store: https://www.aliexpress.us/item/3256809942562338.html
-TUYA_2_TS0001:
+TUYA_DEFAULT_B_TS0001:
   human_name: Tuya 1-gang 🅱
   category: module
   power: mains
@@ -2703,8 +2703,8 @@ TUYA_2_TS0001:
   build: yes
   status: fully_supported
   info: Supported
-  threads: null
-  store: null
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/6
+  store: https://www.aliexpress.com/item/1005007295460273.html
 TUYA_DEFAULT_A_TS0001:
   human_name: Tuya 1-gang 🅲 <br> Girier JR-ZDS01 🅰 <br> Zbeacon TS0001
   category: module
