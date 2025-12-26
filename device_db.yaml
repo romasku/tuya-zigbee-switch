@@ -2897,7 +2897,7 @@ TUYA_COMMON_TS0002:
   info: Needs pinout confirmation
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/32
   store: null
-TUYA_TS0004:
+TUYA_ZTU_TS0004:
   human_name: Tuya 4-gang
   category: module
   power: mains
