@@ -456,7 +456,7 @@ MODULE_EKF_TS0011:
   firmware_image_type: 43593
   build: no
   status: in_progress
-  info: Needs ID and pinout confirmation
+  info: Needs ID (could be _TZ3000_tw4ztbp4) and pinout confirmation
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/205
   store: https://ekfgroup.com/ru/catalog/products/umnoe-rele-v-podrozetnik-1-kanalnoe-bez-nejtrali-zigbee-ekf-connect-select
 MODULE_EKF_TS0012:
@@ -511,7 +511,7 @@ MODULE_EKF_TS0013:
   info: Needs ID and pinout confirmation
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/205
   store: https://ekfgroup.com/ru/catalog/products/umnoe-rele-v-podrozetnik-3-kanalnoe-bez-nejtrali-zigbee-ekf-connect-select
-MODULE_EMOS_TS0001: 
+MODULE_EMOS_TS0001:
   human_name: GoSmart IP-2101SZ <br> EMOS H5101
   category: module
   power: mains
@@ -539,7 +539,7 @@ MODULE_EMOS_TS0001:
   store:
   - https://www.emosgosmart.eu/en/products/gosmart-switch-module-ip-2101sz-zigbee-1-channel/
   - https://www.amazon.de/dp/B0DDCJ53Y4
-MODULE_EMOS_TS0002: 
+MODULE_EMOS_TS0002:
   human_name: GoSmart IP-2102SZ <br> EMOS H5102
   category: module
   power: mains
@@ -568,7 +568,7 @@ MODULE_EMOS_TS0002:
   - https://www.emosgosmart.eu/en/products/gosmart-switch-module-ip-2102sz-zigbee-2-channel/
   - https://www.amazon.de/dp/B0DDCKHXDL
 MODULE_FARYLINK_TS0001:
-  human_name: Farylink FS-02Z 
+  human_name: Farylink FS-02Z
   category: module
   power: mains
   neutral: required
@@ -1095,7 +1095,7 @@ MODULE_NOUS_TS0002_1:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/216
   store: https://www.aliexpress.com/item/1005005710710150.html
-MODULE_NOVATO_TS000F_1:
+MODULE_NOVATO_TS000F_1GANG:
   human_name: NOVATO ZRM01
   category: module
   power: mains
@@ -1121,7 +1121,7 @@ MODULE_NOVATO_TS000F_1:
   info: RF daughterboard not supported
   threads: https://github.com/romasku/tuya-zigbee-switch/pull/223
   store: null
-MODULE_NOVATO_TS000F_2:
+MODULE_NOVATO_TS000F_2GANG:
   human_name: NOVATO ZRM02
   category: module
   power: mains
@@ -2263,7 +2263,7 @@ SWITCH_BSEED_TOUCH_TS0011:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/pull/176
   store: https://www.bseed.com/products/bseed-zigbee-switch-wall-smart-light-switch-1gang-2-way-single-live-line?_pos=1&_psq=SL-GL86ZTS11B&_ss=e&_v=1.0&variant=42090992730267
-SWITCH_BSEED_TOUCH_1_TS0012:
+SWITCH_BSEED_TOUCH_TS0012_1:
   human_name: BSEED 2-gang touch switch 🅰
   category: switch
   power: mains
@@ -2291,8 +2291,8 @@ SWITCH_BSEED_TOUCH_1_TS0012:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/pull/23
   store: null
-SWITCH_BSEED_TOUCH_3_TS0012:
-  human_name: BSEED 2-gang touch switch 🅲
+SWITCH_BSEED_TOUCH_TS0012_2:
+  human_name: BSEED 2-gang touch switch 🅱
   category: switch
   power: mains
   neutral: without
@@ -2820,7 +2820,7 @@ SWITCH_PSMART_TS0003:
   info: Needs ID, pinout confirmation and backlight on A5
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/252
   store: https://psmart.pl/pl/p/PSMART-Przelacznik-3-obwody-C-RM-ZigBee-TUYA/2051
-SWITCH_TUYA_TS0001:
+SWITCH_TUYA_CN_TS0001:
   human_name: Tuya 1-gang switch
   category: switch
   power: mains
@@ -2846,7 +2846,7 @@ SWITCH_TUYA_TS0001:
   info: Needs netled on A0
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/181
   store: null
-SWITCH_TUYA_TS0002:
+SWITCH_TUYA_CN_TS0002:
   human_name: Tuya 2-gang switch
   category: switch
   power: mains
@@ -2872,7 +2872,7 @@ SWITCH_TUYA_TS0002:
   info: Needs ID and netled on A0
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/181
   store: null
-SWITCH_TUYA_TS0003:
+SWITCH_TUYA_CN_TS0003:
   human_name: Tuya 3-gang switch
   category: switch
   power: mains
@@ -2898,7 +2898,7 @@ SWITCH_TUYA_TS0003:
   info: Needs ID and netled on A0
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/181
   store: null
-SWITCH_TUYA_TS0004:
+SWITCH_TUYA_CN_TS0004:
   human_name: Tuya 4-gang switch
   category: switch
   power: mains
