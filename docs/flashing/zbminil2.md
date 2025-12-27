@@ -58,7 +58,7 @@ Connect:
 
 ### Step 3: Flash the Firmware
 
-Download both the bootloader and firmware for your device from [bin/](https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/main/bin). You'll need the `efr32mg22_bootloader_zbminil2.s37` and the `.s37` file with router/end_device firmware.
+Download both the bootloader and firmware for your device from [bin/](https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/main/bin). You'll need the `efr32mg22_bootloader_sonoff_zbminil2.s37` and the `.s37` file with router/end_device firmware.
 
 #### Using Commander Software
 
@@ -93,7 +93,8 @@ Now you'll need to flash both the bootloader and firmware separately.
 
    ![commander ](/docs/.images/commander_browse.png)
 
-2. Select the bootloader file (`efr32mg22_bootloader_zbminil2.s37`). Screenshot is just illustration, please use zbminil2 file:
+2. Select the bootloader file (`efr32mg22_bootloader_sonoff_zbminil2.s37`).  
+  Screenshot is just illustration, please use zbminil2 file:
 
    ![commander ](/docs/.images/commander_select_bootloader.png)
 
@@ -101,7 +102,8 @@ Now you'll need to flash both the bootloader and firmware separately.
 
    ![commander ](/docs/.images/commander_flash.png)
 
-4. Now select your device-specific firmware file and press "Flash" again. Wait until the process finishes:
+4. Now select your device-specific firmware file (`bin/*/SONOFF_ZBMINIL2/*.s37`) and press "Flash" again.  
+  Screenshot is just illustration, please use zbminil2 file. Wait until the process finishes:
 
    ![commander ](/docs/.images/commander_select_firmware.png)
 
