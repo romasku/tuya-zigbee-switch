@@ -2588,6 +2588,34 @@ SWITCH_MANHOT_A_TS0013:
   store:
   - https://www.aliexpress.com/item/1005008300010160.html
   - https://www.aliexpress.com/item/1005008867890261.html
+SWITCH_MANHOT_A_TS0011:
+  human_name: Manhot 1-gang switch 🅰
+  category: switch
+  power: mains
+  neutral: optional
+  device_type: end_device
+  stock_model_name: TS0011
+  stock_manufacturer_name: _TZ3000_kea5qgnd
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0011
+  override_z2m_device: null
+  tuya_module: ZT3L
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: kea5qgnd;TS0011-MH;SC4u;RB4A0;ID2;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
+  firmware_image_type: 43599
+  build: yes
+  status: fully_supported
+  info: Bi-stable relays implementation needs confirmation
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/128
+  store:
+  - https://www.aliexpress.com/item/1005008300010160.html
+  - https://www.aliexpress.com/item/1005008867890261.html
 SWITCH_MANHOT_B_TS0011:
   human_name: Manhot 🅱 1-gang switch
   category: switch
