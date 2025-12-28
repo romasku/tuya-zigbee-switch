@@ -147,7 +147,7 @@
           ],
           "description": "Tuya manufacturer ID"
         },
-        "tuya_image_type": {
+        "stock_image_type": {
           "oneOf": [
             {"type": "integer"},
             {"type": "null"}
@@ -229,7 +229,7 @@
         "old_manufacturer_names",
         "old_zb_models",
         "stock_manufacturer_id",
-        "tuya_image_type",
+        "stock_image_type",
         "firmware_image_type",
         "build",
         "status",
