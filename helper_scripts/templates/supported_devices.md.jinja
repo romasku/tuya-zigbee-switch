@@ -40,12 +40,12 @@ Support new devices: [contribute/porting.md](/docs/contribute/porting.md)
 {% for device_key, device in devices %}
   {% set manufacturer = "`" ~ (device.tuya_manufacturer_name or "unknown") ~ "`" %}
   {% set ns = namespace(model="") %}
-  {% if device.tuya_model_name is none %}
+  {% if device.stock_model_name is none %}
     {% set ns.model = "`unknown`" %}
-  {% elif device.tuya_model_name is string %}
-    {% set ns.model = "`" ~ device.tuya_model_name ~ "`" %}
+  {% elif device.stock_model_name is string %}
+    {% set ns.model = "`" ~ device.stock_model_name ~ "`" %}
   {% else %}
-    {% for m in device.tuya_model_name %}
+    {% for m in device.stock_model_name %}
       {% if loop.first %}
         {% set ns.model = "`" ~ m ~ "`" %}
       {% else %}
