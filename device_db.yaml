@@ -1693,6 +1693,32 @@ OUTLET_BSEED_TS011F:
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/145
   store:
   - https://www.aliexpress.com/item/1005004402438527.html
+REMOTE_AQARA_WXKG02LM:
+  human_name: Aqara WXKG02LM
+  category: remote
+  power: CR2032
+  neutral: without
+  device_type: end_device
+  tuya_model_name: lumi.remote.b286acn01
+  tuya_manufacturer_name: LUMI
+  stock_converter_manufacturer: Aqara
+  stock_converter_model: WXKG02LM_rev2
+  override_z2m_device: null
+  tuya_module: none
+  mcu_family: NXP
+  mcu: JN5169
+  config_str: null;null;null;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: null
+  tuya_image_type: null
+  firmware_image_type: 43597
+  build: no
+  status: unsupported
+  info: NXP chip not supported, needs pinout
+  threads: null
+  store: null
 REMOTE_HOBEIAN_TS0044:
   human_name: HOBEIAN ZG-101ZS
   category: remote
