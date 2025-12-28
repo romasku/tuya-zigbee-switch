@@ -752,8 +752,34 @@ MODULE_GIRIER_ZTU_TS0001:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/212
   store: null
-MODULE_HOBEIAN_TS0001:
-  human_name: HOBEIAN 1-gang
+MODULE_HOBEIAN_TS0001_1:
+  human_name: HOBEIAN ZG-301Z V1.3
+  category: module
+  power: mains
+  neutral: required
+  device_type: router
+  stock_model_name: TS0001
+  stock_manufacturer_name: _TZ3000_q6a3tepg
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: WHD02
+  override_z2m_device: null
+  tuya_module: none
+  mcu_family: Telink
+  mcu: TLSR8253F512AT32
+  config_str: q6a3tepg;TS0001-HOB1;BB1u;LD4i;SB6u;RA1;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: null
+  stock_image_type: null
+  firmware_image_type: 43598
+  build: yes
+  status: fully_supported
+  info: Supported
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/189
+  store: null
+MODULE_HOBEIAN_TS0001_2:
+  human_name: HOBEIAN ZG-301Z V2.0
   category: module
   power: mains
   neutral: required
