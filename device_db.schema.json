@@ -46,7 +46,7 @@
           "enum": ["TLSR825x", "TLSR8253", "TLSR8253F512AT32", "TLSR8258", "EFR32MG21A020F768IM32", "EFR32MG22C224F512GN32", "JN5169"],
           "description": "Microcontroller unit type"
         },
-        "tuya_model_name": {
+        "stock_model_name": {
           "oneOf": [
             {"type": "null"},
             {
@@ -217,7 +217,7 @@
         "neutral",
         "device_type",
         "mcu",
-        "tuya_model_name",
+        "stock_model_name",
         "tuya_manufacturer_name",
         "stock_converter_manufacturer",
         "stock_converter_model",

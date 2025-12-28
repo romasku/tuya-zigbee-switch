@@ -19,7 +19,7 @@ BOARD__MHCOZY_TS0004:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS0004
+  stock_model_name: TS0004
   tuya_manufacturer_name: _TZ3000_imaccztn
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0004
@@ -45,7 +45,7 @@ BOARD__MHCOZY_TS0004_2:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS0004
+  stock_model_name: TS0004
   tuya_manufacturer_name: _TZ3000_u3oupgdy
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0004
@@ -71,7 +71,7 @@ BOARD__ZIGBEE_ZTU_2:
   power: USB
   neutral: without
   device_type: router
-  tuya_model_name: null
+  stock_model_name: null
   tuya_manufacturer_name: null
   stock_converter_manufacturer: null
   stock_converter_model: null
@@ -97,7 +97,7 @@ MODULE_AUBESS_TS0001:
   power: mains
   neutral: required
   device_type: end_device # specifically requested
-  tuya_model_name: TS0001
+  stock_model_name: TS0001
   tuya_manufacturer_name: _TZ3000_46t1rvdu
   stock_converter_manufacturer: Tuya
   stock_converter_model: WHD02
@@ -125,7 +125,7 @@ MODULE_AUBESS_TS0002:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS0002
+  stock_model_name: TS0002
   tuya_manufacturer_name: _TZ3000_lmlsduws
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0002_basic
@@ -151,7 +151,7 @@ MODULE_AUBESS_TS0003:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS0003
+  stock_model_name: TS0003
   tuya_manufacturer_name: _TZ3000_lvhy15ix
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0003_switch_module_2
@@ -179,7 +179,7 @@ MODULE_AUBESS_TS0004:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS0004
+  stock_model_name: TS0004
   tuya_manufacturer_name: _TZ3000_mmkbptmx
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0004_switch_module
@@ -206,7 +206,7 @@ MODULE_AVATTO_DRY_TS0001:
   power: DC
   neutral: without
   device_type: router
-  tuya_model_name: TS0001
+  stock_model_name: TS0001
   tuya_manufacturer_name: _TZ3000_gzggw2ia
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0001
@@ -232,7 +232,7 @@ MODULE_AVATTO_TS0001:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS0001
+  stock_model_name: TS0001
   tuya_manufacturer_name: _TZ3000_4rbqgcuv
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0001_switch_module
@@ -263,7 +263,7 @@ MODULE_AVATTO_TS0002:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS0002
+  stock_model_name: TS0002
   tuya_manufacturer_name: _TZ3000_mtnpt6ws
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0002_limited
@@ -294,7 +294,7 @@ MODULE_AVATTO_TS0003:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS0003
+  stock_model_name: TS0003
   tuya_manufacturer_name: _TZ3000_hbic3ka3
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0003_switch_module_2
@@ -325,7 +325,7 @@ MODULE_AVATTO_TS0004:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS0004
+  stock_model_name: TS0004
   tuya_manufacturer_name: _TZ3000_5ajpkyq6
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0004_switch_module_2
@@ -357,7 +357,7 @@ MODULE_AVATTO_TS0011:
   power: mains
   neutral: without
   device_type: end_device
-  tuya_model_name: TS0011
+  stock_model_name: TS0011
   tuya_manufacturer_name: _TZ3000_hbxsdd6k
   stock_converter_manufacturer: AVATTO
   stock_converter_model: LZWSM16-1
@@ -385,7 +385,7 @@ MODULE_AVATTO_TS0012:
   power: mains
   neutral: without
   device_type: end_device
-  tuya_model_name: TS0012
+  stock_model_name: TS0012
   tuya_manufacturer_name: _TZ3000_ljhbw1c9
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0012_switch_module
@@ -413,7 +413,7 @@ MODULE_AVATTO_TS0013:
   power: mains
   neutral: without
   device_type: end_device
-  tuya_model_name: TS0013
+  stock_model_name: TS0013
   tuya_manufacturer_name: _TZ3000_avotanj3
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0013
@@ -439,7 +439,7 @@ MODULE_EKF_TS0011:
   power: mains
   neutral: without
   device_type: end_device
-  tuya_model_name: TS0011
+  stock_model_name: TS0011
   tuya_manufacturer_name: null
   stock_converter_manufacturer: null
   stock_converter_model: null
@@ -465,7 +465,7 @@ MODULE_EKF_TS0012:
   power: mains
   neutral: without
   device_type: end_device
-  tuya_model_name: TS0012
+  stock_model_name: TS0012
   tuya_manufacturer_name: _TZ3000_num4zd6s
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0012
@@ -491,7 +491,7 @@ MODULE_EKF_TS0013:
   power: mains
   neutral: without
   device_type: end_device
-  tuya_model_name: TS0013
+  stock_model_name: TS0013
   tuya_manufacturer_name: null
   stock_converter_manufacturer: null
   stock_converter_model: null
@@ -517,7 +517,7 @@ MODULE_EMOS_TS0001:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS0001
+  stock_model_name: TS0001
   tuya_manufacturer_name: _TZ3000_hyziup76
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0001
@@ -545,7 +545,7 @@ MODULE_EMOS_TS0002:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS0002
+  stock_model_name: TS0002
   tuya_manufacturer_name: _TZ3000_wxtmgjbd
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0002
@@ -573,7 +573,7 @@ MODULE_FARYLINK_TS0001:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS0001
+  stock_model_name: TS0001
   tuya_manufacturer_name: _TZ3000_fdxihpp7
   stock_converter_manufacturer: Tuya
   stock_converter_model: WHD02
@@ -599,7 +599,7 @@ MODULE_GIRIER_A_TS0001:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS0001
+  stock_model_name: TS0001
   tuya_manufacturer_name: null
   stock_converter_manufacturer: null
   stock_converter_model: null
@@ -625,7 +625,7 @@ MODULE_GIRIER_A_TS0002:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS0002
+  stock_model_name: TS0002
   tuya_manufacturer_name: null
   stock_converter_manufacturer: null
   stock_converter_model: null
@@ -651,7 +651,7 @@ MODULE_GIRIER_A_TS0003:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS0003
+  stock_model_name: TS0003
   tuya_manufacturer_name: _TZ3000_odzoiovu
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0003_switch_module_2
@@ -678,7 +678,7 @@ MODULE_GIRIER_TS0001:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS0001
+  stock_model_name: TS0001
   tuya_manufacturer_name: _TZ3000_zw7yf6yk
   stock_converter_manufacturer: Girier
   stock_converter_model: JR-ZDS01
@@ -704,7 +704,7 @@ MODULE_GIRIER_TS0002:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS0002
+  stock_model_name: TS0002
   tuya_manufacturer_name: _TZ3000_zmy4lslw
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0002_basic
@@ -732,7 +732,7 @@ MODULE_GIRIER_ZTU_TS0001:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS0001
+  stock_model_name: TS0001
   tuya_manufacturer_name: _TZ3000_6axxqqi2
   stock_converter_manufacturer: Girier
   stock_converter_model: JR-ZDS01
@@ -758,7 +758,7 @@ MODULE_HOBEIAN_TS0001:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: ZG-301Z
+  stock_model_name: ZG-301Z
   tuya_manufacturer_name: null
   stock_converter_manufacturer: Tuya
   stock_converter_model: WHD02
@@ -784,7 +784,7 @@ MODULE_HOMMYN_TS0011:
   power: mains
   neutral: without
   device_type: end_device
-  tuya_model_name: TS0011
+  stock_model_name: TS0011
   tuya_manufacturer_name: _TZ3000_tw4ztbp4
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0011
@@ -810,7 +810,7 @@ MODULE_IHSENO_TS0001:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS0001
+  stock_model_name: TS0001
   tuya_manufacturer_name: _TZ3000_pgq7ormg
   stock_converter_manufacturer: Tuya
   stock_converter_model: _TZ3000_pgq7ormg
@@ -836,7 +836,7 @@ MODULE_IHSENO_TS0002:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS0002
+  stock_model_name: TS0002
   tuya_manufacturer_name: null
   stock_converter_manufacturer: Tuya
   stock_converter_model: null
@@ -862,7 +862,7 @@ MODULE_IHSENO_TS0003:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS0003
+  stock_model_name: TS0003
   tuya_manufacturer_name: _TZ3000_mhhxxjrs
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0003_switch_module_2
@@ -891,7 +891,7 @@ MODULE_IHSENO_TS0004:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS0004
+  stock_model_name: TS0004
   tuya_manufacturer_name: _TZ3000_knoj8lpk
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0004_switch_module_2
@@ -918,7 +918,7 @@ MODULE_MOES_TS0002:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS0002
+  stock_model_name: TS0002
   tuya_manufacturer_name: _TZ3000_qaa59zqd
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0002_basic
@@ -944,7 +944,7 @@ MODULE_MOES_TS0003:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS0003
+  stock_model_name: TS0003
   tuya_manufacturer_name: _TZ3000_pfc7i3kt
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0003
@@ -971,7 +971,7 @@ MODULE_MOES_ZM4LT1_TS0001:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS0001
+  stock_model_name: TS0001
   tuya_manufacturer_name: _TZ3000_afgzktgb
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0001_switch_module
@@ -997,7 +997,7 @@ MODULE_MOES_ZM4LT2_TS0002:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS0002
+  stock_model_name: TS0002
   tuya_manufacturer_name: _TZ3000_criiahcg
   stock_converter_manufacturer: Moes
   stock_converter_model: ZM4LT2
@@ -1023,7 +1023,7 @@ MODULE_MOES_ZM4LT3_TS0003:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS0003
+  stock_model_name: TS0003
   tuya_manufacturer_name: _TZ3000_mzcp0of6
   stock_converter_manufacturer: Tuya
   stock_converter_model: null
@@ -1049,7 +1049,7 @@ MODULE_NOUS_TS0002:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS0002
+  stock_model_name: TS0002
   tuya_manufacturer_name: _TZ3000_ruxexjfz
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0002_basic
@@ -1075,7 +1075,7 @@ MODULE_NOUS_TS0002_1:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS0002
+  stock_model_name: TS0002
   tuya_manufacturer_name: _TZ3000_ruxexjfz
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0002_basic
@@ -1101,7 +1101,7 @@ MODULE_NOVATO_TS000F_1GANG:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS000F
+  stock_model_name: TS000F
   tuya_manufacturer_name: _TZ3000_hdc8bbha
   stock_converter_manufacturer: Tuya
   stock_converter_model: QS-Zigbee-SEC01-U
@@ -1127,7 +1127,7 @@ MODULE_NOVATO_TS000F_2GANG:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS000F
+  stock_model_name: TS000F
   tuya_manufacturer_name: _TZ3000_m8f3z8ju
   stock_converter_manufacturer: Tuya
   stock_converter_model: QS-Zigbee-SEC02-U
@@ -1153,7 +1153,7 @@ MODULE_NOVATO_TS0011:
   power: mains
   neutral: without
   device_type: end_device
-  tuya_model_name: TS0011
+  stock_model_name: TS0011
   tuya_manufacturer_name: _TZ3000_30jqysvd
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0011
@@ -1179,7 +1179,7 @@ MODULE_QS_TS0012:
   power: mains
   neutral: optional
   device_type: end_device
-  tuya_model_name: TS0012
+  stock_model_name: TS0012
   tuya_manufacturer_name: _TZ3000_c4muk4ys
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0012
@@ -1205,7 +1205,7 @@ MODULE_SONOFF_ZBMINIL2:
   power: mains
   neutral: without
   device_type: end_device
-  tuya_model_name: null
+  stock_model_name: null
   tuya_manufacturer_name: null
   stock_converter_manufacturer: null
   stock_converter_model: null
@@ -1231,7 +1231,7 @@ MODULE_TLED_TS0001:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS0001
+  stock_model_name: TS0001
   tuya_manufacturer_name: _TZ3000_npzfdcof
   stock_converter_manufacturer: Tuya
   stock_converter_model: WHD02
@@ -1257,7 +1257,7 @@ MODULE_TUYA_COMMON_TS0001:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS0001
+  stock_model_name: TS0001
   tuya_manufacturer_name: _TZ3000_rfexs4vs
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0001
@@ -1283,7 +1283,7 @@ MODULE_TUYA_COMMON_TS0002:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS0002
+  stock_model_name: TS0002
   tuya_manufacturer_name: _TZ3000_zbfya6h0
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0002_basic
@@ -1309,7 +1309,7 @@ MODULE_TUYA_DEFAULT_A_TS0001:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name:
+  stock_model_name:
   - TS0001
   - TS000F
   tuya_manufacturer_name: _TZ3000_skueekg3
@@ -1341,7 +1341,7 @@ MODULE_TUYA_DEFAULT_A_TS0001_2:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name:
+  stock_model_name:
   - TS0001
   - TS000F
   tuya_manufacturer_name: _TZ3000_skueekg3
@@ -1370,7 +1370,7 @@ MODULE_TUYA_DEFAULT_B_TS0001:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS0001
+  stock_model_name: TS0001
   tuya_manufacturer_name: _TZ3000_skueekg3
   stock_converter_manufacturer: Tuya
   stock_converter_model: WHD02
@@ -1397,7 +1397,7 @@ MODULE_TUYA_GIRIER_TS0011:
   power: mains
   neutral: without
   device_type: end_device
-  tuya_model_name: TS0011
+  stock_model_name: TS0011
   tuya_manufacturer_name: _TZ3000_ji4araar
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0011_switch_module
@@ -1424,7 +1424,7 @@ MODULE_TUYA_GIRIER_TS0011_2:
   power: mains
   neutral: without
   device_type: end_device
-  tuya_model_name: TS0011
+  stock_model_name: TS0011
   tuya_manufacturer_name: _TZ3000_ji4araar
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0011_switch_module
@@ -1450,7 +1450,7 @@ MODULE_TUYA_GIRIER_TS0012:
   power: mains
   neutral: without
   device_type: end_device
-  tuya_model_name: TS0012
+  stock_model_name: TS0012
   tuya_manufacturer_name: _TZ3000_jl7qyupf
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0012_switch_module
@@ -1480,7 +1480,7 @@ MODULE_TUYA_GIRIER_TS0013:
   power: mains
   neutral: without
   device_type: end_device
-  tuya_model_name: TS0013
+  stock_model_name: TS0013
   tuya_manufacturer_name: _TZ3000_ypgri8yz
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0013_switch_module
@@ -1509,7 +1509,7 @@ MODULE_TUYA_OXT_TS0001:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS0001
+  stock_model_name: TS0001
   tuya_manufacturer_name: _TZ3000_tqlv4ug4
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0001_switch_module
@@ -1536,7 +1536,7 @@ MODULE_TUYA_OXT_TS0002:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS0002
+  stock_model_name: TS0002
   tuya_manufacturer_name: _TZ3000_bvrlqyj7
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0002_basic
@@ -1563,7 +1563,7 @@ MODULE_TUYA_TS0002:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS0002
+  stock_model_name: TS0002
   tuya_manufacturer_name: _TZ3000_01gpyda5
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0002_basic
@@ -1590,7 +1590,7 @@ MODULE_TUYA_TS011F:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS011F
+  stock_model_name: TS011F
   tuya_manufacturer_name: _TZ3000_i9oy2rdq
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS011F_plug_1
@@ -1616,7 +1616,7 @@ MODULE_TUYA_ZTU_TS0004:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS0004
+  stock_model_name: TS0004
   tuya_manufacturer_name: _TZ3000_ltt60asa
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0004_switch_module
@@ -1643,7 +1643,7 @@ OUTLET_BSEED_PM_TS011F:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS011F
+  stock_model_name: TS011F
   tuya_manufacturer_name: _TZ3000_b28wrpvx
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS011F_plug_1
@@ -1672,7 +1672,7 @@ OUTLET_BSEED_TS011F:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS011F
+  stock_model_name: TS011F
   tuya_manufacturer_name: _TZ3000_o1jzcxou
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS011F_plug_2
@@ -1699,7 +1699,7 @@ REMOTE_AQARA_WXKG02LM:
   power: CR2032
   neutral: without
   device_type: end_device
-  tuya_model_name: lumi.remote.b286acn01
+  stock_model_name: lumi.remote.b286acn01
   tuya_manufacturer_name: LUMI
   stock_converter_manufacturer: Aqara
   stock_converter_model: WXKG02LM_rev2
@@ -1725,7 +1725,7 @@ REMOTE_HOBEIAN_TS0044:
   power: CR2032
   neutral: without
   device_type: end_device
-  tuya_model_name: TS0044
+  stock_model_name: TS0044
   tuya_manufacturer_name: _TZ3000_bgtzm4ny
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0044
@@ -1751,7 +1751,7 @@ REMOTE_IHSENO_TS0044:
   power: LR23A
   neutral: without
   device_type: end_device
-  tuya_model_name: TS0044
+  stock_model_name: TS0044
   tuya_manufacturer_name: _TZ3000_mh9px7cq
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0044
@@ -1779,7 +1779,7 @@ REMOTE_TUYA_TS0041:
   power: CR2430
   neutral: without
   device_type: end_device
-  tuya_model_name: TS0041
+  stock_model_name: TS0041
   tuya_manufacturer_name: _TZ3000_4upl1fcj
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0041
@@ -1805,7 +1805,7 @@ REMOTE_TUYA_TS0044:
   power: CR2430
   neutral: without
   device_type: end_device
-  tuya_model_name: TS0044
+  stock_model_name: TS0044
   tuya_manufacturer_name: _TZ3000_wkai4ga5
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0044
@@ -1831,7 +1831,7 @@ REMOTE_TUYA_TS004F:
   power: CR2430
   neutral: without
   device_type: end_device
-  tuya_model_name: TS004F
+  stock_model_name: TS004F
   tuya_manufacturer_name: _TZ3000_xabckq1v
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS004F
@@ -1857,7 +1857,7 @@ SWITCH_AVATTO_TOUCH_TS0001:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS0001
+  stock_model_name: TS0001
   tuya_manufacturer_name: _TZ3000_w1tcofu8
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0001_switch_1_gang
@@ -1883,7 +1883,7 @@ SWITCH_AVATTO_TOUCH_TS0002:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS0002
+  stock_model_name: TS0002
   tuya_manufacturer_name: _TZ3000_ogpla3lh
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0002_limited
@@ -1909,7 +1909,7 @@ SWITCH_AVATTO_TOUCH_TS0003:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS0003
+  stock_model_name: TS0003
   tuya_manufacturer_name: _TZ3000_avky2mvc
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0003_switch_3_gang
@@ -1937,7 +1937,7 @@ SWITCH_BSEED_TOUCH_BACKLIGHT_TS0001:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS0001
+  stock_model_name: TS0001
   tuya_manufacturer_name: _TZ3000_blhvsaqf
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0001
@@ -1964,7 +1964,7 @@ SWITCH_BSEED_TOUCH_BACKLIGHT_TS0002:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS0002
+  stock_model_name: TS0002
   tuya_manufacturer_name: _TZ3000_l9brjwau
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0002
@@ -1991,7 +1991,7 @@ SWITCH_BSEED_TOUCH_BACKLIGHT_TS0003:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS0003
+  stock_model_name: TS0003
   tuya_manufacturer_name: _TZ3000_qkixdnon
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0003
@@ -2018,7 +2018,7 @@ SWITCH_BSEED_TOUCH_LATCHING_TS0011:
   power: mains
   neutral: without
   device_type: end_device
-  tuya_model_name: TS0011
+  stock_model_name: TS0011
   tuya_manufacturer_name: _TZ3000_aetquff4
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0011
@@ -2044,7 +2044,7 @@ SWITCH_BSEED_TOUCH_LATCHING_TS0012:
   power: mains
   neutral: without
   device_type: end_device
-  tuya_model_name: TS0012
+  stock_model_name: TS0012
   tuya_manufacturer_name: _TZ3000_xk5udnd6
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0012
@@ -2073,7 +2073,7 @@ SWITCH_BSEED_TOUCH_LATCHING_TS0013:
   power: mains
   neutral: without
   device_type: end_device
-  tuya_model_name: TS0013
+  stock_model_name: TS0013
   tuya_manufacturer_name: _TZ3000_kfwhmnvc
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0013
@@ -2100,7 +2100,7 @@ SWITCH_BSEED_TOUCH_MELODY_TS0001:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS0001
+  stock_model_name: TS0001
   tuya_manufacturer_name: _TZ3000_ysdv91bk
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0001
@@ -2129,7 +2129,7 @@ SWITCH_BSEED_TOUCH_MELODY_TS0002:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS0002
+  stock_model_name: TS0002
   tuya_manufacturer_name: null
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0002
@@ -2158,7 +2158,7 @@ SWITCH_BSEED_TOUCH_MELODY_TS0003:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS0003
+  stock_model_name: TS0003
   tuya_manufacturer_name: _TZ3000_7aqaupa9
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0003
@@ -2188,7 +2188,7 @@ SWITCH_BSEED_TOUCH_MELODY_TS0004:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS0004
+  stock_model_name: TS0004
   tuya_manufacturer_name: _TZ3000_s6ma1nh4
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0004
@@ -2217,7 +2217,7 @@ SWITCH_BSEED_TOUCH_TS0001:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS0001
+  stock_model_name: TS0001
   tuya_manufacturer_name: _TZ3000_9akmi5ly
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0001
@@ -2243,7 +2243,7 @@ SWITCH_BSEED_TOUCH_TS0002:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS0002
+  stock_model_name: TS0002
   tuya_manufacturer_name: _TZ3000_cauq1okq
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0002
@@ -2269,7 +2269,7 @@ SWITCH_BSEED_TOUCH_TS0011:
   power: mains
   neutral: without
   device_type: end_device
-  tuya_model_name: TS0011
+  stock_model_name: TS0011
   tuya_manufacturer_name: _TZ3000_hafsqare
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0011
@@ -2295,7 +2295,7 @@ SWITCH_BSEED_TOUCH_TS0012_1:
   power: mains
   neutral: without
   device_type: end_device
-  tuya_model_name: TS0012
+  stock_model_name: TS0012
   tuya_manufacturer_name: _TZ3000_f2slq5pj
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0012
@@ -2323,7 +2323,7 @@ SWITCH_BSEED_TOUCH_TS0012_2:
   power: mains
   neutral: without
   device_type: end_device
-  tuya_model_name: TS0012
+  stock_model_name: TS0012
   tuya_manufacturer_name: _TZ3000_e98krvvk
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0012
@@ -2349,7 +2349,7 @@ SWITCH_BSEED_TOUCH_TS0013:
   power: mains
   neutral: without
   device_type: end_device
-  tuya_model_name: TS0013
+  stock_model_name: TS0013
   tuya_manufacturer_name: _TZ3000_5e5ptb24
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0013
@@ -2375,7 +2375,7 @@ SWITCH_BSEED_TS0726_1GANG:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS0726
+  stock_model_name: TS0726
   tuya_manufacturer_name: _TZ3002_jn2x20tg
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0726_1_gang_scene_switch
@@ -2404,7 +2404,7 @@ SWITCH_BSEED_TS0726_2GANG:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS0726
+  stock_model_name: TS0726
   tuya_manufacturer_name: _TZ3002_zjuvw9zf
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0726_2_gang_scene_switch
@@ -2433,7 +2433,7 @@ SWITCH_BSEED_TS0726_3GANG:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS0726
+  stock_model_name: TS0726
   tuya_manufacturer_name: _TZ3002_iedhxgyi
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0726_3_gang
@@ -2462,7 +2462,7 @@ SWITCH_IHSENO_TOUCH_TS0001:
   power: mains
   neutral: optional
   device_type: end_device
-  tuya_model_name: TS0001
+  stock_model_name: TS0001
   tuya_manufacturer_name: _TZ3000_qq9ahj6z
   stock_converter_manufacturer: Tuya
   stock_converter_model: FZB-1
@@ -2488,7 +2488,7 @@ SWITCH_IHSENO_TOUCH_TS0002:
   power: mains
   neutral: optional
   device_type: end_device
-  tuya_model_name: TS0002
+  stock_model_name: TS0002
   tuya_manufacturer_name: _TZ3000_zxrfobzw
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0002
@@ -2514,7 +2514,7 @@ SWITCH_IHSENO_TOUCH_TS0003:
   power: mains
   neutral: optional
   device_type: end_device
-  tuya_model_name: TS0003
+  stock_model_name: TS0003
   tuya_manufacturer_name: null
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0003
@@ -2540,7 +2540,7 @@ SWITCH_MANHOT_A_TS0013:
   power: mains
   neutral: optional
   device_type: end_device
-  tuya_model_name: TS0013
+  stock_model_name: TS0013
   tuya_manufacturer_name: _TZ3000_tqwydnqn
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0013
@@ -2568,7 +2568,7 @@ SWITCH_MANHOT_B_TS0011:
   power: mains
   neutral: optional
   device_type: end_device
-  tuya_model_name: TS0011
+  stock_model_name: TS0011
   tuya_manufacturer_name: _TZ3000_bmzfjnbp
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0011
@@ -2594,7 +2594,7 @@ SWITCH_MANHOT_B_TS0012:
   power: mains
   neutral: optional
   device_type: end_device
-  tuya_model_name: TS0012
+  stock_model_name: TS0012
   tuya_manufacturer_name: _TZ3000_ugaem1nb
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0012
@@ -2620,7 +2620,7 @@ SWITCH_MANHOT_B_TS0013:
   power: mains
   neutral: optional
   device_type: end_device
-  tuya_model_name: TS0013
+  stock_model_name: TS0013
   tuya_manufacturer_name: _TZ3000_snq47izk
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0013
@@ -2646,7 +2646,7 @@ SWITCH_MOES_ALL_TS0011:
   power: mains
   neutral: optional
   device_type: end_device
-  tuya_model_name: TS0011
+  stock_model_name: TS0011
   tuya_manufacturer_name: _TZ3000_hhiodade
   stock_converter_manufacturer: Moes
   stock_converter_model: ZS-EUB_1gang
@@ -2678,7 +2678,7 @@ SWITCH_MOES_ALL_TS0012:
   power: mains
   neutral: optional
   device_type: end_device
-  tuya_model_name: TS0012
+  stock_model_name: TS0012
   tuya_manufacturer_name: _TZ3000_18ejxno0
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0012
@@ -2710,7 +2710,7 @@ SWITCH_MOES_ALL_TS0013:
   power: mains
   neutral: optional
   device_type: end_device
-  tuya_model_name: TS0013
+  stock_model_name: TS0013
   tuya_manufacturer_name: _TZ3000_qewo8dlz
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0013
@@ -2742,7 +2742,7 @@ SWITCH_MOES_ALL_TS0014:
   power: mains
   neutral: optional
   device_type: end_device
-  tuya_model_name: TS0014
+  stock_model_name: TS0014
   tuya_manufacturer_name: _TZ3000_mrduubod
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0014
@@ -2772,7 +2772,7 @@ SWITCH_PSMART_TS0001:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS0001
+  stock_model_name: TS0001
   tuya_manufacturer_name: _TZ3000_myaaknbq
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0001_switch_module_1
@@ -2799,7 +2799,7 @@ SWITCH_PSMART_TS0002:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS0002
+  stock_model_name: TS0002
   tuya_manufacturer_name: _TZ3000_mufwv0ry
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0002_limited
@@ -2826,7 +2826,7 @@ SWITCH_PSMART_TS0003:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS0003
+  stock_model_name: TS0003
   tuya_manufacturer_name: null
   stock_converter_manufacturer: Tuya
   stock_converter_model: null
@@ -2852,7 +2852,7 @@ SWITCH_TUYA_CN_TS0001:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS0001
+  stock_model_name: TS0001
   tuya_manufacturer_name: _TZ3000_u6ocpapf
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0001
@@ -2878,7 +2878,7 @@ SWITCH_TUYA_CN_TS0002:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS0002
+  stock_model_name: TS0002
   tuya_manufacturer_name: null
   stock_converter_manufacturer: null
   stock_converter_model: null
@@ -2904,7 +2904,7 @@ SWITCH_TUYA_CN_TS0003:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS0003
+  stock_model_name: TS0003
   tuya_manufacturer_name: null
   stock_converter_manufacturer: null
   stock_converter_model: null
@@ -2930,7 +2930,7 @@ SWITCH_TUYA_CN_TS0004:
   power: mains
   neutral: required
   device_type: router
-  tuya_model_name: TS0004
+  stock_model_name: TS0004
   tuya_manufacturer_name: _TZ3000_gbdxbmwz
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0004
@@ -2956,7 +2956,7 @@ SWITCH_TUYA_TOUCH_TS0011:
   power: mains
   neutral: without
   device_type: end_device
-  tuya_model_name: null
+  stock_model_name: null
   tuya_manufacturer_name: _TZ3000_5rpu3r0d
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0001
@@ -2982,7 +2982,7 @@ SWITCH_ZEMISMART_1_TS0012:
   power: mains
   neutral: optional
   device_type: end_device
-  tuya_model_name: TS0012
+  stock_model_name: TS0012
   tuya_manufacturer_name: _TZ3000_zmlunnhy
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0012
@@ -3010,7 +3010,7 @@ SWITCH_ZEMISMART_2_TS0012:
   power: mains
   neutral: without
   device_type: end_device
-  tuya_model_name: TS0012
+  stock_model_name: TS0012
   tuya_manufacturer_name: _TZ3000_rbl8c85w
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0012
@@ -3036,7 +3036,7 @@ SWITCH_ZEMISMART_TS0601_6GANG:
   power: mains
   neutral: null
   device_type: null
-  tuya_model_name: TS0601
+  stock_model_name: TS0601
   tuya_manufacturer_name: _TZE200_r731zlxk
   stock_converter_manufacturer: Zemismart
   stock_converter_model: TB26-6
