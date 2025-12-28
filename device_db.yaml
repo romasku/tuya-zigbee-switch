@@ -32,7 +32,7 @@ BOARD__MHCOZY_TS0004:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43551
   build: yes
   status: fully_supported
@@ -58,7 +58,7 @@ BOARD__MHCOZY_TS0004_2:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 45594
   build: yes
   status: fully_supported
@@ -84,7 +84,7 @@ BOARD__ZIGBEE_ZTU_2:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: null
-  tuya_image_type: null
+  stock_image_type: null
   firmware_image_type: 45574
   build: yes
   status: fully_supported
@@ -112,7 +112,7 @@ MODULE_AUBESS_TS0001:
   old_zb_models:
   - WHD02-Aubess-ED
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43531
   build: yes
   status: fully_supported
@@ -138,7 +138,7 @@ MODULE_AUBESS_TS0002:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43553
   build: yes
   status: fully_supported
@@ -164,7 +164,7 @@ MODULE_AUBESS_TS0003:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43561
   build: yes
   status: fully_supported
@@ -193,7 +193,7 @@ MODULE_AUBESS_TS0004:
   - Tuya-TS0004-custom
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43545
   build: yes
   status: fully_supported
@@ -219,7 +219,7 @@ MODULE_AVATTO_DRY_TS0001:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43527
   build: yes
   status: mostly_supported
@@ -250,7 +250,7 @@ MODULE_AVATTO_TS0001:
   - TS0001-Avatto-custom
   - TS0001-AV-CUS
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43527
   build: yes
   status: fully_supported
@@ -281,7 +281,7 @@ MODULE_AVATTO_TS0002:
   - TS0002-Avatto-custom
   - TS0002-AV-CUS
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43528
   build: yes
   status: fully_supported
@@ -312,7 +312,7 @@ MODULE_AVATTO_TS0003:
   - TS0003-Avatto-custom
   - TS0003-AV-CUS
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43543
   build: yes
   status: fully_supported
@@ -344,7 +344,7 @@ MODULE_AVATTO_TS0004:
   - TS0004-Avatto-custom
   - TS0004-AV-CUS
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43529
   build: yes
   status: fully_supported
@@ -372,7 +372,7 @@ MODULE_AVATTO_TS0011:
   old_zb_models:
   - TS0011-avatto-ED
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43537
   build: yes
   status: fully_supported
@@ -400,7 +400,7 @@ MODULE_AVATTO_TS0012:
   old_zb_models:
   - TS0012-avatto-ED
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43530
   build: yes
   status: fully_supported
@@ -426,7 +426,7 @@ MODULE_AVATTO_TS0013:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43552
   build: yes
   status: fully_supported
@@ -452,7 +452,7 @@ MODULE_EKF_TS0011:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43593
   build: no
   status: in_progress
@@ -478,7 +478,7 @@ MODULE_EKF_TS0012:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 45592
   build: yes
   status: fully_supported
@@ -504,7 +504,7 @@ MODULE_EKF_TS0013:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43594
   build: no
   status: in_progress
@@ -530,7 +530,7 @@ MODULE_EMOS_TS0001:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 45587
   build: yes
   status: fully_supported
@@ -558,7 +558,7 @@ MODULE_EMOS_TS0002:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 45588
   build: yes
   status: fully_supported
@@ -586,7 +586,7 @@ MODULE_FARYLINK_TS0001:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4107
-  tuya_image_type: 517
+  stock_image_type: 517
   firmware_image_type: 43591
   build: no
   status: in_progress
@@ -612,7 +612,7 @@ MODULE_GIRIER_A_TS0001:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43595
   build: no
   status: in_progress
@@ -638,7 +638,7 @@ MODULE_GIRIER_A_TS0002:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43596
   build: no
   status: in_progress
@@ -665,7 +665,7 @@ MODULE_GIRIER_A_TS0003:
   old_zb_models:
   - TS0003-GR
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 45573
   build: yes
   status: fully_supported
@@ -691,7 +691,7 @@ MODULE_GIRIER_TS0001:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 45585
   build: yes
   status: fully_supported
@@ -719,7 +719,7 @@ MODULE_GIRIER_TS0002:
   old_zb_models:
   - TS0002-custom
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43526
   build: yes
   status: fully_supported
@@ -745,7 +745,7 @@ MODULE_GIRIER_ZTU_TS0001:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 45585
   build: yes
   status: fully_supported
@@ -771,7 +771,7 @@ MODULE_HOBEIAN_TS0001:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: null
-  tuya_image_type: null
+  stock_image_type: null
   firmware_image_type: 45579
   build: yes
   status: fully_supported
@@ -797,7 +797,7 @@ MODULE_HOMMYN_TS0011:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 45591
   build: yes
   status: fully_supported
@@ -823,7 +823,7 @@ MODULE_IHSENO_TS0001:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43554
   build: yes
   status: fully_supported
@@ -849,7 +849,7 @@ MODULE_IHSENO_TS0002:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 45572
   build: no
   status: in_progress
@@ -878,7 +878,7 @@ MODULE_IHSENO_TS0003:
   old_zb_models:
   - TS0003-3CH-cus
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43546
   build: yes
   status: fully_supported
@@ -905,7 +905,7 @@ MODULE_IHSENO_TS0004:
   - TS0004-IHS
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43548
   build: yes
   status: fully_supported
@@ -931,7 +931,7 @@ MODULE_MOES_TS0002:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43560
   build: yes
   status: mostly_supported
@@ -958,7 +958,7 @@ MODULE_MOES_TS0003:
   - Tuya-TS0003-custom
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43538
   build: yes
   status: mostly_supported
@@ -984,7 +984,7 @@ MODULE_MOES_ZM4LT1_TS0001:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43575
   build: no
   status: in_progress
@@ -1010,7 +1010,7 @@ MODULE_MOES_ZM4LT2_TS0002:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 45571
   build: no
   status: in_progress
@@ -1036,7 +1036,7 @@ MODULE_MOES_ZM4LT3_TS0003:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43565
   build: no
   status: in_progress
@@ -1062,7 +1062,7 @@ MODULE_NOUS_TS0002:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4107
-  tuya_image_type: 517
+  stock_image_type: 517
   firmware_image_type: 45582
   build: yes
   status: in_progress
@@ -1088,7 +1088,7 @@ MODULE_NOUS_TS0002_1:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 518
+  stock_image_type: 518
   firmware_image_type: 43590
   build: yes
   status: fully_supported
@@ -1114,7 +1114,7 @@ MODULE_NOVATO_TS000F_1GANG:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: null
-  tuya_image_type: null
+  stock_image_type: null
   firmware_image_type: 45595
   build: yes
   status: mostly_supported
@@ -1140,7 +1140,7 @@ MODULE_NOVATO_TS000F_2GANG:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: null
-  tuya_image_type: null
+  stock_image_type: null
   firmware_image_type: 45628
   build: yes
   status: mostly_supported
@@ -1166,7 +1166,7 @@ MODULE_NOVATO_TS0011:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: null
-  tuya_image_type: null
+  stock_image_type: null
   firmware_image_type: 45593
   build: yes
   status: fully_supported
@@ -1192,7 +1192,7 @@ MODULE_QS_TS0012:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 45590
   build: yes
   status: fully_supported
@@ -1218,7 +1218,7 @@ MODULE_SONOFF_ZBMINIL2:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: null
-  tuya_image_type: null
+  stock_image_type: null
   firmware_image_type: 45596
   build: yes
   status: fully_supported
@@ -1244,7 +1244,7 @@ MODULE_TLED_TS0001:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43568
   build: yes
   status: fully_supported
@@ -1270,7 +1270,7 @@ MODULE_TUYA_COMMON_TS0001:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43573
   build: yes
   status: mostly_supported
@@ -1296,7 +1296,7 @@ MODULE_TUYA_COMMON_TS0002:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43574
   build: yes
   status: mostly_supported
@@ -1325,7 +1325,7 @@ MODULE_TUYA_DEFAULT_A_TS0001:
   - Tuya-WHD02-custom
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43535
   build: yes
   status: fully_supported
@@ -1357,7 +1357,7 @@ MODULE_TUYA_DEFAULT_A_TS0001_2:
   - Tuya-WHD02-custom
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 518
+  stock_image_type: 518
   firmware_image_type: 43541
   build: yes
   status: fully_supported
@@ -1384,7 +1384,7 @@ MODULE_TUYA_DEFAULT_B_TS0001:
   - Tuya-WHD02-custom
   old_zb_models: null
   stock_manufacturer_id: 4407
-  tuya_image_type: 524
+  stock_image_type: 524
   firmware_image_type: 43522
   build: yes
   status: fully_supported
@@ -1411,7 +1411,7 @@ MODULE_TUYA_GIRIER_TS0011:
   - Tuya-TS0011-custom
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43524
   build: yes
   status: fully_supported
@@ -1437,7 +1437,7 @@ MODULE_TUYA_GIRIER_TS0011_2:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 515
+  stock_image_type: 515
   firmware_image_type: 45576
   build: yes
   status: fully_supported
@@ -1467,7 +1467,7 @@ MODULE_TUYA_GIRIER_TS0012:
   - TS0042-CUSTOM
   - TS0012-custom-end-device
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43521
   build: yes
   status: fully_supported
@@ -1496,7 +1496,7 @@ MODULE_TUYA_GIRIER_TS0013:
   old_zb_models:
   - ZB08-custom-ED
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43539
   build: yes
   status: fully_supported
@@ -1523,7 +1523,7 @@ MODULE_TUYA_OXT_TS0001:
   - Tuya-TS0001-custom
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43525
   build: yes
   status: fully_supported
@@ -1550,7 +1550,7 @@ MODULE_TUYA_OXT_TS0002:
   - TS0002-OXT-CUS
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43547
   build: yes
   status: fully_supported
@@ -1577,7 +1577,7 @@ MODULE_TUYA_TS0002:
   - Tuya-TS0002-custom
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43523
   build: yes
   status: fully_supported
@@ -1603,7 +1603,7 @@ MODULE_TUYA_TS011F:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 45629
   build: yes
   status: fully_supported
@@ -1630,7 +1630,7 @@ MODULE_TUYA_ZTU_TS0004:
   - TS0004-Avv
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43540
   build: yes
   status: fully_supported
@@ -1656,7 +1656,7 @@ OUTLET_BSEED_PM_TS011F:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43556
   build: yes
   status: in_progress
@@ -1685,7 +1685,7 @@ OUTLET_BSEED_TS011F:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43555
   build: yes
   status: fully_supported
@@ -1712,7 +1712,7 @@ REMOTE_AQARA_WXKG02LM:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: null
-  tuya_image_type: null
+  stock_image_type: null
   firmware_image_type: 43597
   build: no
   status: unsupported
@@ -1738,7 +1738,7 @@ REMOTE_HOBEIAN_TS0044:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43572
   build: no
   status: in_progress
@@ -1764,7 +1764,7 @@ REMOTE_IHSENO_TS0044:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43563
   build: yes
   status: in_progress
@@ -1792,7 +1792,7 @@ REMOTE_TUYA_TS0041:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: null
-  tuya_image_type: null
+  stock_image_type: null
   firmware_image_type: 43579
   build: no
   status: in_progress
@@ -1818,7 +1818,7 @@ REMOTE_TUYA_TS0044:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: null
-  tuya_image_type: null
+  stock_image_type: null
   firmware_image_type: 43577
   build: no
   status: in_progress
@@ -1844,7 +1844,7 @@ REMOTE_TUYA_TS004F:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: null
-  tuya_image_type: null
+  stock_image_type: null
   firmware_image_type: 43578
   build: no
   status: in_progress
@@ -1870,7 +1870,7 @@ SWITCH_AVATTO_TOUCH_TS0001:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 45583
   build: yes
   status: mostly_supported
@@ -1896,7 +1896,7 @@ SWITCH_AVATTO_TOUCH_TS0002:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 45584
   build: yes
   status: mostly_supported
@@ -1924,7 +1924,7 @@ SWITCH_AVATTO_TOUCH_TS0003:
   old_zb_models:
   - Avatto-3-touch
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43542
   build: yes
   status: mostly_supported
@@ -1951,7 +1951,7 @@ SWITCH_BSEED_TOUCH_BACKLIGHT_TS0001:
   old_zb_models:
   - TS0001-BS-T
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43567
   build: yes
   status: mostly_supported
@@ -1978,7 +1978,7 @@ SWITCH_BSEED_TOUCH_BACKLIGHT_TS0002:
   old_zb_models:
   - TS0002-BS-1
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43581
   build: yes
   status: mostly_supported
@@ -2005,7 +2005,7 @@ SWITCH_BSEED_TOUCH_BACKLIGHT_TS0003:
   old_zb_models:
   - TS0003-BSEED
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43571
   build: yes
   status: mostly_supported
@@ -2031,7 +2031,7 @@ SWITCH_BSEED_TOUCH_LATCHING_TS0011:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43585
   build: yes
   status: fully_supported
@@ -2060,7 +2060,7 @@ SWITCH_BSEED_TOUCH_LATCHING_TS0012:
   - Bseed-2-gang-2
   - Bseed-2-gang-2-ED
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43544
   build: yes
   status: fully_supported
@@ -2087,7 +2087,7 @@ SWITCH_BSEED_TOUCH_LATCHING_TS0013:
   old_zb_models:
   - TS0013-2-BS
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43580
   build: yes
   status: fully_supported
@@ -2113,7 +2113,7 @@ SWITCH_BSEED_TOUCH_MELODY_TS0001:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43583
   build: yes
   status: mostly_supported
@@ -2142,7 +2142,7 @@ SWITCH_BSEED_TOUCH_MELODY_TS0002:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43584
   build: no
   status: in_progress
@@ -2172,7 +2172,7 @@ SWITCH_BSEED_TOUCH_MELODY_TS0003:
   old_zb_models:
   - TS0003-BS
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43549
   build: yes
   status: fully_supported
@@ -2202,7 +2202,7 @@ SWITCH_BSEED_TOUCH_MELODY_TS0004:
   old_zb_models:
   - TS0004-BS
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43582
   build: yes
   status: in_progress
@@ -2230,7 +2230,7 @@ SWITCH_BSEED_TOUCH_TS0001:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 45575
   build: yes
   status: fully_supported
@@ -2256,7 +2256,7 @@ SWITCH_BSEED_TOUCH_TS0002:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 45578
   build: yes
   status: in_progress
@@ -2282,7 +2282,7 @@ SWITCH_BSEED_TOUCH_TS0011:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43564
   build: yes
   status: fully_supported
@@ -2310,7 +2310,7 @@ SWITCH_BSEED_TOUCH_TS0012_1:
   old_zb_models:
   - Bseed-2-gang-ED
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43534
   build: yes
   status: fully_supported
@@ -2336,7 +2336,7 @@ SWITCH_BSEED_TOUCH_TS0012_2:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43569
   build: yes
   status: fully_supported
@@ -2362,7 +2362,7 @@ SWITCH_BSEED_TOUCH_TS0013:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43570
   build: yes
   status: fully_supported
@@ -2388,7 +2388,7 @@ SWITCH_BSEED_TS0726_1GANG:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 45580
   build: yes
   status: fully_supported
@@ -2417,7 +2417,7 @@ SWITCH_BSEED_TS0726_2GANG:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43562
   build: yes
   status: fully_supported
@@ -2446,7 +2446,7 @@ SWITCH_BSEED_TS0726_3GANG:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 45577
   build: yes
   status: fully_supported
@@ -2475,7 +2475,7 @@ SWITCH_IHSENO_TOUCH_TS0001:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43557
   build: yes
   status: fully_supported
@@ -2501,7 +2501,7 @@ SWITCH_IHSENO_TOUCH_TS0002:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43558
   build: yes
   status: fully_supported
@@ -2527,7 +2527,7 @@ SWITCH_IHSENO_TOUCH_TS0003:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43559
   build: no
   status: in_progress
@@ -2553,7 +2553,7 @@ SWITCH_MANHOT_A_TS0013:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43550
   build: yes
   status: mostly_supported
@@ -2581,7 +2581,7 @@ SWITCH_MANHOT_B_TS0011:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4098
-  tuya_image_type: 5634
+  stock_image_type: 5634
   firmware_image_type: 43586
   build: yes
   status: fully_supported
@@ -2607,7 +2607,7 @@ SWITCH_MANHOT_B_TS0012:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4098
-  tuya_image_type: 5634
+  stock_image_type: 5634
   firmware_image_type: 43587
   build: yes
   status: fully_supported
@@ -2633,7 +2633,7 @@ SWITCH_MANHOT_B_TS0013:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4098
-  tuya_image_type: 5634
+  stock_image_type: 5634
   firmware_image_type: 45586
   build: yes
   status: fully_supported
@@ -2661,7 +2661,7 @@ SWITCH_MOES_ALL_TS0011:
   old_zb_models:
   - Moes-1-gang-ED
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43532
   build: yes
   status: fully_supported
@@ -2693,7 +2693,7 @@ SWITCH_MOES_ALL_TS0012:
   old_zb_models:
   - Moes-2-gang-ED
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43510
   build: yes
   status: fully_supported
@@ -2725,7 +2725,7 @@ SWITCH_MOES_ALL_TS0013:
   old_zb_models:
   - Moes-3-gang-ED
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43533
   build: yes
   status: fully_supported
@@ -2755,7 +2755,7 @@ SWITCH_MOES_ALL_TS0014:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4169
-  tuya_image_type: 5634
+  stock_image_type: 5634
   firmware_image_type: 43566
   build: yes
   status: fully_supported
@@ -2786,7 +2786,7 @@ SWITCH_PSMART_TS0001:
   old_zb_models:
   - T441
   stock_manufacturer_id: null
-  tuya_image_type: null
+  stock_image_type: null
   firmware_image_type: 43588
   build: yes
   status: mostly_supported
@@ -2813,7 +2813,7 @@ SWITCH_PSMART_TS0002:
   old_zb_models:
   - T442
   stock_manufacturer_id: null
-  tuya_image_type: null
+  stock_image_type: null
   firmware_image_type: 43589
   build: yes
   status: mostly_supported
@@ -2839,7 +2839,7 @@ SWITCH_PSMART_TS0003:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: null
-  tuya_image_type: null
+  stock_image_type: null
   firmware_image_type: 43592
   build: no
   status: in_progress
@@ -2865,7 +2865,7 @@ SWITCH_TUYA_CN_TS0001:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 45568
   build: yes
   status: mostly_supported
@@ -2891,7 +2891,7 @@ SWITCH_TUYA_CN_TS0002:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 45569
   build: no
   status: in_progress
@@ -2917,7 +2917,7 @@ SWITCH_TUYA_CN_TS0003:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 45570
   build: no
   status: in_progress
@@ -2943,7 +2943,7 @@ SWITCH_TUYA_CN_TS0004:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 45567
   build: yes
   status: mostly_supported
@@ -2969,7 +2969,7 @@ SWITCH_TUYA_TOUCH_TS0011:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 45581
   build: no
   status: in_progress
@@ -2997,7 +2997,7 @@ SWITCH_ZEMISMART_1_TS0012:
   old_zb_models:
   - Zemi-2-gang-ED
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 43536
   build: yes
   status: fully_supported
@@ -3023,7 +3023,7 @@ SWITCH_ZEMISMART_2_TS0012:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
-  tuya_image_type: 54179
+  stock_image_type: 54179
   firmware_image_type: 45589
   build: no
   status: in_progress
@@ -3049,7 +3049,7 @@ SWITCH_ZEMISMART_TS0601_6GANG:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: null
-  tuya_image_type: null
+  stock_image_type: null
   firmware_image_type: 43576
   build: no
   status: in_progress

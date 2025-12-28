@@ -139,7 +139,7 @@ Support new devices: [contribute/porting.md](/docs/contribute/porting.md)
   {% set install = "🛜" %}
   {% if device.mcu_family == "Silabs" %}
     {% set install = "➿" %}
-  {% elif (device.stock_manufacturer_id is none or device.tuya_image_type is none) and device.build %}
+  {% elif (device.stock_manufacturer_id is none or device.stock_image_type is none) and device.build %}
     {% set install = "➿" %}
   {% elif device_key == "TUYA_3_TS0001" %}
     {% set install = "❓" %}
