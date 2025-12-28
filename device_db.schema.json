@@ -43,7 +43,7 @@
         },
         "mcu": {
           "type": "string",
-          "enum": ["TLSR825x", "TLSR8253", "TLSR8253F512AT32", "TLSR8258", "EFR32MG21A020F768IM32", "EFR32MG22C224F512GN32"],
+          "enum": ["TLSR825x", "TLSR8253", "TLSR8253F512AT32", "TLSR8258", "EFR32MG21A020F768IM32", "EFR32MG22C224F512GN32", "JN5169"],
           "description": "Microcontroller unit type"
         },
         "tuya_model_name": {
@@ -99,7 +99,7 @@
           "oneOf": [
             {
               "type": "string",
-              "enum": ["Telink", "Silabs"]
+              "enum": ["Telink", "Silabs", "NXP"]
             },
             {"type": "null"}
           ],
