@@ -140,7 +140,7 @@
           ],
           "description": "Legacy Zigbee model names"
         },
-        "tuya_manufacturer_id": {
+        "stock_manufacturer_id": {
           "oneOf": [
             {"type": "integer"},
             {"type": "null"}
@@ -228,7 +228,7 @@
         "alt_config_str",
         "old_manufacturer_names",
         "old_zb_models",
-        "tuya_manufacturer_id",
+        "stock_manufacturer_id",
         "tuya_image_type",
         "firmware_image_type",
         "build",

@@ -62,7 +62,7 @@ DEVICE_TYPE ?= $(shell yq -r .$(BOARD).device_type $(DEVICE_DB_FILE))
 MCU ?= $(shell yq -r .$(BOARD).mcu $(DEVICE_DB_FILE))
 MCU_FAMILY := $(shell yq -r .$(BOARD).mcu_family $(DEVICE_DB_FILE))
 CONFIG_STR := $(shell yq -r .$(BOARD).config_str $(DEVICE_DB_FILE))
-FROM_TUYA_MANUFACTURER_ID := $(shell yq -r .$(BOARD).tuya_manufacturer_id $(DEVICE_DB_FILE))
+FROM_STOCK_MANUFACTURER_ID := $(shell yq -r .$(BOARD).stock_manufacturer_id $(DEVICE_DB_FILE))
 FROM_TUYA_IMAGE_TYPE := $(shell yq -r .$(BOARD).tuya_image_type $(DEVICE_DB_FILE))
 FIRMWARE_IMAGE_TYPE := $(shell yq -r .$(BOARD).firmware_image_type $(DEVICE_DB_FILE))
 
@@ -143,7 +143,7 @@ ifneq ($(PLATFORM_PREFIX),silabs)  # Silabs platform does not support Tuya migra
 		OTA_VERSION=0xFFFFFFFF \
 		DEVICE_TYPE=$(DEVICE_TYPE) \
 		OTA_IMAGE_TYPE=$(FROM_TUYA_IMAGE_TYPE) \
-		OTA_MANUFACTURER_ID=$(FROM_TUYA_MANUFACTURER_ID) \
+		OTA_MANUFACTURER_ID=$(FROM_STOCK_MANUFACTURER_ID) \
 		OTA_FILE=../../$(FROM_TUYA_OTA_FILE)
 endif
 
@@ -158,7 +158,7 @@ generate-force-ota:
 update-indexes:
 	@python3 $(HELPERS_PATH)/make_z2m_ota_index.py --db_file $(DEVICE_DB_FILE) $(OTA_FILE) $(Z2M_INDEX_FILE) --board $(BOARD)
 ifneq ($(PLATFORM_PREFIX),silabs)  # Silabs platform does not support Tuya migration OTAs
-ifneq ($(FROM_TUYA_MANUFACTURER_ID),null)
+ifneq ($(FROM_STOCK_MANUFACTURER_ID),null)
 ifneq ($(FROM_TUYA_IMAGE_TYPE),null)
 	@python3 $(HELPERS_PATH)/make_z2m_ota_index.py --db_file $(DEVICE_DB_FILE) $(FROM_TUYA_OTA_FILE) $(Z2M_INDEX_FILE) --board $(BOARD)
 endif
