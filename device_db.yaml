@@ -14,7 +14,7 @@
 # - Keep attributes in the same order
 
 BOARD__MHCOZY_TS0004:
-  human_name: MHCOZY TYWB 4ch-RF / ZG-005(-RF) 🅰
+  human_name: MHCOZY TYWB 4ch-RF <br> ZG-005(-RF) 🅰
   category: board
   power: mains
   neutral: required
@@ -40,7 +40,7 @@ BOARD__MHCOZY_TS0004:
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/130
   store: https://www.aliexpress.com/item/1005005457296054.html
 BOARD__MHCOZY_TS0004_2:
-  human_name: MHCOZY TYWB 4ch-RF / ZG-005(-RF) 🅱
+  human_name: MHCOZY TYWB 4ch-RF <br> ZG-005(-RF) 🅱
   category: board
   power: mains
   neutral: required
