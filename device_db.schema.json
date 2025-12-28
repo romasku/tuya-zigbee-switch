@@ -57,7 +57,7 @@
           ],
           "description": "Tuya model name (e.g., TS0001, TS0002)"
         },
-        "tuya_manufacturer_name": {
+        "stock_manufacturer_name": {
           "oneOf": [
             {"type": "null"},
             {"type": "string"}
@@ -218,7 +218,7 @@
         "device_type",
         "mcu",
         "stock_model_name",
-        "tuya_manufacturer_name",
+        "stock_manufacturer_name",
         "stock_converter_manufacturer",
         "stock_converter_model",
         "override_z2m_device",
