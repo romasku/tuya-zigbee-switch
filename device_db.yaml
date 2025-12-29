@@ -3138,3 +3138,29 @@ SWITCH_ZEMISMART_TS0601_6GANG:
   info: Needs pinout. Secondary MCU. 6-gang!
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/209
   store: https://www.zemismart.com/products/tb26-6
+MODULE_GIRIER_TS130F_2GANG:
+  human_name: Girier TS130F Dual
+  category: module
+  power: mains
+  neutral: required
+  device_type: router
+  tuya_model_name: TS130F
+  tuya_manufacturer_name: _TZ3000_j1xl73iw
+  stock_converter_manufacturer: Lonsonho
+  stock_converter_model: TS130F_dual
+  override_z2m_device: TS130F_GIRIER_DUAL
+  tuya_module: ZTU
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: j1xl73iw;TS130F-GIR-DUAL;LC1;SB4u;RC0;SD2u;RC4;SC3u;RD4;SC2u;RD7;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  tuya_manufacturer_id: 4417
+  tuya_image_type: 54179
+  firmware_image_type: 45597
+  build: yes
+  status: in_progress
+  info: The on-board button is wired to the same pin as the first switch, so you can't reset the device by pressing the button. You have to press the switch 10 times.
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/270
+  store: https://www.aliexpress.com/item/1005003864471089.html
