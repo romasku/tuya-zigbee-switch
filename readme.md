@@ -75,8 +75,6 @@ Discuss, troubleshoot and follow the updates on Discord 🙂
 
 ## 🙏 Acknowledgements
 
-- [pvvx/ZigbeeTLc](https://github.com/pvvx/ZigbeeTLc)  
-  ⤷ fw for Telink temp-humidity sensors (base of this project)
 - [doctor64/tuyaZigbee](https://github.com/doctor64/tuyaZigbee)  
   ⤷ fw for other Tuya Zigbee devices (helpful examples)
 - [medium.com/@omaslyuchenko](https://medium.com/@omaslyuchenko)  
