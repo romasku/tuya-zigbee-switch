@@ -726,6 +726,32 @@ MODULE_GIRIER_TS0002:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/29
   store: https://www.aliexpress.com/item/1005006084763437.html
+MODULE_GIRIER_TS130F_2GANG:
+  human_name: Girier 2-gang curtains
+  category: module
+  power: mains
+  neutral: required
+  device_type: router
+  stock_model_name: TS130F
+  stock_manufacturer_name: _TZ3000_j1xl73iw
+  stock_converter_manufacturer: Lonsonho
+  stock_converter_model: TS130F_dual
+  override_z2m_device: TS130F_GIRIER_DUAL
+  tuya_module: ZTU
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: j1xl73iw;TS130F-GIR-DUAL;LC1;SB4u;RC0;SD2u;RC4;SC3u;RD4;SC2u;RD7;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
+  firmware_image_type: 45597
+  build: yes
+  status: in_progress
+  info: Curtains not implemented! Reset button on B4 pin, same as switch 
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/270
+  store: https://www.aliexpress.com/item/1005003864471089.html
 MODULE_GIRIER_ZTU_TS0001:
   human_name: Girier JR-ZDS01 🅲
   category: module
