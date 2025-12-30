@@ -30,7 +30,8 @@ if __name__ == "__main__":
         "Tuya": ["TS0001", "TS0002", "TS0003", "TS0004"],
         "Moes": [],
         "AVATTO": [],
-        "Girier": []
+        "Girier": [],
+        "Lonsonho": []
     }
 
     # Prepare containers for multiple pinout models
@@ -56,11 +57,13 @@ if __name__ == "__main__":
     moesModels = manufacturers["Moes"]
     avattoModels = manufacturers["AVATTO"]
     girierModels = manufacturers["Girier"]
+    lonsonhoModels = manufacturers["Lonsonho"]
 
     tuyaMultiplePinoutsModels = multiple_pinouts["Tuya"]
     moesMultiplePinoutsModels = multiple_pinouts["Moes"]
     avattoMultiplePinoutsModels = multiple_pinouts["AVATTO"]
     girierMultiplePinoutsModels = multiple_pinouts["Girier"]
+    lonsonhoMultiplePinoutsModels = multiple_pinouts["Lonsonho"]
 
     template = env.get_template("tuya_with_ota.js.jinja")
 
@@ -73,6 +76,8 @@ if __name__ == "__main__":
         avattoMultiplePinoutsModels=sorted(list(set(avattoMultiplePinoutsModels))),
         girierModels=sorted(list(set(girierModels))),
         girierMultiplePinoutsModels=sorted(list(set(girierMultiplePinoutsModels))),
+        lonsonhoModels=sorted(list(set(lonsonhoModels))),
+        lonsonhoMultiplePinoutsModels=sorted(list(set(lonsonhoMultiplePinoutsModels))),
          z2m_v1=args.z2m_v1)
     )
    
