@@ -27,7 +27,7 @@ if __name__ == "__main__":
     db = yaml.safe_load(db_str)
 
     manufacturers = {
-        "Tuya": ["TS0001", "TS0002", "TS0003", "TS0004"],
+        "Tuya": ["TS0001", "TS0002", "TS0003", "TS0004", "TS0726_3_gang"],
         "Moes": [],
         "AVATTO": [],
         "Girier": [],

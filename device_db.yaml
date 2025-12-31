@@ -2422,7 +2422,7 @@ SWITCH_BSEED_TOUCH_TS0013:
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/229
   store: https://www.aliexpress.com/item/1005002570240546.html
 SWITCH_BSEED_TS0726_1GANG:
-  human_name: BSEED 1-gang switch
+  human_name: BSEED Echo Click / Scale 1-gang
   category: switch
   power: mains
   neutral: required
@@ -2450,8 +2450,9 @@ SWITCH_BSEED_TS0726_1GANG:
   - https://www.aliexpress.com/item/1005008635350349.html
   - https://www.aliexpress.com/item/1005008749674564.html
   - https://www.bseed.com/products/bseed-smart-zigbee-light-switch-with-neutral-hub-required-switch-work-with-tuya-alexa?variant=46312889024667
+  - https://www.bseed.com/products/bseed-scale-series-smart-zigbee-light-switch-1-gang-with-neutral
 SWITCH_BSEED_TS0726_2GANG:
-  human_name: BSEED 2-gang switch
+  human_name: BSEED Echo Click / Scale 2-gang
   category: switch
   power: mains
   neutral: required
@@ -2479,8 +2480,9 @@ SWITCH_BSEED_TS0726_2GANG:
   - https://www.aliexpress.com/item/1005008635350349.html
   - https://www.aliexpress.com/item/1005008749674564.html
   - https://www.bseed.com/products/bseed-smart-zigbee-light-switch-with-neutral-hub-required-switch-work-with-tuya-alexa?variant=46312889057435
+  - https://www.bseed.com/products/bseed-scale-series-smart-zigbee-light-switch-2-gang-with-neutral
 SWITCH_BSEED_TS0726_3GANG:
-  human_name: BSEED 3-gang switch
+  human_name: BSEED Echo Click / Scale 3-gang
   category: switch
   power: mains
   neutral: required
@@ -2488,8 +2490,8 @@ SWITCH_BSEED_TS0726_3GANG:
   stock_model_name: TS0726
   stock_manufacturer_name: _TZ3002_iedhxgyi
   stock_converter_manufacturer: Tuya
-  stock_converter_model: TS0726_3_gang
-  override_z2m_device: null
+  stock_converter_model: TS0726_3_gang_scene_switch
+  override_z2m_device: EC-GL86ZPCS31
   tuya_module: ZT3L
   mcu_family: Telink
   mcu: TLSR8258
@@ -2508,6 +2510,37 @@ SWITCH_BSEED_TS0726_3GANG:
   - https://www.aliexpress.com/item/1005008635350349.html
   - https://www.aliexpress.com/item/1005008749674564.html
   - https://www.bseed.com/products/bseed-smart-zigbee-light-switch-with-neutral-hub-required-switch-work-with-tuya-alexa?variant=46312889090203
+  - https://www.bseed.com/products/bseed-scale-series-smart-zigbee-light-switch-3-gang-with-neutral-copy
+SWITCH_BSEED_TS0726_4GANG:
+  human_name: BSEED Echo Click / Scale 4-gang
+  category: switch
+  power: mains
+  neutral: required
+  device_type: router
+  stock_model_name: TS0726
+  stock_manufacturer_name: _TZ3002_pzao9ls1
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0726_4_gang_scene_switch
+  override_z2m_device: EC-GL86ZPCS41
+  tuya_module: ZT3L
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: pzao9ls1;TS0726-4-BS;  null
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
+  firmware_image_type: 45577
+  build: yes
+  status: fully_supported
+  info: Supported
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/157
+  store:
+  - https://www.aliexpress.com/item/1005008635350349.html
+  - https://www.aliexpress.com/item/1005008749674564.html
+  - https://www.bseed.com/products/bseed-smart-zigbee-light-switch-with-neutral-hub-required-switch-work-with-tuya-alexa?variant=46312889090203
+  - https://www.bseed.com/products/bseed-scale-series-smart-zigbee-light-switch-4-gang-with-neutral
 SWITCH_IHSENO_TOUCH_TS0001:
   human_name: iHseno 1-gang touch switch
   category: switch
