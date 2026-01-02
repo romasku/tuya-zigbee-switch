@@ -1109,7 +1109,7 @@ MODULE_NOUS_TS0002:
   tuya_module: ZT2S
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: ruxexjfz;TS0002-NS;BB5u;LB4;SB7u;RD2;SB1u;RC3;
+  config_str: ruxexjfz;TS0002-NS;BB5u;LB4;SB7u;RC2;SB1u;RC3;
   alt_config_str: null
   old_manufacturer_names: null
   old_zb_models: null
@@ -1117,8 +1117,8 @@ MODULE_NOUS_TS0002:
   stock_image_type: 517
   firmware_image_type: 45582
   build: yes
-  status: in_progress
-  info: Needs pinout confirmation
+  status: fully_supported
+  info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/216
   store: https://nous.technology/product/l13z.html
 MODULE_NOUS_TS0002_1:
