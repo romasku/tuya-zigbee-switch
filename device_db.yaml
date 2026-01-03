@@ -1095,8 +1095,8 @@ MODULE_MOES_ZM4LT3_TS0003:
   info: Needs pinout
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/167
   store: https://www.aliexpress.com/item/1005009640015785.html
-MODULE_NOUS_TS0002:
-  human_name: Nous L13Z
+MODULE_FARYLINK_TS0002:
+  human_name: Farylink FS-02HZ <br> (Nous L13Z clone)
   category: module
   power: mains
   neutral: required
@@ -1120,9 +1120,9 @@ MODULE_NOUS_TS0002:
   status: fully_supported
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/216
-  store: https://nous.technology/product/l13z.html
-MODULE_NOUS_TS0002_1:
-  human_name: Nous L13Z UNSH
+  store: https://www.aliexpress.com/item/1005008003253420.html
+MODULE_UNSH_TS0002:
+  human_name: UNSH FS-02HW <br> (Nous L13Z clone)
   category: module
   power: mains
   neutral: required
