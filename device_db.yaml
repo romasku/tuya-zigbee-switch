@@ -1239,8 +1239,8 @@ MODULE_QS_TS0012:
   tuya_module: ZTU
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: c4muk4ys;TS0012-QS;BB4u;LC2;SD2u;RA0B6;SC3u;RC0D7;SLP;
-  alt_config_str: null
+  config_str: c4muk4ys;TS0012-QS;BB4u;LC2;SD2u;RA0B6;SC3u;RC0D7;SLP;      # S1 com com S2
+  alt_config_str: c4muk4ys;TS0012-QS;BB4u;LC2;SC3u;RA0B6;SD2u;RC0D7;SLP;  # S2 com com S1
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
