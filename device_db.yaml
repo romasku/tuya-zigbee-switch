@@ -593,6 +593,32 @@ MODULE_FARYLINK_TS0001:
   info: Stops responding after OTA update?
   threads: https://github.com/romasku/tuya-zigbee-switch/pull/243
   store: https://www.aliexpress.com/item/1005006908878393.html
+MODULE_FARYLINK_TS0002:
+  human_name: Farylink FS-02HZ <br> (Nous L13Z clone)
+  category: module
+  power: mains
+  neutral: required
+  device_type: router
+  stock_model_name: TS0002
+  stock_manufacturer_name: _TZ3000_ruxexjfz
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0002_basic
+  override_z2m_device: L13Z
+  tuya_module: ZT2S
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: ruxexjfz;TS0002-NS;BB5u;LB4;SB7u;RC2;SB1u;RC3;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4107
+  stock_image_type: 517
+  firmware_image_type: 45582
+  build: yes
+  status: fully_supported
+  info: Supported
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/216
+  store: https://www.aliexpress.com/item/1005008003253420.html
 MODULE_GIRIER_A_TS0001:
   human_name: Girier 🅰 1-gang
   category: module
@@ -1095,58 +1121,6 @@ MODULE_MOES_ZM4LT3_TS0003:
   info: Needs pinout
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/167
   store: https://www.aliexpress.com/item/1005009640015785.html
-MODULE_FARYLINK_TS0002:
-  human_name: Farylink FS-02HZ <br> (Nous L13Z clone)
-  category: module
-  power: mains
-  neutral: required
-  device_type: router
-  stock_model_name: TS0002
-  stock_manufacturer_name: _TZ3000_ruxexjfz
-  stock_converter_manufacturer: Tuya
-  stock_converter_model: TS0002_basic
-  override_z2m_device: L13Z
-  tuya_module: ZT2S
-  mcu_family: Telink
-  mcu: TLSR8258
-  config_str: ruxexjfz;TS0002-NS;BB5u;LB4;SB7u;RC2;SB1u;RC3;
-  alt_config_str: null
-  old_manufacturer_names: null
-  old_zb_models: null
-  stock_manufacturer_id: 4107
-  stock_image_type: 517
-  firmware_image_type: 45582
-  build: yes
-  status: fully_supported
-  info: Supported
-  threads: https://github.com/romasku/tuya-zigbee-switch/issues/216
-  store: https://www.aliexpress.com/item/1005008003253420.html
-MODULE_UNSH_TS0002:
-  human_name: UNSH FS-02HW <br> (Nous L13Z clone)
-  category: module
-  power: mains
-  neutral: required
-  device_type: router
-  stock_model_name: TS0002
-  stock_manufacturer_name: _TZ3000_ruxexjfz
-  stock_converter_manufacturer: Tuya
-  stock_converter_model: TS0002_basic
-  override_z2m_device: L13Z
-  tuya_module: ZT2S_real_no_shield
-  mcu_family: Telink
-  mcu: TLSR8258
-  config_str: ruxexjfz;TS0002-NS1;BD2u;LD3i;SA0u;SD7u;RB5;RB4;
-  alt_config_str: null
-  old_manufacturer_names: null
-  old_zb_models: null
-  stock_manufacturer_id: 4417
-  stock_image_type: 518
-  firmware_image_type: 43590
-  build: yes
-  status: fully_supported
-  info: Supported
-  threads: https://github.com/romasku/tuya-zigbee-switch/issues/216
-  store: https://www.aliexpress.com/item/1005005710710150.html
 MODULE_NOVATO_TS000F_1GANG:
   human_name: NOVATO ZRM01
   category: module
@@ -1689,6 +1663,32 @@ MODULE_TUYA_ZTU_TS0004:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/42
   store: null
+MODULE_UNSH_TS0002:
+  human_name: UNSH FS-02HW <br> (Nous L13Z clone)
+  category: module
+  power: mains
+  neutral: required
+  device_type: router
+  stock_model_name: TS0002
+  stock_manufacturer_name: _TZ3000_ruxexjfz
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0002_basic
+  override_z2m_device: L13Z
+  tuya_module: ZT2S_real_no_shield
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: ruxexjfz;TS0002-NS1;BD2u;LD3i;SA0u;SD7u;RB5;RB4;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 518
+  firmware_image_type: 43590
+  build: yes
+  status: fully_supported
+  info: Supported
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/216
+  store: https://www.aliexpress.com/item/1005005710710150.html
 OUTLET_BSEED_PM_TS011F:
   human_name: BSEED PM outlet
   category: outlet
