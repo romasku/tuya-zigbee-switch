@@ -1,10 +1,14 @@
 # Supported devices
 
+Support new devices: [contribute/porting.md](/docs/contribute/porting.md)  
+
 ### Quick-picks
 - **modules:** AVATTO, Aubess, iHseno
 - **switches:** Moes 1-3gang (any design)
 
-Support new devices: [contribute/porting.md](/docs/contribute/porting.md)  
+### Careful with
+- generic 1-gang modules - might not support OTA conversion
+- BSEED switches - too many variants (can't know which you'll receive)
 
 ### Legend
 
@@ -15,7 +19,7 @@ Support new devices: [contribute/porting.md](/docs/contribute/porting.md)
 |   💡   | Category | 🇲 Module          | 🇸 Switch            | 🇴  Outlet         | 🇷 Remote      | 🇧  Board |
 |   ⚡   | Power    | 🔌 Mains           | 🔋 Battery           | 🔱 USB             |                |           |
 |   📲   | Install  | 🛜 Wireless        | ➿ By wire           | ❓ Some by wire    |                |           |
-|   🏭   | MCU      | `TL` Telink        | `SL` Silicon Labs    |                    |                |           |
+|   🏭   | MCU      | `TL` Telink        | `SL` Silicon Labs    | `NXP` NXP          |                |           |
 |   🅰    | Variant  | 🅰                  | 🅱                    | 🅲                  | 🅳              | 🅴         |
 
 <!-------------------------------------------------------------------
@@ -35,17 +39,17 @@ Support new devices: [contribute/porting.md](/docs/contribute/porting.md)
 
 ### Device list
 
-| 🚧 | 📦 | 💡 | ⚡️ | 📲 | 🏭 | Zb&nbsp;Manufacturer <br> Zb&nbsp;Model | Name <br> Z2M&nbsp;page&nbsp;🔗 | Store | Threads | Status |
-| -- | -- | -- | -- | -- | -- | :-------------------------------------- | :------------------------------ | ----: | ------: | :----- |
+| 🚧 | 📦 | 💡 | ⚡️ | 📲 |  🏭  | Zb&nbsp;Manufacturer <br> Zb&nbsp;Model | Name <br> Z2M&nbsp;page&nbsp;🔗 | Store | Threads | Status |
+| -- | -- | -- | -- | -- | :--: | :-------------------------------------- | :------------------------------ | ----: | ------: | :----- |
 {% for device_key, device in devices %}
-  {% set manufacturer = "`" ~ (device.tuya_manufacturer_name or "unknown") ~ "`" %}
+  {% set manufacturer = "`" ~ (device.stock_manufacturer_name or "unknown") ~ "`" %}
   {% set ns = namespace(model="") %}
-  {% if device.tuya_model_name is none %}
+  {% if device.stock_model_name is none %}
     {% set ns.model = "`unknown`" %}
-  {% elif device.tuya_model_name is string %}
-    {% set ns.model = "`" ~ device.tuya_model_name ~ "`" %}
+  {% elif device.stock_model_name is string %}
+    {% set ns.model = "`" ~ device.stock_model_name ~ "`" %}
   {% else %}
-    {% for m in device.tuya_model_name %}
+    {% for m in device.stock_model_name %}
       {% if loop.first %}
         {% set ns.model = "`" ~ m ~ "`" %}
       {% else %}
@@ -139,15 +143,17 @@ Support new devices: [contribute/porting.md](/docs/contribute/porting.md)
   {% set install = "🛜" %}
   {% if device.mcu_family == "Silabs" %}
     {% set install = "➿" %}
-  {% elif (device.tuya_manufacturer_id is none or device.tuya_image_type is none) and device.build %}
+  {% elif (device.stock_manufacturer_id is none or device.stock_image_type is none) and device.build %}
     {% set install = "➿" %}
-  {% elif device_key == "TUYA_3_TS0001" %}
+  {% elif device_key == "MODULE_TUYA_DEFAULT_A_TS0001" %}
     {% set install = "❓" %}
   {% endif %}
   {% if device.mcu_family == "Telink" %}
     {% set family = "**TL**" %}
   {% elif device.mcu_family == "Silabs" %}
     {% set family = "**SL**" %}
+  {% elif device.mcu_family == "NXP" %}
+    {% set family = "**NXP**" %}
   {% else %}
     {% set family = "❓" %}
   {% endif %}

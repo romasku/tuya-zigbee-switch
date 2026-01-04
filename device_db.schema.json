@@ -43,10 +43,10 @@
         },
         "mcu": {
           "type": "string",
-          "enum": ["TLSR825x", "TLSR8253", "TLSR8253F512AT32", "TLSR8258", "EFR32MG21A020F768IM32", "EFR32MG22C224F512GN32"],
+          "enum": ["TLSR825x", "TLSR8253", "TLSR8253F512AT32", "TLSR8258", "EFR32MG21A020F768IM32", "EFR32MG22C224F512GN32", "JN5169"],
           "description": "Microcontroller unit type"
         },
-        "tuya_model_name": {
+        "stock_model_name": {
           "oneOf": [
             {"type": "null"},
             {
@@ -57,7 +57,7 @@
           ],
           "description": "Tuya model name (e.g., TS0001, TS0002)"
         },
-        "tuya_manufacturer_name": {
+        "stock_manufacturer_name": {
           "oneOf": [
             {"type": "null"},
             {"type": "string"}
@@ -89,7 +89,7 @@
           "oneOf": [
             {
               "type": "string",
-              "enum": ["ZT2S", "ZTU", "ZT3L", "ZT2S_without_shield", "ZS3L", "ZT5", "ZTLC9", "none"]
+              "enum": ["ZTU", "ZT3L", "ZT2S", "ZT2S_real_no_shield", "ZT2S_fake_no_shield", "ZT5", "ZTLC9", "ZS3L", "none"]
             },
             {"type": "null"}
           ],
@@ -99,7 +99,7 @@
           "oneOf": [
             {
               "type": "string",
-              "enum": ["Telink", "Silabs"]
+              "enum": ["Telink", "Silabs", "NXP"]
             },
             {"type": "null"}
           ],
@@ -115,6 +115,7 @@
               "type": "array",
               "items": {"type": "string"}
             },
+            {"type": "string"},
             {"type": "null"}
           ],
           "description": "Alternative configuration string"
@@ -139,14 +140,14 @@
           ],
           "description": "Legacy Zigbee model names"
         },
-        "tuya_manufacturer_id": {
+        "stock_manufacturer_id": {
           "oneOf": [
             {"type": "integer"},
             {"type": "null"}
           ],
           "description": "Tuya manufacturer ID"
         },
-        "tuya_image_type": {
+        "stock_image_type": {
           "oneOf": [
             {"type": "integer"},
             {"type": "null"}
@@ -216,8 +217,8 @@
         "neutral",
         "device_type",
         "mcu",
-        "tuya_model_name",
-        "tuya_manufacturer_name",
+        "stock_model_name",
+        "stock_manufacturer_name",
         "stock_converter_manufacturer",
         "stock_converter_model",
         "override_z2m_device",
@@ -227,8 +228,8 @@
         "alt_config_str",
         "old_manufacturer_names",
         "old_zb_models",
-        "tuya_manufacturer_id",
-        "tuya_image_type",
+        "stock_manufacturer_id",
+        "stock_image_type",
         "firmware_image_type",
         "build",
         "status",
