@@ -1121,6 +1121,32 @@ MODULE_MOES_ZM4LT3_TS0003:
   info: Needs pinout
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/167
   store: https://www.aliexpress.com/item/1005009640015785.html
+MODULE_MOES_ZM4LT4_TS0004:
+  human_name: Moes ZM4LT4
+  category: module
+  power: mains
+  neutral: required
+  device_type: router
+  stock_model_name: TS0004
+  stock_manufacturer_name: null
+  stock_converter_manufacturer: null
+  stock_converter_model: null
+  override_z2m_device: null
+  tuya_module: ZTU
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: null;TS0004-MS;TODO;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
+  firmware_image_type: 43565
+  build: no
+  status: in_progress
+  info: Needs ID and pinout
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/167
+  store: https://www.aliexpress.com/item/1005009640015785.html
 MODULE_NOVATO_TS000F_1GANG:
   human_name: NOVATO ZRM01
   category: module
