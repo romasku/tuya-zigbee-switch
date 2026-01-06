@@ -27,7 +27,7 @@ BOARD__SCIMAGIC_TS0002 :
   tuya_module: ZT3L
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: nuenzetq;TS0002;LC3i;SD7u;RD4;SC0u;RA0;SB5u;RD2;SB7u;RC2;M;
+  config_str: nuenzetq;TS0004-MC;LC3i;SD7u;RD4;SC0u;RA0;SB5u;RD2;SB7u;RC2;M;
   alt_config_str: null
   old_manufacturer_names: null
   old_zb_models: null
