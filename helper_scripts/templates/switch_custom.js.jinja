@@ -38,6 +38,7 @@ const romasku = {
             - toggle_simple: Any press of physical switch will TOGGLE the relay and send TOGGLE command to binds
             - toggle_smart_sync: Any press of physical switch will TOGGLE the relay and send corresponding ON/OFF command to keep binds in sync with relay
             - toggle_smart_opposite: Any press of physical switch: TOGGLE the relay and send corresponding ON/OFF command to keep binds in the state opposite to the relay`,
+            entityCategory: "config",
         }),
     switchMode: (name, endpointName) =>
         enumLookup({
@@ -47,6 +48,7 @@ const romasku = {
             cluster: "genOnOffSwitchCfg",
             attribute: { ID: 0xff00, type: 0x30 }, // Enum8
             description: "Select the type of switch connected to the device",
+            entityCategory: "config",
         }),
     relayMode: (name, endpointName) =>
         enumLookup({
@@ -56,6 +58,7 @@ const romasku = {
             cluster: "genOnOffSwitchCfg",
             attribute: { ID: 0xff01, type: 0x30 }, // Enum8
             description: "When to turn on/off internal relay",
+            entityCategory: "config",
         }),
     relayIndex: (name, endpointName, relay_cnt) =>
         enumLookup({
@@ -67,6 +70,7 @@ const romasku = {
             cluster: "genOnOffSwitchCfg",
             attribute: { ID: 0xff02, type: 0x20 }, // uint8
             description: "Which internal relay it should trigger",
+            entityCategory: "config",
         }),
     bindedMode: (name, endpointName) =>
         enumLookup({
@@ -76,6 +80,7 @@ const romasku = {
             cluster: "genOnOffSwitchCfg",
             attribute: { ID: 0xff05, type: 0x30 }, // Enum8
             description: "When turn on/off binded device",
+            entityCategory: "config",
         }),
     longPressDuration: (name, endpointName) =>
         numeric({
@@ -86,6 +91,7 @@ const romasku = {
             description: "What duration is considerd to be long press",
             valueMin: 0,
             valueMax: 5000,
+            entityCategory: "config",
         }),
     levelMoveRate: (name, endpointName) =>
         numeric({
@@ -96,6 +102,7 @@ const romasku = {
             description: "Level (dim) move rate in steps per ms",
             valueMin: 1,
             valueMax: 255,
+            entityCategory: "config",
         }),
     pressAction: (name, endpointName) =>
         enumLookup({
@@ -106,6 +113,7 @@ const romasku = {
             cluster: "genMultistateInput",
             attribute: "presentValue",
             description: "Action of the switch: 'released' or 'press' or 'long_press'",
+            entityCategory: "diagnostic",
         }),
     relayIndicatorMode: (name, endpointName) =>
         enumLookup({
@@ -115,6 +123,7 @@ const romasku = {
             cluster: "genOnOff",
             attribute: { ID: 0xff01, type: 0x30 }, // Enum8
             description: "Mode for the relay indicator LED",
+            entityCategory: "config",
         }),
     relayIndicator: (name, endpointName) =>
         binary({
@@ -126,6 +135,7 @@ const romasku = {
             attribute: {ID: 0xff02, type: 0x10},  // Boolean
             description: "State of the relay indicator LED",
             access: "ALL",
+            entityCategory: "config",
         }),
     networkIndicator: (name, endpointName) =>
         binary({
@@ -137,6 +147,7 @@ const romasku = {
             attribute: {ID: 0xff01, type: 0x10},  // Boolean
             description: "State of the network indicator LED",
             access: "ALL",
+            entityCategory: "config",
         }),
     deviceConfig: (name, endpointName) =>
         text({
@@ -183,7 +194,8 @@ const romasku = {
                         throw new Error(`Invalid entry ${part}. Should start with one of B, R, L, S, I`);
                     }
                 }
-            }
+            },
+            entityCategory: "config",
         }),
 };
 
