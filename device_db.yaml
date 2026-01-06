@@ -13,6 +13,32 @@
 # - Keep KEYs in (mostly) alphabetical order
 # - Keep attributes in the same order
 
+BOARD__SCIMAGIC_TS0002 :
+  human_name: SCIMAGIC 2ch-RF <br> SMG-ZG02-RF 🅰
+  category: board
+  power: mains
+  neutral: required
+  device_type: router
+  stock_model_name: TS0002
+  stock_manufacturer_name: _TZ3000_nuenzetq
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0002
+  override_z2m_device: SMG 2ch-RF
+  tuya_module: ZT3L
+  mcu_family: Telink
+  mcu: TLSR825x
+  config_str: nuenzetq;TS0002;LC3i;SD7u;RD4;SC0u;RA0;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
+  firmware_image_type: 45598
+  build: yes
+  status: fully_supported
+  info: Supported
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/130
+  store: https://www.aliexpress.com/item/1005009646584697.html
 BOARD__MHCOZY_TS0004:
   human_name: MHCOZY TYWB 4ch-RF <br> ZG-005(-RF) 🅰
   category: board
