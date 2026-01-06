@@ -320,7 +320,7 @@ MODULE_AVATTO_TS0003:
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/56
   store: https://www.aliexpress.com/item/1005007247647375.html
 MODULE_AVATTO_TS0004:
-  human_name: AVATTO ZWSM16-4
+  human_name: AVATTO ZWSM16-4 🅰
   category: module
   power: mains
   neutral: required
@@ -351,6 +351,32 @@ MODULE_AVATTO_TS0004:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/9
   store: https://www.aliexpress.com/item/1005007247647375.html
+MODULE_AVATTO_TS0004_2:
+  human_name: AVATTO ZWSM16-4 🅱
+  category: module
+  power: mains
+  neutral: required
+  device_type: router
+  stock_model_name: TS0004
+  stock_manufacturer_name: _TZ3000_3n2minvf
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0004_switch_module_2
+  override_z2m_device: ZWSM16-4-Zigbee
+  tuya_module: ZTU
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: 3n2minvf;TS0004-AVB2;BC2u;LD2i;SD3u;RC0;SD7u;RD4;SB6u;RC1;SB4u;RC4;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
+  firmware_image_type: 43602
+  build: yes
+  status: mostly_supported
+  info: Needs pinout confirmation
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/275
+  store: https://www.aliexpress.com/item/1005006041739970.html
 MODULE_AVATTO_TS0011:
   human_name: AVATTO LZWSM16-1
   category: module
