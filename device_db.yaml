@@ -1025,8 +1025,8 @@ MODULE_MOES_TS0003:
   stock_model_name: TS0003
   stock_manufacturer_name: _TZ3000_pfc7i3kt
   stock_converter_manufacturer: Tuya
-  stock_converter_model: TS0003
-  override_z2m_device: null
+  stock_converter_model: TS0003_switch_3_gang_with_backlight
+  override_z2m_device: MS-104CZ
   tuya_module: null
   mcu_family: Telink
   mcu: TLSR8258
@@ -1141,7 +1141,7 @@ MODULE_MOES_ZM4LT4_TS0004:
   old_zb_models: null
   stock_manufacturer_id: 4417
   stock_image_type: 54179
-  firmware_image_type: 43565
+  firmware_image_type: 43601
   build: no
   status: in_progress
   info: Needs ID and pinout
