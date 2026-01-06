@@ -62,7 +62,8 @@ const customExposes = {
       .enum(`switch_mode`, ea.ALL, Object.keys(SWITCH_MODE_ENUM))
       .withLabel(`Switch ${switchIndex} mode`)
       .withDescription("Select the type of switch connected to the device")
-      .withEndpoint(`switch_${switchIndex}`),
+      .withEndpoint(`switch_${switchIndex}`)
+      .withCategory("config"),
   switchActions: (switchIndex) =>
     e
       .enum(`switch_actions`, ea.ALL, Object.keys(SWITCH_ACTIONS_ENUM))
@@ -78,13 +79,15 @@ const customExposes = {
       )
       // Z2M ui renders this as single paragraph, so code formatted
       // in a same way to represent it as it will look like in Z2M UI
-      .withEndpoint(`switch_${switchIndex}`),
+      .withEndpoint(`switch_${switchIndex}`)
+      .withCategory("config"),
   relayMode: (switchIndex) =>
     e
       .enum(`relay_mode`, ea.ALL, Object.keys(RELAY_MODE_ENUM))
       .withLabel(`Switch ${switchIndex} relay mode`)
       .withDescription("When to turn on/off internal relay")
-      .withEndpoint(`switch_${switchIndex}`),
+      .withEndpoint(`switch_${switchIndex}`)
+      .withCategory("config"),
   relayIndex: (switchIndex, relayCount) =>
     e
       .enum(
@@ -94,13 +97,15 @@ const customExposes = {
       )
       .withLabel(`Switch ${switchIndex} relay index`)
       .withDescription("Which internal relay it should trigger")
-      .withEndpoint(`switch_${switchIndex}`),
+      .withEndpoint(`switch_${switchIndex}`)
+      .withCategory("config"),
   boundMode: (switchIndex) =>
     e
       .enum(`bound_mode`, ea.ALL, Object.keys(BOUND_MODE_ENUM))
       .withLabel(`Switch ${switchIndex} bound mode`)
       .withDescription("When to turn on/off bound device")
-      .withEndpoint(`switch_${switchIndex}`),
+      .withEndpoint(`switch_${switchIndex}`)
+      .withCategory("config"),
   longPressDuration: (switchIndex) =>
     e
       .numeric(`long_press_duration`, ea.ALL)
@@ -108,7 +113,8 @@ const customExposes = {
       .withValueMax(5000)
       .withLabel(`Switch ${switchIndex} long press duration`)
       .withDescription("What duration is considered to be long press")
-      .withEndpoint(`switch_${switchIndex}`),
+      .withEndpoint(`switch_${switchIndex}`)
+      .withCategory("config"),
   levelMoveRate: (switchIndex) =>
     e
       .numeric(`level_move_rate`, ea.ALL)
@@ -116,7 +122,8 @@ const customExposes = {
       .withValueMax(255)
       .withLabel(`Switch ${switchIndex} level move rate`)
       .withDescription("Level (dim) move rate in steps per ms")
-      .withEndpoint(`switch_${switchIndex}`),
+      .withEndpoint(`switch_${switchIndex}`)
+      .withCategory("config"),
   pressAction: (switchIndex) =>
     e
       .enum(`press_action`, ea.STATE_GET, Object.keys(PRESS_ACTIONS_ENUM))
@@ -124,12 +131,14 @@ const customExposes = {
       .withDescription(
         "Action of the switch: 'released' or 'press' or 'long_press'"
       )
-      .withEndpoint(`switch_${switchIndex}`),
+      .withEndpoint(`switch_${switchIndex}`)
+      .withCategory("diagnostic"),
   networkIndicator: () =>
     e
       .binary(`network_led`, ea.ALL, "ON", "OFF")
       .withDescription("State of the network indicator LED")
-      .withEndpoint("main"),
+      .withEndpoint("main")
+      .withCategory("config"),
   relayIndicatorMode: (relayIndex) =>
     e
       .enum(
@@ -139,17 +148,20 @@ const customExposes = {
       )
       .withLabel(`Relay ${relayIndex} action`)
       .withDescription("Mode for the relay indicator LED")
-      .withEndpoint(`relay_${relayIndex}`),
+      .withEndpoint(`relay_${relayIndex}`)
+      .withCategory("config"),
   relayIndicator: (relayIndex) =>
     e
       .binary(`relay_indicator`, ea.ALL, "ON", "OFF")
       .withDescription("State of the relay indicator LED")
-      .withEndpoint(`relay_${relayIndex}`),
+      .withEndpoint(`relay_${relayIndex}`)
+      .withCategory("config"),
   deviceConfig: () =>
     e
       .text("device_config", ea.ALL)
       .withLabel("Current configuration of the device")
-      .withEndpoint("main"),
+      .withEndpoint("main")
+      .withCategory("config"),
 };
 
 const validateConfig = (value) => {
@@ -613,6 +625,7 @@ const baseDefinition = {
       e
         .composite("device_config", "device_config", ea.ALL)
         .withFeature(customExposes.deviceConfig())
+        .withCategory("config")
     );
 
     return dynExposes;
