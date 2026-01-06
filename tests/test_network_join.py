@@ -65,10 +65,14 @@ def test_leaves_on_multipress() -> None:
         device = Device(proc)
         assert device.status()["joined"] == str(HAL_ZIGBEE_NETWORK_JOINED)
 
-        for _ in range(11):
+        # 9 presses should not cause the device to leave the network
+        for _ in range(9):
             device.click_button("A0")
-            device.step_time(60)
 
+        assert device.status()["joined"] == str(HAL_ZIGBEE_NETWORK_JOINED)
+
+        # 10th press should cause the device to leave the network
+        device.click_button("A0")
         assert device.status()["joined"] != str(HAL_ZIGBEE_NETWORK_JOINED)
 
 
