@@ -2,6 +2,7 @@ let tuyaDefinitions = require("zigbee-herdsman-converters/devices/tuya");
 let moesDefinitions = require("zigbee-herdsman-converters/devices/moes");
 let avattoDefinitions = require("zigbee-herdsman-converters/devices/avatto");
 let girierDefinitions = require("zigbee-herdsman-converters/devices/girier");
+let lonsonhoDefinitions = require("zigbee-herdsman-converters/devices/lonsonho");
 let tuya = require("zigbee-herdsman-converters/lib/tuya");
 
 // Support Z2M 2.1.3-1
@@ -9,6 +10,7 @@ tuyaDefinitions = tuyaDefinitions.definitions ?? tuyaDefinitions;
 moesDefinitions = moesDefinitions.definitions ?? moesDefinitions;
 avattoDefinitions = avattoDefinitions.definitions ?? avattoDefinitions;
 girierDefinitions = girierDefinitions.definitions ?? girierDefinitions;
+lonsonhoDefinitions = lonsonhoDefinitions.definitions ?? lonsonhoDefinitions;
 
 const definitions = [];
 const multiplePinoutsDescription = "WARNING! There are multiple known pinouts for the AVATTO ZWSM16 4gang! If the device is very very old, you may need the alt_config";
@@ -20,10 +22,10 @@ const ota = require("zigbee-herdsman-converters/lib/ota");
   
   You can edit it for testing, but for PRs please use:
   - `device_db.yaml`                - add or edit devices
-  - `tuya_with_ota.md.jinja`        - update the template
+  - `tuya_with_ota.js.jinja`        - update the template
   - `make_z2m_tuya_converters.py`   - update generation script
 
-  Generate with: `make converters`
+  Generate with: `make tools/update_converters`
 ********************************************************************/
 
 const tuyaModels = [
@@ -37,9 +39,9 @@ const tuyaModels = [
     "TS0002",
     "TS0002_basic",
     "TS0002_limited",
-    "TS0002_switch_module_1",
     "TS0003",
     "TS0003_switch_3_gang",
+    "TS0003_switch_3_gang_with_backlight",
     "TS0003_switch_module_2",
     "TS0004",
     "TS0004_switch_module",
@@ -57,14 +59,19 @@ const tuyaModels = [
     "TS0726_1_gang_scene_switch",
     "TS0726_2_gang_scene_switch",
     "TS0726_3_gang",
+    "TS0726_3_gang_scene_switch",
+    "TS0726_4_gang_scene_switch",
     "WHD02",
     "_TZ3000_pgq7ormg",
 ];
 
 const tuyaMultiplePinoutsModels = [
+    "TS0001_switch_module",
     "TS0001_switch_module_1",
-    "TS0002_switch_module_1",
+    "TS0002_basic",
+    "TS0002_limited",
     "TS0004_switch_module_2",
+    "TS0012",
 ];
 
 for (let definition of tuyaDefinitions) {
@@ -91,6 +98,7 @@ for (let definition of tuyaDefinitions) {
 }
 
 const moesModels = [
+    "ZM4LT2",
     "ZS-EUB_1gang",
 ];
 
@@ -160,6 +168,36 @@ const girierMultiplePinoutsModels = [
 for (let definition of girierDefinitions) {
     if (girierModels.includes(definition.model)) {
         if (girierMultiplePinoutsModels.includes(definition.model)) {
+            definitions.push(
+                {
+                    ...definition,
+                    description: multiplePinoutsDescription,
+                    whiteLabel: definition.whiteLabel.map(entry => ({...entry, description: multiplePinoutsDescription,})),
+                    ota: ota.zigbeeOTA,
+                }
+            )
+        }
+        else {
+            definitions.push(
+                {
+                    ...definition,
+                    ota: ota.zigbeeOTA,
+                }
+            )
+        }
+    }
+}
+
+const lonsonhoModels = [
+    "TS130F_dual",
+];
+
+const lonsonhoMultiplePinoutsModels = [
+];
+
+for (let definition of lonsonhoDefinitions) {
+    if (lonsonhoModels.includes(definition.model)) {
+        if (lonsonhoMultiplePinoutsModels.includes(definition.model)) {
             definitions.push(
                 {
                     ...definition,
