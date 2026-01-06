@@ -36,8 +36,8 @@ BOARD__SCIMAGIC_TS0002 :
   firmware_image_type: 45598
   build: yes
   status: fully_supported
-  info: Supported
-  threads: https://github.com/romasku/tuya-zigbee-switch/issues/130
+  info: Supported without RF
+  threads: 
   store: https://www.aliexpress.com/item/1005009646584697.html
 BOARD__MHCOZY_TS0004:
   human_name: MHCOZY TYWB 4ch-RF <br> ZG-005(-RF) 🅰
