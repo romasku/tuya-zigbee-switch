@@ -187,7 +187,7 @@ const romasku = {
 const definitions = [
     {
         zigbeeModel: [
-            "TS0002_HOCUS",
+            "TS0002",
         ],
         model: "SMG 2ch-RF",
         vendor: "Tuya-custom",
