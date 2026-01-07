@@ -41,6 +41,6 @@ Support new devices: [contribute/porting.md](/docs/contribute/porting.md)
 
 | 🚧 | 📦 | 💡 | ⚡️ | 📲 |  🏭  | Zb&nbsp;Manufacturer <br> Zb&nbsp;Model | Name <br> Z2M&nbsp;page&nbsp;🔗 | Store | Threads | Status |
 | -- | -- | -- | -- | -- | :--: | :-------------------------------------- | :------------------------------ | ----: | ------: | :----- |
-| 🟩 | ✔️ | 🇧 | 🔌 | 🛜 | **TL** | `_TZ3000_nuenzetq` <br> `TS0002` | [SCIMAGIC 2ch-RF <br> SMG-ZG02-RF 🅰](https://www.zigbee2mqtt.io/devices/SMG_2ch-RF.html) | [`AlEx`](https://www.aliexpress.com/item/1005009646584697.html) |   | Supported without RF | 
+| 🟩 | ✔️ | 🇧 | 🔌 | 🛜 | **TL** | `_TZ3000_nuenzetq` <br> `TS0002` | [SCIMAGIC 2ch-RF <br> SMG-ZG02-RF 🅰](https://www.zigbee2mqtt.io/devices/SMG_2ch-RF.html) | [`AlEx`](https://www.aliexpress.com/item/1005009646584697.html) |   | Supported without RF , inching , power on behavior | 
 
 Data from [`device_db.yaml`](/device_db.yaml)
