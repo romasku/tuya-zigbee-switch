@@ -136,7 +136,7 @@ class OnOffWithIndicatorCluster(CustomCluster, OnOff):
 ``````````````````````````````````````````````````````````````````'''
 
 CONFIGS = [
-    "_TZ3000_nuenzetq;TS0002;LC3i;SD7u;RD4;SC0u;RA0;M;",
+    "_TZ3000_nuenzetq_ROMASKU;TS0002_ROMASKU;LC3i;SD7u;RD4;SC0u;RA0;M;",
 ]
 
 for config in CONFIGS:

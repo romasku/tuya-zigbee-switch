@@ -1,16 +1,16 @@
 [
   {
-    "fileName": "tlc_switch-1.1.2-ec80331a-forced.zigbee",
+    "fileName": "tlc_switch-1.1.2-ae339046-forced.zigbee",
     "fileVersion": 4294967295,
-    "fileSize": 174930,
-    "url": "https://github.com/hocuspocus69/tuya-zigbee-switch/raw/3df8d2e295b16ed59a8c7dc1098ed2533516bf9e/bin/router/MODULE_SCIMAGIC_TS0002/tlc_switch-1.1.2-ec80331a-forced.zigbee",
+    "fileSize": 174946,
+    "url": "https://github.com/hocuspocus69/tuya-zigbee-switch/raw/refs/heads/hocuspocus69-patch-1/bin/router/MODULE_SCIMAGIC_TS0002/tlc_switch-1.1.2-ae339046-forced.zigbee",
     "imageType": 45598,
     "manufacturerCode": 4417,
-    "sha512": "b798d5f7ee5be36fe269681c0b983c7b4eb3f830e2de3b1d44917fc35b3dcaf138d8ef7ae11a4430fa2a158bc37ef6c05f5758f23f2a95edffa465530fe601e2",
+    "sha512": "bf12aaf057b81c2e594809fed3aa3eba00a278ee89215d3708f9eb8cb3bf29a022da454ac3e5ee6b9246196b58bd94f49f6c7744901d70d93eac62c8136cb102",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_nuenzetq",
-      "_TZ3000_nuenzetq"
+      "_TZ3000_nuenzetq_ROMASKU"
     ]
   }
 ]
