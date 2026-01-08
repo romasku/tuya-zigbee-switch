@@ -1161,7 +1161,7 @@ MODULE_MOES_ZM4LT2_TS0002:
   tuya_module: ZT2S
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: criiahcg;TS0002-MS;BB1u;LC3;SB4u;RC2;SB5u;RD2;
+  config_str: criiahcg;TS0002-MS;BB1u;LC3;SB5u;RD2;SB4u;RC2;
   alt_config_str: null
   old_manufacturer_names: null
   old_zb_models: null
@@ -1171,7 +1171,7 @@ MODULE_MOES_ZM4LT2_TS0002:
   build: yes
   status: fully_supported
   info: Supported
-  threads: https://github.com/romasku/tuya-zigbee-switch/issues/167
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/284
   store: https://www.aliexpress.com/item/1005009640015785.html
 MODULE_MOES_ZM4LT3_TS0003:
   human_name: Moes ZM4LT3
