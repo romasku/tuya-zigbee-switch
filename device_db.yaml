@@ -1082,7 +1082,7 @@ MODULE_MOES_TS0002:
   tuya_module: ZT2S
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: qaa59zqd;TS0002-MS;BB1u;LC3;SB5u;RD2;SB4u;RC2;
+  config_str: qaa59zqd;TS0002-MSB;BB1u;LC3;SB5u;RD2;SB4u;RC2;
   alt_config_str: null
   old_manufacturer_names: null
   old_zb_models: null
