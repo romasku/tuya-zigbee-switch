@@ -1129,8 +1129,8 @@ MODULE_MOES_ZM4LT1_TS0001:
   device_type: router
   stock_model_name: TS0001
   stock_manufacturer_name: _TZ3000_afgzktgb
-  stock_converter_manufacturer: Tuya
-  stock_converter_model: TS0001_switch_module
+  stock_converter_manufacturer: Moes
+  stock_converter_model: ZM4LT1
   override_z2m_device: null
   tuya_module: ZTU
   mcu_family: Telink
@@ -1181,8 +1181,8 @@ MODULE_MOES_ZM4LT3_TS0003:
   device_type: router
   stock_model_name: TS0003
   stock_manufacturer_name: _TZ3000_mzcp0of6
-  stock_converter_manufacturer: Tuya
-  stock_converter_model: null
+  stock_converter_manufacturer: Moes
+  stock_converter_model: ZM4LT3
   override_z2m_device: null
   tuya_module: ZTU
   mcu_family: Telink
@@ -1206,23 +1206,23 @@ MODULE_MOES_ZM4LT4_TS0004:
   neutral: required
   device_type: router
   stock_model_name: TS0004
-  stock_manufacturer_name: null
-  stock_converter_manufacturer: null
-  stock_converter_model: null
+  stock_manufacturer_name: _TZ3000_tyg4yiat
+  stock_converter_manufacturer: Moes
+  stock_converter_model: ZM4LT4
   override_z2m_device: null
   tuya_module: ZTU
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: null;TS0004-MS;TODO;
+  config_str: tyg4yiat;TS0004-MS;BC3u;LC2;SD4u;RD3;SC1u;RD7;SC4u;RC0;SA1u;RD2;
   alt_config_str: null
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
   stock_image_type: 54179
   firmware_image_type: 43601
-  build: no
+  build: yes
   status: in_progress
-  info: Needs ID and pinout
+  info: Needs pinout confirmation
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/167
   store: https://www.aliexpress.com/item/1005009640015785.html
 MODULE_NOVATO_TS000F_1GANG:
