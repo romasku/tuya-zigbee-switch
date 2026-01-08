@@ -226,8 +226,8 @@ MODULE_AVATTO_DRY_TS0001:
   info: Reversed state?
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/138
   store: https://www.aliexpress.com/item/1005007342942592.html
-MODULE_AVATTO_TS0001:
-  human_name: AVATTO ZWSM16-1
+MODULE_AVATTO_A_TS0001:
+  human_name: AVATTO ZWSM16-1 🅰
   category: module
   power: mains
   neutral: required
@@ -257,8 +257,8 @@ MODULE_AVATTO_TS0001:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/9
   store: https://www.aliexpress.com/item/1005007247647375.html
-MODULE_AVATTO_TS0002:
-  human_name: AVATTO ZWSM16-2
+MODULE_AVATTO_A_TS0002:
+  human_name: AVATTO ZWSM16-2 🅰
   category: module
   power: mains
   neutral: required
@@ -288,8 +288,8 @@ MODULE_AVATTO_TS0002:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/9
   store: https://www.aliexpress.com/item/1005007247647375.html
-MODULE_AVATTO_TS0003:
-  human_name: AVATTO ZWSM16-3
+MODULE_AVATTO_A_TS0003:
+  human_name: AVATTO ZWSM16-3 🅰
   category: module
   power: mains
   neutral: required
@@ -319,7 +319,7 @@ MODULE_AVATTO_TS0003:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/56
   store: https://www.aliexpress.com/item/1005007247647375.html
-MODULE_AVATTO_TS0004:
+MODULE_AVATTO_A_TS0004:
   human_name: AVATTO ZWSM16-4 🅰
   category: module
   power: mains
@@ -351,7 +351,7 @@ MODULE_AVATTO_TS0004:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/9
   store: https://www.aliexpress.com/item/1005007247647375.html
-MODULE_AVATTO_TS0004_2:
+MODULE_AVATTO_B_TS0004:
   human_name: AVATTO ZWSM16-4 🅱
   category: module
   power: mains
