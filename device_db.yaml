@@ -351,6 +351,32 @@ MODULE_AVATTO_A_TS0004:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/9
   store: https://www.aliexpress.com/item/1005007247647375.html
+MODULE_AVATTO_B_TS0003:
+  human_name: AVATTO ZWSM16-3 🅱
+  category: module
+  power: mains
+  neutral: required
+  device_type: router
+  stock_model_name: TS0003
+  stock_manufacturer_name: _TZ3000_iv4eq7eh
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0003_switch_module_2
+  override_z2m_device: ZWSM16-3-Zigbee
+  tuya_module: ZTU
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: iv4eq7eh;TS0003-AVB2;BC2u;LD2i;SD3u;RC0;SD7u;RD4;SB6u;RC1;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
+  firmware_image_type: 43603
+  build: yes
+  status: in_progress
+  info: Needs pinout confirmation
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/275
+  store: https://www.aliexpress.com/item/1005006041739970.html
 MODULE_AVATTO_B_TS0004:
   human_name: AVATTO ZWSM16-4 🅱
   category: module
@@ -373,7 +399,7 @@ MODULE_AVATTO_B_TS0004:
   stock_image_type: 54179
   firmware_image_type: 43602
   build: yes
-  status: mostly_supported
+  status: in_progress
   info: Needs pinout confirmation
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/275
   store: https://www.aliexpress.com/item/1005006041739970.html
@@ -630,7 +656,7 @@ MODULE_FARYLINK_TS0002:
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0002_basic
   override_z2m_device: L13Z
-  tuya_module: ZT2S
+  tuya_module: ZT2S_real_no_shield
   mcu_family: Telink
   mcu: TLSR8258
   config_str: ruxexjfz;TS0002-NS;BB5u;LB4;SB7u;RC2;SB1u;RC3;
@@ -1726,7 +1752,7 @@ MODULE_UNSH_TS0002:
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0002_basic
   override_z2m_device: L13Z
-  tuya_module: ZT2S_real_no_shield
+  tuya_module: ZT2S_fake_no_shield # YB2S
   mcu_family: Telink
   mcu: TLSR8258
   config_str: ruxexjfz;TS0002-NS1;BD2u;LD3i;SA0u;SD7u;RB5;RB4;
