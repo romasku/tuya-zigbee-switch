@@ -31,7 +31,7 @@ const romasku = {
             endpointName,
             lookup: { on_off: 0, off_on: 1, toggle_simple: 2, toggle_smart_sync: 3, toggle_smart_opposite: 4 },
             cluster: "genOnOffSwitchCfg",
-            attribute: "switchActions", // Enum8
+            attribute: {ID: 0x0010, type: 0x30, required: true, write: true, min: 0, max: 4}, // Enum8
             description: `Select how switch should work:
             - on_off: When switch physically moved to position 1 it always generates ON command, and when moved to position 2 it generates OFF command
             - off_on: Same as on_off, but positions are swapped
