@@ -2697,6 +2697,84 @@ SWITCH_BSEED_TS0726_4GANG:
   - https://www.aliexpress.com/item/1005008749674564.html
   - https://www.bseed.com/products/bseed-smart-zigbee-light-switch-with-neutral-hub-required-switch-work-with-tuya-alexa?variant=46312889090203
   - https://www.bseed.com/products/bseed-scale-series-smart-zigbee-light-switch-4-gang-with-neutral
+SWITCH_HOMEETEC_TOUCH_TS0001:
+  human_name: Homeetec 1-gang touch 
+  category: switch
+  power: mains
+  neutral: required
+  device_type: router
+  stock_model_name: TS0001
+  stock_manufacturer_name: _TZ3000_bmqxalil
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0001_switch_1_gang
+  override_z2m_device: Homeetec_37022454
+  tuya_module: ZT3L
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: bmqxalil;TS0001-HMT;LC2;SD4u;RD7;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
+  firmware_image_type: 43608
+  build: no
+  status: in_progress
+  info: Needs pinout confirmation, backlight C0?
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/286
+  store: null
+SWITCH_HOMEETEC_TOUCH_TS0002:
+  human_name: Homeetec 2-gang touch 
+  category: switch
+  power: mains
+  neutral: required
+  device_type: router
+  stock_model_name: TS0002
+  stock_manufacturer_name: _TZ3000_in5qxhtt
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0002_limited
+  override_z2m_device: 37022463-1
+  tuya_module: ZT3L
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: in5qxhtt;TS0002-HMT;LC2;SD4u;RD7;SA0u;RD2;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
+  firmware_image_type: 43607
+  build: no
+  status: in_progress
+  info: Needs pinout confirmation, backlight C0?
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/286
+  store: null
+SWITCH_HOMEETEC_TOUCH_TS0003:
+  human_name: Homeetec 3-gang touch 
+  category: switch
+  power: mains
+  neutral: required
+  device_type: router
+  stock_model_name: TS0003
+  stock_manufacturer_name: _TZ3000_pv4puuxi
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0003_switch_3_gang
+  override_z2m_device: 37022474_1
+  tuya_module: ZT3L
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: pv4puuxi;TS0003-HMT;LC2;SD4u;RD7;SA0u;RD2;SB4u;RC3;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
+  firmware_image_type: 43606
+  build: yes
+  status: mostly_supported
+  info: Needs pinout confirmation, backlight C0?
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/286
+  store: null
 SWITCH_IHSENO_TOUCH_TS0001:
   human_name: iHseno 1-gang touch switch
   category: switch
