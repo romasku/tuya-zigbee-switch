@@ -41,6 +41,7 @@ if __name__ == "__main__":
 
         relay_cnt = 0
         switch_cnt = 0
+        cover_cnt = 0
         indicators_cnt = 0
         has_dedicated_net_led = False
         for peripheral in peripherals:
@@ -50,6 +51,8 @@ if __name__ == "__main__":
                 relay_cnt += 1
             if peripheral[0] == 'S':
                 switch_cnt += 1
+            if peripheral[0] == 'C':
+                cover_cnt += 1
             if peripheral[0] == 'I':
                 indicators_cnt += 1
             if peripheral[0] == 'L':
@@ -73,12 +76,22 @@ if __name__ == "__main__":
         else:
             relay_names = [f"relay_{index}" for index in range(relay_cnt)]
 
+        if cover_cnt == 1:
+            cover_names = ["cover"]
+        elif cover_cnt == 2:
+            cover_names = ["cover_left", "cover_right"]
+        elif cover_cnt == 3:
+            cover_names = ["cover_left", "cover_middle", "cover_right"]
+        else:
+            cover_names = [f"cover_{index}" for index in range(cover_cnt)]
+        
         devices.append({
             "zb_models": [zb_model] + (device.get("old_zb_models") or []),
             "model": device.get("override_z2m_device") or device["stock_converter_model"],
             "switchNames": switch_names,
             "relayNames": relay_names,
             "relayIndicatorNames": relay_names[:indicators_cnt],
+            "coverNames": cover_names,
             "has_dedicated_net_led": has_dedicated_net_led,
         })
 

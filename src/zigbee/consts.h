@@ -13,6 +13,7 @@
 #define ZCL_CLUSTER_LEVEL_CONTROL                     0x0008
 #define ZCL_CLUSTER_GROUPS                            0x0004
 #define ZCL_CLUSTER_OTA_BOOTLOAD                      0x0019
+#define ZCL_CLUSTER_WINDOW_COVERING                   0x0102
 
 
 // Attributes
@@ -73,6 +74,12 @@
 
 #define ZCL_ATTR_GROUP_NAME_SUPPORT                     0x0000
 
+// WindowCovering cluster
+#define ZCL_ATTR_WINDOW_COVERING_TYPE                               0x0000
+#define ZCL_ATTR_WINDOW_COVERING_CURRENT_POSITION_LIFT_PERCENTAGE   0x0008
+#define ZCL_ATTR_WINDOW_COVERING_MOVING                             0xff00
+#define ZCL_ATTR_WINDOW_COVERING_MOTOR_REVERSAL                     0xff01
+
 // OTA cluster
 
 #define ZCL_ATTR_OTA_UPGRADE_SERVER_ID                  0x0000
@@ -127,6 +134,12 @@
 #define ZCL_LEVEL_MOVE_UP                                     0x00
 #define ZCL_LEVEL_MOVE_DOWN                                   0x01
 
+// WindowCovering cluster
+
+#define ZCL_ATTR_WINDOW_COVERING_MOVING_STOPPED 0x00
+#define ZCL_ATTR_WINDOW_COVERING_MOVING_OPENING 0x01
+#define ZCL_ATTR_WINDOW_COVERING_MOVING_CLOSING 0x02
+
 // Commands
 
 // OnOff Cluster
@@ -148,6 +161,12 @@
 #define ZCL_CMD_LEVEL_MOVE_WITH_ON_OFF                    0x05
 #define ZCL_CMD_LEVEL_STEP_WITH_ON_OFF                    0x06
 #define ZCL_CMD_LEVEL_STOP_WITH_ON_OFF                    0x07
+
+// WindowCovering Cluster
+
+#define ZCL_CMD_WINDOW_COVERING_UP_OPEN                    0x00
+#define ZCL_CMD_WINDOW_COVERING_DOWN_CLOSE                 0x01
+#define ZCL_CMD_WINDOW_COVERING_STOP                       0x02
 
 // OTA Cluster
 

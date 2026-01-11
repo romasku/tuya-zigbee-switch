@@ -14,11 +14,17 @@ from tests.zcl_consts import (
     ZCL_ATTR_ONOFF_CONFIGURATION_SWITCH_BINDING_MODE,
     ZCL_ATTR_ONOFF_CONFIGURATION_SWITCH_MODE,
     ZCL_ATTR_ONOFF_CONFIGURATION_SWITCH_RELAY_MODE,
+    ZCL_ATTR_WINDOW_COVERING_MOTOR_REVERSAL,
+    ZCL_ATTR_WINDOW_COVERING_MOVING,
     ZCL_CLUSTER_MULTISTATE_INPUT_BASIC,
     ZCL_CLUSTER_ON_OFF,
     ZCL_CLUSTER_ON_OFF_SWITCH_CONFIG,
+    ZCL_CLUSTER_WINDOW_COVERING,
     ZCL_CMD_ONOFF_OFF,
     ZCL_CMD_ONOFF_ON,
+    ZCL_CMD_WINDOW_COVERING_UP_OPEN,
+    ZCL_CMD_WINDOW_COVERING_DOWN_CLOSE,
+    ZCL_CMD_WINDOW_COVERING_STOP,
 )
 
 DEBOUNCE_MS = 50
@@ -364,6 +370,30 @@ class Device:
         )
         return self.zcl_switch_get_multistate_value(endpoint)
 
+    # Cover helpers:
+    def zcl_cover_get_moving(self, endpoint: int) -> int:
+        return int(self.read_zigbee_attr(
+            endpoint,
+            ZCL_CLUSTER_WINDOW_COVERING,
+            ZCL_ATTR_WINDOW_COVERING_MOVING
+        ))
+
+    def zcl_cover_motor_reversal_set(self, endpoint: int, motor_reversal: int) -> None:
+        self.write_zigbee_attr(
+            endpoint,
+            ZCL_CLUSTER_WINDOW_COVERING,
+            ZCL_ATTR_WINDOW_COVERING_MOTOR_REVERSAL,
+            motor_reversal,
+        )
+
+    def zcl_cover_open(self, endpoint: int) -> None:
+        self.call_zigbee_cmd(endpoint, ZCL_CLUSTER_WINDOW_COVERING, ZCL_CMD_WINDOW_COVERING_UP_OPEN)
+
+    def zcl_cover_close(self, endpoint: int) -> None:
+        self.call_zigbee_cmd(endpoint, ZCL_CLUSTER_WINDOW_COVERING, ZCL_CMD_WINDOW_COVERING_DOWN_CLOSE)
+
+    def zcl_cover_stop(self, endpoint: int) -> None:
+        self.call_zigbee_cmd(endpoint, ZCL_CLUSTER_WINDOW_COVERING, ZCL_CMD_WINDOW_COVERING_STOP)
 
 def wait_for(
     condition_fn: Callable[[], bool], timeout: float = 2.0, interval: float = 0.1
