@@ -766,7 +766,7 @@ MODULE_GIRIER_TS130F_2GANG:
   tuya_module: ZTU
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: j1xl73iw;TS130F-GIR-DUAL;LC1;SB4u;RC0;SD2u;RC4;SC3u;RD4;SC2u;RD7;
+  config_str: j1xl73iw;TS130F-GIR-DUAL;LC1;CC0C4;CD4D7;
   alt_config_str: null
   old_manufacturer_names: null
   old_zb_models: null
