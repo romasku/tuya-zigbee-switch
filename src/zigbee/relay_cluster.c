@@ -9,7 +9,7 @@ hal_zigbee_cmd_result_t relay_cluster_callback(zigbee_relay_cluster *cluster,
                                                uint8_t command_id,
                                                void *cmd_payload);
 hal_zigbee_cmd_result_t relay_cluster_callback_trampoline(uint8_t endpoint,
-                                                          uint8_t cluster_id,
+                                                          uint16_t cluster_id,
                                                           uint8_t command_id,
                                                           void *cmd_payload);
 
@@ -74,7 +74,7 @@ void relay_cluster_add_to_endpoint(zigbee_relay_cluster *cluster,
 }
 
 hal_zigbee_cmd_result_t relay_cluster_callback_trampoline(uint8_t endpoint,
-                                                          uint8_t cluster_id,
+                                                          uint16_t cluster_id,
                                                           uint8_t command_id,
                                                           void *cmd_payload) {
   return relay_cluster_callback(relay_cluster_by_endpoint[endpoint], command_id,

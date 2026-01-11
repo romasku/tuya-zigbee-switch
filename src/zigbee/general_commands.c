@@ -4,7 +4,7 @@
 #include "relay_cluster.h"
 #include "switch_cluster.h"
 
-static void zigbee_on_attr_change(uint8_t endpoint, uint8_t cluster_id,
+static void zigbee_on_attr_change(uint8_t endpoint, uint16_t cluster_id,
                                   uint16_t attribute_id) {
   printf("Attribute changed, ep: %d, cluster: %d, attr: %d\r\n", endpoint,
          cluster_id, attribute_id);
