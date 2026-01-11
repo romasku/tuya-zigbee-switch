@@ -47,6 +47,9 @@ static cluster_registerFunc_t get_register_func_by_cluster_id(u16 cluster_id) {
       ZCL_CLUSTER_GEN_MULTISTATE_INPUT_BASIC) { // Multistate Input
     return zcl_multistate_input_register;
   }
+  if (cluster_id == ZCL_CLUSTER_CLOSURES_WINDOW_COVERING) { // Window Covering
+    return zcl_windowCovering_register;
+  }
   return NULL;
 }
 
@@ -66,9 +69,18 @@ static status_t cmd_callback_on_off(zclIncomingAddrInfo_t *pAddrInfo, u8 cmdId,
                       cmdPayload);
 }
 
+static status_t cmd_callback_window_covering(zclIncomingAddrInfo_t *pAddrInfo, u8 cmdId,
+                                              void *cmdPayload) {
+  return cmd_callback(pAddrInfo->dstEp, ZCL_CLUSTER_CLOSURES_WINDOW_COVERING, cmdId,
+                      cmdPayload);
+}
+
 static cluster_forAppCb_t get_cmd_callback_by_cluster_id(u16 cluster_id) {
   if (cluster_id == ZCL_CLUSTER_GEN_ON_OFF) { // On/Off cluster
     return cmd_callback_on_off;
+  }
+  if (cluster_id == ZCL_CLUSTER_CLOSURES_WINDOW_COVERING) { // Window Covering cluster
+    return cmd_callback_window_covering;
   }
   return NULL;
 }

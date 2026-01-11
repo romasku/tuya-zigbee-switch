@@ -21,6 +21,7 @@ def test_endpoints_layout_matches_config(device: Device, device_config: str):
     parts = [p for p in device_config.split(";") if p]
     num_switches = sum(1 for p in parts[2:] if p.startswith("S"))
     num_relays = sum(1 for p in parts[2:] if p.startswith("R"))
+    num_covers = sum(1 for p in parts[2:] if p.startswith("C"))
 
     # For each switch endpoint, check presence of clusters
     for ep in range(1, num_switches + 1):
@@ -54,6 +55,7 @@ def test_endpoints_layout_matches_config(device: Device, device_config: str):
         "Manu;Model;",  # minimal
         "X;Y;SA0u;LB1;RB2;",  # dedicated status LED + one switch/relay
         "X;Y;SA0u;IB0;RB1;",  # indicator LED for relays
+        "X;Y;CA0A1;",  # single cover
     ],
 )
 def test_various_configs_boot(cfg: str):

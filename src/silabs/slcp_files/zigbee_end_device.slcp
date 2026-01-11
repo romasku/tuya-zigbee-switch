@@ -44,12 +44,14 @@ source:
 - {path: ../../zigbee/group_cluster.c}
 - {path: ../../zigbee/relay_cluster.c}
 - {path: ../../zigbee/switch_cluster.c}
+- {path: ../../zigbee/cover_cluster.c}
 - {path: ../../zigbee/basic_cluster.h}
 - {path: ../../zigbee/cluster_common.h}
 - {path: ../../zigbee/consts.h}
 - {path: ../../zigbee/build_date.h}
 - {path: ../../zigbee/relay_cluster.h}
 - {path: ../../zigbee/switch_cluster.h}
+- {path: ../../zigbee/cover_cluster.h}
 - {path: ../../zigbee/zigbee_commands.h}
 - {path: ../../zigbee/general_commands.h}
 - {path: ../../zigbee/group_cluster.h}
