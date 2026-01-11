@@ -113,7 +113,7 @@ void hal_zigbee_start_network_steering() {
   }
 }
 
-void hal_zigbee_notify_attribute_changed(uint8_t endpoint, uint8_t cluster_id,
+void hal_zigbee_notify_attribute_changed(uint8_t endpoint, uint16_t cluster_id,
                                          uint16_t attribute_id) {
   io_log("ZIGBEE", "Attribute changed: ep=%d, cluster=0x%04x, attr=0x%04x",
          endpoint, cluster_id, attribute_id);

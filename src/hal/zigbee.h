@@ -35,7 +35,7 @@ typedef struct {
 
 /** Function called when cluster receives a command */
 typedef hal_zigbee_cmd_result_t (*hal_zigbee_cmd_callback_t)(uint8_t endpoint,
-                                                             uint8_t cluster_id,
+                                                             uint16_t cluster_id,
                                                              uint8_t command_id,
                                                              void *cmd_payload);
 
@@ -102,12 +102,12 @@ void hal_zigbee_set_image_type(uint16_t image_type);
  * @param cluster_id Cluster ID
  * @param attribute_id Attribute ID that changed
  */
-void hal_zigbee_notify_attribute_changed(uint8_t endpoint, uint8_t cluster_id,
+void hal_zigbee_notify_attribute_changed(uint8_t endpoint, uint16_t cluster_id,
                                          uint16_t attribute_id);
 
 /** Function called when attribute is written via Zigbee */
 typedef void (*hal_attribute_change_callback_t)(uint8_t endpoint,
-                                                uint8_t cluster_id,
+                                                uint16_t cluster_id,
                                                 uint16_t attribute_id);
 
 /**
