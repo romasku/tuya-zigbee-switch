@@ -44,7 +44,7 @@ BOARD__MHCOZY_TS0004_2:
   category: board
   power: mains
   neutral: required
-  device_type: router
+  device_type: end_device # specifically requested
   stock_model_name: TS0004
   stock_manufacturer_name: _TZ3000_u3oupgdy
   stock_converter_manufacturer: Tuya
@@ -2444,7 +2444,7 @@ SWITCH_BSEED_TOUCH_TS0001:
   status: fully_supported
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/pull/186
-  store: null
+  store: https://livolotouch.ru/vyklyuchateli/odnoklavishnyy-umnyy-sensornyy-vyklyuchatel-livolo-zigbee-1-post-chernyy
 SWITCH_BSEED_TOUCH_TS0002:
   human_name: BSEED 2-gang touch switch
   category: switch
