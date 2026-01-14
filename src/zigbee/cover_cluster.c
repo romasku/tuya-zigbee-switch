@@ -13,15 +13,10 @@
 // Configuration & Constants
 // ============================================================================
 
-// Minimum on-time after relay activation - prevents breaking the circuit during
-// inrush current peak (Locked Rotor Amps), minimizing arc intensity and
-// preventing contact welding.
-#define RELAY_MIN_ON_TIME_MS    200
-
-// Minimum off-time before relay deactivation - allows magnetic field to
-// collapse and motor to decelerate, preventing Back-EMF spikes and mechanical
-// shock to gears.
-#define RELAY_MIN_OFF_TIME_MS    500
+// Minimum time between relay state changes - protects relay contacts from
+// arc damage during locked rotor current (startup), and prevents mechanical
+// shock to motor/gears when reversing direction.
+#define RELAY_MIN_SWITCH_TIME_MS    200
 
 static zigbee_cover_cluster *      cover_cluster_by_endpoint[10];
 static zigbee_cover_cluster_config nv_config_buffer;
@@ -70,75 +65,56 @@ void cover_apply_movement(zigbee_cover_cluster *cluster, uint8_t moving)
                                       ZCL_ATTR_WINDOW_COVERING_MOVING);
 }
 
+void cover_schedule_movement(zigbee_cover_cluster *cluster, uint8_t moving, uint32_t delay)
+{
+  cluster->pending_movement     = moving;
+  cluster->has_pending_movement = 1;
+  hal_tasks_schedule(&cluster->delay_task, delay);
+}
+
 /**
  * Requests a movement state change with motor protection timing enforcement.
  *
  * This is the safe, high-level function for all movement requests. It enforces
- * minimum on/off timing constraints to protect the motor and relay contacts:
- *
- * - STOPPED → MOVING: Enforces minimum off-time since last stop
- * - MOVING → STOPPED: Enforces minimum on-time since last start
- * - MOVING → MOVING (direction change): Enforces minimum on-time, stops, then waits minimum off-time
+ * minimum time between relay state changes to protect the motor and relay contacts:
  *
  * If timing constraints aren't met, the movement is scheduled for delayed execution.
  */
 void cover_request_movement(zigbee_cover_cluster *cluster, uint8_t moving)
 {
-  uint32_t delay = 0;
-
-  if (moving == ZCL_ATTR_WINDOW_COVERING_MOVING_STOPPED)
+  // Ignore duplicate requests and cancel any pending delayed operation. This is especially
+  // important for some cover switches with stop buttons. Their stop button closes both contacts,
+  // so pressing it while moving might initially appear as a repeated/reversal command before the
+  // stop command arrives. Canceling pending operations ensures we handle this sequence correctly.
+  if (moving == cluster->moving)
   {
-    if (cluster->moving != ZCL_ATTR_WINDOW_COVERING_MOVING_STOPPED)
+    if (cluster->has_pending_movement)
     {
-      uint32_t elapsed_since_on = hal_millis() - cluster->last_switch_time;
-      if (elapsed_since_on < RELAY_MIN_ON_TIME_MS)
-      {
-        delay = RELAY_MIN_ON_TIME_MS - elapsed_since_on;
-      }
-      else
-      {
-        cover_apply_movement(cluster, ZCL_ATTR_WINDOW_COVERING_MOVING_STOPPED);
-      }
+      hal_tasks_unschedule(&cluster->delay_task);
     }
+
+    return;
+  }
+
+  // Enforce motor protection delay. Minimum time must elapse between relay state changes.
+  uint32_t elapsed = hal_millis() - cluster->last_switch_time;
+  if (elapsed < RELAY_MIN_SWITCH_TIME_MS)
+  {
+    cover_schedule_movement(cluster, moving, RELAY_MIN_SWITCH_TIME_MS - elapsed);
+    return;
+  }
+
+  // Direct transitions to/from STOP can be applied immediately. Direction reversals require
+  // stopping first to avoid damage to the motor and the relays.
+  if (moving == ZCL_ATTR_WINDOW_COVERING_MOVING_STOPPED ||
+      cluster->moving == ZCL_ATTR_WINDOW_COVERING_MOVING_STOPPED)
+  {
+    cover_apply_movement(cluster, moving);
   }
   else
   {
-    if (cluster->moving == ZCL_ATTR_WINDOW_COVERING_MOVING_STOPPED)
-    {
-      uint32_t elapsed_since_off = hal_millis() - cluster->last_switch_time;
-      if (cluster->last_switch_time > 0 && elapsed_since_off < RELAY_MIN_OFF_TIME_MS)
-      {
-        delay = RELAY_MIN_OFF_TIME_MS - elapsed_since_off;
-      }
-      else
-      {
-        cover_apply_movement(cluster, moving);
-      }
-    }
-    else if (cluster->moving != moving)
-    {
-      uint32_t elapsed_since_on = hal_millis() - cluster->last_switch_time;
-      if (elapsed_since_on < RELAY_MIN_ON_TIME_MS)
-      {
-        delay = RELAY_MIN_ON_TIME_MS - elapsed_since_on;
-      }
-      else
-      {
-        cover_apply_movement(cluster, ZCL_ATTR_WINDOW_COVERING_MOVING_STOPPED);
-        delay = RELAY_MIN_OFF_TIME_MS;
-      }
-    }
-  }
-
-  if (delay > 0)
-  {
-    cluster->pending_movement     = moving;
-    cluster->has_pending_movement = 1;
-    hal_tasks_schedule(&cluster->delay_task, delay);
-  }
-  else if (cluster->has_pending_movement)
-  {
-    hal_tasks_unschedule(&cluster->delay_task);
+    cover_apply_movement(cluster, ZCL_ATTR_WINDOW_COVERING_MOVING_STOPPED);
+    cover_schedule_movement(cluster, moving, RELAY_MIN_SWITCH_TIME_MS);
   }
 }
 
