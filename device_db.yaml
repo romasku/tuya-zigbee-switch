@@ -1037,7 +1037,9 @@ MODULE_IHSENO_TS0001:
   status: fully_supported
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/105
-  store: https://www.aliexpress.com/item/1005008107698143.html
+  store: 
+    - https://www.aliexpress.com/item/1005008107698143.html
+    - https://www.aliexpress.com/item/1005010559698949.html
 MODULE_IHSENO_TS0002:
   human_name: iHseno 2-gang
   category: module
@@ -1063,7 +1065,9 @@ MODULE_IHSENO_TS0002:
   status: in_progress
   info: Needs ID, pinout confirmation
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/105
-  store: https://www.aliexpress.com/item/1005008107698143.html
+  store: 
+    - https://www.aliexpress.com/item/1005008107698143.html
+    - https://www.aliexpress.com/item/1005010559698949.html
 MODULE_IHSENO_TS0003:
   human_name: iHseno 3-gang
   category: module
@@ -1092,7 +1096,9 @@ MODULE_IHSENO_TS0003:
   status: fully_supported
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/85
-  store: https://www.aliexpress.com/item/1005008107698143.html
+  store: 
+    - https://www.aliexpress.com/item/1005008107698143.html
+    - https://www.aliexpress.com/item/1005010559698949.html
 MODULE_IHSENO_TS0004:
   human_name: iHseno 4-gang
   category: module
@@ -1119,7 +1125,9 @@ MODULE_IHSENO_TS0004:
   status: fully_supported
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/105
-  store: https://www.aliexpress.com/item/1005008107698143.html
+  store: 
+    - https://www.aliexpress.com/item/1005008107698143.html
+    - https://www.aliexpress.com/item/1005010559698949.html
 MODULE_MOES_TS0002:
   human_name: Moes ZM-104B-M
   category: module
