@@ -2706,7 +2706,7 @@ SWITCH_BSEED_TS0726_4GANG:
   - https://www.bseed.com/products/bseed-smart-zigbee-light-switch-with-neutral-hub-required-switch-work-with-tuya-alexa?variant=46312889090203
   - https://www.bseed.com/products/bseed-scale-series-smart-zigbee-light-switch-4-gang-with-neutral
 SWITCH_HOMEETEC_TOUCH_TS0001:
-  human_name: Homeetec 1-gang touch 
+  human_name: homeetec 1-gang touch 
   category: switch
   power: mains
   neutral: required
@@ -2719,7 +2719,7 @@ SWITCH_HOMEETEC_TOUCH_TS0001:
   tuya_module: ZT3L
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: bmqxalil;TS0001-HMT;LC2;SD4u;RD7;M;
+  config_str: bmqxalil;TS0001-HMT;LC2i;SA0u;RD2;M;
   alt_config_str: null
   old_manufacturer_names: null
   old_zb_models: null
@@ -2732,7 +2732,7 @@ SWITCH_HOMEETEC_TOUCH_TS0001:
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/286
   store: null
 SWITCH_HOMEETEC_TOUCH_TS0002:
-  human_name: Homeetec 2-gang touch 
+  human_name: homeetec 2-gang touch 
   category: switch
   power: mains
   neutral: required
@@ -2745,7 +2745,7 @@ SWITCH_HOMEETEC_TOUCH_TS0002:
   tuya_module: ZT3L
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: in5qxhtt;TS0002-HMT;LC2;SD4u;RD7;SA0u;RD2;M;
+  config_str: in5qxhtt;TS0002-HMT;LC2i;SB4u;RD7;SD4u;RC3;M;
   alt_config_str: null
   old_manufacturer_names: null
   old_zb_models: null
@@ -2758,7 +2758,7 @@ SWITCH_HOMEETEC_TOUCH_TS0002:
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/286
   store: null
 SWITCH_HOMEETEC_TOUCH_TS0003:
-  human_name: Homeetec 3-gang touch 
+  human_name: homeetec 3-gang touch 
   category: switch
   power: mains
   neutral: required
@@ -2767,11 +2767,11 @@ SWITCH_HOMEETEC_TOUCH_TS0003:
   stock_manufacturer_name: _TZ3000_pv4puuxi
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0003_switch_3_gang
-  override_z2m_device: 37022474_1
+  override_z2m_device: "37022474_1"
   tuya_module: ZT3L
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: pv4puuxi;TS0003-HMT;LC2;SD4u;RD7;SA0u;RD2;SB4u;RC3;M;
+  config_str: pv4puuxi;TS0003-HMT;LC2i;SB4u;RD7;SA0u;RD2;SD4u;RC3;M;
   alt_config_str: null
   old_manufacturer_names: null
   old_zb_models: null
