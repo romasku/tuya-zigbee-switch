@@ -1317,10 +1317,10 @@ MODULE_SONOFF_ZBMINIL2:
   power: mains
   neutral: without
   device_type: end_device
-  stock_model_name: null
-  stock_manufacturer_name: null
-  stock_converter_manufacturer: null
-  stock_converter_model: null
+  stock_model_name: ZBMINIL2
+  stock_manufacturer_name: SONOFF
+  stock_converter_manufacturer: SONOFF
+  stock_converter_model: ZBMINIL2
   override_z2m_device: null
   tuya_module: none
   mcu_family: Silabs
