@@ -86,6 +86,7 @@ The pinout is stored in the **device config string**.
 | **`L`** | Network led   | • Blinks while pairing <br> • Is the backlight sometimes                                                          |
 | **`S`** | Switch        | • User input <br> • Tactile/touch button or external switch <br> • Spam to put in pairing mode                    |
 | **`R`** | Relay / Triac | • Output <br> • Non-latching: `RC1` - 1 pin: on when high <br> • Latching: `RC2C3` - 2 pins: pulse on, pulse off  |                                               |
+| **`C`** | Cover | • Motor control for curtains/blinds/shades <br> • Format: `CA2B3` - 2 pins: open relay, close relay |
 | **`I`** | Indicator LED | • 1 per relay, follows state <br> • Blinks while pairing if there is no network led                               |
 
 For buttons (`B`) and switches (`S`), the next character chooses the internal pull-up/down resistor:  
