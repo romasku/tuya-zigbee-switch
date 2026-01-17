@@ -72,6 +72,7 @@
 #define MFG_ID_NUMONYX               (0x20)
 #define MFG_ID_ISSI                  (0x9D)
 #define MFG_ID_TSINGTENG             (0xEB)
+#define MFG_ID_BOYA                  (0x68)
 
 // JEDEC Device IDs
 #define DEVICE_ID_SPANSION_8M        (0x4014)
@@ -99,6 +100,7 @@
 #define DEVICE_ID_ISSI_2M            (0x4012)
 #define DEVICE_ID_ISSI_4M            (0x4013)
 #define DEVICE_ID_TSINGTENG_8M       (0x6014)
+#define DEVICE_ID_BOYA_8M            (0x1014)
 
 // Protocol commands
 #define CMD_WRITE_ENABLE             (0x06)
@@ -159,6 +161,7 @@
 #define TIMING_ERASE_ISSI_2M_MAX_MS            (2048)
 #define TIMING_ERASE_ISSI_4M_MAX_MS            (3072)
 #define TIMING_ERASE_TSINGTENG_8M_MAX_MS       (20480)
+#define TIMING_ERASE_BOYA_8M_MAX_MS            (20480)
 
 /** @endcond */
 
@@ -267,6 +270,11 @@
 #define BTL_STORAGE_SPIFLASH_TSINGTENG_TS25Q80UA    1// 1MB
 #endif
 
+#if defined(BTL_STORAGE_SPIFLASH_BOYA_DEVICES)
+/// Support Boya BY25Q80AW
+#define BTL_STORAGE_SPIFLASH_BOYA_BY25Q80AW    1 // 1MB
+#endif
+
 #if (defined(BTL_STORAGE_SPIFLASH_ALL_DEVICES)            \
     || (!defined(BTL_STORAGE_SPIFLASH_SPANSION_DEVICES)   \
     && !defined(BTL_STORAGE_SPIFLASH_SPANSION_S25FL208K)  \
@@ -322,6 +330,7 @@
 #define BTL_STORAGE_SPIFLASH_ISSI_IS25LQ020B        1 // 2MB
 #define BTL_STORAGE_SPIFLASH_ISSI_IS25LQ040B        1 // 4MB
 #define BTL_STORAGE_SPIFLASH_TSINGTENG_TS25Q80UA    1 // 1MB
+#define BTL_STORAGE_SPIFLASH_BOYA_BY25Q80AW         1 // 1MB
 #endif
 
 #if defined(BTL_STORAGE_SPIFLASH_SPANSION_S25FL208K) && \
@@ -710,6 +719,22 @@ static const BootloaderStorageImplementationInformation_t tsingteng8MInfo = {
      | BOOTLOADER_STORAGE_IMPL_CAPABILITY_PAGE_ERASE_REQUIRED),
     TIMING_ERASE_4K_MAX_MS,
     TIMING_ERASE_TSINGTENG_8M_MAX_MS,
+    DEVICE_SECTOR_SIZE,
+    DEVICE_SIZE_8M,
+    NULL,
+    DEVICE_WORD_SIZE, // word size in bytes
+    BOOTLOADER_STORAGE_JEDEC
+};
+#endif
+
+#if (BTL_STORAGE_SPIFLASH_BOYA_BY25Q80AW == 1)
+/// Information for Boya BY25Q80AW
+static const BootloaderStorageImplementationInformation_t boya8MInfo = {
+    BOOTLOADER_STORAGE_IMPL_INFO_VERSION,
+    (BOOTLOADER_STORAGE_IMPL_CAPABILITY_ERASE_SUPPORTED
+     | BOOTLOADER_STORAGE_IMPL_CAPABILITY_PAGE_ERASE_REQUIRED),
+    TIMING_ERASE_4K_MAX_MS,
+    TIMING_ERASE_BOYA_8M_MAX_MS,
     DEVICE_SECTOR_SIZE,
     DEVICE_SIZE_8M,
     NULL,
