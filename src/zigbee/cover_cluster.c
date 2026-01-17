@@ -76,7 +76,7 @@ void cover_schedule_movement(zigbee_cover_cluster *cluster, uint8_t moving, uint
  * Requests a movement state change with motor protection timing enforcement.
  *
  * This is the safe, high-level function for all movement requests. It enforces
- * minimum time between relay state changes to protect the motor and relay contacts:
+ * minimum time between relay state changes to protect the motor and relay contacts.
  *
  * If timing constraints aren't met, the movement is scheduled for delayed execution.
  */
