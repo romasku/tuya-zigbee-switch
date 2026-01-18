@@ -4,6 +4,7 @@ from zhaquirks import CustomCluster
 from zigpy.quirks.v2 import QuirkBuilder, ReportingConfig, SensorDeviceClass, EntityType
 from zigpy.zcl import ClusterType, foundation
 from zigpy.zcl.clusters.general import OnOffConfiguration, SwitchType, MultistateInput, OnOff, Basic
+from zigpy.zcl.clusters.closures import WindowCovering
 from zigpy.zcl.foundation import ZCLAttributeDef
 import zigpy.types as t
 
@@ -124,6 +125,30 @@ class OnOffWithIndicatorCluster(CustomCluster, OnOff):
             is_manufacturer_specific=True,
         )
 
+
+class CoverMoving(t.enum8):
+    Stopped = 0x00
+    Opening = 0x01
+    Closing = 0x02
+
+
+class CustomWindowCoveringCluster(CustomCluster, WindowCovering):
+
+    class AttributeDefs(WindowCovering.AttributeDefs):
+        moving = ZCLAttributeDef(
+            id=0xff00,
+            type=CoverMoving,
+            access="r",
+            is_manufacturer_specific=True,
+        )
+
+        motor_reversal = ZCLAttributeDef(
+            id=0xff01,
+            type=t.Bool,
+            access="rw",
+            is_manufacturer_specific=True,
+        )
+
 '''``````````````````````````````````````````````````````````````````
   This file (`zha_quirk.py`) is generated. 
   
@@ -147,6 +172,7 @@ for config in CONFIGS:
     relay_cnt = 0
     switch_cnt = 0
     indicators_cnt = 0
+    cover_cnt = 0
     has_dedicated_net_led = False
     for peripheral in peripherals:
         if peripheral == "SLP":
@@ -155,6 +181,8 @@ for config in CONFIGS:
             relay_cnt += 1
         if peripheral[0] == 'S':
             switch_cnt += 1
+        if peripheral[0] == 'C':
+            cover_cnt += 1
         if peripheral[0] == 'I':
             indicators_cnt += 1
         if peripheral[0] == 'L':
@@ -267,6 +295,32 @@ for config in CONFIGS:
                 reporting_config=ReportingConfig(
                     min_interval=0, max_interval=300, reportable_change=1
                 ),
+            )
+        )
+
+    for endpoint_id in range(switch_cnt + indicators_cnt + 1, switch_cnt + indicators_cnt + cover_cnt + 1):
+        builder = (
+            builder
+            .removes(WindowCovering.cluster_id, cluster_type=ClusterType.Client, endpoint_id=endpoint_id)
+            .adds(CustomWindowCoveringCluster, endpoint_id=endpoint_id)
+            .sensor(
+                CustomWindowCoveringCluster.AttributeDefs.moving.name,
+                CustomWindowCoveringCluster.cluster_id,
+                translation_key="cover_moving_"+str(endpoint_id),
+                fallback_name="Cover moving "+str(endpoint_id),
+                endpoint_id=endpoint_id,
+                reporting_config=ReportingConfig(min_interval=0, max_interval=300, reportable_change=1),
+                device_class=SensorDeviceClass.ENUM,
+                attribute_converter = lambda x: {0: "stopped", 1: "opening", 2: "closing"}[int(x)],
+                entity_type=EntityType.DIAGNOSTIC,
+            )
+            .switch(
+                CustomWindowCoveringCluster.AttributeDefs.motor_reversal.name,
+                CustomWindowCoveringCluster.cluster_id,
+                translation_key="cover_motor_reversal_"+str(endpoint_id),
+                fallback_name="Cover motor reversal "+str(endpoint_id),
+                endpoint_id=endpoint_id,
+                entity_type=EntityType.CONFIG,
             )
         )
 
