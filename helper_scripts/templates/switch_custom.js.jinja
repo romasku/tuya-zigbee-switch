@@ -330,7 +330,6 @@ const definitions = [
                 },
             ]);
             {% endfor %}
-
             {% for coverName in device.coverNames %}
             const cover{{loop.index}} = device.getEndpoint({{loop.index + (device.switchNames | length) + (device.relayNames | length)}});
             await reporting.bind(cover{{loop.index}}, coordinatorEndpoint, ["closuresWindowCovering"]);
