@@ -42,7 +42,7 @@ def cleanup_nvm():
 
 @pytest.fixture
 def device_config() -> str:
-    return "StubManufacturer;StubDevice;LC0;SA0u;SA1u;SA2u;SA3u;RB0;RB1;RB2;RB3;"
+    return "StubManufacturer;StubDevice;LC0;SA0u;SA1u;SA2u;SA3u;RB0;RB1;RB2;RB3;CC0C1;CC2C3;"
 
 
 @pytest.fixture()

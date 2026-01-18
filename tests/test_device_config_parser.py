@@ -7,10 +7,12 @@ from tests.zcl_consts import (
     ZCL_ATTR_MULTISTATE_INPUT_PRESENT_VALUE,
     ZCL_ATTR_ONOFF,
     ZCL_ATTR_ONOFF_CONFIGURATION_SWITCH_MODE,
+    ZCL_ATTR_WINDOW_COVERING_MOVING,
     ZCL_CLUSTER_BASIC,
     ZCL_CLUSTER_MULTISTATE_INPUT_BASIC,
     ZCL_CLUSTER_ON_OFF,
     ZCL_CLUSTER_ON_OFF_SWITCH_CONFIG,
+    ZCL_CLUSTER_WINDOW_COVERING,
 )
 
 
@@ -47,6 +49,14 @@ def test_endpoints_layout_matches_config(device: Device, device_config: str):
             "0",
             "1",
         )
+
+    # For each cover endpoint check moving attribute present
+    for ep in range(num_switches + num_relays + 1, num_switches + num_relays + num_covers + 1):
+        assert device.read_zigbee_attr(
+            ep,
+            ZCL_CLUSTER_WINDOW_COVERING,
+            ZCL_ATTR_WINDOW_COVERING_MOVING,
+        ) in ("0", "1", "2")
 
 
 @pytest.mark.parametrize(
