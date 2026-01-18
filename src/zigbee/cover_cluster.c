@@ -21,8 +21,13 @@
 static zigbee_cover_cluster *      cover_cluster_by_endpoint[10];
 static zigbee_cover_cluster_config nv_config_buffer;
 
-static uint8_t cover_position       = 50;
+// Window covering type attribute - required by ZCL spec but not actively used.
+// Value 0 = Rollershade (liftable cover, not tiltable).
 static uint8_t window_covering_type = 0;
+
+// Current lift position percentage - required by ZCL spec for liftable covers.
+// Hardcoded to 50 until position calculation/control is implemented.
+static uint8_t cover_position = 50;
 
 // ============================================================================
 // Movement Control
