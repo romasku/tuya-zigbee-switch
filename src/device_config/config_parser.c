@@ -36,7 +36,7 @@ uint8_t leds_cnt = 0;
 button_t buttons[5];
 uint8_t buttons_cnt = 0;
 
-relay_t relays[5];
+relay_t relays[10]; // 4 relay endpoints + 3 cover endpoints
 uint8_t relays_cnt = 0;
 
 zigbee_basic_cluster basic_cluster = {
