@@ -2809,6 +2809,32 @@ SWITCH_HOMEETEC_TOUCH_TS0003:
   info: Needs pinout confirmation, backlight C0?
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/286
   store: null
+SWITCH_HOMEETEC_TOUCH_TS0004:
+  human_name: homeetec 4-gang touch 
+  category: switch
+  power: mains
+  neutral: required
+  device_type: router
+  stock_model_name: TS0601
+  stock_manufacturer_name: _TZE200_hewlydpz
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0601_switch_4_gang_2
+  override_z2m_device: "37022714"
+  tuya_module: null
+  mcu_family: null
+  mcu: null
+  config_str: hewlydpz;TS0601-HMT4; null
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: null
+  stock_image_type: null
+  firmware_image_type: 43610
+  build: no
+  status: in_progress
+  info: Needs pinout
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/286
+  store: null
 SWITCH_IHSENO_TOUCH_TS0001:
   human_name: iHseno 1-gang touch switch
   category: switch
