@@ -42,8 +42,13 @@
           "description": "Zigbee device type"
         },
         "mcu": {
-          "type": "string",
-          "enum": ["TLSR825x", "TLSR8253", "TLSR8253F512AT32", "TLSR8258", "EFR32MG21A020F768IM32", "EFR32MG22C224F512GN32", "JN5169"],
+          "oneOf": [
+            {
+              "type": "string",
+              "enum": ["TLSR825x", "TLSR8253", "TLSR8253F512AT32", "TLSR8258", "EFR32MG21A020F768IM32", "EFR32MG22C224F512GN32", "JN5169"]
+            },
+            {"type": "null"}
+          ],
           "description": "Microcontroller unit type"
         },
         "stock_model_name": {
