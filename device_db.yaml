@@ -2108,7 +2108,7 @@ SWITCH_AVATTO_TOUCH_TS0001:
   mcu_family: Telink
   mcu: TLSR8258
   config_str: w1tcofu8;TS0001-AVT;LB5;SD7u;RC3;M;
-  alt_config_str: null
+  alt_config_str: w1tcofu8;TS0001-AVT;LC4i;SD7u;RC3;M;
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
@@ -2134,7 +2134,7 @@ SWITCH_AVATTO_TOUCH_TS0002:
   mcu_family: Telink
   mcu: TLSR8258
   config_str: ogpla3lh;TS0002-AVT;LB5;SD3u;RC2;SD4u;RD2;M;
-  alt_config_str: null
+  alt_config_str: ogpla3lh;TS0002-AVT;LC4i;SD3u;RC2;SD4u;RD2;M;
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
@@ -2160,7 +2160,7 @@ SWITCH_AVATTO_TOUCH_TS0003:
   mcu_family: Telink
   mcu: TLSR8258
   config_str: avky2mvc;TS0003-AVT;LB5;SD3u;RC2;SD7u;RC3;SD4u;RD2;M;
-  alt_config_str: null
+  alt_config_str: avky2mvc;TS0003-AVT;LC4i;SD3u;RC2;SD7u;RC3;SD4u;RD2;M;
   old_manufacturer_names:
   - Avatto-3-touch
   old_zb_models:
@@ -2168,6 +2168,32 @@ SWITCH_AVATTO_TOUCH_TS0003:
   stock_manufacturer_id: 4417
   stock_image_type: 54179
   firmware_image_type: 43542
+  build: yes
+  status: mostly_supported
+  info: Backlight on C4
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/41
+  store: https://www.aliexpress.com/item/1005007097427150.html
+SWITCH_AVATTO_TOUCH_TS0004:
+  human_name: AVATTO ZTS02RD-US-W4
+  category: switch
+  power: mains
+  neutral: required
+  device_type: router
+  stock_model_name: TS0004
+  stock_manufacturer_name: _TZ3000_eeswvvtm
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0004
+  override_z2m_device: null
+  tuya_module: ZTU
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: eeswvvtm;TS0004-AVT;LB5;SD3u;RC2;SD7u;RC3;SD4u;RD2;SC1u;RB4;M;
+  alt_config_str: eeswvvtm;TS0004-AVT;LC4i;SD3u;RC2;SD7u;RC3;SD4u;RD2;SC1u;RB4;M;
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
+  firmware_image_type: 43611
   build: yes
   status: mostly_supported
   info: Backlight on C4
