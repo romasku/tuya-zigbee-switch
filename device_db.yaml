@@ -2712,18 +2712,18 @@ SWITCH_BSEED_TS0726_4GANG:
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0726_4_gang_scene_switch
   override_z2m_device: EC-GL86ZPCS41
-  tuya_module: ZT3L
-  mcu_family: Telink
-  mcu: TLSR8258
+  tuya_module: null
+  mcu_family: null
+  mcu: null
   config_str: pzao9ls1;TS0726-4-BS;  null
   alt_config_str: null
   old_manufacturer_names: null
   old_zb_models: null
-  stock_manufacturer_id: 4417
-  stock_image_type: 54179
+  stock_manufacturer_id: null
+  stock_image_type: null
   firmware_image_type: 45577
-  build: yes
-  status: fully_supported
+  build: no
+  status: in_progress
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/157
   store:
