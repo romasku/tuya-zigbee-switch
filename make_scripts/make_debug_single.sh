@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Builds debugging firmware for a single device using the build system.
-# Updates indexes, converters, quirks, and supported devices list.
+# Updates indexes, converters, quirks, extensions and supported devices list.
 
 # Estimated runtime: 5 seconds
 
@@ -51,6 +51,7 @@ ls -l bin/$TYPE/${DEVICE}_END_DEVICE/ 2>/dev/null || echo "No end_device files f
 echo "=== Updating integration files ==="
 make tools/update_converters
 make tools/update_zha_quirk
+make tools/update_homed_extension
 make tools/update_supported_devices
 
 echo "=== Build complete ==="

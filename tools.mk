@@ -11,6 +11,9 @@ help:
 	@echo "  ZHA:"
 	@echo "    update_zha_quirk       - Generate ZHA quirks file from device database"
 	@echo ""
+	@echo "  HOMEd:"
+	@echo "    update_homed_extension - Generate HOMEd extension file from device database"
+	@echo ""
 	@echo "  Documentation:"
 	@echo "    update_supported_devices - Generate supported devices documentation"
 	@echo ""
@@ -36,11 +39,14 @@ update_converters:
 		> zigbee2mqtt/converters/switch_custom.js 
 	python3 helper_scripts/make_z2m_custom_converters.py --z2m-v1 device_db.yaml \
 		> zigbee2mqtt/converters_v1/switch_custom.js 
-	python3 helper_scripts/make_homed_extension.py device_db.yaml \
-		> homed/tuya-custom.json 
+
 
 update_zha_quirk:
 	python3 helper_scripts/make_zha_quirk.py device_db.yaml > zha/switch_quirk.py
+
+
+update_homed_extension:
+	python3 helper_scripts/make_homed_extension.py device_db.yaml > homed/tuya-custom.json
 
 
 update_supported_devices:

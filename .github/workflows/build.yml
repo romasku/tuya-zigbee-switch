@@ -93,6 +93,11 @@ jobs:
         source .venv/bin/activate
         make tools/update_zha_quirk
 
+    - name: Update HOMEd extensions
+      run: |
+        source .venv/bin/activate
+        make tools/update_homed_extension
+
     - name: Update supported_devices.md
       run: |
         source .venv/bin/activate
@@ -103,8 +108,8 @@ jobs:
         source .venv/bin/activate
         git config --global user.name "GitHub Actions"
         git config --global user.email "actions@github.com"
-        git add bin/* zigbee2mqtt/* zha/* docs/supported_devices.md
-        git diff --cached --quiet || git commit -m "Update firmware files, converters, quirks and supported devices list"
+        git add bin/* zigbee2mqtt/* zha/* homed/* docs/supported_devices.md
+        git diff --cached --quiet || git commit -m "Update firmware files, converters, quirks, extensions and supported devices list"
         make tools/freeze_ota_links
         git add zigbee2mqtt/*
         git diff --cached --quiet || git commit -m "Freeze links in OTA index files"

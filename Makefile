@@ -40,6 +40,7 @@ help:
 	@echo "  make tools/clean_z2m_index         - Clear all Zigbee2MQTT OTA index files"
 	@echo "  make tools/update_converters       - Generate Z2M converter files"
 	@echo "  make tools/update_zha_quirk        - Generate ZHA quirks file"
+	@echo "  make tools/update_homed_extension  - Generate HOMEd extensions file"
 	@echo "  make tools/update_supported_devices - Generate supported devices documentation"
 	@echo "  make tools/freeze_ota_links        - Replace branch refs with commit hashes"
 	@echo "  make tools/unused_image_type       - Show next available firmware image type ID"
