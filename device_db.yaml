@@ -1852,6 +1852,32 @@ MODULE_TUYA_TS011F:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/261
   store: https://www.aliexpress.us/item/3256809942562338.html
+MODULE_TUYA_ZS2S_TS0001:
+  human_name: Tuya ZS2S 1-gang
+  category: module
+  power: mains
+  neutral: required
+  device_type: router
+  stock_model_name: TS0001
+  stock_manufacturer_name: _TZ3000_hktqahrq
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: WHD02
+  override_z2m_device: null
+  tuya_module: ZS2S
+  mcu_family: Silabs
+  mcu: EFR32MG21A020F768IM32
+  config_str: hktqahrq;TS0001-TS;BA4u;LA3i;SB1u;RB0;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4098
+  stock_image_type: 5634
+  firmware_image_type: 45630
+  build: yes
+  status: fully_supported
+  info: Supported
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/264
+  store: null
 MODULE_TUYA_ZTU_TS0004:
   human_name: Tuya 4-gang
   category: module
