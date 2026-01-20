@@ -1285,8 +1285,8 @@ MODULE_MOES_ZM4LT4_TS0004:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/167
   store: https://www.aliexpress.com/item/1005009640015785.html
-MODULE_QS_TS0012:
-  human_name: QS-Zigbee-S04-2C-ML-C
+MODULE_TUYA_NOVATO_TS0012:
+  human_name: Tuya QS-Zigbee-S04-2C-ML-C
   category: module
   power: mains
   neutral: optional
