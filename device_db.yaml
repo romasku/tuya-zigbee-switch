@@ -897,7 +897,7 @@ MODULE_GIRIER_TS130F_2GANG:
   mcu_family: Telink
   mcu: TLSR8258
   config_str: j1xl73iw;TS130F-GIR-DUAL;LC1;CC0C4;CD4D7;
-  alt_config_str: null
+  alt_config_str: j1xl73iw;TS130F-GIR-DUAL;LC1;SB4u;RC0;SD2u;RC4;SC3u;RD4;SC2u;RD7;
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
@@ -1285,32 +1285,6 @@ MODULE_MOES_ZM4LT4_TS0004:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/167
   store: https://www.aliexpress.com/item/1005009640015785.html
-MODULE_TUYA_NOVATO_TS0012:
-  human_name: Tuya QS-Zigbee-S04-2C-ML-C
-  category: module
-  power: mains
-  neutral: optional
-  device_type: end_device
-  stock_model_name: TS0012
-  stock_manufacturer_name: _TZ3000_c4muk4ys
-  stock_converter_manufacturer: Tuya
-  stock_converter_model: TS0012
-  override_z2m_device: null
-  tuya_module: ZTU
-  mcu_family: Telink
-  mcu: TLSR8258
-  config_str: c4muk4ys;TS0012-QS;BB4u;LC2;SD2u;RA0B6;SC3u;RC0D7;SLP;      # S1 com com S2
-  alt_config_str: c4muk4ys;TS0012-QS;BB4u;LC2;SC3u;RA0B6;SD2u;RC0D7;SLP;  # S2 com com S1
-  old_manufacturer_names: null
-  old_zb_models: null
-  stock_manufacturer_id: 4417
-  stock_image_type: 54179
-  firmware_image_type: 45590
-  build: yes
-  status: fully_supported
-  info: Supported
-  threads: https://github.com/romasku/tuya-zigbee-switch/issues/144
-  store: https://www.aliexpress.com/item/1005008663303208.html?sku_id=12000046146359997
 MODULE_SONOFF_ZBMINIL2:
   human_name: SONOFF ZBMINIL2
   category: module
@@ -1633,8 +1607,8 @@ MODULE_TUYA_NOVATO_TS0002:
   alt_config_str: null
   old_manufacturer_names: null
   old_zb_models: null
-  stock_manufacturer_id: null
-  stock_image_type: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
   firmware_image_type: 43612
   build: yes
   status: mostly_supported
@@ -1719,6 +1693,32 @@ MODULE_TUYA_NOVATO_TS0011:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/pull/222
   store: https://novato.com.tr/urun/tuya-mini-zigbee-notrsuz-tek-cikisli-role/
+MODULE_TUYA_NOVATO_TS0012:
+  human_name: Tuya QS-Zigbee-S04-2C-ML-C
+  category: module
+  power: mains
+  neutral: optional
+  device_type: end_device
+  stock_model_name: TS0012
+  stock_manufacturer_name: _TZ3000_c4muk4ys
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0012
+  override_z2m_device: null
+  tuya_module: ZTU
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: c4muk4ys;TS0012-QS;BB4u;LC2;SD2u;RA0B6;SC3u;RC0D7;SLP;      # S1 com com S2
+  alt_config_str: c4muk4ys;TS0012-QS;BB4u;LC2;SC3u;RA0B6;SD2u;RC0D7;SLP;  # S2 com com S1
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
+  firmware_image_type: 45590
+  build: yes
+  status: fully_supported
+  info: Supported
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/144
+  store: https://www.aliexpress.com/item/1005008663303208.html?sku_id=12000046146359997
 MODULE_TUYA_NOVATO_TS130F:
   human_name: Tuya QS-Zigbee-S10-C04 curtains
   category: module
