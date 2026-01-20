@@ -12,10 +12,11 @@ Building consists of multiple steps:
 6. generating new index files
 7. updating Z2M converters (for old and new Z2M versions)
 8. updating ZHA quirks
-9. updating [supported_devices.md](/docs/supported_devices.md)
-10. (manual) updating [changelog_fw.md](/docs/changelog_fw.md)
-11. running unit tests (automated on push and merge)
-12. (online) freezing OTA links
+9. updating HOMEd extensions
+10. updating [supported_devices.md](/docs/supported_devices.md)
+11. (manual) updating [changelog_fw.md](/docs/changelog_fw.md)
+12. running unit tests (automated on push and merge)
+13. (online) freezing OTA links
 
 The process is automated with scripts that you can run locally or online.
 
@@ -39,7 +40,7 @@ Two branches are recommended to avoid conflicts between generated files.
 6. Create **build_branch** from **code_branch** (newFeature ➡ newFeature_build) and push
 7. Visit GitHub Actions on your fork (web) and run `build.yml` on **build_branch**  
    (this takes 5 minutes as it builds the firmware for every device)
-8. Add the updated converters/quirks to your Z2M/ZHA instance  
+8. Add the updated converters/quirks/extensions to your Z2M/ZHA/HOMEd instance  
    (if new ones were generated)
 9. Prepare the update
 
@@ -60,6 +61,7 @@ This project uses:
 - **Make** for building, with all rules defined in Makefile
 - **Python** for helper_scripts and ZHA quirks
 - **Javascript** for Z2M converters
+- **JSON** for HOMEd extensions
 - **YAML** for the device database
 
 **Linux is recommended.**  
@@ -94,6 +96,7 @@ They can easily be adapted for other distributions. (Please share your scripts)
 | `make silabs/install`                 | Flash firmware to connected device                        |
 | `make tools/update_converters`        | Generate Zigbee2MQTT converters                           |
 | `make tools/update_zha_quirk`         | Generate ZHA quirks                                       |
+| `make tools/update_homed_extension`   | Generate HOMEd extensions                                 |
 | `make tools/update_supported_devices` | Update [supported_devices.md](/docs/supported_devices.md) |
 | `make tools/freeze_ota_links`         | Replace branch refs with commit IDs in OTA indexes        |
 | `make tools/clean_z2m_index`          | Clear Zigbee2MQTT OTA index files                         |

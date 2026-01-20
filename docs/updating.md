@@ -2,8 +2,11 @@
 
 # Updating OTA
 
-This page describes **converting** and **updating** supported devices **wirelessly.**  
-***Zigbee2MQTT is heavily recommended.** ZHA can't re-interview and update pinouts.*
+This page describes **converting** and **updating** supported devices **wirelessly.**
+
+- ***Zigbee2MQTT is heavily recommended.***
+- *ZHA can't re-interview and update pinouts.*
+- *HOMEd supports only local update and can't fetch firmware from the Internet.*
 
 > [!CAUTION]  
 > The main branch is generally safe. However, bugs in the code **can brick your device**.  
@@ -11,7 +14,7 @@ This page describes **converting** and **updating** supported devices **wireless
 > - Restoring the original FW requires a memory dump of the stock device: [`bin/_factory/`](../bin/_factory/)
 
 - To receive custom FW updates, your ZHA / Z2M instance must have a **custom OTA index** applied.  
-- To use the new features, you must **download and regularly update the quirks / converters**.  
+- To use the new features, you must **download and regularly update the quirks / converters / extensions**.  
 
 ## Conversion
 
@@ -19,7 +22,7 @@ This page describes **converting** and **updating** supported devices **wireless
 
 1. Find your device on [supported_devices.md](./supported_devices.md)
 2. Read [known_issues.md](./known_issues.md)
-3. **Download** the custom [# Quirks / Converters](#quirks--converters)
+3. **Download** the custom [# Quirks / Converters / Extensions](#quirks--converters--extensions)
 4. **Apply** the preferred [# OTA index](#ota-index) (not FORCE)
 5. **Restart** HA / Z2M
 6. Bring the device closer to the coordinator, or add routers to **boost signal**  
@@ -49,7 +52,7 @@ This page describes **converting** and **updating** supported devices **wireless
 4. Ensure **strong signal**  
 5. Optionally, tweak Z2M settings for [# Faster OTA updates](#faster-ota-updates)
 6. **Update** the device
-7. **Re-download** the custom [# Quirks / Converters](#quirks--converters) and restart ZHA / Z2M
+7. **Re-download** the custom [# Quirks / Converters / Extensions](#quirks--converters--extensions) and restart ZHA / Z2M
 8. **Interview** the device **`i`**  
 ⤷ option missing from ZHA, remove and re-pair if needed  
 (updates endpoints, clusters and identifiers)
@@ -180,9 +183,9 @@ If your device has good signal and the network is not being actively used, you c
 Go to **Z2M ➡ Settings ➡ OTA updates** and tweak the values.  
 *50B + 50ms takes less than 5 minutes on an empty network.* More info: [Z2M doc][z2m_ota_speed]
 
-# Quirks / Converters
+# Quirks / Converters / Extensions
 
-Custom quirks / converters:
+Custom quirks / converters / extensions:
 
 - are needed for recognizing the device and exposing all supported features 
 
@@ -190,7 +193,7 @@ Custom quirks / converters:
 
 - are generally backwards-compatible (Use the latest files)
 
-- are not yet submitted to [ZHA][zha-device-handlers] and [Z2M][zigbee-herdsman-converters]  
+- are not yet submitted to [ZHA][zha-device-handlers], [Z2M][zigbee-herdsman-converters] and [HOMEd][homed-service-zigbee]  
 **⤷ manually download and update them**
 
 ### Download
@@ -219,9 +222,22 @@ The new folder should be at the same level with coordinator_backup.json.
 
 </details>
 
+<details>
+<summary> HOMEd steps </summary>  
+
+1. (Re)download them from [`homed/`][extensions] (main branch)
+2. (Re)place them in `/opt/homed-zigbee/external`  
+_Or your custom path if you changed it in `homed-zigbee.conf` file (`device/external` setting)._
+3. Restart HOMEd Zigbee to apply
+4. Reconfigure device (does not remove user settings or binds) or remove it and add again
+
+</details>
+
 [quirks]: https://github.com/romasku/tuya-zigbee-switch/tree/main/zha
 [converters]: https://github.com/romasku/tuya-zigbee-switch/tree/main/zigbee2mqtt/converters
+[extensions]: https://github.com/romasku/tuya-zigbee-switch/tree/main/homed
 [zha_tips]: https://github.com/romasku/tuya-zigbee-switch/issues/62
 [zha-device-handlers]: https://github.com/zigpy/zha-device-handlers
 [zigbee-herdsman-converters]: https://github.com/Koenkk/zigbee-herdsman-converters
 [z2m_ota_speed]: https://www.zigbee2mqtt.io/guide/usage/ota_updates.html#advanced-configuration
+[homed-service-zigbee]: https://github.com/u236/homed-service-zigbee

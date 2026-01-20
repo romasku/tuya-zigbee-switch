@@ -171,5 +171,5 @@ flash_telink: build-firmware
 	@echo "Flashing $(BIN_FILE) to device via $(TLSRPGM_TTY)"
 	$(MAKE) telink/flasher ARGS="-t25 -a 20 --mrst we 0 ../../$(BIN_FILE)"
 
-.PHONY: help build build-firmware drop-old-files generate-ota-files generate-normal-ota generate-tuya-ota generate-force-ota update-indexes clean_z2m_index update_converters update_zha_quirk update_supported_devices freeze_ota_links
+.PHONY: help build build-firmware drop-old-files generate-ota-files generate-normal-ota generate-tuya-ota generate-force-ota update-indexes clean_z2m_index update_converters update_zha_quirk update_homed_extension update_supported_devices freeze_ota_links
 
