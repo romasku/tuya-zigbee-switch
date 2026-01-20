@@ -2772,15 +2772,15 @@ SWITCH_HOMEETEC_TOUCH_TS0001:
   mcu_family: Telink
   mcu: TLSR8258
   config_str: bmqxalil;TS0001-HMT;LC2i;SA0u;RD2;M;
-  alt_config_str: null
+  alt_config_str: bmqxalil;TS0001-HMT;LC0i;SA0u;RD2;M;
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
   stock_image_type: 54179
   firmware_image_type: 43608
-  build: no
-  status: in_progress
-  info: Needs pinout confirmation, backlight C0?
+  build: yes
+  status: mostly_supported
+  info: Needs pinout confirmation, backlight C0
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/286
   store: null
 SWITCH_HOMEETEC_TOUCH_TS0002:
@@ -2798,15 +2798,15 @@ SWITCH_HOMEETEC_TOUCH_TS0002:
   mcu_family: Telink
   mcu: TLSR8258
   config_str: in5qxhtt;TS0002-HMT;LC2i;SB4u;RD7;SD4u;RC3;M;
-  alt_config_str: null
+  alt_config_str: in5qxhtt;TS0002-HMT;LC0i;SB4u;RD7;SD4u;RC3;M;
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
   stock_image_type: 54179
   firmware_image_type: 43607
-  build: no
-  status: in_progress
-  info: Needs pinout confirmation, backlight C0?
+  build: yes
+  status: mostly_supported
+  info: Needs pinout confirmation, backlight C0
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/286
   store: null
 SWITCH_HOMEETEC_TOUCH_TS0003:
@@ -2824,7 +2824,7 @@ SWITCH_HOMEETEC_TOUCH_TS0003:
   mcu_family: Telink
   mcu: TLSR8258
   config_str: pv4puuxi;TS0003-HMT;LC2i;SB4u;RD7;SA0u;RD2;SD4u;RC3;M;
-  alt_config_str: null
+  alt_config_str: pv4puuxi;TS0003-HMT;LC0i;SB4u;RD7;SA0u;RD2;SD4u;RC3;M;
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
@@ -2832,7 +2832,7 @@ SWITCH_HOMEETEC_TOUCH_TS0003:
   firmware_image_type: 43606
   build: yes
   status: mostly_supported
-  info: Needs pinout confirmation, backlight C0?
+  info: Needs pinout confirmation, backlight C0
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/286
   store: null
 SWITCH_HOMEETEC_TOUCH_TS0004:
