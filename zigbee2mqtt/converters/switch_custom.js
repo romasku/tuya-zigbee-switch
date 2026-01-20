@@ -5,10 +5,13 @@ const {
     onOff,
     text,
     binary,
+    windowCovering,
+    deviceAddCustomCluster,
 } = require("zigbee-herdsman-converters/lib/modernExtend");
 const {assertString} = require("zigbee-herdsman-converters/lib/utils");
 const reporting = require("zigbee-herdsman-converters/lib/reporting");
 const constants = require("zigbee-herdsman-converters/lib/constants");
+const Zcl = require('zigbee-herdsman').Zcl;
 
 /********************************************************************
   This file (`switch_custom.js`) is generated. 
@@ -35,6 +38,7 @@ const romasku = {
             - toggle_simple: Any press of physical switch will TOGGLE the relay and send TOGGLE command to binds
             - toggle_smart_sync: Any press of physical switch will TOGGLE the relay and send corresponding ON/OFF command to keep binds in sync with relay
             - toggle_smart_opposite: Any press of physical switch: TOGGLE the relay and send corresponding ON/OFF command to keep binds in the state opposite to the relay`,
+            entityCategory: "config",
         }),
     switchMode: (name, endpointName) =>
         enumLookup({
@@ -44,6 +48,7 @@ const romasku = {
             cluster: "genOnOffSwitchCfg",
             attribute: { ID: 0xff00, type: 0x30 }, // Enum8
             description: "Select the type of switch connected to the device",
+            entityCategory: "config",
         }),
     relayMode: (name, endpointName) =>
         enumLookup({
@@ -53,6 +58,7 @@ const romasku = {
             cluster: "genOnOffSwitchCfg",
             attribute: { ID: 0xff01, type: 0x30 }, // Enum8
             description: "When to turn on/off internal relay",
+            entityCategory: "config",
         }),
     relayIndex: (name, endpointName, relay_cnt) =>
         enumLookup({
@@ -64,6 +70,7 @@ const romasku = {
             cluster: "genOnOffSwitchCfg",
             attribute: { ID: 0xff02, type: 0x20 }, // uint8
             description: "Which internal relay it should trigger",
+            entityCategory: "config",
         }),
     bindedMode: (name, endpointName) =>
         enumLookup({
@@ -73,6 +80,7 @@ const romasku = {
             cluster: "genOnOffSwitchCfg",
             attribute: { ID: 0xff05, type: 0x30 }, // Enum8
             description: "When turn on/off binded device",
+            entityCategory: "config",
         }),
     longPressDuration: (name, endpointName) =>
         numeric({
@@ -83,6 +91,7 @@ const romasku = {
             description: "What duration is considerd to be long press",
             valueMin: 0,
             valueMax: 5000,
+            entityCategory: "config",
         }),
     levelMoveRate: (name, endpointName) =>
         numeric({
@@ -93,6 +102,7 @@ const romasku = {
             description: "Level (dim) move rate in steps per ms",
             valueMin: 1,
             valueMax: 255,
+            entityCategory: "config",
         }),
     pressAction: (name, endpointName) =>
         enumLookup({
@@ -103,6 +113,7 @@ const romasku = {
             cluster: "genMultistateInput",
             attribute: "presentValue",
             description: "Action of the switch: 'released' or 'press' or 'long_press'",
+            entityCategory: "diagnostic",
         }),
     relayIndicatorMode: (name, endpointName) =>
         enumLookup({
@@ -112,6 +123,7 @@ const romasku = {
             cluster: "genOnOff",
             attribute: { ID: 0xff01, type: 0x30 }, // Enum8
             description: "Mode for the relay indicator LED",
+            entityCategory: "config",
         }),
     relayIndicator: (name, endpointName) =>
         binary({
@@ -123,6 +135,7 @@ const romasku = {
             attribute: {ID: 0xff02, type: 0x10},  // Boolean
             description: "State of the relay indicator LED",
             access: "ALL",
+            entityCategory: "config",
         }),
     networkIndicator: (name, endpointName) =>
         binary({
@@ -134,6 +147,7 @@ const romasku = {
             attribute: {ID: 0xff01, type: 0x10},  // Boolean
             description: "State of the network indicator LED",
             access: "ALL",
+            entityCategory: "config",
         }),
     deviceConfig: (name, endpointName) =>
         text({
@@ -170,6 +184,9 @@ const romasku = {
                         if (!["u", "U", "d", "f"].includes(part[3])) {
                             throw new Error(`Pull up down ${part[3]} is invalid. Valid options are u, U, d, f`);
                         } 
+                    } else if (part[0] == 'C') {
+                        validatePin(part.slice(1,3));
+                        validatePin(part.slice(3,5));
                     } else if (part[0] == 'L' || part[0] == 'R' || part[0] == 'I') {
                         validatePin(part.slice(1,3));
                     } else if(part[0] == 'M') {
@@ -177,10 +194,37 @@ const romasku = {
                     } else if(part[0] == 'i') {
                         ; // TODO: write validation
                     } else {
-                        throw new Error(`Invalid entry ${part}. Should start with one of B, R, L, S, I`);
+                        throw new Error(`Invalid entry ${part}. Should start with one of B, R, L, S, I, C`);
                     }
                 }
-            }
+            },
+            entityCategory: "config",
+        }),
+    coverMoving: (name, endpointName) =>
+        enumLookup({
+            name,
+            endpointName,
+            access: "STATE_GET",
+            lookup: {
+                stopped: 0,
+                opening: 1,
+                closing: 2
+            },
+            cluster: "closuresWindowCovering",
+            attribute: "moving",
+            description: "Cover movement status",
+            entityCategory: "diagnostic",
+        }),
+    coverMotorReversal: (name, endpointName) =>
+        binary({
+            name,
+            endpointName,
+            valueOn: [true, 1],
+            valueOff: [false, 0],
+            cluster: "closuresWindowCovering",
+            attribute: "motorReversal",
+            description: "Reverse motor direction (swap OPEN/CLOSE relays)",
+            entityCategory: "config",
         }),
 };
 
@@ -415,6 +459,75 @@ const definitions = [
             });
             const endpoint8 = device.getEndpoint(8);
             await reporting.onOff(endpoint8, {
+                min: 0,
+                max: constants.repInterval.MAX,
+                change: 1,
+            });
+
+        },
+        ota: true,
+    },
+    {
+        zigbeeModel: [
+            "TS0002-SC",
+        ],
+        model: "ZG-2002-RF",
+        vendor: "Tuya-custom",
+        description: "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
+        extend: [
+            deviceEndpoints({ endpoints: {"switch_left": 1, "switch_right": 2, "relay_left": 3, "relay_right": 4, } }),
+            romasku.deviceConfig("device_config", "switch_left"),
+            romasku.networkIndicator("network_led", "switch_left"),
+            onOff({ endpointNames: ["relay_left", "relay_right"] }),
+            romasku.pressAction("switch_left_press_action", "switch_left"),
+            romasku.switchMode("switch_left_mode", "switch_left"),
+            romasku.switchAction("switch_left_action_mode", "switch_left"),
+            romasku.relayMode("switch_left_relay_mode", "switch_left"),
+            romasku.relayIndex("switch_left_relay_index", "switch_left", 2),
+            romasku.bindedMode("switch_left_binded_mode", "switch_left"),
+            romasku.longPressDuration("switch_left_long_press_duration", "switch_left"),
+            romasku.levelMoveRate("switch_left_level_move_rate", "switch_left"),
+            romasku.pressAction("switch_right_press_action", "switch_right"),
+            romasku.switchMode("switch_right_mode", "switch_right"),
+            romasku.switchAction("switch_right_action_mode", "switch_right"),
+            romasku.relayMode("switch_right_relay_mode", "switch_right"),
+            romasku.relayIndex("switch_right_relay_index", "switch_right", 2),
+            romasku.bindedMode("switch_right_binded_mode", "switch_right"),
+            romasku.longPressDuration("switch_right_long_press_duration", "switch_right"),
+            romasku.levelMoveRate("switch_right_level_move_rate", "switch_right"),
+        ],
+        meta: { multiEndpoint: true },
+        configure: async (device, coordinatorEndpoint, logger) => {
+            const endpoint1 = device.getEndpoint(1);
+            await reporting.bind(endpoint1, coordinatorEndpoint, ["genMultistateInput"]);
+            // switch action:
+            await endpoint1.configureReporting("genMultistateInput", [
+                {
+                    attribute: {ID: 0x0055 /* presentValue */, type: 0x21}, // uint16
+                    minimumReportInterval: 0,
+                    maximumReportInterval: constants.repInterval.MAX,
+                    reportableChange: 1,
+                },
+            ]);
+            const endpoint2 = device.getEndpoint(2);
+            await reporting.bind(endpoint2, coordinatorEndpoint, ["genMultistateInput"]);
+            // switch action:
+            await endpoint2.configureReporting("genMultistateInput", [
+                {
+                    attribute: {ID: 0x0055 /* presentValue */, type: 0x21}, // uint16
+                    minimumReportInterval: 0,
+                    maximumReportInterval: constants.repInterval.MAX,
+                    reportableChange: 1,
+                },
+            ]);
+            const endpoint3 = device.getEndpoint(3);
+            await reporting.onOff(endpoint3, {
+                min: 0,
+                max: constants.repInterval.MAX,
+                change: 1,
+            });
+            const endpoint4 = device.getEndpoint(4);
+            await reporting.onOff(endpoint4, {
                 min: 0,
                 max: constants.repInterval.MAX,
                 change: 1,
@@ -806,50 +919,6 @@ const definitions = [
     },
     {
         zigbeeModel: [
-            "TS0001-AV-DRY",
-        ],
-        model: "TS0001",
-        vendor: "Tuya-custom",
-        description: "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
-        extend: [
-            deviceEndpoints({ endpoints: {"switch": 1, "relay": 2, } }),
-            romasku.deviceConfig("device_config", "switch"),
-            romasku.networkIndicator("network_led", "switch"),
-            onOff({ endpointNames: ["relay"] }),
-            romasku.pressAction("switch_press_action", "switch"),
-            romasku.switchMode("switch_mode", "switch"),
-            romasku.switchAction("switch_action_mode", "switch"),
-            romasku.relayMode("switch_relay_mode", "switch"),
-            romasku.relayIndex("switch_relay_index", "switch", 1),
-            romasku.bindedMode("switch_binded_mode", "switch"),
-            romasku.longPressDuration("switch_long_press_duration", "switch"),
-            romasku.levelMoveRate("switch_level_move_rate", "switch"),
-        ],
-        meta: { multiEndpoint: true },
-        configure: async (device, coordinatorEndpoint, logger) => {
-            const endpoint1 = device.getEndpoint(1);
-            await reporting.bind(endpoint1, coordinatorEndpoint, ["genMultistateInput"]);
-            // switch action:
-            await endpoint1.configureReporting("genMultistateInput", [
-                {
-                    attribute: {ID: 0x0055 /* presentValue */, type: 0x21}, // uint16
-                    minimumReportInterval: 0,
-                    maximumReportInterval: constants.repInterval.MAX,
-                    reportableChange: 1,
-                },
-            ]);
-            const endpoint2 = device.getEndpoint(2);
-            await reporting.onOff(endpoint2, {
-                min: 0,
-                max: constants.repInterval.MAX,
-                change: 1,
-            });
-
-        },
-        ota: true,
-    },
-    {
-        zigbeeModel: [
             "TS0001-AVB",
             "TS0001-Avatto-custom",
             "TS0001-AV-CUS",
@@ -1174,6 +1243,263 @@ const definitions = [
             });
             const endpoint8 = device.getEndpoint(8);
             await reporting.onOff(endpoint8, {
+                min: 0,
+                max: constants.repInterval.MAX,
+                change: 1,
+            });
+
+        },
+        ota: true,
+    },
+    {
+        zigbeeModel: [
+            "TS0003-AVB2",
+        ],
+        model: "ZWSM16-3-Zigbee",
+        vendor: "Tuya-custom",
+        description: "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
+        extend: [
+            deviceEndpoints({ endpoints: {"switch_left": 1, "switch_middle": 2, "switch_right": 3, "relay_left": 4, "relay_middle": 5, "relay_right": 6, } }),
+            romasku.deviceConfig("device_config", "switch_left"),
+            romasku.networkIndicator("network_led", "switch_left"),
+            onOff({ endpointNames: ["relay_left", "relay_middle", "relay_right"] }),
+            romasku.pressAction("switch_left_press_action", "switch_left"),
+            romasku.switchMode("switch_left_mode", "switch_left"),
+            romasku.switchAction("switch_left_action_mode", "switch_left"),
+            romasku.relayMode("switch_left_relay_mode", "switch_left"),
+            romasku.relayIndex("switch_left_relay_index", "switch_left", 3),
+            romasku.bindedMode("switch_left_binded_mode", "switch_left"),
+            romasku.longPressDuration("switch_left_long_press_duration", "switch_left"),
+            romasku.levelMoveRate("switch_left_level_move_rate", "switch_left"),
+            romasku.pressAction("switch_middle_press_action", "switch_middle"),
+            romasku.switchMode("switch_middle_mode", "switch_middle"),
+            romasku.switchAction("switch_middle_action_mode", "switch_middle"),
+            romasku.relayMode("switch_middle_relay_mode", "switch_middle"),
+            romasku.relayIndex("switch_middle_relay_index", "switch_middle", 3),
+            romasku.bindedMode("switch_middle_binded_mode", "switch_middle"),
+            romasku.longPressDuration("switch_middle_long_press_duration", "switch_middle"),
+            romasku.levelMoveRate("switch_middle_level_move_rate", "switch_middle"),
+            romasku.pressAction("switch_right_press_action", "switch_right"),
+            romasku.switchMode("switch_right_mode", "switch_right"),
+            romasku.switchAction("switch_right_action_mode", "switch_right"),
+            romasku.relayMode("switch_right_relay_mode", "switch_right"),
+            romasku.relayIndex("switch_right_relay_index", "switch_right", 3),
+            romasku.bindedMode("switch_right_binded_mode", "switch_right"),
+            romasku.longPressDuration("switch_right_long_press_duration", "switch_right"),
+            romasku.levelMoveRate("switch_right_level_move_rate", "switch_right"),
+        ],
+        meta: { multiEndpoint: true },
+        configure: async (device, coordinatorEndpoint, logger) => {
+            const endpoint1 = device.getEndpoint(1);
+            await reporting.bind(endpoint1, coordinatorEndpoint, ["genMultistateInput"]);
+            // switch action:
+            await endpoint1.configureReporting("genMultistateInput", [
+                {
+                    attribute: {ID: 0x0055 /* presentValue */, type: 0x21}, // uint16
+                    minimumReportInterval: 0,
+                    maximumReportInterval: constants.repInterval.MAX,
+                    reportableChange: 1,
+                },
+            ]);
+            const endpoint2 = device.getEndpoint(2);
+            await reporting.bind(endpoint2, coordinatorEndpoint, ["genMultistateInput"]);
+            // switch action:
+            await endpoint2.configureReporting("genMultistateInput", [
+                {
+                    attribute: {ID: 0x0055 /* presentValue */, type: 0x21}, // uint16
+                    minimumReportInterval: 0,
+                    maximumReportInterval: constants.repInterval.MAX,
+                    reportableChange: 1,
+                },
+            ]);
+            const endpoint3 = device.getEndpoint(3);
+            await reporting.bind(endpoint3, coordinatorEndpoint, ["genMultistateInput"]);
+            // switch action:
+            await endpoint3.configureReporting("genMultistateInput", [
+                {
+                    attribute: {ID: 0x0055 /* presentValue */, type: 0x21}, // uint16
+                    minimumReportInterval: 0,
+                    maximumReportInterval: constants.repInterval.MAX,
+                    reportableChange: 1,
+                },
+            ]);
+            const endpoint4 = device.getEndpoint(4);
+            await reporting.onOff(endpoint4, {
+                min: 0,
+                max: constants.repInterval.MAX,
+                change: 1,
+            });
+            const endpoint5 = device.getEndpoint(5);
+            await reporting.onOff(endpoint5, {
+                min: 0,
+                max: constants.repInterval.MAX,
+                change: 1,
+            });
+            const endpoint6 = device.getEndpoint(6);
+            await reporting.onOff(endpoint6, {
+                min: 0,
+                max: constants.repInterval.MAX,
+                change: 1,
+            });
+
+        },
+        ota: true,
+    },
+    {
+        zigbeeModel: [
+            "TS0004-AVB2",
+        ],
+        model: "ZWSM16-4-Zigbee",
+        vendor: "Tuya-custom",
+        description: "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
+        extend: [
+            deviceEndpoints({ endpoints: {"switch_0": 1, "switch_1": 2, "switch_2": 3, "switch_3": 4, "relay_0": 5, "relay_1": 6, "relay_2": 7, "relay_3": 8, } }),
+            romasku.deviceConfig("device_config", "switch_0"),
+            romasku.networkIndicator("network_led", "switch_0"),
+            onOff({ endpointNames: ["relay_0", "relay_1", "relay_2", "relay_3"] }),
+            romasku.pressAction("switch_0_press_action", "switch_0"),
+            romasku.switchMode("switch_0_mode", "switch_0"),
+            romasku.switchAction("switch_0_action_mode", "switch_0"),
+            romasku.relayMode("switch_0_relay_mode", "switch_0"),
+            romasku.relayIndex("switch_0_relay_index", "switch_0", 4),
+            romasku.bindedMode("switch_0_binded_mode", "switch_0"),
+            romasku.longPressDuration("switch_0_long_press_duration", "switch_0"),
+            romasku.levelMoveRate("switch_0_level_move_rate", "switch_0"),
+            romasku.pressAction("switch_1_press_action", "switch_1"),
+            romasku.switchMode("switch_1_mode", "switch_1"),
+            romasku.switchAction("switch_1_action_mode", "switch_1"),
+            romasku.relayMode("switch_1_relay_mode", "switch_1"),
+            romasku.relayIndex("switch_1_relay_index", "switch_1", 4),
+            romasku.bindedMode("switch_1_binded_mode", "switch_1"),
+            romasku.longPressDuration("switch_1_long_press_duration", "switch_1"),
+            romasku.levelMoveRate("switch_1_level_move_rate", "switch_1"),
+            romasku.pressAction("switch_2_press_action", "switch_2"),
+            romasku.switchMode("switch_2_mode", "switch_2"),
+            romasku.switchAction("switch_2_action_mode", "switch_2"),
+            romasku.relayMode("switch_2_relay_mode", "switch_2"),
+            romasku.relayIndex("switch_2_relay_index", "switch_2", 4),
+            romasku.bindedMode("switch_2_binded_mode", "switch_2"),
+            romasku.longPressDuration("switch_2_long_press_duration", "switch_2"),
+            romasku.levelMoveRate("switch_2_level_move_rate", "switch_2"),
+            romasku.pressAction("switch_3_press_action", "switch_3"),
+            romasku.switchMode("switch_3_mode", "switch_3"),
+            romasku.switchAction("switch_3_action_mode", "switch_3"),
+            romasku.relayMode("switch_3_relay_mode", "switch_3"),
+            romasku.relayIndex("switch_3_relay_index", "switch_3", 4),
+            romasku.bindedMode("switch_3_binded_mode", "switch_3"),
+            romasku.longPressDuration("switch_3_long_press_duration", "switch_3"),
+            romasku.levelMoveRate("switch_3_level_move_rate", "switch_3"),
+        ],
+        meta: { multiEndpoint: true },
+        configure: async (device, coordinatorEndpoint, logger) => {
+            const endpoint1 = device.getEndpoint(1);
+            await reporting.bind(endpoint1, coordinatorEndpoint, ["genMultistateInput"]);
+            // switch action:
+            await endpoint1.configureReporting("genMultistateInput", [
+                {
+                    attribute: {ID: 0x0055 /* presentValue */, type: 0x21}, // uint16
+                    minimumReportInterval: 0,
+                    maximumReportInterval: constants.repInterval.MAX,
+                    reportableChange: 1,
+                },
+            ]);
+            const endpoint2 = device.getEndpoint(2);
+            await reporting.bind(endpoint2, coordinatorEndpoint, ["genMultistateInput"]);
+            // switch action:
+            await endpoint2.configureReporting("genMultistateInput", [
+                {
+                    attribute: {ID: 0x0055 /* presentValue */, type: 0x21}, // uint16
+                    minimumReportInterval: 0,
+                    maximumReportInterval: constants.repInterval.MAX,
+                    reportableChange: 1,
+                },
+            ]);
+            const endpoint3 = device.getEndpoint(3);
+            await reporting.bind(endpoint3, coordinatorEndpoint, ["genMultistateInput"]);
+            // switch action:
+            await endpoint3.configureReporting("genMultistateInput", [
+                {
+                    attribute: {ID: 0x0055 /* presentValue */, type: 0x21}, // uint16
+                    minimumReportInterval: 0,
+                    maximumReportInterval: constants.repInterval.MAX,
+                    reportableChange: 1,
+                },
+            ]);
+            const endpoint4 = device.getEndpoint(4);
+            await reporting.bind(endpoint4, coordinatorEndpoint, ["genMultistateInput"]);
+            // switch action:
+            await endpoint4.configureReporting("genMultistateInput", [
+                {
+                    attribute: {ID: 0x0055 /* presentValue */, type: 0x21}, // uint16
+                    minimumReportInterval: 0,
+                    maximumReportInterval: constants.repInterval.MAX,
+                    reportableChange: 1,
+                },
+            ]);
+            const endpoint5 = device.getEndpoint(5);
+            await reporting.onOff(endpoint5, {
+                min: 0,
+                max: constants.repInterval.MAX,
+                change: 1,
+            });
+            const endpoint6 = device.getEndpoint(6);
+            await reporting.onOff(endpoint6, {
+                min: 0,
+                max: constants.repInterval.MAX,
+                change: 1,
+            });
+            const endpoint7 = device.getEndpoint(7);
+            await reporting.onOff(endpoint7, {
+                min: 0,
+                max: constants.repInterval.MAX,
+                change: 1,
+            });
+            const endpoint8 = device.getEndpoint(8);
+            await reporting.onOff(endpoint8, {
+                min: 0,
+                max: constants.repInterval.MAX,
+                change: 1,
+            });
+
+        },
+        ota: true,
+    },
+    {
+        zigbeeModel: [
+            "TS0001-AV-DRY",
+        ],
+        model: "TS0001",
+        vendor: "Tuya-custom",
+        description: "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
+        extend: [
+            deviceEndpoints({ endpoints: {"switch": 1, "relay": 2, } }),
+            romasku.deviceConfig("device_config", "switch"),
+            romasku.networkIndicator("network_led", "switch"),
+            onOff({ endpointNames: ["relay"] }),
+            romasku.pressAction("switch_press_action", "switch"),
+            romasku.switchMode("switch_mode", "switch"),
+            romasku.switchAction("switch_action_mode", "switch"),
+            romasku.relayMode("switch_relay_mode", "switch"),
+            romasku.relayIndex("switch_relay_index", "switch", 1),
+            romasku.bindedMode("switch_binded_mode", "switch"),
+            romasku.longPressDuration("switch_long_press_duration", "switch"),
+            romasku.levelMoveRate("switch_level_move_rate", "switch"),
+        ],
+        meta: { multiEndpoint: true },
+        configure: async (device, coordinatorEndpoint, logger) => {
+            const endpoint1 = device.getEndpoint(1);
+            await reporting.bind(endpoint1, coordinatorEndpoint, ["genMultistateInput"]);
+            // switch action:
+            await endpoint1.configureReporting("genMultistateInput", [
+                {
+                    attribute: {ID: 0x0055 /* presentValue */, type: 0x21}, // uint16
+                    minimumReportInterval: 0,
+                    maximumReportInterval: constants.repInterval.MAX,
+                    reportableChange: 1,
+                },
+            ]);
+            const endpoint2 = device.getEndpoint(2);
+            await reporting.onOff(endpoint2, {
                 min: 0,
                 max: constants.repInterval.MAX,
                 change: 1,
@@ -1859,114 +2185,56 @@ const definitions = [
         vendor: "Tuya-custom",
         description: "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
         extend: [
-            deviceEndpoints({ endpoints: {"switch_0": 1, "switch_1": 2, "switch_2": 3, "switch_3": 4, "relay_0": 5, "relay_1": 6, "relay_2": 7, "relay_3": 8, } }),
-            romasku.deviceConfig("device_config", "switch_0"),
-            romasku.networkIndicator("network_led", "switch_0"),
-            onOff({ endpointNames: ["relay_0", "relay_1", "relay_2", "relay_3"] }),
-            romasku.pressAction("switch_0_press_action", "switch_0"),
-            romasku.switchMode("switch_0_mode", "switch_0"),
-            romasku.switchAction("switch_0_action_mode", "switch_0"),
-            romasku.relayMode("switch_0_relay_mode", "switch_0"),
-            romasku.relayIndex("switch_0_relay_index", "switch_0", 4),
-            romasku.bindedMode("switch_0_binded_mode", "switch_0"),
-            romasku.longPressDuration("switch_0_long_press_duration", "switch_0"),
-            romasku.levelMoveRate("switch_0_level_move_rate", "switch_0"),
-            romasku.pressAction("switch_1_press_action", "switch_1"),
-            romasku.switchMode("switch_1_mode", "switch_1"),
-            romasku.switchAction("switch_1_action_mode", "switch_1"),
-            romasku.relayMode("switch_1_relay_mode", "switch_1"),
-            romasku.relayIndex("switch_1_relay_index", "switch_1", 4),
-            romasku.bindedMode("switch_1_binded_mode", "switch_1"),
-            romasku.longPressDuration("switch_1_long_press_duration", "switch_1"),
-            romasku.levelMoveRate("switch_1_level_move_rate", "switch_1"),
-            romasku.pressAction("switch_2_press_action", "switch_2"),
-            romasku.switchMode("switch_2_mode", "switch_2"),
-            romasku.switchAction("switch_2_action_mode", "switch_2"),
-            romasku.relayMode("switch_2_relay_mode", "switch_2"),
-            romasku.relayIndex("switch_2_relay_index", "switch_2", 4),
-            romasku.bindedMode("switch_2_binded_mode", "switch_2"),
-            romasku.longPressDuration("switch_2_long_press_duration", "switch_2"),
-            romasku.levelMoveRate("switch_2_level_move_rate", "switch_2"),
-            romasku.pressAction("switch_3_press_action", "switch_3"),
-            romasku.switchMode("switch_3_mode", "switch_3"),
-            romasku.switchAction("switch_3_action_mode", "switch_3"),
-            romasku.relayMode("switch_3_relay_mode", "switch_3"),
-            romasku.relayIndex("switch_3_relay_index", "switch_3", 4),
-            romasku.bindedMode("switch_3_binded_mode", "switch_3"),
-            romasku.longPressDuration("switch_3_long_press_duration", "switch_3"),
-            romasku.levelMoveRate("switch_3_level_move_rate", "switch_3"),
+            deviceAddCustomCluster("closuresWindowCovering", {
+                ID: 0x0102,
+                attributes: {
+                    moving: {ID: 0xff00, type: Zcl.DataType.ENUM8},
+                    motorReversal: {ID: 0xff01, type: Zcl.DataType.BOOLEAN},
+                },
+            }),
+            deviceEndpoints({ endpoints: {"cover_left": 1, "cover_right": 2, } }),
+            romasku.deviceConfig("device_config", "cover_left"),
+            romasku.networkIndicator("network_led", "cover_left"),
+            windowCovering({ 
+                controls: ["lift"],
+                coverInverted: true,
+                configureReporting: false,
+                endpointNames: ["cover_left"]
+            }),
+            romasku.coverMoving("cover_left_moving", "cover_left"),
+            romasku.coverMotorReversal("cover_left_motor_reversal", "cover_left"),
+            windowCovering({ 
+                controls: ["lift"],
+                coverInverted: true,
+                configureReporting: false,
+                endpointNames: ["cover_right"]
+            }),
+            romasku.coverMoving("cover_right_moving", "cover_right"),
+            romasku.coverMotorReversal("cover_right_motor_reversal", "cover_right"),
         ],
         meta: { multiEndpoint: true },
         configure: async (device, coordinatorEndpoint, logger) => {
-            const endpoint1 = device.getEndpoint(1);
-            await reporting.bind(endpoint1, coordinatorEndpoint, ["genMultistateInput"]);
-            // switch action:
-            await endpoint1.configureReporting("genMultistateInput", [
-                {
-                    attribute: {ID: 0x0055 /* presentValue */, type: 0x21}, // uint16
-                    minimumReportInterval: 0,
-                    maximumReportInterval: constants.repInterval.MAX,
-                    reportableChange: 1,
-                },
-            ]);
-            const endpoint2 = device.getEndpoint(2);
-            await reporting.bind(endpoint2, coordinatorEndpoint, ["genMultistateInput"]);
-            // switch action:
-            await endpoint2.configureReporting("genMultistateInput", [
-                {
-                    attribute: {ID: 0x0055 /* presentValue */, type: 0x21}, // uint16
-                    minimumReportInterval: 0,
-                    maximumReportInterval: constants.repInterval.MAX,
-                    reportableChange: 1,
-                },
-            ]);
-            const endpoint3 = device.getEndpoint(3);
-            await reporting.bind(endpoint3, coordinatorEndpoint, ["genMultistateInput"]);
-            // switch action:
-            await endpoint3.configureReporting("genMultistateInput", [
-                {
-                    attribute: {ID: 0x0055 /* presentValue */, type: 0x21}, // uint16
-                    minimumReportInterval: 0,
-                    maximumReportInterval: constants.repInterval.MAX,
-                    reportableChange: 1,
-                },
-            ]);
-            const endpoint4 = device.getEndpoint(4);
-            await reporting.bind(endpoint4, coordinatorEndpoint, ["genMultistateInput"]);
-            // switch action:
-            await endpoint4.configureReporting("genMultistateInput", [
-                {
-                    attribute: {ID: 0x0055 /* presentValue */, type: 0x21}, // uint16
-                    minimumReportInterval: 0,
-                    maximumReportInterval: constants.repInterval.MAX,
-                    reportableChange: 1,
-                },
-            ]);
-            const endpoint5 = device.getEndpoint(5);
-            await reporting.onOff(endpoint5, {
-                min: 0,
-                max: constants.repInterval.MAX,
-                change: 1,
-            });
-            const endpoint6 = device.getEndpoint(6);
-            await reporting.onOff(endpoint6, {
-                min: 0,
-                max: constants.repInterval.MAX,
-                change: 1,
-            });
-            const endpoint7 = device.getEndpoint(7);
-            await reporting.onOff(endpoint7, {
-                min: 0,
-                max: constants.repInterval.MAX,
-                change: 1,
-            });
-            const endpoint8 = device.getEndpoint(8);
-            await reporting.onOff(endpoint8, {
-                min: 0,
-                max: constants.repInterval.MAX,
-                change: 1,
-            });
 
+            const cover1 = device.getEndpoint(1);
+            await reporting.bind(cover1, coordinatorEndpoint, ["closuresWindowCovering"]);
+            await cover1.configureReporting("closuresWindowCovering", [
+                {
+                    attribute: "moving",
+                    minimumReportInterval: 0,
+                    maximumReportInterval: constants.repInterval.MAX,
+                    reportableChange: 1,
+                },
+            ]);
+            const cover2 = device.getEndpoint(2);
+            await reporting.bind(cover2, coordinatorEndpoint, ["closuresWindowCovering"]);
+            await cover2.configureReporting("closuresWindowCovering", [
+                {
+                    attribute: "moving",
+                    minimumReportInterval: 0,
+                    maximumReportInterval: constants.repInterval.MAX,
+                    reportableChange: 1,
+                },
+            ]);
         },
         ota: true,
     },
@@ -2406,7 +2674,7 @@ const definitions = [
     },
     {
         zigbeeModel: [
-            "TS0002-MS",
+            "TS0002-MSB",
         ],
         model: "ZM-104B-M",
         vendor: "Tuya-custom",
@@ -2637,73 +2905,37 @@ const definitions = [
     },
     {
         zigbeeModel: [
-            "NovatoZRM01",
+            "TS0003-MS",
         ],
-        model: "QS-Zigbee-SEC01-U",
+        model: "ZM4LT3",
         vendor: "Tuya-custom",
         description: "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
         extend: [
-            deviceEndpoints({ endpoints: {"switch": 1, "relay": 2, } }),
-            romasku.deviceConfig("device_config", "switch"),
-            romasku.networkIndicator("network_led", "switch"),
-            onOff({ endpointNames: ["relay"] }),
-            romasku.pressAction("switch_press_action", "switch"),
-            romasku.switchMode("switch_mode", "switch"),
-            romasku.switchAction("switch_action_mode", "switch"),
-            romasku.relayMode("switch_relay_mode", "switch"),
-            romasku.relayIndex("switch_relay_index", "switch", 1),
-            romasku.bindedMode("switch_binded_mode", "switch"),
-            romasku.longPressDuration("switch_long_press_duration", "switch"),
-            romasku.levelMoveRate("switch_level_move_rate", "switch"),
-        ],
-        meta: { multiEndpoint: true },
-        configure: async (device, coordinatorEndpoint, logger) => {
-            const endpoint1 = device.getEndpoint(1);
-            await reporting.bind(endpoint1, coordinatorEndpoint, ["genMultistateInput"]);
-            // switch action:
-            await endpoint1.configureReporting("genMultistateInput", [
-                {
-                    attribute: {ID: 0x0055 /* presentValue */, type: 0x21}, // uint16
-                    minimumReportInterval: 0,
-                    maximumReportInterval: constants.repInterval.MAX,
-                    reportableChange: 1,
-                },
-            ]);
-            const endpoint2 = device.getEndpoint(2);
-            await reporting.onOff(endpoint2, {
-                min: 0,
-                max: constants.repInterval.MAX,
-                change: 1,
-            });
-
-        },
-        ota: true,
-    },
-    {
-        zigbeeModel: [
-            "NovatoZRM02",
-        ],
-        model: "QS-Zigbee-SEC02-U",
-        vendor: "Tuya-custom",
-        description: "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
-        extend: [
-            deviceEndpoints({ endpoints: {"switch_left": 1, "switch_right": 2, "relay_left": 3, "relay_right": 4, } }),
+            deviceEndpoints({ endpoints: {"switch_left": 1, "switch_middle": 2, "switch_right": 3, "relay_left": 4, "relay_middle": 5, "relay_right": 6, } }),
             romasku.deviceConfig("device_config", "switch_left"),
             romasku.networkIndicator("network_led", "switch_left"),
-            onOff({ endpointNames: ["relay_left", "relay_right"] }),
+            onOff({ endpointNames: ["relay_left", "relay_middle", "relay_right"] }),
             romasku.pressAction("switch_left_press_action", "switch_left"),
             romasku.switchMode("switch_left_mode", "switch_left"),
             romasku.switchAction("switch_left_action_mode", "switch_left"),
             romasku.relayMode("switch_left_relay_mode", "switch_left"),
-            romasku.relayIndex("switch_left_relay_index", "switch_left", 2),
+            romasku.relayIndex("switch_left_relay_index", "switch_left", 3),
             romasku.bindedMode("switch_left_binded_mode", "switch_left"),
             romasku.longPressDuration("switch_left_long_press_duration", "switch_left"),
             romasku.levelMoveRate("switch_left_level_move_rate", "switch_left"),
+            romasku.pressAction("switch_middle_press_action", "switch_middle"),
+            romasku.switchMode("switch_middle_mode", "switch_middle"),
+            romasku.switchAction("switch_middle_action_mode", "switch_middle"),
+            romasku.relayMode("switch_middle_relay_mode", "switch_middle"),
+            romasku.relayIndex("switch_middle_relay_index", "switch_middle", 3),
+            romasku.bindedMode("switch_middle_binded_mode", "switch_middle"),
+            romasku.longPressDuration("switch_middle_long_press_duration", "switch_middle"),
+            romasku.levelMoveRate("switch_middle_level_move_rate", "switch_middle"),
             romasku.pressAction("switch_right_press_action", "switch_right"),
             romasku.switchMode("switch_right_mode", "switch_right"),
             romasku.switchAction("switch_right_action_mode", "switch_right"),
             romasku.relayMode("switch_right_relay_mode", "switch_right"),
-            romasku.relayIndex("switch_right_relay_index", "switch_right", 2),
+            romasku.relayIndex("switch_right_relay_index", "switch_right", 3),
             romasku.bindedMode("switch_right_binded_mode", "switch_right"),
             romasku.longPressDuration("switch_right_long_press_duration", "switch_right"),
             romasku.levelMoveRate("switch_right_level_move_rate", "switch_right"),
@@ -2733,13 +2965,30 @@ const definitions = [
                 },
             ]);
             const endpoint3 = device.getEndpoint(3);
-            await reporting.onOff(endpoint3, {
+            await reporting.bind(endpoint3, coordinatorEndpoint, ["genMultistateInput"]);
+            // switch action:
+            await endpoint3.configureReporting("genMultistateInput", [
+                {
+                    attribute: {ID: 0x0055 /* presentValue */, type: 0x21}, // uint16
+                    minimumReportInterval: 0,
+                    maximumReportInterval: constants.repInterval.MAX,
+                    reportableChange: 1,
+                },
+            ]);
+            const endpoint4 = device.getEndpoint(4);
+            await reporting.onOff(endpoint4, {
                 min: 0,
                 max: constants.repInterval.MAX,
                 change: 1,
             });
-            const endpoint4 = device.getEndpoint(4);
-            await reporting.onOff(endpoint4, {
+            const endpoint5 = device.getEndpoint(5);
+            await reporting.onOff(endpoint5, {
+                min: 0,
+                max: constants.repInterval.MAX,
+                change: 1,
+            });
+            const endpoint6 = device.getEndpoint(6);
+            await reporting.onOff(endpoint6, {
                 min: 0,
                 max: constants.repInterval.MAX,
                 change: 1,
@@ -2750,24 +2999,48 @@ const definitions = [
     },
     {
         zigbeeModel: [
-            "NovatoZNR01",
+            "TS0004-MS",
         ],
-        model: "TS0011",
+        model: "ZM4LT4",
         vendor: "Tuya-custom",
         description: "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
         extend: [
-            deviceEndpoints({ endpoints: {"switch": 1, "relay": 2, } }),
-            romasku.deviceConfig("device_config", "switch"),
-            romasku.networkIndicator("network_led", "switch"),
-            onOff({ endpointNames: ["relay"] }),
-            romasku.pressAction("switch_press_action", "switch"),
-            romasku.switchMode("switch_mode", "switch"),
-            romasku.switchAction("switch_action_mode", "switch"),
-            romasku.relayMode("switch_relay_mode", "switch"),
-            romasku.relayIndex("switch_relay_index", "switch", 1),
-            romasku.bindedMode("switch_binded_mode", "switch"),
-            romasku.longPressDuration("switch_long_press_duration", "switch"),
-            romasku.levelMoveRate("switch_level_move_rate", "switch"),
+            deviceEndpoints({ endpoints: {"switch_0": 1, "switch_1": 2, "switch_2": 3, "switch_3": 4, "relay_0": 5, "relay_1": 6, "relay_2": 7, "relay_3": 8, } }),
+            romasku.deviceConfig("device_config", "switch_0"),
+            romasku.networkIndicator("network_led", "switch_0"),
+            onOff({ endpointNames: ["relay_0", "relay_1", "relay_2", "relay_3"] }),
+            romasku.pressAction("switch_0_press_action", "switch_0"),
+            romasku.switchMode("switch_0_mode", "switch_0"),
+            romasku.switchAction("switch_0_action_mode", "switch_0"),
+            romasku.relayMode("switch_0_relay_mode", "switch_0"),
+            romasku.relayIndex("switch_0_relay_index", "switch_0", 4),
+            romasku.bindedMode("switch_0_binded_mode", "switch_0"),
+            romasku.longPressDuration("switch_0_long_press_duration", "switch_0"),
+            romasku.levelMoveRate("switch_0_level_move_rate", "switch_0"),
+            romasku.pressAction("switch_1_press_action", "switch_1"),
+            romasku.switchMode("switch_1_mode", "switch_1"),
+            romasku.switchAction("switch_1_action_mode", "switch_1"),
+            romasku.relayMode("switch_1_relay_mode", "switch_1"),
+            romasku.relayIndex("switch_1_relay_index", "switch_1", 4),
+            romasku.bindedMode("switch_1_binded_mode", "switch_1"),
+            romasku.longPressDuration("switch_1_long_press_duration", "switch_1"),
+            romasku.levelMoveRate("switch_1_level_move_rate", "switch_1"),
+            romasku.pressAction("switch_2_press_action", "switch_2"),
+            romasku.switchMode("switch_2_mode", "switch_2"),
+            romasku.switchAction("switch_2_action_mode", "switch_2"),
+            romasku.relayMode("switch_2_relay_mode", "switch_2"),
+            romasku.relayIndex("switch_2_relay_index", "switch_2", 4),
+            romasku.bindedMode("switch_2_binded_mode", "switch_2"),
+            romasku.longPressDuration("switch_2_long_press_duration", "switch_2"),
+            romasku.levelMoveRate("switch_2_level_move_rate", "switch_2"),
+            romasku.pressAction("switch_3_press_action", "switch_3"),
+            romasku.switchMode("switch_3_mode", "switch_3"),
+            romasku.switchAction("switch_3_action_mode", "switch_3"),
+            romasku.relayMode("switch_3_relay_mode", "switch_3"),
+            romasku.relayIndex("switch_3_relay_index", "switch_3", 4),
+            romasku.bindedMode("switch_3_binded_mode", "switch_3"),
+            romasku.longPressDuration("switch_3_long_press_duration", "switch_3"),
+            romasku.levelMoveRate("switch_3_level_move_rate", "switch_3"),
         ],
         meta: { multiEndpoint: true },
         configure: async (device, coordinatorEndpoint, logger) => {
@@ -2783,7 +3056,58 @@ const definitions = [
                 },
             ]);
             const endpoint2 = device.getEndpoint(2);
-            await reporting.onOff(endpoint2, {
+            await reporting.bind(endpoint2, coordinatorEndpoint, ["genMultistateInput"]);
+            // switch action:
+            await endpoint2.configureReporting("genMultistateInput", [
+                {
+                    attribute: {ID: 0x0055 /* presentValue */, type: 0x21}, // uint16
+                    minimumReportInterval: 0,
+                    maximumReportInterval: constants.repInterval.MAX,
+                    reportableChange: 1,
+                },
+            ]);
+            const endpoint3 = device.getEndpoint(3);
+            await reporting.bind(endpoint3, coordinatorEndpoint, ["genMultistateInput"]);
+            // switch action:
+            await endpoint3.configureReporting("genMultistateInput", [
+                {
+                    attribute: {ID: 0x0055 /* presentValue */, type: 0x21}, // uint16
+                    minimumReportInterval: 0,
+                    maximumReportInterval: constants.repInterval.MAX,
+                    reportableChange: 1,
+                },
+            ]);
+            const endpoint4 = device.getEndpoint(4);
+            await reporting.bind(endpoint4, coordinatorEndpoint, ["genMultistateInput"]);
+            // switch action:
+            await endpoint4.configureReporting("genMultistateInput", [
+                {
+                    attribute: {ID: 0x0055 /* presentValue */, type: 0x21}, // uint16
+                    minimumReportInterval: 0,
+                    maximumReportInterval: constants.repInterval.MAX,
+                    reportableChange: 1,
+                },
+            ]);
+            const endpoint5 = device.getEndpoint(5);
+            await reporting.onOff(endpoint5, {
+                min: 0,
+                max: constants.repInterval.MAX,
+                change: 1,
+            });
+            const endpoint6 = device.getEndpoint(6);
+            await reporting.onOff(endpoint6, {
+                min: 0,
+                max: constants.repInterval.MAX,
+                change: 1,
+            });
+            const endpoint7 = device.getEndpoint(7);
+            await reporting.onOff(endpoint7, {
+                min: 0,
+                max: constants.repInterval.MAX,
+                change: 1,
+            });
+            const endpoint8 = device.getEndpoint(8);
+            await reporting.onOff(endpoint8, {
                 min: 0,
                 max: constants.repInterval.MAX,
                 change: 1,
@@ -2865,7 +3189,7 @@ const definitions = [
         zigbeeModel: [
             "ZBMINIL2-custom",
         ],
-        model: "None",
+        model: "ZBMINIL2",
         vendor: "Tuya-custom",
         description: "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
         extend: [
@@ -3440,6 +3764,301 @@ const definitions = [
             });
             const endpoint6 = device.getEndpoint(6);
             await reporting.onOff(endpoint6, {
+                min: 0,
+                max: constants.repInterval.MAX,
+                change: 1,
+            });
+
+        },
+        ota: true,
+    },
+    {
+        zigbeeModel: [
+            "TS0002-QS",
+        ],
+        model: "TS0002_limited",
+        vendor: "Tuya-custom",
+        description: "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
+        extend: [
+            deviceEndpoints({ endpoints: {"switch_left": 1, "switch_right": 2, "relay_left": 3, "relay_right": 4, } }),
+            romasku.deviceConfig("device_config", "switch_left"),
+            romasku.networkIndicator("network_led", "switch_left"),
+            onOff({ endpointNames: ["relay_left", "relay_right"] }),
+            romasku.pressAction("switch_left_press_action", "switch_left"),
+            romasku.switchMode("switch_left_mode", "switch_left"),
+            romasku.switchAction("switch_left_action_mode", "switch_left"),
+            romasku.relayMode("switch_left_relay_mode", "switch_left"),
+            romasku.relayIndex("switch_left_relay_index", "switch_left", 2),
+            romasku.bindedMode("switch_left_binded_mode", "switch_left"),
+            romasku.longPressDuration("switch_left_long_press_duration", "switch_left"),
+            romasku.levelMoveRate("switch_left_level_move_rate", "switch_left"),
+            romasku.pressAction("switch_right_press_action", "switch_right"),
+            romasku.switchMode("switch_right_mode", "switch_right"),
+            romasku.switchAction("switch_right_action_mode", "switch_right"),
+            romasku.relayMode("switch_right_relay_mode", "switch_right"),
+            romasku.relayIndex("switch_right_relay_index", "switch_right", 2),
+            romasku.bindedMode("switch_right_binded_mode", "switch_right"),
+            romasku.longPressDuration("switch_right_long_press_duration", "switch_right"),
+            romasku.levelMoveRate("switch_right_level_move_rate", "switch_right"),
+        ],
+        meta: { multiEndpoint: true },
+        configure: async (device, coordinatorEndpoint, logger) => {
+            const endpoint1 = device.getEndpoint(1);
+            await reporting.bind(endpoint1, coordinatorEndpoint, ["genMultistateInput"]);
+            // switch action:
+            await endpoint1.configureReporting("genMultistateInput", [
+                {
+                    attribute: {ID: 0x0055 /* presentValue */, type: 0x21}, // uint16
+                    minimumReportInterval: 0,
+                    maximumReportInterval: constants.repInterval.MAX,
+                    reportableChange: 1,
+                },
+            ]);
+            const endpoint2 = device.getEndpoint(2);
+            await reporting.bind(endpoint2, coordinatorEndpoint, ["genMultistateInput"]);
+            // switch action:
+            await endpoint2.configureReporting("genMultistateInput", [
+                {
+                    attribute: {ID: 0x0055 /* presentValue */, type: 0x21}, // uint16
+                    minimumReportInterval: 0,
+                    maximumReportInterval: constants.repInterval.MAX,
+                    reportableChange: 1,
+                },
+            ]);
+            const endpoint3 = device.getEndpoint(3);
+            await reporting.onOff(endpoint3, {
+                min: 0,
+                max: constants.repInterval.MAX,
+                change: 1,
+            });
+            const endpoint4 = device.getEndpoint(4);
+            await reporting.onOff(endpoint4, {
+                min: 0,
+                max: constants.repInterval.MAX,
+                change: 1,
+            });
+
+        },
+        ota: true,
+    },
+    {
+        zigbeeModel: [
+            "NovatoZRM01",
+        ],
+        model: "QS-Zigbee-SEC01-U",
+        vendor: "Tuya-custom",
+        description: "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
+        extend: [
+            deviceEndpoints({ endpoints: {"switch": 1, "relay": 2, } }),
+            romasku.deviceConfig("device_config", "switch"),
+            romasku.networkIndicator("network_led", "switch"),
+            onOff({ endpointNames: ["relay"] }),
+            romasku.pressAction("switch_press_action", "switch"),
+            romasku.switchMode("switch_mode", "switch"),
+            romasku.switchAction("switch_action_mode", "switch"),
+            romasku.relayMode("switch_relay_mode", "switch"),
+            romasku.relayIndex("switch_relay_index", "switch", 1),
+            romasku.bindedMode("switch_binded_mode", "switch"),
+            romasku.longPressDuration("switch_long_press_duration", "switch"),
+            romasku.levelMoveRate("switch_level_move_rate", "switch"),
+        ],
+        meta: { multiEndpoint: true },
+        configure: async (device, coordinatorEndpoint, logger) => {
+            const endpoint1 = device.getEndpoint(1);
+            await reporting.bind(endpoint1, coordinatorEndpoint, ["genMultistateInput"]);
+            // switch action:
+            await endpoint1.configureReporting("genMultistateInput", [
+                {
+                    attribute: {ID: 0x0055 /* presentValue */, type: 0x21}, // uint16
+                    minimumReportInterval: 0,
+                    maximumReportInterval: constants.repInterval.MAX,
+                    reportableChange: 1,
+                },
+            ]);
+            const endpoint2 = device.getEndpoint(2);
+            await reporting.onOff(endpoint2, {
+                min: 0,
+                max: constants.repInterval.MAX,
+                change: 1,
+            });
+
+        },
+        ota: true,
+    },
+    {
+        zigbeeModel: [
+            "NovatoZRM02",
+        ],
+        model: "QS-Zigbee-SEC02-U",
+        vendor: "Tuya-custom",
+        description: "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
+        extend: [
+            deviceEndpoints({ endpoints: {"switch_left": 1, "switch_right": 2, "relay_left": 3, "relay_right": 4, } }),
+            romasku.deviceConfig("device_config", "switch_left"),
+            romasku.networkIndicator("network_led", "switch_left"),
+            onOff({ endpointNames: ["relay_left", "relay_right"] }),
+            romasku.pressAction("switch_left_press_action", "switch_left"),
+            romasku.switchMode("switch_left_mode", "switch_left"),
+            romasku.switchAction("switch_left_action_mode", "switch_left"),
+            romasku.relayMode("switch_left_relay_mode", "switch_left"),
+            romasku.relayIndex("switch_left_relay_index", "switch_left", 2),
+            romasku.bindedMode("switch_left_binded_mode", "switch_left"),
+            romasku.longPressDuration("switch_left_long_press_duration", "switch_left"),
+            romasku.levelMoveRate("switch_left_level_move_rate", "switch_left"),
+            romasku.pressAction("switch_right_press_action", "switch_right"),
+            romasku.switchMode("switch_right_mode", "switch_right"),
+            romasku.switchAction("switch_right_action_mode", "switch_right"),
+            romasku.relayMode("switch_right_relay_mode", "switch_right"),
+            romasku.relayIndex("switch_right_relay_index", "switch_right", 2),
+            romasku.bindedMode("switch_right_binded_mode", "switch_right"),
+            romasku.longPressDuration("switch_right_long_press_duration", "switch_right"),
+            romasku.levelMoveRate("switch_right_level_move_rate", "switch_right"),
+        ],
+        meta: { multiEndpoint: true },
+        configure: async (device, coordinatorEndpoint, logger) => {
+            const endpoint1 = device.getEndpoint(1);
+            await reporting.bind(endpoint1, coordinatorEndpoint, ["genMultistateInput"]);
+            // switch action:
+            await endpoint1.configureReporting("genMultistateInput", [
+                {
+                    attribute: {ID: 0x0055 /* presentValue */, type: 0x21}, // uint16
+                    minimumReportInterval: 0,
+                    maximumReportInterval: constants.repInterval.MAX,
+                    reportableChange: 1,
+                },
+            ]);
+            const endpoint2 = device.getEndpoint(2);
+            await reporting.bind(endpoint2, coordinatorEndpoint, ["genMultistateInput"]);
+            // switch action:
+            await endpoint2.configureReporting("genMultistateInput", [
+                {
+                    attribute: {ID: 0x0055 /* presentValue */, type: 0x21}, // uint16
+                    minimumReportInterval: 0,
+                    maximumReportInterval: constants.repInterval.MAX,
+                    reportableChange: 1,
+                },
+            ]);
+            const endpoint3 = device.getEndpoint(3);
+            await reporting.onOff(endpoint3, {
+                min: 0,
+                max: constants.repInterval.MAX,
+                change: 1,
+            });
+            const endpoint4 = device.getEndpoint(4);
+            await reporting.onOff(endpoint4, {
+                min: 0,
+                max: constants.repInterval.MAX,
+                change: 1,
+            });
+
+        },
+        ota: true,
+    },
+    {
+        zigbeeModel: [
+            "NovatoZNR01",
+        ],
+        model: "TS0011",
+        vendor: "Tuya-custom",
+        description: "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
+        extend: [
+            deviceEndpoints({ endpoints: {"switch": 1, "relay": 2, } }),
+            romasku.deviceConfig("device_config", "switch"),
+            romasku.networkIndicator("network_led", "switch"),
+            onOff({ endpointNames: ["relay"] }),
+            romasku.pressAction("switch_press_action", "switch"),
+            romasku.switchMode("switch_mode", "switch"),
+            romasku.switchAction("switch_action_mode", "switch"),
+            romasku.relayMode("switch_relay_mode", "switch"),
+            romasku.relayIndex("switch_relay_index", "switch", 1),
+            romasku.bindedMode("switch_binded_mode", "switch"),
+            romasku.longPressDuration("switch_long_press_duration", "switch"),
+            romasku.levelMoveRate("switch_level_move_rate", "switch"),
+        ],
+        meta: { multiEndpoint: true },
+        configure: async (device, coordinatorEndpoint, logger) => {
+            const endpoint1 = device.getEndpoint(1);
+            await reporting.bind(endpoint1, coordinatorEndpoint, ["genMultistateInput"]);
+            // switch action:
+            await endpoint1.configureReporting("genMultistateInput", [
+                {
+                    attribute: {ID: 0x0055 /* presentValue */, type: 0x21}, // uint16
+                    minimumReportInterval: 0,
+                    maximumReportInterval: constants.repInterval.MAX,
+                    reportableChange: 1,
+                },
+            ]);
+            const endpoint2 = device.getEndpoint(2);
+            await reporting.onOff(endpoint2, {
+                min: 0,
+                max: constants.repInterval.MAX,
+                change: 1,
+            });
+
+        },
+        ota: true,
+    },
+    {
+        zigbeeModel: [
+            "TS130F-NOV",
+        ],
+        model: "TS130F",
+        vendor: "Tuya-custom",
+        description: "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
+        extend: [
+            deviceEndpoints({ endpoints: {"switch_left": 1, "switch_right": 2, "relay_left": 3, "relay_right": 4, } }),
+            romasku.deviceConfig("device_config", "switch_left"),
+            romasku.networkIndicator("network_led", "switch_left"),
+            onOff({ endpointNames: ["relay_left", "relay_right"] }),
+            romasku.pressAction("switch_left_press_action", "switch_left"),
+            romasku.switchMode("switch_left_mode", "switch_left"),
+            romasku.switchAction("switch_left_action_mode", "switch_left"),
+            romasku.relayMode("switch_left_relay_mode", "switch_left"),
+            romasku.relayIndex("switch_left_relay_index", "switch_left", 2),
+            romasku.bindedMode("switch_left_binded_mode", "switch_left"),
+            romasku.longPressDuration("switch_left_long_press_duration", "switch_left"),
+            romasku.levelMoveRate("switch_left_level_move_rate", "switch_left"),
+            romasku.pressAction("switch_right_press_action", "switch_right"),
+            romasku.switchMode("switch_right_mode", "switch_right"),
+            romasku.switchAction("switch_right_action_mode", "switch_right"),
+            romasku.relayMode("switch_right_relay_mode", "switch_right"),
+            romasku.relayIndex("switch_right_relay_index", "switch_right", 2),
+            romasku.bindedMode("switch_right_binded_mode", "switch_right"),
+            romasku.longPressDuration("switch_right_long_press_duration", "switch_right"),
+            romasku.levelMoveRate("switch_right_level_move_rate", "switch_right"),
+        ],
+        meta: { multiEndpoint: true },
+        configure: async (device, coordinatorEndpoint, logger) => {
+            const endpoint1 = device.getEndpoint(1);
+            await reporting.bind(endpoint1, coordinatorEndpoint, ["genMultistateInput"]);
+            // switch action:
+            await endpoint1.configureReporting("genMultistateInput", [
+                {
+                    attribute: {ID: 0x0055 /* presentValue */, type: 0x21}, // uint16
+                    minimumReportInterval: 0,
+                    maximumReportInterval: constants.repInterval.MAX,
+                    reportableChange: 1,
+                },
+            ]);
+            const endpoint2 = device.getEndpoint(2);
+            await reporting.bind(endpoint2, coordinatorEndpoint, ["genMultistateInput"]);
+            // switch action:
+            await endpoint2.configureReporting("genMultistateInput", [
+                {
+                    attribute: {ID: 0x0055 /* presentValue */, type: 0x21}, // uint16
+                    minimumReportInterval: 0,
+                    maximumReportInterval: constants.repInterval.MAX,
+                    reportableChange: 1,
+                },
+            ]);
+            const endpoint3 = device.getEndpoint(3);
+            await reporting.onOff(endpoint3, {
+                min: 0,
+                max: constants.repInterval.MAX,
+                change: 1,
+            });
+            const endpoint4 = device.getEndpoint(4);
+            await reporting.onOff(endpoint4, {
                 min: 0,
                 max: constants.repInterval.MAX,
                 change: 1,
@@ -4289,6 +4908,125 @@ const definitions = [
             });
             const endpoint6 = device.getEndpoint(6);
             await reporting.onOff(endpoint6, {
+                min: 0,
+                max: constants.repInterval.MAX,
+                change: 1,
+            });
+
+        },
+        ota: true,
+    },
+    {
+        zigbeeModel: [
+            "TS0004-AVT",
+        ],
+        model: "TS0004",
+        vendor: "Tuya-custom",
+        description: "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
+        extend: [
+            deviceEndpoints({ endpoints: {"switch_0": 1, "switch_1": 2, "switch_2": 3, "switch_3": 4, "relay_0": 5, "relay_1": 6, "relay_2": 7, "relay_3": 8, } }),
+            romasku.deviceConfig("device_config", "switch_0"),
+            romasku.networkIndicator("network_led", "switch_0"),
+            onOff({ endpointNames: ["relay_0", "relay_1", "relay_2", "relay_3"] }),
+            romasku.pressAction("switch_0_press_action", "switch_0"),
+            romasku.switchMode("switch_0_mode", "switch_0"),
+            romasku.switchAction("switch_0_action_mode", "switch_0"),
+            romasku.relayMode("switch_0_relay_mode", "switch_0"),
+            romasku.relayIndex("switch_0_relay_index", "switch_0", 4),
+            romasku.bindedMode("switch_0_binded_mode", "switch_0"),
+            romasku.longPressDuration("switch_0_long_press_duration", "switch_0"),
+            romasku.levelMoveRate("switch_0_level_move_rate", "switch_0"),
+            romasku.pressAction("switch_1_press_action", "switch_1"),
+            romasku.switchMode("switch_1_mode", "switch_1"),
+            romasku.switchAction("switch_1_action_mode", "switch_1"),
+            romasku.relayMode("switch_1_relay_mode", "switch_1"),
+            romasku.relayIndex("switch_1_relay_index", "switch_1", 4),
+            romasku.bindedMode("switch_1_binded_mode", "switch_1"),
+            romasku.longPressDuration("switch_1_long_press_duration", "switch_1"),
+            romasku.levelMoveRate("switch_1_level_move_rate", "switch_1"),
+            romasku.pressAction("switch_2_press_action", "switch_2"),
+            romasku.switchMode("switch_2_mode", "switch_2"),
+            romasku.switchAction("switch_2_action_mode", "switch_2"),
+            romasku.relayMode("switch_2_relay_mode", "switch_2"),
+            romasku.relayIndex("switch_2_relay_index", "switch_2", 4),
+            romasku.bindedMode("switch_2_binded_mode", "switch_2"),
+            romasku.longPressDuration("switch_2_long_press_duration", "switch_2"),
+            romasku.levelMoveRate("switch_2_level_move_rate", "switch_2"),
+            romasku.pressAction("switch_3_press_action", "switch_3"),
+            romasku.switchMode("switch_3_mode", "switch_3"),
+            romasku.switchAction("switch_3_action_mode", "switch_3"),
+            romasku.relayMode("switch_3_relay_mode", "switch_3"),
+            romasku.relayIndex("switch_3_relay_index", "switch_3", 4),
+            romasku.bindedMode("switch_3_binded_mode", "switch_3"),
+            romasku.longPressDuration("switch_3_long_press_duration", "switch_3"),
+            romasku.levelMoveRate("switch_3_level_move_rate", "switch_3"),
+        ],
+        meta: { multiEndpoint: true },
+        configure: async (device, coordinatorEndpoint, logger) => {
+            const endpoint1 = device.getEndpoint(1);
+            await reporting.bind(endpoint1, coordinatorEndpoint, ["genMultistateInput"]);
+            // switch action:
+            await endpoint1.configureReporting("genMultistateInput", [
+                {
+                    attribute: {ID: 0x0055 /* presentValue */, type: 0x21}, // uint16
+                    minimumReportInterval: 0,
+                    maximumReportInterval: constants.repInterval.MAX,
+                    reportableChange: 1,
+                },
+            ]);
+            const endpoint2 = device.getEndpoint(2);
+            await reporting.bind(endpoint2, coordinatorEndpoint, ["genMultistateInput"]);
+            // switch action:
+            await endpoint2.configureReporting("genMultistateInput", [
+                {
+                    attribute: {ID: 0x0055 /* presentValue */, type: 0x21}, // uint16
+                    minimumReportInterval: 0,
+                    maximumReportInterval: constants.repInterval.MAX,
+                    reportableChange: 1,
+                },
+            ]);
+            const endpoint3 = device.getEndpoint(3);
+            await reporting.bind(endpoint3, coordinatorEndpoint, ["genMultistateInput"]);
+            // switch action:
+            await endpoint3.configureReporting("genMultistateInput", [
+                {
+                    attribute: {ID: 0x0055 /* presentValue */, type: 0x21}, // uint16
+                    minimumReportInterval: 0,
+                    maximumReportInterval: constants.repInterval.MAX,
+                    reportableChange: 1,
+                },
+            ]);
+            const endpoint4 = device.getEndpoint(4);
+            await reporting.bind(endpoint4, coordinatorEndpoint, ["genMultistateInput"]);
+            // switch action:
+            await endpoint4.configureReporting("genMultistateInput", [
+                {
+                    attribute: {ID: 0x0055 /* presentValue */, type: 0x21}, // uint16
+                    minimumReportInterval: 0,
+                    maximumReportInterval: constants.repInterval.MAX,
+                    reportableChange: 1,
+                },
+            ]);
+            const endpoint5 = device.getEndpoint(5);
+            await reporting.onOff(endpoint5, {
+                min: 0,
+                max: constants.repInterval.MAX,
+                change: 1,
+            });
+            const endpoint6 = device.getEndpoint(6);
+            await reporting.onOff(endpoint6, {
+                min: 0,
+                max: constants.repInterval.MAX,
+                change: 1,
+            });
+            const endpoint7 = device.getEndpoint(7);
+            await reporting.onOff(endpoint7, {
+                min: 0,
+                max: constants.repInterval.MAX,
+                change: 1,
+            });
+            const endpoint8 = device.getEndpoint(8);
+            await reporting.onOff(endpoint8, {
                 min: 0,
                 max: constants.repInterval.MAX,
                 change: 1,
@@ -5825,18 +6563,207 @@ const definitions = [
     },
     {
         zigbeeModel: [
-            "TS0726-4-BS",
+            "TS0001-HMT",
         ],
-        model: "EC-GL86ZPCS41",
+        model: "Homeetec_37022454",
         vendor: "Tuya-custom",
         description: "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
         extend: [
-            deviceEndpoints({ endpoints: {} }),
-            romasku.deviceConfig("device_config", ""),
-            onOff({ endpointNames: [] }),
+            deviceEndpoints({ endpoints: {"switch": 1, "relay": 2, } }),
+            romasku.deviceConfig("device_config", "switch"),
+            romasku.networkIndicator("network_led", "switch"),
+            onOff({ endpointNames: ["relay"] }),
+            romasku.pressAction("switch_press_action", "switch"),
+            romasku.switchMode("switch_mode", "switch"),
+            romasku.switchAction("switch_action_mode", "switch"),
+            romasku.relayMode("switch_relay_mode", "switch"),
+            romasku.relayIndex("switch_relay_index", "switch", 1),
+            romasku.bindedMode("switch_binded_mode", "switch"),
+            romasku.longPressDuration("switch_long_press_duration", "switch"),
+            romasku.levelMoveRate("switch_level_move_rate", "switch"),
         ],
         meta: { multiEndpoint: true },
         configure: async (device, coordinatorEndpoint, logger) => {
+            const endpoint1 = device.getEndpoint(1);
+            await reporting.bind(endpoint1, coordinatorEndpoint, ["genMultistateInput"]);
+            // switch action:
+            await endpoint1.configureReporting("genMultistateInput", [
+                {
+                    attribute: {ID: 0x0055 /* presentValue */, type: 0x21}, // uint16
+                    minimumReportInterval: 0,
+                    maximumReportInterval: constants.repInterval.MAX,
+                    reportableChange: 1,
+                },
+            ]);
+            const endpoint2 = device.getEndpoint(2);
+            await reporting.onOff(endpoint2, {
+                min: 0,
+                max: constants.repInterval.MAX,
+                change: 1,
+            });
+
+        },
+        ota: true,
+    },
+    {
+        zigbeeModel: [
+            "TS0002-HMT",
+        ],
+        model: "37022463-1",
+        vendor: "Tuya-custom",
+        description: "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
+        extend: [
+            deviceEndpoints({ endpoints: {"switch_left": 1, "switch_right": 2, "relay_left": 3, "relay_right": 4, } }),
+            romasku.deviceConfig("device_config", "switch_left"),
+            romasku.networkIndicator("network_led", "switch_left"),
+            onOff({ endpointNames: ["relay_left", "relay_right"] }),
+            romasku.pressAction("switch_left_press_action", "switch_left"),
+            romasku.switchMode("switch_left_mode", "switch_left"),
+            romasku.switchAction("switch_left_action_mode", "switch_left"),
+            romasku.relayMode("switch_left_relay_mode", "switch_left"),
+            romasku.relayIndex("switch_left_relay_index", "switch_left", 2),
+            romasku.bindedMode("switch_left_binded_mode", "switch_left"),
+            romasku.longPressDuration("switch_left_long_press_duration", "switch_left"),
+            romasku.levelMoveRate("switch_left_level_move_rate", "switch_left"),
+            romasku.pressAction("switch_right_press_action", "switch_right"),
+            romasku.switchMode("switch_right_mode", "switch_right"),
+            romasku.switchAction("switch_right_action_mode", "switch_right"),
+            romasku.relayMode("switch_right_relay_mode", "switch_right"),
+            romasku.relayIndex("switch_right_relay_index", "switch_right", 2),
+            romasku.bindedMode("switch_right_binded_mode", "switch_right"),
+            romasku.longPressDuration("switch_right_long_press_duration", "switch_right"),
+            romasku.levelMoveRate("switch_right_level_move_rate", "switch_right"),
+        ],
+        meta: { multiEndpoint: true },
+        configure: async (device, coordinatorEndpoint, logger) => {
+            const endpoint1 = device.getEndpoint(1);
+            await reporting.bind(endpoint1, coordinatorEndpoint, ["genMultistateInput"]);
+            // switch action:
+            await endpoint1.configureReporting("genMultistateInput", [
+                {
+                    attribute: {ID: 0x0055 /* presentValue */, type: 0x21}, // uint16
+                    minimumReportInterval: 0,
+                    maximumReportInterval: constants.repInterval.MAX,
+                    reportableChange: 1,
+                },
+            ]);
+            const endpoint2 = device.getEndpoint(2);
+            await reporting.bind(endpoint2, coordinatorEndpoint, ["genMultistateInput"]);
+            // switch action:
+            await endpoint2.configureReporting("genMultistateInput", [
+                {
+                    attribute: {ID: 0x0055 /* presentValue */, type: 0x21}, // uint16
+                    minimumReportInterval: 0,
+                    maximumReportInterval: constants.repInterval.MAX,
+                    reportableChange: 1,
+                },
+            ]);
+            const endpoint3 = device.getEndpoint(3);
+            await reporting.onOff(endpoint3, {
+                min: 0,
+                max: constants.repInterval.MAX,
+                change: 1,
+            });
+            const endpoint4 = device.getEndpoint(4);
+            await reporting.onOff(endpoint4, {
+                min: 0,
+                max: constants.repInterval.MAX,
+                change: 1,
+            });
+
+        },
+        ota: true,
+    },
+    {
+        zigbeeModel: [
+            "TS0003-HMT",
+        ],
+        model: "37022474_1",
+        vendor: "Tuya-custom",
+        description: "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
+        extend: [
+            deviceEndpoints({ endpoints: {"switch_left": 1, "switch_middle": 2, "switch_right": 3, "relay_left": 4, "relay_middle": 5, "relay_right": 6, } }),
+            romasku.deviceConfig("device_config", "switch_left"),
+            romasku.networkIndicator("network_led", "switch_left"),
+            onOff({ endpointNames: ["relay_left", "relay_middle", "relay_right"] }),
+            romasku.pressAction("switch_left_press_action", "switch_left"),
+            romasku.switchMode("switch_left_mode", "switch_left"),
+            romasku.switchAction("switch_left_action_mode", "switch_left"),
+            romasku.relayMode("switch_left_relay_mode", "switch_left"),
+            romasku.relayIndex("switch_left_relay_index", "switch_left", 3),
+            romasku.bindedMode("switch_left_binded_mode", "switch_left"),
+            romasku.longPressDuration("switch_left_long_press_duration", "switch_left"),
+            romasku.levelMoveRate("switch_left_level_move_rate", "switch_left"),
+            romasku.pressAction("switch_middle_press_action", "switch_middle"),
+            romasku.switchMode("switch_middle_mode", "switch_middle"),
+            romasku.switchAction("switch_middle_action_mode", "switch_middle"),
+            romasku.relayMode("switch_middle_relay_mode", "switch_middle"),
+            romasku.relayIndex("switch_middle_relay_index", "switch_middle", 3),
+            romasku.bindedMode("switch_middle_binded_mode", "switch_middle"),
+            romasku.longPressDuration("switch_middle_long_press_duration", "switch_middle"),
+            romasku.levelMoveRate("switch_middle_level_move_rate", "switch_middle"),
+            romasku.pressAction("switch_right_press_action", "switch_right"),
+            romasku.switchMode("switch_right_mode", "switch_right"),
+            romasku.switchAction("switch_right_action_mode", "switch_right"),
+            romasku.relayMode("switch_right_relay_mode", "switch_right"),
+            romasku.relayIndex("switch_right_relay_index", "switch_right", 3),
+            romasku.bindedMode("switch_right_binded_mode", "switch_right"),
+            romasku.longPressDuration("switch_right_long_press_duration", "switch_right"),
+            romasku.levelMoveRate("switch_right_level_move_rate", "switch_right"),
+        ],
+        meta: { multiEndpoint: true },
+        configure: async (device, coordinatorEndpoint, logger) => {
+            const endpoint1 = device.getEndpoint(1);
+            await reporting.bind(endpoint1, coordinatorEndpoint, ["genMultistateInput"]);
+            // switch action:
+            await endpoint1.configureReporting("genMultistateInput", [
+                {
+                    attribute: {ID: 0x0055 /* presentValue */, type: 0x21}, // uint16
+                    minimumReportInterval: 0,
+                    maximumReportInterval: constants.repInterval.MAX,
+                    reportableChange: 1,
+                },
+            ]);
+            const endpoint2 = device.getEndpoint(2);
+            await reporting.bind(endpoint2, coordinatorEndpoint, ["genMultistateInput"]);
+            // switch action:
+            await endpoint2.configureReporting("genMultistateInput", [
+                {
+                    attribute: {ID: 0x0055 /* presentValue */, type: 0x21}, // uint16
+                    minimumReportInterval: 0,
+                    maximumReportInterval: constants.repInterval.MAX,
+                    reportableChange: 1,
+                },
+            ]);
+            const endpoint3 = device.getEndpoint(3);
+            await reporting.bind(endpoint3, coordinatorEndpoint, ["genMultistateInput"]);
+            // switch action:
+            await endpoint3.configureReporting("genMultistateInput", [
+                {
+                    attribute: {ID: 0x0055 /* presentValue */, type: 0x21}, // uint16
+                    minimumReportInterval: 0,
+                    maximumReportInterval: constants.repInterval.MAX,
+                    reportableChange: 1,
+                },
+            ]);
+            const endpoint4 = device.getEndpoint(4);
+            await reporting.onOff(endpoint4, {
+                min: 0,
+                max: constants.repInterval.MAX,
+                change: 1,
+            });
+            const endpoint5 = device.getEndpoint(5);
+            await reporting.onOff(endpoint5, {
+                min: 0,
+                max: constants.repInterval.MAX,
+                change: 1,
+            });
+            const endpoint6 = device.getEndpoint(6);
+            await reporting.onOff(endpoint6, {
+                min: 0,
+                max: constants.repInterval.MAX,
+                change: 1,
+            });
 
         },
         ota: true,

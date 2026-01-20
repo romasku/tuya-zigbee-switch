@@ -4,6 +4,7 @@ from zhaquirks import CustomCluster
 from zigpy.quirks.v2 import QuirkBuilder, ReportingConfig, SensorDeviceClass, EntityType
 from zigpy.zcl import ClusterType, foundation
 from zigpy.zcl.clusters.general import OnOffConfiguration, SwitchType, MultistateInput, OnOff, Basic
+from zigpy.zcl.clusters.closures import WindowCovering
 from zigpy.zcl.foundation import ZCLAttributeDef
 import zigpy.types as t
 
@@ -124,6 +125,30 @@ class OnOffWithIndicatorCluster(CustomCluster, OnOff):
             is_manufacturer_specific=True,
         )
 
+
+class CoverMoving(t.enum8):
+    Stopped = 0x00
+    Opening = 0x01
+    Closing = 0x02
+
+
+class CustomWindowCoveringCluster(CustomCluster, WindowCovering):
+
+    class AttributeDefs(WindowCovering.AttributeDefs):
+        moving = ZCLAttributeDef(
+            id=0xff00,
+            type=CoverMoving,
+            access="r",
+            is_manufacturer_specific=True,
+        )
+
+        motor_reversal = ZCLAttributeDef(
+            id=0xff01,
+            type=t.Bool,
+            access="rw",
+            is_manufacturer_specific=True,
+        )
+
 '''``````````````````````````````````````````````````````````````````
   This file (`zha_quirk.py`) is generated. 
   
@@ -138,6 +163,7 @@ class OnOffWithIndicatorCluster(CustomCluster, OnOff):
 CONFIGS = [
     "imaccztn;TS0004-MC;LC3i;SD7u;RD4;SC0u;RA0;SB5u;RD2;SB7u;RC2;M;",
     "u3oupgdy;TS0004-MC2;LC3i;SD7u;RD4;SC0u;RA0;SB5u;RD2;SB7u;RC2;M;",
+    "nuenzetq;TS0002-SC;LC3i;SD7u;RD4;SC0u;RA0;M;",
     "TUYA;DEV-ZTU2;LD7;SA0u;RC1;IB6;M;",
     "46t1rvdu;WHD02-Aubess;BC4u;LD2;SB4u;RB5;",
     "46t1rvdu;WHD02-Aubess-ED;BC4u;LD2;SB4u;RB5;",
@@ -147,7 +173,6 @@ CONFIGS = [
     "lvhy15ix;TS0003-AUB;BC4u;LB1;SC2u;RB7;SC3u;RB4;SD2u;RB5;",
     "mmkbptmx;TS0004-custom;BB6u;LB1;SC1u;RB7;SC2u;RB5;SC3u;RB4;SD2u;RC4;",
     "Tuya-TS0004-custom;TS0004-custom;BB6u;LB1;SC1u;RB7;SC2u;RB5;SC3u;RB4;SD2u;RC4;",
-    "gzggw2ia;TS0001-AV-DRY;BC2u;LD2i;SD3u;RC0;",
     "4rbqgcuv;TS0001-AVB;BC2u;LD2i;SD3u;RC0;",
     "4rbqgcuv;TS0001-Avatto-custom;BC2u;LD2i;SD3u;RC0;",
     "4rbqgcuv;TS0001-AV-CUS;BC2u;LD2i;SD3u;RC0;",
@@ -196,6 +221,9 @@ CONFIGS = [
     "TS0004-AVB;TS0004-AVB;BC2u;LD2i;SD3u;RC0;SD7u;RD4;SB6u;RC1;SA0u;RC4;",
     "TS0004-AVB;TS0004-Avatto-custom;BC2u;LD2i;SD3u;RC0;SD7u;RD4;SB6u;RC1;SA0u;RC4;",
     "TS0004-AVB;TS0004-AV-CUS;BC2u;LD2i;SD3u;RC0;SD7u;RD4;SB6u;RC1;SA0u;RC4;",
+    "iv4eq7eh;TS0003-AVB2;BC2u;LD2i;SD3u;RC0;SD7u;RD4;SB6u;RC1;",
+    "3n2minvf;TS0004-AVB2;BC2u;LD2i;SD3u;RC0;SD7u;RD4;SB6u;RC1;SB4u;RC4;",
+    "gzggw2ia;TS0001-AV-DRY;BC2u;LD2i;SD3u;RC0;",
     "hbxsdd6k;TS0011-avatto;BB4u;LB5;SC0u;RC2;",
     "hbxsdd6k;TS0011-avatto-ED;BB4u;LB5;SC0u;RC2;",
     "TS0011-Avatto;TS0011-avatto;BB4u;LB5;SC0u;RC2;",
@@ -216,7 +244,7 @@ CONFIGS = [
     "zmy4lslw;TS0002-custom;BD2u;LC2;SB5u;RC4;SB4u;RC3;",
     "Tuya-TS0002-custom;TS0002-GIR;BD2u;LC2;SB5u;RC4;SB4u;RC3;",
     "Tuya-TS0002-custom;TS0002-custom;BD2u;LC2;SB5u;RC4;SB4u;RC3;",
-    "j1xl73iw;TS130F-GIR-DUAL;LC1;SB4u;RC0;SD2u;RC4;SC3u;RD4;SC2u;RD7;",
+    "j1xl73iw;TS130F-GIR-DUAL;LC1;CC0C4;CD4D7;",
     "6axxqqi2;TS0001-GIR-1;BC2u;LB5i;SB4u;RD2;",
     "q6a3tepg;TS0001-HOB1;BB1u;LD4i;SB6u;RA1;",
     "ZG-301Z;TS0001-HOB;BB1u;LD4i;SB6u;RA1;",
@@ -230,13 +258,12 @@ CONFIGS = [
     "TS0003-IHS;TS0003-3CH-cus;BC3u;LC2i;SD7u;RD2;SB4u;RD3;SB5u;RC0;",
     "knoj8lpk;TS0004-IHS;BC3u;LC2i;SB5u;RD2;SB4u;RD3;SD7u;RC0;SD4u;RC1;",
     "TS0004-IHS;TS0004-IHS;BC3u;LC2i;SB5u;RD2;SB4u;RD3;SD7u;RC0;SD4u;RC1;",
-    "qaa59zqd;TS0002-MS;BB1u;LC3;SB5u;RD2;SB4u;RC2;",
+    "qaa59zqd;TS0002-MSB;BB1u;LC3;SB5u;RD2;SB4u;RC2;",
     "pfc7i3kt;TS0003-custom;BD3u;SC1u;RB5;SD7u;RD4;SC3u;RB4;",
     "Tuya-TS0003-custom;TS0003-custom;BD3u;SC1u;RB5;SD7u;RD4;SC3u;RB4;",
-    "criiahcg;TS0002-MS;BB1u;LC3;SB4u;RC2;SB5u;RD2;",
-    "hdc8bbha;NovatoZRM01;BB4u;LC2;SC4f;RD2;",
-    "m8f3z8ju;NovatoZRM02;BC3u;LC4;SC2f;RB5;SB4f;RD2;",
-    "30jqysvd;NovatoZNR01;BB7u;LB1;SC2u;RB5;",
+    "criiahcg;TS0002-MS;BB1u;LC3;SB5u;RD2;SB4u;RC2;",
+    "mzcp0of6;TS0003-MS;BC3u;LC2i;SD4u;RD2;SC1u;RC0;SC4u;RD7;",
+    "tyg4yiat;TS0004-MS;BC3u;LC2i;SD4u;RD2;SC1u;RC0;SC4u;RD7;SB7u;RD3;",
     "c4muk4ys;TS0012-QS;BB4u;LC2;SD2u;RA0B6;SC3u;RC0D7;SLP;",
     "sonoff;ZBMINIL2-custom;BA0u;LC5i;SA6u;RA5A4;",
     "npzfdcof;TS0001-TLED;BD2u;LC3i;SB5u;RB4;",
@@ -266,6 +293,11 @@ CONFIGS = [
     "Girier-ZB08-custom;ZB08-custom-ED;BA0u;LD7;SC2u;RC0;SC3u;RB4;SD2u;RB5;",
     "Girier-ZB08-custom-ED;ZB08-custom;BA0u;LD7;SC2u;RC0;SC3u;RB4;SD2u;RB5;",
     "Girier-ZB08-custom-ED;ZB08-custom-ED;BA0u;LD7;SC2u;RC0;SC3u;RB4;SD2u;RB5;",
+    "fisb3ajo;TS0002-QS;BC2u;LC3;SB5u;RC1;SB4u;RD4;",
+    "hdc8bbha;NovatoZRM01;BB4u;LC2;SC4f;RD2;",
+    "m8f3z8ju;NovatoZRM02;BC3u;LC4;SC2f;RB5;SB4f;RD2;",
+    "30jqysvd;NovatoZNR01;BB7u;LB1;SC2u;RB5;",
+    "ol1uhvza;TS130F-NOV;BC3u;LC4;SC2f;RB5;SB4f;RD2;",
     "tqlv4ug4;TS0001-custom;BD2u;LC0;SB4u;RC2;",
     "Tuya-TS0001-custom;TS0001-custom;BD2u;LC0;SB4u;RC2;",
     "bvrlqyj7;TS0002-OXT-CUS;BD2u;LC0;SB4u;RC2;SB5u;RC3;",
@@ -285,6 +317,7 @@ CONFIGS = [
     "avky2mvc;Avatto-3-touch;LB5;SD3u;RC2;SD7u;RC3;SD4u;RD2;M;",
     "Avatto-3-touch;TS0003-AVT;LB5;SD3u;RC2;SD7u;RC3;SD4u;RD2;M;",
     "Avatto-3-touch;Avatto-3-touch;LB5;SD3u;RC2;SD7u;RC3;SD4u;RD2;M;",
+    "eeswvvtm;TS0004-AVT;LB5;SD3u;RC2;SD7u;RC3;SD4u;RD2;SC1u;RB4;M;",
     "blhvsaqf;TS0001-BSDB;LC4;SC1u;RC3;IC2;M;",
     "blhvsaqf;TS0001-BS-T;LC4;SC1u;RC3;IC2;M;",
     "l9brjwau;TS0002-BSDB;LC4;SB5u;RD3;IC3;SD3u;RC2;ID7;M;",
@@ -317,7 +350,9 @@ CONFIGS = [
     "jn2x20tg;TS0726-1-BS;LC4;SB1u;RC2;IC0;M;",
     "zjuvw9zf;TS0726-2-BS;LC4;SB1u;RC2;IC0;SB7u;RC3;ID7;M;",
     "iedhxgyi;TS0726-3-BS;LC4;SB1u;RC2;IC0;SB7u;RC3;ID7;SB4u;RD2;IB5;M;",
-    "pzao9ls1;TS0726-4-BS;  null",
+    "bmqxalil;TS0001-HMT;LC2i;SA0u;RD2;M;",
+    "in5qxhtt;TS0002-HMT;LC2i;SB4u;RD7;SD4u;RC3;M;",
+    "pv4puuxi;TS0003-HMT;LC2i;SB4u;RD7;SA0u;RD2;SD4u;RC3;M;",
     "qq9ahj6z;TS0001-IHS-T;LC4i;SB4U;RC3;M;",
     "zxrfobzw;TS0002-IHS-T;LC4i;SC0U;RC2;SB5U;RD2;M;",
     "kea5qgnd;TS0011-MH;SC4u;RB4A0;ID2;M;",
@@ -357,6 +392,7 @@ for config in CONFIGS:
     relay_cnt = 0
     switch_cnt = 0
     indicators_cnt = 0
+    cover_cnt = 0
     has_dedicated_net_led = False
     for peripheral in peripherals:
         if peripheral == "SLP":
@@ -365,6 +401,8 @@ for config in CONFIGS:
             relay_cnt += 1
         if peripheral[0] == 'S':
             switch_cnt += 1
+        if peripheral[0] == 'C':
+            cover_cnt += 1
         if peripheral[0] == 'I':
             indicators_cnt += 1
         if peripheral[0] == 'L':
@@ -477,6 +515,32 @@ for config in CONFIGS:
                 reporting_config=ReportingConfig(
                     min_interval=0, max_interval=300, reportable_change=1
                 ),
+            )
+        )
+
+    for endpoint_id in range(switch_cnt + indicators_cnt + 1, switch_cnt + indicators_cnt + cover_cnt + 1):
+        builder = (
+            builder
+            .removes(WindowCovering.cluster_id, cluster_type=ClusterType.Client, endpoint_id=endpoint_id)
+            .adds(CustomWindowCoveringCluster, endpoint_id=endpoint_id)
+            .sensor(
+                CustomWindowCoveringCluster.AttributeDefs.moving.name,
+                CustomWindowCoveringCluster.cluster_id,
+                translation_key="cover_moving_"+str(endpoint_id),
+                fallback_name="Cover moving "+str(endpoint_id),
+                endpoint_id=endpoint_id,
+                reporting_config=ReportingConfig(min_interval=0, max_interval=300, reportable_change=1),
+                device_class=SensorDeviceClass.ENUM,
+                attribute_converter = lambda x: {0: "stopped", 1: "opening", 2: "closing"}[int(x)],
+                entity_type=EntityType.DIAGNOSTIC,
+            )
+            .switch(
+                CustomWindowCoveringCluster.AttributeDefs.motor_reversal.name,
+                CustomWindowCoveringCluster.cluster_id,
+                translation_key="cover_motor_reversal_"+str(endpoint_id),
+                fallback_name="Cover motor reversal "+str(endpoint_id),
+                endpoint_id=endpoint_id,
+                entity_type=EntityType.CONFIG,
             )
         )
 
