@@ -199,6 +199,7 @@ const lonsonhoModels = [
 ];
 
 const lonsonhoMultiplePinoutsModels = [
+    "TS130F_dual",
 ];
 
 for (let definition of lonsonhoDefinitions) {
