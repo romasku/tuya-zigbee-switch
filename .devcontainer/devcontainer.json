@@ -1,0 +1,18 @@
+{
+	"name": "tuya-zigbee-switch",
+	"image": "mcr.microsoft.com/devcontainers/cpp",
+	"postCreateCommand": "sudo apt update && sudo apt install -y default-jdk python3-venv uncrustify && ./make_scripts/make_install.sh",
+	"remoteEnv": {
+		"VIRTUAL_ENV": "/workspaces/tuya-zigbee-switch/.venv",
+		"PATH": "/workspaces/tuya-zigbee-switch/.venv/bin:${containerEnv:PATH}"
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"ms-vscode.cpptools",
+				"ms-vscode.hexeditor",
+				"redhat.vscode-yaml"
+			]
+		}
+	}
+}
