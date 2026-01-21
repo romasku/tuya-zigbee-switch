@@ -537,6 +537,32 @@ MODULE_AVATTO_TS0012:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/16
   store: https://www.aliexpress.com/item/1005007247647375.html
+MODULE_AVATTO_TS0012_1:
+  human_name: AVATTO LZWSM16-2
+  category: module
+  power: mains
+  neutral: without
+  device_type: end_device
+  stock_model_name: TS0012
+  stock_manufacturer_name: _TZ3000_kpatq5pq
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0012_switch_module
+  override_z2m_device: LZWSM16-2
+  tuya_module: ZTU
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: kpatq5pq;TS0012-AVB1;BB4u;LB5;SC0u;RC2;SC3u;RC4;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
+  firmware_image_type: 43613
+  build: yes
+  status: fully_supported
+  info: Supported
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/299
+  store: https://smartdeal.bg/product/avatto-lzwsm16-zigbee-light-switch-module-no-neutral-1-3-gang/?attribute_pa_sonoff-version=avatto-lzwsm16-2-gang
 MODULE_AVATTO_TS0013:
   human_name: AVATTO LZWSM16-3
   category: module
