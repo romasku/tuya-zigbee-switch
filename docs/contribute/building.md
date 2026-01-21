@@ -78,6 +78,22 @@ They can easily be adapted for other distributions. (Please share your scripts)
 10. Commit changes (without generated files) and push
 11. Create a Pull Request (**code_branch** ➡ **romasku/main**)
 
+### 🐳 Dev Container build
+
+As an alternative, dev containers provide a quick local setup without manually installing dependencies on your machine. They work across all platforms that support Linux containers and provide a consistent, isolated development environment. The container automatically installs all required dependencies and tools, configures VS Code extensions (C/C++ IntelliSense, Hex Editor, YAML), and activates the python virtual environment.
+
+**Prerequisites:**
+- [Docker](https://www.docker.com/get-started) or [Podman](https://podman.io/)
+- [Visual Studio Code](https://code.visualstudio.com/) with [Dev Containers extension](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)
+
+**Setup:**
+1. Fork the repository and clone it
+2. Open the project folder in VS Code
+3. Click **"Reopen in Container"** (or Command Palette: `Dev Containers: Reopen in Container`)
+4. Wait for container to build and install dependencies (first time takes a few minutes)
+
+After the container is ready, continue with the local build workflow from step 4 onwards: create **code_branch**, make changes, build with make commands, run tests, etc.
+
 ### Available commands
 
 | Command                               | Description                                               |
