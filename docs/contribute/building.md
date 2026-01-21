@@ -82,7 +82,9 @@ They can easily be adapted for other distributions. (Please share your scripts)
 
 ### 🐳 Dev Container build
 
-As an alternative, dev containers provide a quick local setup without manually installing dependencies on your machine. They work across all platforms that support Linux containers and provide a consistent, isolated development environment. The container automatically installs all required dependencies and tools, configures VS Code extensions (C/C++ IntelliSense, Hex Editor, YAML), and activates the python virtual environment.
+As an alternative, dev containers support multiple platforms, and provide a quick, isolated development environment.  
+It automatically installs all required dependencies and tools, configures VS Code extensions (C/C++ IntelliSense, Hex Editor, YAML), 
+and activates the python virtual environment.
 
 **Prerequisites:**
 - [Docker](https://www.docker.com/get-started) or [Podman](https://podman.io/)
@@ -94,7 +96,8 @@ As an alternative, dev containers provide a quick local setup without manually i
 3. Click **"Reopen in Container"** (or Command Palette: `Dev Containers: Reopen in Container`)
 4. Wait for container to build and install dependencies (first time takes a few minutes)
 
-After the container is ready, continue with the local build workflow from step 4 onwards: create **code_branch**, make changes, build with make commands, run tests, etc.
+After the container is ready, continue with the local build workflow from step 4 onwards:  
+Create **code_branch**, make changes, build with make commands, run tests, etc.
 
 ### Available commands
 
