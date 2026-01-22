@@ -338,12 +338,12 @@ const definitions = [
                 ID: 0xFC01,
                 manufacturerCode: 0x125D,
                 attributes: {
-                    switchType: {ID: 0x0000, type: Zcl.DataType.ENUM8},
-                    coverIndex: {ID: 0x0001, type: Zcl.DataType.UINT8},
-                    reversal: {ID: 0x0002, type: Zcl.DataType.BOOLEAN},
-                    localMode: {ID: 0x0003, type: Zcl.DataType.ENUM8},
-                    bindedMode: {ID: 0x0004, type: Zcl.DataType.ENUM8},
-                    longPressDuration: {ID: 0x0005, type: Zcl.DataType.UINT16},
+                    switchType: {ID: 0x0000, type: Zcl.DataType.ENUM8, write: true},
+                    coverIndex: {ID: 0x0001, type: Zcl.DataType.UINT8, write: true},
+                    reversal: {ID: 0x0002, type: Zcl.DataType.BOOLEAN, write: true},
+                    localMode: {ID: 0x0003, type: Zcl.DataType.ENUM8, write: true},
+                    bindedMode: {ID: 0x0004, type: Zcl.DataType.ENUM8, write: true},
+                    longPressDuration: {ID: 0x0005, type: Zcl.DataType.UINT16, write: true},
                 },
                 commands: {},
                 commandsResponse: {},
@@ -354,7 +354,7 @@ const definitions = [
                 ID: 0x0102,
                 attributes: {
                     moving: {ID: 0xff00, type: Zcl.DataType.ENUM8},
-                    motorReversal: {ID: 0xff01, type: Zcl.DataType.BOOLEAN},
+                    motorReversal: {ID: 0xff01, type: Zcl.DataType.BOOLEAN, write: true},
                 },
             }),
             {% endif %}
