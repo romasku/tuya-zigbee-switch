@@ -604,11 +604,12 @@ MODULE_EKAZA_TS0002:
   mcu_family: Telink
   mcu: TLSR8258
   config_str: hznzbl0x;EKAC-T3092Z-CUSTOM;BD2u;LC0;SB4u;RC2;SB5u;RC3;
+  alt_config_str: null
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
   stock_image_type: 54179
-  firmware_image_type: 43614
+  firmware_image_type: 43547
   build: yes
   status: fully_supported
   info: Supported
@@ -1662,8 +1663,8 @@ MODULE_TUYA_NOVATO_TS0002:
   stock_image_type: 54179
   firmware_image_type: 43612
   build: yes
-  status: mostly_supported
-  info: Needs pinout confirmation
+  status: fully_supported
+  info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/298
   store: null
 MODULE_TUYA_NOVATO_TS000F_1GANG:
