@@ -1337,8 +1337,8 @@ MODULE_MOES_ZM4LT4_TS0004:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/167
   store: https://www.aliexpress.com/item/1005009640015785.html
-MODULE_NOVADIGITAL_MS105_ZB_TS0001:
-  human_name: NovaDigital MS105-ZB 1-gang
+MODULE_NOVADIGITAL_TS0001:
+  human_name: NovaDigital MS105-ZB
   category: module
   power: mains
   neutral: required
@@ -1346,7 +1346,7 @@ MODULE_NOVADIGITAL_MS105_ZB_TS0001:
   stock_model_name: TS0001
   stock_manufacturer_name: _TZ3000_c8wtsv3p
   stock_converter_manufacturer: Tuya
-  stock_converter_model: _TZ3001_basic
+  stock_converter_model: TS0001
   override_z2m_device: null
   tuya_module: ZTU
   mcu_family: Telink
@@ -1355,9 +1355,9 @@ MODULE_NOVADIGITAL_MS105_ZB_TS0001:
   alt_config_str: null
   old_manufacturer_names: null
   old_zb_models: null
-  stock_manufacturer_id: null
-  stock_image_type: null
-  firmware_image_type: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
+  firmware_image_type: 43614
   build: yes
   status: fully_supported
   info: Supported
