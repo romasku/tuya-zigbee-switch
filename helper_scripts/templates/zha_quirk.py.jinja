@@ -42,42 +42,42 @@ class CustomOnOffConfigurationCluster(CustomCluster, OnOffConfiguration):
             id=0xff00,
             type=SwitchType,
             access="rw",
-            is_manufacturer_specific=True,
+            is_manufacturer_specific=False,
         )
 
         relay_mode = ZCLAttributeDef(
             id=0xff01,
             type=RelayMode,
             access="rw",
-            is_manufacturer_specific=True,
+            is_manufacturer_specific=False,
         )
 
         relay_index = ZCLAttributeDef(
             id=0xff02,
             type=t.uint8_t,
             access="rw",
-            is_manufacturer_specific=True,
+            is_manufacturer_specific=False,
         )
 
         long_press_duration = ZCLAttributeDef(
             id=0xff03,
             type=t.uint16_t,
             access="rw",
-            is_manufacturer_specific=True,
+            is_manufacturer_specific=False,
         )
 
         level_move_rate = ZCLAttributeDef(
             id=0xff04,
             type=t.uint8_t,
             access="rw",
-            is_manufacturer_specific=True,
+            is_manufacturer_specific=False,
         )
 
         binded_mode = ZCLAttributeDef(
             id=0xff05,
             type=BindedMode,
             access="rw",
-            is_manufacturer_specific=True,
+            is_manufacturer_specific=False,
         )
 
 
@@ -99,7 +99,7 @@ class CustomBasicCluster(CustomCluster, Basic):
             id=0xff01,
             type=t.Bool,
             access="rw",  
-            is_manufacturer_specific=True,
+            is_manufacturer_specific=False,
         )
 
 
@@ -116,13 +116,13 @@ class OnOffWithIndicatorCluster(CustomCluster, OnOff):
             id=0xff01,
             type=RelayIndicatorMode,
             access="rw",
-            is_manufacturer_specific=True,
+            is_manufacturer_specific=False,
         )
         led_state: Final = ZCLAttributeDef(
             id=0xff02,
             type=t.Bool,
             access="rw",
-            is_manufacturer_specific=True,
+            is_manufacturer_specific=False,
         )
 
 
@@ -139,14 +139,14 @@ class CustomWindowCoveringCluster(CustomCluster, WindowCovering):
             id=0xff00,
             type=CoverMoving,
             access="r",
-            is_manufacturer_specific=True,
+            is_manufacturer_specific=False,
         )
 
         motor_reversal = ZCLAttributeDef(
             id=0xff01,
             type=t.Bool,
             access="rw",
-            is_manufacturer_specific=True,
+            is_manufacturer_specific=False,
         )
 
 '''``````````````````````````````````````````````````````````````````
