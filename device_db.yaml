@@ -1036,7 +1036,9 @@ MODULE_HOBEIAN_TS0001_2:
   build: yes
   status: fully_supported
   info: Supported
-  threads: https://github.com/romasku/tuya-zigbee-switch/issues/189
+  threads: 
+  - https://github.com/romasku/tuya-zigbee-switch/issues/189
+  - https://github.com/romasku/tuya-zigbee-switch/issues/289
   store: null
 MODULE_HOMMYN_TS0011:
   human_name: HOMMYN RLZBNN01
