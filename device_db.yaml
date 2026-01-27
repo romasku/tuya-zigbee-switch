@@ -1337,6 +1337,32 @@ MODULE_MOES_ZM4LT4_TS0004:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/167
   store: https://www.aliexpress.com/item/1005009640015785.html
+MODULE_NOVADIGITAL_MS105_ZB_TS0001:
+  human_name: NovaDigital MS105-ZB 1-gang
+  category: module
+  power: mains
+  neutral: required
+  device_type: router
+  stock_model_name: TS0001
+  stock_manufacturer_name: _TZ3000_c8wtsv3p
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: _TZ3001_basic
+  override_z2m_device: null
+  tuya_module: ZTU
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: c8wtsv3p;MS105-ZB-CUSTOM;BC2u;LD2i;SD3u;RD7;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: null
+  stock_image_type: null
+  firmware_image_type: null
+  build: yes
+  status: fully_supported
+  info: Supported
+  threads: null
+  store: https://www.amazon.com.br/M%C3%B3dulo-Interruptor-Inteligente-NovaDigital-Zigbee/dp/B0FN64F7F5
 MODULE_SONOFF_ZBMINIL2:
   human_name: SONOFF ZBMINIL2
   category: module
