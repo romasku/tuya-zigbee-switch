@@ -82,16 +82,20 @@ The pinout is stored in the **device config string**.
 **Complex example** (2-gang switch with bi-stable relays):  
 ⤷ `osap2dsa;TS0002-ABC;BC3u;LC2i;SB5u;RD2D4;IA0;SB4u;RD3B1;IA1;M;i43533;`
 
+**Cover example** (1-gang cover controller):
+⤷ `mfgname;TS130F-CVR;BC5u;LA3;XA2B3u;CC4D2;`
+
 | Ch      | Peripheral    | Function                                                                                                          |
 |--------:|---------------|-------------------------------------------------------------------------------------------------------------------|
 | **`B`** | Reset button  | • Puts device in pairing                                                                                          |
 | **`L`** | Network led   | • Blinks while pairing <br> • Is the backlight sometimes                                                          |
 | **`S`** | Switch        | • User input <br> • Tactile/touch button or external switch <br> • Spam to put in pairing mode                    |
-| **`R`** | Relay / Triac | • Output <br> • Non-latching: `RC1` - 1 pin: on when high <br> • Latching: `RC2C3` - 2 pins: pulse on, pulse off  |                                               |
-| **`C`** | Cover | • Motor control for curtains/blinds/shades <br> • Format: `CA2B3` - 2 pins: open relay, close relay |
+| **`R`** | Relay / Triac | • Output <br> • Non-latching: `RC1` - 1 pin: on when high <br> • Latching: `RC2C3` - 2 pins: pulse on, pulse off  |
+| **`X`** | Cover Switch  | • User input for cover control <br> • Format: `XA2B3u` - 2 pins + pull resistor: open button, close button        |
+| **`C`** | Cover         | • Motor control for curtains/blinds/shades <br> • Format: `CA2B3` - 2 pins: open relay, close relay               |
 | **`I`** | Indicator LED | • 1 per relay, follows state <br> • Blinks while pairing if there is no network led                               |
 
-For buttons (`B`) and switches (`S`), the next character chooses the internal pull-up/down resistor:  
+For buttons (`B`), switches (`S`), and cover switches (`X`), the next character chooses the internal pull-up/down resistor:  
 ⤷ **`u`: up 10K**, `U`: up 1M, `d`: down 100K, `f`: float (external resistor)  
 
 Usually, pressing the button bridges the GPIO pin to Ground (active low).  

@@ -1,3 +1,5 @@
+import pytest
+
 from tests.client import StubProc
 from tests.conftest import Device
 
@@ -60,19 +62,28 @@ def test_led_blinks_after_kicked() -> None:
             state = not state
 
 
-def test_leaves_on_multipress() -> None:
-    with StubProc(device_config="A;B;SA0u;RB1;") as proc:
+@pytest.mark.parametrize(
+    "device_config,button",
+    [
+        ("A;B;SA0u;RB1;", "A0"),
+        ("A;B;XA0A1u;CB0B1;", "A0"),
+        ("A;B;XA0A1u;CB0B1;", "A1"),
+    ],
+    ids=["switch", "cover_switch_open", "cover_switch_close"],
+)
+def test_leaves_on_multipress(device_config: str, button: str) -> None:
+    with StubProc(device_config=device_config) as proc:
         device = Device(proc)
         assert device.status()["joined"] == str(HAL_ZIGBEE_NETWORK_JOINED)
 
         # 9 presses should not cause the device to leave the network
         for _ in range(9):
-            device.click_button("A0")
+            device.click_button(button)
 
         assert device.status()["joined"] == str(HAL_ZIGBEE_NETWORK_JOINED)
 
         # 10th press should cause the device to leave the network
-        device.click_button("A0")
+        device.click_button(button)
         assert device.status()["joined"] != str(HAL_ZIGBEE_NETWORK_JOINED)
 
 
