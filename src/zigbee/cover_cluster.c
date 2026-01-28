@@ -49,7 +49,7 @@ void cover_apply_movement(zigbee_cover_cluster *cluster, uint8_t moving) {
         relay_on(open_relay);
         relay_off(close_relay);
         cluster->moving = ZCL_ATTR_WINDOW_COVERING_MOVING_OPENING;
-    }else if (moving == ZCL_ATTR_WINDOW_COVERING_MOVING_CLOSING)  {
+    }else if (moving == ZCL_ATTR_WINDOW_COVERING_MOVING_CLOSING) {
         relay_off(open_relay);
         relay_on(close_relay);
         cluster->moving = ZCL_ATTR_WINDOW_COVERING_MOVING_CLOSING;
