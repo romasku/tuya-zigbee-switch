@@ -1,8 +1,8 @@
 import argparse
-from jinja2 import Environment, FileSystemLoader, select_autoescape
 from pathlib import Path
-import yaml
 
+import yaml
+from jinja2 import Environment, FileSystemLoader, select_autoescape
 
 env = Environment(
     loader=FileSystemLoader("helper_scripts/templates"),
@@ -19,9 +19,6 @@ if __name__ == "__main__":
     parser.add_argument(
         "db_file", metavar="INPUT", type=str, help="File with device db"
     )
-    parser.add_argument(
-        "--z2m-v1", action=argparse.BooleanOptionalAction, help="Use old z2m"
-    )
 
     args = parser.parse_args()
 
@@ -31,11 +28,10 @@ if __name__ == "__main__":
     devices = []
 
     for device in db.values():
-
         # Skip if build == no. Defaults to yes
         if not device.get("build", True):
             continue
-      
+
         config = device["config_str"]
         zb_manufacturer, zb_model, *peripherals = config.rstrip(";").split(";")
 
@@ -49,15 +45,15 @@ if __name__ == "__main__":
                 continue
             if peripheral[0] == "R":
                 relay_cnt += 1
-            if peripheral[0] == 'S':
+            if peripheral[0] == "S":
                 switch_cnt += 1
-            if peripheral[0] == 'C':
+            if peripheral[0] == "C":
                 cover_cnt += 1
-            if peripheral[0] == 'I':
+            if peripheral[0] == "I":
                 indicators_cnt += 1
-            if peripheral[0] == 'L':
+            if peripheral[0] == "L":
                 has_dedicated_net_led = True
-        
+
         if switch_cnt == 1:
             switch_names = ["switch"]
         elif switch_cnt == 2:
@@ -84,22 +80,22 @@ if __name__ == "__main__":
             cover_names = ["cover_left", "cover_middle", "cover_right"]
         else:
             cover_names = [f"cover_{index}" for index in range(cover_cnt)]
-        
-        devices.append({
-            "zb_models": [zb_model] + (device.get("old_zb_models") or []),
-            "model": device.get("override_z2m_device") or device["stock_converter_model"],
-            "switchNames": switch_names,
-            "relayNames": relay_names,
-            "relayIndicatorNames": relay_names[:indicators_cnt],
-            "coverNames": cover_names,
-            "has_dedicated_net_led": has_dedicated_net_led,
-        })
 
-    template = env.get_template("switch_custom.js.jinja")
+        devices.append(
+            {
+                "zb_models": [zb_model] + (device.get("old_zb_models") or []),
+                "model": device.get("override_z2m_device")
+                or device["stock_converter_model"],
+                "switchNames": switch_names,
+                "relayNames": relay_names,
+                "relayIndicatorNames": relay_names[:indicators_cnt],
+                "coverNames": cover_names,
+                "has_dedicated_net_led": has_dedicated_net_led,
+            }
+        )
 
-    print(template.render(devices=devices, z2m_v1=args.z2m_v1))
+    template = env.get_template("switch_custom.mjs.jinja")
+
+    print(template.render(devices=devices))
 
     exit(0)
-
-    
-

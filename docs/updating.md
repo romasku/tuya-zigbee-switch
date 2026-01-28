@@ -82,6 +82,14 @@ ota:
     LINK_OR_PATH
 ```
 
+Z2M versions older than v2.0.0 need a different configuration (and we will drop support soon):
+```yaml
+external_converters:
+  - switch_custom.mjs
+  - tuya_with_ota.js
+ota:
+  zigbee_ota_override_index_location: PATH
+```
 </details>
 
 <details>
