@@ -5,7 +5,7 @@
 
 extern int tl_printf(const char *format, ...);
 
-#define printf tl_printf
+#define printf    tl_printf
 
 #elif defined(HAL_SILABS)
 

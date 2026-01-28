@@ -31,53 +31,53 @@
 #include "zigbee/switch_cluster.h"
 
 // TODO: make configurable via ZCL
-#define POLLING_INTERVAL_MS 100
+#define POLLING_INTERVAL_MS    100
 
 void drop_old_ota_image_if_any() {
-  // Drop old OTA image if any exists
-  // Allows to re-download FORCE image multiple times
-  uint32_t currentOffset =
-      sl_zigbee_af_ota_storage_driver_retrieve_last_stored_offset_cb();
-  if (currentOffset > 0) {
-    printf("Dropping old OTA image, current offset: %lu\n", currentOffset);
-    sl_zigbee_af_ota_storage_clear_temp_data_cb();
-  }
+    // Drop old OTA image if any exists
+    // Allows to re-download FORCE image multiple times
+    uint32_t currentOffset =
+        sl_zigbee_af_ota_storage_driver_retrieve_last_stored_offset_cb();
+
+    if (currentOffset > 0) {
+        printf("Dropping old OTA image, current offset: %lu\n", currentOffset);
+        sl_zigbee_af_ota_storage_clear_temp_data_cb();
+    }
 }
 
 int main(void) {
-  // Initialize Silicon Labs device, system, service(s) and protocol stack(s).
-  // Note that if the kernel is present, processing task(s) will be created by
-  // this call.
-  sl_system_init();
+    // Initialize Silicon Labs device, system, service(s) and protocol stack(s).
+    // Note that if the kernel is present, processing task(s) will be created by
+    // this call.
+    sl_system_init();
 
-  app_init();
+    app_init();
 
-  drop_old_ota_image_if_any();
+    drop_old_ota_image_if_any();
 
-  // Switch should never "long poll", as it should always be somewhat reactive
-  // to ZCL commands.
-  sl_zigbee_af_set_short_poll_interval_ms_cb(POLLING_INTERVAL_MS);
-  sl_zigbee_af_set_long_poll_interval_ms_cb(POLLING_INTERVAL_MS);
+    // Switch should never "long poll", as it should always be somewhat reactive
+    // to ZCL commands.
+    sl_zigbee_af_set_short_poll_interval_ms_cb(POLLING_INTERVAL_MS);
+    sl_zigbee_af_set_long_poll_interval_ms_cb(POLLING_INTERVAL_MS);
 
 #if defined(SL_CATALOG_KERNEL_PRESENT)
-  // Start the kernel. Task(s) created in app_init() will start running.
-  sl_system_kernel_start();
+    // Start the kernel. Task(s) created in app_init() will start running.
+    sl_system_kernel_start();
 #else // SL_CATALOG_KERNEL_PRESENT
+    while (1) {
+        // Do not remove this call: Silicon Labs components process action routine
+        // must be called from the super loop.
+        sl_system_process_action();
 
-  while (1) {
-    // Do not remove this call: Silicon Labs components process action routine
-    // must be called from the super loop.
-    sl_system_process_action();
+        // Application process.
+        app_task();
 
-    // Application process.
-    app_task();
-
-    // Let the CPU go to sleep if the system allow it.
+        // Let the CPU go to sleep if the system allow it.
 #if defined(SL_CATALOG_POWER_MANAGER_PRESENT)
-    sl_power_manager_sleep();
+        sl_power_manager_sleep();
 #endif // SL_CATALOG_POWER_MANAGER_PRESENT
-  }
+    }
 #endif // SL_CATALOG_KERNEL_PRESENT
 
-  return 0;
+    return 0;
 }

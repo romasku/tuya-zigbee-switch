@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-#define DEFAULT_RESET_DELAY_MS 300
+#define DEFAULT_RESET_DELAY_MS    300
 
 __attribute__((noreturn)) void reset_all();
 

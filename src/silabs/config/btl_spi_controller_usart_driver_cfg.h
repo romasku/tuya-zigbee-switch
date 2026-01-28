@@ -23,27 +23,27 @@
 
 // <o SL_USART_EXTFLASH_FREQUENCY> Frequency
 // <i> Default: 6400000
-#define SL_USART_EXTFLASH_FREQUENCY           6400000
+#define SL_USART_EXTFLASH_FREQUENCY    6400000
 
 // </h>
 
 // <<< end of configuration section >>>
 
 
-#define SL_USART_EXTFLASH_PERIPHERAL                   USART0
-#define SL_USART_EXTFLASH_PERIPHERAL_NO                0
+#define SL_USART_EXTFLASH_PERIPHERAL       USART0
+#define SL_USART_EXTFLASH_PERIPHERAL_NO    0
 
-#define SL_USART_EXTFLASH_TX_PORT                      gpioPortC
-#define SL_USART_EXTFLASH_TX_PIN                       0
+#define SL_USART_EXTFLASH_TX_PORT          gpioPortC
+#define SL_USART_EXTFLASH_TX_PIN           0
 
-#define SL_USART_EXTFLASH_RX_PORT                      gpioPortC
-#define SL_USART_EXTFLASH_RX_PIN                       1
+#define SL_USART_EXTFLASH_RX_PORT          gpioPortC
+#define SL_USART_EXTFLASH_RX_PIN           1
 
-#define SL_USART_EXTFLASH_CLK_PORT                     gpioPortC
-#define SL_USART_EXTFLASH_CLK_PIN                      2
+#define SL_USART_EXTFLASH_CLK_PORT         gpioPortC
+#define SL_USART_EXTFLASH_CLK_PIN          2
 
-#define SL_USART_EXTFLASH_CS_PORT                      gpioPortC
-#define SL_USART_EXTFLASH_CS_PIN                       3
+#define SL_USART_EXTFLASH_CS_PORT          gpioPortC
+#define SL_USART_EXTFLASH_CS_PIN           3
 // [USART_SL_USART_EXTFLASH]$
 
 // <gpio> SL_EXTFLASH_WP

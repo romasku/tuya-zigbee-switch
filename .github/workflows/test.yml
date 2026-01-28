@@ -3,7 +3,17 @@ name: test
 on: [push, pull_request]
 
 jobs:
-  build:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install uncrustify
+        run: sudo apt-get update && sudo apt-get install -y uncrustify
+      - name: Check code formatting
+        run: |
+          find src -name '*.c' -o -name '*.h' | xargs uncrustify -c uncrustify.cfg --check
+
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3

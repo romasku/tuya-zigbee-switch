@@ -4,7 +4,7 @@
 #include "hal/zigbee.h"
 #include <stdint.h>
 
-#define APP_DEVICE_CONF_MAX 256
+#define APP_DEVICE_CONF_MAX    256
 
 /* lifecycle */
 void stub_app_init(const char *device_conf_or_null, bool joined);

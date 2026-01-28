@@ -6,13 +6,13 @@
 #include <stdint.h>
 
 typedef struct {
-  hal_gpio_pin_t pin;
-  uint8_t on_high;
-  uint8_t on;
-  uint16_t blink_times_left;
-  uint16_t blink_time_on;
-  uint16_t blink_time_off;
-  hal_task_t blink_task;
+    hal_gpio_pin_t pin;
+    uint8_t        on_high;
+    uint8_t        on;
+    uint16_t       blink_times_left;
+    uint16_t       blink_time_on;
+    uint16_t       blink_time_off;
+    hal_task_t     blink_task;
 } led_t;
 
 /**
@@ -36,7 +36,7 @@ void led_on(led_t *led);
  */
 void led_off(led_t *led);
 
-#define LED_BLINK_FOREVER 0xFFFF
+#define LED_BLINK_FOREVER    0xFFFF
 
 /**
  * @brief      Start led blinking, will go to off when finished

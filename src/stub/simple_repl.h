@@ -6,21 +6,19 @@
 
 typedef int (*repl_cmd_fn)(int argc, char **argv);
 
-typedef struct
-{
+typedef struct {
     const char *name;
     repl_cmd_fn fn;
 } SimpleReplCommand;
 
-typedef struct
-{
+typedef struct {
     const SimpleReplCommand *commands;
-    size_t command_count;
+    size_t                   command_count;
 
     void (*poll_cb)(void *poll_user);
-    void *poll_user;
+    void *                   poll_user;
 
-    volatile sig_atomic_t *should_exit;
+    volatile sig_atomic_t *  should_exit;
 } SimpleReplConfig;
 
 int simple_repl_run(const SimpleReplConfig *cfg);

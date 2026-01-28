@@ -12,22 +12,20 @@
 #include "btl_spi_controller_usart_driver_cfg.h"
 #endif
 
-void storage_customInit(void)
-{
+void storage_customInit(void) {
 #if defined(SL_EXTFLASH_HOLD_PORT)
-  GPIO_PinModeSet(SL_EXTFLASH_HOLD_PORT, SL_EXTFLASH_HOLD_PIN, gpioModePushPull, 1);
+    GPIO_PinModeSet(SL_EXTFLASH_HOLD_PORT, SL_EXTFLASH_HOLD_PIN, gpioModePushPull, 1);
 #endif
 #if defined(SL_EXTFLASH_WP_PORT)
-  GPIO_PinModeSet(SL_EXTFLASH_WP_PORT, SL_EXTFLASH_WP_PIN, gpioModePushPull, 1);
+    GPIO_PinModeSet(SL_EXTFLASH_WP_PORT, SL_EXTFLASH_WP_PIN, gpioModePushPull, 1);
 #endif
 }
 
-void storage_customShutdown(void)
-{
+void storage_customShutdown(void) {
 #if defined(SL_EXTFLASH_HOLD_PORT)
-  GPIO_PinModeSet(SL_EXTFLASH_HOLD_PORT, SL_EXTFLASH_HOLD_PIN, gpioModeDisabled, 0);
+    GPIO_PinModeSet(SL_EXTFLASH_HOLD_PORT, SL_EXTFLASH_HOLD_PIN, gpioModeDisabled, 0);
 #endif
 #if defined(SL_EXTFLASH_WP_PORT)
-  GPIO_PinModeSet(SL_EXTFLASH_WP_PORT, SL_EXTFLASH_WP_PIN, gpioModeDisabled, 0);
+    GPIO_PinModeSet(SL_EXTFLASH_WP_PORT, SL_EXTFLASH_WP_PIN, gpioModeDisabled, 0);
 #endif
 }

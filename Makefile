@@ -83,6 +83,10 @@ board/%:
 tests: stub/build
 	python -m pytest tests/ -v
 
+# Format all C/H files using uncrustify
+format:
+	find src -name '*.c' -o -name '*.h' | xargs uncrustify -c uncrustify.cfg --replace --no-backup
+
 setup_venv:
 	python3 -m venv .venv
 	. .venv/bin/activate && pip install -r requirements.txt
@@ -91,4 +95,4 @@ setup: silabs/tools/all telink/tools/all setup_venv
 
 
 # Define available targets for help
-.PHONY: help setup setup_venv stub/% silabs/% telink/% tests tools/% board/%
+.PHONY: help setup setup_venv stub/% silabs/% telink/% tests tools/% board/% format

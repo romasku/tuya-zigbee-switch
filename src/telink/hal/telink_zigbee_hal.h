@@ -9,11 +9,11 @@
 #pragma pack(pop)
 
 // Shared constants
-#define MAX_ENDPOINTS 8
-#define MAX_IN_CLUSTERS 32
-#define MAX_OUT_CLUSTERS 32
-#define MAX_ATTRS 128
-#define OTA_QUERY_INTERVAL 15 * 60 // 15 minutes
+#define MAX_ENDPOINTS         8
+#define MAX_IN_CLUSTERS       32
+#define MAX_OUT_CLUSTERS      32
+#define MAX_ATTRS             128
+#define OTA_QUERY_INTERVAL    15 * 60 // 15 minutes
 
 // Network module functions (implemented in zigbee_network.c)
 void telink_zigbee_hal_network_init(void);

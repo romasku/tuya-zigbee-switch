@@ -3,5 +3,5 @@
 
 
 uint32_t hal_millis() {
-  return sl_sleeptimer_tick_to_ms (sl_sleeptimer_get_tick_count ());
+    return sl_sleeptimer_tick_to_ms(sl_sleeptimer_get_tick_count());
 }

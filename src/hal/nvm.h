@@ -3,9 +3,9 @@
 
 #include <stdint.h>
 
-#define HAL_NVM_SUCCESS 0
-#define HAL_NVM_NOT_FOUND 1
-#define HAL_NVM_ERROR 2
+#define HAL_NVM_SUCCESS      0
+#define HAL_NVM_NOT_FOUND    1
+#define HAL_NVM_ERROR        2
 
 /** NVM operation result (HAL_NVM_SUCCESS = 0 on success) */
 typedef uint32_t hal_nvm_status_t;

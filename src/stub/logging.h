@@ -5,12 +5,13 @@
 #include <stdio.h>
 
 static inline void io_log(const char *prefix, const char *format, ...) {
-  va_list args;
-  va_start(args, format);
-  printf("[%s] ", prefix);
-  vprintf(format, args);
-  printf("\n");
-  va_end(args);
+    va_list args;
+
+    va_start(args, format);
+    printf("[%s] ", prefix);
+    vprintf(format, args);
+    printf("\n");
+    va_end(args);
 }
 
 #endif

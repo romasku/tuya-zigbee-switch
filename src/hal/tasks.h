@@ -18,8 +18,8 @@ typedef sli_zigbee_event_t hal_platfrom_struct_t;
 
 struct ev_timer_event_t;
 typedef struct {
-  struct ev_timer_event_t
-      *ev_timer_handle; // Can't use telink header due to size_t conflict
+    struct ev_timer_event_t
+    *ev_timer_handle;   // Can't use telink header due to size_t conflict
 } hal_platfrom_struct_t;
 
 #endif
@@ -27,7 +27,7 @@ typedef struct {
 #ifdef HAL_STUB
 
 typedef struct {
-  void *dummy; // Placeholder for stub implementation
+    void *dummy; // Placeholder for stub implementation
 } hal_platfrom_struct_t;
 
 #endif
@@ -35,9 +35,9 @@ typedef struct {
 /** Schedulable task for delayed execution (timers, debouncing, periodic
  * actions) */
 typedef struct {
-  task_handler_t handler;
-  void *arg;
-  hal_platfrom_struct_t platform_struct;
+    task_handler_t        handler;
+    void *                arg;
+    hal_platfrom_struct_t platform_struct;
 } hal_task_t;
 
 /**

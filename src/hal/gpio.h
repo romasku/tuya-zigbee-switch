@@ -3,16 +3,16 @@
 
 #include <stdint.h>
 
-#define HAL_INVALID_PIN 0xFFFF
+#define HAL_INVALID_PIN    0xFFFF
 
 typedef uint16_t hal_gpio_pin_t;
 
 typedef enum {
-  HAL_GPIO_PULL_NONE = 0,
-  HAL_GPIO_PULL_UP = 1,
-  HAL_GPIO_PULL_UP_1M = 2,
-  HAL_GPIO_PULL_DOWN = 3,
-  HAL_GPIO_PULL_INVALID = 0xFF,
+    HAL_GPIO_PULL_NONE    = 0,
+    HAL_GPIO_PULL_UP      = 1,
+    HAL_GPIO_PULL_UP_1M   = 2,
+    HAL_GPIO_PULL_DOWN    = 3,
+    HAL_GPIO_PULL_INVALID = 0xFF,
 } hal_gpio_pull_t;
 
 /**
@@ -29,6 +29,7 @@ void hal_gpio_init(hal_gpio_pin_t gpio_pin, uint8_t is_input,
  * @param gpio_pin GPIO pin identifier
  */
 void hal_gpio_set(hal_gpio_pin_t gpio_pin);
+
 /**
  * Set output pin low
  * @param gpio_pin GPIO pin identifier
@@ -41,11 +42,11 @@ void hal_gpio_clear(hal_gpio_pin_t gpio_pin);
  * @param value 0=low, non-zero=high
  */
 static inline void hal_gpio_write(hal_gpio_pin_t gpio_pin, uint8_t value) {
-  if (value) {
-    hal_gpio_set(gpio_pin);
-  } else {
-    hal_gpio_clear(gpio_pin);
-  }
+    if (value) {
+        hal_gpio_set(gpio_pin);
+    } else {
+        hal_gpio_clear(gpio_pin);
+    }
 }
 
 /**

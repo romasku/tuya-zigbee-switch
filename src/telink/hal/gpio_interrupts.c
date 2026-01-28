@@ -8,176 +8,177 @@
 #include <string.h>
 
 // Maximum number of GPIO interrupts we can handle
-#define MAX_GPIO_CALLBACKS 16
-#define MAX_REARM_TRIES 50
+#define MAX_GPIO_CALLBACKS    16
+#define MAX_REARM_TRIES       50
 
 static inline uint32_t pin_to_mask(hal_gpio_pin_t pin) {
-  uint32_t pin_one_hot = (pin & 0xFF);
-  uint32_t port = (pin >> 8) & 0x07;
-  return (pin_one_hot << (port * 8));
+    uint32_t pin_one_hot = (pin & 0xFF);
+    uint32_t port        = (pin >> 8) & 0x07;
+
+    return(pin_one_hot << (port * 8));
 }
 
 typedef struct {
-  hal_gpio_pin_t gpio_pin;
-  gpio_callback_t callback;
-  void *arg;
+    hal_gpio_pin_t  gpio_pin;
+    gpio_callback_t callback;
+    void *          arg;
 } gpio_callback_info_t;
 
 static gpio_callback_info_t gpio_callbacks[MAX_GPIO_CALLBACKS];
-static hal_task_t gpio_dispatch_task;
+static hal_task_t           gpio_dispatch_task;
 
 static void disable_all_gpio_irqs() {
-  for (gpio_callback_info_t *info = gpio_callbacks;
-       info < gpio_callbacks + MAX_GPIO_CALLBACKS; info++) {
-    if (info->gpio_pin != HAL_INVALID_PIN) {
-      drv_gpio_irq_dis((u32)info->gpio_pin);
+    for (gpio_callback_info_t *info = gpio_callbacks;
+         info < gpio_callbacks + MAX_GPIO_CALLBACKS; info++) {
+        if (info->gpio_pin != HAL_INVALID_PIN) {
+            drv_gpio_irq_dis((u32)info->gpio_pin);
+        }
     }
-  }
 }
 
 static void enable_all_gpio_irqs() {
-  for (gpio_callback_info_t *info = gpio_callbacks;
-       info < gpio_callbacks + MAX_GPIO_CALLBACKS; info++) {
-    if (info->gpio_pin != HAL_INVALID_PIN) {
-      drv_gpio_irq_en((u32)info->gpio_pin);
+    for (gpio_callback_info_t *info = gpio_callbacks;
+         info < gpio_callbacks + MAX_GPIO_CALLBACKS; info++) {
+        if (info->gpio_pin != HAL_INVALID_PIN) {
+            drv_gpio_irq_en((u32)info->gpio_pin);
+        }
     }
-  }
 }
 
 static void ensure_valid_edges() {
-  uint32_t current_state = 0;
-  uint32_t prev_state = 0;
-  uint32_t used_pin_mask = 0;
-  for (gpio_callback_info_t *info = gpio_callbacks;
-       info < gpio_callbacks + MAX_GPIO_CALLBACKS; info++) {
-    if (info->gpio_pin != HAL_INVALID_PIN) {
-      used_pin_mask |= pin_to_mask(info->gpio_pin);
-    }
-  }
-  drv_gpio_read_all((uint8_t *)&current_state);
-  current_state &= used_pin_mask;
-  uint8_t tries = 0;
-  do {
-    prev_state = current_state;
+    uint32_t current_state = 0;
+    uint32_t prev_state    = 0;
+    uint32_t used_pin_mask = 0;
+
     for (gpio_callback_info_t *info = gpio_callbacks;
          info < gpio_callbacks + MAX_GPIO_CALLBACKS; info++) {
-      if (info->gpio_pin == HAL_INVALID_PIN) {
-        continue;
-      }
-      drv_gpio_irq_set((u32)info->gpio_pin,
-                       (current_state & pin_to_mask(info->gpio_pin))
-                           ? GPIO_FALLING_EDGE
-                           : GPIO_RISING_EDGE);
+        if (info->gpio_pin != HAL_INVALID_PIN) {
+            used_pin_mask |= pin_to_mask(info->gpio_pin);
+        }
     }
     drv_gpio_read_all((uint8_t *)&current_state);
     current_state &= used_pin_mask;
-    tries++;
-  } while (current_state != prev_state && tries < MAX_REARM_TRIES);
+    uint8_t tries = 0;
+    do {
+        prev_state = current_state;
+        for (gpio_callback_info_t *info = gpio_callbacks;
+             info < gpio_callbacks + MAX_GPIO_CALLBACKS; info++) {
+            if (info->gpio_pin == HAL_INVALID_PIN) {
+                continue;
+            }
+            drv_gpio_irq_set((u32)info->gpio_pin,
+                             (current_state & pin_to_mask(info->gpio_pin))
+                           ? GPIO_FALLING_EDGE
+                           : GPIO_RISING_EDGE);
+        }
+        drv_gpio_read_all((uint8_t *)&current_state);
+        current_state &= used_pin_mask;
+        tries++;
+    } while (current_state != prev_state && tries < MAX_REARM_TRIES);
 }
 
 static void gpio_dispatch_handler(void *arg) {
-  ensure_valid_edges();
-  enable_all_gpio_irqs();
+    ensure_valid_edges();
+    enable_all_gpio_irqs();
 
-  for (gpio_callback_info_t *info = gpio_callbacks;
-       info < gpio_callbacks + MAX_GPIO_CALLBACKS; info++) {
-    if (info->gpio_pin == HAL_INVALID_PIN) {
-      continue;
+    for (gpio_callback_info_t *info = gpio_callbacks;
+         info < gpio_callbacks + MAX_GPIO_CALLBACKS; info++) {
+        if (info->gpio_pin == HAL_INVALID_PIN) {
+            continue;
+        }
+        info->callback(info->gpio_pin, info->arg);
     }
-    info->callback(info->gpio_pin, info->arg);
-  }
 }
 
 static u8 pause = 3;
 
 static void gpio_isr_callback(void) {
-  // Schedule with small delay, and disable further IRQs until dispatched
-  // So that constantly bouncing pins don't flood the system with interrupts
-  hal_tasks_schedule(&gpio_dispatch_task, pause);
-  pause = (pause * 3) % 7; // Avoid constant delay to reduce chance of
-                           // repeated collisions if bounces are periodic
-                           // e.g. AC mains hum
-  disable_all_gpio_irqs();
+    // Schedule with small delay, and disable further IRQs until dispatched
+    // So that constantly bouncing pins don't flood the system with interrupts
+    hal_tasks_schedule(&gpio_dispatch_task, pause);
+    pause = (pause * 3) % 7; // Avoid constant delay to reduce chance of
+                             // repeated collisions if bounces are periodic
+                             // e.g. AC mains hum
+    disable_all_gpio_irqs();
 }
 
 static void gpio_dispatch_init(void) {
-  if (gpio_dispatch_task.handler == NULL) {
-    gpio_dispatch_task.handler = gpio_dispatch_handler;
-    gpio_dispatch_task.arg = NULL;
-    hal_tasks_init(&gpio_dispatch_task);
-    for (int i = 0; i < MAX_GPIO_CALLBACKS; ++i) {
-      gpio_callbacks[i].gpio_pin = HAL_INVALID_PIN;
-      gpio_callbacks[i].callback = NULL;
-      gpio_callbacks[i].arg = NULL;
+    if (gpio_dispatch_task.handler == NULL) {
+        gpio_dispatch_task.handler = gpio_dispatch_handler;
+        gpio_dispatch_task.arg     = NULL;
+        hal_tasks_init(&gpio_dispatch_task);
+        for (int i = 0; i < MAX_GPIO_CALLBACKS; ++i) {
+            gpio_callbacks[i].gpio_pin = HAL_INVALID_PIN;
+            gpio_callbacks[i].callback = NULL;
+            gpio_callbacks[i].arg      = NULL;
+        }
     }
-  }
 }
 
 static bool is_isr_initialized = false;
 
 static void init_isr() {
-  if (is_isr_initialized) {
-    return;
-  }
-  // PIN and EDGE doesn't matter here, SDK selects callbacks only
-  // by mode
-  int result = drv_gpio_irq_config(GPIO_IRQ_MODE, 0, 0, gpio_isr_callback);
-  if (result != 0) {
-    printf("Failed to configure GPIO interrupt: %d\r\n", result);
-  } else {
-    is_isr_initialized = true;
-    printf("GPIO interrupt configured\r\n");
-  }
+    if (is_isr_initialized) {
+        return;
+    }
+    // PIN and EDGE doesn't matter here, SDK selects callbacks only
+    // by mode
+    int result = drv_gpio_irq_config(GPIO_IRQ_MODE, 0, 0, gpio_isr_callback);
+    if (result != 0) {
+        printf("Failed to configure GPIO interrupt: %d\r\n", result);
+    } else {
+        is_isr_initialized = true;
+        printf("GPIO interrupt configured\r\n");
+    }
 }
 
 void hal_gpio_callback(hal_gpio_pin_t gpio_pin, gpio_callback_t callback,
                        void *arg) {
-  gpio_dispatch_init();
-  init_isr();
+    gpio_dispatch_init();
+    init_isr();
 
-  gpio_callback_info_t *slot = NULL;
+    gpio_callback_info_t *slot = NULL;
 
-  for (gpio_callback_info_t *info = gpio_callbacks;
-       info < gpio_callbacks + MAX_GPIO_CALLBACKS; info++) {
-    if (info->gpio_pin == HAL_INVALID_PIN || info->gpio_pin == gpio_pin) {
-      slot = info;
-      break;
+    for (gpio_callback_info_t *info = gpio_callbacks;
+         info < gpio_callbacks + MAX_GPIO_CALLBACKS; info++) {
+        if (info->gpio_pin == HAL_INVALID_PIN || info->gpio_pin == gpio_pin) {
+            slot = info;
+            break;
+        }
     }
-  }
 
-  if (slot == NULL) {
-    return;
-  }
+    if (slot == NULL) {
+        return;
+    }
 
-  slot->gpio_pin = gpio_pin;
-  slot->callback = callback;
-  slot->arg = arg;
+    slot->gpio_pin = gpio_pin;
+    slot->callback = callback;
+    slot->arg      = arg;
 
-  ensure_valid_edges();
+    ensure_valid_edges();
 
-  drv_gpio_irq_en((u32)gpio_pin);
+    drv_gpio_irq_en((u32)gpio_pin);
 }
 
 void hal_gpio_unreg_callback(hal_gpio_pin_t gpio_pin) {
+    for (uint8_t i = 0; i < MAX_GPIO_CALLBACKS; i++) {
+        if (gpio_callbacks[i].gpio_pin == gpio_pin) {
+            drv_gpio_irq_dis((u32)gpio_pin);
 
-  for (uint8_t i = 0; i < MAX_GPIO_CALLBACKS; i++) {
-    if (gpio_callbacks[i].gpio_pin == gpio_pin) {
-      drv_gpio_irq_dis((u32)gpio_pin);
+            gpio_callbacks[i].gpio_pin = HAL_INVALID_PIN;
 
-      gpio_callbacks[i].gpio_pin = HAL_INVALID_PIN;
-
-      break;
+            break;
+        }
     }
-  }
 }
 
 void telink_gpio_hal_setup_wake_ups() {
-  for (gpio_callback_info_t *info = gpio_callbacks;
-       info < gpio_callbacks + MAX_GPIO_CALLBACKS; info++) {
-    if (info->gpio_pin == HAL_INVALID_PIN) {
-      continue;
+    for (gpio_callback_info_t *info = gpio_callbacks;
+         info < gpio_callbacks + MAX_GPIO_CALLBACKS; info++) {
+        if (info->gpio_pin == HAL_INVALID_PIN) {
+            continue;
+        }
+        cpu_set_gpio_wakeup(info->gpio_pin, (hal_gpio_read(info->gpio_pin)) ? 0 : 1,
+                            1);
     }
-    cpu_set_gpio_wakeup(info->gpio_pin, (hal_gpio_read(info->gpio_pin)) ? 0 : 1,
-                        1);
-  }
 }
