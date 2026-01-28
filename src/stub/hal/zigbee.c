@@ -1,10 +1,20 @@
 #include "hal/zigbee.h"
 #include "stub/machine_io.h"
-#include "stub/parsing.h"
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+static void bytes_to_hexstr(const uint8_t *bytes, size_t len, char *out) {
+    static const char HEX_DIGITS[] = "0123456789ABCDEF";
+
+    for (size_t i = 0; i < len; ++i) {
+        uint8_t b = bytes[i];
+        out[2 * i]     = HEX_DIGITS[b >> 4];
+        out[2 * i + 1] = HEX_DIGITS[b & 0x0F];
+    }
+    out[2 * len] = '\0';
+}
 
 #define MAX_ENDPOINTS    16
 #define MAX_BINDINGS     32

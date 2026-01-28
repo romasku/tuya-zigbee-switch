@@ -69,7 +69,7 @@ void on_reset_clicked(void *_) {
 
 void parse_config() {
     device_config_read_from_nv();
-    char *cursor = device_config_str.data;
+    char *cursor = (char *)device_config_str.data;
 
     const char *zb_manufacturer = extract_next_entry(&cursor);
 

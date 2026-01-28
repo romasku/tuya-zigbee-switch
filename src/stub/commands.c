@@ -1,6 +1,5 @@
 #include "commands.h"
 #include "machine_io.h"
-#include "parsing.h"
 
 #include "hal/timer.h"
 #include "hal/zigbee.h"
@@ -10,7 +9,30 @@
 #include "stub/stub_app.h"
 #include "zigbee/consts.h"
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
+
+static int parse_u8_dec(const char *s, uint8_t *out) {
+    char *e = NULL;
+    long  v = strtol(s, &e, 10);
+
+    if (*s == '\0' || *e || v < 0 || v > 255)
+        return -1;
+
+    *out = (uint8_t)v;
+    return 0;
+}
+
+static int parse_u16_hex(const char *s, uint16_t *out) {
+    char *e = NULL;
+    long  v = strtol(s, &e, 16);
+
+    if (*s == '\0' || *e || v < 0 || v > 0xFFFF)
+        return -1;
+
+    *out = (uint16_t)v;
+    return 0;
+}
 
 extern volatile sig_atomic_t g_should_exit;
 
