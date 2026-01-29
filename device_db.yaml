@@ -2372,7 +2372,7 @@ SWITCH_BSEED_TOUCH_BACKLIGHT_TS0002:
   tuya_module: ZTU
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: l9brjwau;TS0002-BSDB;LC4;SB5u;RD3;IC3;SD3u;RC2;ID7;M;
+  config_str: l9brjwau;TS0002-BSDB;LD4i;SB5u;RC3;IC1;SD3u;RC2;ID7;M;
   alt_config_str: null
   old_manufacturer_names: null
   old_zb_models:
@@ -2382,7 +2382,7 @@ SWITCH_BSEED_TOUCH_BACKLIGHT_TS0002:
   firmware_image_type: 43581
   build: yes
   status: mostly_supported
-  info: Backlight on D4i
+  info: Backlight on D4i; turn on network LED in Z2M settings to enable backlight 
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/246
   store: https://www.aliexpress.com/item/1005003843553626.html
 SWITCH_BSEED_TOUCH_BACKLIGHT_TS0003:
