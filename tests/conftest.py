@@ -214,6 +214,10 @@ class Device:
         res = self.p.exec(f"step_time {ms}")
         assert res.ok, f"Step time failed: {res.payload}"
 
+    def set_pulse_counter(self, pin: str, value: int) -> None:
+        res = self.p.exec(f"set_counter {self._parse_pin(pin)} {value}")
+        assert res.ok, f"Set pulse counter failed: {res.payload}"
+
     def _evt_parser(self, evt: Event) -> None:
         if evt.kind == "gpio":
             pin = int(evt.payload.get("pin", "-1"))
