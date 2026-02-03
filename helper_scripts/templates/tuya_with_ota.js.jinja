@@ -15,10 +15,6 @@ lonsonhoDefinitions = lonsonhoDefinitions.definitions ?? lonsonhoDefinitions;
 const definitions = [];
 const multiplePinoutsDescription = "WARNING! There are multiple known pinouts for the AVATTO ZWSM16 4gang! If the device is very very old, you may need the alt_config";
 
-{% if z2m_v1 %}
-const ota = require("zigbee-herdsman-converters/lib/ota");
-{% endif%}
-
 /********************************************************************
   This file (`tuya_with_ota.js`) is generated. 
   
@@ -50,11 +46,7 @@ for (let definition of tuyaDefinitions) {
                     ...definition,
                     description: multiplePinoutsDescription,
                     whiteLabel: definition.whiteLabel.map(entry => ({...entry, description: multiplePinoutsDescription,})),
-                    {% if z2m_v1 %}
-                    ota: ota.zigbeeOTA,
-                    {% else %}
                     ota: true,
-                    {% endif%}
                 }
             )
         }
@@ -62,11 +54,7 @@ for (let definition of tuyaDefinitions) {
             definitions.push(
                 {
                     ...definition,
-                    {% if z2m_v1 %}
-                    ota: ota.zigbeeOTA,
-                    {% else %}
                     ota: true,
-                    {% endif%}
                 }
             )
         }
@@ -93,11 +81,7 @@ for (let definition of moesDefinitions) {
                     ...definition,
                     description: multiplePinoutsDescription,
                     whiteLabel: definition.whiteLabel.map(entry => ({...entry, description: multiplePinoutsDescription,})),
-                    {% if z2m_v1 %}
-                    ota: ota.zigbeeOTA,
-                    {% else %}
                     ota: true,
-                    {% endif%}
                 }
             )
         }
@@ -105,11 +89,7 @@ for (let definition of moesDefinitions) {
             definitions.push(
                 {
                     ...definition,
-                    {% if z2m_v1 %}
-                    ota: ota.zigbeeOTA,
-                    {% else %}
                     ota: true,
-                    {% endif%}
                 }
             )
         }
@@ -136,11 +116,7 @@ for (let definition of avattoDefinitions) {
                     ...definition,
                     description: multiplePinoutsDescription,
                     whiteLabel: definition.whiteLabel.map(entry => ({...entry, description: multiplePinoutsDescription,})),
-                    {% if z2m_v1 %}
-                    ota: ota.zigbeeOTA,
-                    {% else %}
                     ota: true,
-                    {% endif%}
                 }
             )
         }
@@ -148,11 +124,7 @@ for (let definition of avattoDefinitions) {
             definitions.push(
                 {
                     ...definition,
-                    {% if z2m_v1 %}
-                    ota: ota.zigbeeOTA,
-                    {% else %}
                     ota: true,
-                    {% endif%}
                 }
             )
         }
