@@ -2882,7 +2882,7 @@ SWITCH_BSEED_TS0726_4GANG:
   firmware_image_type: 45577
   build: no
   status: in_progress
-  info: Supported
+  info: Needs pinout
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/157
   store:
   - https://www.aliexpress.com/item/1005008635350349.html
