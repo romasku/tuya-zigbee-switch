@@ -425,9 +425,11 @@ MODULE_AVATTO_B_TS0003:
   stock_image_type: 54179
   firmware_image_type: 43603
   build: yes
-  status: in_progress
-  info: Needs pinout confirmation
-  threads: https://github.com/romasku/tuya-zigbee-switch/issues/275
+  status: fully_supported
+  info: Supported
+  threads: 
+  - https://github.com/romasku/tuya-zigbee-switch/issues/275
+  - https://github.com/romasku/tuya-zigbee-switch/issues/316
   store: https://www.aliexpress.com/item/1005006041739970.html
 MODULE_AVATTO_B_TS0004:
   human_name: AVATTO ZWSM16-4 🅱
