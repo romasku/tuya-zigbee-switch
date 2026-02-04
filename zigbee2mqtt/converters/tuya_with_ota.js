@@ -60,14 +60,17 @@ const tuyaModels = [
     "TS0726_3_gang",
     "TS0726_3_gang_scene_switch",
     "TS130F",
+    "TW-03",
     "WHD02",
     "_TZ3000_pgq7ormg",
 ];
 
 const tuyaMultiplePinoutsModels = [
+    "FZB-1",
     "TS0001_switch_1_gang",
     "TS0001_switch_module",
     "TS0001_switch_module_1",
+    "TS0002",
     "TS0002_basic",
     "TS0002_limited",
     "TS0003_switch_3_gang",
@@ -75,6 +78,7 @@ const tuyaMultiplePinoutsModels = [
     "TS0004_switch_module_2",
     "TS0012",
     "TS130F",
+    "TW-03",
 ];
 
 for (let definition of tuyaDefinitions) {
