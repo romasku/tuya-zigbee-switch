@@ -2995,8 +2995,8 @@ SWITCH_HOMEETEC_TOUCH_TS0004:
   info: Needs pinout
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/286
   store: null
-SWITCH_IHSENO_TOUCH_TS0001:
-  human_name: iHseno 1-gang touch switch
+SWITCH_IHSENO_TS0001:
+  human_name: iHseno 1-gang switches (button/touch)
   category: switch
   power: mains
   neutral: optional
@@ -3010,19 +3010,23 @@ SWITCH_IHSENO_TOUCH_TS0001:
   mcu_family: Telink
   mcu: TLSR8258
   config_str: qq9ahj6z;TS0001-IHS-T;LC4i;SB4U;RC3;M;
-  alt_config_str: null
+  alt_config_str: qq9ahj6z;TS0001-IHS-T;LB1;SB4U;RC3;M;
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
   stock_image_type: 54179
   firmware_image_type: 43557
   build: yes
-  status: fully_supported
-  info: Supported
-  threads: https://github.com/romasku/tuya-zigbee-switch/issues/146
-  store: https://www.aliexpress.com/item/1005007532195287.html
-SWITCH_IHSENO_TOUCH_TS0002:
-  human_name: iHseno 2-gang touch switch
+  status: mostly_supported
+  info: LEDs on B1 and C4i
+  threads:
+  - https://github.com/romasku/tuya-zigbee-switch/issues/146
+  - https://github.com/romasku/tuya-zigbee-switch/pull/319
+  store: 
+  - https://www.aliexpress.com/item/1005007532195287.html
+  - https://aliexpress.com/item/1005009932915725.html
+SWITCH_IHSENO_TS0002:
+  human_name: iHseno 2-gang switches (buttons/touch)
   category: switch
   power: mains
   neutral: optional
@@ -3036,43 +3040,51 @@ SWITCH_IHSENO_TOUCH_TS0002:
   mcu_family: Telink
   mcu: TLSR8258
   config_str: zxrfobzw;TS0002-IHS-T;LC4i;SC0U;RC2;SB5U;RD2;M;
-  alt_config_str: null
+  alt_config_str: zxrfobzw;TS0002-IHS-T;LB1;SC0U;RC2;SB5U;RD2;M;
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
   stock_image_type: 54179
   firmware_image_type: 43558
   build: yes
-  status: fully_supported
-  info: Supported
-  threads: https://github.com/romasku/tuya-zigbee-switch/issues/146
-  store: https://www.aliexpress.com/item/1005007532195287.html
-SWITCH_IHSENO_TOUCH_TS0003:
-  human_name: iHseno 3-gang touch switch
+  status: mostly_supported
+  info: LEDs on B1 and C4i
+  threads:
+  - https://github.com/romasku/tuya-zigbee-switch/issues/146
+  - https://github.com/romasku/tuya-zigbee-switch/pull/319
+  store: 
+  - https://www.aliexpress.com/item/1005007532195287.html
+  - https://aliexpress.com/item/1005009932915725.html
+SWITCH_IHSENO_TS0003:
+  human_name: iHseno 3-gang switches (buttons/touch)
   category: switch
   power: mains
   neutral: optional
   device_type: end_device
   stock_model_name: TS0003
-  stock_manufacturer_name: null
+  stock_manufacturer_name: _TZ3000_ju82pu2b
   stock_converter_manufacturer: Tuya
-  stock_converter_model: TS0003
+  stock_converter_model: TW-03
   override_z2m_device: null
   tuya_module: ZT3L
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: null    ;TS0003-IHS-T;LC4i;SC0U;RC2;SB4U;RC3;SB5U;RD2;M;
-  alt_config_str: null
+  config_str: ju82pu2b;TS0003-IHS-T;LC4i;SC0u;RC2;SB4u;RC3;SB5u;RD2;M;
+  alt_config_str: ju82pu2b;TS0003-IHS-T;LB1;SC0u;RC2;SB4u;RC3;SB5u;RD2;M;
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
   stock_image_type: 54179
-  firmware_image_type: 43559
-  build: no
-  status: in_progress
-  info: Needs IDs
-  threads: https://github.com/romasku/tuya-zigbee-switch/issues/146
-  store: https://www.aliexpress.com/item/1005007532195287.html
+  firmware_image_type: 45640
+  build: yes
+  status: mostly_supported
+  info: LEDs on B1 and C4i
+  threads:
+  - https://github.com/romasku/tuya-zigbee-switch/issues/146
+  - https://github.com/romasku/tuya-zigbee-switch/pull/319
+  store: 
+  - https://www.aliexpress.com/item/1005007532195287.html
+  - https://aliexpress.com/item/1005009932915725.html
 SWITCH_MANHOT_A_TS0011:
   human_name: Manhot 🅰 1-gang switch
   category: switch
