@@ -4,9 +4,9 @@
 
 This page describes **converting** and **updating** supported devices **wirelessly.**
 
-- ***Zigbee2MQTT is heavily recommended.***
-- *ZHA can't re-interview and update pinouts.*
-- *HOMEd supports only local update and can't fetch firmware from the Internet.*
+- ***Zigbee2MQTT is heavily recommended***
+- *ZHA can't re-interview and update pinouts*
+- *HOMEd supports only local updates and can't edit pinouts*
 
 > [!CAUTION]  
 > The main branch is generally safe. However, bugs in the code **can brick your device**.  
@@ -27,16 +27,17 @@ This page describes **converting** and **updating** supported devices **wireless
 5. **Restart** HA / Z2M
 6. Bring the device closer to the coordinator, or add routers to **boost signal**  
   (Pairing requires stronger signal than normal usage)
-7. Optionally, tweak Z2M settings for [# Faster OTA updates](#faster-ota-updates)
-8. **Check** for updates (blue cloud button) 
-9. **Start** the update (red download button)  
+7. Ensure **stable power** for no-Neutral switches (big load - non-smart bulb)
+8. Optionally, tweak Z2M settings for [# Faster OTA updates](#faster-ota-updates)
+9. **Check** for updates (blue cloud button) 
+10. **Start** the update (red download button)  
   Progress bar may get stuck at 100% - it's ok
-10. **Permit join** when it's done (LED blinks if mapped correctly)
-11. **Interview** the device **`i`**  
+11. **Permit join** when it's done (LED blinks if mapped correctly)
+12. **Interview** the device **`i`**  
   ⤷ option missing from ZHA, remove and re-pair if needed  
-12. **Reconfigure** the device **`🗘`** 
-13. Be aware of [## Version update](#version-update) steps
-14. Read [faq.md](./faq.md) before reaching out for support
+13. **Reconfigure** the device **`🗘`** 
+14. Be aware of [## Version update](#version-update) steps
+15. Read [faq.md](./faq.md) before reaching out for support
 
 > Hopefully, you now have a working device with custom firmware! 😊  
 > *Consider yourself invited to our [Discord](/readme.md#discord) community!* 
@@ -48,17 +49,19 @@ This page describes **converting** and **updating** supported devices **wireless
 1. Check if you have the correct [# OTA index](#ota-index)
 2. Read [changelog_fw.md](./changelog_fw.md)
 3. Remember your configurations and binds  
-(In case update erases them - mentioned in step 2)
+  (In case update erases them - if mentioned in step 2)
 4. Ensure **strong signal**  
-5. Optionally, tweak Z2M settings for [# Faster OTA updates](#faster-ota-updates)
-6. **Update** the device
-7. **Re-download** the custom [# Quirks / Converters / Extensions](#quirks--converters--extensions) and restart ZHA / Z2M
-8. **Interview** the device **`i`**  
+5. Ensure **stable power** for no-Neutral switches (big load - non-smart bulb)
+6. Optionally, tweak Z2M settings for [# Faster OTA updates](#faster-ota-updates)
+7. **Check** for updates (blue cloud button) 
+8. **Start** the update (red download button) 
+9. **Re-download** the custom [# Quirks / Converters / Extensions](#quirks--converters--extensions) and restart ZHA / Z2M
+10. **Interview** the device **`i`**  
 ⤷ option missing from ZHA, remove and re-pair if needed  
 (updates endpoints, clusters and identifiers)
-9. **Reconfigure** the device **`🗘`**  
+11.  **Reconfigure** the device **`🗘`**  
 (resets reporting and stuff?, keeps user binds and settings)
-10. Re-do user settings if needed
+12.   Re-do user settings if needed
 
 > *If your device is several versions behind, it will update directly to the latest version.*
 
@@ -107,11 +110,17 @@ zha:
 
 - You can install **Router** or **EndDevice** firmware
 - Switch between them by re-installing (update again with FORCE index)
-- **Router is recommended** - draws more power, but works even for L-only devices  
+- **Router** can be more responsive
+- **EndDevice** is useful for no-Neutral switches, because it draws less power (still more than original fw).  
+  It's also useful when you don't want the device to route Zigbee traffic
+  (e.g. If it's often powered-off, or if it has poor signal)
 
-> L-only switches need a big load to function (usually on L1 - consult manual).  
-> ⤷ Estimated values: >3W for end_device, >8W for router  
-> *They may not work at all with smart bulbs (<1W when brightness=0)*
+> [!WARNING]
+> **L-only switches need a big load to function, on any firmware**
+> - e.g. 10W dumb bulb is safe 
+> - estimated values: >4W for EndDevice, >8W for Router  
+> - **not recommended: no-Neutral switch + smart bulb ( <1W when brightness=0 )**  
+>   ⤷ dummy load (capactior) may be required
 
 <details>
 <summary> <b> Index link format </b> </summary>  
@@ -180,8 +189,9 @@ https://raw.githubusercontent.com/romasku/tuya-zigbee-switch/refs/heads/main/zig
 By default, updates perform slowly to put less strain on the network and ensure stability.  
 If your device has good signal and the network is not being actively used, you can lower the duration:
 
-Go to **Z2M ➡ Settings ➡ OTA updates** and tweak the values.  
-*50B + 50ms takes less than 5 minutes on an empty network.* More info: [Z2M doc][z2m_ota_speed]
+Go to **Z2M ➡ Settings ➡ OTA updates** and tweak the values. More info: [Z2M doc][z2m_ota_speed].  
+*50B + 50ms takes less than 5 minutes on an empty network*  
+*(default_maximum_data_size and image_block_response_delay).*
 
 # Quirks / Converters / Extensions
 
