@@ -135,11 +135,11 @@ if __name__ == "__main__":
                         "levelMoveRate": {"type": "value", "clusterId": 0x0007, "attributeId": 0xff04, "dataType": 0x20, "action": True},
                         "bindedMode": {"type": "enum", "clusterId": 0x0007, "attributeId": 0xff05, "dataType": 0x30, "action": True},
                         "pressAction": {"type": "enum", "clusterId": 0x0012, "attributeId": 0x0055, "dataType": 0x21, "binding": True,
-                                        "reporting": {"minInterval": 0, "maxInterval": 65535, "valueChange": 1}}
+                                        "reporting": {"minInterval": 0, "maxInterval": 255, "valueChange": 1}}
                     },
                     "switchAction": {"type": "select", "enum": ["on_off", "off_on", "toggle_simple", "toggle_smart_sync", "toggle_smart_opposite"]},
                     "switchMode": {"type": "select", "enum": ["toggle", "momentary", "momentary_nc"]},
-                    "relayMode": {"type": "select", "enum": ["detached", "press_start", "short_press", "long_press"]},
+                    "relayMode": {"type": "select", "enum": ["detached", "press_start", "long_press", "short_press"]},
                     "relayIndex": {"type": "select", "enum": {str(i + 1): f"relay_{i + 1}" for i in range(relay_cnt)}},
                     "longPressDuration": {"type": "number", "min": 0, "max": 5000},
                     "levelMoveRate": {"type": "number", "min": 1, "max": 255},
