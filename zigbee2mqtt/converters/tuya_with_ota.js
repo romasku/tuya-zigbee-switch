@@ -79,7 +79,6 @@ const tuyaMultiplePinoutsModels = [
     "TS0004_switch_module_2",
     "TS0012",
     "TS130F",
-    "TW-03",
 ];
 
 for (let definition of tuyaDefinitions) {
