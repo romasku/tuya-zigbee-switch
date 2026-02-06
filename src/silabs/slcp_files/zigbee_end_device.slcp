@@ -10,6 +10,7 @@ source:
 - {path: ../../silabs/main.c}
 - {path: ../../silabs/hal/zigbee.c}
 - {path: ../../silabs/hal/gpio.c}
+- {path: ../../silabs/hal/gpio_counter.c}
 - {path: ../../silabs/hal/nvm.c}
 - {path: ../../silabs/hal/tasks.c}
 - {path: ../../silabs/hal/timer.c}
