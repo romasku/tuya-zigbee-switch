@@ -3073,6 +3073,32 @@ SWITCH_BSEED_TS0726_4GANG:
   - https://www.aliexpress.com/item/1005008749674564.html
   - https://www.bseed.com/products/bseed-smart-zigbee-light-switch-with-neutral-hub-required-switch-work-with-tuya-alexa?variant=46312889090203
   - https://www.bseed.com/products/bseed-scale-series-smart-zigbee-light-switch-4-gang-with-neutral
+SWITCH_HOBEIAN_TS0001:
+  human_name: HOBEIAN ZG-302Z1
+  category: switch
+  power: mains
+  neutral: without
+  device_type: end_device
+  stock_model_name: ZG-302Z1
+  stock_manufacturer_name: HOBEIAN
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0601_switch_1_gang
+  override_z2m_device: null
+  tuya_module: none
+  mcu_family: Telink
+  mcu: TLSR8253F512AT32
+  config_str: ZG-302Z1;TS0001-HBS;IC1i;SC2u;RB5B4;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: null
+  stock_image_type: null
+  firmware_image_type: 43622
+  build: yes
+  status: fully_supported
+  info: Supported
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/325
+  store: null
 SWITCH_HOMEETEC_TOUCH_TS0001:
   human_name: homeetec 1-gang touch 
   category: switch
