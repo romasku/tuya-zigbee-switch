@@ -153,7 +153,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -181,8 +181,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -384,7 +384,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -412,8 +412,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -609,7 +609,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -637,8 +637,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -827,7 +827,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -855,8 +855,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -1093,7 +1093,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -1121,8 +1121,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -1312,7 +1312,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -1340,8 +1340,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -1536,7 +1536,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -1564,8 +1564,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -1765,7 +1765,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -1793,8 +1793,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -1995,7 +1995,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -2023,8 +2023,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -2222,7 +2222,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -2250,8 +2250,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -2454,7 +2454,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -2482,8 +2482,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -2691,7 +2691,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -2719,8 +2719,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -2919,7 +2919,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -2947,8 +2947,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -3148,7 +3148,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -3176,8 +3176,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -3370,7 +3370,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -3398,8 +3398,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -3590,7 +3590,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -3618,8 +3618,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -3813,7 +3813,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -3841,8 +3841,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -4034,7 +4034,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -4062,8 +4062,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -4258,7 +4258,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -4286,8 +4286,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -4481,7 +4481,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -4509,8 +4509,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -4702,7 +4702,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -4730,8 +4730,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -4920,7 +4920,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -4948,8 +4948,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -5139,7 +5139,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -5167,8 +5167,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -5360,7 +5360,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -5388,8 +5388,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -5579,7 +5579,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -5607,8 +5607,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -5649,6 +5649,222 @@
       "endpointId": [
         1,
         2
+      ]
+    }
+  ],
+  "qlhs2kqr": [
+    {
+      "description": "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
+      "modelNames": [
+        "TS0002-FL"
+      ],
+      "options": {
+        "endpointName": {
+          "1": "switch",
+          "2": "relay"
+        }
+      }
+    },
+    {
+      "modelNames": [
+        "TS0002-FL"
+      ],
+      "exposes": [
+        "networkIndicator"
+      ],
+      "options": {
+        "customAttributes": {
+          "networkIndicator": {
+            "type": "bool",
+            "clusterId": 0,
+            "attributeId": 65281,
+            "dataType": 16,
+            "action": true
+          }
+        },
+        "networkIndicator": {
+          "type": "toggle"
+        }
+      },
+      "endpointId": 1
+    },
+    {
+      "modelNames": [
+        "TS0002-FL"
+      ],
+      "properties": [
+        "status",
+        "powerOnStatus"
+      ],
+      "actions": [
+        "status",
+        "powerOnStatus"
+      ],
+      "bindings": [
+        "status"
+      ],
+      "reportings": [
+        "status"
+      ],
+      "exposes": [
+        "switch",
+        "powerOnStatus"
+      ],
+      "options": {
+        "powerOnStatus": {
+          "enum": [
+            "off",
+            "on",
+            "toggle",
+            "previous"
+          ]
+        }
+      },
+      "endpointId": [
+        2
+      ]
+    },
+    {
+      "modelNames": [
+        "TS0002-FL"
+      ],
+      "exposes": [
+        "pressAction",
+        "switchMode",
+        "switchAction",
+        "relayMode",
+        "relayIndex",
+        "bindedMode",
+        "longPressDuration",
+        "levelMoveRate"
+      ],
+      "options": {
+        "customAttributes": {
+          "switchAction": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 16,
+            "dataType": 48,
+            "action": true
+          },
+          "switchMode": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65280,
+            "dataType": 48,
+            "action": true
+          },
+          "relayMode": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65281,
+            "dataType": 48,
+            "action": true
+          },
+          "relayIndex": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
+          "longPressDuration": {
+            "type": "value",
+            "clusterId": 7,
+            "attributeId": 65283,
+            "dataType": 33,
+            "action": true
+          },
+          "levelMoveRate": {
+            "type": "value",
+            "clusterId": 7,
+            "attributeId": 65284,
+            "dataType": 32,
+            "action": true
+          },
+          "bindedMode": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65285,
+            "dataType": 48,
+            "action": true
+          },
+          "pressAction": {
+            "type": "enum",
+            "clusterId": 18,
+            "attributeId": 85,
+            "dataType": 33,
+            "binding": true,
+            "reporting": {
+              "minInterval": 0,
+              "maxInterval": 255,
+              "valueChange": 1
+            }
+          }
+        },
+        "switchAction": {
+          "type": "select",
+          "enum": [
+            "on_off",
+            "off_on",
+            "toggle_simple",
+            "toggle_smart_sync",
+            "toggle_smart_opposite"
+          ]
+        },
+        "switchMode": {
+          "type": "select",
+          "enum": [
+            "toggle",
+            "momentary",
+            "momentary_nc"
+          ]
+        },
+        "relayMode": {
+          "type": "select",
+          "enum": [
+            "detached",
+            "press_start",
+            "long_press",
+            "short_press"
+          ]
+        },
+        "relayIndex": {
+          "type": "select",
+          "enum": {
+            "1": "relay_1"
+          }
+        },
+        "longPressDuration": {
+          "type": "number",
+          "min": 0,
+          "max": 5000
+        },
+        "levelMoveRate": {
+          "type": "number",
+          "min": 1,
+          "max": 255
+        },
+        "bindedMode": {
+          "type": "select",
+          "enum": {
+            "1": "press_start",
+            "2": "long_press",
+            "3": "short_press"
+          }
+        },
+        "pressAction": {
+          "enum": [
+            "released",
+            "press",
+            "long_press",
+            "position_on",
+            "position_off"
+          ]
+        }
+      },
+      "endpointId": [
+        1
       ]
     }
   ],
@@ -5807,7 +6023,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -5835,8 +6051,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -5879,6 +6095,443 @@
         1,
         2,
         3
+      ]
+    }
+  ],
+  "9hbau615": [
+    {
+      "description": "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
+      "modelNames": [
+        "TS0001-GRA"
+      ],
+      "options": {
+        "endpointName": {
+          "1": "switch",
+          "2": "relay"
+        }
+      }
+    },
+    {
+      "modelNames": [
+        "TS0001-GRA"
+      ],
+      "exposes": [
+        "networkIndicator"
+      ],
+      "options": {
+        "customAttributes": {
+          "networkIndicator": {
+            "type": "bool",
+            "clusterId": 0,
+            "attributeId": 65281,
+            "dataType": 16,
+            "action": true
+          }
+        },
+        "networkIndicator": {
+          "type": "toggle"
+        }
+      },
+      "endpointId": 1
+    },
+    {
+      "modelNames": [
+        "TS0001-GRA"
+      ],
+      "properties": [
+        "status",
+        "powerOnStatus"
+      ],
+      "actions": [
+        "status",
+        "powerOnStatus"
+      ],
+      "bindings": [
+        "status"
+      ],
+      "reportings": [
+        "status"
+      ],
+      "exposes": [
+        "switch",
+        "powerOnStatus"
+      ],
+      "options": {
+        "powerOnStatus": {
+          "enum": [
+            "off",
+            "on",
+            "toggle",
+            "previous"
+          ]
+        }
+      },
+      "endpointId": [
+        2
+      ]
+    },
+    {
+      "modelNames": [
+        "TS0001-GRA"
+      ],
+      "exposes": [
+        "pressAction",
+        "switchMode",
+        "switchAction",
+        "relayMode",
+        "relayIndex",
+        "bindedMode",
+        "longPressDuration",
+        "levelMoveRate"
+      ],
+      "options": {
+        "customAttributes": {
+          "switchAction": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 16,
+            "dataType": 48,
+            "action": true
+          },
+          "switchMode": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65280,
+            "dataType": 48,
+            "action": true
+          },
+          "relayMode": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65281,
+            "dataType": 48,
+            "action": true
+          },
+          "relayIndex": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
+          "longPressDuration": {
+            "type": "value",
+            "clusterId": 7,
+            "attributeId": 65283,
+            "dataType": 33,
+            "action": true
+          },
+          "levelMoveRate": {
+            "type": "value",
+            "clusterId": 7,
+            "attributeId": 65284,
+            "dataType": 32,
+            "action": true
+          },
+          "bindedMode": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65285,
+            "dataType": 48,
+            "action": true
+          },
+          "pressAction": {
+            "type": "enum",
+            "clusterId": 18,
+            "attributeId": 85,
+            "dataType": 33,
+            "binding": true,
+            "reporting": {
+              "minInterval": 0,
+              "maxInterval": 255,
+              "valueChange": 1
+            }
+          }
+        },
+        "switchAction": {
+          "type": "select",
+          "enum": [
+            "on_off",
+            "off_on",
+            "toggle_simple",
+            "toggle_smart_sync",
+            "toggle_smart_opposite"
+          ]
+        },
+        "switchMode": {
+          "type": "select",
+          "enum": [
+            "toggle",
+            "momentary",
+            "momentary_nc"
+          ]
+        },
+        "relayMode": {
+          "type": "select",
+          "enum": [
+            "detached",
+            "press_start",
+            "long_press",
+            "short_press"
+          ]
+        },
+        "relayIndex": {
+          "type": "select",
+          "enum": {
+            "1": "relay_1"
+          }
+        },
+        "longPressDuration": {
+          "type": "number",
+          "min": 0,
+          "max": 5000
+        },
+        "levelMoveRate": {
+          "type": "number",
+          "min": 1,
+          "max": 255
+        },
+        "bindedMode": {
+          "type": "select",
+          "enum": {
+            "1": "press_start",
+            "2": "long_press",
+            "3": "short_press"
+          }
+        },
+        "pressAction": {
+          "enum": [
+            "released",
+            "press",
+            "long_press",
+            "position_on",
+            "position_off"
+          ]
+        }
+      },
+      "endpointId": [
+        1
+      ]
+    }
+  ],
+  "5sssic9d": [
+    {
+      "description": "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
+      "modelNames": [
+        "TS0012-C"
+      ],
+      "options": {
+        "endpointName": {
+          "1": "switch_left",
+          "2": "switch_right",
+          "3": "relay_left",
+          "4": "relay_right"
+        }
+      }
+    },
+    {
+      "modelNames": [
+        "TS0012-C"
+      ],
+      "exposes": [
+        "networkIndicator"
+      ],
+      "options": {
+        "customAttributes": {
+          "networkIndicator": {
+            "type": "bool",
+            "clusterId": 0,
+            "attributeId": 65281,
+            "dataType": 16,
+            "action": true
+          }
+        },
+        "networkIndicator": {
+          "type": "toggle"
+        }
+      },
+      "endpointId": 1
+    },
+    {
+      "modelNames": [
+        "TS0012-C"
+      ],
+      "properties": [
+        "status",
+        "powerOnStatus"
+      ],
+      "actions": [
+        "status",
+        "powerOnStatus"
+      ],
+      "bindings": [
+        "status"
+      ],
+      "reportings": [
+        "status"
+      ],
+      "exposes": [
+        "switch",
+        "powerOnStatus"
+      ],
+      "options": {
+        "powerOnStatus": {
+          "enum": [
+            "off",
+            "on",
+            "toggle",
+            "previous"
+          ]
+        }
+      },
+      "endpointId": [
+        3,
+        4
+      ]
+    },
+    {
+      "modelNames": [
+        "TS0012-C"
+      ],
+      "exposes": [
+        "pressAction",
+        "switchMode",
+        "switchAction",
+        "relayMode",
+        "relayIndex",
+        "bindedMode",
+        "longPressDuration",
+        "levelMoveRate"
+      ],
+      "options": {
+        "customAttributes": {
+          "switchAction": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 16,
+            "dataType": 48,
+            "action": true
+          },
+          "switchMode": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65280,
+            "dataType": 48,
+            "action": true
+          },
+          "relayMode": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65281,
+            "dataType": 48,
+            "action": true
+          },
+          "relayIndex": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
+          "longPressDuration": {
+            "type": "value",
+            "clusterId": 7,
+            "attributeId": 65283,
+            "dataType": 33,
+            "action": true
+          },
+          "levelMoveRate": {
+            "type": "value",
+            "clusterId": 7,
+            "attributeId": 65284,
+            "dataType": 32,
+            "action": true
+          },
+          "bindedMode": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65285,
+            "dataType": 48,
+            "action": true
+          },
+          "pressAction": {
+            "type": "enum",
+            "clusterId": 18,
+            "attributeId": 85,
+            "dataType": 33,
+            "binding": true,
+            "reporting": {
+              "minInterval": 0,
+              "maxInterval": 255,
+              "valueChange": 1
+            }
+          }
+        },
+        "switchAction": {
+          "type": "select",
+          "enum": [
+            "on_off",
+            "off_on",
+            "toggle_simple",
+            "toggle_smart_sync",
+            "toggle_smart_opposite"
+          ]
+        },
+        "switchMode": {
+          "type": "select",
+          "enum": [
+            "toggle",
+            "momentary",
+            "momentary_nc"
+          ]
+        },
+        "relayMode": {
+          "type": "select",
+          "enum": [
+            "detached",
+            "press_start",
+            "long_press",
+            "short_press"
+          ]
+        },
+        "relayIndex": {
+          "type": "select",
+          "enum": {
+            "1": "relay_1",
+            "2": "relay_2"
+          }
+        },
+        "longPressDuration": {
+          "type": "number",
+          "min": 0,
+          "max": 5000
+        },
+        "levelMoveRate": {
+          "type": "number",
+          "min": 1,
+          "max": 255
+        },
+        "bindedMode": {
+          "type": "select",
+          "enum": {
+            "1": "press_start",
+            "2": "long_press",
+            "3": "short_press"
+          }
+        },
+        "pressAction": {
+          "enum": [
+            "released",
+            "press",
+            "long_press",
+            "position_on",
+            "position_off"
+          ]
+        }
+      },
+      "endpointId": [
+        1,
+        2
       ]
     }
   ],
@@ -6027,7 +6680,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -6055,8 +6708,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -6250,7 +6903,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -6278,8 +6931,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -6315,6 +6968,102 @@
             "position_on",
             "position_off"
           ]
+        }
+      },
+      "endpointId": [
+        1,
+        2
+      ]
+    }
+  ],
+  "dwytrmda": [
+    {
+      "description": "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
+      "modelNames": [
+        "TS130F-GIR"
+      ],
+      "options": {
+        "endpointName": {
+          "1": "cover"
+        }
+      }
+    },
+    {
+      "modelNames": [
+        "TS130F-GIR"
+      ],
+      "exposes": [
+        "networkIndicator"
+      ],
+      "options": {
+        "customAttributes": {
+          "networkIndicator": {
+            "type": "bool",
+            "clusterId": 0,
+            "attributeId": 65281,
+            "dataType": 16,
+            "action": true
+          }
+        },
+        "networkIndicator": {
+          "type": "toggle"
+        }
+      },
+      "endpointId": 1
+    },
+    {
+      "modelNames": [
+        "TS130F-GIR"
+      ],
+      "properties": [
+        "coverPosition"
+      ],
+      "actions": [
+        "coverStatus",
+        "coverPosition"
+      ],
+      "bindings": [
+        "cover"
+      ],
+      "reportings": [
+        "coverPosition"
+      ],
+      "exposes": [
+        "cover",
+        "coverMoving",
+        "coverMotorReversal"
+      ],
+      "options": {
+        "customAttributes": {
+          "coverMoving": {
+            "type": "enum",
+            "clusterId": 258,
+            "attributeId": 65280,
+            "dataType": 48,
+            "binding": true,
+            "reporting": {
+              "minInterval": 0,
+              "maxInterval": 255,
+              "valueChange": 1
+            }
+          },
+          "coverMotorReversal": {
+            "type": "value",
+            "clusterId": 258,
+            "attributeId": 65281,
+            "dataType": 16,
+            "action": true
+          }
+        },
+        "coverMoving": {
+          "enum": [
+            "stopped",
+            "opening",
+            "closing"
+          ]
+        },
+        "coverMotorReversal": {
+          "type": "toggle"
         }
       },
       "endpointId": [
@@ -6565,7 +7314,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -6593,8 +7342,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -6781,7 +7530,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -6809,8 +7558,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -6997,7 +7746,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -7025,8 +7774,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -7213,7 +7962,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -7241,8 +7990,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -7429,7 +8178,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -7457,8 +8206,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -7655,7 +8404,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -7683,8 +8432,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -7884,7 +8633,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -7912,8 +8661,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -8109,7 +8858,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -8137,8 +8886,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -8310,7 +9059,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -8338,8 +9087,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -8533,7 +9282,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -8561,8 +9310,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -8757,7 +9506,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -8785,8 +9534,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -8986,7 +9735,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -9014,8 +9763,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -9208,7 +9957,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -9236,8 +9985,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -9424,7 +10173,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -9452,8 +10201,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -9640,7 +10389,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -9668,8 +10417,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -9856,7 +10605,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -9884,8 +10633,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -10075,7 +10824,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -10103,8 +10852,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -10293,7 +11042,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -10321,8 +11070,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -10507,7 +11256,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -10535,8 +11284,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -10721,7 +11470,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -10749,8 +11498,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -10937,7 +11686,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -10965,8 +11714,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -11151,7 +11900,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -11179,8 +11928,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -11378,7 +12127,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -11406,8 +12155,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -11606,7 +12355,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -11634,8 +12383,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -11829,7 +12578,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -11857,8 +12606,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -12047,7 +12796,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -12075,8 +12824,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -12266,7 +13015,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -12294,8 +13043,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -12484,7 +13233,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -12512,8 +13261,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -12703,7 +13452,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -12731,8 +13480,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -12924,7 +13673,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -12952,8 +13701,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -13142,7 +13891,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -13170,8 +13919,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -13361,7 +14110,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -13389,8 +14138,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -13582,7 +14331,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -13610,8 +14359,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -13800,7 +14549,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -13828,8 +14577,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -14016,7 +14765,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -14044,8 +14793,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -14241,7 +14990,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -14269,8 +15018,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -14463,7 +15212,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -14491,8 +15240,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -14725,7 +15474,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -14753,8 +15502,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -14996,7 +15745,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -15024,8 +15773,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -15218,7 +15967,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -15246,8 +15995,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -15437,7 +16186,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -15465,8 +16214,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -15665,7 +16414,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -15693,8 +16442,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -15894,7 +16643,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -15922,8 +16671,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -16120,7 +16869,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -16148,8 +16897,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -16390,7 +17139,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -16418,8 +17167,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -16666,7 +17415,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -16694,8 +17443,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -16886,7 +17635,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -16914,8 +17663,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -17159,7 +17908,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -17187,8 +17936,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -17436,7 +18185,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -17464,8 +18213,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -17705,7 +18454,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -17733,8 +18482,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -17931,7 +18680,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -17959,8 +18708,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -18164,7 +18913,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -18192,8 +18941,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -18386,7 +19135,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -18414,8 +19163,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -18651,7 +19400,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -18679,8 +19428,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -18915,7 +19664,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -18943,8 +19692,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -19184,7 +19933,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -19212,8 +19961,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -19453,7 +20202,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -19481,8 +20230,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -19724,7 +20473,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -19752,8 +20501,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -19992,7 +20741,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -20020,8 +20769,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -20257,7 +21006,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -20285,8 +21034,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -20528,7 +21277,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -20556,8 +21305,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -20796,7 +21545,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -20824,8 +21573,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -21015,7 +21764,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -21043,8 +21792,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -21239,7 +21988,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -21267,8 +22016,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -21459,7 +22208,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -21487,8 +22236,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -21678,7 +22427,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -21706,8 +22455,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -21902,7 +22651,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -21930,8 +22679,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -22099,7 +22848,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -22127,8 +22876,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -22341,7 +23090,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -22369,8 +23118,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -22589,7 +23338,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -22617,8 +23366,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -22834,7 +23583,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -22862,8 +23611,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -23076,7 +23825,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -23104,8 +23853,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -23324,7 +24073,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -23352,8 +24101,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -23572,7 +24321,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -23600,8 +24349,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -23818,7 +24567,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -23846,8 +24595,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -24070,7 +24819,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -24098,8 +24847,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -24325,7 +25074,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -24353,8 +25102,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -24600,7 +25349,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -24628,8 +25377,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -24870,7 +25619,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -24898,8 +25647,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -25136,7 +25885,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -25164,8 +25913,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -25361,7 +26110,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -25389,8 +26138,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
@@ -25566,7 +26315,7 @@
             "binding": true,
             "reporting": {
               "minInterval": 0,
-              "maxInterval": 65535,
+              "maxInterval": 255,
               "valueChange": 1
             }
           }
@@ -25594,8 +26343,8 @@
           "enum": [
             "detached",
             "press_start",
-            "short_press",
-            "long_press"
+            "long_press",
+            "short_press"
           ]
         },
         "relayIndex": {
