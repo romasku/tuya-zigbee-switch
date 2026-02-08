@@ -1575,8 +1575,8 @@ MODULE_TUYA_COMMON_TS0002:
   info: Needs pinout confirmation
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/32
   store: null
-MODULE_TUYA_COMMON_TS0012:
-  human_name: Tuya common 2-gang L-only
+MODULE_GIRIER_B_TS0012:
+  human_name: Girier 🅱 2-gang L-only
   category: module
   power: mains
   neutral: without
