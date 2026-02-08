@@ -803,6 +803,84 @@ MODULE_FARYLINK_TS0002:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/216
   store: https://www.aliexpress.com/item/1005008003253420.html
+MODULE_FARYLINK_L_TS0001:
+  human_name: Farylink FS-02Z-L
+  category: module
+  power: mains
+  neutral: without
+  device_type: end_device
+  stock_model_name: TS0001 # it's router on stock
+  stock_manufacturer_name: _TZ3000_qlhs2kqr
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0001
+  override_z2m_device: null
+  tuya_module: ZT2S
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: qlhs2kqr;TS0002-FL;BB7u;LC2;SC4u;RB1;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
+  firmware_image_type: 43617
+  build: yes
+  status: in_progress
+  info: Needs confirmation
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/326
+  store: null
+MODULE_FARYLINK_L_TS0002:
+  human_name: Farylink 2-gang L
+  category: module
+  power: mains
+  neutral: without
+  device_type: end_device
+  stock_model_name: TS0002
+  stock_manufacturer_name: null
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0002
+  override_z2m_device: null
+  tuya_module: ZT2S
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: null____;TS0002-FL;BB7u;LC2;SC4u;RB1;SD2u;RB4;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
+  firmware_image_type: 43618
+  build: no
+  status: in_progress
+  info: Needs ID and pinout
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/326
+  store: null
+MODULE_FARYLINK_L_TS0003:
+  human_name: Farylink 3-gang L
+  category: module
+  power: mains
+  neutral: without
+  device_type: end_device
+  stock_model_name: TS0003
+  stock_manufacturer_name: null
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0003
+  override_z2m_device: null
+  tuya_module: ZT2S
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: null____;TS0003-FL;BB7u;LC2;SC4u;RB1;SD2u;RB4;SC3u;RB5;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
+  firmware_image_type: 43619
+  build: no
+  status: in_progress
+  info: Needs ID and pinout
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/326
+  store: null
 MODULE_GIRIER_A_TS0001:
   human_name: Girier 🅰 1-gang
   category: module
