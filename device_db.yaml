@@ -960,6 +960,84 @@ MODULE_GIRIER_A_TS0003:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/183
   store: https://www.aliexpress.com/item/1005006084705740.html
+MODULE_GIRIER_B_TS0001:
+  human_name: Girier 🅱 1-gang
+  category: module
+  power: mains
+  neutral: required
+  device_type: router
+  stock_model_name: TS0001
+  stock_manufacturer_name: _TZ3210_9hbau615
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0001
+  override_z2m_device: null
+  tuya_module: ZT3L
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: 9hbau615;TS0001-GRA;BD2u;LC0;SB4u;RC2;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 2050
+  firmware_image_type: 43595
+  build: yes
+  status: fully_supported
+  info: Supported
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/327
+  store: null
+MODULE_GIRIER_B_TS0002:
+  human_name: Girier 🅱 2-gang
+  category: module
+  power: mains
+  neutral: required
+  device_type: router
+  stock_model_name: TS0002
+  stock_manufacturer_name: null
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0002
+  override_z2m_device: null
+  tuya_module: ZT3L
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: null____;TS0002-GRB;BD2u;LC0;SB4u;RC2;SB5u;RC3;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 2050
+  firmware_image_type: 43621
+  build: no
+  status: in_progress
+  info: Needs id and pinout confirmation
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/327
+  store: null
+MODULE_GIRIER_B_TS0012:
+  human_name: Girier 🅱 2-gang L-only
+  category: module
+  power: mains
+  neutral: without
+  device_type: end_device
+  stock_model_name: TS0012
+  stock_manufacturer_name: _TZ3000_5sssic9d
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0012
+  override_z2m_device: null
+  tuya_module: ZT3L
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: 5sssic9d;TS0012-C;BA0f;LD7;SC2f;RC0;SC3f;RB4;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 2050
+  firmware_image_type: 43615
+  build: yes
+  status: fully_supported
+  info: Supported
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/323
+  store: null
 MODULE_GIRIER_TS0001:
   human_name: Girier JR-ZDS01 🅱
   category: module
@@ -1574,84 +1652,6 @@ MODULE_TUYA_COMMON_TS0002:
   status: mostly_supported
   info: Needs pinout confirmation
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/32
-  store: null
-MODULE_GIRIER_B_TS0001:
-  human_name: Girier 🅱 1-gang
-  category: module
-  power: mains
-  neutral: required
-  device_type: router
-  stock_model_name: TS0001
-  stock_manufacturer_name: _TZ3210_9hbau615
-  stock_converter_manufacturer: Tuya
-  stock_converter_model: TS0001
-  override_z2m_device: null
-  tuya_module: ZT3L
-  mcu_family: Telink
-  mcu: TLSR8258
-  config_str: 9hbau615;TS0001-GRA;BD2u;LC0;SB4u;RC2;
-  alt_config_str: null
-  old_manufacturer_names: null
-  old_zb_models: null
-  stock_manufacturer_id: 4417
-  stock_image_type: 2050
-  firmware_image_type: 43595
-  build: yes
-  status: fully_supported
-  info: Supported
-  threads: https://github.com/romasku/tuya-zigbee-switch/issues/327
-  store: null
-MODULE_GIRIER_B_TS0002:
-  human_name: Girier 🅱 2-gang
-  category: module
-  power: mains
-  neutral: required
-  device_type: router
-  stock_model_name: TS0002
-  stock_manufacturer_name: null
-  stock_converter_manufacturer: Tuya
-  stock_converter_model: TS0002
-  override_z2m_device: null
-  tuya_module: ZT3L
-  mcu_family: Telink
-  mcu: TLSR8258
-  config_str: null____;TS0002-GRB;BD2u;LC0;SB4u;RC2;SB5u;RC3;
-  alt_config_str: null
-  old_manufacturer_names: null
-  old_zb_models: null
-  stock_manufacturer_id: 4417
-  stock_image_type: 2050
-  firmware_image_type: 43621
-  build: no
-  status: in_progress
-  info: Needs id and pinout confirmation
-  threads: https://github.com/romasku/tuya-zigbee-switch/issues/327
-  store: null
-MODULE_GIRIER_B_TS0012:
-  human_name: Girier 🅱 2-gang L-only
-  category: module
-  power: mains
-  neutral: without
-  device_type: end_device
-  stock_model_name: TS0012
-  stock_manufacturer_name: _TZ3000_5sssic9d
-  stock_converter_manufacturer: Tuya
-  stock_converter_model: TS0012
-  override_z2m_device: null
-  tuya_module: ZT3L
-  mcu_family: Telink
-  mcu: TLSR8258
-  config_str: 5sssic9d;TS0012-C;BA0f;LD7;SC2f;RC0;SC3f;RB4;
-  alt_config_str: null
-  old_manufacturer_names: null
-  old_zb_models: null
-  stock_manufacturer_id: 4417
-  stock_image_type: 2050
-  firmware_image_type: 43615
-  build: yes
-  status: fully_supported
-  info: Supported
-  threads: https://github.com/romasku/tuya-zigbee-switch/issues/323
   store: null
 MODULE_TUYA_DEFAULT_A_TS0001:
   human_name: Tuya default 1-gang 🅰 <br> Girier JR-ZDS01 🅰 <br> Zbeacon TS0001
