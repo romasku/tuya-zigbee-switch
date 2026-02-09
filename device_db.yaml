@@ -2142,6 +2142,32 @@ MODULE_TUYA_ZS2S_TS0001:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/264
   store: null
+MODULE_TUYA_ZTU_TS0001:
+  human_name: Tuya ZTU 1-gang
+  category: module
+  power: mains
+  neutral: required
+  device_type: router
+  stock_model_name: TS0001
+  stock_manufacturer_name: _TZ3000_gjrubzje
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0001_switch_module
+  override_z2m_device: null
+  tuya_module: ZTU
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: gjrubzje;TS0001-ZTU;BB5u;LB4i;SD2u;RC3;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
+  firmware_image_type: 43623
+  build: yes
+  status: fully_supported
+  info: Supported
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/331
+  store: null
 MODULE_TUYA_ZTU_TS0004:
   human_name: Tuya 4-gang
   category: module
