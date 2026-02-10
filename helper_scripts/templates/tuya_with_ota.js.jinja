@@ -13,7 +13,6 @@ girierDefinitions = girierDefinitions.definitions ?? girierDefinitions;
 lonsonhoDefinitions = lonsonhoDefinitions.definitions ?? lonsonhoDefinitions;
 
 const definitions = [];
-const multiplePinoutsDescription = "WARNING! There are multiple known pinouts for the AVATTO ZWSM16 4gang! If the device is very very old, you may need the alt_config";
 
 {% if z2m_v1 %}
 const ota = require("zigbee-herdsman-converters/lib/ota");
@@ -36,40 +35,18 @@ const tuyaModels = [
 {% endfor %}
 ];
 
-const tuyaMultiplePinoutsModels = [
-{% for item in tuyaMultiplePinoutsModels %}
-    "{{ item }}",
-{% endfor %}
-];
-
 for (let definition of tuyaDefinitions) {
     if (tuyaModels.includes(definition.model)) {
-        if (tuyaMultiplePinoutsModels.includes(definition.model)) {
-            definitions.push(
-                {
-                    ...definition,
-                    description: multiplePinoutsDescription,
-                    whiteLabel: definition.whiteLabel.map(entry => ({...entry, description: multiplePinoutsDescription,})),
-                    {% if z2m_v1 %}
-                    ota: ota.zigbeeOTA,
-                    {% else %}
-                    ota: true,
-                    {% endif%}
-                }
-            )
-        }
-        else {
-            definitions.push(
-                {
-                    ...definition,
-                    {% if z2m_v1 %}
-                    ota: ota.zigbeeOTA,
-                    {% else %}
-                    ota: true,
-                    {% endif%}
-                }
-            )
-        }
+        definitions.push(
+            {
+                ...definition,
+                {% if z2m_v1 %}
+                ota: ota.zigbeeOTA,
+                {% else %}
+                ota: true,
+                {% endif%}
+            }
+        )
     }
 }
 
@@ -79,40 +56,18 @@ const moesModels = [
 {% endfor %}
 ];
 
-const moesMultiplePinoutsModels = [
-{% for item in moesMultiplePinoutsModels %}
-    "{{ item }}",
-{% endfor %}
-];
-
 for (let definition of moesDefinitions) {
     if (moesModels.includes(definition.model)) {
-        if (moesMultiplePinoutsModels.includes(definition.model)) {
-            definitions.push(
-                {
-                    ...definition,
-                    description: multiplePinoutsDescription,
-                    whiteLabel: definition.whiteLabel.map(entry => ({...entry, description: multiplePinoutsDescription,})),
-                    {% if z2m_v1 %}
-                    ota: ota.zigbeeOTA,
-                    {% else %}
-                    ota: true,
-                    {% endif%}
-                }
-            )
-        }
-        else {
-            definitions.push(
-                {
-                    ...definition,
-                    {% if z2m_v1 %}
-                    ota: ota.zigbeeOTA,
-                    {% else %}
-                    ota: true,
-                    {% endif%}
-                }
-            )
-        }
+        definitions.push(
+            {
+                ...definition,
+                {% if z2m_v1 %}
+                ota: ota.zigbeeOTA,
+                {% else %}
+                ota: true,
+                {% endif%}
+            }
+        )
     }
 }
 
@@ -122,40 +77,18 @@ const avattoModels = [
 {% endfor %}
 ];
 
-const avattoMultiplePinoutsModels = [
-{% for item in avattoMultiplePinoutsModels %}
-    "{{ item }}",
-{% endfor %}
-];
-
 for (let definition of avattoDefinitions) {
     if (avattoModels.includes(definition.model)) {
-        if (avattoMultiplePinoutsModels.includes(definition.model)) {
-            definitions.push(
-                {
-                    ...definition,
-                    description: multiplePinoutsDescription,
-                    whiteLabel: definition.whiteLabel.map(entry => ({...entry, description: multiplePinoutsDescription,})),
-                    {% if z2m_v1 %}
-                    ota: ota.zigbeeOTA,
-                    {% else %}
-                    ota: true,
-                    {% endif%}
-                }
-            )
-        }
-        else {
-            definitions.push(
-                {
-                    ...definition,
-                    {% if z2m_v1 %}
-                    ota: ota.zigbeeOTA,
-                    {% else %}
-                    ota: true,
-                    {% endif%}
-                }
-            )
-        }
+        definitions.push(
+            {
+                ...definition,
+                {% if z2m_v1 %}
+                ota: ota.zigbeeOTA,
+                {% else %}
+                ota: true,
+                {% endif%}
+            }
+        )
     }
 }
 
@@ -165,40 +98,18 @@ const girierModels = [
 {% endfor %}
 ];
 
-const girierMultiplePinoutsModels = [
-{% for item in girierMultiplePinoutsModels %}
-    "{{ item }}",
-{% endfor %}
-];
-
 for (let definition of girierDefinitions) {
     if (girierModels.includes(definition.model)) {
-        if (girierMultiplePinoutsModels.includes(definition.model)) {
-            definitions.push(
-                {
-                    ...definition,
-                    description: multiplePinoutsDescription,
-                    whiteLabel: definition.whiteLabel.map(entry => ({...entry, description: multiplePinoutsDescription,})),
-                    {% if z2m_v1 %}
-                    ota: ota.zigbeeOTA,
-                    {% else %}
-                    ota: true,
-                    {% endif%}
-                }
-            )
-        }
-        else {
-            definitions.push(
-                {
-                    ...definition,
-                    {% if z2m_v1 %}
-                    ota: ota.zigbeeOTA,
-                    {% else %}
-                    ota: true,
-                    {% endif%}
-                }
-            )
-        }
+        definitions.push(
+            {
+                ...definition,
+                {% if z2m_v1 %}
+                ota: ota.zigbeeOTA,
+                {% else %}
+                ota: true,
+                {% endif%}
+            }
+        )
     }
 }
 
@@ -208,40 +119,18 @@ const lonsonhoModels = [
 {% endfor %}
 ];
 
-const lonsonhoMultiplePinoutsModels = [
-{% for item in lonsonhoMultiplePinoutsModels %}
-    "{{ item }}",
-{% endfor %}
-];
-
 for (let definition of lonsonhoDefinitions) {
     if (lonsonhoModels.includes(definition.model)) {
-        if (lonsonhoMultiplePinoutsModels.includes(definition.model)) {
-            definitions.push(
-                {
-                    ...definition,
-                    description: multiplePinoutsDescription,
-                    whiteLabel: definition.whiteLabel.map(entry => ({...entry, description: multiplePinoutsDescription,})),
-                    {% if z2m_v1 %}
-                    ota: ota.zigbeeOTA,
-                    {% else %}
-                    ota: true,
-                    {% endif%}
-                }
-            )
-        }
-        else {
-            definitions.push(
-                {
-                    ...definition,
-                    {% if z2m_v1 %}
-                    ota: ota.zigbeeOTA,
-                    {% else %}
-                    ota: true,
-                    {% endif%}
-                }
-            )
-        }
+        definitions.push(
+            {
+                ...definition,
+                {% if z2m_v1 %}
+                ota: ota.zigbeeOTA,
+                {% else %}
+                ota: true,
+                {% endif%}
+            }
+        )
     }
 }
 

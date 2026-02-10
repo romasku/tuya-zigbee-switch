@@ -34,9 +34,6 @@ if __name__ == "__main__":
         "Lonsonho": []
     }
 
-    # Prepare containers for multiple pinout models
-    multiple_pinouts = {key: [] for key in manufacturers}
-
     for entry in db.values():
       
         # Skip if build == no. Defaults to yes
@@ -50,34 +47,20 @@ if __name__ == "__main__":
 
         manufacturers[mfr].append(model)
 
-        if entry.get("alt_config_str"):
-            multiple_pinouts[mfr].append(model)
-
     tuyaModels = manufacturers["Tuya"]
     moesModels = manufacturers["Moes"]
     avattoModels = manufacturers["AVATTO"]
     girierModels = manufacturers["Girier"]
     lonsonhoModels = manufacturers["Lonsonho"]
 
-    tuyaMultiplePinoutsModels = multiple_pinouts["Tuya"]
-    moesMultiplePinoutsModels = multiple_pinouts["Moes"]
-    avattoMultiplePinoutsModels = multiple_pinouts["AVATTO"]
-    girierMultiplePinoutsModels = multiple_pinouts["Girier"]
-    lonsonhoMultiplePinoutsModels = multiple_pinouts["Lonsonho"]
-
     template = env.get_template("tuya_with_ota.js.jinja")
 
     print(template.render(
         tuyaModels=sorted(list(set(tuyaModels))),
-        tuyaMultiplePinoutsModels=sorted(list(set(tuyaMultiplePinoutsModels))),
         moesModels=sorted(list(set(moesModels))),
-        moesMultiplePinoutsModels=sorted(list(set(moesMultiplePinoutsModels))),
         avattoModels=sorted(list(set(avattoModels))),
-        avattoMultiplePinoutsModels=sorted(list(set(avattoMultiplePinoutsModels))),
         girierModels=sorted(list(set(girierModels))),
-        girierMultiplePinoutsModels=sorted(list(set(girierMultiplePinoutsModels))),
         lonsonhoModels=sorted(list(set(lonsonhoModels))),
-        lonsonhoMultiplePinoutsModels=sorted(list(set(lonsonhoMultiplePinoutsModels))),
          z2m_v1=args.z2m_v1)
     )
    
