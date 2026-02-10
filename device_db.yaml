@@ -1480,9 +1480,9 @@ MODULE_MOES_ZM4LT1_TS0001:
   device_type: router
   stock_model_name: TS0001
   stock_manufacturer_name: _TZ3000_afgzktgb
-  stock_converter_manufacturer: Moes
-  stock_converter_model: ZM4LT1
-  override_z2m_device: null
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0001
+  override_z2m_device: ZM4LT1
   tuya_module: ZTU
   mcu_family: Telink
   mcu: TLSR8258
@@ -1506,9 +1506,9 @@ MODULE_MOES_ZM4LT2_TS0002:
   device_type: router
   stock_model_name: TS0002
   stock_manufacturer_name: _TZ3000_criiahcg
-  stock_converter_manufacturer: Moes
-  stock_converter_model: ZM4LT2
-  override_z2m_device: null
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0002
+  override_z2m_device: ZM4LT2
   tuya_module: ZT2S
   mcu_family: Telink
   mcu: TLSR8258
@@ -1532,9 +1532,9 @@ MODULE_MOES_ZM4LT3_TS0003:
   device_type: router
   stock_model_name: TS0003
   stock_manufacturer_name: _TZ3000_mzcp0of6
-  stock_converter_manufacturer: Moes
-  stock_converter_model: ZM4LT3
-  override_z2m_device: null
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0003
+  override_z2m_device: ZM4LT3
   tuya_module: ZTU
   mcu_family: Telink
   mcu: TLSR8258
@@ -1558,9 +1558,9 @@ MODULE_MOES_ZM4LT4_TS0004:
   device_type: router
   stock_model_name: TS0004
   stock_manufacturer_name: _TZ3000_tyg4yiat
-  stock_converter_manufacturer: Moes
-  stock_converter_model: ZM4LT4
-  override_z2m_device: null
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0004_switch_module_2
+  override_z2m_device: ZM4LT4
   tuya_module: ZTU
   mcu_family: Telink
   mcu: TLSR8258
