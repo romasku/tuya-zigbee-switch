@@ -1880,6 +1880,32 @@ MODULE_TUYA_GIRIER_TS0013:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/37
   store: null
+MODULE_TUYA_NOVATO_QS_S05_TS0011:
+  human_name: Tuya QS-Zigbee-S05-L <br> Leomoca 1-gang L-only
+  category: module
+  power: mains
+  neutral: without
+  device_type: end_device
+  stock_model_name: TS0011
+  stock_manufacturer_name: _TZ3000_qmi1cfuq
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0011_switch_module
+  override_z2m_device: null
+  tuya_module: ZT3L
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: qmi1cfuq;TS0011-S05;BB5f;LC3;SD2u;RD7;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
+  firmware_image_type: 45578
+  build: yes
+  status: fully_supported
+  info: Supported
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/338
+  store: null
 MODULE_TUYA_NOVATO_TS0002:
   human_name: Tuya QS-Zigbee-S04-2C
   category: module
