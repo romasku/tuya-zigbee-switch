@@ -7,7 +7,7 @@
 
 Feature-rich custom firmware for Telink/Silabs Zigbee switches, modules, sockets
 
-- Already **100+** [supported_devices.md](./docs/supported_devices.md)
+- Already **120+** [supported_devices.md](./docs/supported_devices.md)
 - Port new devices: [contribute/porting.md](./docs/contribute/porting.md)
 
 ## 🤔 Why?
@@ -42,6 +42,7 @@ Users also consider this _the missing piece of a reliable smart home,_ because i
 - Inching (pulse relay output)
 - Scenes (send and receive)
 - Power monitoring
+- Curatain modules
 - Touchlink
 - Integrate converters with Z2M
 

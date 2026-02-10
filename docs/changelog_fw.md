@@ -78,6 +78,11 @@ Please describe what you are working on:
   - Option 'Relay indicator - manual on' is not kept after reboot
   - Relay indicators sometimes go out-of-sync ([#38](https://github.com/romasku/tuya-zigbee-switch/issues/38))
   - Telink End_device unreachable from Z2M after a while ([#217](https://github.com/romasku/tuya-zigbee-switch/issues/217))
+  - Switch randomly toggles on TLSR8253 512KB devices ([#289](https://github.com/romasku/tuya-zigbee-switch/issues/289))
+  (HOBEIAN and Zbeacon)
+  - *Power-on behavior* doesn't fully work on some devices
+  - *momentary_nc* not working after power loss.  
+  (Apply the setting again)
 
 ## v1.0.21
 

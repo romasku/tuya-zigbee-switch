@@ -666,7 +666,7 @@ MODULE_EKF_TS0011:
   firmware_image_type: 43593
   build: no
   status: in_progress
-  info: Needs ID (could be _TZ3000_tw4ztbp4) and pinout confirmation
+  info: Needs ID (maybe tw4ztbp4) and pinout confirmation
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/205
   store: https://ekfgroup.com/ru/catalog/products/umnoe-rele-v-podrozetnik-1-kanalnoe-bez-nejtrali-zigbee-ekf-connect-select
 MODULE_EKF_TS0012:
@@ -2537,7 +2537,7 @@ SWITCH_AVATTO_TOUCH_TS0001:
   firmware_image_type: 45583
   build: yes
   status: mostly_supported
-  info: Untested. Backlight on C4
+  info: Backlight on C4
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/41
   store: https://www.aliexpress.com/item/1005007097427150.html
 SWITCH_AVATTO_TOUCH_TS0002:
@@ -2563,7 +2563,7 @@ SWITCH_AVATTO_TOUCH_TS0002:
   firmware_image_type: 45584
   build: yes
   status: mostly_supported
-  info: Untested. Backlight on C4
+  info: Backlight on C4
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/41
   store: https://www.aliexpress.com/item/1005007097427150.html
 SWITCH_AVATTO_TOUCH_TS0003:
@@ -3227,7 +3227,7 @@ SWITCH_HOMEETEC_TOUCH_TS0001:
   firmware_image_type: 43608
   build: yes
   status: mostly_supported
-  info: Needs pinout confirmation, backlight C0
+  info: Backlight C0
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/286
   store: null
 SWITCH_HOMEETEC_TOUCH_TS0002:
@@ -3253,7 +3253,7 @@ SWITCH_HOMEETEC_TOUCH_TS0002:
   firmware_image_type: 43607
   build: yes
   status: mostly_supported
-  info: Needs pinout confirmation, backlight C0
+  info: Backlight C0
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/286
   store: null
 SWITCH_HOMEETEC_TOUCH_TS0003:
@@ -3279,7 +3279,7 @@ SWITCH_HOMEETEC_TOUCH_TS0003:
   firmware_image_type: 43606
   build: yes
   status: mostly_supported
-  info: Needs pinout confirmation, backlight C0
+  info: Backlight C0
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/286
   store: null
 SWITCH_HOMEETEC_TOUCH_TS0004:
