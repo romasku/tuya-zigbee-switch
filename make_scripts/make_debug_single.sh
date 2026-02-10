@@ -17,7 +17,7 @@
 set -e                                           # Exit on error.
 cd "$(dirname "$(dirname "$(realpath "$0")")")"  # Go to project root.
 
-DEVICE=AVATTO_TS0004  # Change this to your device
+DEVICE=BOARD__ZIGBEE_ZTU_2  # Change this to your device
 
 # Check if device exists in database
 if ! yq -e ".${DEVICE}" device_db.yaml >/dev/null 2>&1; then
