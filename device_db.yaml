@@ -3319,6 +3319,84 @@ SWITCH_IHSENO_TS0003:
   store: 
   - https://www.aliexpress.com/item/1005007532195287.html
   - https://aliexpress.com/item/1005009932915725.html
+SWITCH_LERLINK_TS0011:
+  human_name: LerLink 1-gang switch
+  category: switch
+  power: mains
+  neutral: optional
+  device_type: end_device
+  stock_model_name: TS0011
+  stock_manufacturer_name: null
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0011
+  override_z2m_device: null
+  tuya_module: ZTU
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: null____;LerLink-1-gang;SC2u;RC3;IB1;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
+  firmware_image_type: 43624
+  build: no
+  status: in_progress
+  info: Needs ID and pinout confirmation
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/333
+  store: https://www.aliexpress.com/item/1005004761142268.html
+SWITCH_LERLINK_TS0012:
+  human_name: LerLink 2-gang switch
+  category: switch
+  power: mains
+  neutral: optional
+  device_type: end_device
+  stock_model_name: TS0012
+  stock_manufacturer_name: _TZ3000_dlp6yvs8
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0012
+  override_z2m_device: null
+  tuya_module: ZTU
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: dlp6yvs8;LerLink-2-gang;SA0u;RB4;ID7i;SB7u;RB5;ID2i;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
+  firmware_image_type: 43510
+  build: yes
+  status: fully_supported
+  info: Supported
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/333
+  store: https://www.aliexpress.com/item/1005004761142268.html
+SWITCH_LERLINK_TS0013:
+  human_name: LerLink 3-gang switch
+  category: switch
+  power: mains
+  neutral: optional
+  device_type: end_device
+  stock_model_name: TS0013
+  stock_manufacturer_name: _TZ3000_qp7x8u3a
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0013
+  override_z2m_device: null
+  tuya_module: ZTU
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: qp7x8u3a;LerLink-3-gang;SA0u;RB4;ID7;SC2u;RC3;IB1;SB7u;RB5;ID2;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
+  firmware_image_type: 43533
+  build: yes
+  status: fully_supported
+  info: Supported
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/333
+  store: https://www.aliexpress.com/item/1005004761142268.html
 SWITCH_MANHOT_A_TS0011:
   human_name: Manhot 🅰 1-gang switch
   category: switch
