@@ -3738,6 +3738,32 @@ SWITCH_MOES_ALL_TS0014:
   - https://moeshouse.com/collections/eu-star-ring
   - https://www.aliexpress.com/item/1005005178075186.html
   - https://www.aliexpress.com/item/1005005178430448.html
+SWITCH_MOES_SCENE_TS0726_3GANG_3SCENE:
+  human_name: Moes SR-ZS
+  category: switch
+  power: mains
+  neutral: required
+  device_type: router
+  mcu: TLSR8258
+  stock_model_name: TS0726
+  stock_manufacturer_name: _TZ3002_vaq2bfcu
+  stock_converter_manufacturer: Moes
+  stock_converter_model: SR-ZS
+  override_z2m_device: null
+  tuya_module: ZTU
+  mcu_family: Telink
+  config_str: vaq2bfcu;MS33;SB6u;SC1u;SC4u;SB7u;RD2;RB4;RB5;RD3;ID7;IC0;IA0;IA1;M;
+  alt_config_str: vaq2bfcu;MS33;SB6u;SC1u;SC4u;SB7u;SB1u;SD4u;RD2;RB4;RB5;
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
+  firmware_image_type: 43625
+  build: yes
+  status: in_progress
+  info: Only 4 buttons supported, pinout unconfirmed
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/332
+  store: null
 SWITCH_PSMART_TS0001:
   human_name: PSMART T441/T451
   category: switch
