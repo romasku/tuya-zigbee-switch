@@ -3778,8 +3778,8 @@ SWITCH_MOES_SCENE_TS0726_3GANG_3SCENE:
   override_z2m_device: null
   tuya_module: ZTU
   mcu_family: Telink
-  config_str: vaq2bfcu;MS33;SB6u;SC1u;SC4u;SB7u;RD2;RB4;RB5;RD3;ID7;IC0;IA0;IA1;M;
-  alt_config_str: vaq2bfcu;MS33;SB6u;SC1u;SC4u;SB7u;SB1u;SD4u;RD2;RB4;RB5;
+  config_str: vaq2bfcu;MS33;SB6u;RB5;ID3i;SC1u;RB4;ID7i;SC4u;RD2;IC0i;SB7u;RC3;IA0i;M;
+  alt_config_str: vaq2bfcu;MS33;SB6u;RB5;ID3i;SC1u;RB4;ID7i;SC4u;RD2;IC0i;SB7u;IA0i;SB1u;IA1i;SD4u;IC2i;M;
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
@@ -3787,7 +3787,7 @@ SWITCH_MOES_SCENE_TS0726_3GANG_3SCENE:
   firmware_image_type: 43625
   build: yes
   status: in_progress
-  info: Only 4 buttons supported, pinout unconfirmed
+  info: Only 4 buttons supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/332
   store: null
 SWITCH_PSMART_TS0001:
