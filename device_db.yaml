@@ -1906,6 +1906,32 @@ MODULE_TUYA_GIRIER_TS0013:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/37
   store: null
+MODULE_TUYA_NOVATO_QS_S05_TS0001:
+  human_name: Tuya QS-Zigbee-S05-LN
+  category: module
+  power: mains
+  neutral: required
+  device_type: end_device
+  stock_model_name: TS0001
+  stock_manufacturer_name: _TZ3000_yl3zuyaw
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0001
+  override_z2m_device: null
+  tuya_module: ZT3L
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: yl3zuyaw;TS0001-QS-custom;LB4;SC3f;RC2;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
+  firmware_image_type: 45577
+  build: yes
+  status: fully_supported
+  info: Supported
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/339
+  store: null
 MODULE_TUYA_NOVATO_QS_S05_TS0011:
   human_name: Tuya QS-Zigbee-S05-L <br> Leomoca 1-gang L-only
   category: module
@@ -3168,7 +3194,7 @@ SWITCH_BSEED_TS0726_4GANG:
   old_zb_models: null
   stock_manufacturer_id: null
   stock_image_type: null
-  firmware_image_type: 45577
+  firmware_image_type: 43627
   build: no
   status: in_progress
   info: Needs pinout
@@ -3438,7 +3464,7 @@ SWITCH_LERLINK_TS0012:
   tuya_module: ZTU
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: dlp6yvs8;LerLink-2-gang;SA0u;RB4;ID7i;SB7u;RB5;ID2i;M;
+  config_str: dlp6yvs8;LerLink-2-gang;SA0u;RB4;ID7;SB7u;RB5;ID2;M;
   alt_config_str: null
   old_manufacturer_names: null
   old_zb_models: null
