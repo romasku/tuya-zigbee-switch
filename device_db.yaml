@@ -4106,3 +4106,29 @@ SWITCH_ZEMISMART_TS0601_6GANG:
   info: Needs pinout. Secondary MCU. 6-gang!
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/209
   store: https://www.zemismart.com/products/tb26-6
+MOES_SCENE_SWITCH_TS0044:
+  human_name: MOES Scene Switch
+  category: remote
+  power: CR2032
+  neutral: without
+  device_type: end_device
+  stock_model_name: TS0044
+  stock_manufacturer_name: _TZ3000_zgyzgdua
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0044
+  override_z2m_device: null
+  tuya_module: ZT3L
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: zgyzgdua;TS0044;PD2d;PC3d;PC2d;PB4d;LD4i;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
+  firmware_image_type: 43572
+  build: yes
+  status: in_progress
+  info: Huge battery drain! LEDs on C4, A0, D7 and D4. Buttons on D2, C3, C2 and B4.
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/237
+  store: https://moeshouse.com/products/zigbee-wireless-scene-switch-battery-powered?variant=43700045283643

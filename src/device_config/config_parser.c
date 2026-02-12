@@ -20,7 +20,7 @@
 #include "hal/zigbee_ota.h"
 
 // Forward declarations
-void periferals_init(void);
+void peripherals_init(void);
 
 // extern ota_preamble_t baseEndpoint_otaInfo;
 
@@ -143,7 +143,7 @@ void parse_config() {
                 }
             }
             leds_cnt++;
-        } else if (entry[0] == 'S') {
+        } else if (entry[0] == 'S' || entry[0] == 'P') {
             hal_gpio_pin_t  pin  = hal_gpio_parse_pin(entry + 1);
             hal_gpio_pull_t pull = hal_gpio_parse_pull(entry + 3);
             hal_gpio_init(pin, 1, pull);
@@ -152,17 +152,20 @@ void parse_config() {
             buttons[buttons_cnt].long_press_duration_ms  = 800;
             buttons[buttons_cnt].multi_press_duration_ms = 800;
 
+            if (entry[3] == 'd') 
+                buttons[buttons_cnt].pressed_when_high = 1;
             switch_clusters[switch_clusters_cnt].switch_idx = switch_clusters_cnt;
             switch_clusters[switch_clusters_cnt].mode       =
                 ZCL_ONOFF_CONFIGURATION_SWITCH_TYPE_TOGGLE;
             switch_clusters[switch_clusters_cnt].action =
                 ZCL_ONOFF_CONFIGURATION_SWITCH_ACTION_TOGGLE_SIMPLE;
             switch_clusters[switch_clusters_cnt].relay_mode =
-                ZCL_ONOFF_CONFIGURATION_RELAY_MODE_SHORT;
+                (entry[0] == 'P') ? ZCL_ONOFF_CONFIGURATION_RELAY_MODE_DETACHED 
+                                  : ZCL_ONOFF_CONFIGURATION_RELAY_MODE_SHORT;
             switch_clusters[switch_clusters_cnt].binded_mode =
                 ZCL_ONOFF_CONFIGURATION_BINDED_MODE_SHORT;
             switch_clusters[switch_clusters_cnt].relay_index =
-                switch_clusters_cnt + 1;
+                (entry[0] == 'P') ? 0 : (switch_clusters_cnt + 1);
             switch_clusters[switch_clusters_cnt].button          = &buttons[buttons_cnt];
             switch_clusters[switch_clusters_cnt].level_move_rate = 50;
             buttons_cnt++;
@@ -218,7 +221,7 @@ void parse_config() {
         }
     }
 
-    periferals_init();
+    peripherals_init();
 
     printf("Initializing Zigbee with %d switches, %d relays, %d covers\r\n",
            switch_clusters_cnt, relay_clusters_cnt, cover_clusters_cnt);
@@ -292,7 +295,7 @@ void network_indicator_on_network_status_change(
     }
 }
 
-void periferals_init() {
+void peripherals_init() {
     for (int index = 0; index < buttons_cnt; index++) {
         btn_init(&buttons[index]);
     }

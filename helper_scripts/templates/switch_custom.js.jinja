@@ -275,8 +275,10 @@ const definitions = [
             romasku.pressAction("{{switchName}}_press_action", "{{switchName}}"),
             romasku.switchMode("{{switchName}}_mode", "{{switchName}}"),
             romasku.switchAction("{{switchName}}_action_mode", "{{switchName}}"),
+            {% if device.relayNames %}
             romasku.relayMode("{{switchName}}_relay_mode", "{{switchName}}"),
             romasku.relayIndex("{{switchName}}_relay_index", "{{switchName}}", {{device.relayNames | length}}),
+            {% endif %}
             romasku.bindedMode("{{switchName}}_binded_mode", "{{switchName}}"),
             romasku.longPressDuration("{{switchName}}_long_press_duration", "{{switchName}}"),
             romasku.levelMoveRate("{{switchName}}_level_move_rate", "{{switchName}}"),

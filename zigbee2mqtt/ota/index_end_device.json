@@ -1132,5 +1132,33 @@
       "Zemi-2-gang",
       "zmlunnhy"
     ]
+  },
+  {
+    "fileName": "tlc_switch-1.1.2-295a6067.zigbee",
+    "fileVersion": 285356032,
+    "fileSize": 142290,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/main/bin/end_device/MOES_SCENE_SWITCH_TS0044_END_DEVICE/tlc_switch-1.1.2-295a6067.zigbee",
+    "imageType": 43572,
+    "manufacturerCode": 4417,
+    "sha512": "55e95c8ac8841912950dc50c3b717fcf0455cee8ea5d17243e5e99cd9ba84ff79f3a94e6e217c9d49975c5e875166b5c0f98e1d27656fd07edf2a90fd8bc4071",
+    "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
+    "manufacturerName": [
+      "_TZ3000_zgyzgdua",
+      "zgyzgdua"
+    ]
+  },
+  {
+    "fileName": "tlc_switch-1.1.2-295a6067-from_tuya.zigbee",
+    "fileVersion": 4294967295,
+    "fileSize": 142290,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/main/bin/end_device/MOES_SCENE_SWITCH_TS0044_END_DEVICE/tlc_switch-1.1.2-295a6067-from_tuya.zigbee",
+    "imageType": 54179,
+    "manufacturerCode": 4417,
+    "sha512": "627ee60c0f6d0c6efea2dc01818e1e42e2d2cda4741be3a16107baeb42ed59996eb293802c9369d4584161fd5e19d818977ce0974e41126632511623b0679114",
+    "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
+    "manufacturerName": [
+      "_TZ3000_zgyzgdua",
+      "zgyzgdua"
+    ]
   }
 ]

@@ -45,11 +45,11 @@ if __name__ == "__main__":
         indicators_cnt = 0
         has_dedicated_net_led = False
         for peripheral in peripherals:
-            if peripheral == "SLP":
+            if peripheral == "SLP" or peripheral == "M":
                 continue
             if peripheral[0] == "R":
                 relay_cnt += 1
-            if peripheral[0] == 'S':
+            if peripheral[0] == 'S' or peripheral[0] == 'P':
                 switch_cnt += 1
             if peripheral[0] == 'C':
                 cover_cnt += 1
@@ -65,7 +65,7 @@ if __name__ == "__main__":
         elif switch_cnt == 3:
             switch_names = ["switch_left", "switch_middle", "switch_right"]
         else:
-            switch_names = [f"switch_{index}" for index in range(relay_cnt)]
+            switch_names = [f"switch_{index}" for index in range(switch_cnt)]
 
         if relay_cnt == 1:
             relay_names = ["relay"]
