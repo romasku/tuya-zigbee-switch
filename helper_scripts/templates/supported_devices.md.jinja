@@ -12,15 +12,15 @@ Support new devices: [contribute/porting.md](/docs/contribute/porting.md)
 
 ### Legend
 
-| Symbol | Meaning  |                    |                     |                |                |          |
-| :----: | -------- | ------------------ | ------------------- | -------------- | -------------- | -------- |
-|   🚧️   | Status   | 🟩️ Fully supported | 🟨️ Mostly supported | 🟧️ In progress | 🟥️ Unsupported |          |
-|   📦️   | Build    | ✔️ Available       | ❌️ Unavailable      |                |                |          |
-|   💡️   | Category | 🇲️ Module          | 🇸️ Switch           | 🇴️ Outlet      | 🇷️ Remote      | 🇧️ Board |
-|   ⚡️   | Power    | 🔌️ Mains           | 🔋️ Battery          | 🔱️ USB         |                |          |
-|   📲️   | Install  | 🛜️ Wireless        | ➿️ By wire          | ❓️ Unknown     |                |          |
-|   🏭️   | MCU      | `TL` Telink        | `SL` Silicon Labs   | `NXP` NXP      |                |          |
-|   🅰   | Variant  | 🅰                  | 🅱                  | 🅲             | 🅳              | 🅴       |
+| Symbol | Meaning  |                    |                     |                |                |           |          |
+| :----: | -------- | ------------------ | ------------------- | -------------- | -------------- | --------- | -------- |
+|   🚧️   | Status   | 🟩️ Fully supported | 🟨️ Mostly supported | 🟧️ In progress | 🟥️ Unsupported |           |          |
+|   📦️   | Build    | ✔️ Available       | ❌️ Unavailable      |                |                |           |          |
+|   💡️   | Category | 🇲️ Module          | 🇸️ Switch           | 🇴️ Outlet      | 🇵 Plug        | 🇷️ Remote | 🇧️ Board | 
+|   ⚡️   | Power    | 🔌️ Mains           | 🔋️ Battery          | 🔱️ USB         |                |           |          |
+|   📲️   | Install  | 🛜️ Wireless        | ➿️ By wire          | ❓️ Unknown     |                |           |          |
+|   🏭️   | MCU      | `TL` Telink        | `SL` Silicon Labs   | `NXP` NXP      |                |           |          |
+|   🅰   | Variant  | 🅰                  | 🅱                  | 🅲             | 🅳              | 🅴        | 🅵        |
 
 <!-------------------------------------------------------------------
   `supported.md` is generated. 
@@ -120,6 +120,8 @@ Support new devices: [contribute/porting.md](/docs/contribute/porting.md)
     {% set category = "🇷" %}
   {% elif device.category == "outlet" %}
     {% set category = "🇴" %}
+  {% elif device.category == "plug" %}
+    {% set category = "🇵" %}
   {% elif device.category == "board" %}
     {% set category = "🇧" %}
   {% else %}

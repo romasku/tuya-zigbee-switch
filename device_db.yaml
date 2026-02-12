@@ -2380,8 +2380,33 @@ OUTLET_BSEED_TS011F:
   status: fully_supported
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/145
-  store:
-  - https://www.aliexpress.com/item/1005004402438527.html
+  store: https://www.aliexpress.com/item/1005004402438527.html
+PLUG___AUBESS_PM_TS011F:
+  human_name: Aubess PM plug
+  category: plug
+  power: mains
+  neutral: required
+  device_type: router
+  stock_model_name: TS011F
+  stock_manufacturer_name: _TZ3000_gvn91tmx
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS011F_plug_1
+  override_z2m_device: null
+  tuya_module: ZTU
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: gvn91tmx;TS011F-AB-PM;SC4u;RB5;ID2i;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
+  firmware_image_type: 43556
+  build: yes
+  status: in_progress
+  info: PM not implemented
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/334
+  store: https://aliexpress.com/item/1005005958920309.html
 REMOTE_AQARA_WXKG02LM:
   human_name: Aqara WXKG02LM
   category: remote
