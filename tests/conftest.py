@@ -8,6 +8,11 @@ import pytest
 from client import Event, StubProc
 
 from tests.zcl_consts import (
+    ZCL_ATTR_COVER_SWITCH_BINDED_MODE,
+    ZCL_ATTR_COVER_SWITCH_COVER_INDEX,
+    ZCL_ATTR_COVER_SWITCH_LOCAL_MODE,
+    ZCL_ATTR_COVER_SWITCH_LONG_PRESS_DURATION,
+    ZCL_ATTR_COVER_SWITCH_SWITCH_TYPE,
     ZCL_ATTR_MULTISTATE_INPUT_PRESENT_VALUE,
     ZCL_ATTR_ONOFF,
     ZCL_ATTR_ONOFF_CONFIGURATION_SWITCH_ACTIONS,
@@ -16,6 +21,7 @@ from tests.zcl_consts import (
     ZCL_ATTR_ONOFF_CONFIGURATION_SWITCH_RELAY_MODE,
     ZCL_ATTR_WINDOW_COVERING_MOTOR_REVERSAL,
     ZCL_ATTR_WINDOW_COVERING_MOVING,
+    ZCL_CLUSTER_COVER_SWITCH_CONFIG,
     ZCL_CLUSTER_MULTISTATE_INPUT_BASIC,
     ZCL_CLUSTER_ON_OFF,
     ZCL_CLUSTER_ON_OFF_SWITCH_CONFIG,
@@ -28,6 +34,7 @@ from tests.zcl_consts import (
 )
 
 DEBOUNCE_MS = 50
+MINIMUM_SWITCH_TIME_MS = 200
 
 
 @pytest.fixture(autouse=True)
@@ -369,6 +376,39 @@ class Device:
             ZCL_ATTR_MULTISTATE_INPUT_PRESENT_VALUE,
         )
         return self.zcl_switch_get_multistate_value(endpoint)
+
+    # Cover switch helpers:
+    def zcl_cover_switch_set_switch_type(self, endpoint: int, switch_type: int) -> None:
+        self.write_zigbee_attr(
+            endpoint,
+            ZCL_CLUSTER_COVER_SWITCH_CONFIG,
+            ZCL_ATTR_COVER_SWITCH_SWITCH_TYPE,
+            switch_type,
+        )
+
+    def zcl_cover_switch_set_local_mode(self, endpoint: int, local_mode: int) -> None:
+        self.write_zigbee_attr(
+            endpoint,
+            ZCL_CLUSTER_COVER_SWITCH_CONFIG,
+            ZCL_ATTR_COVER_SWITCH_LOCAL_MODE,
+            local_mode,
+        )
+
+    def zcl_cover_switch_set_binded_mode(self, endpoint: int, binded_mode: int) -> None:
+        self.write_zigbee_attr(
+            endpoint,
+            ZCL_CLUSTER_COVER_SWITCH_CONFIG,
+            ZCL_ATTR_COVER_SWITCH_BINDED_MODE,
+            binded_mode,
+        )
+
+    def zcl_cover_switch_set_cover_index(self, endpoint: int, cover_index: int) -> None:
+        self.write_zigbee_attr(
+            endpoint,
+            ZCL_CLUSTER_COVER_SWITCH_CONFIG,
+            ZCL_ATTR_COVER_SWITCH_COVER_INDEX,
+            cover_index,
+        )
 
     # Cover helpers:
     def zcl_cover_get_moving(self, endpoint: int) -> int:
