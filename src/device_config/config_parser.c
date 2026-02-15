@@ -297,13 +297,11 @@ void network_indicator_on_network_status_change(
     hal_zigbee_network_status_t new_status) {
     printf("Network status changed to %d\r\n", new_status);
     if (new_status == HAL_ZIGBEE_NETWORK_JOINED) {
+#ifdef BATTERY_POWERED
+        network_indicator.manual_state_when_connected = 0;
+#endif
         network_indicator_connected(&network_indicator);
         update_relay_clusters();
-#ifdef BATTERY_POWERED
-        // Don't force report immediately - let Z2M read when ready
-        // This avoids interfering with pairing process
-        // battery_cluster_force_report();
-#endif
     } else {
         network_indicator_not_connected(&network_indicator);
     }
