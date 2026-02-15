@@ -293,8 +293,10 @@ void parse_config() {
         switch_cluster_add_to_endpoint(&switch_clusters[index], &endpoints[index]);
     }
     for (int index = 0; index < relay_clusters_cnt; index++) {
-        cluster_ptr += endpoints[switch_clusters_cnt + index - 1].cluster_count;
-        endpoints[switch_clusters_cnt + index].clusters = cluster_ptr;
+        if (switch_clusters_cnt + index != 0) {
+            cluster_ptr += endpoints[switch_clusters_cnt + index - 1].cluster_count;
+            endpoints[switch_clusters_cnt + index].clusters = cluster_ptr;
+        }
         relay_cluster_add_to_endpoint(&relay_clusters[index],
                                       &endpoints[switch_clusters_cnt + index]);
         // Group cluster is stateless, safe to add to multiple endpoints
@@ -304,16 +306,20 @@ void parse_config() {
 
     int cover_switch_base = switch_clusters_cnt + relay_clusters_cnt;
     for (int index = 0; index < cover_switch_clusters_cnt; index++) {
-        cluster_ptr += endpoints[cover_switch_base + index - 1].cluster_count;
-        endpoints[cover_switch_base + index].clusters = cluster_ptr;
+        if (cover_switch_base + index != 0) {
+            cluster_ptr += endpoints[cover_switch_base + index - 1].cluster_count;
+            endpoints[cover_switch_base + index].clusters = cluster_ptr;
+        }
         cover_switch_cluster_add_to_endpoint(&cover_switch_clusters[index],
                                              &endpoints[cover_switch_base + index]);
     }
 
     int cover_base = switch_clusters_cnt + relay_clusters_cnt + cover_switch_clusters_cnt;
     for (int index = 0; index < cover_clusters_cnt; index++) {
-        cluster_ptr += endpoints[cover_base + index - 1].cluster_count;
-        endpoints[cover_base + index].clusters = cluster_ptr;
+        if (cover_base + index != 0) {
+            cluster_ptr += endpoints[cover_base + index - 1].cluster_count;
+            endpoints[cover_base + index].clusters = cluster_ptr;
+        }
         cover_cluster_add_to_endpoint(&cover_clusters[index],
                                       &endpoints[cover_base + index]);
     }
