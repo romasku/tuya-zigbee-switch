@@ -6,6 +6,7 @@
 #include "zigbee/group_cluster.h"
 #include "zigbee/relay_cluster.h"
 #include "zigbee/switch_cluster.h"
+#include "zigbee/cover_switch_cluster.h"
 #include "zigbee/cover_cluster.h"
 
 #include <stdint.h>
@@ -18,6 +19,8 @@
 #include "hal/system.h"
 #include "hal/zigbee.h"
 #include "hal/zigbee_ota.h"
+
+#define MULTI_PRESS_CNT_TO_RESET    10
 
 // Forward declarations
 void periferals_init(void);
@@ -33,7 +36,7 @@ network_indicator_t network_indicator = {
 led_t   leds[5];
 uint8_t leds_cnt = 0;
 
-button_t buttons[5];
+button_t buttons[11];
 uint8_t  buttons_cnt = 0;
 
 relay_t relays[10]; // 4 relay endpoints + 3 cover endpoints
@@ -51,6 +54,9 @@ uint8_t switch_clusters_cnt = 0;
 zigbee_relay_cluster relay_clusters[4];
 uint8_t relay_clusters_cnt = 0;
 
+zigbee_cover_switch_cluster cover_switch_clusters[3];
+uint8_t cover_switch_clusters_cnt = 0;
+
 zigbee_cover_cluster cover_clusters[3];
 uint8_t cover_clusters_cnt = 0;
 
@@ -65,6 +71,12 @@ char *extract_next_entry(char **cursor);
 
 void on_reset_clicked(void *_) {
     hal_factory_reset();
+}
+
+void on_multi_press_reset(void *_, uint8_t press_count) {
+    if (press_count >= MULTI_PRESS_CNT_TO_RESET) {
+        hal_factory_reset();
+    }
 }
 
 void parse_config() {
@@ -151,6 +163,7 @@ void parse_config() {
             buttons[buttons_cnt].pin = pin;
             buttons[buttons_cnt].long_press_duration_ms  = 800;
             buttons[buttons_cnt].multi_press_duration_ms = 800;
+            buttons[buttons_cnt].on_multi_press          = on_multi_press_reset;
 
             switch_clusters[switch_clusters_cnt].switch_idx = switch_clusters_cnt;
             switch_clusters[switch_clusters_cnt].mode       =
@@ -186,6 +199,31 @@ void parse_config() {
 
             relays_cnt++;
             relay_clusters_cnt++;
+        } else if (entry[0] == 'X') {
+            hal_gpio_pin_t  open_pin  = hal_gpio_parse_pin(entry + 1);
+            hal_gpio_pin_t  close_pin = hal_gpio_parse_pin(entry + 3);
+            hal_gpio_pull_t pull      = hal_gpio_parse_pull(entry + 5);
+
+            hal_gpio_init(open_pin, 1, pull);
+            hal_gpio_init(close_pin, 1, pull);
+
+            buttons[buttons_cnt].pin = open_pin;
+            buttons[buttons_cnt].long_press_duration_ms  = 800;
+            buttons[buttons_cnt].multi_press_duration_ms = 800;
+            buttons[buttons_cnt].on_multi_press          = on_multi_press_reset;
+            button_t *open_button = &buttons[buttons_cnt++];
+
+            buttons[buttons_cnt].pin = close_pin;
+            buttons[buttons_cnt].long_press_duration_ms  = 800;
+            buttons[buttons_cnt].multi_press_duration_ms = 800;
+            buttons[buttons_cnt].on_multi_press          = on_multi_press_reset;
+            button_t *close_button = &buttons[buttons_cnt++];
+
+            cover_switch_clusters[cover_switch_clusters_cnt].open_button      = open_button;
+            cover_switch_clusters[cover_switch_clusters_cnt].close_button     = close_button;
+            cover_switch_clusters[cover_switch_clusters_cnt].cover_switch_idx =
+                cover_switch_clusters_cnt;
+            cover_switch_clusters_cnt++;
         } else if (entry[0] == 'C') {
             hal_gpio_pin_t open_pin  = hal_gpio_parse_pin(entry + 1);
             hal_gpio_pin_t close_pin = hal_gpio_parse_pin(entry + 3);
@@ -220,10 +258,11 @@ void parse_config() {
 
     periferals_init();
 
-    printf("Initializing Zigbee with %d switches, %d relays, %d covers\r\n",
-           switch_clusters_cnt, relay_clusters_cnt, cover_clusters_cnt);
+    printf("Initializing Zigbee with %d switches, %d relays, %d cover switches, %d covers\r\n",
+           switch_clusters_cnt, relay_clusters_cnt, cover_switch_clusters_cnt, cover_clusters_cnt);
 
-    uint8_t total_endpoints = switch_clusters_cnt + relay_clusters_cnt + cover_clusters_cnt;
+    uint8_t total_endpoints = switch_clusters_cnt + relay_clusters_cnt +
+                              cover_switch_clusters_cnt + cover_clusters_cnt;
 
     hal_zigbee_cluster *cluster_ptr = clusters;
 
@@ -262,7 +301,16 @@ void parse_config() {
         group_cluster_add_to_endpoint(&group_cluster,
                                       &endpoints[switch_clusters_cnt + index]);
     }
-    int cover_base = switch_clusters_cnt + relay_clusters_cnt;
+
+    int cover_switch_base = switch_clusters_cnt + relay_clusters_cnt;
+    for (int index = 0; index < cover_switch_clusters_cnt; index++) {
+        cluster_ptr += endpoints[cover_switch_base + index - 1].cluster_count;
+        endpoints[cover_switch_base + index].clusters = cluster_ptr;
+        cover_switch_cluster_add_to_endpoint(&cover_switch_clusters[index],
+                                             &endpoints[cover_switch_base + index]);
+    }
+
+    int cover_base = switch_clusters_cnt + relay_clusters_cnt + cover_switch_clusters_cnt;
     for (int index = 0; index < cover_clusters_cnt; index++) {
         cluster_ptr += endpoints[cover_base + index - 1].cluster_count;
         endpoints[cover_base + index].clusters = cluster_ptr;

@@ -14,6 +14,7 @@
 #define ZCL_CLUSTER_GROUPS                    0x0004
 #define ZCL_CLUSTER_OTA_BOOTLOAD              0x0019
 #define ZCL_CLUSTER_WINDOW_COVERING           0x0102
+#define ZCL_CLUSTER_COVER_SWITCH_CONFIG       0xFC01
 
 
 // Attributes
@@ -80,6 +81,14 @@
 #define ZCL_ATTR_WINDOW_COVERING_MOVING                              0xff00
 #define ZCL_ATTR_WINDOW_COVERING_MOTOR_REVERSAL                      0xff01
 
+// Cover Switch Configuration cluster
+#define ZCL_ATTR_COVER_SWITCH_CONFIG_SWITCH_TYPE                     0x0000
+#define ZCL_ATTR_COVER_SWITCH_CONFIG_COVER_INDEX                     0x0001
+#define ZCL_ATTR_COVER_SWITCH_CONFIG_REVERSAL                        0x0002
+#define ZCL_ATTR_COVER_SWITCH_CONFIG_LOCAL_MODE                      0x0003
+#define ZCL_ATTR_COVER_SWITCH_CONFIG_BINDED_MODE                     0x0004
+#define ZCL_ATTR_COVER_SWITCH_CONFIG_LONG_PRESS_DUR                  0x0005
+
 // OTA cluster
 
 #define ZCL_ATTR_OTA_UPGRADE_SERVER_ID                  0x0000
@@ -139,6 +148,16 @@
 #define ZCL_ATTR_WINDOW_COVERING_MOVING_STOPPED    0x00
 #define ZCL_ATTR_WINDOW_COVERING_MOVING_OPENING    0x01
 #define ZCL_ATTR_WINDOW_COVERING_MOVING_CLOSING    0x02
+
+// Cover Switch Configuration cluster
+
+#define ZCL_COVER_SWITCH_TYPE_TOGGLE         0x00
+#define ZCL_COVER_SWITCH_TYPE_MOMENTARY      0x01
+
+#define ZCL_COVER_SWITCH_MODE_IMMEDIATE      0x00
+#define ZCL_COVER_SWITCH_MODE_SHORT_PRESS    0x01
+#define ZCL_COVER_SWITCH_MODE_LONG_PRESS     0x02
+#define ZCL_COVER_SWITCH_MODE_HYBRID         0x03
 
 // Commands
 

@@ -1159,7 +1159,7 @@ MODULE_GIRIER_TS130F_2GANG:
   tuya_module: ZTU
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: j1xl73iw;TS130F-GIR-DUAL;LC1;CC0C4;CD4D7;
+  config_str: j1xl73iw;TS130F-GIR-DUAL;LC1;XB4D2u;CC0C4;XC3C2u;CD4D7;
   alt_config_str: j1xl73iw;TS130F-GIR-DUAL;LC1;SB4u;RC0;SD2u;RC4;SC3u;RD4;SC2u;RD7;
   old_manufacturer_names: null
   old_zb_models: null
@@ -1168,7 +1168,7 @@ MODULE_GIRIER_TS130F_2GANG:
   firmware_image_type: 45597
   build: yes
   status: in_progress
-  info: Curtains not implemented! Reset button on B4 pin, same as switch 
+  info: Curtains not fully implemented! Reset button on B4 pin, same as switch
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/270
   store: https://www.aliexpress.com/item/1005003864471089.html
 MODULE_GIRIER_ZTU_TS0001:

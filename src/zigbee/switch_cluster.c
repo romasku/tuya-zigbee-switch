@@ -11,8 +11,6 @@
 #include "relay_cluster.h"
 #include "zigbee_commands.h"
 
-#define MULTI_PRESS_CNT_TO_RESET    10
-
 const uint8_t  multistate_out_of_service = 0;
 const uint8_t  multistate_flags          = 0;
 const uint16_t multistate_num_of_states  = 3;
@@ -29,8 +27,6 @@ extern uint8_t relay_clusters_cnt;
 void switch_cluster_on_button_press(zigbee_switch_cluster *cluster);
 void switch_cluster_on_button_release(zigbee_switch_cluster *cluster);
 void switch_cluster_on_button_long_press(zigbee_switch_cluster *cluster);
-void switch_cluster_on_button_multi_press(zigbee_switch_cluster *cluster,
-                                          uint8_t press_count);
 
 zigbee_switch_cluster *switch_cluster_by_endpoint[10];
 
@@ -59,8 +55,6 @@ void switch_cluster_add_to_endpoint(zigbee_switch_cluster *cluster,
         (ev_button_callback_t)switch_cluster_on_button_release;
     cluster->button->on_long_press =
         (ev_button_callback_t)switch_cluster_on_button_long_press;
-    cluster->button->on_multi_press =
-        (ev_button_multi_press_callback_t)switch_cluster_on_button_multi_press;
     cluster->button->callback_param = cluster;
 
     SETUP_ATTR(0, ZCL_ATTR_ONOFF_CONFIGURATION_SWITCH_TYPE, ZCL_DATA_TYPE_ENUM8,
@@ -369,19 +363,6 @@ void switch_cluster_on_button_long_press(zigbee_switch_cluster *cluster) {
     hal_zigbee_notify_attribute_changed(cluster->endpoint,
                                         ZCL_CLUSTER_MULTISTATE_INPUT_BASIC,
                                         ZCL_ATTR_MULTISTATE_INPUT_PRESENT_VALUE);
-}
-
-hal_task_t restart_task;
-
-void reset_tasks_handler(void *arg) {
-    hal_system_reset();
-}
-
-void switch_cluster_on_button_multi_press(zigbee_switch_cluster *cluster,
-                                          uint8_t press_count) {
-    if (press_count >= MULTI_PRESS_CNT_TO_RESET) {
-        hal_factory_reset();
-    }
 }
 
 void synchronize_multistate_state(zigbee_switch_cluster *cluster) {
