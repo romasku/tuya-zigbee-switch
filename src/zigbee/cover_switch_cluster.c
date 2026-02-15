@@ -36,77 +36,81 @@ static const uint16_t multistate_num_of_states  = 6;
 // Input Handling
 // ============================================================================
 
+/**
+ * Compares the new MultiStateInput state with the previous state and translates
+ * it into a WindowCovering ZCL command based on the switch configuration.
+ *
+ * Returns a command byte (OPEN/CLOSE/STOP) when the action should trigger output or
+ * returns 0xFF when no command can be derived from the current input/context and
+ * the event should be ignored. (e.g. RELEASED action in IMMEDIATE mode)
+ *
+ * @param cluster The cover switch cluster instance.
+ * @param present_value New MultiStateInput state to evaluate.
+ * @param mode The cover switch mode.
+ * @param moving The movement state of the local or binded window covering.
+ * @return Window covering command or 0xFF when no command matches the input.
+ */
 uint8_t cover_switch_cluster_get_cmd(zigbee_cover_switch_cluster *cluster, uint8_t present_value,
                                      uint8_t mode, uint8_t moving) {
-    if (present_value == MULTISTATE_STOP) {
-        return(ZCL_CMD_WINDOW_COVERING_STOP);
-    }
+    if (present_value == MULTISTATE_STOP)
+        return ZCL_CMD_WINDOW_COVERING_STOP;
 
     if (cluster->switch_type == ZCL_COVER_SWITCH_TYPE_TOGGLE) {
-        if (present_value == MULTISTATE_OPEN) {
-            return(ZCL_CMD_WINDOW_COVERING_UP_OPEN);
-        }else if (present_value == MULTISTATE_CLOSE) {
-            return(ZCL_CMD_WINDOW_COVERING_DOWN_CLOSE);
-        }
-    }else{
-        uint8_t cmd = 0xFF;
-        switch (mode) {
-        case ZCL_COVER_SWITCH_MODE_IMMEDIATE:
-            if (present_value == MULTISTATE_OPEN) {
-                cmd = ZCL_CMD_WINDOW_COVERING_UP_OPEN;
-            }else if (present_value == MULTISTATE_CLOSE) {
-                cmd = ZCL_CMD_WINDOW_COVERING_DOWN_CLOSE;
-            }
-            break;
-        case ZCL_COVER_SWITCH_MODE_SHORT_PRESS:
-            if (present_value == MULTISTATE_RELEASED) {
-                if (cluster->present_value == MULTISTATE_OPEN) {
-                    cmd = ZCL_CMD_WINDOW_COVERING_UP_OPEN;
-                }else if (cluster->present_value == MULTISTATE_CLOSE) {
-                    cmd = ZCL_CMD_WINDOW_COVERING_DOWN_CLOSE;
-                }
-            }
-            break;
-        case ZCL_COVER_SWITCH_MODE_LONG_PRESS:
-            if (present_value == MULTISTATE_LONG_OPEN) {
-                cmd = ZCL_CMD_WINDOW_COVERING_UP_OPEN;
-            }else if (present_value == MULTISTATE_LONG_CLOSE) {
-                cmd = ZCL_CMD_WINDOW_COVERING_DOWN_CLOSE;
-            }
-            break;
-        case ZCL_COVER_SWITCH_MODE_HYBRID:
-            if (present_value == MULTISTATE_LONG_OPEN) {
-                return(ZCL_CMD_WINDOW_COVERING_UP_OPEN);
-            }else if (present_value == MULTISTATE_LONG_CLOSE) {
-                return(ZCL_CMD_WINDOW_COVERING_DOWN_CLOSE);
-            }else if (present_value == MULTISTATE_RELEASED) {
-                if (cluster->present_value == MULTISTATE_OPEN) {
-                    cmd = ZCL_CMD_WINDOW_COVERING_UP_OPEN;
-                }else if (cluster->present_value == MULTISTATE_CLOSE) {
-                    cmd = ZCL_CMD_WINDOW_COVERING_DOWN_CLOSE;
-                }else if (cluster->present_value == MULTISTATE_LONG_OPEN ||
-                          cluster->present_value == MULTISTATE_LONG_CLOSE) {
-                    return(ZCL_CMD_WINDOW_COVERING_STOP);
-                }
-            }
-            break;
-        }
-
-        // Momentary switches send STOP command on repeated presses
-        if (cmd != 0xFF) {
-            if (cmd == ZCL_CMD_WINDOW_COVERING_UP_OPEN &&
-                moving == ZCL_ATTR_WINDOW_COVERING_MOVING_OPENING) {
-                return(ZCL_CMD_WINDOW_COVERING_STOP);
-            }else if (cmd == ZCL_CMD_WINDOW_COVERING_DOWN_CLOSE &&
-                      moving == ZCL_ATTR_WINDOW_COVERING_MOVING_CLOSING) {
-                return(ZCL_CMD_WINDOW_COVERING_STOP);
-            }
-
-            return(cmd);
-        }
+        if (present_value == MULTISTATE_OPEN)
+            return ZCL_CMD_WINDOW_COVERING_UP_OPEN;
+        else if (present_value == MULTISTATE_CLOSE)
+            return ZCL_CMD_WINDOW_COVERING_DOWN_CLOSE;
+        else
+            return 0xFF;
     }
 
-    return(0xFF);
+    uint8_t cmd = 0xFF;
+    switch (mode) {
+    case ZCL_COVER_SWITCH_MODE_IMMEDIATE:
+        if (present_value == MULTISTATE_OPEN)
+            cmd = ZCL_CMD_WINDOW_COVERING_UP_OPEN;
+        else if (present_value == MULTISTATE_CLOSE)
+            cmd = ZCL_CMD_WINDOW_COVERING_DOWN_CLOSE;
+        break;
+    case ZCL_COVER_SWITCH_MODE_SHORT_PRESS:
+        if (present_value == MULTISTATE_RELEASED) {
+            if (cluster->present_value == MULTISTATE_OPEN)
+                cmd = ZCL_CMD_WINDOW_COVERING_UP_OPEN;
+            else if (cluster->present_value == MULTISTATE_CLOSE)
+                cmd = ZCL_CMD_WINDOW_COVERING_DOWN_CLOSE;
+        }
+        break;
+    case ZCL_COVER_SWITCH_MODE_LONG_PRESS:
+        if (present_value == MULTISTATE_LONG_OPEN)
+            cmd = ZCL_CMD_WINDOW_COVERING_UP_OPEN;
+        else if (present_value == MULTISTATE_LONG_CLOSE)
+            cmd = ZCL_CMD_WINDOW_COVERING_DOWN_CLOSE;
+        break;
+    case ZCL_COVER_SWITCH_MODE_HYBRID:
+        if (present_value == MULTISTATE_LONG_OPEN)
+            return ZCL_CMD_WINDOW_COVERING_UP_OPEN;
+        else if (present_value == MULTISTATE_LONG_CLOSE)
+            return ZCL_CMD_WINDOW_COVERING_DOWN_CLOSE;
+        else if (present_value == MULTISTATE_RELEASED) {
+            if (cluster->present_value == MULTISTATE_LONG_OPEN ||
+                cluster->present_value == MULTISTATE_LONG_CLOSE)
+                return ZCL_CMD_WINDOW_COVERING_STOP;
+            else if (cluster->present_value == MULTISTATE_OPEN)
+                cmd = ZCL_CMD_WINDOW_COVERING_UP_OPEN;
+            else if (cluster->present_value == MULTISTATE_CLOSE)
+                cmd = ZCL_CMD_WINDOW_COVERING_DOWN_CLOSE;
+        }
+        break;
+    }
+
+    // Momentary switches send STOP command on repeated presses
+    if (cmd == ZCL_CMD_WINDOW_COVERING_UP_OPEN && moving == ZCL_ATTR_WINDOW_COVERING_MOVING_OPENING)
+        return ZCL_CMD_WINDOW_COVERING_STOP;
+    else if (cmd == ZCL_CMD_WINDOW_COVERING_DOWN_CLOSE &&
+             moving == ZCL_ATTR_WINDOW_COVERING_MOVING_CLOSING)
+        return ZCL_CMD_WINDOW_COVERING_STOP;
+
+    return cmd;
 }
 
 void cover_switch_trigger_local_cmd(zigbee_cover_switch_cluster *cluster, uint8_t cmd) {
