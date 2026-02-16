@@ -269,7 +269,7 @@ const romasku = {
             lookup: { immediate: 0, short_press: 1, long_press: 2, hybrid: 3 },
             cluster: "manuSpecificTuyaCoverSwitchConfig",
             attribute: "localMode",
-            description: "When to trigger local cover: immediate (start/stop on press), short_press (trigger on release), long_press (trigger after long press duration), hybrid (trigger on release or continuous movement while held). Note: only affects momentary switches",
+            description: "When to trigger local cover: immediate (start/stop on press), short_press (trigger on release), long_press (trigger after long press duration), hybrid (trigger on release or continuous movement while held). Only affects momentary switches",
             entityCategory: "config",
         }),
     coverSwitchBindedMode: (name, endpointName) =>
@@ -279,7 +279,7 @@ const romasku = {
             lookup: { immediate: 0, short_press: 1, long_press: 2, hybrid: 3 },
             cluster: "manuSpecificTuyaCoverSwitchConfig",
             attribute: "bindedMode",
-            description: "When to send commands to bound devices: immediate (start/stop on press), short_press (trigger on release), long_press (trigger after long press duration), hybrid (trigger on release or continuous movement while held). Note: only affects momentary switches",
+            description: "When to send commands to bound devices: immediate (start/stop on press), short_press (trigger on release), long_press (trigger after long press duration), hybrid (trigger on release or continuous movement while held). Only affects momentary switches",
             entityCategory: "config",
         }),
     coverSwitchLongPressDuration: (name, endpointName) =>
@@ -405,15 +405,15 @@ const definitions = [
             romasku.coverMotorReversal("{{coverName}}_motor_reversal", "{{coverName}}"),
             {% endfor %}
             {% for coverSwitchName in device.coverSwitchNames %}
-            romasku.coverSwitchPressAction("press_action", "{{coverSwitchName}}"),
-            romasku.coverSwitchType("switch_type", "{{coverSwitchName}}"),
-            romasku.coverSwitchInvert("cover_invert", "{{coverSwitchName}}"),
+            romasku.coverSwitchPressAction("{{coverSwitchName}}_press_action", "{{coverSwitchName}}"),
+            romasku.coverSwitchType("{{coverSwitchName}}_type", "{{coverSwitchName}}"),
+            romasku.coverSwitchInvert("{{coverSwitchName}}_invert", "{{coverSwitchName}}"),
             {% if device.coverNames %}
-            romasku.coverSwitchCoverIndex("cover_index", "{{coverSwitchName}}", {{device.coverNames | length}}),
-            romasku.coverSwitchLocalMode("local_mode", "{{coverSwitchName}}"),
+            romasku.coverSwitchCoverIndex("{{coverSwitchName}}_cover_index", "{{coverSwitchName}}", {{device.coverNames | length}}),
+            romasku.coverSwitchLocalMode("{{coverSwitchName}}_local_mode", "{{coverSwitchName}}"),
             {% endif %}
-            romasku.coverSwitchBindedMode("binded_mode", "{{coverSwitchName}}"),
-            romasku.coverSwitchLongPressDuration("long_press_duration", "{{coverSwitchName}}"),
+            romasku.coverSwitchBindedMode("{{coverSwitchName}}_binded_mode", "{{coverSwitchName}}"),
+            romasku.coverSwitchLongPressDuration("{{coverSwitchName}}_long_press_duration", "{{coverSwitchName}}"),
             {% endfor %}
         ],
         meta: { multiEndpoint: true },
