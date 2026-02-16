@@ -42,15 +42,30 @@ _attribute_ram_code_sec_ int main(void) {
 }
 
 int real_main(startup_state_e state) {
-    printf("Started!\r\n");
-
     uint8_t isRetention = (state == SYSTEM_DEEP_RETENTION) ? 1 : 0;
+
+    if (isRetention) {
+        printf("[0] Wakeup from retention\r\n");
+    } else {
+        printf("[0] Cold boot\r\n");
+    }
 
     os_init(isRetention);
 
     irq_enable();
 
+    if (!isRetention) {
     app_init();
+    } else {
+        // Re-configure radio PHY — hardware registers are lost during deep
+        // retention.  Without this the MAC layer can hang on the next Data
+        // Request (e.g. tl_zbNwkQuickDataPollCb), keeping the radio powered
+        // (~4 mA) indefinitely.  Matches the Telink SDK pattern used in
+        // sampleContactSensor / sampleSwitch.
+        mac_phyReconfig();
+
+        app_reinit_retention();
+    }
 
     drv_wd_setInterval(1000);
     drv_wd_start();
@@ -67,15 +82,45 @@ int real_main(startup_state_e state) {
         drv_wd_clear();
 
 #if PM_ENABLE
-        if (!tl_stackBusy() && zb_isTaskDone()) {
+        if (!tl_stackBusy() && zb_isTaskDone() && hal_zigbee_is_sleep_allowed()) {
+            apsCleanToStopSecondClock();
             telink_gpio_hal_setup_wake_ups();
+
+            u32 r = drv_disable_irq();
+
             ev_timer_event_t *timerEvt = ev_timer_nearestGet();
-            u32 sleepDuration          = 1000;
+#if UART_PRINTF_MODE
+            // Debug: use deep sleep like production, but log timers
             if (timerEvt) {
-                sleepDuration = timerEvt->timeout < 1000 ? timerEvt->timeout : 1000;
+                printf("T %d cb=%x d=%x\r\n", timerEvt->timeout,
+                       (u32)timerEvt->cb, (u32)timerEvt->data);
+                // Give UART time to flush before deep sleep (~2ms for 48 chars @ 115200)
+                sleep_us(3000);
             }
-            drv_pm_sleep(PM_SLEEP_MODE_SUSPEND,
-                         PM_WAKEUP_SRC_PAD | PM_WAKEUP_SRC_TIMER, sleepDuration);
+#endif
+            // Always use deep retention for realistic power consumption
+            u32 sleepDuration = PM_NORMAL_SLEEP_MAX;
+            if (timerEvt && timerEvt->timeout < sleepDuration) {
+                sleepDuration = timerEvt->timeout;
+            }
+#if UART_PRINTF_MODE
+            printf("[%d] Entering deep sleep for %d ms\r\n", 
+                   clock_time() / CLOCK_16M_SYS_TIMER_CLK_1MS, sleepDuration);
+            sleep_us(3000); // Give UART time to flush
+#endif
+            rf_paShutDown();
+
+            if (sleepDuration > PM_NORMAL_SLEEP_MAX) {
+                drv_pm_longSleep(PM_SLEEP_MODE_DEEP_WITH_RETENTION,
+                                 PM_WAKEUP_SRC_PAD | PM_WAKEUP_SRC_TIMER,
+                                 sleepDuration);
+            } else {
+                drv_pm_sleep(PM_SLEEP_MODE_DEEP_WITH_RETENTION,
+                             PM_WAKEUP_SRC_PAD | PM_WAKEUP_SRC_TIMER,
+                             sleepDuration);
+            }
+
+            drv_restore_irq(r);
         }
 #endif
     }

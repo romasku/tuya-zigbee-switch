@@ -326,6 +326,37 @@ void peripherals_init() {
         network_indicator_on_network_status_change);
 }
 
+void config_reinit_gpio(void) {
+    // Re-configure all GPIO pin modes and pulls (SFRs lost during deep retention)
+    hal_gpio_reinit_all();
+
+    // Re-configure GPIO interrupts for buttons
+    hal_gpio_reinit_interrupts();
+
+    // Sync button state with actual pin levels after retention wake.
+    // Fires press/release callbacks if state changed across sleep boundary.
+    for (int i = 0; i < buttons_cnt; i++) {
+        btn_retention_wake(&buttons[i]);
+    }
+
+    // Restore LED output states from retained SRAM
+    for (int i = 0; i < leds_cnt; i++) {
+        hal_gpio_write(leds[i].pin, leds[i].on ? leds[i].on_high : !leds[i].on_high);
+    }
+
+    // Restore relay output states from retained SRAM
+    for (int i = 0; i < relays_cnt; i++) {
+        if (!relays[i].is_latching) {
+            hal_gpio_write(relays[i].pin,
+                           relays[i].on ? relays[i].on_high : !relays[i].on_high);
+        } else {
+            // Latching relays: just ensure pins are low (no continuous drive)
+            hal_gpio_write(relays[i].pin, !relays[i].on_high);
+            hal_gpio_write(relays[i].off_pin, !relays[i].on_high);
+        }
+    }
+}
+
 // Helper functions
 
 char *seek_until(char *cursor, char needle) {

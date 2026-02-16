@@ -61,10 +61,58 @@ void _btn_update_callback(void *arg) {
     }
 }
 
+void btn_retention_wake(button_t *button) {
+    uint8_t current    = hal_gpio_read(button->pin);
+    uint8_t is_pressed = (current == button->pressed_when_high);
+
+    button->debounce_last_state = current;
+
+    // Cancel any stale timer first — _btn_update_callback must not run
+    // after deep retention (hal_millis() resets, causing wrong long press).
+    hal_tasks_unschedule(&button->update_task);
+
+    if (!button->pressed && is_pressed) {
+        // New press across sleep boundary
+        button->pressed       = true;
+        button->long_pressed  = false;
+        button->pressed_at_ms = hal_millis();
+        printf("Press detected (retention)\r\n");
+#ifdef BATTERY_POWERED
+        battery_cluster_update_on_event();
+#endif
+        if (button->on_press != NULL) {
+            button->on_press(button->callback_param);
+        }
+    } else if (button->pressed && !is_pressed) {
+        // Release across sleep boundary
+        button->pressed        = false;
+        button->long_pressed   = false;
+        button->released_at_ms = hal_millis();
+        printf("Release detected (retention)\r\n");
+        if (button->on_release != NULL) {
+            button->on_release(button->callback_param);
+        }
+    } else if (is_pressed && button->pressed && !button->long_pressed) {
+        // Still held — long press timer woke us
+        button->long_pressed = true;
+        printf("Long press detected (retention)\r\n");
+        if (button->on_long_press != NULL) {
+            button->on_long_press(button->callback_param);
+        }
+    }
+
+    // Schedule long press wake-up only if button is pressed and not yet
+    // long-pressed. On the next retention wake we check the contact state.
+    if (button->pressed && !button->long_pressed) {
+        hal_tasks_schedule(&button->update_task,
+                           button->long_press_duration_ms);
+    }
+}
+
 void btn_update_debounced(button_t *button, uint8_t is_pressed,
                           uint32_t changed_at) {
     if (!button->pressed && is_pressed) {
-        printf("Press detected\r\n");
+        printf("[%d] Press detected\r\n", hal_millis());
         button->pressed_at_ms = changed_at;
 #ifdef BATTERY_POWERED
         // Update battery level on button press (before action is reported)
@@ -83,7 +131,7 @@ void btn_update_debounced(button_t *button, uint8_t is_pressed,
             button->multi_press_cnt = 1;
         }
     } else if (button->pressed && !is_pressed) {
-        printf("Release detected\r\n");
+        printf("[%d] Release detected\r\n", hal_millis());
         button->released_at_ms = changed_at;
         button->long_pressed   = false;
         if (button->on_release != NULL) {
@@ -96,7 +144,7 @@ void btn_update_debounced(button_t *button, uint8_t is_pressed,
     if (is_pressed && !button->long_pressed &&
         (button->long_press_duration_ms < (now - button->pressed_at_ms))) {
         button->long_pressed = true;
-        printf("Long press detected\r\n");
+        printf("[%d] Long press detected\r\n", hal_millis());
         if (button->on_long_press != NULL) {
             button->on_long_press(button->callback_param);
         }

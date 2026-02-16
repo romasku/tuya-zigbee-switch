@@ -88,6 +88,25 @@ void hal_register_on_network_status_change_callback(
 /** Leave current Zigbee network */
 void hal_zigbee_leave_network(void);
 
+/**
+ * Check settle timer (for battery devices)
+ * Must be called regularly to check if post-join settle period has ended
+ */
+void hal_zigbee_check_settle_timer(void);
+
+/**
+ * Check report active timer (for battery devices)
+ * Must be called regularly to check if report active period has ended
+ */
+void hal_zigbee_check_report_active_timer(void);
+
+/**
+ * Check if deep sleep is allowed (device joined and post-join settle done)
+ * Returns false during pairing and for 10s after join to let coordinator
+ * read descriptors/attributes.
+ */
+bool hal_zigbee_is_sleep_allowed(void);
+
 /** Start searching for and joining Zigbee networks (pairing mode) */
 void hal_zigbee_start_network_steering(void);
 

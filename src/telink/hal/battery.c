@@ -5,15 +5,26 @@
 #include "tl_common.h"
 #include "drivers/drv_adc.h"
 
-// Battery voltage thresholds (millivolts)
-// These values are for VCC after boost converter, not VBAT directly
-// VCC range: 2.4V (VBAT~1.9V empty) to 3.2V (VBAT~3.0V full)
-#define BATTERY_VOLTAGE_MIN_MV  2400
-#define BATTERY_VOLTAGE_MAX_MV  3200
+// Min and max battery voltages in mV
+// Used to calculate battery percentage
+// For CR2032 min is 2.0V and max is 3.0V
+// For CR2450 min is 2.0V and max is 3.0V
+// For CR2430 min is 2.0V and max is 3.0V
+#define BATTERY_VOLTAGE_MIN_MV 2000
+#define BATTERY_VOLTAGE_MAX_MV 3000
 
 #define BATTERY_ADC_PIN         GPIO_PC5
 
 static bool battery_adc_initialized = false;
+
+// Forward declaration
+static void battery_adc_init(void);
+
+void hal_battery_reinit_after_retention(void) {
+    // After deep retention, ADC hardware needs re-initialization
+    battery_adc_initialized = false;
+    battery_adc_init();
+}
 
 static void battery_adc_init(void) {
     if (battery_adc_initialized) {
@@ -47,7 +58,7 @@ uint8_t hal_battery_get_percentage(void) {
         percentage = (uint8_t)((level * 100) / range);
     }
 
-    printf("[BATTERY] %d mV -> %d%%\r\n", voltage_mv, percentage);
+    printf("[%d] [BATTERY] %d mV -> %d%%\r\n", clock_time() / CLOCK_16M_SYS_TIMER_CLK_1MS, voltage_mv, percentage);
     return percentage;
 }
 

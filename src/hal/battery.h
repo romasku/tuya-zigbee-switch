@@ -17,6 +17,12 @@ uint8_t hal_battery_get_percentage(void);
  */
 uint16_t hal_battery_get_voltage_mv(void);
 
+/**
+ * Reinitialize battery ADC after deep sleep retention wakeup
+ * Platform-specific: only implemented for platforms that need it
+ */
+void hal_battery_reinit_after_retention(void);
+
 #endif // BATTERY_POWERED
 
 #endif // _HAL_BATTERY_H_

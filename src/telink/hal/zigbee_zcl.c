@@ -27,6 +27,14 @@ static hal_zigbee_endpoint *hal_endpoints = NULL;
 static uint8_t hal_endpoints_cnt          = 0;
 static hal_attribute_change_callback_t attribute_change_callback = NULL;
 
+#ifdef ZB_ED_ROLE
+static void telink_zcl_data_confirm_cb(void *arg) {
+    // arg points to apsdeDataConf_t — we only care about the event itself.
+    (void)arg;
+    telink_zigbee_hal_end_active_period();
+}
+#endif
+
 #ifdef BATTERY_POWERED
 extern status_t zcl_powerCfg_register(u8 endpoint, u16 manuCode, u8 attrNum, const zclAttrInfo_t *attrTbl, cluster_forAppCb_t cb);
 #endif
@@ -184,7 +192,12 @@ void telink_zigbee_hal_zcl_init(hal_zigbee_endpoint *endpoints,
             cluster_info_ptr++;
         }
         af_endpointRegister(endpoint->endpoint, endpoint_desc_ptr, zcl_rx_handler,
-                            NULL);
+#ifdef ZB_ED_ROLE
+                            telink_zcl_data_confirm_cb
+#else
+                            NULL
+#endif
+                            );
 
         u8 cluster_count = cluster_info_ptr - endpoint_first_cluster_ptr;
         zcl_register(endpoint->endpoint, cluster_count, endpoint_first_cluster_ptr);
@@ -207,6 +220,7 @@ hal_zigbee_status_t hal_zigbee_set_attribute_value(uint8_t endpoint,
 void hal_zigbee_notify_attribute_changed(uint8_t endpoint, uint16_t cluster_id,
                                          uint16_t attribute_id) {
     report_handler();
+    telink_zigbee_hal_request_active_period();
 }
 
 hal_zigbee_status_t hal_zigbee_send_cmd_to_bindings(const hal_zigbee_cmd *cmd) {
@@ -243,6 +257,10 @@ hal_zigbee_send_report_attr(uint8_t endpoint, uint16_t cluster_id,
         zcl_sendReportCmd(
             endpoint, &dstEpInfo, TRUE, ZCL_FRAME_SERVER_CLIENT_DIR, cluster_id,
             pAttrEntry->id, pAttrEntry->type, pAttrEntry->data);
+#ifdef ZB_ED_ROLE
+        // Ensure the device stays awake until the frame is confirmed.
+        telink_zigbee_hal_request_active_period();
+#endif
     }
     return HAL_ZIGBEE_OK;
 }

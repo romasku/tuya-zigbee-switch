@@ -327,3 +327,11 @@ hal_zigbee_status_t hal_zigbee_send_announce(void) {
 
 void hal_zigbee_init_ota() {
 }
+// Battery device sleep support (currently only on Telink platform)
+void hal_zigbee_check_settle_timer(void) {
+    // Silabs: no-op (sleep management not yet implemented)
+}
+
+void hal_zigbee_check_report_active_timer(void) {
+    // Silabs: no-op (sleep management not yet implemented)
+}
