@@ -93,6 +93,18 @@ hal_zigbee_network_status_t hal_zigbee_get_network_status(void) {
     return network_status;
 }
 
+bool hal_zigbee_is_sleep_allowed(void) {
+    return network_status == HAL_ZIGBEE_NETWORK_JOINED;
+}
+
+void hal_zigbee_check_settle_timer(void) {
+    // Stub: no-op (no settle timer in stub mode)
+}
+
+void hal_zigbee_check_report_active_timer(void) {
+    // Stub: no-op (no report active timer in stub mode)
+}
+
 static hal_network_status_change_callback_t network_status_change_callback =
     NULL;
 
@@ -143,10 +155,13 @@ void hal_zigbee_notify_attribute_changed(uint8_t endpoint, uint16_t cluster_id,
                                          uint16_t attribute_id) {
     io_log("ZIGBEE", "Attribute changed: ep=%d, cluster=0x%04x, attr=0x%04x",
            endpoint, cluster_id, attribute_id);
-    // In stub, trigger Python callback if registered
-    if (attr_change_callback) {
-        attr_change_callback(endpoint, cluster_id, attribute_id);
-    }
+    // In stub, do NOT call attr_change_callback here.
+    // That callback models "attribute written via Zigbee" (incoming write).
+    // Calling it from notify_attribute_changed() causes recursion when the
+    // application updates attributes in response to a write.
+    // Instead, emit an event so Python tests can observe the change.
+    io_evt("zcl_attr_change ep=%u cluster=0x%04X attr=0x%04X", endpoint,
+           cluster_id, attribute_id);
 }
 
 hal_zigbee_status_t hal_zigbee_send_cmd_to_bindings(const hal_zigbee_cmd *cmd) {

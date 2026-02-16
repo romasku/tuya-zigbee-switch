@@ -39,6 +39,21 @@ void process_device_type_change() {
     }
 }
 
+void app_reinit_retention(void) {
+    // After deep retention wake, re-init peripherals whose SFRs were lost.
+    // All SRAM state (config, clusters, ZB stack) is preserved by os_init(1).
+
+#ifdef BATTERY_POWERED
+    // ADC must be re-initialised BEFORE config_reinit_gpio(), because
+    // btn_retention_wake() fires press callbacks which read the battery.
+    // Without this the retained battery_adc_initialized flag skips hw init
+    // and the ADC returns 0 mV.
+    hal_battery_reinit_after_retention();
+#endif
+
+    config_reinit_gpio();
+}
+
 void app_init(void) {
     handle_version_changes();
     parse_config(); // Does most of the setup, including all callbacks
@@ -52,6 +67,10 @@ void app_init(void) {
 static bool boot_announce_sent = false;
 
 void app_task() {
+    // Check join settle timer (must be done here, not in sleep check)
+    hal_zigbee_check_settle_timer();
+    hal_zigbee_check_report_active_timer();
+    
     // TODO: add jitter to avoid all devices trying to join at once
     if (hal_zigbee_get_network_status() != HAL_ZIGBEE_NETWORK_JOINED &&
         hal_zigbee_get_network_status() != HAL_ZIGBEE_NETWORK_JOINING) {

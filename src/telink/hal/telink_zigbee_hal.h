@@ -25,3 +25,12 @@ void telink_zigbee_hal_zcl_init(hal_zigbee_endpoint *endpoints,
 af_simple_descriptor_t *telink_zigbee_hal_zcl_get_descriptors(void);
 
 void telink_gpio_hal_setup_wake_ups();
+
+// Request a short active period (fast poll + no sleep) to ensure pending
+// ZCL reports are transmitted before deep retention.  ED-only; no-op on router.
+void telink_zigbee_hal_request_active_period(void);
+
+// Called from the AF data-confirm callback when all pending reports have
+// been acknowledged by the MAC layer.  Ends the active period so the device
+// can re-enter deep sleep immediately.  ED-only.
+void telink_zigbee_hal_end_active_period(void);

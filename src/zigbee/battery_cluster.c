@@ -5,13 +5,24 @@
 #include "cluster_common.h"
 #include "consts.h"
 #include "hal/battery.h"
+#include "hal/tasks.h"
 #include "hal/timer.h"
+#include "hal/zigbee.h"
 
 const uint16_t battery_cluster_revision = 0x01;
 
 static zigbee_battery_cluster *g_battery_cluster = NULL;
 static uint32_t last_update_ms = 0;
 #define BATTERY_UPDATE_THROTTLE_MS 5000
+#define BATTERY_PERIODIC_REPORT_MS  120000 // 2 minutes
+
+static hal_task_t battery_periodic_task;
+
+static void battery_periodic_handler(void *arg) {
+    (void)arg;
+    battery_cluster_force_report();
+    hal_tasks_schedule(&battery_periodic_task, BATTERY_PERIODIC_REPORT_MS);
+}
 
 static void battery_cluster_notify_if_changed(zigbee_battery_cluster *cluster,
                                               uint16_t attr_id,
@@ -51,6 +62,12 @@ void battery_cluster_add_to_endpoint(zigbee_battery_cluster *cluster,
     // Initial battery reading (bypass throttle since last_update_ms is 0 at boot)
     last_update_ms = 0;
     battery_cluster_update(cluster);
+
+    // Periodic battery report every 2 minutes
+    hal_tasks_init(&battery_periodic_task);
+    battery_periodic_task.handler = battery_periodic_handler;
+    battery_periodic_task.arg = NULL;
+    hal_tasks_schedule(&battery_periodic_task, BATTERY_PERIODIC_REPORT_MS);
 }
 
 void battery_cluster_update(zigbee_battery_cluster *cluster) {
@@ -89,15 +106,24 @@ void battery_cluster_force_report(void) {
         return;
     }
 
+    // Read fresh values and update stored attributes (notify only if changed)
     last_update_ms = 0;
     battery_cluster_update(g_battery_cluster);
 
-    hal_zigbee_notify_attribute_changed(g_battery_cluster->endpoint,
+    // Send reports directly — this guarantees a ZCL frame goes out even if
+    // values haven't changed.  hal_zigbee_send_report_attr() also opens the
+    // active period on end devices, and the data-confirm callback will
+    // trigger the cooldown.
+    hal_zigbee_send_report_attr(g_battery_cluster->endpoint,
                                         ZCL_CLUSTER_POWER_CFG,
-                                        ZCL_ATTR_POWER_CFG_BATTERY_PERCENTAGE);
-    hal_zigbee_notify_attribute_changed(g_battery_cluster->endpoint,
+                                ZCL_ATTR_POWER_CFG_BATTERY_PERCENTAGE,
+                                ZCL_DATA_TYPE_UINT8,
+                                &g_battery_cluster->percentage_remaining, 1);
+    hal_zigbee_send_report_attr(g_battery_cluster->endpoint,
                                         ZCL_CLUSTER_POWER_CFG,
-                                        ZCL_ATTR_POWER_CFG_BATTERY_VOLTAGE);
+                                ZCL_ATTR_POWER_CFG_BATTERY_VOLTAGE,
+                                ZCL_DATA_TYPE_UINT8,
+                                &g_battery_cluster->voltage_100mv, 1);
 }
 
 #endif // BATTERY_POWERED

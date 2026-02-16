@@ -32,4 +32,11 @@ typedef struct {
 
 void btn_init(button_t *button);
 
+/**
+ * Call after deep retention wake to sync button state with actual GPIO level.
+ * Detects press/release that happened across the sleep boundary and fires
+ * the appropriate callbacks (on_press, on_release, on_multi_press).
+ */
+void btn_retention_wake(button_t *button);
+
 #endif

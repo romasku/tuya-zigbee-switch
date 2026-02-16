@@ -14,6 +14,10 @@ uint16_t hal_battery_get_voltage_mv(void) {
     return stub_battery_voltage_mv;
 }
 
+void hal_battery_reinit_after_retention(void) {
+    // Stub: no-op
+}
+
 // Test helper function (called from Python tests via ctypes)
 void stub_set_battery_percentage(uint8_t percentage) {
     stub_battery_percentage = (percentage > 100) ? 100 : percentage;

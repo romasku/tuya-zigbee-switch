@@ -2,6 +2,10 @@
 
 #ifdef BATTERY_POWERED
 
+void hal_battery_reinit_after_retention(void) {
+    // Silabs: no-op (ADC doesn't need re-init after retention)
+}
+
 // Placeholder implementation for Silicon Labs
 // TODO: Implement actual IADC reading for VDD measurement
 // Reference: Silicon Labs IADC examples
