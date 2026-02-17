@@ -1633,6 +1633,7 @@ MODULE_SONOFF_ZBMINIL2:
   category: module
   power: mains
   neutral: without
+  output: relay_latching
   device_type: end_device
   stock_model_name: ZBMINIL2
   stock_manufacturer_name: SONOFF
@@ -2093,6 +2094,7 @@ MODULE_TUYA_NOVATO_TS0012:
   category: module
   power: mains
   neutral: optional
+  output: relay_latching
   device_type: end_device
   stock_model_name: TS0012
   stock_manufacturer_name: _TZ3000_c4muk4ys
@@ -2783,6 +2785,7 @@ SWITCH_BSEED_TOUCH_LATCHING_TS0011:
   category: switch
   power: mains
   neutral: without
+  output: relay_latching
   device_type: end_device
   stock_model_name: TS0011
   stock_manufacturer_name: _TZ3000_aetquff4
@@ -2809,6 +2812,7 @@ SWITCH_BSEED_TOUCH_LATCHING_TS0012:
   category: switch
   power: mains
   neutral: without
+  output: relay_latching
   device_type: end_device
   stock_model_name: TS0012
   stock_manufacturer_name: _TZ3000_xk5udnd6
@@ -2838,6 +2842,7 @@ SWITCH_BSEED_TOUCH_LATCHING_TS0013:
   category: switch
   power: mains
   neutral: without
+  output: relay_latching
   device_type: end_device
   stock_model_name: TS0013
   stock_manufacturer_name: _TZ3000_kfwhmnvc
@@ -3261,6 +3266,7 @@ SWITCH_HOBEIAN_TS0001:
   category: switch
   power: mains
   neutral: without
+  output: relay_latching
   device_type: end_device
   stock_model_name: ZG-302Z1
   stock_manufacturer_name: HOBEIAN
@@ -3559,6 +3565,7 @@ SWITCH_MANHOT_A_TS0011:
   category: switch
   power: mains
   neutral: optional
+  output: relay_latching
   device_type: end_device
   stock_model_name: TS0011
   stock_manufacturer_name: _TZ3000_kea5qgnd
@@ -3587,6 +3594,7 @@ SWITCH_MANHOT_A_TS0012:
   category: switch
   power: mains
   neutral: optional
+  output: relay_latching
   device_type: end_device
   stock_model_name: TS0012
   stock_manufacturer_name: _TZ3000_toaaawnr
@@ -3615,6 +3623,7 @@ SWITCH_MANHOT_A_TS0013:
   category: switch
   power: mains
   neutral: optional
+  output: relay_latching
   device_type: end_device
   stock_model_name: TS0013
   stock_manufacturer_name: _TZ3000_tqwydnqn
@@ -3643,6 +3652,7 @@ SWITCH_MANHOT_B_TS0011:
   category: switch
   power: mains
   neutral: optional
+  output: relay_latching
   device_type: end_device
   stock_model_name: TS0011
   stock_manufacturer_name: _TZ3000_bmzfjnbp
@@ -3669,6 +3679,7 @@ SWITCH_MANHOT_B_TS0012:
   category: switch
   power: mains
   neutral: optional
+  output: relay_latching
   device_type: end_device
   stock_model_name: TS0012
   stock_manufacturer_name: _TZ3000_ugaem1nb
@@ -3695,6 +3706,7 @@ SWITCH_MANHOT_B_TS0013:
   category: switch
   power: mains
   neutral: optional
+  output: relay_latching
   device_type: end_device
   stock_model_name: TS0013
   stock_manufacturer_name: _TZ3000_snq47izk
@@ -4083,6 +4095,7 @@ SWITCH_ZEMISMART_1_TS0012:
   category: switch
   power: mains
   neutral: optional
+  output: relay_latching
   device_type: end_device
   stock_model_name: TS0012
   stock_manufacturer_name: _TZ3000_zmlunnhy
