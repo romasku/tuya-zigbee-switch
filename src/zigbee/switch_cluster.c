@@ -2,6 +2,7 @@
 #include "base_components/relay.h"
 #include "cluster_common.h"
 #include "consts.h"
+#include "device_config/device_params_nv.h"
 #include "device_config/nvm_items.h"
 #include "hal/nvm.h"
 
@@ -10,8 +11,6 @@
 #include "hal/tasks.h"
 #include "relay_cluster.h"
 #include "zigbee_commands.h"
-
-#define MULTI_PRESS_CNT_TO_RESET    10
 
 const uint8_t  multistate_out_of_service = 0;
 const uint8_t  multistate_flags          = 0;
@@ -379,7 +378,8 @@ void reset_tasks_handler(void *arg) {
 
 void switch_cluster_on_button_multi_press(zigbee_switch_cluster *cluster,
                                           uint8_t press_count) {
-    if (press_count >= MULTI_PRESS_CNT_TO_RESET) {
+    if (g_multi_press_reset_count != 0 &&
+        press_count >= g_multi_press_reset_count) {
         hal_factory_reset();
     }
 }

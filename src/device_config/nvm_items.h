@@ -21,4 +21,6 @@
 // Adding room for future items, so starting from 32
 #define NV_ITEM_DEVICE_TYPE    32
 
+#define NV_ITEM_MULTI_PRESS_RESET_COUNT    33
+
 #endif /* DEVICE_CONFIG_NVM_ITEMS_H_ */

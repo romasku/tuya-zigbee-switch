@@ -152,6 +152,17 @@ const romasku = {
             access: "ALL",
             entityCategory: "config",
         }),
+    multiPressResetCount: (name, endpointName) =>
+        numeric({
+            name,
+            endpointNames: [endpointName],
+            cluster: "genBasic",
+            attribute: { ID: 0xff02, type: 0x20 }, // uint8
+            description: "Number of consecutive presses to trigger factory reset (0 = disabled)",
+            valueMin: 0,
+            valueMax: 255,
+            entityCategory: "config",
+        }),
     deviceConfig: (name, endpointName) =>
         text({
             name,
@@ -265,6 +276,7 @@ const definitions = [
             } }),
             {% set first_endpoint = device.switchNames[0] if device.switchNames else (device.relayNames[0] if device.relayNames else device.coverNames[0]) %}
             romasku.deviceConfig("device_config", "{{first_endpoint}}"),
+            romasku.multiPressResetCount("multi_press_reset_count", "{{first_endpoint}}"),
             {% if device.has_dedicated_net_led %}
             romasku.networkIndicator("network_led", "{{first_endpoint}}"),
             {% endif%}
