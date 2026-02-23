@@ -9,6 +9,7 @@ Please describe what you are working on:
 ### Features
 
 - Control cover motors (WIP)
+- Configurable multi-press factory reset count (set 1-255 or 0 to disable)
 
 ### Changes
 

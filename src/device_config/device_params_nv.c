@@ -5,7 +5,7 @@
 uint8_t g_multi_press_reset_count = 10;
 
 void device_params_load_from_nv(void) {
-    uint8_t value;
+    uint8_t          value;
     hal_nvm_status_t st =
         hal_nvm_read(NV_ITEM_MULTI_PRESS_RESET_COUNT, sizeof(value),
                      (uint8_t *)&value);

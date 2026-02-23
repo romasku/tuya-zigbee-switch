@@ -24,20 +24,20 @@
 
 // Basic cluster
 
-#define ZCL_ATTR_BASIC_ZCL_VER              0x0000
-#define ZCL_ATTR_BASIC_APP_VER              0x0001
-#define ZCL_ATTR_BASIC_STACK_VER            0x0002
-#define ZCL_ATTR_BASIC_HW_VER               0x0003
-#define ZCL_ATTR_BASIC_MFR_NAME             0x0004
-#define ZCL_ATTR_BASIC_MODEL_ID             0x0005
-#define ZCL_ATTR_BASIC_DATE_CODE            0x0006
-#define ZCL_ATTR_BASIC_POWER_SOURCE         0x0007
-#define ZCL_ATTR_BASIC_LOC_DESC             0x0010
-#define ZCL_ATTR_BASIC_PHY_ENV              0x0011
-#define ZCL_ATTR_BASIC_DEV_ENABLED          0x0012
-#define ZCL_ATTR_BASIC_ALARM_MASK           0x0013
-#define ZCL_ATTR_BASIC_DISABLE_LOCAL_CFG    0x0014
-#define ZCL_ATTR_BASIC_SW_BUILD_ID          0x4000
+#define ZCL_ATTR_BASIC_ZCL_VER                    0x0000
+#define ZCL_ATTR_BASIC_APP_VER                    0x0001
+#define ZCL_ATTR_BASIC_STACK_VER                  0x0002
+#define ZCL_ATTR_BASIC_HW_VER                     0x0003
+#define ZCL_ATTR_BASIC_MFR_NAME                   0x0004
+#define ZCL_ATTR_BASIC_MODEL_ID                   0x0005
+#define ZCL_ATTR_BASIC_DATE_CODE                  0x0006
+#define ZCL_ATTR_BASIC_POWER_SOURCE               0x0007
+#define ZCL_ATTR_BASIC_LOC_DESC                   0x0010
+#define ZCL_ATTR_BASIC_PHY_ENV                    0x0011
+#define ZCL_ATTR_BASIC_DEV_ENABLED                0x0012
+#define ZCL_ATTR_BASIC_ALARM_MASK                 0x0013
+#define ZCL_ATTR_BASIC_DISABLE_LOCAL_CFG          0x0014
+#define ZCL_ATTR_BASIC_SW_BUILD_ID                0x4000
 
 #define ZCL_ATTR_BASIC_DEVICE_CONFIG              0xff00
 #define ZCL_ATTR_BASIC_STATUS_LED_STATE           0xff01

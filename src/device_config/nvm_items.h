@@ -19,7 +19,7 @@
 
 // 3 + 5 (switches) + 5 (relays) + 3 (covers) = 16
 // Adding room for future items, so starting from 32
-#define NV_ITEM_DEVICE_TYPE    32
+#define NV_ITEM_DEVICE_TYPE                32
 
 #define NV_ITEM_MULTI_PRESS_RESET_COUNT    33
 
