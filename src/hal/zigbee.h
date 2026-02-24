@@ -101,6 +101,13 @@ void hal_zigbee_check_settle_timer(void);
 void hal_zigbee_check_report_active_timer(void);
 
 /**
+ * Check post-settle transition timer (for battery devices)
+ * After settle ends, uses an intermediate poll rate before switching to slow
+ * poll.  Must be called regularly from app_task.
+ */
+void hal_zigbee_check_post_settle_timer(void);
+
+/**
  * Check if deep sleep is allowed (device joined and post-join settle done)
  * Returns false during pairing and for 10s after join to let coordinator
  * read descriptors/attributes.

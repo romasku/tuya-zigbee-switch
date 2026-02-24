@@ -11,7 +11,6 @@
 
 #include "app.h"
 #include "hal/gpio.h"
-#include "hal/tasks.h"
 #include "hal/telink_zigbee_hal.h"
 #include "hal/zigbee.h"
 
@@ -44,19 +43,15 @@ _attribute_ram_code_sec_ int main(void) {
 int real_main(startup_state_e state) {
     uint8_t isRetention = (state == SYSTEM_DEEP_RETENTION) ? 1 : 0;
 
-    if (isRetention) {
-        printf("[0] Wakeup from retention\r\n");
-    } else {
-        printf("[0] Cold boot\r\n");
-    }
-
     os_init(isRetention);
 
     irq_enable();
 
     if (!isRetention) {
-    app_init();
-    } else {
+        app_init();
+    }
+#ifdef ZB_ED_ROLE
+    else {
         // Re-configure radio PHY — hardware registers are lost during deep
         // retention.  Without this the MAC layer can hang on the next Data
         // Request (e.g. tl_zbNwkQuickDataPollCb), keeping the radio powered
@@ -64,8 +59,14 @@ int real_main(startup_state_e state) {
         // sampleContactSensor / sampleSwitch.
         mac_phyReconfig();
 
+        // SDK may reinitialise this to TRUE during os_init/mac_phyReconfig.
+        // bdb_init_callback (which sets it FALSE) only runs on cold boot,
+        // so we must re-disable it on every retention wake.
+        AUTO_QUICK_DATA_POLL_ENABLE = FALSE;
+
         app_reinit_retention();
     }
+#endif
 
     drv_wd_setInterval(1000);
     drv_wd_start();
@@ -89,25 +90,11 @@ int real_main(startup_state_e state) {
             u32 r = drv_disable_irq();
 
             ev_timer_event_t *timerEvt = ev_timer_nearestGet();
-#if UART_PRINTF_MODE
-            // Debug: use deep sleep like production, but log timers
-            if (timerEvt) {
-                printf("T %d cb=%x d=%x\r\n", timerEvt->timeout,
-                       (u32)timerEvt->cb, (u32)timerEvt->data);
-                // Give UART time to flush before deep sleep (~2ms for 48 chars @ 115200)
-                sleep_us(3000);
-            }
-#endif
             // Always use deep retention for realistic power consumption
             u32 sleepDuration = PM_NORMAL_SLEEP_MAX;
             if (timerEvt && timerEvt->timeout < sleepDuration) {
                 sleepDuration = timerEvt->timeout;
             }
-#if UART_PRINTF_MODE
-            printf("[%d] Entering deep sleep for %d ms\r\n", 
-                   clock_time() / CLOCK_16M_SYS_TIMER_CLK_1MS, sleepDuration);
-            sleep_us(3000); // Give UART time to flush
-#endif
             rf_paShutDown();
 
             if (sleepDuration > PM_NORMAL_SLEEP_MAX) {
