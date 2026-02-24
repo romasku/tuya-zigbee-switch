@@ -27,7 +27,7 @@ from tests.zcl_consts import (
     ZCL_CMD_WINDOW_COVERING_STOP,
 )
 
-DEBOUNCE_MS = 50
+DEBOUNCE_MS = 0  # Must match DEBOUNCE_DELAY_MS in button.h
 
 
 @pytest.fixture(autouse=True)

@@ -107,6 +107,9 @@ static cluster_forAppCb_t get_cmd_callback_by_cluster_id(u16 cluster_id) {
 }
 
 static void zcl_incoming_message_callback(zclIncoming_t *pInHdlrMsg) {
+#ifdef ZB_ED_ROLE
+    telink_zigbee_hal_notify_zcl_activity();
+#endif
 #ifdef BATTERY_POWERED
     // Refresh battery value before responding to a read request
     if (pInHdlrMsg->hdr.cmd == ZCL_CMD_READ &&
@@ -219,8 +222,26 @@ hal_zigbee_status_t hal_zigbee_set_attribute_value(uint8_t endpoint,
 
 void hal_zigbee_notify_attribute_changed(uint8_t endpoint, uint16_t cluster_id,
                                          uint16_t attribute_id) {
-    report_handler();
+    // Direct send — bypasses the SDK reporting engine (report_handler /
+    // zcl_reportingTab) to avoid extra poll cycles.  The attribute value
+    // is already set in the ZCL attribute table by the caller.
+    if (zb_isDeviceJoinedNwk()) {
+        zclAttrInfo_t *pAttrEntry =
+            zcl_findAttribute(endpoint, cluster_id, attribute_id);
+        if (pAttrEntry) {
+            epInfo_t dstEpInfo;
+            TL_SETSTRUCTCONTENT(dstEpInfo, 0);
+            dstEpInfo.profileId   = HA_PROFILE_ID;
+            dstEpInfo.dstAddrMode = APS_DSTADDR_EP_NOTPRESETNT;
+            zcl_sendReportCmd(endpoint, &dstEpInfo, TRUE,
+                              ZCL_FRAME_SERVER_CLIENT_DIR, cluster_id,
+                              pAttrEntry->id, pAttrEntry->type,
+                              pAttrEntry->data);
+        }
+    }
+#ifdef ZB_ED_ROLE
     telink_zigbee_hal_request_active_period();
+#endif
 }
 
 hal_zigbee_status_t hal_zigbee_send_cmd_to_bindings(const hal_zigbee_cmd *cmd) {

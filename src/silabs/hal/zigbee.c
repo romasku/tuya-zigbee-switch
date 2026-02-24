@@ -335,3 +335,7 @@ void hal_zigbee_check_settle_timer(void) {
 void hal_zigbee_check_report_active_timer(void) {
     // Silabs: no-op (sleep management not yet implemented)
 }
+
+void hal_zigbee_check_post_settle_timer(void) {
+    // Silabs: no-op (sleep management not yet implemented)
+}

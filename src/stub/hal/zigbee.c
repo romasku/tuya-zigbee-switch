@@ -105,6 +105,10 @@ void hal_zigbee_check_report_active_timer(void) {
     // Stub: no-op (no report active timer in stub mode)
 }
 
+void hal_zigbee_check_post_settle_timer(void) {
+    // Stub: no-op (no post-settle transition in stub mode)
+}
+
 static hal_network_status_change_callback_t network_status_change_callback =
     NULL;
 

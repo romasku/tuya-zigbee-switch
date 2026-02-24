@@ -8,7 +8,7 @@
 typedef void (*ev_button_callback_t)(void *);
 typedef void (*ev_button_multi_press_callback_t)(void *, uint8_t);
 
-#define DEBOUNCE_DELAY_MS    50
+#define DEBOUNCE_DELAY_MS    0 // 0 = no software debounce (hardware cap)
 
 typedef struct {
     hal_gpio_pin_t                   pin;
@@ -20,9 +20,11 @@ typedef struct {
     uint16_t                         long_press_duration_ms;
     uint32_t                         multi_press_duration_ms;
     uint8_t                          multi_press_cnt;
+    uint16_t                         debounce_delay_ms; // 0 = skip (hw cap)
     hal_task_t                       update_task;
     uint8_t                          debounce_last_state;
     uint32_t                         debounce_last_change;
+    uint8_t                          retention_debounce;
     ev_button_callback_t             on_press;
     ev_button_callback_t             on_long_press;
     ev_button_callback_t             on_release;

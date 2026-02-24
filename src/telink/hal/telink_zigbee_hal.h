@@ -34,3 +34,6 @@ void telink_zigbee_hal_request_active_period(void);
 // been acknowledged by the MAC layer.  Ends the active period so the device
 // can re-enter deep sleep immediately.  ED-only.
 void telink_zigbee_hal_end_active_period(void);
+
+// Notify that a ZCL message was received (used for adaptive settle detection).
+void telink_zigbee_hal_notify_zcl_activity(void);

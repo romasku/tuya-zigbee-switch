@@ -42,8 +42,7 @@ void _btn_gpio_callback(hal_gpio_pin_t pin, void *arg) {
     hal_tasks_unschedule(&button->update_task);
     button->debounce_last_state  = new_state;
     button->debounce_last_change = hal_millis();
-    hal_tasks_schedule(&button->update_task, DEBOUNCE_DELAY_MS);
-    printf("Button value changed to %d\r\n", button->debounce_last_state);
+    hal_tasks_schedule(&button->update_task, button->debounce_delay_ms);
 }
 
 void _btn_update_callback(void *arg) {
@@ -65,59 +64,85 @@ void btn_retention_wake(button_t *button) {
     uint8_t current    = hal_gpio_read(button->pin);
     uint8_t is_pressed = (current == button->pressed_when_high);
 
-    button->debounce_last_state = current;
+    if (button->retention_debounce) {
+        // We're in a debounce period from a previous wake.
+        if (current != button->debounce_last_state) {
+            // Pin bounced again — re-arm timer and go back to sleep.
+            button->debounce_last_state  = current;
+            button->debounce_last_change = hal_millis();
+            hal_tasks_unschedule(&button->update_task);
+            hal_tasks_schedule(&button->update_task, button->debounce_delay_ms);
+            return;
+        }
 
-    // Cancel any stale timer first — _btn_update_callback must not run
-    // after deep retention (hal_millis() resets, causing wrong long press).
+        // Pin matches last seen state. Has debounce time elapsed?
+        uint32_t elapsed = hal_millis() - button->debounce_last_change;
+        if (elapsed < button->debounce_delay_ms) {
+            // Spurious wake (e.g. other pin) — go back to sleep.
+            return;
+        }
+
+        // Stable for debounce_delay_ms — process the state change.
+        button->retention_debounce = 0;
+        hal_tasks_unschedule(&button->update_task);
+        btn_update_debounced(button, is_pressed, button->debounce_last_change);
+        if (button->pressed && !button->long_pressed) {
+            hal_tasks_schedule(&button->update_task,
+                               button->long_press_duration_ms);
+        }
+        return;
+    }
+
+    // No debounce pending. Cancel any stale timer.
     hal_tasks_unschedule(&button->update_task);
 
-    if (!button->pressed && is_pressed) {
-        // New press across sleep boundary
-        button->pressed       = true;
-        button->long_pressed  = false;
-        button->pressed_at_ms = hal_millis();
-        printf("Press detected (retention)\r\n");
-#ifdef BATTERY_POWERED
-        battery_cluster_update_on_event();
-#endif
-        if (button->on_press != NULL) {
-            button->on_press(button->callback_param);
+    if (is_pressed == button->pressed) {
+        // No state change — check for long press only if enough time elapsed.
+        // The device may wake for reasons other than our 800ms timer (MAC poll,
+        // SDK timers, other GPIO), so we must verify the duration.
+        button->debounce_last_state = current;
+        if (is_pressed && !button->long_pressed) {
+            uint32_t elapsed = hal_millis() - button->pressed_at_ms;
+            if (elapsed >= button->long_press_duration_ms) {
+                button->long_pressed = true;
+                if (button->on_long_press != NULL) {
+                    button->on_long_press(button->callback_param);
+                }
+            } else {
+                // Not yet — reschedule for the remaining time.
+                hal_tasks_schedule(&button->update_task,
+                                   button->long_press_duration_ms - elapsed);
+            }
         }
-    } else if (button->pressed && !is_pressed) {
-        // Release across sleep boundary
-        button->pressed        = false;
-        button->long_pressed   = false;
-        button->released_at_ms = hal_millis();
-        printf("Release detected (retention)\r\n");
-        if (button->on_release != NULL) {
-            button->on_release(button->callback_param);
-        }
-    } else if (is_pressed && button->pressed && !button->long_pressed) {
-        // Still held — long press timer woke us
-        button->long_pressed = true;
-        printf("Long press detected (retention)\r\n");
-        if (button->on_long_press != NULL) {
-            button->on_long_press(button->callback_param);
-        }
+        return;
     }
 
-    // Schedule long press wake-up only if button is pressed and not yet
-    // long-pressed. On the next retention wake we check the contact state.
-    if (button->pressed && !button->long_pressed) {
-        hal_tasks_schedule(&button->update_task,
-                           button->long_press_duration_ms);
+    // State changed.
+    button->debounce_last_state = current;
+
+    if (button->debounce_delay_ms == 0) {
+        // No software debounce (hardware cap) — process immediately,
+        // avoids an extra deep-retention wake cycle.
+        btn_update_debounced(button, is_pressed, hal_millis());
+        if (button->pressed && !button->long_pressed) {
+            hal_tasks_schedule(&button->update_task,
+                               button->long_press_duration_ms);
+        }
+        return;
     }
+
+    // Start debounce period. Device can sleep; timer or next GPIO edge
+    // will wake it.
+    button->debounce_last_change = hal_millis();
+    button->retention_debounce   = 1;
+    hal_tasks_schedule(&button->update_task, button->debounce_delay_ms);
 }
 
 void btn_update_debounced(button_t *button, uint8_t is_pressed,
                           uint32_t changed_at) {
     if (!button->pressed && is_pressed) {
-        printf("[%d] Press detected\r\n", hal_millis());
+        printf("Press detected\r\n");
         button->pressed_at_ms = changed_at;
-#ifdef BATTERY_POWERED
-        // Update battery level on button press (before action is reported)
-        battery_cluster_update_on_event();
-#endif
         if (button->on_press != NULL) {
             button->on_press(button->callback_param);
         }
@@ -131,7 +156,7 @@ void btn_update_debounced(button_t *button, uint8_t is_pressed,
             button->multi_press_cnt = 1;
         }
     } else if (button->pressed && !is_pressed) {
-        printf("[%d] Release detected\r\n", hal_millis());
+        printf("Release detected\r\n");
         button->released_at_ms = changed_at;
         button->long_pressed   = false;
         if (button->on_release != NULL) {
@@ -142,9 +167,13 @@ void btn_update_debounced(button_t *button, uint8_t is_pressed,
 
     uint32_t now = hal_millis();
     if (is_pressed && !button->long_pressed &&
-        (button->long_press_duration_ms < (now - button->pressed_at_ms))) {
+        (button->long_press_duration_ms <= (now - button->pressed_at_ms))) {
         button->long_pressed = true;
-        printf("[%d] Long press detected\r\n", hal_millis());
+#ifdef BATTERY_POWERED
+        // Update battery level on button press (before action is reported)
+        battery_cluster_update_on_event();
+#endif
+        printf("Long press detected\r\n");
         if (button->on_long_press != NULL) {
             button->on_long_press(button->callback_param);
         }

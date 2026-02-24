@@ -107,6 +107,7 @@ void parse_config() {
             buttons[buttons_cnt].pin = pin;
             buttons[buttons_cnt].long_press_duration_ms  = 2000;
             buttons[buttons_cnt].multi_press_duration_ms = 800;
+            buttons[buttons_cnt].debounce_delay_ms       = DEBOUNCE_DELAY_MS;
             buttons[buttons_cnt].on_long_press           = on_reset_clicked;
             buttons_cnt++;
         } else if (entry[0] == 'L') {
@@ -154,6 +155,7 @@ void parse_config() {
             buttons[buttons_cnt].pin = pin;
             buttons[buttons_cnt].long_press_duration_ms  = 800;
             buttons[buttons_cnt].multi_press_duration_ms = 800;
+            buttons[buttons_cnt].debounce_delay_ms       = DEBOUNCE_DELAY_MS;
 
             if (entry[3] == 'd') 
                 buttons[buttons_cnt].pressed_when_high = 1;
