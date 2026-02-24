@@ -139,6 +139,7 @@ typedef struct {
 /** Zigbee operation result codes (success or failure reasons) */
 typedef enum {
     HAL_ZIGBEE_OK = 0,
+    HAL_ZIGBEE_ERROR,
     HAL_ZIGBEE_ERR_NOT_JOINED,
     HAL_ZIGBEE_ERR_BAD_ARG,
     HAL_ZIGBEE_ERR_SEND_FAILED,

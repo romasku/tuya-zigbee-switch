@@ -5,6 +5,10 @@
 #include <stdbool.h>
 #include <stddef.h>
 
+#ifdef BATTERY_POWERED
+#include "zigbee/battery_cluster.h"
+#endif
+
 void _btn_gpio_callback(hal_gpio_pin_t pin, void *arg);
 void _btn_update_callback(void *arg);
 void btn_update_debounced(button_t *button, uint8_t is_pressed,
@@ -63,6 +67,10 @@ void btn_update_debounced(button_t *button, uint8_t is_pressed,
         printf("Press detected\r\n");
         button->pressed_at_ms = changed_at;
         button->pressed       = true;
+#ifdef BATTERY_POWERED
+        // Update battery level on button press (before action is reported)
+        battery_cluster_update_on_event();
+#endif
         if (button->on_press != NULL) {
             button->on_press(button->callback_param);
         }
