@@ -85,6 +85,10 @@ if __name__ == "__main__":
         else:
             cover_names = [f"cover_{index}" for index in range(cover_cnt)]
         
+        # Detect battery-powered devices
+        power_source = device.get("power", "mains")
+        is_battery_powered = power_source not in ["mains", "DC", "USB", None]
+
         devices.append({
             "zb_models": [zb_model] + (device.get("old_zb_models") or []),
             "model": device.get("override_z2m_device") or device["stock_converter_model"],
@@ -93,6 +97,7 @@ if __name__ == "__main__":
             "relayIndicatorNames": relay_names[:indicators_cnt],
             "coverNames": cover_names,
             "has_dedicated_net_led": has_dedicated_net_led,
+            "is_battery_powered": is_battery_powered,
         })
 
     template = env.get_template("switch_custom.js.jinja")

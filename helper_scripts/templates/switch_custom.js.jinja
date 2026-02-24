@@ -140,6 +140,29 @@ const romasku = {
             access: "ALL",
             entityCategory: "config",
         }),
+    batteryPercentage: () => {
+        const result = numeric({
+            name: "battery",
+            cluster: "genPowerCfg",
+            attribute: "batteryPercentageRemaining",
+            description: "Remaining battery in %",
+            valueMin: 0,
+            valueMax: 100,
+            unit: "%",
+            access: "STATE_GET",
+            entityCategory: "diagnostic",
+        });
+        // Patch fromZigbee to convert ZCL 0-200 to 0-100%
+        const origConvert = result.fromZigbee[0].convert;
+        result.fromZigbee[0].convert = (model, msg, publish, options, meta) => {
+            const r = origConvert(model, msg, publish, options, meta);
+            if (r && r.battery !== undefined) {
+                r.battery = Math.round(r.battery / 2);
+            }
+            return r;
+        };
+        return result;
+    },
     networkIndicator: (name, endpointName) =>
         binary({
             name,
@@ -242,7 +265,11 @@ const definitions = [
         model: "{{device.model}}",
         vendor: "Tuya-custom",
         description: "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
+        {% set first_endpoint = device.switchNames[0] if device.switchNames else (device.relayNames[0] if device.relayNames else device.coverNames[0]) %}
         extend: [
+            {% if device.is_battery_powered %}
+            romasku.batteryPercentage(),
+            {% endif %}
             {% if device.coverNames %}
             deviceAddCustomCluster("closuresWindowCovering", {
                 ID: 0x0102,
@@ -263,7 +290,6 @@ const definitions = [
                     "{{coverName}}": {{loop.index + (device.switchNames | length) + (device.relayNames | length)}},{{" "}}
                 {%- endfor -%}
             } }),
-            {% set first_endpoint = device.switchNames[0] if device.switchNames else (device.relayNames[0] if device.relayNames else device.coverNames[0]) %}
             romasku.deviceConfig("device_config", "{{first_endpoint}}"),
             {% if device.has_dedicated_net_led %}
             romasku.networkIndicator("network_led", "{{first_endpoint}}"),
@@ -313,6 +339,20 @@ const definitions = [
                 },
             ]);
             {% endfor %}
+            {% if device.is_battery_powered %}
+            // Battery reporting
+            const batteryEndpoint = device.getEndpoint(1);
+            await reporting.bind(batteryEndpoint, coordinatorEndpoint, ["genPowerCfg"]);
+            await batteryEndpoint.configureReporting("genPowerCfg", [
+                {
+                    attribute: {ID: 0x0021, type: 0x20}, // BatteryPercentageRemaining
+                    minimumReportInterval: 0,
+                    maximumReportInterval: constants.repInterval.HOUR,
+                    reportableChange: 2, // 1% (2 in ZCL 0-200 format)
+                },
+            ]);
+            await batteryEndpoint.read("genPowerCfg", [0x0021, 0x0020]);
+            {% endif %}
             {% for relayName in device.relayNames %}
             const endpoint{{loop.index  + (device.switchNames | length)}} = device.getEndpoint({{loop.index  + (device.switchNames | length)}});
             await reporting.onOff(endpoint{{loop.index  + (device.switchNames | length)}}, {

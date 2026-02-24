@@ -7,6 +7,9 @@
 #include "zigbee/relay_cluster.h"
 #include "zigbee/switch_cluster.h"
 #include "zigbee/cover_cluster.h"
+#ifdef BATTERY_POWERED
+#include "zigbee/battery_cluster.h"
+#endif
 
 #include <stdint.h>
 #include <string.h>
@@ -249,6 +252,12 @@ void parse_config() {
     hal_ota_cluster_setup(&endpoints[0].clusters[endpoints[0].cluster_count]);
     endpoints[0].cluster_count++;
 
+#ifdef BATTERY_POWERED
+    // Add battery cluster for battery-powered devices
+    static zigbee_battery_cluster battery_cluster;
+    battery_cluster_add_to_endpoint(&battery_cluster, &endpoints[0]);
+#endif
+
     for (int index = 0; index < switch_clusters_cnt; index++) {
         if (index != 0) {
             cluster_ptr += endpoints[index - 1].cluster_count;
@@ -290,6 +299,11 @@ void network_indicator_on_network_status_change(
     if (new_status == HAL_ZIGBEE_NETWORK_JOINED) {
         network_indicator_connected(&network_indicator);
         update_relay_clusters();
+#ifdef BATTERY_POWERED
+        // Don't force report immediately - let Z2M read when ready
+        // This avoids interfering with pairing process
+        // battery_cluster_force_report();
+#endif
     } else {
         network_indicator_not_connected(&network_indicator);
     }

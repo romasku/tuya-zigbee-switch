@@ -2485,7 +2485,7 @@ REMOTE_MOES_SWITCH_TS0044:
   firmware_image_type: 43572
   build: yes
   status: in_progress
-  info: Huge battery drain! LEDs on C4, A0, D7 and D4
+  info: Huge battery drain! LEDs on C4, A0, D7 and D4, WIP for led control as press confirmation, no relays.
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/342
   store: https://moeshouse.com/products/zigbee-wireless-scene-switch-battery-powered?variant=43700045283643
 REMOTE_TUYA_TS0041:

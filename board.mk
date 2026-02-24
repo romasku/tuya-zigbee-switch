@@ -66,6 +66,18 @@ FROM_STOCK_MANUFACTURER_ID := $(shell yq -r .$(BOARD).stock_manufacturer_id $(DE
 FROM_STOCK_IMAGE_TYPE := $(shell yq -r .$(BOARD).stock_image_type $(DEVICE_DB_FILE))
 FIRMWARE_IMAGE_TYPE := $(shell yq -r .$(BOARD).firmware_image_type $(DEVICE_DB_FILE))
 
+# Battery detection - extract power source and determine if battery powered
+POWER_SOURCE := $(shell yq -r '.$(BOARD).power // "mains"' $(DEVICE_DB_FILE))
+IS_BATTERY := $(shell if [ "$(POWER_SOURCE)" != "mains" ] && \
+                         [ "$(POWER_SOURCE)" != "DC" ] && \
+                         [ "$(POWER_SOURCE)" != "USB" ] && \
+                         [ "$(POWER_SOURCE)" != "null" ]; then \
+                      echo "yes"; else echo "no"; fi)
+
+# Export battery variables for sub-makes
+export IS_BATTERY
+export POWER_SOURCE
+
 # ==============================================================================
 # Platform Configuration
 # ==============================================================================
@@ -110,9 +122,9 @@ ifeq ($(PLATFORM_PREFIX),silabs)
 		MCU=$(MCU) 
 endif
 ifeq ($(PLATFORM_PREFIX),telink)
-	$(MAKE) telink/clean
+	$(MAKE) -C src/telink clean
 endif
-	$(MAKE) $(PLATFORM_PREFIX)/build \
+	$(MAKE) -C src/$(PLATFORM_PREFIX) build \
 		VERSION_STR=$(VERSION_STR) \
 		NVM_MIGRATIONS_VERSION=$(NVM_MIGRATIONS_VERSION) \
 		FILE_VERSION=$(FILE_VERSION) \
@@ -120,6 +132,8 @@ endif
 		CONFIG_STR="$(CONFIG_STR)" \
 		IMAGE_TYPE=$(FIRMWARE_IMAGE_TYPE) \
 		BIN_FILE=../../$(BIN_FILE) \
+		IS_BATTERY=$(IS_BATTERY) \
+		POWER_SOURCE=$(POWER_SOURCE) \
 		 -j32
 
 drop-old-files:

@@ -44,7 +44,11 @@
 /*
  * ZCL Cluster Support Configuration
  */
+#ifdef BATTERY_POWERED
+#define ZCL_POWER_CFG_SUPPORT          1 /* Power configuration cluster (enabled for battery devices) */
+#else
 #define ZCL_POWER_CFG_SUPPORT          0 /* Power configuration cluster */
+#endif
 #define ZCL_ON_OFF_SUPPORT             1 /* On/Off cluster */
 #define ZCL_ONOFF_CONFIGUATION         1 /* On/Off cluster configuration */
 #define ZCL_LEVEL_CTRL                 1 /* Level control cluster */
