@@ -9,6 +9,21 @@ Please describe what you are working on:
 ### Features
 
 - Control cover motors (WIP)
+- **Push-button without relay** (`P` prefix in config string)
+  - Battery-powered scene switches (buttons only, no relays)
+  - New device: Moes 4-gang scene switch (`REMOTE_MOES_SWITCH_TS0044`)
+  - `P` entries default to detached relay mode with relay_index 0
+- **Battery measurement & reporting** (Zigbee `genPowerCfg` cluster)
+  - ADC voltage reading on Telink (VBAT mode, GPIO_PC5)
+  - Voltage-to-percentage mapping (2.0V–3.0V for CR2032/CR2430/CR2450)
+  - ZCL battery percentage (0–200 format) + voltage attributes
+  - Reports on change-of-value, on button press, and on every poll wake
+  - Z2M converter: `batteryPercentage()` extend with ZCL 0–200 → 0–100% conversion
+- **Deep retention sleep** for Telink end devices
+  - `PM_SLEEP_MODE_DEEP_WITH_RETENTION` instead of `PM_SLEEP_MODE_SUSPEND`
+  - GPIO + LED + relay state restored from retained SRAM on wake
+  - Button debounce across sleep boundaries (`btn_retention_wake`)
+  - ADC re-init after retention wake
 
 ### Changes
 
@@ -16,6 +31,34 @@ Please describe what you are working on:
   - They now use proper pulses instead of continuously driving the coil
   - Pressing multiple buttons will toggle the relays with small delays in-between (safe)
   - Add `SLP;` to the config string for simultaneous toggles (risky, might damage the device)
+- **Power management for battery end devices**
+  - Reduced TX power (~3 dBm instead of ~10 dBm) to save battery
+  - Poll rate: 120s (battery) vs 1s (router)
+  - Post-join adaptive settle: fast poll (250ms) for up to 45s after join, with early exit on ZCL silence
+  - Post-settle transition: intermediate 4s poll before switching to slow 120s poll
+  - Report active period: device stays awake briefly after attribute change to send ZCL report, then sleeps
+  - Data-confirm callback shortens active window after MAC ACK
+  - `AUTO_QUICK_DATA_POLL_ENABLE = FALSE` to avoid unnecessary extra polls
+  - Direct `zcl_sendReportCmd()` bypasses SDK reporting engine for fewer poll cycles
+- **Network LED auto-off** after battery device joins (saves power)
+- **Switch cluster** now handles `relay_index == 0` safely (no relay access)
+  - `TOGGLE_SMART_SYNC` / `TOGGLE_SMART_OPPOSITE` fall back to `TOGGLE` when no relay
+- **Z2M converter** improvements
+  - Hide `relay_mode` and `relay_index` exposes for relay-less devices
+  - Battery reporting configuration in `configure()` block
+  - Fix: `switch_names` count was based on `relay_cnt` instead of `switch_cnt`
+- **Build system**
+  - Auto-detect battery devices from `power` field in `device_db.yaml`
+  - Pass `IS_BATTERY` / `POWER_SOURCE` to sub-makes, defines `BATTERY_POWERED` macro
+  - Conditional compilation of battery cluster and HAL battery sources
+  - Python interpreter fallback (`python` → `python3`) for WSL
+- **HAL additions**
+  - `hal_battery.h` — battery ADC abstraction (Telink, Silabs stub, test stub)
+  - `hal_gpio_reinit_all()` / `hal_gpio_reinit_interrupts()` — replay GPIO config after deep retention
+  - `hal_zigbee_set_attribute_value()` — write to ZCL attribute table
+  - `hal_zigbee_is_sleep_allowed()` / settle/report timer checks
+  - `config_reinit_gpio()` — full GPIO + button + LED + relay restore after retention wake
+- Misc: fix typo `periferals_init` → `peripherals_init`, remove verbose debug prints
 
 ### Bugs
 
@@ -26,6 +69,9 @@ Please describe what you are working on:
   - AC noise affecting Telink GPIO
   - Changing device type breaks Silabs NVM data
   - Reset needed 11 presses instead of 10
+  - Switch cluster crash when `relay_index` is 0 (relay-less devices)
+  - Long press detection off-by-one (`<` → `<=`)
+  - Z2M converter: switch names count used relay count instead of switch count
 - **New**
   - SONOFF ZBMINIL2 version updates broken?
 
