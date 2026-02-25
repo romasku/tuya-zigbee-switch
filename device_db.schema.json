@@ -13,7 +13,7 @@
         },
         "category": {
           "type": "string",
-          "enum": ["module", "switch", "remote", "outlet", "board"],
+          "enum": ["module", "switch", "remote", "outlet", "board", "plug"],
           "description": "Device category"
         },
         "power": {
@@ -30,6 +30,16 @@
             }
           ],
           "description": "Whether neutral wire is required or optional"
+        },
+        "output": {
+          "oneOf": [
+            {"type": "null"},
+            {
+              "type": "string",
+              "enum": ["relay", "relay_latching", "triac", "nothing"]
+            }
+          ],
+          "description": "Type of AC output"
         },
         "device_type": {
           "oneOf": [
@@ -220,6 +230,7 @@
         "category",
         "power",
         "neutral",
+        "output",
         "device_type",
         "mcu",
         "stock_model_name",

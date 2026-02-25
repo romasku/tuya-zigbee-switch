@@ -41,6 +41,7 @@ if __name__ == "__main__":
 
         relay_cnt = 0
         switch_cnt = 0
+        cover_switch_cnt = 0
         cover_cnt = 0
         indicators_cnt = 0
         has_dedicated_net_led = False
@@ -51,6 +52,8 @@ if __name__ == "__main__":
                 relay_cnt += 1
             if peripheral[0] == 'S' or peripheral[0] == 'P':
                 switch_cnt += 1
+            if peripheral[0] == 'X':
+                cover_switch_cnt += 1
             if peripheral[0] == 'C':
                 cover_cnt += 1
             if peripheral[0] == 'I':
@@ -76,6 +79,15 @@ if __name__ == "__main__":
         else:
             relay_names = [f"relay_{index}" for index in range(relay_cnt)]
 
+        if cover_switch_cnt == 1:
+            cover_switch_names = ["cover_switch"]
+        elif cover_switch_cnt == 2:
+            cover_switch_names = ["cover_switch_left", "cover_switch_right"]
+        elif cover_switch_cnt == 3:
+            cover_switch_names = ["cover_switch_left", "cover_switch_middle", "cover_switch_right"]
+        else:
+            cover_switch_names = [f"cover_switch_{i+1}" for i in range(cover_switch_cnt)]
+
         if cover_cnt == 1:
             cover_names = ["cover"]
         elif cover_cnt == 2:
@@ -95,6 +107,7 @@ if __name__ == "__main__":
             "switchNames": switch_names,
             "relayNames": relay_names,
             "relayIndicatorNames": relay_names[:indicators_cnt],
+            "coverSwitchNames": cover_switch_names,
             "coverNames": cover_names,
             "has_dedicated_net_led": has_dedicated_net_led,
             "is_battery_powered": is_battery_powered,

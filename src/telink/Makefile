@@ -142,6 +142,7 @@ TELINK_SOURCES := \
 	libc_polyfills/atoi.c \
 	custom_zcl/zcl_multistate_input.c \
 	custom_zcl/zcl_onoff_configuration.c \
+	custom_zcl/zcl_cover_switch_config.c \
 	patch_sdk/drv_nv.c
 
 # Common source files (shared with Silicon Labs build)
@@ -160,6 +161,7 @@ COMMON_SOURCES := \
 	$(SRC_DIR)/zigbee/group_cluster.c \
 	$(SRC_DIR)/zigbee/relay_cluster.c \
 	$(SRC_DIR)/zigbee/switch_cluster.c \
+	$(SRC_DIR)/zigbee/cover_switch_cluster.c \
 	$(SRC_DIR)/zigbee/cover_cluster.c
 
 # Battery support (conditional)

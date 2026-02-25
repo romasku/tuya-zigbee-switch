@@ -65,6 +65,7 @@ void btn_update_debounced(button_t *button, uint8_t is_pressed,
     if (!button->pressed && is_pressed) {
         printf("Press detected\r\n");
         button->pressed_at_ms = changed_at;
+        button->pressed       = true;
         if (button->on_press != NULL) {
             button->on_press(button->callback_param);
         }
@@ -80,6 +81,7 @@ void btn_update_debounced(button_t *button, uint8_t is_pressed,
     } else if (button->pressed && !is_pressed) {
         printf("Release detected\r\n");
         button->released_at_ms = changed_at;
+        button->pressed        = false;
         button->long_pressed   = false;
         if (button->on_release != NULL) {
             button->on_release(button->callback_param);
