@@ -125,6 +125,7 @@ hal_zigbee_status_t hal_zigbee_set_attribute_value(uint8_t endpoint,
     // For Silicon Labs, use emberAfWriteAttribute to update the ZCL table
     // Note: This is a placeholder - proper implementation would determine data type and size
     hal_zigbee_attribute *attr = find_hal_attr(endpoint, cluster_id, attribute_id);
+
     if (attr == NULL) {
         return HAL_ZIGBEE_ERROR;
     }

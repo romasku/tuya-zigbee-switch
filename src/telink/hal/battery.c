@@ -48,6 +48,7 @@ uint8_t hal_battery_get_percentage(void) {
     uint16_t voltage_mv = hal_battery_get_voltage_mv();
 
     uint8_t percentage;
+
     if (voltage_mv >= BATTERY_VOLTAGE_MAX_MV) {
         percentage = 100;
     } else if (voltage_mv <= BATTERY_VOLTAGE_MIN_MV) {
@@ -65,6 +66,7 @@ uint8_t hal_battery_get_percentage(void) {
 
 uint16_t hal_battery_get_voltage_mv(void) {
     uint16_t mv = battery_adc_read_mv();
+
     return mv;
 }
 
