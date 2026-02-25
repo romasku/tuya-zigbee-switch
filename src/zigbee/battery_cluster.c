@@ -61,6 +61,7 @@ void battery_cluster_add_to_endpoint(zigbee_battery_cluster *cluster,
 
 uint8_t battery_cluster_update(zigbee_battery_cluster *cluster) {
     uint32_t now = hal_millis();
+
     if (now - last_update_ms < BATTERY_UPDATE_THROTTLE_MS) {
         return 0;
     }
