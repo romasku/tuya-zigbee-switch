@@ -5,7 +5,7 @@
 
 // Get container structure from embedded member pointer
 #define container_of(ptr, type, member) \
-        ((type *)((char *)(ptr) - offsetof(type, member)))
+    ((type *)((char *)(ptr) - offsetof(type, member)))
 
 static void _af_event_handler(sl_zigbee_af_event_t *event) {
     // Get hal_task_t from embedded platform_struct event

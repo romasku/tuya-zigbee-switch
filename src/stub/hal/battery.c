@@ -3,7 +3,7 @@
 #ifdef BATTERY_POWERED
 
 // Stub implementation for testing
-static uint8_t stub_battery_percentage = 100;
+static uint8_t  stub_battery_percentage = 100;
 static uint16_t stub_battery_voltage_mv = 3000;
 
 uint8_t hal_battery_get_percentage(void) {

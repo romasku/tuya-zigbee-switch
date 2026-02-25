@@ -45,14 +45,14 @@
 
 // Power Configuration cluster
 
-#define ZCL_ATTR_POWER_CFG_BATTERY_VOLTAGE           0x0020
-#define ZCL_ATTR_POWER_CFG_BATTERY_PERCENTAGE        0x0021
+#define ZCL_ATTR_POWER_CFG_BATTERY_VOLTAGE       0x0020
+#define ZCL_ATTR_POWER_CFG_BATTERY_PERCENTAGE    0x0021
 
 // Power source values
-#define POWER_SOURCE_UNKNOWN                  0x00
-#define POWER_SOURCE_MAINS_1_PHASE            0x01
-#define POWER_SOURCE_BATTERY                  0x03
-#define POWER_SOURCE_DC                       0x04
+#define POWER_SOURCE_UNKNOWN                     0x00
+#define POWER_SOURCE_MAINS_1_PHASE               0x01
+#define POWER_SOURCE_BATTERY                     0x03
+#define POWER_SOURCE_DC                          0x04
 
 // OnOff cluster
 

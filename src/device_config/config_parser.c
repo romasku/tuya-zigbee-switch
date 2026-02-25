@@ -157,7 +157,7 @@ void parse_config() {
             buttons[buttons_cnt].multi_press_duration_ms = 800;
             buttons[buttons_cnt].debounce_delay_ms       = DEBOUNCE_DELAY_MS;
 
-            if (entry[3] == 'd') 
+            if (entry[3] == 'd')
                 buttons[buttons_cnt].pressed_when_high = 1;
             switch_clusters[switch_clusters_cnt].switch_idx = switch_clusters_cnt;
             switch_clusters[switch_clusters_cnt].mode       =
@@ -165,7 +165,7 @@ void parse_config() {
             switch_clusters[switch_clusters_cnt].action =
                 ZCL_ONOFF_CONFIGURATION_SWITCH_ACTION_TOGGLE_SIMPLE;
             switch_clusters[switch_clusters_cnt].relay_mode =
-                (entry[0] == 'P') ? ZCL_ONOFF_CONFIGURATION_RELAY_MODE_DETACHED 
+                (entry[0] == 'P') ? ZCL_ONOFF_CONFIGURATION_RELAY_MODE_DETACHED
                                   : ZCL_ONOFF_CONFIGURATION_RELAY_MODE_SHORT;
             switch_clusters[switch_clusters_cnt].binded_mode =
                 ZCL_ONOFF_CONFIGURATION_BINDED_MODE_SHORT;

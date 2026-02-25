@@ -10,10 +10,10 @@
 // For CR2032 min is 2.0V and max is 3.0V
 // For CR2450 min is 2.0V and max is 3.0V
 // For CR2430 min is 2.0V and max is 3.0V
-#define BATTERY_VOLTAGE_MIN_MV 2000
-#define BATTERY_VOLTAGE_MAX_MV 3000
+#define BATTERY_VOLTAGE_MIN_MV    2000
+#define BATTERY_VOLTAGE_MAX_MV    3000
 
-#define BATTERY_ADC_PIN         GPIO_PC5
+#define BATTERY_ADC_PIN           GPIO_PC5
 
 static bool battery_adc_initialized = false;
 
@@ -58,7 +58,8 @@ uint8_t hal_battery_get_percentage(void) {
         percentage = (uint8_t)((level * 100) / range);
     }
 
-    printf("[%d] [BATTERY] %d mV -> %d%%\r\n", clock_time() / CLOCK_16M_SYS_TIMER_CLK_1MS, voltage_mv, percentage);
+    printf("[%d] [BATTERY] %d mV -> %d%%\r\n",
+           clock_time() / CLOCK_16M_SYS_TIMER_CLK_1MS, voltage_mv, percentage);
     return percentage;
 }
 

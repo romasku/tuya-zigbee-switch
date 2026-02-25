@@ -33,10 +33,13 @@ static void telink_zcl_data_confirm_cb(void *arg) {
     (void)arg;
     telink_zigbee_hal_end_active_period();
 }
+
 #endif
 
 #ifdef BATTERY_POWERED
-extern status_t zcl_powerCfg_register(u8 endpoint, u16 manuCode, u8 attrNum, const zclAttrInfo_t *attrTbl, cluster_forAppCb_t cb);
+extern status_t zcl_powerCfg_register(u8 endpoint, u16 manuCode, u8 attrNum,
+                                      const zclAttrInfo_t *attrTbl, cluster_forAppCb_t cb);
+
 #endif
 
 static cluster_registerFunc_t get_register_func_by_cluster_id(u16 cluster_id) {
@@ -210,9 +213,9 @@ void telink_zigbee_hal_zcl_init(hal_zigbee_endpoint *endpoints,
 }
 
 hal_zigbee_status_t hal_zigbee_set_attribute_value(uint8_t endpoint,
-                                                    uint16_t cluster_id,
-                                                    uint16_t attribute_id,
-                                                    uint8_t *value) {
+                                                   uint16_t cluster_id,
+                                                   uint16_t attribute_id,
+                                                   uint8_t *value) {
     status_t status = zcl_setAttrVal(endpoint, cluster_id, attribute_id, value);
     if (status != ZCL_STA_SUCCESS) {
         return HAL_ZIGBEE_ERROR;

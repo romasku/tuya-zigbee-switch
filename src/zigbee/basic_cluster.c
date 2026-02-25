@@ -21,7 +21,7 @@ const uint8_t hwVersion    = 0x00;
 
 // Power source - dynamic based on device type
 #ifdef BATTERY_POWERED
-const uint8_t powerSource = POWER_SOURCE_BATTERY; // 0x03
+const uint8_t powerSource = POWER_SOURCE_BATTERY;       // 0x03
 #else
 const uint8_t powerSource = POWER_SOURCE_MAINS_1_PHASE; // 0x01
 #endif
