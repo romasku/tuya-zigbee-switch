@@ -5,10 +5,6 @@
 #include <stdbool.h>
 #include <stddef.h>
 
-#ifdef BATTERY_POWERED
-#include "zigbee/battery_cluster.h"
-#endif
-
 void _btn_gpio_callback(hal_gpio_pin_t pin, void *arg);
 void _btn_update_callback(void *arg);
 void btn_update_debounced(button_t *button, uint8_t is_pressed,
@@ -61,81 +57,7 @@ void _btn_update_callback(void *arg) {
 }
 
 void btn_retention_wake(button_t *button) {
-    uint8_t current    = hal_gpio_read(button->pin);
-    uint8_t is_pressed = (current == button->pressed_when_high);
-
-    if (button->retention_debounce) {
-        // We're in a debounce period from a previous wake.
-        if (current != button->debounce_last_state) {
-            // Pin bounced again — re-arm timer and go back to sleep.
-            button->debounce_last_state  = current;
-            button->debounce_last_change = hal_millis();
-            hal_tasks_unschedule(&button->update_task);
-            hal_tasks_schedule(&button->update_task, button->debounce_delay_ms);
-            return;
-        }
-
-        // Pin matches last seen state. Has debounce time elapsed?
-        uint32_t elapsed = hal_millis() - button->debounce_last_change;
-        if (elapsed < button->debounce_delay_ms) {
-            // Spurious wake (e.g. other pin) — go back to sleep.
-            return;
-        }
-
-        // Stable for debounce_delay_ms — process the state change.
-        button->retention_debounce = 0;
-        hal_tasks_unschedule(&button->update_task);
-        btn_update_debounced(button, is_pressed, button->debounce_last_change);
-        if (button->pressed && !button->long_pressed) {
-            hal_tasks_schedule(&button->update_task,
-                               button->long_press_duration_ms);
-        }
-        return;
-    }
-
-    // No debounce pending. Cancel any stale timer.
-    hal_tasks_unschedule(&button->update_task);
-
-    if (is_pressed == button->pressed) {
-        // No state change — check for long press only if enough time elapsed.
-        // The device may wake for reasons other than our 800ms timer (MAC poll,
-        // SDK timers, other GPIO), so we must verify the duration.
-        button->debounce_last_state = current;
-        if (is_pressed && !button->long_pressed) {
-            uint32_t elapsed = hal_millis() - button->pressed_at_ms;
-            if (elapsed >= button->long_press_duration_ms) {
-                button->long_pressed = true;
-                if (button->on_long_press != NULL) {
-                    button->on_long_press(button->callback_param);
-                }
-            } else {
-                // Not yet — reschedule for the remaining time.
-                hal_tasks_schedule(&button->update_task,
-                                   button->long_press_duration_ms - elapsed);
-            }
-        }
-        return;
-    }
-
-    // State changed.
-    button->debounce_last_state = current;
-
-    if (button->debounce_delay_ms == 0) {
-        // No software debounce (hardware cap) — process immediately,
-        // avoids an extra deep-retention wake cycle.
-        btn_update_debounced(button, is_pressed, hal_millis());
-        if (button->pressed && !button->long_pressed) {
-            hal_tasks_schedule(&button->update_task,
-                               button->long_press_duration_ms);
-        }
-        return;
-    }
-
-    // Start debounce period. Device can sleep; timer or next GPIO edge
-    // will wake it.
-    button->debounce_last_change = hal_millis();
-    button->retention_debounce   = 1;
-    hal_tasks_schedule(&button->update_task, button->debounce_delay_ms);
+    _btn_gpio_callback(button->pin, button);
 }
 
 void btn_update_debounced(button_t *button, uint8_t is_pressed,
