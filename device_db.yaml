@@ -46,7 +46,7 @@ BOARD__MHCOZY_TS0004_1:
   power: mains
   neutral: required
   output: relay
-  device_type: router
+  device_type: end_device # specifically requested
   stock_model_name: TS0004
   stock_manufacturer_name: _TZ3210_imaccztn
   stock_converter_manufacturer: Tuya
