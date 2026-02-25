@@ -40,8 +40,35 @@ BOARD__MHCOZY_TS0004:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/130
   store: https://www.aliexpress.com/item/1005005457296054.html
-BOARD__MHCOZY_TS0004_2:
+BOARD__MHCOZY_TS0004_1:
   human_name: MHCOZY TYWB 4ch-RF <br> ZG-005(-RF) 🅱
+  category: board
+  power: mains
+  neutral: required
+  output: relay
+  device_type: router
+  stock_model_name: TS0004
+  stock_manufacturer_name: _TZ3210_imaccztn
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0004
+  override_z2m_device: TYWB 4ch-RF
+  tuya_module: ZT3L
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: imaccztn1;TS0004-MC1;LC3i;SD7u;RD4;SC0u;RA0;SB5u;RD2;SB7u;RC2;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
+  firmware_image_type: 45631
+  build: yes
+  status: mostly_supported
+  info: Needs pinout confirmation
+  threads: null
+  store: null
+BOARD__MHCOZY_TS0004_2:
+  human_name: MHCOZY TYWB 4ch-RF <br> ZG-005(-RF) 🅲
   category: board
   power: mains
   neutral: required
