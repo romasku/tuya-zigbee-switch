@@ -169,10 +169,6 @@ void btn_update_debounced(button_t *button, uint8_t is_pressed,
     if (is_pressed && !button->long_pressed &&
         (button->long_press_duration_ms <= (now - button->pressed_at_ms))) {
         button->long_pressed = true;
-#ifdef BATTERY_POWERED
-        // Update battery level on button press (before action is reported)
-        battery_cluster_update_on_event();
-#endif
         printf("Long press detected\r\n");
         if (button->on_long_press != NULL) {
             button->on_long_press(button->callback_param);
