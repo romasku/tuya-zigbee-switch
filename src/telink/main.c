@@ -87,6 +87,8 @@ int real_main(startup_state_e state) {
             apsCleanToStopSecondClock();
             telink_gpio_hal_setup_wake_ups();
 
+            // avoid race condition between checking for pending timers and entering sleep
+            // like in Telink SDK sample code
             u32 r = drv_disable_irq();
 
             ev_timer_event_t *timerEvt = ev_timer_nearestGet();

@@ -5,11 +5,10 @@
 
 #ifdef BATTERY_POWERED
 
-/**
- * Get current battery percentage (0-100%)
- * @return Battery level 0-100 percent
- */
-uint8_t hal_battery_get_percentage(void);
+// Min and max battery voltages in mV for percentage calculation
+// Applies to common coin cells: CR2032, CR2450, CR2430
+#define BATTERY_VOLTAGE_MIN_MV    2000
+#define BATTERY_VOLTAGE_MAX_MV    3000
 
 /**
  * Get current battery voltage (millivolts)

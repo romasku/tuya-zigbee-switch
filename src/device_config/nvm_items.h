@@ -17,7 +17,7 @@
         (NV_ITEM_BASIC_CLUSTER_DATA + MAX_SWITCHES + 1 + relay_idx)
 #define NV_ITEM_COVER_SWITCH_CONFIG(cover_switch_idx) \
         (NV_ITEM_BASIC_CLUSTER_DATA + MAX_SWITCHES + MAX_RELAYS + 1 + cover_switch_idx)
-#define NV_ITEM_COVER_CONFIG(cover_idx)                                                          \
+#define NV_ITEM_COVER_CONFIG(cover_idx)                                                    \
         (NV_ITEM_BASIC_CLUSTER_DATA + MAX_SWITCHES + MAX_RELAYS + MAX_COVER_SWITCHES + 1 + \
          cover_idx)
 

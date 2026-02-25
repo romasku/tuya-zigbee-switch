@@ -70,8 +70,15 @@ uint8_t battery_cluster_update(zigbee_battery_cluster *cluster) {
     uint16_t mv            = hal_battery_get_voltage_mv();
     uint8_t  voltage_100mv = (mv > 25500) ? 255 : (uint8_t)(mv / 100);
 
-    uint8_t percentage     = hal_battery_get_percentage();
-    uint8_t zcl_percentage = (percentage > 100) ? 200 : (percentage * 2);
+    uint8_t zcl_percentage; // ZCL unit: 0.5% steps (0=0%, 200=100%)
+    if (mv >= BATTERY_VOLTAGE_MAX_MV) {
+        zcl_percentage = 200;
+    } else if (mv <= BATTERY_VOLTAGE_MIN_MV) {
+        zcl_percentage = 0;
+    } else {
+        zcl_percentage = (uint8_t)((uint32_t)(mv - BATTERY_VOLTAGE_MIN_MV) * 200
+                                   / (BATTERY_VOLTAGE_MAX_MV - BATTERY_VOLTAGE_MIN_MV));
+    }
 
     uint8_t changed = 0;
     changed |= battery_cluster_notify_if_changed(cluster, ZCL_ATTR_POWER_CFG_BATTERY_VOLTAGE,
