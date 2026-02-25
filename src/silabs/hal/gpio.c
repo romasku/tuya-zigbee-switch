@@ -12,16 +12,16 @@
 
 // Get container structure from embedded member pointer
 #define container_of(ptr, type, member) \
-        ((type *)((char *)(ptr) - offsetof(type, member)))
+    ((type *)((char *)(ptr) - offsetof(type, member)))
 
 // ------ Encoding helpers ------
 // hal_gpio_pin_t: upper byte = port index (A=0, B=1, ...), lower byte = pin
 // [0..15]
 #define HAL_GPIO_PIN_NUM(g)       ((uint8_t)((g) & 0xFF))
 #define HAL_GPIO_PORT_INDEX(g)    ((uint8_t)(((g) >> 8) & 0xFF))
-#define HAL_GPIO_TO_SL_GPIO(g)                                             \
-        ((sl_gpio_t){ .port = hal_port_from_index(HAL_GPIO_PORT_INDEX(g)), \
-                      .pin = HAL_GPIO_PIN_NUM(g) })
+#define HAL_GPIO_TO_SL_GPIO(g)                                         \
+    ((sl_gpio_t){ .port = hal_port_from_index(HAL_GPIO_PORT_INDEX(g)), \
+                  .pin = HAL_GPIO_PIN_NUM(g) })
 
 #define LINE_MISSING     0xFF
 #define MAX_INT_LINES    16

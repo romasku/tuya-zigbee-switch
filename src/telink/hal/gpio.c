@@ -41,7 +41,7 @@ static GPIO_PullTypeDef hal_to_telink_pull(hal_gpio_pull_t pull) {
 }
 
 static void gpio_init_hw(hal_gpio_pin_t gpio_pin, uint8_t is_input,
-                   hal_gpio_pull_t pull) {
+                         hal_gpio_pull_t pull) {
     GPIO_PinTypeDef telink_pin = (GPIO_PinTypeDef)gpio_pin;
 
     if (is_input) {

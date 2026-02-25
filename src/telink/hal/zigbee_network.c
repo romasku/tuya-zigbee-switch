@@ -61,8 +61,8 @@ static bool steeringInProgress = 0;
 // Power management is disabled until device successfully joins and settles
 static bool pm_enabled = false;
 
-static bool join_settling = false;
-static u32 join_settle_timer = 0;
+static bool join_settling          = false;
+static u32  join_settle_timer      = 0;
 static u32  last_zcl_activity_tick = 0;  // updated on each incoming ZCL message
 static u8   zcl_msg_count          = 0;  // message counter during settle
 
@@ -91,13 +91,13 @@ void telink_zigbee_hal_request_active_period(void) {
         // to the full safety timeout to allow a new report to be sent.
         // Otherwise do nothing (avoid duplicate polls / timer resets).
         if (report_active_timeout_ms == POST_CONFIRM_COOLDOWN_MS) {
-            report_active_timer = clock_time();
+            report_active_timer      = clock_time();
             report_active_timeout_ms = REPORT_ACTIVE_TIME_MS;
         }
         return;
     }
-    report_active = true;
-    report_active_timer = clock_time();
+    report_active            = true;
+    report_active_timer      = clock_time();
     report_active_timeout_ms = REPORT_ACTIVE_TIME_MS;
     // No poll rate change needed — we use direct zcl_sendReportCmd() and
     // a single zb_endDeviceSyncReq() to push the frame immediately.
@@ -159,12 +159,12 @@ void hal_zigbee_check_report_active_timer(void) {
     //  2. Post-confirm cooldown: POST_CONFIRM_COOLDOWN_MS after the last
     //     data confirm, giving time for any follow-up reports.
     if (report_active) {
-        u32 current_time = clock_time();
+        u32 current_time  = clock_time();
         u32 elapsed_ticks = current_time - report_active_timer;
-        u32 target_ticks = report_active_timeout_ms * CLOCK_16M_SYS_TIMER_CLK_1MS;
+        u32 target_ticks  = report_active_timeout_ms * CLOCK_16M_SYS_TIMER_CLK_1MS;
 
         if (elapsed_ticks >= target_ticks) {
-            report_active = false;
+            report_active            = false;
             report_active_timeout_ms = REPORT_ACTIVE_TIME_MS;
         }
     }
@@ -191,10 +191,11 @@ bool hal_zigbee_is_sleep_allowed(void) {
     if (!pm_enabled) {
         return false;
     }
-    
+
     // Block sleep during settling or reporting (timers checked in app_task)
     return !join_settling && !report_active;
 }
+
 #else
 void telink_zigbee_hal_request_active_period(void) {
     // Router: always awake, no-op
@@ -283,7 +284,7 @@ void bdb_init_callback(u8 status, u8 joinedNetwork) {
         } else {
       #ifdef ZB_ED_ROLE
             // Not joined: disable PM until join completes and settles
-            pm_enabled = false;
+            pm_enabled    = false;
             join_settling = false;
       #endif
         }

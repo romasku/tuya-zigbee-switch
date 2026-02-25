@@ -3,11 +3,11 @@
 
 /* Helper to check the month letters in __DATE__ */
 #define _MDATE_IS(c0, c1, c2) \
-        (__DATE__[0] == (c0) && __DATE__[1] == (c1) && __DATE__[2] == (c2))
+    (__DATE__[0] == (c0) && __DATE__[1] == (c1) && __DATE__[2] == (c2))
 
 /* Month number (1..12) derived from the three-letter English month */
 #define BUILD_MONTH_NUM                                \
-        (_MDATE_IS('J', 'a', 'n')   ? 1                \
+    (_MDATE_IS('J', 'a', 'n')   ? 1                    \
    : _MDATE_IS('F', 'e', 'b') ? 2                      \
    : _MDATE_IS('M', 'a', 'r') ? 3                      \
    : _MDATE_IS('A', 'p', 'r') ? 4                      \
@@ -20,7 +20,7 @@
    : _MDATE_IS('N', 'o', 'v') ? 11                     \
    : _MDATE_IS('D', 'e', 'c') ? 12                     \
                               : 0 /* unknown format */ \
-        )
+    )
 
 /* Year digits (YYYY) are at positions 7..10 in __DATE__ */
 #define BUILD_YEAR_CH0    __DATE__[7]

@@ -127,6 +127,7 @@ void switch_cluster_add_to_endpoint(zigbee_switch_cluster *cluster,
 // Perform the relay action for ON position (position 1 in ZCL docs)
 void switch_cluster_relay_action_on(zigbee_switch_cluster *cluster) {
     if (cluster->relay_index == 0) return;
+
     zigbee_relay_cluster *relay_cluster =
         &relay_clusters[cluster->relay_index - 1];
 
@@ -152,6 +153,7 @@ void switch_cluster_relay_action_on(zigbee_switch_cluster *cluster) {
 // Perform the relay action for OFF position (position 2 in ZCL docs)
 void switch_cluster_relay_action_off(zigbee_switch_cluster *cluster) {
     if (cluster->relay_index == 0) return;
+
     zigbee_relay_cluster *relay_cluster =
         &relay_clusters[cluster->relay_index - 1];
 
