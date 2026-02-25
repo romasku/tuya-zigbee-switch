@@ -40,8 +40,35 @@ BOARD__MHCOZY_TS0004:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/130
   store: https://www.aliexpress.com/item/1005005457296054.html
-BOARD__MHCOZY_TS0004_2:
+BOARD__MHCOZY_TS0004_1:
   human_name: MHCOZY TYWB 4ch-RF <br> ZG-005(-RF) 🅱
+  category: board
+  power: mains
+  neutral: required
+  output: relay
+  device_type: end_device # specifically requested
+  stock_model_name: TS0004
+  stock_manufacturer_name: _TZ3210_imaccztn
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0004
+  override_z2m_device: TYWB 4ch-RF
+  tuya_module: ZT3L
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: imaccztn1;TS0004-MC1;LC3i;SD7u;RD4;SC0u;RA0;SB5u;RD2;SB7u;RC2;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
+  firmware_image_type: 45631
+  build: yes
+  status: mostly_supported
+  info: Needs pinout confirmation
+  threads: null
+  store: null
+BOARD__MHCOZY_TS0004_2:
+  human_name: MHCOZY TYWB 4ch-RF <br> ZG-005(-RF) 🅲
   category: board
   power: mains
   neutral: required
@@ -1425,6 +1452,33 @@ MODULE_IHSENO_A_TS0001:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/340
   store: null
+MODULE_LVGESS_PM_TSOOO1:
+  human_name: LVGESS 1-gang PM
+  category: module
+  power: mains
+  neutral: required
+  output: relay
+  device_type: router
+  stock_model_name: TS0001
+  stock_manufacturer_name: _TZ3000_q8r0bbvy
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0001_power
+  override_z2m_device: null
+  tuya_module: ZT2S
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: q8r0bbvy;TS0001-PWR;BB1u;LD2i;SC4u;RB5;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
+  firmware_image_type: 47000
+  build: yes
+  status: in_progress
+  info: Power monitoring not implemented
+  threads: https://github.com/romasku/tuya-zigbee-switch/pull/354
+  store: https://aliexpress.com/item/1005009232955374.html
 MODULE_MOES_TS0002:
   human_name: Moes ZM-104B-M
   category: module
@@ -2417,7 +2471,7 @@ OUTLET_BSEED_PM_TS011F:
   firmware_image_type: 43556
   build: yes
   status: in_progress
-  info: PM not implemented
+  info: Power monitoring not implemented
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/145
   store:
   - https://www.aliexpress.com/item/1005004402438527.html
@@ -2474,7 +2528,7 @@ PLUG___AUBESS_PM_TS011F:
   firmware_image_type: 43556
   build: yes
   status: in_progress
-  info: PM not implemented
+  info: Power monitoring not implemented
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/334
   store: https://aliexpress.com/item/1005005958920309.html
 REMOTE_AQARA_WXKG02LM:

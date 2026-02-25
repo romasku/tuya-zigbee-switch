@@ -8,7 +8,13 @@ Please describe what you are working on:
 
 ### Features
 
-- Control cover motors (WIP)
+- **Cover cluster** (window covering) for controlling the motor of curtains, blinds, and shutters.  
+  Supports open, close, and stop commands with motor safety delays.
+- **Cover switch cluster** for handling user input from window covering switches.  
+  Supports toggle/momentary switches, stop-on-repeat, stop button, local control, and remote device binding.
+- Relays now respond to *MoveToLevelWithOnOff*
+  - Level = 0 -> Turn off relay
+  - Level > 0 -> Turn on  relay
 - **Push-button without relay** (`P` prefix in config string)
   - Battery-powered scene switches (buttons only, no relays)
   - New device: Moes 4-gang scene switch (`REMOTE_MOES_SWITCH_TS0044`)
@@ -24,8 +30,6 @@ Please describe what you are working on:
   - GPIO + LED + relay state restored from retained SRAM on wake
   - Button debounce across sleep boundaries (`btn_retention_wake`)
   - ADC re-init after retention wake
-- **Cover cluster** (window covering) for controlling the motor of curtains, blinds, and shutters. Supports open, close, and stop commands with motor safety delays.
-- **Cover switch cluster** for handling user input from window covering switches. Supports toggle/momentary switches, stop-on-repeat, stop button, local control, and remote device binding.
 
 ### Changes
 

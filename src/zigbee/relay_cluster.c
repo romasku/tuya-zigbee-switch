@@ -13,6 +13,14 @@ hal_zigbee_cmd_result_t relay_cluster_callback_trampoline(uint8_t endpoint,
                                                           uint8_t command_id,
                                                           void *cmd_payload);
 
+hal_zigbee_cmd_result_t relay_cluster_level_callback(zigbee_relay_cluster *cluster,
+                                                     uint8_t command_id,
+                                                     void *cmd_payload);
+hal_zigbee_cmd_result_t relay_cluster_level_callback_trampoline(uint8_t endpoint,
+                                                                uint16_t cluster_id,
+                                                                uint8_t command_id,
+                                                                void *cmd_payload);
+
 void relay_cluster_on_relay_change(zigbee_relay_cluster *cluster,
                                    uint8_t state);
 void relay_cluster_on_write_attr(zigbee_relay_cluster *cluster,
@@ -71,6 +79,14 @@ void relay_cluster_add_to_endpoint(zigbee_relay_cluster *cluster,
     endpoint->clusters[endpoint->cluster_count].cmd_callback =
         relay_cluster_callback_trampoline;
     endpoint->cluster_count++;
+
+    endpoint->clusters[endpoint->cluster_count].cluster_id      = ZCL_CLUSTER_LEVEL_CONTROL;
+    endpoint->clusters[endpoint->cluster_count].attribute_count = 0;
+    endpoint->clusters[endpoint->cluster_count].attributes      = NULL;
+    endpoint->clusters[endpoint->cluster_count].is_server       = 1;
+    endpoint->clusters[endpoint->cluster_count].cmd_callback    =
+        relay_cluster_level_callback_trampoline;
+    endpoint->cluster_count++;
 }
 
 hal_zigbee_cmd_result_t relay_cluster_callback_trampoline(uint8_t endpoint,
@@ -100,8 +116,39 @@ hal_zigbee_cmd_result_t relay_cluster_callback(zigbee_relay_cluster *cluster,
         break;
 
     default:
-        printf("Unknown command: %d\r\n", command_id);
+        printf("Unknown OnOff command: %d\r\n", command_id);
+        return HAL_ZIGBEE_CMD_SKIPPED;
+    }
+    return HAL_ZIGBEE_CMD_PROCESSED;
+}
+
+hal_zigbee_cmd_result_t relay_cluster_level_callback_trampoline(uint8_t endpoint,
+                                                                uint16_t cluster_id,
+                                                                uint8_t command_id,
+                                                                void *cmd_payload) {
+    return relay_cluster_level_callback(relay_cluster_by_endpoint[endpoint], command_id,
+                                        cmd_payload);
+}
+
+hal_zigbee_cmd_result_t relay_cluster_level_callback(zigbee_relay_cluster *cluster,
+                                                     uint8_t command_id,
+                                                     void *cmd_payload) {
+    switch (command_id) {
+    case ZCL_CMD_LEVEL_MOVE_TO_LEVEL_WITH_ON_OFF:
+        if (cmd_payload == NULL) {
+            return HAL_ZIGBEE_CMD_SKIPPED;
+        }
+        uint8_t level = *(uint8_t *)cmd_payload;
+        if (level == 0) {
+            relay_cluster_off(cluster);
+        } else {
+            relay_cluster_on(cluster);
+        }
         break;
+
+    default:
+        printf("Unknown LevelCtrl command: %d\r\n", command_id);
+        return HAL_ZIGBEE_CMD_SKIPPED;
     }
     return HAL_ZIGBEE_CMD_PROCESSED;
 }
