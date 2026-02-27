@@ -4265,12 +4265,39 @@ SWITCH_ZEMISMART_1_TS0012:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/19
   store: null
+SWITCH_ZEMISMART_2_TS0011:
+  human_name: Zemismart 1-gang switch 🅱
+  category: switch
+  power: mains
+  neutral: without
+  output: relay_latching
+  device_type: end_device
+  stock_model_name: TS0011
+  stock_manufacturer_name: _TZ3000_ilauzyjm
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0011
+  override_z2m_device: null
+  tuya_module: ZS3L
+  mcu_family: Silabs
+  mcu: EFR32MG21A020F768IM32
+  config_str: ilauzyjm;TS0011-ZS;SB0u;RD1A4;IA6;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
+  firmware_image_type: 45589
+  build: yes
+  status: fully_supported
+  info: Supported
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/22
+  store: https://www.zemismart.com/products/kes-606us-z?VariantsId=14159
 SWITCH_ZEMISMART_2_TS0012:
   human_name: Zemismart 2-gang switch 🅱
   category: switch
   power: mains
   neutral: without
-  output: null
+  output: relay_latching
   device_type: end_device
   stock_model_name: TS0012
   stock_manufacturer_name: _TZ3000_rbl8c85w
@@ -4278,18 +4305,18 @@ SWITCH_ZEMISMART_2_TS0012:
   stock_converter_model: TS0012
   override_z2m_device: null
   tuya_module: ZS3L
-  mcu_family: Telink
-  mcu: TLSR8258
-  config_str: rbl8c85w;TS0012-ZS; null
+  mcu_family: Silabs
+  mcu: EFR32MG21A020F768IM32
+  config_str: rbl8c85w;TS0012-ZS;SA0u;RD1A4;IC1;SB1u;RC0C2;IA5;M;
   alt_config_str: null
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
   stock_image_type: 54179
   firmware_image_type: 45589
-  build: no
-  status: in_progress
-  info: Needs pinout. Bi-stable relays. Must toggle relays sequentially.
+  build: yes
+  status: fully_supported
+  info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/22
   store: https://www.zemismart.com/products/kes-606us-z?VariantsId=14160
 SWITCH_ZEMISMART_TS0601_6GANG:
