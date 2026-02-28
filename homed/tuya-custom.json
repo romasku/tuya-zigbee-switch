@@ -267,10 +267,18 @@
         "TS0004-MC1"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -278,6 +286,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -9941,10 +9954,18 @@
         "TS0001-PWR"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -9952,6 +9973,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
