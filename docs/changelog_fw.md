@@ -8,7 +8,13 @@ Please describe what you are working on:
 
 ### Features
 
-- Control cover motors (WIP)
+- **Cover cluster** (window covering) for controlling the motor of curtains, blinds, and shutters.  
+  Supports open, close, and stop commands with motor safety delays.
+- **Cover switch cluster** for handling user input from window covering switches.  
+  Supports toggle/momentary switches, stop-on-repeat, stop button, local control, and remote device binding.
+- Relays now respond to *MoveToLevelWithOnOff*
+  - Level = 0 -> Turn off relay
+  - Level > 0 -> Turn on  relay
 - Configurable multi-press factory reset count (set 1-255 or 0 to disable)
 
 ### Changes

@@ -33,6 +33,18 @@ class SwitchType(t.enum8):
     Momentary_NC = 0x02
 
 
+class CoverSwitchType(t.enum8):
+    Toggle = 0x00
+    Momentary = 0x01
+
+
+class CoverSwitchMode(t.enum8):
+    Immediate = 0x00
+    ShortPress = 0x01
+    LongPress = 0x02
+    Hybrid = 0x03
+
+
 class CustomOnOffConfigurationCluster(CustomCluster, OnOffConfiguration):
 
     class AttributeDefs(OnOffConfiguration.AttributeDefs):
@@ -132,6 +144,56 @@ class CoverMoving(t.enum8):
     Closing = 0x02
 
 
+class CustomCoverSwitchCluster(CustomCluster):
+    cluster_id = 0xFC01
+    
+    class AttributeDefs(foundation.BaseAttributeDefs):
+        switch_type = ZCLAttributeDef(
+            id=0x0000,
+            type=CoverSwitchType,
+            access="rw",
+            is_manufacturer_specific=True,
+        )
+        
+        cover_index = ZCLAttributeDef(
+            id=0x0001,
+            type=t.uint8_t,
+            access="rw",
+            is_manufacturer_specific=True,
+        )
+        
+        reversal = ZCLAttributeDef(
+            id=0x0002,
+            type=t.Bool,
+            access="rw",
+            is_manufacturer_specific=True,
+        )
+        
+        local_mode = ZCLAttributeDef(
+            id=0x0003,
+            type=CoverSwitchMode,
+            access="rw",
+            is_manufacturer_specific=True,
+        )
+        
+        binded_mode = ZCLAttributeDef(
+            id=0x0004,
+            type=CoverSwitchMode,
+            access="rw",
+            is_manufacturer_specific=True,
+        )
+        
+        long_press_duration = ZCLAttributeDef(
+            id=0x0005,
+            type=t.uint16_t,
+            access="rw",
+            is_manufacturer_specific=True,
+        )
+        
+        cluster_revision: Final = foundation.ZCL_CLUSTER_REVISION_ATTR
+        reporting_status: Final = foundation.ZCL_REPORTING_STATUS_ATTR
+
+
 class CustomWindowCoveringCluster(CustomCluster, WindowCovering):
 
     class AttributeDefs(WindowCovering.AttributeDefs):
@@ -157,11 +219,12 @@ class CustomWindowCoveringCluster(CustomCluster, WindowCovering):
   - `switch_quirk.md.jinja`         - update the template
   - `make_zha_quirk.py`             - update generation script
 
-  Generate with: `make quirks`
+  Generate with: `make tools/update_zha_quirk`
 ``````````````````````````````````````````````````````````````````'''
 
 CONFIGS = [
     "imaccztn;TS0004-MC;LC3i;SD7u;RD4;SC0u;RA0;SB5u;RD2;SB7u;RC2;M;",
+    "imaccztn1;TS0004-MC1;LC3i;SD7u;RD4;SC0u;RA0;SB5u;RD2;SB7u;RC2;M;",
     "u3oupgdy;TS0004-MC2;LC3i;SD7u;RD4;SC0u;RA0;SB5u;RD2;SB7u;RC2;M;",
     "g8n1n7lg;Tuya-ZG-001;LC3i;SD7u;RD4;M;",
     "nuenzetq;TS0002-SC;LC3i;SD7u;RD4;SC0u;RA0;M;",
@@ -251,8 +314,8 @@ CONFIGS = [
     "zmy4lslw;TS0002-custom;BD2u;LC2;SB5u;RC4;SB4u;RC3;",
     "Tuya-TS0002-custom;TS0002-GIR;BD2u;LC2;SB5u;RC4;SB4u;RC3;",
     "Tuya-TS0002-custom;TS0002-custom;BD2u;LC2;SB5u;RC4;SB4u;RC3;",
-    "dwytrmda;TS130F-GIR;BD2u;LC2;CC3C4;",
-    "j1xl73iw;TS130F-GIR-DUAL;LC1;CC0C4;CD4D7;",
+    "dwytrmda;TS130F-GIR;BD2u;LC2;XB5B4f;CC3C4;",
+    "j1xl73iw;TS130F-GIR-DUAL;LC1;XB4D2u;CC0C4;XC3C2u;CD4D7;",
     "6axxqqi2;TS0001-GIR-1;BC2u;LB5i;SB4u;RD2;",
     "q6a3tepg;TS0001-HOB1;BB1u;LD4i;SB6u;RA1;",
     "ZG-301Z;TS0001-HOB;BB1u;LD4i;SB6u;RA1;",
@@ -267,6 +330,7 @@ CONFIGS = [
     "knoj8lpk;TS0004-IHS;BC3u;LC2i;SB5u;RD2;SB4u;RD3;SD7u;RC0;SD4u;RC1;",
     "TS0004-IHS;TS0004-IHS;BC3u;LC2i;SB5u;RD2;SB4u;RD3;SD7u;RC0;SD4u;RC1;",
     "kycczpw8;TS0001-IHA;BC3u;LC2;SB5u;RD2;",
+    "q8r0bbvy;TS0001-PWR;BB1u;LD2i;SC4u;RB5;",
     "qaa59zqd;TS0002-MSB;BB1u;LC3;SB5u;RD2;SB4u;RC2;",
     "pfc7i3kt;TS0003-custom;BD3u;SC1u;RB5;SD7u;RD4;SC3u;RB4;",
     "Tuya-TS0003-custom;TS0003-custom;BD3u;SC1u;RB5;SD7u;RD4;SC3u;RB4;",
@@ -309,7 +373,7 @@ CONFIGS = [
     "m8f3z8ju;NovatoZRM02;BC3u;LC4;SC2f;RB5;SB4f;RD2;",
     "30jqysvd;NovatoZNR01;BB7u;LB1;SC2u;RB5;",
     "c4muk4ys;TS0012-QS;BB4u;LC2;SD2u;RA0B6;SC3u;RC0D7;SLP;",
-    "ol1uhvza;TS130F-NOV;BC3u;LC4;SC2f;RB5;SB4f;RD2;",
+    "ol1uhvza;TS130F-NOV;BC3u;LC4;XC2B4f;CB5D2;",
     "tqlv4ug4;TS0001-custom;BD2u;LC0;SB4u;RC2;",
     "Tuya-TS0001-custom;TS0001-custom;BD2u;LC0;SB4u;RC2;",
     "bvrlqyj7;TS0002-OXT-CUS;BD2u;LC0;SB4u;RC2;SB5u;RC3;",
@@ -414,6 +478,7 @@ for config in CONFIGS:
     relay_cnt = 0
     switch_cnt = 0
     indicators_cnt = 0
+    cover_switch_cnt = 0
     cover_cnt = 0
     has_dedicated_net_led = False
     for peripheral in peripherals:
@@ -423,6 +488,8 @@ for config in CONFIGS:
             relay_cnt += 1
         if peripheral[0] == 'S':
             switch_cnt += 1
+        if peripheral[0] == 'X':
+            cover_switch_cnt += 1
         if peripheral[0] == 'C':
             cover_cnt += 1
         if peripheral[0] == 'I':
@@ -540,7 +607,83 @@ for config in CONFIGS:
             )
         )
 
-    for endpoint_id in range(switch_cnt + indicators_cnt + 1, switch_cnt + indicators_cnt + cover_cnt + 1):
+    for endpoint_id in range(switch_cnt + relay_cnt + 1, switch_cnt + relay_cnt + cover_switch_cnt + 1):
+        builder = (
+            builder
+            .adds(CustomCoverSwitchCluster, endpoint_id=endpoint_id)
+            .removes(MultistateInput.cluster_id, cluster_type=ClusterType.Client, endpoint_id=endpoint_id)
+            .adds(CustomMultistateInputCluster, endpoint_id=endpoint_id)
+            .enum(
+                CustomCoverSwitchCluster.AttributeDefs.switch_type.name,
+                CoverSwitchType,
+                CustomCoverSwitchCluster.cluster_id,
+                translation_key="cover_switch_type_"+str(endpoint_id),
+                fallback_name="Cover switch type "+str(endpoint_id),
+                endpoint_id=endpoint_id,
+                entity_type=EntityType.CONFIG,
+            )
+            .number(
+                CustomCoverSwitchCluster.AttributeDefs.cover_index.name,
+                CustomCoverSwitchCluster.cluster_id,
+                translation_key="cover_switch_cover_index_"+str(endpoint_id),
+                fallback_name="Cover switch cover index "+str(endpoint_id),
+                min_value=0,
+                max_value=cover_cnt,
+                step=1,
+                endpoint_id=endpoint_id,
+                entity_type=EntityType.CONFIG,
+            )
+            .switch(
+                CustomCoverSwitchCluster.AttributeDefs.reversal.name,
+                CustomCoverSwitchCluster.cluster_id,
+                translation_key="cover_switch_reversal_"+str(endpoint_id),
+                fallback_name="Cover switch reversal "+str(endpoint_id),
+                endpoint_id=endpoint_id,
+                entity_type=EntityType.CONFIG,
+            )
+            .enum(
+                CustomCoverSwitchCluster.AttributeDefs.local_mode.name,
+                CoverSwitchMode,
+                CustomCoverSwitchCluster.cluster_id,
+                translation_key="cover_switch_local_mode_"+str(endpoint_id),
+                fallback_name="Cover switch local mode "+str(endpoint_id),
+                endpoint_id=endpoint_id,
+                entity_type=EntityType.CONFIG,
+            )
+            .enum(
+                CustomCoverSwitchCluster.AttributeDefs.binded_mode.name,
+                CoverSwitchMode,
+                CustomCoverSwitchCluster.cluster_id,
+                translation_key="cover_switch_binded_mode_"+str(endpoint_id),
+                fallback_name="Cover switch binded mode "+str(endpoint_id),
+                endpoint_id=endpoint_id,
+                entity_type=EntityType.CONFIG,
+            )
+            .number(
+                CustomCoverSwitchCluster.AttributeDefs.long_press_duration.name,
+                CustomCoverSwitchCluster.cluster_id,
+                translation_key="cover_switch_long_press_duration_"+str(endpoint_id),
+                fallback_name="Cover switch long press duration "+str(endpoint_id),
+                min_value=0,
+                max_value=5000,
+                step=1,
+                endpoint_id=endpoint_id,
+                entity_type=EntityType.CONFIG,
+            )
+            .sensor(
+                MultistateInput.AttributeDefs.present_value.name,
+                MultistateInput.cluster_id,
+                translation_key="cover_switch_press_action_"+str(endpoint_id),
+                fallback_name="Cover switch press action "+str(endpoint_id),
+                endpoint_id=endpoint_id,
+                reporting_config=ReportingConfig(min_interval=0, max_interval=300, reportable_change=1),
+                device_class=SensorDeviceClass.ENUM,
+                attribute_converter = lambda x: {0: "released", 1: "open", 2: "close", 3: "stop", 4: "long_open", 5: "long_close"}[int(x)],
+                entity_type=EntityType.DIAGNOSTIC,
+            )
+        )
+
+    for endpoint_id in range(switch_cnt + relay_cnt + cover_switch_cnt + 1, switch_cnt + relay_cnt + cover_switch_cnt + cover_cnt + 1):
         builder = (
             builder
             .removes(WindowCovering.cluster_id, cluster_type=ClusterType.Client, endpoint_id=endpoint_id)
