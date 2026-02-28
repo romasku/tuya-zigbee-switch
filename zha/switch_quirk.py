@@ -114,6 +114,13 @@ class CustomBasicCluster(CustomCluster, Basic):
             is_manufacturer_specific=False,
         )
 
+        multi_press_reset_count = ZCLAttributeDef(
+            id=0xff02,
+            type=t.uint8_t,
+            access="rw",
+            is_manufacturer_specific=False,
+        )
+
 
 class RelayIndicatorMode(t.enum8):
     Same = 0x00
@@ -709,11 +716,26 @@ for config in CONFIGS:
             )
         )
 
+    builder = (
+        builder
+        .removes(Basic.cluster_id, cluster_type=ClusterType.Client, endpoint_id=1)
+        .adds(CustomBasicCluster, endpoint_id=1)
+        .number(
+            CustomBasicCluster.AttributeDefs.multi_press_reset_count.name,
+            CustomBasicCluster.cluster_id,
+            translation_key="multi_press_reset_count",
+            fallback_name="Multi press reset count",
+            min_value=0,
+            max_value=255,
+            step=1,
+            endpoint_id=1,
+            entity_type=EntityType.CONFIG,
+        )
+    )
+
     if has_dedicated_net_led:
         builder = (
             builder
-            .removes(Basic.cluster_id, cluster_type=ClusterType.Client, endpoint_id=1)
-            .adds(CustomBasicCluster, endpoint_id=1)
             .switch(
                 CustomBasicCluster.AttributeDefs.networkIndicator.name,
                 CustomBasicCluster.cluster_id,
