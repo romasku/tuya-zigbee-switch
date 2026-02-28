@@ -4082,23 +4082,23 @@ SWITCH_PSMART_TS0003:
   output: relay
   device_type: router
   stock_model_name: TS0003
-  stock_manufacturer_name: null
+  stock_manufacturer_name: _TZ3000_lsunm46z
   stock_converter_manufacturer: Tuya
-  stock_converter_model: null
-  override_z2m_device: null
+  stock_converter_model: TS0003_switch_3_gang_with_backlight
+  override_z2m_device: ZM-L03E-Z
   tuya_module: ZS3L
   mcu_family: Silabs
   mcu: EFR32MG21A020F768IM32
-  config_str: null____;TS0003-PS;LC2;SA3u;RA4;IC0;SA6u;RB0;IA0;SB1u;RD1;IC1;M;
+  config_str: lsunm46z;TS0003-PS;LC2;SA3u;RA4;IC0;SA6u;RB0;IA0;SB1u;RD1;IC1;M;
   alt_config_str: null
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: null
   stock_image_type: null
   firmware_image_type: 43592
-  build: no
-  status: in_progress
-  info: Needs ID, pinout confirmation and backlight on A5
+  build: yes
+  status: mostly_supported
+  info: Backlight on A5. Needs pinout confirmation
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/252
   store: https://psmart.pl/pl/p/PSMART-Przelacznik-3-obwody-C-RM-ZigBee-TUYA/2051
 SWITCH_TUYA_CN_TS0001:
