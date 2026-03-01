@@ -91,6 +91,7 @@ typedef enum {
     ISSI_2M_DEVICE,
     ISSI_4M_DEVICE,
     TSINGTENG_8M_DEVICE,
+    BOYA_8M_DEVICE,
 } StorageSpiflashDevice_t;
 
 // -----------------------------------------------------------------------------

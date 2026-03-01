@@ -92,6 +92,15 @@ static StorageSpiflashDevice_t getDeviceType(void) {
         default:
             return UNKNOWN_DEVICE;
         }
+    case MFG_ID_BOYA:
+        switch (deviceId) {
+#if defined(BTL_STORAGE_SPIFLASH_BOYA_BY25Q80AW) && (BTL_STORAGE_SPIFLASH_BOYA_BY25Q80AW == 1)
+        case DEVICE_ID_BOYA_8M:
+            return BOYA_8M_DEVICE;
+#endif
+        default:
+            return UNKNOWN_DEVICE;
+        }
     case MFG_ID_SPANSION:
         switch (deviceId) {
 #if defined(BTL_STORAGE_SPIFLASH_SPANSION_S25FL208K) && \
@@ -237,6 +246,10 @@ BootloaderStorageImplementationInformation_t getDeviceInfo(void) {
     (BTL_STORAGE_SPIFLASH_TSINGTENG_TS25Q80UA == 1)
     case TSINGTENG_8M_DEVICE:
         return tsingteng8MInfo;
+#endif
+#if defined(BTL_STORAGE_SPIFLASH_BOYA_BY25Q80AW) && (BTL_STORAGE_SPIFLASH_BOYA_BY25Q80AW == 1)
+    case BOYA_8M_DEVICE:
+        return boya8MInfo;
 #endif
 #if defined(BTL_STORAGE_SPIFLASH_SPANSION_S25FL208K) && \
     (BTL_STORAGE_SPIFLASH_SPANSION_S25FL208K == 1)
