@@ -79,9 +79,13 @@ tools/%:
 board/%:
 	$(MAKE) -f board.mk $*
 
+# Pick a Python interpreter for test runs. In some environments (notably WSL
+# minimal installs), `python` may be missing while `python3` exists.
+PYTHON ?= $(shell command -v python >/dev/null 2>&1 && echo python || echo python3)
+
 # Run pytest tests (requires stub to be built)
 tests: stub/build
-	python -m pytest tests/ -v
+	$(PYTHON) -m pytest tests/ -v
 
 # Format all C/H files using uncrustify
 format:

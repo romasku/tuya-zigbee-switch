@@ -20,6 +20,6 @@
 #define DEF_STR(string, name)              struct { uint8_t len; char str[sizeof(string) - 1]; \
 } const name = { sizeof(string) - 1, string }
 #define DEF_STR_NON_CONST(string, name)    struct { uint8_t len; char str[sizeof(string) - 1]; \
-} name = { sizeof(string) - 1, string }
+}       name = { sizeof(string) - 1, string }
 
 #endif

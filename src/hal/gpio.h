@@ -81,6 +81,18 @@ void hal_gpio_callback(hal_gpio_pin_t gpio_pin, gpio_callback_t callback,
 void hal_gpio_unreg_callback(hal_gpio_pin_t gpio_pin);
 
 /**
+ * Re-initialize all GPIO pins from tracked configs (for deep retention wake)
+ * GPIO SFRs are lost during deep sleep; this replays all hal_gpio_init() calls.
+ */
+void hal_gpio_reinit_all(void);
+
+/**
+ * Re-register all GPIO interrupt callbacks (for deep retention wake)
+ * GPIO IRQ SFRs are lost during deep sleep.
+ */
+void hal_gpio_reinit_interrupts(void);
+
+/**
  * Parse pin string ("A5", "B10") to pin identifier
  * @param s Pin string (e.g., "A5", "B10")
  * @return Pin identifier or HAL_INVALID_PIN

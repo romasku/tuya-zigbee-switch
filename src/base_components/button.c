@@ -38,8 +38,7 @@ void _btn_gpio_callback(hal_gpio_pin_t pin, void *arg) {
     hal_tasks_unschedule(&button->update_task);
     button->debounce_last_state  = new_state;
     button->debounce_last_change = hal_millis();
-    hal_tasks_schedule(&button->update_task, DEBOUNCE_DELAY_MS);
-    printf("Button value changed to %d\r\n", button->debounce_last_state);
+    hal_tasks_schedule(&button->update_task, button->debounce_delay_ms);
 }
 
 void _btn_update_callback(void *arg) {
@@ -55,6 +54,10 @@ void _btn_update_callback(void *arg) {
                            ? button->long_press_duration_ms - pressed_for
                            : 0);
     }
+}
+
+void btn_retention_wake(button_t *button) {
+    _btn_gpio_callback(button->pin, button);
 }
 
 void btn_update_debounced(button_t *button, uint8_t is_pressed,
@@ -88,7 +91,7 @@ void btn_update_debounced(button_t *button, uint8_t is_pressed,
 
     uint32_t now = hal_millis();
     if (is_pressed && !button->long_pressed &&
-        (button->long_press_duration_ms < (now - button->pressed_at_ms))) {
+        (button->long_press_duration_ms <= (now - button->pressed_at_ms))) {
         button->long_pressed = true;
         printf("Long press detected\r\n");
         if (button->on_long_press != NULL) {

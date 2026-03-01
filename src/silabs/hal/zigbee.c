@@ -118,6 +118,27 @@ void hal_zigbee_init(hal_zigbee_endpoint *endpoints, uint8_t endpoints_cnt) {
     }
 }
 
+hal_zigbee_status_t hal_zigbee_set_attribute_value(uint8_t endpoint,
+                                                   uint16_t cluster_id,
+                                                   uint16_t attribute_id,
+                                                   uint8_t *value) {
+    // For Silicon Labs, use emberAfWriteAttribute to update the ZCL table
+    // Note: This is a placeholder - proper implementation would determine data type and size
+    hal_zigbee_attribute *attr = find_hal_attr(endpoint, cluster_id, attribute_id);
+
+    if (attr == NULL) {
+        return HAL_ZIGBEE_ERROR;
+    }
+
+    // For now, just update the value pointer (Silicon Labs handles this differently)
+    // A proper implementation would call emberAfWriteAttribute()
+    sl_zigbee_af_write_attribute(endpoint, cluster_id, attribute_id,
+                                 CLUSTER_MASK_SERVER, value,
+                                 attr->data_type_id);
+
+    return HAL_ZIGBEE_OK;
+}
+
 void hal_zigbee_notify_attribute_changed(uint8_t endpoint, uint16_t cluster_id,
                                          uint16_t attribute_id) {
     hal_zigbee_cluster *  cluster = find_hal_cluster(endpoint, cluster_id);
@@ -306,4 +327,17 @@ hal_zigbee_status_t hal_zigbee_send_announce(void) {
 }
 
 void hal_zigbee_init_ota() {
+}
+
+// Battery device sleep support (currently only on Telink platform)
+void hal_zigbee_check_settle_timer(void) {
+    // Silabs: no-op (sleep management not yet implemented)
+}
+
+void hal_zigbee_check_report_active_timer(void) {
+    // Silabs: no-op (sleep management not yet implemented)
+}
+
+void hal_zigbee_check_post_settle_timer(void) {
+    // Silabs: no-op (sleep management not yet implemented)
 }

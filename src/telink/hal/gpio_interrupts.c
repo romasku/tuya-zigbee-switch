@@ -172,6 +172,14 @@ void hal_gpio_unreg_callback(hal_gpio_pin_t gpio_pin) {
     }
 }
 
+void hal_gpio_reinit_interrupts(void) {
+    // Reset ISR flag so it gets reconfigured (SFRs lost during deep retention)
+    is_isr_initialized = false;
+    init_isr();
+    ensure_valid_edges();
+    enable_all_gpio_irqs();
+}
+
 void telink_gpio_hal_setup_wake_ups() {
     for (gpio_callback_info_t *info = gpio_callbacks;
          info < gpio_callbacks + MAX_GPIO_CALLBACKS; info++) {
