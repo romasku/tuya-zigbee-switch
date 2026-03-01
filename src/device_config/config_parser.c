@@ -19,8 +19,7 @@
 #include "hal/system.h"
 #include "hal/zigbee.h"
 #include "hal/zigbee_ota.h"
-
-#define MULTI_PRESS_CNT_TO_RESET    10
+#include "device_config/device_params_nv.h"
 
 // Forward declarations
 void periferals_init(void);
@@ -74,7 +73,8 @@ void on_reset_clicked(void *_) {
 }
 
 void on_multi_press_reset(void *_, uint8_t press_count) {
-    if (press_count >= MULTI_PRESS_CNT_TO_RESET) {
+    if (g_multi_press_reset_count != 0 &&
+        press_count >= g_multi_press_reset_count) {
         hal_factory_reset();
     }
 }

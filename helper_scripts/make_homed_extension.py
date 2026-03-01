@@ -92,18 +92,29 @@ if __name__ == "__main__":
             }
         })
 
+        # multiPressResetCount on Basic cluster, endpoint 1
+        basic_custom_attrs = {
+            "multiPressResetCount": {"type": "value", "clusterId": 0x0000, "attributeId": 0xff02, "dataType": 0x20, "action": True}
+        }
+        basic_exposes = ["multiPressResetCount"]
+        basic_options = {
+            "multiPressResetCount": {"type": "number", "min": 0, "max": 255}
+        }
+
         if has_dedicated_net_led:
-            data[zb_manufacturer].append({
-                "modelNames": model_names,
-                "exposes": ["networkIndicator"],
-                "options": {
-                    "customAttributes": {
-                        "networkIndicator": {"type": "bool", "clusterId": 0x0000, "attributeId": 0xff01, "dataType": 0x10, "action": True}
-                    },
-                    "networkIndicator": {"type": "toggle"}
-                },
-                "endpointId": 1
-            })
+            basic_custom_attrs["networkIndicator"] = {"type": "bool", "clusterId": 0x0000, "attributeId": 0xff01, "dataType": 0x10, "action": True}
+            basic_exposes.append("networkIndicator")
+            basic_options["networkIndicator"] = {"type": "toggle"}
+
+        data[zb_manufacturer].append({
+            "modelNames": model_names,
+            "exposes": basic_exposes,
+            "options": {
+                "customAttributes": basic_custom_attrs,
+                **basic_options
+            },
+            "endpointId": 1
+        })
 
         if relay_cnt:
             relay_endpoints = list(range(switch_cnt + 1, switch_cnt + 1 + relay_cnt))

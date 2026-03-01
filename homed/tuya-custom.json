@@ -23,10 +23,18 @@
         "TS0004-MC"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -34,6 +42,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -254,10 +267,18 @@
         "TS0004-MC1"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -265,6 +286,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -485,10 +511,18 @@
         "TS0004-MC2"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -496,6 +530,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -710,10 +749,18 @@
         "Tuya-ZG-001"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -721,6 +768,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -928,10 +980,18 @@
         "TS0002-SC"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -939,6 +999,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -1147,10 +1212,18 @@
         "DEV-ZTU2"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -1158,6 +1231,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -1411,10 +1489,18 @@
         "WHD02-Aubess-ED"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -1422,6 +1508,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -1631,10 +1722,18 @@
         "TS0002-AUB"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -1642,6 +1741,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -1854,10 +1958,18 @@
         "TS0003-AUB"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -1865,6 +1977,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -2082,10 +2199,18 @@
         "TS0004-custom"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -2093,6 +2218,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -2311,10 +2441,18 @@
         "TS0001-AV-CUS"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -2322,6 +2460,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -2537,10 +2680,18 @@
         "TS0002-AV-CUS"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -2548,6 +2699,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -2768,10 +2924,18 @@
         "TS0003-AV-CUS"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -2779,6 +2943,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -3004,10 +3173,18 @@
         "TS0004-AV-CUS"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -3015,6 +3192,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -3237,10 +3419,18 @@
         "TS0003-AVB2"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -3248,6 +3438,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -3465,10 +3660,18 @@
         "TS0004-AVB2"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -3476,6 +3679,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -3690,10 +3898,18 @@
         "TS0001-AV-DRY"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -3701,6 +3917,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -3908,10 +4129,18 @@
         "TS0011-avatto-ED"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -3919,6 +4148,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -4130,10 +4364,18 @@
         "TS0012-avatto-ED"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -4141,6 +4383,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -4353,10 +4600,18 @@
         "TS0012-AVB1"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -4364,6 +4619,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -4576,10 +4836,18 @@
         "TS0013-AVB"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -4587,6 +4855,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -4800,10 +5073,18 @@
         "EKAC-T3092Z-CUSTOM"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -4811,6 +5092,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -5021,10 +5307,18 @@
         "TS0012-EKF"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -5032,6 +5326,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -5240,10 +5539,18 @@
         "TS0001-GS"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -5251,6 +5558,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -5458,10 +5770,18 @@
         "TS0002-GS"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -5469,6 +5789,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -5679,10 +6004,18 @@
         "TS0002-NS"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -5690,6 +6023,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -5898,10 +6236,18 @@
         "TS0002-NS1"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -5909,6 +6255,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -6119,10 +6470,18 @@
         "TS0002-FL"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -6130,6 +6489,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -6343,10 +6707,18 @@
         "TS0003-GR"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -6354,6 +6726,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -6567,10 +6944,18 @@
         "TS0001-GRA"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -6578,6 +6963,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -6785,10 +7175,18 @@
         "TS0012-C"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -6796,6 +7194,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -7004,10 +7407,18 @@
         "TS0001-GIR"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -7015,6 +7426,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -7224,10 +7640,18 @@
         "TS0002-custom"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -7235,6 +7659,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -7444,10 +7873,18 @@
         "TS130F-GIR"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -7455,6 +7892,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -7541,10 +7983,18 @@
         "TS130F-GIR-DUAL"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -7552,6 +8002,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -7638,10 +8093,18 @@
         "TS0001-GIR-1"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -7649,6 +8112,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -7854,10 +8322,18 @@
         "TS0001-HOB1"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -7865,6 +8341,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -8070,10 +8551,18 @@
         "TS0001-HOB"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -8081,6 +8570,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -8286,10 +8780,18 @@
         "TS0011-HOMMYN"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -8297,6 +8799,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -8502,10 +9009,18 @@
         "TS0001-IHS"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -8513,6 +9028,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -8724,10 +9244,18 @@
         "TS0003-3CH-cus"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -8735,6 +9263,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -8954,10 +9487,18 @@
         "TS0004-IHS"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -8965,6 +9506,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -9179,10 +9725,18 @@
         "TS0001-IHA"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -9190,6 +9744,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -9395,10 +9954,18 @@
         "TS0001-PWR"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -9406,6 +9973,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -9613,10 +10185,18 @@
         "TS0002-MSB"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -9624,6 +10204,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -9835,6 +10420,31 @@
       "modelNames": [
         "TS0003-custom"
       ],
+      "exposes": [
+        "multiPressResetCount"
+      ],
+      "options": {
+        "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
+        }
+      },
+      "endpointId": 1
+    },
+    {
+      "modelNames": [
+        "TS0003-custom"
+      ],
       "properties": [
         "status",
         "powerOnStatus"
@@ -10037,10 +10647,18 @@
         "TS0002-MS"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -10048,6 +10666,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -10260,10 +10883,18 @@
         "TS0003-MS"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -10271,6 +10902,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -10488,10 +11124,18 @@
         "TS0004-MS"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -10499,6 +11143,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -10713,10 +11362,18 @@
         "MS105-ZB-CUSTOM"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -10724,6 +11381,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -10929,10 +11591,18 @@
         "ZBMINIL2-custom"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -10940,6 +11610,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -11145,10 +11820,18 @@
         "TS0001-TLED"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -11156,6 +11839,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -11361,10 +12049,18 @@
         "TS0001-C"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -11372,6 +12068,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -11579,10 +12280,18 @@
         "TS0002-C"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -11590,6 +12299,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -11798,10 +12512,18 @@
         "WHD02-custom"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -11809,6 +12531,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -12012,10 +12739,18 @@
         "WHD02-custom"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -12023,6 +12758,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -12226,10 +12966,18 @@
         "WHD02-custom"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -12237,6 +12985,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -12442,10 +13195,18 @@
         "TS0011-custom"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -12453,6 +13214,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -12656,10 +13422,18 @@
         "TS0011-CUS-2"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -12667,6 +13441,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -12878,10 +13657,18 @@
         "TS0012-custom-end-device"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -12889,6 +13676,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -13107,10 +13899,18 @@
         "ZB08-custom-ED"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -13118,6 +13918,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -13331,10 +14136,18 @@
         "TS0001-QS-custom"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -13342,6 +14155,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -13547,10 +14365,18 @@
         "TS0011-S05"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -13558,6 +14384,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -13765,10 +14596,18 @@
         "TS0002-QS"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -13776,6 +14615,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -13984,10 +14828,18 @@
         "NovatoZRM01"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -13995,6 +14847,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -14202,10 +15059,18 @@
         "NovatoZRM02"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -14213,6 +15078,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -14421,10 +15291,18 @@
         "NovatoZNR01"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -14432,6 +15310,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -14639,10 +15522,18 @@
         "TS0012-QS"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -14650,6 +15541,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -14857,10 +15753,18 @@
         "TS130F-NOV"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -14868,6 +15772,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -14954,10 +15863,18 @@
         "TS0001-custom"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -14965,6 +15882,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -15172,10 +16094,18 @@
         "TS0002-OXT-CUS"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -15183,6 +16113,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -15393,10 +16328,18 @@
         "TS0002-custom"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -15404,6 +16347,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -15612,10 +16560,18 @@
         "TS011F-TUYA"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -15623,6 +16579,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -15828,10 +16789,18 @@
         "TS0001-TS"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -15839,6 +16808,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -16044,10 +17018,18 @@
         "TS0001-ZTU"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -16055,6 +17037,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -16266,10 +17253,18 @@
         "TS0004-Avv"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -16277,6 +17272,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -16491,10 +17491,18 @@
         "TS011F-BS-PM"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -16502,6 +17510,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -16753,10 +17766,18 @@
         "TS011F-BS"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -16764,6 +17785,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -17009,6 +18035,31 @@
           "2": "relay"
         }
       }
+    },
+    {
+      "modelNames": [
+        "TS011F-AB-PM"
+      ],
+      "exposes": [
+        "multiPressResetCount"
+      ],
+      "options": {
+        "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
+        }
+      },
+      "endpointId": 1
     },
     {
       "modelNames": [
@@ -17260,10 +18311,18 @@
         "TS0044-CUS"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -17271,6 +18330,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -17485,10 +18549,18 @@
         "TS0001-AVT"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -17496,6 +18568,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -17703,10 +18780,18 @@
         "TS0002-AVT"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -17714,6 +18799,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -17928,10 +19018,18 @@
         "Avatto-3-touch"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -17939,6 +19037,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -18158,10 +19261,18 @@
         "TS0004-AVT"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -18169,6 +19280,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -18385,10 +19501,18 @@
         "TS0001-BS-T"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -18396,6 +19520,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -18654,10 +19783,18 @@
         "TS0002-BS-1"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -18665,6 +19802,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -18929,10 +20071,18 @@
         "TS0003-BSEED"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -18940,6 +20090,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -19153,10 +20308,18 @@
         "BSLR1"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -19164,6 +20327,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -19421,10 +20589,18 @@
         "Bseed-2-gang-2-ED"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -19432,6 +20608,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -19699,10 +20880,18 @@
         "TS0013-2-BS"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -19710,6 +20899,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -19972,10 +21166,18 @@
         "TS0001-BSMN"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -19983,6 +21185,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -20194,10 +21401,18 @@
         "TS0003-BS"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -20205,6 +21420,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -20426,10 +21646,18 @@
         "TS0004-BS"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -20437,6 +21665,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -20653,10 +21886,18 @@
         "TS0001-CUS-T"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -20664,6 +21905,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -20917,10 +22163,18 @@
         "TS0002-CUS-T"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -20928,6 +22182,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -21182,10 +22441,18 @@
         "TS0011-BS-T"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -21193,6 +22460,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -21448,10 +22720,18 @@
         "Bseed-2-gang-ED"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -21459,6 +22739,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -21719,10 +23004,18 @@
         "Bseed-2-gang-3"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -21730,6 +23023,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -21989,10 +23287,18 @@
         "TS0013-BS"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -22000,6 +23306,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -22259,10 +23570,18 @@
         "TS0726-1-BS"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -22270,6 +23589,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -22523,10 +23847,18 @@
         "TS0726-2-BS"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -22534,6 +23866,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -22793,10 +24130,18 @@
         "TS0726-3-BS"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -22804,6 +24149,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -23071,10 +24421,18 @@
         "TS0726-4-BS"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -23082,6 +24440,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -23347,6 +24710,31 @@
       "modelNames": [
         "TS0001-HBS"
       ],
+      "exposes": [
+        "multiPressResetCount"
+      ],
+      "options": {
+        "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
+        }
+      },
+      "endpointId": 1
+    },
+    {
+      "modelNames": [
+        "TS0001-HBS"
+      ],
       "properties": [
         "status",
         "powerOnStatus"
@@ -23587,10 +24975,18 @@
         "TS0001-HMT"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -23598,6 +24994,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -23805,10 +25206,18 @@
         "TS0002-HMT"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -23816,6 +25225,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -24028,10 +25442,18 @@
         "TS0003-HMT"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -24039,6 +25461,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -24250,10 +25677,18 @@
         "TS0001-IHS-T"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -24261,6 +25696,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -24468,10 +25908,18 @@
         "TS0002-IHS-T"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -24479,6 +25927,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -24691,10 +26144,18 @@
         "TS0003-IHS-T"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -24702,6 +26163,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -24909,6 +26375,31 @@
           "4": "relay_right"
         }
       }
+    },
+    {
+      "modelNames": [
+        "LerLink-2-gang"
+      ],
+      "exposes": [
+        "multiPressResetCount"
+      ],
+      "options": {
+        "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
+        }
+      },
+      "endpointId": 1
     },
     {
       "modelNames": [
@@ -25161,6 +26652,31 @@
       "modelNames": [
         "LerLink-3-gang"
       ],
+      "exposes": [
+        "multiPressResetCount"
+      ],
+      "options": {
+        "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
+        }
+      },
+      "endpointId": 1
+    },
+    {
+      "modelNames": [
+        "LerLink-3-gang"
+      ],
       "properties": [
         "status",
         "powerOnStatus"
@@ -25408,6 +26924,31 @@
       "modelNames": [
         "TS0011-MH"
       ],
+      "exposes": [
+        "multiPressResetCount"
+      ],
+      "options": {
+        "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
+        }
+      },
+      "endpointId": 1
+    },
+    {
+      "modelNames": [
+        "TS0011-MH"
+      ],
       "properties": [
         "status",
         "powerOnStatus"
@@ -25644,6 +27185,31 @@
           "4": "relay_right"
         }
       }
+    },
+    {
+      "modelNames": [
+        "TS0012-MH"
+      ],
+      "exposes": [
+        "multiPressResetCount"
+      ],
+      "options": {
+        "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
+        }
+      },
+      "endpointId": 1
     },
     {
       "modelNames": [
@@ -25896,6 +27462,31 @@
       "modelNames": [
         "TS0013-MH"
       ],
+      "exposes": [
+        "multiPressResetCount"
+      ],
+      "options": {
+        "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
+        }
+      },
+      "endpointId": 1
+    },
+    {
+      "modelNames": [
+        "TS0013-MH"
+      ],
       "properties": [
         "status",
         "powerOnStatus"
@@ -26143,6 +27734,31 @@
       "modelNames": [
         "TS0011-MHB"
       ],
+      "exposes": [
+        "multiPressResetCount"
+      ],
+      "options": {
+        "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
+        }
+      },
+      "endpointId": 1
+    },
+    {
+      "modelNames": [
+        "TS0011-MHB"
+      ],
       "properties": [
         "status",
         "powerOnStatus"
@@ -26379,6 +27995,31 @@
           "4": "relay_right"
         }
       }
+    },
+    {
+      "modelNames": [
+        "TS0012-MHB"
+      ],
+      "exposes": [
+        "multiPressResetCount"
+      ],
+      "options": {
+        "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
+        }
+      },
+      "endpointId": 1
     },
     {
       "modelNames": [
@@ -26626,6 +28267,31 @@
           "6": "relay_right"
         }
       }
+    },
+    {
+      "modelNames": [
+        "TS0013-MHB"
+      ],
+      "exposes": [
+        "multiPressResetCount"
+      ],
+      "options": {
+        "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
+        }
+      },
+      "endpointId": 1
     },
     {
       "modelNames": [
@@ -26880,6 +28546,32 @@
         "Moes-1-gang",
         "Moes-1-gang-ED"
       ],
+      "exposes": [
+        "multiPressResetCount"
+      ],
+      "options": {
+        "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
+        }
+      },
+      "endpointId": 1
+    },
+    {
+      "modelNames": [
+        "Moes-1-gang",
+        "Moes-1-gang-ED"
+      ],
       "properties": [
         "status",
         "powerOnStatus"
@@ -27119,6 +28811,32 @@
           "4": "relay_right"
         }
       }
+    },
+    {
+      "modelNames": [
+        "Moes-2-gang",
+        "Moes-2-gang-ED"
+      ],
+      "exposes": [
+        "multiPressResetCount"
+      ],
+      "options": {
+        "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
+        }
+      },
+      "endpointId": 1
     },
     {
       "modelNames": [
@@ -27376,6 +29094,32 @@
         "Moes-3-gang",
         "Moes-3-gang-ED"
       ],
+      "exposes": [
+        "multiPressResetCount"
+      ],
+      "options": {
+        "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
+        }
+      },
+      "endpointId": 1
+    },
+    {
+      "modelNames": [
+        "Moes-3-gang",
+        "Moes-3-gang-ED"
+      ],
       "properties": [
         "status",
         "powerOnStatus"
@@ -27626,6 +29370,31 @@
           "8": "relay_4"
         }
       }
+    },
+    {
+      "modelNames": [
+        "MS4"
+      ],
+      "exposes": [
+        "multiPressResetCount"
+      ],
+      "options": {
+        "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
+        }
+      },
+      "endpointId": 1
     },
     {
       "modelNames": [
@@ -27888,6 +29657,31 @@
       "modelNames": [
         "MS33"
       ],
+      "exposes": [
+        "multiPressResetCount"
+      ],
+      "options": {
+        "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
+        }
+      },
+      "endpointId": 1
+    },
+    {
+      "modelNames": [
+        "MS33"
+      ],
       "properties": [
         "status",
         "powerOnStatus"
@@ -28142,10 +29936,18 @@
         "T441"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -28153,6 +29955,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -28411,10 +30218,18 @@
         "T442"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -28422,6 +30237,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -28954,10 +30774,18 @@
         "TS0001-CUS"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -28965,6 +30793,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -29176,10 +31009,18 @@
         "TS0004-CUS"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -29187,6 +31028,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -29398,6 +31244,32 @@
           "4": "relay_right"
         }
       }
+    },
+    {
+      "modelNames": [
+        "Zemi-2-gang",
+        "Zemi-2-gang-ED"
+      ],
+      "exposes": [
+        "multiPressResetCount"
+      ],
+      "options": {
+        "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
+        }
+      },
+      "endpointId": 1
     },
     {
       "modelNames": [
