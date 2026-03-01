@@ -14,7 +14,8 @@ If you have a ZS3L module, you can use the following [Tuya docs](https://develop
 
 ![PCB connections](/docs/.images/meos_4_gang_pcb.jpg)
 
-ℹ **Note:** Sometimes there is no need to solder 3.3V/GND. You can find them on the board and use connector.
+ℹ **Note:** Sometimes there is no need to solder 3.3V/GND. You can find them on the board and use a connector.
+
 ℹ **Note:** No need to solder nRST pin. It causes connection issues.
 
 ## Step 1: Hardware Wiring
@@ -32,11 +33,11 @@ Connect ZS3L to Raspberry Pi (BCM numbering):
 
 ⚠️ **NEVER use 5V - it will destroy the chip!**
 
-ℹ **Note:** No need of nRST pin. It causes connection issues.
+ℹ **Note:** No need for nRST pin. It causes connection issues.
 
 ## Step 2: Compile Custom OpenOCD
 
-Standard OpenOCD doesn't support EFM32 Series 2. Configure the [knieriem's fork](https://github.com/knieriem/openocd-efm32-series2):
+Standard OpenOCD doesn't support EFM32 Series 2. Use [knieriem's fork](https://github.com/knieriem/openocd-efm32-series2):
 
 ```bash
 sudo apt-get update
@@ -48,8 +49,8 @@ cd openocd-efm32-series2
 ./setup-openocd-src.sh
 ```
 
-You will be asked to run `./build.sh`, but don't. This is not needed while using GPIO.
-If you use some USB programmer, you may need to run `./build.sh` to compile the driver.
+You will be asked to run `./build.sh`, but skip this step — it's not needed when using GPIO.
+If you use a USB programmer, you may need to run `./build.sh` to compile the driver.
 
 Compile the driver:
 
