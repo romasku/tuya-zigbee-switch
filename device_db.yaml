@@ -1895,6 +1895,33 @@ MODULE_TUYA_DEFAULT_B_TS0001:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/6
   store: https://www.aliexpress.com/item/1005007295460273.html
+MODULE_TUYA_DEFAULT_C_TS0001:
+  human_name: Tuya default 1-gang 🅲
+  category: module
+  power: mains
+  neutral: required
+  output: relay
+  device_type: router
+  stock_model_name: TS0001
+  stock_manufacturer_name: _TZ3000_skueekg3
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: WHD02
+  override_z2m_device: null
+  tuya_module: ZT2S
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: skueekg3C;TS0001-CC;BD2u;LC3i;SB5u;RB4;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4107
+  stock_image_type: 524
+  firmware_image_type: 43630
+  build: yes
+  status: fully_supported
+  info: Supported
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/362
+  store: null
 MODULE_TUYA_GIRIER_TS0011:
   human_name: Tuya/Girier 1-gang L-only 🅰
   category: module
