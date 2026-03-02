@@ -178,3 +178,83 @@ void ensure_valid_output_pin(hal_gpio_pin_t gpio_pin) {
         exit(1);
     }
 }
+
+typedef struct {
+  uint8_t initialized;
+  uint32_t value;
+  hal_gpio_pin_t gpio_pin;
+  hal_gpio_counter_t *handle;
+} stub_gpio_counter_t;
+
+static stub_gpio_counter_t gpio_counter[2];
+
+
+hal_gpio_counter_t hal_gpio_counter_init(hal_gpio_pin_t gpio_pin,
+                                         hal_gpio_counter_edge_t edge,
+                                         hal_gpio_pull_t pull) {
+
+  for (int i = 0; i < 2; i++) {
+    if (!gpio_counter[i].initialized) {
+      gpio_counter[i].initialized = 1;
+      gpio_counter[i].value = 0;
+      gpio_counter[i].gpio_pin = gpio_pin;
+      gpio_counter[i].handle = (hal_gpio_counter_t *)(uintptr_t)i;
+      io_log("GPIO", "Initialized GPIO counter %d on pin %d", i, gpio_pin);
+      return (hal_gpio_counter_t)(uintptr_t)i;
+    }
+  }
+
+  return HAL_GPIO_COUNTER_INVALID;
+}
+
+uint32_t hal_gpio_counter_read(hal_gpio_counter_t counter) {
+  if (counter < 0 || counter >= 2 || !gpio_counter[counter].initialized) {
+    io_log("GPIO", "Error: Invalid GPIO counter %d read", counter);
+    return 0;
+  }
+
+  io_log("GPIO", "Read GPIO counter %d = %u", counter,
+         gpio_counter[counter].value);
+
+  for (int i = 0; i < 2; i++) {
+    if (gpio_counter[i].initialized && gpio_counter[i].handle == counter) {
+      return gpio_counter[i].value;
+    }
+  }
+
+  return 0;
+}
+
+void hal_gpio_counter_reset(hal_gpio_counter_t counter) {
+    if (!counter) {
+      return;
+    }
+
+  for (int i = 0; i < 2; i++) {
+    if (gpio_counter[i].initialized && gpio_counter[i].handle == counter) {
+      gpio_counter[i].value = 0;
+      break;
+    }
+  }
+}
+
+void hal_gpio_counter_stop(hal_gpio_counter_t counter) {
+  // No-op in stub
+}
+
+void hal_gpio_counter_start(hal_gpio_counter_t counter) {
+  // No-op in stub
+}
+
+void stub_set_pulse_counter(hal_gpio_pin_t gpio_pin, uint32_t value) {
+  io_log("GPIO", "Stub: set pulse counter on pin %d to %u", gpio_pin, value);
+
+  for (int i = 0; i < 2; i++) {
+    if (gpio_counter[i].initialized && gpio_counter[i].gpio_pin == gpio_pin) {
+      gpio_counter[i].value = value;
+      return;
+    }
+  }
+
+  io_log("GPIO", "Stub: no pulse counter found on pin %d to set value", gpio_pin);
+}
