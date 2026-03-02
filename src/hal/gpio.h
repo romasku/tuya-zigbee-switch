@@ -96,18 +96,18 @@ hal_gpio_pull_t hal_gpio_parse_pull(const char *pull_str);
 
 /*
  * Hardware GPIO Pulse Counter API
- * 
+ *
  * Some platforms support hardware-based pulse counting on GPIO pins,
  * allowing accurate counting without CPU intervention.
  */
 
-#define HAL_GPIO_COUNTER_INVALID -1
+#define HAL_GPIO_COUNTER_INVALID    -1
 
 typedef int8_t hal_gpio_counter_t;
 
 typedef enum {
-  HAL_GPIO_COUNTER_RISING = 0,
-  HAL_GPIO_COUNTER_FALLING = 1,
+    HAL_GPIO_COUNTER_RISING  = 0,
+    HAL_GPIO_COUNTER_FALLING = 1,
 } hal_gpio_counter_edge_t;
 
 /**
@@ -124,7 +124,7 @@ hal_gpio_counter_t hal_gpio_counter_init(hal_gpio_pin_t gpio_pin,
 /**
  * Deinitialize a hardware pulse counter and free resources
  * @param counter Counter handle from hal_gpio_counter_init
- */                                         
+ */
 void hal_gpio_counter_deinit(hal_gpio_counter_t counter);
 
 /**
@@ -160,11 +160,11 @@ void hal_gpio_counter_stop(hal_gpio_counter_t counter);
  * @return Current pulse count before reset
  */
 static inline uint32_t hal_gpio_counter_read_and_reset(hal_gpio_counter_t counter) {
-  hal_gpio_counter_stop(counter);
-  uint32_t count = hal_gpio_counter_read(counter);
-  hal_gpio_counter_reset(counter);
-  hal_gpio_counter_start(counter);
-  return count;
+    hal_gpio_counter_stop(counter);
+    uint32_t count = hal_gpio_counter_read(counter);
+    hal_gpio_counter_reset(counter);
+    hal_gpio_counter_start(counter);
+    return count;
 }
 
 #endif
