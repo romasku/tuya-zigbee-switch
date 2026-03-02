@@ -1222,6 +1222,35 @@ MODULE_GIRIER_ZTU_TS0001:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/212
   store: null
+MODULE_HOBEIAN_MINI_TS0001:
+  human_name: HOBEIAN ZG-301Z mini
+  category: module
+  power: mains
+  neutral: required
+  output: relay
+  device_type: router
+  stock_model_name: ZG-301Z
+  stock_manufacturer_name: HOBEIAN
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: WHD02
+  override_z2m_device: ZG-301Z
+  tuya_module: none
+  mcu_family: Telink
+  mcu: TLSR8253F512AT32
+  config_str: ZG-301Z;TS0001-HOBM;BD7u;LD4i;SB6u;RA1;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: null
+  stock_image_type: null
+  firmware_image_type: 43631
+  build: yes
+  status: fully_supported
+  info: Supported
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/347
+  store: 
+  - https://www.aliexpress.com/item/1005011618936071.html
+  - https://www.aliexpress.com/item/1005011567311112.html
 MODULE_HOBEIAN_TS0001_1:
   human_name: HOBEIAN ZG-301Z V1.3
   category: module
