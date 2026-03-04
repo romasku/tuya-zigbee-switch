@@ -3321,7 +3321,7 @@ SWITCH_BSEED_TS0726_1GANG:
   power: mains
   neutral: required
   output: relay
-  device_type: router
+  device_type: end_device # requested
   stock_model_name: TS0726
   stock_manufacturer_name: _TZ3002_jn2x20tg
   stock_converter_manufacturer: Tuya
@@ -3352,7 +3352,7 @@ SWITCH_BSEED_TS0726_2GANG:
   power: mains
   neutral: required
   output: relay
-  device_type: router
+  device_type: end_device # requested
   stock_model_name: TS0726
   stock_manufacturer_name: _TZ3002_zjuvw9zf
   stock_converter_manufacturer: Tuya
