@@ -1698,6 +1698,33 @@ MODULE_MOES_ZM4LT4_TS0004:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/167
   store: https://www.aliexpress.com/item/1005009640015785.html
+MODULE_NOUS_B1Z_TS0001:
+  human_name: Nous B1Z
+  category: module
+  power: mains
+  neutral: required
+  output: relay
+  device_type: router
+  stock_model_name: TS0001
+  stock_manufacturer_name: _TZ3000_ctftgjwb
+  stock_converter_manufacturer: Nous
+  stock_converter_model: TS0001
+  override_z2m_device: B1Z
+  tuya_module: none # CCTD20Z01
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: ctftgjwb;TS0001-nous;BB4u;LB6i;SC2f;RD2;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
+  firmware_image_type: 43633
+  build: yes
+  status: fully_supported
+  info: Supported
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/364
+  store: https://nous.technology/product/b1z.html
 MODULE_NOVADIGITAL_TS0001:
   human_name: NovaDigital MS105-ZB
   category: module
