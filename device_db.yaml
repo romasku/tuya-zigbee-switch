@@ -65,8 +65,8 @@ BOARD__MHCOZY_TS0004_1:
   build: yes
   status: mostly_supported
   info: Needs pinout confirmation
-  threads: null
-  store: null
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/245
+  store: https://github.com/romasku/tuya-zigbee-switch/issues/245
 BOARD__MHCOZY_TS0004_2:
   human_name: MHCOZY TYWB 4ch-RF <br> ZG-005(-RF) 🅲
   category: board
@@ -4221,8 +4221,8 @@ SWITCH_MOES_SCENE_TS0726_3GANG_3SCENE:
   info: Only 4 buttons supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/332
   store: null
-SWITCH_PSMART_TS0001:
-  human_name: PSMART T441/T451
+SWITCH_PSMART_SL_TS0001:
+  human_name: PSMART T441/T451 SL
   category: switch
   power: mains
   neutral: required
@@ -4249,8 +4249,8 @@ SWITCH_PSMART_TS0001:
   info: Backlight on A5. If relay is not used, see alt_config.
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/252
   store: https://psmart.pl/pl/p/PSMART-Przelacznik-1-obwod-C-RM-ZigBee-TUYA/2053
-SWITCH_PSMART_TS0002:
-  human_name: PSMART T442/T452
+SWITCH_PSMART_SL_TS0002:
+  human_name: PSMART T442/T452 SL
   category: switch
   power: mains
   neutral: required
@@ -4277,8 +4277,8 @@ SWITCH_PSMART_TS0002:
   info: Backlight on A5 (3rd relay with alt_config)
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/252
   store: https://psmart.pl/pl/p/PSMART-Przelacznik-2-obwody-C-RM-ZigBee-TUYA/2052
-SWITCH_PSMART_TS0003:
-  human_name: PSMART T443/T453
+SWITCH_PSMART_SL_TS0003:
+  human_name: PSMART T443/T453 SL
   category: switch
   power: mains
   neutral: required
