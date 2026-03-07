@@ -1578,16 +1578,16 @@ MODULE_MOES_TS0011:
   tuya_module: ZS2S
   mcu_family: Silabs
   mcu: EFR32MG21A020F768IM32
-  config_str: zzoangmc;TS0011-MS;BB1u;LA3;S??u;RA4;M;
+  config_str: zzoangmc;TS0011-MS;LA3;SB1u;RA4;M;
   alt_config_str: null
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
   stock_image_type: 54179
   firmware_image_type: 43629
-  build: no
-  status: in_progress
-  info: Device damaged. Buzzer A3, button B1, no switch pin? 
+  build: yes
+  status: mostly_supported
+  info: Buzzer A3, switch + button wired together 
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/343
   store: https://moeshouse.com/products/zm-104l-ms-zigbee-module
 MODULE_MOES_ZM4LT1_TS0001:
@@ -4236,16 +4236,16 @@ SWITCH_PSMART_TL_TS0001:
   tuya_module: ZT3L
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: l67wb0p1;TS0001-PST;LC2;SA6u;RB0;IA0;M;
-  alt_config_str: l67wb0p1;TS0001-PST;LC2;SA6u;RA5;IA0i;M;
+  config_str: l67wb0p1;TS0001-PST;LB1;SB7u;RB4;ID2;M;
+  alt_config_str: l67wb0p1;TS0001-PST;LA0;SB7u;RB4;ID2;M;
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
   stock_image_type: 54179
   firmware_image_type: 43636
   build: yes
-  status: mostly_supported
-  info: Backlight on A5. If relay is not used, see alt_config.
+  status: in_progress
+  info: Needs pinout
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/252
   store: https://psmart.pl/pl/p/PSMART-Przelacznik-1-obwod-C-RM-ZigBee-TUYA/2053
 SWITCH_PSMART_TL_TS0002:
@@ -4263,16 +4263,16 @@ SWITCH_PSMART_TL_TS0002:
   tuya_module: ZT3L
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: cmgs1zkr;TS0002-PST;LC2;SA3u;RA4;IC0;SB1u;RD1;IC1;M;
-  alt_config_str: cmgs1zkr;TS0002-PST;LC2;SA3u;RA4;IC0;SB1u;RD1;IC1;SB0u;RA5;IA6;M;
+  config_str: cmgs1zkr;TS0002-PST;LB1;SC3u;RC2;ID7;SB5u;RC0;IC4;M;
+  alt_config_str: cmgs1zkr;TS0002-PST;LA0;SC3u;RC2;ID7;SB5u;RC0;IC4;M;
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
   stock_image_type: 54179
   firmware_image_type: 43637
   build: yes
-  status: mostly_supported
-  info: Backlight on A5 (3rd relay with alt_config)
+  status: in_progress
+  info: Needs pinout
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/252
   store: https://psmart.pl/pl/p/PSMART-Przelacznik-2-obwody-C-RM-ZigBee-TUYA/2052
 SWITCH_PSMART_SL_TS0001:
@@ -4355,7 +4355,7 @@ SWITCH_PSMART_SL_TS0003:
   firmware_image_type: 43592
   build: yes
   status: mostly_supported
-  info: Backlight on A5. Needs pinout confirmation
+  info: Backlight on A5
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/252
   store: https://psmart.pl/pl/p/PSMART-Przelacznik-3-obwody-C-RM-ZigBee-TUYA/2051
 SWITCH_TUYA_CN_TS0001:
