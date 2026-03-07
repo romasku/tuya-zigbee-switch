@@ -4221,6 +4221,60 @@ SWITCH_MOES_SCENE_TS0726_3GANG_3SCENE:
   info: Only 4 buttons supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/332
   store: null
+SWITCH_PSMART_TL_TS0001:
+  human_name: PSMART T441/T451 TL
+  category: switch
+  power: mains
+  neutral: required
+  output: relay
+  device_type: router
+  stock_model_name: TS0001
+  stock_manufacturer_name: _TZ3000_l67wb0p1
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0001
+  override_z2m_device: null
+  tuya_module: ZT3L
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: l67wb0p1;TS0001-PST;LC2;SA6u;RB0;IA0;M;
+  alt_config_str: l67wb0p1;TS0001-PST;LC2;SA6u;RA5;IA0i;M;
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
+  firmware_image_type: 43636
+  build: yes
+  status: mostly_supported
+  info: Backlight on A5. If relay is not used, see alt_config.
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/252
+  store: https://psmart.pl/pl/p/PSMART-Przelacznik-1-obwod-C-RM-ZigBee-TUYA/2053
+SWITCH_PSMART_TL_TS0002:
+  human_name: PSMART T442/T452 TL
+  category: switch
+  power: mains
+  neutral: required
+  output: relay
+  device_type: router
+  stock_model_name: TS0002
+  stock_manufacturer_name: _TZ3000_cmgs1zkr
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0002
+  override_z2m_device: null
+  tuya_module: ZT3L
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: cmgs1zkr;TS0002-PST;LC2;SA3u;RA4;IC0;SB1u;RD1;IC1;M;
+  alt_config_str: cmgs1zkr;TS0002-PST;LC2;SA3u;RA4;IC0;SB1u;RD1;IC1;SB0u;RA5;IA6;M;
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
+  firmware_image_type: 43637
+  build: yes
+  status: mostly_supported
+  info: Backlight on A5 (3rd relay with alt_config)
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/252
+  store: https://psmart.pl/pl/p/PSMART-Przelacznik-2-obwody-C-RM-ZigBee-TUYA/2052
 SWITCH_PSMART_SL_TS0001:
   human_name: PSMART T441/T451 SL
   category: switch
