@@ -15,6 +15,7 @@ Please describe what you are working on:
 - Relays now respond to *MoveToLevelWithOnOff*
   - Level = 0 -> Turn off relay
   - Level > 0 -> Turn on  relay
+- Configurable multi-press factory reset count (set 1-255 or 0 to disable)
 
 ### Changes
 
