@@ -140,6 +140,29 @@ const romasku = {
             access: "ALL",
             entityCategory: "config",
         }),
+    batteryPercentage: () => {
+        const result = numeric({
+            name: "battery",
+            cluster: "genPowerCfg",
+            attribute: "batteryPercentageRemaining",
+            description: "Remaining battery in %",
+            valueMin: 0,
+            valueMax: 100,
+            unit: "%",
+            access: "STATE_GET",
+            entityCategory: "diagnostic",
+        });
+        // Patch fromZigbee to convert ZCL 0-200 to 0-100%
+        const origConvert = result.fromZigbee[0].convert;
+        result.fromZigbee[0].convert = (model, msg, publish, options, meta) => {
+            const r = origConvert(model, msg, publish, options, meta);
+            if (r && r.battery !== undefined) {
+                r.battery = Math.round(r.battery / 2);
+            }
+            return r;
+        };
+        return result;
+    },
     networkIndicator: (name, endpointName) =>
         binary({
             name,
@@ -332,7 +355,10 @@ const definitions = [
         model: "{{device.model}}",
         vendor: "Tuya-custom",
         description: "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
+        {% set first_endpoint = device.switchNames[0] if device.switchNames else (device.relayNames[0] if device.relayNames else device.coverNames[0]) %}
         extend: [
+            {% if device.is_battery_powered %}
+            romasku.batteryPercentage(),
             {% if device.coverSwitchNames %}
             deviceAddCustomCluster("manuSpecificTuyaCoverSwitchConfig", {
                 ID: 0xFC01,
@@ -384,8 +410,10 @@ const definitions = [
             romasku.pressAction("{{switchName}}_press_action", "{{switchName}}"),
             romasku.switchMode("{{switchName}}_mode", "{{switchName}}"),
             romasku.switchAction("{{switchName}}_action_mode", "{{switchName}}"),
+            {% if device.relayNames %}
             romasku.relayMode("{{switchName}}_relay_mode", "{{switchName}}"),
             romasku.relayIndex("{{switchName}}_relay_index", "{{switchName}}", {{device.relayNames | length}}),
+            {% endif %}
             romasku.bindedMode("{{switchName}}_binded_mode", "{{switchName}}"),
             romasku.longPressDuration("{{switchName}}_long_press_duration", "{{switchName}}"),
             romasku.levelMoveRate("{{switchName}}_level_move_rate", "{{switchName}}"),
@@ -431,6 +459,20 @@ const definitions = [
                 },
             ]);
             {% endfor %}
+            {% if device.is_battery_powered %}
+            // Battery reporting
+            const batteryEndpoint = device.getEndpoint(1);
+            await reporting.bind(batteryEndpoint, coordinatorEndpoint, ["genPowerCfg"]);
+            await batteryEndpoint.configureReporting("genPowerCfg", [
+                {
+                    attribute: {ID: 0x0021, type: 0x20}, // BatteryPercentageRemaining
+                    minimumReportInterval: 0,
+                    maximumReportInterval: constants.repInterval.HOUR,
+                    reportableChange: 2, // 1% (2 in ZCL 0-200 format)
+                },
+            ]);
+            await batteryEndpoint.read("genPowerCfg", [0x0021, 0x0020]);
+            {% endif %}
             {% for relayName in device.relayNames %}
             const endpoint{{loop.index  + (device.switchNames | length)}} = device.getEndpoint({{loop.index  + (device.switchNames | length)}});
             await reporting.onOff(endpoint{{loop.index  + (device.switchNames | length)}}, {

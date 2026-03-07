@@ -93,6 +93,22 @@ hal_zigbee_network_status_t hal_zigbee_get_network_status(void) {
     return network_status;
 }
 
+bool hal_zigbee_is_sleep_allowed(void) {
+    return network_status == HAL_ZIGBEE_NETWORK_JOINED;
+}
+
+void hal_zigbee_check_settle_timer(void) {
+    // Stub: no-op (no settle timer in stub mode)
+}
+
+void hal_zigbee_check_report_active_timer(void) {
+    // Stub: no-op (no report active timer in stub mode)
+}
+
+void hal_zigbee_check_post_settle_timer(void) {
+    // Stub: no-op (no post-settle transition in stub mode)
+}
+
 static hal_network_status_change_callback_t network_status_change_callback =
     NULL;
 
@@ -123,29 +139,33 @@ void hal_zigbee_start_network_steering() {
     }
 }
 
-void hal_zigbee_notify_attribute_changed(uint8_t endpoint, uint16_t cluster_id,
-                                         uint16_t attribute_id) {
-    io_log("ZIGBEE", "Attribute changed: ep=%d, cluster=0x%04x, attr=0x%04x",
-           endpoint, cluster_id, attribute_id);
-    hal_zigbee_attribute *attr = hal_zigbee_find_attribute(
-        endpoints, endpoints_count, endpoint, cluster_id, attribute_id);
-    if (!attr) {
-        io_log("ZIGBEE",
-               "Error: Notified about change of unregistered attribute "
-               "not found for ep=%d, cluster=0x%04x, attr=0x%04x",
-               endpoint, cluster_id, attribute_id);
-
-        // TODO: Fix this properly
-        // exit(1);
-    }
-    io_evt("zcl_attr_change ep=%u cluster=0x%04X attr=0x%04X", endpoint,
-           cluster_id, attribute_id);
-}
-
 void hal_zigbee_register_on_attribute_change_callback(
     hal_attribute_change_callback_t callback) {
     attr_change_callback = callback;
     io_log("ZIGBEE", "Registered attribute change callback");
+}
+
+hal_zigbee_status_t hal_zigbee_set_attribute_value(uint8_t endpoint,
+                                                   uint16_t cluster_id,
+                                                   uint16_t attribute_id,
+                                                   uint8_t *value) {
+    io_log("ZIGBEE", "Setting attribute: ep=%d, cluster=0x%04x, attr=0x%04x",
+           endpoint, cluster_id, attribute_id);
+    // In stub, this is a no-op since we don't have a real SDK table to update
+    return HAL_ZIGBEE_OK;
+}
+
+void hal_zigbee_notify_attribute_changed(uint8_t endpoint, uint16_t cluster_id,
+                                         uint16_t attribute_id) {
+    io_log("ZIGBEE", "Attribute changed: ep=%d, cluster=0x%04x, attr=0x%04x",
+           endpoint, cluster_id, attribute_id);
+    // In stub, do NOT call attr_change_callback here.
+    // That callback models "attribute written via Zigbee" (incoming write).
+    // Calling it from notify_attribute_changed() causes recursion when the
+    // application updates attributes in response to a write.
+    // Instead, emit an event so Python tests can observe the change.
+    io_evt("zcl_attr_change ep=%u cluster=0x%04X attr=0x%04X", endpoint,
+           cluster_id, attribute_id);
 }
 
 hal_zigbee_status_t hal_zigbee_send_cmd_to_bindings(const hal_zigbee_cmd *cmd) {

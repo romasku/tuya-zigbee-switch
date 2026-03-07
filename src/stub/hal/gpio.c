@@ -122,6 +122,14 @@ hal_gpio_pull_t hal_gpio_parse_pull(const char *pull_str) {
     return HAL_GPIO_PULL_INVALID;
 }
 
+void hal_gpio_reinit_all(void) {
+    // No-op in stub (no SFR to restore)
+}
+
+void hal_gpio_reinit_interrupts(void) {
+    // No-op in stub (no SFR to restore)
+}
+
 // Stub-specific functions for testing
 
 void stub_gpio_simulate_input(hal_gpio_pin_t gpio_pin, uint8_t value) {

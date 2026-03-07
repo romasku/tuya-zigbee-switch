@@ -7,6 +7,7 @@
 // Clusters
 
 #define ZCL_CLUSTER_BASIC                     0
+#define ZCL_CLUSTER_POWER_CFG                 1
 #define ZCL_CLUSTER_ON_OFF                    6
 #define ZCL_CLUSTER_ON_OFF_SWITCH_CONFIG      7
 #define ZCL_CLUSTER_MULTISTATE_INPUT_BASIC    0x0012
@@ -42,6 +43,17 @@
 
 #define ZCL_ATTR_BASIC_DEVICE_CONFIG        0xff00
 #define ZCL_ATTR_BASIC_STATUS_LED_STATE     0xff01
+
+// Power Configuration cluster
+
+#define ZCL_ATTR_POWER_CFG_BATTERY_VOLTAGE       0x0020
+#define ZCL_ATTR_POWER_CFG_BATTERY_PERCENTAGE    0x0021
+
+// Power source values
+#define POWER_SOURCE_UNKNOWN                     0x00
+#define POWER_SOURCE_MAINS_1_PHASE               0x01
+#define POWER_SOURCE_BATTERY                     0x03
+#define POWER_SOURCE_DC                          0x04
 
 // OnOff cluster
 
