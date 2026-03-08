@@ -58,6 +58,9 @@ if __name__ == "__main__":
     if "netled1_pin" in config_dict:
         pin = pin_map[config_dict["netled1_pin"]]
         custom_config += f"L{pin};"
+    if "backlit_io_pin" in config_dict:
+        pin = pin_map[config_dict["backlit_io_pin"]]
+        custom_config += f"L{pin};"
 
     for gang_index in range(1, 5):
         btn_key = f"bt{gang_index}_pin"
