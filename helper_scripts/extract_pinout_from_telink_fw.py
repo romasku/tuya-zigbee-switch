@@ -37,6 +37,9 @@ if __name__ == "__main__":
 
     pin_map = {
         "0": "A0",
+        "1": "A1", # not confirmed
+        "2": "A2", # not confirmed
+        "3": "B1",
         "4": "B4",
         "5": "B5",
         "6": "B6",
