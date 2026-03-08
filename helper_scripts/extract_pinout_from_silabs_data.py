@@ -4,25 +4,24 @@ from pathlib import Path
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
-        description="Extract pinout from stock firmware dump",
-        epilog="Generates a js file that adds support of re-flashed devices to z2m",
+        description="Extract pinout from Tuya Silabs stock user_data dump",
+        epilog="Generates config string",
     )
     parser.add_argument(
-        "stock_fw", metavar="INPUT", type=str, help="File with stock firmware"
+        "user_data", metavar="INPUT", type=str, help="File with stock user_data"
     )
 
     args = parser.parse_args()
 
-    firmare_bin = Path(args.stock_fw).read_bytes()
+    user_data = Path(args.user_data).read_bytes()
 
-    approx_config_part = firmare_bin[0xf8000:0xf9000]
-    start_pos = approx_config_part.find(b"{")
-    end_pos = approx_config_part.find(b"}", start_pos)
+    start_pos = user_data.find(b"{")
+    end_pos = user_data.find(b"}", start_pos)
     if start_pos == -1 or end_pos == -1:
         print("No config found")
         exit(1)
     
-    config = approx_config_part[start_pos + 1:end_pos]
+    config = user_data[start_pos + 1:end_pos]
 
     entries = [
         entry.split(":") for entry in config.decode().split(",")
@@ -35,21 +34,29 @@ if __name__ == "__main__":
 
     custom_config = ""
 
+    # Confirmed on ZSU, ZS3L (EFR32MG21)
     pin_map = {
-        "0": "A0",
-        "4": "B4",
-        "5": "B5",
-        "6": "B6",
-        "7": "B7",
-        "8": "C0",
-        "9": "C1",
-        "10": "C2",
-        "11": "C3",
-        "12": "C4",
-        "13": "D2",
-        "14": "D3",
-        "15": "D4",
-        "16": "D7",
+        "1": "A0",
+        "2": "A1",
+        "3": "A2",
+        "4": "A3",
+        "5": "A4",
+        "6": "A5",
+        "7": "A6",
+        "8": "B0",
+        "9": "B1",
+        "10": "C0",
+        "11": "C1",
+        "12": "C2",
+        "13": "C3",
+        "14": "C4",
+        "15": "C5",
+        "16": "D0",
+        "17": "D1",
+        "18": "D2",
+        "19": "D3",
+        "20": "D4",
+        "21": "D5",
     }
 
     if "total_bt_pin" in config_dict:
