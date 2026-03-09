@@ -1085,6 +1085,33 @@ MODULE_GIRIER_B_TS0012:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/323
   store: null
+MODULE_GIRIER_DRY_TS0001:
+  human_name: Girier 1-gang dry-contact
+  category: module
+  power: mains
+  neutral: required
+  output: relay
+  device_type: router
+  stock_model_name: TS0001
+  stock_manufacturer_name: _TZ3210_tqlv4ug4
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0001_switch_module
+  override_z2m_device: null
+  tuya_module: ZT3L
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: tqlv4ug42;TS0001-GD;BD2u;LC0;SB4u;RC2;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 513
+  firmware_image_type: 43638
+  build: yes
+  status: fully_supported
+  info: Supported
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/366
+  store: null
 MODULE_GIRIER_TS0001:
   human_name: Girier JR-ZDS01 🅱
   category: module
