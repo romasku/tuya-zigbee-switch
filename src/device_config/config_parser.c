@@ -165,7 +165,7 @@ void parse_config() {
                 }
             }
             leds_cnt++;
-        } else if (entry[0] == 'S' || entry[0] == 'P') {
+        } else if (entry[0] == 'S') {
             hal_gpio_pin_t  pin  = hal_gpio_parse_pin(entry + 1);
             hal_gpio_pull_t pull = hal_gpio_parse_pull(entry + 3);
             hal_gpio_init(pin, 1, pull);
@@ -183,13 +183,10 @@ void parse_config() {
                 ZCL_ONOFF_CONFIGURATION_SWITCH_TYPE_TOGGLE;
             switch_clusters[switch_clusters_cnt].action =
                 ZCL_ONOFF_CONFIGURATION_SWITCH_ACTION_TOGGLE_SIMPLE;
-            switch_clusters[switch_clusters_cnt].relay_mode =
-                (entry[0] == 'P') ? ZCL_ONOFF_CONFIGURATION_RELAY_MODE_DETACHED
-                            : ZCL_ONOFF_CONFIGURATION_RELAY_MODE_SHORT;
+            switch_clusters[switch_clusters_cnt].relay_mode = ZCL_ONOFF_CONFIGURATION_RELAY_MODE_SHORT;
             switch_clusters[switch_clusters_cnt].binded_mode =
                 ZCL_ONOFF_CONFIGURATION_BINDED_MODE_SHORT;
-            switch_clusters[switch_clusters_cnt].relay_index =
-                (entry[0] == 'P') ? 0 : (switch_clusters_cnt + 1);
+            switch_clusters[switch_clusters_cnt].relay_index = switch_clusters_cnt + 1;
             switch_clusters[switch_clusters_cnt].button          = &buttons[buttons_cnt];
             switch_clusters[switch_clusters_cnt].level_move_rate = 50;
             buttons_cnt++;
@@ -283,6 +280,15 @@ void parse_config() {
                               cover_switch_clusters_cnt + cover_clusters_cnt;
 
     hal_zigbee_cluster *cluster_ptr = clusters;
+
+    if (relay_clusters_cnt == 0) {
+        // If there is no relays, then set all switches to detached mode
+        // to avoid them trying to control non-existing relays
+        for (int index = 0; index < switch_clusters_cnt; index++) {
+            switch_clusters[index].relay_mode = ZCL_ONOFF_CONFIGURATION_RELAY_MODE_DETACHED;
+            switch_clusters[index].relay_index = 0;
+        }
+    }
 
     // special case when no switches or relays are defined, so we can init a
     // "clean" device and configure it while running endpoint 1 still needs to be

@@ -1,4 +1,4 @@
-*Open the **Outline** (table of contents) from the top right.*  
+_Open the **Outline** (table of contents) from the top right._
 
 # Firmware Changelog
 
@@ -8,18 +8,17 @@ Please describe what you are working on:
 
 ### Features
 
-- **Cover cluster** (window covering) for controlling the motor of curtains, blinds, and shutters.  
+- **Cover cluster** (window covering) for controlling the motor of curtains, blinds, and shutters.
   Supports open, close, and stop commands with motor safety delays.
-- **Cover switch cluster** for handling user input from window covering switches.  
+- **Cover switch cluster** for handling user input from window covering switches.
   Supports toggle/momentary switches, stop-on-repeat, stop button, local control, and remote device binding.
 - Relays now respond to *MoveToLevelWithOnOff*
   - Level = 0 -> Turn off relay
   - Level > 0 -> Turn on  relay
 - Configurable multi-press factory reset count (set 1-255 or 0 to disable)
-- **Push-button without relay** (`P` prefix in config string)
-  - Battery-powered scene switches (buttons only, no relays)
+- **Push-button without relay** support for battery-powered scene switches
+  - Switches auto-detect absence of relays and default to detached mode
   - New device: Moes 4-gang scene switch (`REMOTE_MOES_SWITCH_TS0044`)
-  - `P` entries default to detached relay mode with relay_index 0
 - **Battery measurement & reporting** (Zigbee `genPowerCfg` cluster) for Telink devices
 - **Deep retention sleep** for Telink end devices
 
@@ -67,11 +66,11 @@ Please describe what you are working on:
 
 ## v1.1.2
 
-*Bug-fix update*
+_Bug-fix update_
 
 ### Bugs
 
-- **Fixed** 
+- **Fixed**
   - Setting 'long press duration' to 0ms crashes device
   - Can't change device imageType in config string
   - Option 'Relay indicator - manual on' is not kept after reboot
@@ -79,7 +78,7 @@ Please describe what you are working on:
 
 ## v1.1.1
 
-*Critical bug-fix update for previous version*
+_Critical bug-fix update for previous version_
 
 ### Changes
 
@@ -91,7 +90,7 @@ Please describe what you are working on:
 
 ## v1.1.0
 
-*Contains **substantial restructuring** of the firmware architecture, but doesn't bring new features*
+_Contains **substantial restructuring** of the firmware architecture, but doesn't bring new features_
 
 ### Changes
 
@@ -103,9 +102,9 @@ Please describe what you are working on:
 
 ### Bugs
 
-- **Fixed** 
+- **Fixed**
   - Old SDK freezes device in some network conditions
-- **New** 
+- **New**
   - Floating pin (or other device conditions) **freezes device**
   - Setting 'long press duration' to 0ms **crashes device**
   - Can't change device imageType in config string
@@ -113,10 +112,10 @@ Please describe what you are working on:
   - Relay indicators sometimes go out-of-sync ([#38](https://github.com/romasku/tuya-zigbee-switch/issues/38))
   - Telink End_device unreachable from Z2M after a while ([#217](https://github.com/romasku/tuya-zigbee-switch/issues/217))
   - Switch randomly toggles on TLSR8253 512KB devices ([#289](https://github.com/romasku/tuya-zigbee-switch/issues/289))
-  (HOBEIAN and Zbeacon)
-  - *Power-on behavior* doesn't fully work on some devices
-  - *momentary_nc* not working after power loss.  
-  (Apply the setting again)
+    (HOBEIAN and Zbeacon)
+  - _Power-on behavior_ doesn't fully work on some devices
+  - _momentary_nc_ not working after power loss.  
+    (Apply the setting again)
 
 ## v1.0.21
 
@@ -126,7 +125,7 @@ Please describe what you are working on:
 
 ### New features
 
-- Add support for Zigbee commands: 
+- Add support for Zigbee commands:
   - **off_with_effect** (0x40)
   - **on_with_recall_global_scene** (0x41)
 - Add support for **normally-closed momentary buttons**
@@ -149,9 +148,9 @@ Please describe what you are working on:
 
 ### New features
 
-- Add support for the **levelCtrl** cluster  
-  - This enables brightness control of compatible Zigbee bulbs via Zigbee binding.  
-  - The feature works only for momentary switches using long press: once a long press is detected, brightness will begin to slowly change. Each subsequent long press reverses the direction (increase/decrease).  
+- Add support for the **levelCtrl** cluster
+  - This enables brightness control of compatible Zigbee bulbs via Zigbee binding.
+  - The feature works only for momentary switches using long press: once a long press is detected, brightness will begin to slowly change. Each subsequent long press reverses the direction (increase/decrease).
   - Requires manual update of converters and reconfiguration.
 
 ### Changes

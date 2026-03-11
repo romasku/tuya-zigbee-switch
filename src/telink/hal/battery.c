@@ -1,7 +1,8 @@
 #include "hal/battery.h"
-
-#include "drivers/drv_adc.h"
+#pragma pack(push, 1)
 #include "tl_common.h"
+#include "drivers/drv_adc.h"
+#pragma pack(pop)
 
 static unsigned int battery_adc_pin         = 0;
 static bool         battery_adc_initialized = false;
