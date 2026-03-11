@@ -19,17 +19,8 @@ Please describe what you are working on:
   - Battery-powered scene switches (buttons only, no relays)
   - New device: Moes 4-gang scene switch (`REMOTE_MOES_SWITCH_TS0044`)
   - `P` entries default to detached relay mode with relay_index 0
-- **Battery measurement & reporting** (Zigbee `genPowerCfg` cluster)
-  - ADC voltage reading on Telink (VBAT mode, GPIO_PC5)
-  - Voltage-to-percentage mapping (2.0V–3.0V for CR2032/CR2430/CR2450)
-  - ZCL battery percentage (0–200 format) + voltage attributes
-  - Reports on change-of-value, on button press, and on every poll wake
-  - Z2M converter: `batteryPercentage()` extend with ZCL 0–200 → 0–100% conversion
+- **Battery measurement & reporting** (Zigbee `genPowerCfg` cluster) for Telink devices
 - **Deep retention sleep** for Telink end devices
-  - `PM_SLEEP_MODE_DEEP_WITH_RETENTION` instead of `PM_SLEEP_MODE_SUSPEND`
-  - GPIO + LED + relay state restored from retained SRAM on wake
-  - Button debounce across sleep boundaries (`btn_retention_wake`)
-  - ADC re-init after retention wake
 
 ### Changes
 
@@ -53,18 +44,6 @@ Please describe what you are working on:
   - Hide `relay_mode` and `relay_index` exposes for relay-less devices
   - Battery reporting configuration in `configure()` block
   - Fix: `switch_names` count was based on `relay_cnt` instead of `switch_cnt`
-- **Build system**
-  - Auto-detect battery devices from `power` field in `device_db.yaml`
-  - Pass `IS_BATTERY` / `POWER_SOURCE` to sub-makes, defines `BATTERY_POWERED` macro
-  - Conditional compilation of battery cluster and HAL battery sources
-  - Python interpreter fallback (`python` → `python3`) for WSL
-- **HAL additions**
-  - `hal_battery.h` — battery ADC abstraction (Telink, Silabs stub, test stub)
-  - `hal_gpio_reinit_all()` / `hal_gpio_reinit_interrupts()` — replay GPIO config after deep retention
-  - `hal_zigbee_set_attribute_value()` — write to ZCL attribute table
-  - `hal_zigbee_is_sleep_allowed()` / settle/report timer checks
-  - `config_reinit_gpio()` — full GPIO + button + LED + relay restore after retention wake
-- Misc: fix typo `periferals_init` → `peripherals_init`, remove verbose debug prints
 
 ### Bugs
 
