@@ -7,7 +7,7 @@
 
 Feature-rich custom firmware for Telink/Silabs Zigbee switches, modules, sockets
 
-- Already **120+** [supported_devices.md](./docs/supported_devices.md)
+- Already **130+** [supported_devices.md](./docs/supported_devices.md)
 - Port new devices: [contribute/porting.md](./docs/contribute/porting.md)
 
 ## 🤔 Why?
@@ -33,7 +33,7 @@ Users also consider this _the missing piece of a reliable smart home,_ because i
 - Both **Router** & **EndDevice** modes for no-Neutral devices
 - **Power-on behavior** (on, off, previous, toggle)
 - **Wireless flashing and updating** (OTA from original fw, further OTA updates)
-- Multiple **reset options** (10x switch press, on-board button)
+- Multiple **reset options** (configurable multi-press count, on-board button)
 
 ### Work in progress
 - Wireless switches (battery-powered remotes)

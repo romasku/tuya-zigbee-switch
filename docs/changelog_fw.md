@@ -15,12 +15,15 @@ Please describe what you are working on:
 - Relays now respond to *MoveToLevelWithOnOff*
   - Level = 0 -> Turn off relay
   - Level > 0 -> Turn on  relay
+- Configurable multi-press factory reset count (set 1-255 or 0 to disable)
 - **Push-button without relay** (`P` prefix in config string)
   - Battery-powered scene switches (buttons only, no relays)
   - New device: Moes 4-gang scene switch (`REMOTE_MOES_SWITCH_TS0044`)
   - `P` entries default to detached relay mode with relay_index 0
 - **Battery measurement & reporting** (Zigbee `genPowerCfg` cluster) for Telink devices
 - **Deep retention sleep** for Telink end devices
+
+>>>>>>> main
 
 ### Changes
 
