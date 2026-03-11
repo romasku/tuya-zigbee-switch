@@ -94,11 +94,6 @@ ifeq ($(DEBUG), 1)
 	DEVICE_DEFS := $(DEVICE_DEFS) -DUART_PRINTF_MODE=1
 endif
 
-# Battery support
-ifeq ($(IS_BATTERY), yes)
-	DEVICE_DEFS := $(DEVICE_DEFS) -DBATTERY_POWERED -DBATTERY_TYPE="$(POWER_SOURCE)"
-endif
-
 # Include paths (SDK paths first to avoid conflicts)
 INCLUDE_PATHS := \
 	-I. \
@@ -143,7 +138,8 @@ TELINK_SOURCES := \
 	custom_zcl/zcl_multistate_input.c \
 	custom_zcl/zcl_onoff_configuration.c \
 	custom_zcl/zcl_cover_switch_config.c \
-	patch_sdk/drv_nv.c
+	patch_sdk/drv_nv.c \
+	hal/battery.c
 
 # Common source files (shared with Silicon Labs build)
 COMMON_SOURCES := \
@@ -163,13 +159,8 @@ COMMON_SOURCES := \
 	$(SRC_DIR)/zigbee/relay_cluster.c \
 	$(SRC_DIR)/zigbee/switch_cluster.c \
 	$(SRC_DIR)/zigbee/cover_switch_cluster.c \
-	$(SRC_DIR)/zigbee/cover_cluster.c
-
-# Battery support (conditional)
-ifeq ($(IS_BATTERY),yes)
-TELINK_SOURCES += hal/battery.c
-COMMON_SOURCES += $(SRC_DIR)/zigbee/battery_cluster.c
-endif
+	$(SRC_DIR)/zigbee/cover_cluster.c \
+	$(SRC_DIR)/zigbee/battery_cluster.c
 
 # All application sources
 ALL_TELINK_SOURCES := $(TELINK_SOURCES) $(COMMON_SOURCES)

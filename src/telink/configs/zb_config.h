@@ -41,13 +41,10 @@
         0 /* Duration to permit joining (0 = disabled) */
 
 /* Polling Configuration (all values in milliseconds) */
-#define POLL_RATE_QUARTERSECONDS    250    /* 1 quarter-second = 250ms (SDK constant) */
-#ifdef BATTERY_POWERED
-#define POLL_RATE_MS                120000 /* Battery: poll every 120s */
-#else
-#define POLL_RATE_MS                1000   /* Router: poll every 1s */
-#endif
-#define POLL_NO_DATA_MAX_COUNT      3      /* Max consecutive polls with no data */
+#define POLL_RATE_QUARTERSECONDS \
+        250                            /* 1 quarter-second = 250ms (SDK constant) */
+#define POLL_RATE_MS              1000 /* Default: poll every 1s */
+#define POLL_NO_DATA_MAX_COUNT    3    /* Max consecutive polls with no data */
 
 /* Network Discovery Configuration */
 #define ZDO_NWK_SCAN_ATTEMPTS \
@@ -85,13 +82,10 @@
  * Polling Rate Configuration
  */
 #define POLL_RATE                POLL_RATE_MS                   /* Normal poll rate (ms) */
-#ifdef BATTERY_POWERED
-#define RESPONSE_POLL_RATE       250                            /* Battery: 250ms when coordinator has data */
-#define QUEUE_POLL_RATE          250                            /* Battery: 250ms when outbound queued */
-#else
-#define RESPONSE_POLL_RATE       POLL_RATE_QUARTERSECONDS       /* Router: 250ms */
-#define QUEUE_POLL_RATE          POLL_RATE_QUARTERSECONDS       /* Router: 250ms */
-#endif
+#define RESPONSE_POLL_RATE \
+        POLL_RATE_QUARTERSECONDS                                /* 250ms when coordinator has data */
+#define QUEUE_POLL_RATE \
+        POLL_RATE_QUARTERSECONDS                                /* 250ms when outbound queued */
 #define REJOIN_POLL_RATE         (2 * POLL_RATE_QUARTERSECONDS) /* Rejoin: 500ms */
 
 /*
@@ -115,12 +109,7 @@
 #endif
 
 /* Default RF Configuration */
-#ifdef BATTERY_POWERED
-#define ZB_DEFAULT_TX_POWER_IDX \
-        RF_POWER_INDEX_P3p01dBm  /* Battery: reduced TX power (~3dBm) for lower consumption */
-#else
-#define ZB_DEFAULT_TX_POWER_IDX \
-        RF_POWER_INDEX_P10p46dBm /* Router: maximum TX power */
-#endif
+#define ZB_DEFAULT_TX_POWER_IDX    RF_POWER_INDEX_P10p46dBm /* Maximum TX power \
+                                                             */
 
 #endif /* ZB_CONFIG_H */

@@ -1,20 +1,18 @@
 #pragma pack(push, 1)
 #include "tl_common.h"
 #include "zb_api.h"
+#include "zcl_cover_switch_config.h"
 #include "zcl_include.h"
 #include "zcl_multistate_input.h"
 #include "zcl_onoff_configuration.h"
-#include "zcl_cover_switch_config.h"
 #pragma pack(pop)
 
 #include "telink_size_t_hack.h"
 
 #include "hal/zigbee.h"
 #include "telink_zigbee_hal.h"
-#include "zigbee/consts.h"
-#ifdef BATTERY_POWERED
 #include "zigbee/battery_cluster.h"
-#endif
+#include "zigbee/consts.h"
 
 // Storage for Telink endpoint configuration
 static af_simple_descriptor_t endpoint_descriptors[MAX_ENDPOINTS];
@@ -37,22 +35,18 @@ static void telink_zcl_data_confirm_cb(void *arg) {
 
 #endif
 
-#ifdef BATTERY_POWERED
 extern status_t zcl_powerCfg_register(u8 endpoint, u16 manuCode, u8 attrNum,
-                                      const zclAttrInfo_t *attrTbl, cluster_forAppCb_t cb);
-
-#endif
+                                      const zclAttrInfo_t *attrTbl,
+                                      cluster_forAppCb_t cb);
 
 static cluster_registerFunc_t get_register_func_by_cluster_id(u16 cluster_id) {
     if (cluster_id == ZCL_CLUSTER_GEN_BASIC) {
         return zcl_basic_register;
     }
-#ifdef BATTERY_POWERED
     if (cluster_id == ZCL_CLUSTER_GEN_POWER_CFG ||
         cluster_id == ZCL_CLUSTER_POWER_CFG) {
         return zcl_powerCfg_register;
     }
-#endif
     if (cluster_id == ZCL_CLUSTER_GEN_IDENTIFY) {
         return zcl_identify_register;
     }
@@ -97,14 +91,14 @@ static status_t cmd_callback_on_off(zclIncomingAddrInfo_t *pAddrInfo, u8 cmdId,
                         cmdPayload);
 }
 
-static status_t cmd_callback_window_covering(zclIncomingAddrInfo_t *pAddrInfo, u8 cmdId,
-                                             void *cmdPayload) {
-    return cmd_callback(pAddrInfo->dstEp, ZCL_CLUSTER_CLOSURES_WINDOW_COVERING, cmdId,
-                        cmdPayload);
+static status_t cmd_callback_window_covering(zclIncomingAddrInfo_t *pAddrInfo,
+                                             u8 cmdId, void *cmdPayload) {
+    return cmd_callback(pAddrInfo->dstEp, ZCL_CLUSTER_CLOSURES_WINDOW_COVERING,
+                        cmdId, cmdPayload);
 }
 
-static status_t cmd_callback_level_control(zclIncomingAddrInfo_t *pAddrInfo, u8 cmdId,
-                                           void *cmdPayload) {
+static status_t cmd_callback_level_control(zclIncomingAddrInfo_t *pAddrInfo,
+                                           u8 cmdId, void *cmdPayload) {
     return cmd_callback(pAddrInfo->dstEp, ZCL_CLUSTER_GEN_LEVEL_CONTROL, cmdId,
                         cmdPayload);
 }
@@ -126,14 +120,12 @@ static void zcl_incoming_message_callback(zclIncoming_t *pInHdlrMsg) {
 #ifdef ZB_ED_ROLE
     telink_zigbee_hal_notify_zcl_activity();
 #endif
-#ifdef BATTERY_POWERED
     // Refresh battery value before responding to a read request
     if (pInHdlrMsg->hdr.cmd == ZCL_CMD_READ &&
         (pInHdlrMsg->msg->indInfo.cluster_id == ZCL_CLUSTER_GEN_POWER_CFG ||
          pInHdlrMsg->msg->indInfo.cluster_id == ZCL_CLUSTER_POWER_CFG)) {
         battery_cluster_update_on_event();
     }
-#endif
     if (pInHdlrMsg->hdr.cmd == ZCL_CMD_WRITE ||
         pInHdlrMsg->hdr.cmd == ZCL_CMD_WRITE_NO_RSP) {
         if (attribute_change_callback == NULL) {
@@ -250,9 +242,8 @@ void hal_zigbee_notify_attribute_changed(uint8_t endpoint, uint16_t cluster_id,
             TL_SETSTRUCTCONTENT(dstEpInfo, 0);
             dstEpInfo.profileId   = HA_PROFILE_ID;
             dstEpInfo.dstAddrMode = APS_DSTADDR_EP_NOTPRESETNT;
-            zcl_sendReportCmd(endpoint, &dstEpInfo, TRUE,
-                              ZCL_FRAME_SERVER_CLIENT_DIR, cluster_id,
-                              pAttrEntry->id, pAttrEntry->type,
+            zcl_sendReportCmd(endpoint, &dstEpInfo, TRUE, ZCL_FRAME_SERVER_CLIENT_DIR,
+                              cluster_id, pAttrEntry->id, pAttrEntry->type,
                               pAttrEntry->data);
         }
     }
@@ -292,9 +283,9 @@ hal_zigbee_send_report_attr(uint8_t endpoint, uint16_t cluster_id,
 
         zclAttrInfo_t *pAttrEntry;
         pAttrEntry = zcl_findAttribute(endpoint, cluster_id, attr_id);
-        zcl_sendReportCmd(
-            endpoint, &dstEpInfo, TRUE, ZCL_FRAME_SERVER_CLIENT_DIR, cluster_id,
-            pAttrEntry->id, pAttrEntry->type, pAttrEntry->data);
+        zcl_sendReportCmd(endpoint, &dstEpInfo, TRUE, ZCL_FRAME_SERVER_CLIENT_DIR,
+                          cluster_id, pAttrEntry->id, pAttrEntry->type,
+                          pAttrEntry->data);
 #ifdef ZB_ED_ROLE
         // Ensure the device stays awake until the frame is confirmed.
         telink_zigbee_hal_request_active_period();

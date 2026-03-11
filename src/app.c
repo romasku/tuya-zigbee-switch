@@ -2,6 +2,7 @@
 #include "device_config/device_type.h"
 #include "device_config/nvm_items.h"
 #include "device_config/reset.h"
+#include "hal/battery.h"
 #include "hal/nvm.h"
 #include "hal/printf_selector.h"
 #include "hal/system.h"
@@ -44,20 +45,20 @@ void app_reinit_retention(void) {
     // After deep retention wake, re-init peripherals whose SFRs were lost.
     // All SRAM state (config, clusters, ZB stack) is preserved by os_init(1).
 
-#ifdef BATTERY_POWERED
-    // ADC must be re-initialised before any battery read (SFRs lost
-    // during deep retention).
-    hal_battery_reinit_after_retention();
-#endif
+    if (battery_enabled) {
+        // ADC must be re-initialised before any battery read (SFRs lost
+        // during deep retention).
+        hal_battery_reinit_after_retention();
+    }
 
     config_reinit_gpio();
 
-#ifdef BATTERY_POWERED
-    // Check battery on every retention wake — no separate timer needed.
-    // The device wakes every POLL_RATE (120s) for MAC poll anyway.
-    // Only reports if value actually changed (COV).
-    battery_cluster_update_on_event();
-#endif
+    if (battery_enabled) {
+        // Check battery on every retention wake — no separate timer needed.
+        // The device wakes every POLL_RATE (120s) for MAC poll anyway.
+        // Only reports if value actually changed (COV).
+        battery_cluster_update_on_event();
+    }
 }
 
 void app_init(void) {

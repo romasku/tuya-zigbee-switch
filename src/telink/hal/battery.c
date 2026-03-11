@@ -1,16 +1,19 @@
 #include "hal/battery.h"
 
-#ifdef BATTERY_POWERED
-
-#include "tl_common.h"
 #include "drivers/drv_adc.h"
+#include "tl_common.h"
 
-#define BATTERY_ADC_PIN    GPIO_PC5
-
-static bool battery_adc_initialized = false;
+static unsigned int battery_adc_pin         = 0;
+static bool         battery_adc_initialized = false;
 
 // Forward declaration
 static void battery_adc_init(void);
+
+void hal_battery_init(hal_gpio_pin_t pin) {
+    battery_adc_pin         = pin;
+    battery_adc_initialized = false;
+    battery_adc_init();
+}
 
 void hal_battery_reinit_after_retention(void) {
     // After deep retention, ADC hardware needs re-initialization
@@ -23,7 +26,7 @@ static void battery_adc_init(void) {
         return;
     }
     drv_adc_init();
-    drv_adc_mode_pin_set(DRV_ADC_VBAT_MODE, BATTERY_ADC_PIN);
+    drv_adc_mode_pin_set(DRV_ADC_VBAT_MODE, battery_adc_pin);
     battery_adc_initialized = true;
 }
 
@@ -41,5 +44,3 @@ uint16_t hal_battery_get_voltage_mv(void) {
 
     return mv;
 }
-
-#endif // BATTERY_POWERED

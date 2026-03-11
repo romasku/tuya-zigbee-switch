@@ -60,12 +60,9 @@ SOURCES := \
 	$(SRC_DIR)/zigbee/group_cluster.c \
 	$(SRC_DIR)/zigbee/general_commands.c \
 	$(SRC_DIR)/zigbee/cover_switch_cluster.c \
-	$(SRC_DIR)/zigbee/cover_cluster.c
-
-# Battery support (conditional)
-ifeq ($(IS_BATTERY), yes)
-	SOURCES += $(SRC_DIR)/stub/hal/battery.c $(SRC_DIR)/zigbee/battery_cluster.c
-endif
+	$(SRC_DIR)/zigbee/cover_cluster.c \
+	$(SRC_DIR)/stub/hal/battery.c \
+	$(SRC_DIR)/zigbee/battery_cluster.c
 
 INCLUDES := \
 	-I$(SRC_DIR) \
@@ -76,10 +73,6 @@ CFLAGS := -Wall -Wno-unused-parameter -Wno-unused-variable -g -O0 \
 	-DNVM_MIGRATIONS_VERSION=1 \
 	-std=c99
 
-# Battery support flags
-ifeq ($(IS_BATTERY), yes)
-	CFLAGS += -DBATTERY_POWERED -DBATTERY_TYPE="\"$(POWER_SOURCE)\""
-endif
 LDFLAGS := -lpthread
 
 # Build targets
