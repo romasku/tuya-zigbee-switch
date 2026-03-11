@@ -145,16 +145,6 @@ void hal_zigbee_register_on_attribute_change_callback(
     io_log("ZIGBEE", "Registered attribute change callback");
 }
 
-hal_zigbee_status_t hal_zigbee_set_attribute_value(uint8_t endpoint,
-                                                   uint16_t cluster_id,
-                                                   uint16_t attribute_id,
-                                                   uint8_t *value) {
-    io_log("ZIGBEE", "Setting attribute: ep=%d, cluster=0x%04x, attr=0x%04x",
-           endpoint, cluster_id, attribute_id);
-    // In stub, this is a no-op since we don't have a real SDK table to update
-    return HAL_ZIGBEE_OK;
-}
-
 void hal_zigbee_notify_attribute_changed(uint8_t endpoint, uint16_t cluster_id,
                                          uint16_t attribute_id) {
     io_log("ZIGBEE", "Attribute changed: ep=%d, cluster=0x%04x, attr=0x%04x",

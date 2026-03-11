@@ -13,22 +13,6 @@ static zigbee_battery_cluster *g_battery_cluster = NULL;
 static uint32_t last_update_ms = 0;
 #define BATTERY_UPDATE_THROTTLE_MS    5000
 
-static uint8_t
-battery_cluster_notify_if_changed(zigbee_battery_cluster *cluster,
-                                  uint16_t attr_id, uint8_t *stored,
-                                  uint8_t new_val) {
-    if (*stored == new_val) {
-        return 0;
-    }
-    *stored = new_val;
-    hal_zigbee_set_attribute_value(cluster->endpoint, ZCL_CLUSTER_POWER_CFG,
-                                   attr_id, stored);
-    // Push directly — device is push-only, bypasses SDK ZCL reporting timer
-    hal_zigbee_send_report_attr(cluster->endpoint, ZCL_CLUSTER_POWER_CFG, attr_id,
-                                ZCL_DATA_TYPE_UINT8, stored, 1);
-    return 1;
-}
-
 void battery_cluster_add_to_endpoint(zigbee_battery_cluster *cluster,
                                      hal_zigbee_endpoint *endpoint) {
     g_battery_cluster = cluster;
@@ -59,36 +43,32 @@ void battery_cluster_add_to_endpoint(zigbee_battery_cluster *cluster,
     // via battery_cluster_update_on_event() in app_reinit_retention().
 }
 
-uint8_t battery_cluster_update(zigbee_battery_cluster *cluster) {
+void battery_cluster_update(zigbee_battery_cluster *cluster) {
     uint32_t now = hal_millis();
 
     if (now - last_update_ms < BATTERY_UPDATE_THROTTLE_MS) {
-        return 0;
+        return;
     }
     last_update_ms = now;
 
-    uint16_t mv            = hal_battery_get_voltage_mv();
-    uint8_t  voltage_100mv = (mv > 25500) ? 255 : (uint8_t)(mv / 100);
+    uint16_t mv = hal_battery_get_voltage_mv();
+    cluster->voltage_100mv = (mv > 25500) ? 255 : (uint8_t)(mv / 100);
 
     uint8_t zcl_percentage; // ZCL unit: 0.5% steps (0=0%, 200=100%)
     if (mv >= BATTERY_VOLTAGE_MAX_MV) {
-        zcl_percentage = 200;
+        cluster->percentage_remaining = 200;
     } else if (mv <= BATTERY_VOLTAGE_MIN_MV) {
-        zcl_percentage = 0;
+        cluster->percentage_remaining = 0;
     } else {
-        zcl_percentage =
+        cluster->percentage_remaining =
             (uint8_t)((uint32_t)(mv - BATTERY_VOLTAGE_MIN_MV) * 200 /
                       (BATTERY_VOLTAGE_MAX_MV - BATTERY_VOLTAGE_MIN_MV));
     }
 
-    uint8_t changed = 0;
-    changed |= battery_cluster_notify_if_changed(
-        cluster, ZCL_ATTR_POWER_CFG_BATTERY_VOLTAGE, &cluster->voltage_100mv,
-        voltage_100mv);
-    changed |= battery_cluster_notify_if_changed(
-        cluster, ZCL_ATTR_POWER_CFG_BATTERY_PERCENTAGE,
-        &cluster->percentage_remaining, zcl_percentage);
-    return changed;
+    hal_zigbee_notify_attribute_changed(cluster->endpoint, ZCL_CLUSTER_POWER_CFG,
+                                        ZCL_ATTR_POWER_CFG_BATTERY_VOLTAGE);
+    hal_zigbee_notify_attribute_changed(cluster->endpoint, ZCL_CLUSTER_POWER_CFG,
+                                        ZCL_ATTR_POWER_CFG_BATTERY_PERCENTAGE);
 }
 
 void battery_cluster_update_on_event(void) {

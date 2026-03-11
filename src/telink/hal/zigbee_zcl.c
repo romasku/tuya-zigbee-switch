@@ -217,18 +217,6 @@ void telink_zigbee_hal_zcl_init(hal_zigbee_endpoint *endpoints,
     }
 }
 
-hal_zigbee_status_t hal_zigbee_set_attribute_value(uint8_t endpoint,
-                                                   uint16_t cluster_id,
-                                                   uint16_t attribute_id,
-                                                   uint8_t *value) {
-    status_t status = zcl_setAttrVal(endpoint, cluster_id, attribute_id, value);
-
-    if (status != ZCL_STA_SUCCESS) {
-        return HAL_ZIGBEE_ERROR;
-    }
-    return HAL_ZIGBEE_OK;
-}
-
 void hal_zigbee_notify_attribute_changed(uint8_t endpoint, uint16_t cluster_id,
                                          uint16_t attribute_id) {
     // Direct send — bypasses the SDK reporting engine (report_handler /

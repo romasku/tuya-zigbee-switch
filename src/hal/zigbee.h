@@ -171,19 +171,6 @@ typedef enum {
 } hal_zigbee_status_t;
 
 /**
- * Set an attribute value in the SDK's attribute table
- * @param endpoint Endpoint number
- * @param cluster_id Cluster ID
- * @param attribute_id Attribute ID
- * @param value Pointer to the new value
- * @return HAL_ZIGBEE_OK on success, error code otherwise
- */
-hal_zigbee_status_t hal_zigbee_set_attribute_value(uint8_t endpoint,
-                                                   uint16_t cluster_id,
-                                                   uint16_t attribute_id,
-                                                   uint8_t *value);
-
-/**
  * Send command to bound devices (switches controlling lights)
  * @param cmd Command structure to send
  * @return HAL_ZIGBEE_OK on success, error code otherwise

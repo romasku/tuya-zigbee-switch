@@ -12,7 +12,7 @@ typedef struct {
 
 void battery_cluster_add_to_endpoint(zigbee_battery_cluster *cluster,
                                      hal_zigbee_endpoint *endpoint);
-uint8_t battery_cluster_update(zigbee_battery_cluster *cluster);
+void battery_cluster_update(zigbee_battery_cluster *cluster);
 void battery_cluster_update_on_event(void);
 
 #endif // _BATTERY_CLUSTER_H_
