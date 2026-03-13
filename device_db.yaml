@@ -3506,7 +3506,7 @@ SWITCH_BSEED_TS0726_L_1GANG:
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0726_1_gang_scene_switch
   override_z2m_device: EC-SL-FK86ZPCS11
-  tuya_module: ZT3L
+  tuya_module: null
   mcu_family: Telink
   mcu: TLSR8258
   config_str: xkxgfxsg;TS0726-1-BSL;LC3;SB5u;RC1;ID2;M;
@@ -3536,19 +3536,19 @@ SWITCH_BSEED_TS0726_L_2GANG:
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0726_2_gang_scene_switch
   override_z2m_device: EC-SL-FK86ZPCS21
-  tuya_module: ZT3L
+  tuya_module: ZTU
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: tlsvxhxc;TS0726-2-BSL;LC3;SB5u;RC1;ID2;M;  null
+  config_str: tlsvxhxc;TS0726-2-BSL;LB4;SC2u;RC0;ID2;SC3u;RB6;IA1;M;
   alt_config_str: null
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
   stock_image_type: 54179
   firmware_image_type: 43633
-  build: no
+  build: yes
   status: in_progress
-  info: Needs pinout
+  info: Needs pinout confirmation
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/363
   store:
   - https://www.aliexpress.com/item/1005010747186290.html
