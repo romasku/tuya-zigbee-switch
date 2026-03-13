@@ -7407,10 +7407,18 @@
         "TS0001-GD"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -7418,6 +7426,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -8765,10 +8778,18 @@
         "TS0001-HOB"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -8776,6 +8797,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -11075,10 +11101,18 @@
         "TS0011-MS"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -11086,6 +11120,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -12008,10 +12047,18 @@
         "TS0001-nous"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -12019,6 +12066,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -14057,10 +14109,18 @@
         "TS0001-CC"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -14068,6 +14128,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -25789,10 +25854,18 @@
         "TS0726-1-BSL"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -25800,6 +25873,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -26030,6 +26108,287 @@
       },
       "endpointId": [
         2
+      ]
+    }
+  ],
+  "tlsvxhxc": [
+    {
+      "description": "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
+      "modelNames": [
+        "TS0726-2-BSL"
+      ],
+      "options": {
+        "endpointName": {
+          "1": "switch_left",
+          "2": "switch_right",
+          "3": "relay_left",
+          "4": "relay_right"
+        }
+      }
+    },
+    {
+      "modelNames": [
+        "TS0726-2-BSL"
+      ],
+      "exposes": [
+        "multiPressResetCount",
+        "networkIndicator"
+      ],
+      "options": {
+        "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
+          "networkIndicator": {
+            "type": "bool",
+            "clusterId": 0,
+            "attributeId": 65281,
+            "dataType": 16,
+            "action": true
+          }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
+        },
+        "networkIndicator": {
+          "type": "toggle"
+        }
+      },
+      "endpointId": 1
+    },
+    {
+      "modelNames": [
+        "TS0726-2-BSL"
+      ],
+      "properties": [
+        "status",
+        "powerOnStatus"
+      ],
+      "actions": [
+        "status",
+        "powerOnStatus"
+      ],
+      "bindings": [
+        "status"
+      ],
+      "reportings": [
+        "status"
+      ],
+      "exposes": [
+        "switch",
+        "powerOnStatus"
+      ],
+      "options": {
+        "powerOnStatus": {
+          "enum": [
+            "off",
+            "on",
+            "toggle",
+            "previous"
+          ]
+        }
+      },
+      "endpointId": [
+        3,
+        4
+      ]
+    },
+    {
+      "modelNames": [
+        "TS0726-2-BSL"
+      ],
+      "exposes": [
+        "pressAction",
+        "switchMode",
+        "switchAction",
+        "relayMode",
+        "relayIndex",
+        "bindedMode",
+        "longPressDuration",
+        "levelMoveRate"
+      ],
+      "options": {
+        "customAttributes": {
+          "switchAction": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 16,
+            "dataType": 48,
+            "action": true
+          },
+          "switchMode": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65280,
+            "dataType": 48,
+            "action": true
+          },
+          "relayMode": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65281,
+            "dataType": 48,
+            "action": true
+          },
+          "relayIndex": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
+          "longPressDuration": {
+            "type": "value",
+            "clusterId": 7,
+            "attributeId": 65283,
+            "dataType": 33,
+            "action": true
+          },
+          "levelMoveRate": {
+            "type": "value",
+            "clusterId": 7,
+            "attributeId": 65284,
+            "dataType": 32,
+            "action": true
+          },
+          "bindedMode": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65285,
+            "dataType": 48,
+            "action": true
+          },
+          "pressAction": {
+            "type": "enum",
+            "clusterId": 18,
+            "attributeId": 85,
+            "dataType": 33,
+            "binding": true,
+            "reporting": {
+              "minInterval": 0,
+              "maxInterval": 255,
+              "valueChange": 1
+            }
+          }
+        },
+        "switchAction": {
+          "type": "select",
+          "enum": [
+            "on_off",
+            "off_on",
+            "toggle_simple",
+            "toggle_smart_sync",
+            "toggle_smart_opposite"
+          ]
+        },
+        "switchMode": {
+          "type": "select",
+          "enum": [
+            "toggle",
+            "momentary",
+            "momentary_nc"
+          ]
+        },
+        "relayMode": {
+          "type": "select",
+          "enum": [
+            "detached",
+            "press_start",
+            "long_press",
+            "short_press"
+          ]
+        },
+        "relayIndex": {
+          "type": "select",
+          "enum": {
+            "1": "relay_1",
+            "2": "relay_2"
+          }
+        },
+        "longPressDuration": {
+          "type": "number",
+          "min": 0,
+          "max": 5000
+        },
+        "levelMoveRate": {
+          "type": "number",
+          "min": 1,
+          "max": 255
+        },
+        "bindedMode": {
+          "type": "select",
+          "enum": {
+            "1": "press_start",
+            "2": "long_press",
+            "3": "short_press"
+          }
+        },
+        "pressAction": {
+          "enum": [
+            "released",
+            "press",
+            "long_press",
+            "position_on",
+            "position_off"
+          ]
+        }
+      },
+      "endpointId": [
+        1,
+        2
+      ]
+    },
+    {
+      "modelNames": [
+        "TS0726-2-BSL"
+      ],
+      "exposes": [
+        "relayIndicatorMode",
+        "relayIndicator"
+      ],
+      "options": {
+        "customAttributes": {
+          "relayIndicatorMode": {
+            "type": "enum",
+            "clusterId": 6,
+            "attributeId": 65281,
+            "dataType": 48,
+            "action": true
+          },
+          "relayIndicator": {
+            "type": "bool",
+            "clusterId": 6,
+            "attributeId": 65282,
+            "dataType": 16,
+            "action": true,
+            "reporting": {
+              "minInterval": 0,
+              "maxInterval": 255,
+              "valueChange": 1
+            }
+          }
+        },
+        "relayIndicatorMode": {
+          "type": "select",
+          "enum": [
+            "same",
+            "opposite",
+            "manual"
+          ]
+        },
+        "relayIndicator": {
+          "type": "toggle"
+        }
+      },
+      "endpointId": [
+        3,
+        4
       ]
     }
   ],
@@ -31274,10 +31633,18 @@
         "TS0001-PST"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -31285,6 +31652,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -31538,10 +31910,18 @@
         "TS0002-PST"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -31549,6 +31929,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -32374,10 +32759,18 @@
         "TS0003-PS"
       ],
       "exposes": [
+        "multiPressResetCount",
         "networkIndicator"
       ],
       "options": {
         "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
           "networkIndicator": {
             "type": "bool",
             "clusterId": 0,
@@ -32385,6 +32778,11 @@
             "dataType": 16,
             "action": true
           }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
         },
         "networkIndicator": {
           "type": "toggle"
@@ -33391,6 +33789,31 @@
       "modelNames": [
         "TS0011-ZS"
       ],
+      "exposes": [
+        "multiPressResetCount"
+      ],
+      "options": {
+        "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
+        }
+      },
+      "endpointId": 1
+    },
+    {
+      "modelNames": [
+        "TS0011-ZS"
+      ],
       "properties": [
         "status",
         "powerOnStatus"
@@ -33627,6 +34050,31 @@
           "4": "relay_right"
         }
       }
+    },
+    {
+      "modelNames": [
+        "TS0012-ZS"
+      ],
+      "exposes": [
+        "multiPressResetCount"
+      ],
+      "options": {
+        "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
+        }
+      },
+      "endpointId": 1
     },
     {
       "modelNames": [
