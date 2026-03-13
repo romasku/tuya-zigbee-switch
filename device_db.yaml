@@ -3750,7 +3750,7 @@ SWITCH_HOMEETEC_TOUCH_TS0004:
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/286
   store: null
 SWITCH_IHSENO_TS0001:
-  human_name: iHseno 1-gang switches (button/touch)
+  human_name: iHseno 1-gang switches (button/touch) <br> UNSH 1-gang switch
   category: switch
   power: mains
   neutral: optional
@@ -3780,8 +3780,9 @@ SWITCH_IHSENO_TS0001:
   store: 
   - https://www.aliexpress.com/item/1005007532195287.html
   - https://aliexpress.com/item/1005009932915725.html
+  - https://www.aliexpress.com/item/1005008253013778.html
 SWITCH_IHSENO_TS0002:
-  human_name: iHseno 2-gang switches (buttons/touch)
+  human_name: iHseno 2-gang switches (buttons/touch) <br> UNSH 2-gang switch
   category: switch
   power: mains
   neutral: optional
@@ -3811,8 +3812,9 @@ SWITCH_IHSENO_TS0002:
   store: 
   - https://www.aliexpress.com/item/1005007532195287.html
   - https://aliexpress.com/item/1005009932915725.html
+  - https://www.aliexpress.com/item/1005008253013778.html
 SWITCH_IHSENO_TS0003:
-  human_name: iHseno 3-gang switches (buttons/touch)
+  human_name: iHseno 3-gang switches (buttons/touch) <br> UNSH 3-gang switch
   category: switch
   power: mains
   neutral: optional
@@ -3842,6 +3844,7 @@ SWITCH_IHSENO_TS0003:
   store: 
   - https://www.aliexpress.com/item/1005007532195287.html
   - https://aliexpress.com/item/1005009932915725.html
+  - https://www.aliexpress.com/item/1005008253013778.html
 SWITCH_LERLINK_TS0011:
   human_name: LerLink 1-gang switch
   category: switch
