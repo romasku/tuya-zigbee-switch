@@ -33,7 +33,7 @@ from tests.zcl_consts import (
     ZCL_CMD_WINDOW_COVERING_STOP,
 )
 
-DEBOUNCE_MS = 50
+DEBOUNCE_MS = 50  # Must match DEBOUNCE_DELAY_MS in button.h
 MINIMUM_SWITCH_TIME_MS = 200
 
 

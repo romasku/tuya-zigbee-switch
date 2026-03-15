@@ -25,6 +25,196 @@ static hal_network_status_change_callback_t network_status_change_callback =
     NULL;
 static bool steeringInProgress = 0;
 
+#ifdef ZB_ED_ROLE
+// After joining, stay active for coordinator to read descriptors/attributes,
+// then switch to slow poll and allow sleep.
+#define POST_JOIN_FAST_POLL_RATE    250   // 250ms polling during initial setup
+#define POST_JOIN_SETTLE_MS         45000 // 45s hard limit (fallback if detection fails)
+
+// Adaptive settle: end settle early once coordinator stops sending ZCL commands.
+// Z2M interview for multi-endpoint devices can take 20-40s with pauses between
+// CfgRpt batches.  After SETTLE_IDLE_TIMEOUT_MS of ZCL silence AND at least
+// SETTLE_MIN_DURATION_MS since join, we consider the interview done.
+#define SETTLE_MIN_DURATION_MS    20000   // minimum time after join before early end
+#define SETTLE_IDLE_TIMEOUT_MS    15000   // ZCL silence required to trigger early end
+
+// Post-settle transition: instead of jumping directly from 250ms to the slow
+// POLL_RATE (e.g. 120s), use an intermediate poll rate for a while.  This lets
+// Z2M finish any remaining interview steps (read attrs, binds) that didn't
+// complete during the settle window.
+// The timeout is re-armed on each incoming ZCL message, so the device stays
+// responsive as long as Z2M is actively communicating.
+#define POST_SETTLE_POLL_RATE          4000  // 4s poll during transition
+#define POST_SETTLE_IDLE_TIMEOUT_MS    15000 // 15s of ZCL silence ends transition
+
+// After attribute change, stay awake briefly so the poll cycle can send the
+// ZCL report before we enter deep retention.
+// This is a safety timeout only — normally the data-confirm callback
+// (telink_zigbee_hal_end_active_period) shortens the window to a brief
+// cooldown right after the MAC ACK, so the device sleeps much sooner
+// than the full safety timeout.
+#define REPORT_ACTIVE_TIME_MS       1500  // safety-net timeout (ms)
+#define POST_CONFIRM_COOLDOWN_MS    30    // cooldown after last data confirm
+                                          // (tl_stackBusy() prevents sleep while
+                                          // frames are still in the TX queue)
+
+// Power management is disabled until device successfully joins and settles
+static bool pm_enabled = false;
+
+static bool join_settling          = false;
+static u32  join_settle_timer      = 0;
+static u32  last_zcl_activity_tick = 0;  // updated on each incoming ZCL message
+static u8   zcl_msg_count          = 0;  // message counter during settle
+
+static bool post_settle_transition = false;
+static u32  post_settle_timer      = 0;
+
+static bool report_active            = false;
+static u32  report_active_timer      = 0;
+static u32  report_active_timeout_ms = REPORT_ACTIVE_TIME_MS;
+
+// Called from zcl_incoming_message_callback to track ZCL activity during settle
+void telink_zigbee_hal_notify_zcl_activity(void) {
+    last_zcl_activity_tick = clock_time();
+    if (join_settling) {
+        zcl_msg_count++;
+    }
+    // Extend post-settle transition when Z2M is still communicating
+    if (post_settle_transition) {
+        post_settle_timer = clock_time();
+    }
+}
+
+void telink_zigbee_hal_request_active_period(void) {
+    if (report_active) {
+        // Already active — if we're in post-confirm cooldown, extend back
+        // to the full safety timeout to allow a new report to be sent.
+        // Otherwise do nothing (avoid duplicate polls / timer resets).
+        if (report_active_timeout_ms == POST_CONFIRM_COOLDOWN_MS) {
+            report_active_timer      = clock_time();
+            report_active_timeout_ms = REPORT_ACTIVE_TIME_MS;
+        }
+        return;
+    }
+    report_active            = true;
+    report_active_timer      = clock_time();
+    report_active_timeout_ms = REPORT_ACTIVE_TIME_MS;
+    // No poll rate change needed — we use direct zcl_sendReportCmd() and
+    // a single zb_endDeviceSyncReq() to push the frame immediately.
+    // The normal POLL_RATE timer handles the next MAC poll.
+    zb_endDeviceSyncReq();
+}
+
+void telink_zigbee_hal_end_active_period(void) {
+    if (!report_active) {
+        return; // No active period — ignore stray confirms (e.g. read responses)
+    }
+    // A frame was confirmed by the MAC layer.  Instead of ending the
+    // active window immediately (another report may still be queued),
+    // shorten the remaining window to POST_CONFIRM_COOLDOWN_MS.
+    // If no further data is queued, the timer check in app_task will
+    // clear report_active and allow sleep.
+    report_active_timer      = clock_time();
+    report_active_timeout_ms = POST_CONFIRM_COOLDOWN_MS;
+}
+
+void hal_zigbee_check_settle_timer(void) {
+    // Check if settling period is over (must be called regularly from app_task)
+    if (join_settling) {
+        u32 current_time     = clock_time();
+        u32 elapsed_ticks    = current_time - join_settle_timer;
+        u32 hard_limit_ticks = POST_JOIN_SETTLE_MS * CLOCK_16M_SYS_TIMER_CLK_1MS;
+
+        bool hard_timeout = (elapsed_ticks >= hard_limit_ticks);
+
+        // Adaptive: end early once ZCL is quiet and minimum duration passed
+        bool early_end = false;
+        if (!hard_timeout) {
+            u32 elapsed_ms = elapsed_ticks / CLOCK_16M_SYS_TIMER_CLK_1MS;
+            if (elapsed_ms >= SETTLE_MIN_DURATION_MS && zcl_msg_count > 0) {
+                // We received at least one ZCL message; check idle
+                u32 idle_ticks = current_time - last_zcl_activity_tick;
+                u32 idle_ms    = idle_ticks / CLOCK_16M_SYS_TIMER_CLK_1MS;
+                if (idle_ms >= SETTLE_IDLE_TIMEOUT_MS) {
+                    early_end = true;
+                }
+            }
+        }
+
+        if (hard_timeout || early_end) {
+            join_settling = false;
+            pm_enabled    = true; // Enable power management after settle
+            // Start post-settle transition instead of jumping to slow poll
+            post_settle_transition = true;
+            post_settle_timer      = clock_time();
+            zb_setPollRate(POST_SETTLE_POLL_RATE);
+        }
+    }
+}
+
+void hal_zigbee_check_report_active_timer(void) {
+    // Expire the active window.  Two cases:
+    //  1. Safety-net: REPORT_ACTIVE_TIME_MS elapsed with no data confirm
+    //     (parent unreachable, frame lost).
+    //  2. Post-confirm cooldown: POST_CONFIRM_COOLDOWN_MS after the last
+    //     data confirm, giving time for any follow-up reports.
+    if (report_active) {
+        u32 current_time  = clock_time();
+        u32 elapsed_ticks = current_time - report_active_timer;
+        u32 target_ticks  = report_active_timeout_ms * CLOCK_16M_SYS_TIMER_CLK_1MS;
+
+        if (elapsed_ticks >= target_ticks) {
+            report_active            = false;
+            report_active_timeout_ms = REPORT_ACTIVE_TIME_MS;
+        }
+    }
+}
+
+void hal_zigbee_check_post_settle_timer(void) {
+    // Transition period after settle: intermediate poll rate before slow poll.
+    // Timer is re-armed on each incoming ZCL message (see notify_zcl_activity),
+    // so the device stays responsive while Z2M is actively communicating.
+    if (post_settle_transition) {
+        u32 current_time  = clock_time();
+        u32 elapsed_ticks = current_time - post_settle_timer;
+        u32 limit_ticks   = POST_SETTLE_IDLE_TIMEOUT_MS * CLOCK_16M_SYS_TIMER_CLK_1MS;
+
+        if (elapsed_ticks >= limit_ticks) {
+            post_settle_transition = false;
+            zb_setPollRate(POLL_RATE);
+        }
+    }
+}
+
+bool hal_zigbee_is_sleep_allowed(void) {
+    // Power management is disabled during commissioning and settling
+    if (!pm_enabled) {
+        return false;
+    }
+
+    // Block sleep during settling or reporting (timers checked in app_task)
+    return !join_settling && !report_active;
+}
+
+#else
+void telink_zigbee_hal_request_active_period(void) {
+    // Router: always awake, no-op
+}
+
+void hal_zigbee_check_settle_timer(void) {
+    // Router: no settle timer needed
+}
+
+void hal_zigbee_check_report_active_timer(void) {
+    // Router: no report active timer needed
+}
+
+void hal_zigbee_check_post_settle_timer(void) {
+    // Router: no post-settle timer needed
+}
+
+#endif
+
 // Telink ZDO callbacks
 zdo_appIndCb_t zdo_callbacks = {
     bdb_zdoStartDevCnf,              // start device cnf cb
@@ -77,11 +267,25 @@ void zdo_leave_confirmation_callback(nlme_leave_cnf_t *pLeaveCnf) {
 
 void bdb_init_callback(u8 status, u8 joinedNetwork) {
     if (status == BDB_INIT_STATUS_SUCCESS) {
+#ifdef ZB_ED_ROLE
+        // Disable automatic quick polls after data send — we manage active
+        // periods ourselves and don't need the SDK to poll 3 extra times.
+        AUTO_QUICK_DATA_POLL_ENABLE = FALSE;
+#endif
         if (joinedNetwork) {
             ota_queryStart(OTA_QUERY_INTERVAL);
       #ifdef ZB_ED_ROLE
+            // Already joined (reboot): enable PM immediately, use slow poll
+            pm_enabled             = true;
+            join_settling          = false;
+            post_settle_transition = false;
             zb_setPollRate(POLL_RATE);
-            printf("Set poll rate to %d\r\n", POLL_RATE);
+      #endif
+        } else {
+      #ifdef ZB_ED_ROLE
+            // Not joined: disable PM until join completes and settles
+            pm_enabled    = false;
+            join_settling = false;
       #endif
         }
     } else {
@@ -98,8 +302,13 @@ void bdb_commissioning_callback(u8 status, void *arg) {
     case BDB_COMMISSION_STA_SUCCESS:
         ota_queryStart(OTA_QUERY_INTERVAL);
 #ifdef ZB_ED_ROLE
-        zb_setPollRate(POLL_RATE);
-        printf("Set poll rate to %d\r\n", POLL_RATE);
+        // Fast poll so coordinator can read descriptors/attributes after join
+        // PM stays disabled during settle period
+        join_settling          = true;
+        join_settle_timer      = clock_time();
+        last_zcl_activity_tick = clock_time();
+        zcl_msg_count          = 0;
+        zb_setPollRate(POST_JOIN_FAST_POLL_RATE);
 #endif
         steeringInProgress = 0;
         break;
