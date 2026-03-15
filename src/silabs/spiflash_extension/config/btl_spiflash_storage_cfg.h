@@ -171,6 +171,17 @@
 // <i> Enable support for the Tsingteng TS25Q80UA SPI flash in the bootloader. Adding support for multiple SPI flashes in the bootloader requires more flash memory.
 #define BTL_STORAGE_SPIFLASH_TSINGTENG_TS25Q80UA    1
 
+
+/*****************************************************************************
+* Boya flashes
+*
+*****************************************************************************/
+
+// <q BTL_STORAGE_SPIFLASH_BOYA_BY25Q80AW> Support Boya BY25Q80AW (1 Mb)
+// <i> Default: 0
+// <i> Enable support for the Boya BY25Q80AW SPI flash in the bootloader. Adding support for multiple SPI flashes in the bootloader requires more flash memory.
+#define BTL_STORAGE_SPIFLASH_BOYA_BY25Q80AW    1
+
 // </h>
 // <<< end of configuration section >>>
 
