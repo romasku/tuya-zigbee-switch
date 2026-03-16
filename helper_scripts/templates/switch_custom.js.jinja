@@ -368,6 +368,9 @@ const definitions = [
         description: "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
         {% set first_endpoint = device.switchNames[0] if device.switchNames else (device.relayNames[0] if device.relayNames else device.coverNames[0]) %}
         extend: [
+            {% if device.is_battery_powered %}
+            romasku.batteryPercentage(),
+            {% endif %}
             {% if device.coverSwitchNames %}
             deviceAddCustomCluster("manuSpecificTuyaCoverSwitchConfig", {
                 ID: 0xFC01,
@@ -383,9 +386,6 @@ const definitions = [
                 commands: {},
                 commandsResponse: {},
             }),
-            {% endif %}
-            {% if device.is_battery_powered %}
-            romasku.batteryPercentage(),
             {% endif %}
             {% if device.coverNames %}
             deviceAddCustomCluster("closuresWindowCovering", {

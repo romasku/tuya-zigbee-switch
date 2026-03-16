@@ -30,6 +30,16 @@ void switch_cluster_on_button_long_press(zigbee_switch_cluster *cluster);
 
 zigbee_switch_cluster *switch_cluster_by_endpoint[10];
 
+static void switch_cluster_flash_indicator(zigbee_switch_cluster *cluster) {
+    if (cluster->indicator_led == NULL) {
+        return;
+    }
+    // Only flash when LED is idle (not in "not connected" forever-blink)
+    if (cluster->indicator_led->blink_times_left == 0) {
+        led_blink(cluster->indicator_led, 50, 50, 1);
+    }
+}
+
 void switch_cluster_store_attrs_to_nv(zigbee_switch_cluster *cluster);
 void switch_cluster_load_attrs_from_nv(zigbee_switch_cluster *cluster);
 void switch_cluster_on_write_attr(zigbee_switch_cluster *cluster,
@@ -221,6 +231,7 @@ void switch_cluster_binding_action_on(zigbee_switch_cluster *cluster) {
 
     hal_zigbee_cmd c = build_onoff_cmd(cluster->endpoint, cmd_id);
     hal_zigbee_send_cmd_to_bindings(&c);
+    switch_cluster_flash_indicator(cluster);
 }
 
 // Send OnOff command to binded device based on OFF position (position 2 in
@@ -268,6 +279,7 @@ void switch_cluster_binding_action_off(zigbee_switch_cluster *cluster) {
 
     hal_zigbee_cmd c = build_onoff_cmd(cluster->endpoint, cmd_id);
     hal_zigbee_send_cmd_to_bindings(&c);
+    switch_cluster_flash_indicator(cluster);
 }
 
 void switch_cluster_level_stop(zigbee_switch_cluster *cluster) {
@@ -277,6 +289,7 @@ void switch_cluster_level_stop(zigbee_switch_cluster *cluster) {
 
     hal_zigbee_cmd c = build_level_stop_onoff_cmd(cluster->endpoint);
     hal_zigbee_send_cmd_to_bindings(&c);
+    switch_cluster_flash_indicator(cluster);
 }
 
 void switch_cluster_level_control(zigbee_switch_cluster *cluster) {
@@ -288,6 +301,7 @@ void switch_cluster_level_control(zigbee_switch_cluster *cluster) {
                                                   cluster->level_move_direction,
                                                   cluster->level_move_rate);
     hal_zigbee_send_cmd_to_bindings(&c);
+    switch_cluster_flash_indicator(cluster);
 
     if (cluster->level_move_direction == ZCL_LEVEL_MOVE_DOWN) {
         cluster->level_move_direction = ZCL_LEVEL_MOVE_UP;
@@ -319,6 +333,8 @@ void switch_cluster_on_button_press(zigbee_switch_cluster *cluster) {
     }
 
     cluster->multistate_state = MULTISTATE_PRESS;
+    printf("sw[%d] press ms=%d\r\n", cluster->endpoint,
+           cluster->multistate_state);
     hal_zigbee_notify_attribute_changed(cluster->endpoint,
                                         ZCL_CLUSTER_MULTISTATE_INPUT_BASIC,
                                         ZCL_ATTR_MULTISTATE_INPUT_PRESENT_VALUE);

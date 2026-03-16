@@ -104,13 +104,21 @@ void parse_config() {
     }
     memcpy(basic_cluster.modelId + 1, zb_model, basic_cluster.modelId[0]);
 
-    bool  has_dedicated_status_led = false;
-    char *entry;
+    bool     has_dedicated_status_led = false;
+    uint8_t  switch_indicator_cnt     = 0; // tracks I LEDs assigned to switch clusters
+    uint16_t debounce_ms = DEBOUNCE_DELAY_MS;
+    char *   entry;
     for (entry = extract_next_entry(&cursor); *entry != '\0';
          entry = extract_next_entry(&cursor)) {
         if (entry[0] == 'S' && entry[1] == 'L' && entry[2] == 'P') {
             // Simultaneous Latching Pulses == SLP
             allow_simultaneous_latching_pulses = 1;
+        } else if (entry[0] == 'D' && entry[1] >= '0' && entry[1] <= '9') {
+            // D<N> — global debounce duration in ms (e.g. D0 to disable)
+            debounce_ms = (uint16_t)parse_int(entry + 1);
+            for (int i = 0; i < buttons_cnt; i++) {
+                buttons[i].debounce_delay_ms = debounce_ms;
+            }
         } else if (entry[0] == 'B') {
             hal_gpio_pin_t  pin  = hal_gpio_parse_pin(entry + 1);
             hal_gpio_pull_t pull = hal_gpio_parse_pull(entry + 3);
@@ -119,7 +127,7 @@ void parse_config() {
             buttons[buttons_cnt].pin = pin;
             buttons[buttons_cnt].long_press_duration_ms  = 2000;
             buttons[buttons_cnt].multi_press_duration_ms = 800;
-            buttons[buttons_cnt].debounce_delay_ms       = DEBOUNCE_DELAY_MS;
+            buttons[buttons_cnt].debounce_delay_ms       = debounce_ms;
             buttons[buttons_cnt].on_long_press           = on_reset_clicked;
             buttons_cnt++;
         } else if (entry[0] == 'L') {
@@ -150,6 +158,12 @@ void parse_config() {
                 }
             }
 
+            // Assign I to its associated switch_cluster (the P that preceded it)
+            if (switch_indicator_cnt < switch_clusters_cnt) {
+                switch_clusters[switch_indicator_cnt].indicator_led = &leds[leds_cnt];
+                switch_indicator_cnt++;
+            }
+
             if (!has_dedicated_status_led) {
                 for (int index = 0; index < 4; index++) {
                     if (network_indicator.leds[index] == NULL) {
@@ -167,7 +181,7 @@ void parse_config() {
             buttons[buttons_cnt].pin = pin;
             buttons[buttons_cnt].long_press_duration_ms  = 800;
             buttons[buttons_cnt].multi_press_duration_ms = 800;
-            buttons[buttons_cnt].debounce_delay_ms       = DEBOUNCE_DELAY_MS;
+            buttons[buttons_cnt].debounce_delay_ms       = debounce_ms;
             buttons[buttons_cnt].on_multi_press          = on_multi_press_reset;
 
             if (entry[3] == 'd')
@@ -383,7 +397,25 @@ void peripherals_init() {
 }
 
 void config_reinit_gpio(void) {
-    // Re-configure all GPIO pin modes and pulls (SFRs lost during deep retention)
+    // Pre-load DATA registers before enabling output-en via hal_gpio_reinit_all().
+    // After deep retention, reg_gpio_out resets to 0. If output-en were set first,
+    // active-low outputs (on_high=0) would briefly drive LOW (= ON), causing a
+    // visible LED flash or relay glitch on every wakeup.
+    for (int i = 0; i < leds_cnt; i++) {
+        hal_gpio_write(leds[i].pin, leds[i].on ? leds[i].on_high : !leds[i].on_high);
+    }
+    for (int i = 0; i < relays_cnt; i++) {
+        if (!relays[i].is_latching) {
+            hal_gpio_write(relays[i].pin,
+                           relays[i].on ? relays[i].on_high : !relays[i].on_high);
+        } else {
+            hal_gpio_write(relays[i].pin, !relays[i].on_high);
+            hal_gpio_write(relays[i].off_pin, !relays[i].on_high);
+        }
+    }
+
+    // Re-configure all GPIO pin modes and pulls (SFRs lost during deep retention).
+    // Output-en is set here; DATA is already correct from above.
     hal_gpio_reinit_all();
 
     // Re-configure GPIO interrupts for buttons
@@ -393,23 +425,6 @@ void config_reinit_gpio(void) {
     // Fires press/release callbacks if state changed across sleep boundary.
     for (int i = 0; i < buttons_cnt; i++) {
         btn_retention_wake(&buttons[i]);
-    }
-
-    // Restore LED output states from retained SRAM
-    for (int i = 0; i < leds_cnt; i++) {
-        hal_gpio_write(leds[i].pin, leds[i].on ? leds[i].on_high : !leds[i].on_high);
-    }
-
-    // Restore relay output states from retained SRAM
-    for (int i = 0; i < relays_cnt; i++) {
-        if (!relays[i].is_latching) {
-            hal_gpio_write(relays[i].pin,
-                           relays[i].on ? relays[i].on_high : !relays[i].on_high);
-        } else {
-            // Latching relays: just ensure pins are low (no continuous drive)
-            hal_gpio_write(relays[i].pin, !relays[i].on_high);
-            hal_gpio_write(relays[i].off_pin, !relays[i].on_high);
-        }
     }
 }
 
