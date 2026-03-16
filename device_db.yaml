@@ -3573,8 +3573,8 @@ SWITCH_BSEED_TS0726_L_2GANG:
   stock_image_type: 54179
   firmware_image_type: 43633
   build: yes
-  status: in_progress
-  info: Needs pinout confirmation
+  status: fully_supported
+  info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/363
   store:
   - https://www.aliexpress.com/item/1005010747186290.html
