@@ -2202,6 +2202,33 @@ MODULE_TUYA_NOVATO_TS0002:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/298
   store: null
+MODULE_TUYA_NOVATO_TS0003:
+  human_name: QS-Zigbee-S10-3C
+  category: module
+  power: mains
+  neutral: required
+  output: relay
+  device_type: router
+  stock_model_name: TS0003
+  stock_manufacturer_name: _TZ3000_ly9apzky
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0003
+  override_z2m_device: null
+  tuya_module: ZTU
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: ly9apzky;TS0003-Avv;BC2u;LD3i;SB5u;RC1;SB4u;RD2;SC3u;RD4;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
+  firmware_image_type: 47001
+  build: yes
+  status: fully_supported
+  info: Supported
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/371
+  store: https://aliexpress.com/item/1005009352568856.html
 MODULE_TUYA_NOVATO_DRY_TS000F_1GANG:
   human_name: QS-Zigbee-SEC01-DC
   category: module
