@@ -2631,11 +2631,11 @@ MODULE_ZBEACON_TS0002:
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4107
-  stock_image_type: 54179
+  stock_image_type: 524
   firmware_image_type: 43640
   build: yes
   status: mostly_supported
-  info: Needs pinout and OTA confirmation
+  info: Needs pinout confirmation
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/216
   store: https://www.aliexpress.com/item/1005011631868638.html
 OUTLET_BSEED_PM_TS011F:
