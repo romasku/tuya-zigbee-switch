@@ -9,13 +9,19 @@ void network_indicator_from_manual_state(network_indicator_t *indicator) {
     led_t **led = indicator->leds;
 
     while (*led != NULL && (led - indicator->leds) < 4) {
-        (*led)->blink_times_left = 0;
         if (indicator->has_dedicated_led) {
             if (indicator->manual_state_when_connected) {
                 led_on(*led);
             } else {
                 led_off(*led);
             }
+        } else {
+            // No dedicated L LED: I LEDs serve as network indicator.
+            // Explicitly turn off so they don't stay ON after a brief
+            // not-connected transient (e.g. retention wake MAC re-sync).
+            // Relay sync (update_relay_clusters) will restore the correct
+            // state for S+R+I patterns immediately afterward.
+            led_off(*led);
         }
         led++;
     }

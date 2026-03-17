@@ -8,6 +8,9 @@
 #include "zigbee/switch_cluster.h"
 #include "zigbee/cover_switch_cluster.h"
 #include "zigbee/cover_cluster.h"
+#ifdef BATTERY_POWERED
+#include "zigbee/battery_cluster.h"
+#endif
 
 #include <stdint.h>
 #include <string.h>
@@ -22,7 +25,7 @@
 #include "device_config/device_params_nv.h"
 
 // Forward declarations
-void periferals_init(void);
+void peripherals_init(void);
 
 // extern ota_preamble_t baseEndpoint_otaInfo;
 
@@ -101,13 +104,21 @@ void parse_config() {
     }
     memcpy(basic_cluster.modelId + 1, zb_model, basic_cluster.modelId[0]);
 
-    bool  has_dedicated_status_led = false;
-    char *entry;
+    bool     has_dedicated_status_led = false;
+    uint8_t  switch_indicator_cnt     = 0; // tracks I LEDs assigned to switch clusters
+    uint16_t debounce_ms = DEBOUNCE_DELAY_MS;
+    char *   entry;
     for (entry = extract_next_entry(&cursor); *entry != '\0';
          entry = extract_next_entry(&cursor)) {
         if (entry[0] == 'S' && entry[1] == 'L' && entry[2] == 'P') {
             // Simultaneous Latching Pulses == SLP
             allow_simultaneous_latching_pulses = 1;
+        } else if (entry[0] == 'D' && entry[1] >= '0' && entry[1] <= '9') {
+            // D<N> — global debounce duration in ms (e.g. D0 to disable)
+            debounce_ms = (uint16_t)parse_int(entry + 1);
+            for (int i = 0; i < buttons_cnt; i++) {
+                buttons[i].debounce_delay_ms = debounce_ms;
+            }
         } else if (entry[0] == 'B') {
             hal_gpio_pin_t  pin  = hal_gpio_parse_pin(entry + 1);
             hal_gpio_pull_t pull = hal_gpio_parse_pull(entry + 3);
@@ -116,6 +127,7 @@ void parse_config() {
             buttons[buttons_cnt].pin = pin;
             buttons[buttons_cnt].long_press_duration_ms  = 2000;
             buttons[buttons_cnt].multi_press_duration_ms = 800;
+            buttons[buttons_cnt].debounce_delay_ms       = debounce_ms;
             buttons[buttons_cnt].on_long_press           = on_reset_clicked;
             buttons_cnt++;
         } else if (entry[0] == 'L') {
@@ -146,6 +158,12 @@ void parse_config() {
                 }
             }
 
+            // Assign I to its associated switch_cluster (the P that preceded it)
+            if (switch_indicator_cnt < switch_clusters_cnt) {
+                switch_clusters[switch_indicator_cnt].indicator_led = &leds[leds_cnt];
+                switch_indicator_cnt++;
+            }
+
             if (!has_dedicated_status_led) {
                 for (int index = 0; index < 4; index++) {
                     if (network_indicator.leds[index] == NULL) {
@@ -155,7 +173,7 @@ void parse_config() {
                 }
             }
             leds_cnt++;
-        } else if (entry[0] == 'S') {
+        } else if (entry[0] == 'S' || entry[0] == 'P') {
             hal_gpio_pin_t  pin  = hal_gpio_parse_pin(entry + 1);
             hal_gpio_pull_t pull = hal_gpio_parse_pull(entry + 3);
             hal_gpio_init(pin, 1, pull);
@@ -163,19 +181,23 @@ void parse_config() {
             buttons[buttons_cnt].pin = pin;
             buttons[buttons_cnt].long_press_duration_ms  = 800;
             buttons[buttons_cnt].multi_press_duration_ms = 800;
+            buttons[buttons_cnt].debounce_delay_ms       = debounce_ms;
             buttons[buttons_cnt].on_multi_press          = on_multi_press_reset;
 
+            if (entry[3] == 'd')
+                buttons[buttons_cnt].pressed_when_high = 1;
             switch_clusters[switch_clusters_cnt].switch_idx = switch_clusters_cnt;
             switch_clusters[switch_clusters_cnt].mode       =
                 ZCL_ONOFF_CONFIGURATION_SWITCH_TYPE_TOGGLE;
             switch_clusters[switch_clusters_cnt].action =
                 ZCL_ONOFF_CONFIGURATION_SWITCH_ACTION_TOGGLE_SIMPLE;
             switch_clusters[switch_clusters_cnt].relay_mode =
-                ZCL_ONOFF_CONFIGURATION_RELAY_MODE_SHORT;
+                (entry[0] == 'P') ? ZCL_ONOFF_CONFIGURATION_RELAY_MODE_DETACHED
+                                  : ZCL_ONOFF_CONFIGURATION_RELAY_MODE_SHORT;
             switch_clusters[switch_clusters_cnt].binded_mode =
                 ZCL_ONOFF_CONFIGURATION_BINDED_MODE_SHORT;
             switch_clusters[switch_clusters_cnt].relay_index =
-                switch_clusters_cnt + 1;
+                (entry[0] == 'P') ? 0 : (switch_clusters_cnt + 1);
             switch_clusters[switch_clusters_cnt].button          = &buttons[buttons_cnt];
             switch_clusters[switch_clusters_cnt].level_move_rate = 50;
             buttons_cnt++;
@@ -256,7 +278,7 @@ void parse_config() {
         }
     }
 
-    periferals_init();
+    peripherals_init();
 
     printf("Initializing Zigbee with %d switches, %d relays, %d cover switches, %d covers\r\n",
            switch_clusters_cnt, relay_clusters_cnt, cover_switch_clusters_cnt, cover_clusters_cnt);
@@ -284,6 +306,12 @@ void parse_config() {
 
     hal_ota_cluster_setup(&endpoints[0].clusters[endpoints[0].cluster_count]);
     endpoints[0].cluster_count++;
+
+#ifdef BATTERY_POWERED
+    // Add battery cluster for battery-powered devices
+    static zigbee_battery_cluster battery_cluster;
+    battery_cluster_add_to_endpoint(&battery_cluster, &endpoints[0]);
+#endif
 
     for (int index = 0; index < switch_clusters_cnt; index++) {
         if (index != 0) {
@@ -339,6 +367,9 @@ void network_indicator_on_network_status_change(
     hal_zigbee_network_status_t new_status) {
     printf("Network status changed to %d\r\n", new_status);
     if (new_status == HAL_ZIGBEE_NETWORK_JOINED) {
+#ifdef BATTERY_POWERED
+        network_indicator.manual_state_when_connected = 0;
+#endif
         network_indicator_connected(&network_indicator);
         update_relay_clusters();
     } else {
@@ -346,7 +377,7 @@ void network_indicator_on_network_status_change(
     }
 }
 
-void periferals_init() {
+void peripherals_init() {
     for (int index = 0; index < buttons_cnt; index++) {
         btn_init(&buttons[index]);
     }
@@ -363,6 +394,38 @@ void periferals_init() {
     }
     hal_register_on_network_status_change_callback(
         network_indicator_on_network_status_change);
+}
+
+void config_reinit_gpio(void) {
+    // Pre-load DATA registers before enabling output-en via hal_gpio_reinit_all().
+    // After deep retention, reg_gpio_out resets to 0. If output-en were set first,
+    // active-low outputs (on_high=0) would briefly drive LOW (= ON), causing a
+    // visible LED flash or relay glitch on every wakeup.
+    for (int i = 0; i < leds_cnt; i++) {
+        hal_gpio_write(leds[i].pin, leds[i].on ? leds[i].on_high : !leds[i].on_high);
+    }
+    for (int i = 0; i < relays_cnt; i++) {
+        if (!relays[i].is_latching) {
+            hal_gpio_write(relays[i].pin,
+                           relays[i].on ? relays[i].on_high : !relays[i].on_high);
+        } else {
+            hal_gpio_write(relays[i].pin, !relays[i].on_high);
+            hal_gpio_write(relays[i].off_pin, !relays[i].on_high);
+        }
+    }
+
+    // Re-configure all GPIO pin modes and pulls (SFRs lost during deep retention).
+    // Output-en is set here; DATA is already correct from above.
+    hal_gpio_reinit_all();
+
+    // Re-configure GPIO interrupts for buttons
+    hal_gpio_reinit_interrupts();
+
+    // Sync button state with actual pin levels after retention wake.
+    // Fires press/release callbacks if state changed across sleep boundary.
+    for (int i = 0; i < buttons_cnt; i++) {
+        btn_retention_wake(&buttons[i]);
+    }
 }
 
 // Helper functions
