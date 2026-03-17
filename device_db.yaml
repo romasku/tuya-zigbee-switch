@@ -2121,6 +2121,33 @@ MODULE_TUYA_GIRIER_TS0013:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/37
   store: null
+MODULE_TUYA_NOVATO_DRY_TS000F_1GANG:
+  human_name: QS-Zigbee-SEC01-DC
+  category: module
+  power: mains
+  neutral: required
+  output: relay
+  device_type: router
+  stock_model_name: TS000F
+  stock_manufacturer_name: _TZ3218_hdc8bbha
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: QS-Zigbee-SEC01-DC
+  override_z2m_device: null
+  tuya_module: ZTLC9
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: hdc8bbha2;TS000F-DC; null
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: null
+  stock_image_type: null
+  firmware_image_type: 43639
+  build: no
+  status: in_progress
+  info: Needs pinout + RF daughterboard not supported
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/372
+  store: null
 MODULE_TUYA_NOVATO_QS_S05_TS0001:
   human_name: Tuya QS-Zigbee-S05-LN
   category: module
@@ -2229,33 +2256,6 @@ MODULE_TUYA_NOVATO_TS0003:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/371
   store: https://aliexpress.com/item/1005009352568856.html
-MODULE_TUYA_NOVATO_DRY_TS000F_1GANG:
-  human_name: QS-Zigbee-SEC01-DC
-  category: module
-  power: mains
-  neutral: required
-  output: relay
-  device_type: router
-  stock_model_name: TS000F
-  stock_manufacturer_name: _TZ3218_hdc8bbha
-  stock_converter_manufacturer: Tuya
-  stock_converter_model: QS-Zigbee-SEC01-DC
-  override_z2m_device: null
-  tuya_module: ZTLC9
-  mcu_family: Telink
-  mcu: TLSR8258
-  config_str: hdc8bbha2;TS000F-DC; null
-  alt_config_str: null
-  old_manufacturer_names: null
-  old_zb_models: null
-  stock_manufacturer_id: null
-  stock_image_type: null
-  firmware_image_type: 43639
-  build: no
-  status: in_progress
-  info: Needs pinout + RF daughterboard not supported
-  threads: https://github.com/romasku/tuya-zigbee-switch/issues/372
-  store: null
 MODULE_TUYA_NOVATO_TS000F_1GANG:
   human_name: NOVATO ZRM01
   category: module
