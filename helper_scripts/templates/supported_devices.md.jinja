@@ -4,7 +4,7 @@ Support new devices: [contribute/porting.md](/docs/contribute/porting.md)
 
 ### Quick-picks
 - **modules:** AVATTO, Aubess, iHseno
-- **switches:** Moes 1-3gang (any design)
+- **switches:** Moes 1-3gang (any design, except Star Feather)
 
 ### Careful with
 - generic 1-gang modules - might not support OTA conversion
