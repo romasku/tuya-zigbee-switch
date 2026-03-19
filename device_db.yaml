@@ -4332,6 +4332,33 @@ SWITCH_MOES_SCENE_TS0726_3GANG_3SCENE:
   info: Only 4 buttons supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/332
   store: null
+SWITCH_NOVADIGITAL_TS0003:
+  human_name: NovaDigital ZTS-3W
+  category: switch
+  power: mains
+  neutral: required
+  output: relay
+  device_type: router
+  stock_model_name: TS0003
+  stock_manufacturer_name: _TZ3000_785olaiq
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0003_switch_3_gang
+  override_z2m_device: WS-US-ZB
+  tuya_module: ZTU
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: 785olaiq;ZTS-3W-CUSTOM;SB6u;RB5;ID3i;SC1u;RB4;ID7i;SC4u;RD2;IC0i;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
+  firmware_image_type: 43614
+  build: yes
+  status: fully_supported
+  info: Supported
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/373
+  store: https://www.aliexpress.com/item/1005010723015326.html
 SWITCH_PSMART_TL_TS0001:
   human_name: PSMART T441/T451 TL
   category: switch
