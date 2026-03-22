@@ -1568,7 +1568,7 @@ MODULE_MOES_TS0003:
   power: mains
   neutral: required
   output: relay
-  device_type: router
+  device_type: end_device # enable end device option for poor signal scenarios
   stock_model_name: TS0003
   stock_manufacturer_name: _TZ3000_pfc7i3kt
   stock_converter_manufacturer: Tuya
