@@ -39,6 +39,7 @@ SOURCES := \
 	$(SRC_DIR)/stub/hal/timer.c \
 	$(SRC_DIR)/stub/hal/tasks.c \
 	$(SRC_DIR)/stub/hal/nvm.c \
+	$(SRC_DIR)/stub/hal/adc.c \
 	$(SRC_DIR)/stub/hal/zigbee.c \
 	$(SRC_DIR)/stub/hal/ota.c \
 	$(SRC_DIR)/stub/simple_repl.c \
@@ -48,6 +49,7 @@ SOURCES := \
 	$(SRC_DIR)/base_components/led.c \
 	$(SRC_DIR)/base_components/relay.c \
 	$(SRC_DIR)/base_components/button.c \
+	$(SRC_DIR)/base_components/battery.c \
 	$(SRC_DIR)/base_components/network_indicator.c \
 	$(SRC_DIR)/device_config/config_parser.c \
 	$(SRC_DIR)/device_config/config_nv.c \
@@ -61,7 +63,6 @@ SOURCES := \
 	$(SRC_DIR)/zigbee/general_commands.c \
 	$(SRC_DIR)/zigbee/cover_switch_cluster.c \
 	$(SRC_DIR)/zigbee/cover_cluster.c \
-	$(SRC_DIR)/stub/hal/battery.c \
 	$(SRC_DIR)/zigbee/battery_cluster.c
 
 INCLUDES := \

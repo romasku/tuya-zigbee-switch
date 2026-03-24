@@ -31,6 +31,10 @@ hal_zigbee_cmd_result_t stub_zigbee_simulate_command(uint8_t endpoint,
 void stub_simulate_zigbee_attribute_write(uint8_t endpoint, uint16_t cluster_id,
                                           uint16_t attribute_id);
 
+// ADC stub functions
+void stub_set_adc_voltage_mv(uint16_t voltage_mv);
+void stub_set_battery_voltage_mv(uint16_t voltage_mv);
+
 // Millis stub functions
 void stub_millis_init();
 void stub_millis_freeze();

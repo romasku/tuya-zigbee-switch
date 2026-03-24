@@ -14,7 +14,7 @@ NVM_MIGRATIONS_VERSION ?= $(shell cat ../../NVM_MIGRATIONS_VERSION 2>/dev/null |
 FIRMWARE_BASENAME ?= tlc_switch
 DEVICE_TYPE ?= router
 DEBUG ?= 0
-CONFIG_STR ?= jjl7qyupf;TS0012-custom;LC4;SC2u;
+CONFIG_STR ?= jjl7qyupf;TS0012-custom;LC4;SC2u;BTB5;
 MANUFACTURER_ID ?= 4417
 IMAGE_TYPE ?= 43521
 OTA_VERSION ?= 
@@ -134,12 +134,12 @@ TELINK_SOURCES := \
 	hal/zigbee_network.c \
 	hal/zigbee_zcl.c \
 	hal/zigbee_ota.c \
+	hal/adc.c \
 	libc_polyfills/atoi.c \
 	custom_zcl/zcl_multistate_input.c \
 	custom_zcl/zcl_onoff_configuration.c \
 	custom_zcl/zcl_cover_switch_config.c \
-	patch_sdk/drv_nv.c \
-	hal/battery.c
+	patch_sdk/drv_nv.c
 
 # Common source files (shared with Silicon Labs build)
 COMMON_SOURCES := \
@@ -148,6 +148,7 @@ COMMON_SOURCES := \
 	$(SRC_DIR)/base_components/led.c \
 	$(SRC_DIR)/base_components/network_indicator.c \
 	$(SRC_DIR)/base_components/relay.c \
+	$(SRC_DIR)/base_components/battery.c \
 	$(SRC_DIR)/device_config/config_nv.c \
 	$(SRC_DIR)/device_config/device_params_nv.c \
 	$(SRC_DIR)/device_config/reset.c \
@@ -160,7 +161,7 @@ COMMON_SOURCES := \
 	$(SRC_DIR)/zigbee/switch_cluster.c \
 	$(SRC_DIR)/zigbee/cover_switch_cluster.c \
 	$(SRC_DIR)/zigbee/cover_cluster.c \
-	$(SRC_DIR)/zigbee/battery_cluster.c
+	$(SRC_DIR)/zigbee/battery_cluster.c 
 
 # All application sources
 ALL_TELINK_SOURCES := $(TELINK_SOURCES) $(COMMON_SOURCES)

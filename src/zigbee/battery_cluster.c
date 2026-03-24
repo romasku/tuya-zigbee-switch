@@ -2,7 +2,8 @@
 
 #include "cluster_common.h"
 #include "consts.h"
-#include "hal/battery.h"
+#include "device_config/config_parser.h"
+#include "base_components/battery.h"
 #include "hal/printf_selector.h"
 #include "hal/timer.h"
 #include "hal/zigbee.h"
@@ -51,19 +52,8 @@ void battery_cluster_update(zigbee_battery_cluster *cluster) {
     }
     last_update_ms = now;
 
-    uint16_t mv = hal_battery_get_voltage_mv();
-    cluster->voltage_100mv = (mv > 25500) ? 255 : (uint8_t)(mv / 100);
-
-    uint8_t zcl_percentage; // ZCL unit: 0.5% steps (0=0%, 200=100%)
-    if (mv >= BATTERY_VOLTAGE_MAX_MV) {
-        cluster->percentage_remaining = 200;
-    } else if (mv <= BATTERY_VOLTAGE_MIN_MV) {
-        cluster->percentage_remaining = 0;
-    } else {
-        cluster->percentage_remaining =
-            (uint8_t)((uint32_t)(mv - BATTERY_VOLTAGE_MIN_MV) * 200 /
-                      (BATTERY_VOLTAGE_MAX_MV - BATTERY_VOLTAGE_MIN_MV));
-    }
+    cluster->percentage_remaining = battery_get_charge(&battery, 100);
+    cluster->voltage_100mv        = battery_get_mv(&battery) / 100;
 
     hal_zigbee_notify_attribute_changed(cluster->endpoint, ZCL_CLUSTER_POWER_CFG,
                                         ZCL_ATTR_POWER_CFG_BATTERY_VOLTAGE);

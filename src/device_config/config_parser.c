@@ -1,4 +1,3 @@
-#include "hal/battery.h"
 #include "hal/gpio.h"
 #include "hal/printf_selector.h"
 #include "hal/zigbee.h"
@@ -16,6 +15,7 @@
 
 #include "base_components/led.h"
 #include "base_components/network_indicator.h"
+#include "base_components/battery.h"
 #include "config_nv.h"
 #include "device_config/device_params_nv.h"
 #include "device_config/reset.h"
@@ -66,7 +66,12 @@ hal_zigbee_endpoint endpoints[10];
 
 uint8_t allow_simultaneous_latching_pulses = 0;
 
-uint8_t battery_enabled = 0;
+uint8_t   battery_enabled = 0;
+battery_t battery         = {
+    .pin         = HAL_INVALID_PIN,
+    .voltage_min =            2000,
+    .voltage_max =            3000,
+};
 
 uint32_t parse_int(const char *s);
 char *seek_until(char *cursor, char needle);
@@ -115,7 +120,8 @@ void parse_config() {
         } else if (entry[0] == 'B' && entry[1] == 'T') {
             // Battery: BT<pin>, e.g. BTC5
             hal_gpio_pin_t pin = hal_gpio_parse_pin(entry + 2);
-            hal_battery_init(pin);
+            battery.pin = pin;
+            battery_init(&battery);
             battery_enabled = 1;
         } else if (entry[0] == 'B') {
             hal_gpio_pin_t  pin  = hal_gpio_parse_pin(entry + 1);
@@ -183,10 +189,11 @@ void parse_config() {
                 ZCL_ONOFF_CONFIGURATION_SWITCH_TYPE_TOGGLE;
             switch_clusters[switch_clusters_cnt].action =
                 ZCL_ONOFF_CONFIGURATION_SWITCH_ACTION_TOGGLE_SIMPLE;
-            switch_clusters[switch_clusters_cnt].relay_mode = ZCL_ONOFF_CONFIGURATION_RELAY_MODE_SHORT;
+            switch_clusters[switch_clusters_cnt].relay_mode =
+                ZCL_ONOFF_CONFIGURATION_RELAY_MODE_SHORT;
             switch_clusters[switch_clusters_cnt].binded_mode =
                 ZCL_ONOFF_CONFIGURATION_BINDED_MODE_SHORT;
-            switch_clusters[switch_clusters_cnt].relay_index = switch_clusters_cnt + 1;
+            switch_clusters[switch_clusters_cnt].relay_index     = switch_clusters_cnt + 1;
             switch_clusters[switch_clusters_cnt].button          = &buttons[buttons_cnt];
             switch_clusters[switch_clusters_cnt].level_move_rate = 50;
             buttons_cnt++;
@@ -285,7 +292,7 @@ void parse_config() {
         // If there is no relays, then set all switches to detached mode
         // to avoid them trying to control non-existing relays
         for (int index = 0; index < switch_clusters_cnt; index++) {
-            switch_clusters[index].relay_mode = ZCL_ONOFF_CONFIGURATION_RELAY_MODE_DETACHED;
+            switch_clusters[index].relay_mode  = ZCL_ONOFF_CONFIGURATION_RELAY_MODE_DETACHED;
             switch_clusters[index].relay_index = 0;
         }
     }
