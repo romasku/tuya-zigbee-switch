@@ -59,7 +59,8 @@ int real_main(startup_state_e state) {
         // sampleContactSensor / sampleSwitch.
         mac_phyReconfig();
 
-        app_reinit_retention();
+        telink_gpio_reinit_after_deep_retention();
+        telink_gpio_reinit_interrupts();
     }
 #endif
 
@@ -79,8 +80,12 @@ int real_main(startup_state_e state) {
 
 #if PM_ENABLE
         if (!tl_stackBusy() && zb_isTaskDone()) {
+            telink_gpio_to_pull_for_deep_retention();
             telink_gpio_hal_setup_wake_ups();
             drv_pm_lowPowerEnter();
+            // If we didn't actually enter deep retention, restore GPIO
+            // as it was configured to use pulls for retention
+            telink_gpio_reinit_after_deep_retention();
         }
 #endif
     }

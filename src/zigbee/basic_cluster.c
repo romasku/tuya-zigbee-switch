@@ -50,7 +50,7 @@ void basic_cluster_callback_attr_write_trampoline(uint16_t attribute_id) {
 void basic_cluster_add_to_endpoint(zigbee_basic_cluster *cluster,
                                    hal_zigbee_endpoint *endpoint) {
     // Set power source based on runtime battery configuration
-    if (battery_enabled) {
+    if (battery.pin != HAL_INVALID_PIN) {
         powerSource = POWER_SOURCE_BATTERY;
     }
 

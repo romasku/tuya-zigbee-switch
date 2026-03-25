@@ -66,8 +66,7 @@ hal_zigbee_endpoint endpoints[10];
 
 uint8_t allow_simultaneous_latching_pulses = 0;
 
-uint8_t   battery_enabled = 0;
-battery_t battery         = {
+battery_t battery = {
     .pin         = HAL_INVALID_PIN,
     .voltage_min =            2000,
     .voltage_max =            3000,
@@ -122,7 +121,6 @@ void parse_config() {
             hal_gpio_pin_t pin = hal_gpio_parse_pin(entry + 2);
             battery.pin = pin;
             battery_init(&battery);
-            battery_enabled = 1;
         } else if (entry[0] == 'B') {
             hal_gpio_pin_t  pin  = hal_gpio_parse_pin(entry + 1);
             hal_gpio_pull_t pull = hal_gpio_parse_pull(entry + 3);
@@ -317,7 +315,7 @@ void parse_config() {
     endpoints[0].cluster_count++;
 
     // Add battery cluster for battery-powered devices
-    if (battery_enabled) {
+    if (battery.pin != HAL_INVALID_PIN) {
         static zigbee_battery_cluster battery_cluster;
         battery_cluster_add_to_endpoint(&battery_cluster, &endpoints[0]);
     }
@@ -377,7 +375,7 @@ void network_indicator_on_network_status_change(
     hal_zigbee_network_status_t new_status) {
     printf("Network status changed to %d\r\n", new_status);
     if (new_status == HAL_ZIGBEE_NETWORK_JOINED) {
-        if (battery_enabled) {
+        if (battery.pin != HAL_INVALID_PIN) {
             network_indicator.manual_state_when_connected = 0;
         }
         network_indicator_connected(&network_indicator);
@@ -404,38 +402,6 @@ void peripherals_init() {
     }
     hal_register_on_network_status_change_callback(
         network_indicator_on_network_status_change);
-}
-
-void config_reinit_gpio(void) {
-    // Re-configure all GPIO pin modes and pulls (SFRs lost during deep retention)
-    hal_gpio_reinit_all();
-
-    // Re-configure GPIO interrupts for buttons
-    hal_gpio_reinit_interrupts();
-
-    // Sync button state with actual pin levels after retention wake.
-    // Fires press/release callbacks if state changed across sleep boundary.
-    for (int i = 0; i < buttons_cnt; i++) {
-        btn_retention_wake(&buttons[i]);
-    }
-
-    // Restore LED output states from retained SRAM
-    for (int i = 0; i < leds_cnt; i++) {
-        hal_gpio_write(leds[i].pin,
-                       leds[i].on ? leds[i].on_high : !leds[i].on_high);
-    }
-
-    // Restore relay output states from retained SRAM
-    for (int i = 0; i < relays_cnt; i++) {
-        if (!relays[i].is_latching) {
-            hal_gpio_write(relays[i].pin,
-                           relays[i].on ? relays[i].on_high : !relays[i].on_high);
-        } else {
-            // Latching relays: just ensure pins are low (no continuous drive)
-            hal_gpio_write(relays[i].pin, !relays[i].on_high);
-            hal_gpio_write(relays[i].off_pin, !relays[i].on_high);
-        }
-    }
 }
 
 // Helper functions

@@ -41,13 +41,6 @@ void process_device_type_change() {
     }
 }
 
-void app_reinit_retention(void) {
-    // After deep retention wake, re-init peripherals whose SFRs were lost.
-    // All SRAM state (config, clusters, ZB stack) is preserved by os_init(1).
-
-    config_reinit_gpio();
-}
-
 void app_init(void) {
     handle_version_changes();
     parse_config(); // Does most of the setup, including all callbacks
@@ -56,7 +49,7 @@ void app_init(void) {
     init_global_attr_write_callback();
 
     process_device_type_change();
-    if (battery_enabled) {
+    if (battery.pin != HAL_INVALID_PIN) {
         poll_rate_controller_init();
     }
 }
@@ -65,7 +58,7 @@ static bool boot_announce_sent = false;
 
 void app_task() {
     // Check join settle timer (must be done here, not in sleep check)
-    if (battery_enabled) {
+    if (battery.pin != HAL_INVALID_PIN) {
         poll_rate_controller_update();
     }
 

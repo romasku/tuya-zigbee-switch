@@ -56,10 +56,6 @@ void _btn_update_callback(void *arg) {
     }
 }
 
-void btn_retention_wake(button_t *button) {
-    _btn_gpio_callback(button->pin, button);
-}
-
 void btn_update_debounced(button_t *button, uint8_t is_pressed,
                           uint32_t changed_at) {
     if (!button->pressed && is_pressed) {
