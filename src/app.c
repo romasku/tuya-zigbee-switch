@@ -46,13 +46,6 @@ void app_reinit_retention(void) {
     // All SRAM state (config, clusters, ZB stack) is preserved by os_init(1).
 
     config_reinit_gpio();
-
-    if (battery_enabled) {
-        // Check battery on every retention wake — no separate timer needed.
-        // The device wakes every POLL_RATE (120s) for MAC poll anyway.
-        // Only reports if value actually changed (COV).
-        battery_cluster_update_on_event();
-    }
 }
 
 void app_init(void) {

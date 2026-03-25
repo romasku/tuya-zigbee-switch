@@ -124,12 +124,6 @@ static void zcl_incoming_message_callback(zclIncoming_t *pInHdlrMsg) {
     if (zcl_activity_callback != NULL) {
         zcl_activity_callback();
     }
-    // Refresh battery value before responding to a read request
-    if (pInHdlrMsg->hdr.cmd == ZCL_CMD_READ &&
-        (pInHdlrMsg->msg->indInfo.cluster_id == ZCL_CLUSTER_GEN_POWER_CFG ||
-         pInHdlrMsg->msg->indInfo.cluster_id == ZCL_CLUSTER_POWER_CFG)) {
-        battery_cluster_update_on_event();
-    }
     if (pInHdlrMsg->hdr.cmd == ZCL_CMD_WRITE ||
         pInHdlrMsg->hdr.cmd == ZCL_CMD_WRITE_NO_RSP) {
         if (attribute_change_callback == NULL) {

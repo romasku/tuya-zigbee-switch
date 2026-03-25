@@ -7,16 +7,14 @@
 #include "hal/printf_selector.h"
 #include "hal/timer.h"
 #include "hal/zigbee.h"
+#include "hal/tasks.h"
 
 const uint16_t battery_cluster_revision = 0x01;
 
-static zigbee_battery_cluster *g_battery_cluster = NULL;
-static uint32_t last_update_ms = 0;
-#define BATTERY_UPDATE_THROTTLE_MS    5000
+#define BATTERY_REFRESH_INTERVAL_MS    60000
 
 void battery_cluster_add_to_endpoint(zigbee_battery_cluster *cluster,
                                      hal_zigbee_endpoint *endpoint) {
-    g_battery_cluster = cluster;
     cluster->endpoint = endpoint->endpoint;
 
     cluster->voltage_100mv        = 30;  // 3.0V default
@@ -37,21 +35,15 @@ void battery_cluster_add_to_endpoint(zigbee_battery_cluster *cluster,
     endpoint->clusters[endpoint->cluster_count].cmd_callback    = NULL;
     endpoint->cluster_count++;
 
-    // Initial battery reading (bypass throttle since last_update_ms is 0 at boot)
-    last_update_ms = 0;
-    battery_cluster_update(cluster);
-    // No periodic timer — battery is checked on each poll wakeup
-    // via battery_cluster_update_on_event() in app_reinit_retention().
+    // Initial battery reading
+    cluster->refresh_values_task.handler = (task_handler_t)battery_cluster_update;
+    cluster->refresh_values_task.arg     = cluster;
+    hal_tasks_init(&cluster->refresh_values_task);
+
+    battery_cluster_update(cluster); // Also schedules next update
 }
 
 void battery_cluster_update(zigbee_battery_cluster *cluster) {
-    uint32_t now = hal_millis();
-
-    if (now - last_update_ms < BATTERY_UPDATE_THROTTLE_MS) {
-        return;
-    }
-    last_update_ms = now;
-
     cluster->percentage_remaining = battery_get_charge(&battery, 100);
     cluster->voltage_100mv        = battery_get_mv(&battery) / 100;
 
@@ -59,10 +51,5 @@ void battery_cluster_update(zigbee_battery_cluster *cluster) {
                                         ZCL_ATTR_POWER_CFG_BATTERY_VOLTAGE);
     hal_zigbee_notify_attribute_changed(cluster->endpoint, ZCL_CLUSTER_POWER_CFG,
                                         ZCL_ATTR_POWER_CFG_BATTERY_PERCENTAGE);
-}
-
-void battery_cluster_update_on_event(void) {
-    if (g_battery_cluster != NULL) {
-        battery_cluster_update(g_battery_cluster);
-    }
+    hal_tasks_schedule(&cluster->refresh_values_task, BATTERY_REFRESH_INTERVAL_MS);
 }
