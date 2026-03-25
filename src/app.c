@@ -9,6 +9,7 @@
 #include "hal/zigbee_ota.h"
 #include "zigbee/battery_cluster.h"
 #include "zigbee/general_commands.h"
+#include "poll_rate.h"
 
 void process_device_type_change() {
     // If device was updated from router to end device or vice versa,
@@ -62,15 +63,18 @@ void app_init(void) {
     init_global_attr_write_callback();
 
     process_device_type_change();
+    if (battery_enabled) {
+        poll_rate_controller_init();
+    }
 }
 
 static bool boot_announce_sent = false;
 
 void app_task() {
     // Check join settle timer (must be done here, not in sleep check)
-    hal_zigbee_check_settle_timer();
-    hal_zigbee_check_report_active_timer();
-    hal_zigbee_check_post_settle_timer();
+    if (battery_enabled) {
+        poll_rate_controller_update();
+    }
 
     // TODO: add jitter to avoid all devices trying to join at once
     if (hal_zigbee_get_network_status() != HAL_ZIGBEE_NETWORK_JOINED &&

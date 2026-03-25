@@ -29,7 +29,9 @@ static hal_zigbee_endpoint *endpoints             = NULL;
 static uint8_t endpoints_count                    = 0;
 static hal_zigbee_network_status_t network_status =
     HAL_ZIGBEE_NETWORK_NOT_JOINED;
-static hal_attribute_change_callback_t attr_change_callback = NULL;
+static hal_attribute_change_callback_t attr_change_callback  = NULL;
+static hal_zcl_activity_callback_t     zcl_activity_callback = NULL;
+static uint32_t poll_rate_ms = 0;
 
 static stub_binding_t bindings[MAX_BINDINGS];
 static int            binding_count = 0;
@@ -93,22 +95,6 @@ hal_zigbee_network_status_t hal_zigbee_get_network_status(void) {
     return network_status;
 }
 
-bool hal_zigbee_is_sleep_allowed(void) {
-    return network_status == HAL_ZIGBEE_NETWORK_JOINED;
-}
-
-void hal_zigbee_check_settle_timer(void) {
-    // Stub: no-op (no settle timer in stub mode)
-}
-
-void hal_zigbee_check_report_active_timer(void) {
-    // Stub: no-op (no report active timer in stub mode)
-}
-
-void hal_zigbee_check_post_settle_timer(void) {
-    // Stub: no-op (no post-settle transition in stub mode)
-}
-
 static hal_network_status_change_callback_t network_status_change_callback =
     NULL;
 
@@ -143,6 +129,21 @@ void hal_zigbee_register_on_attribute_change_callback(
     hal_attribute_change_callback_t callback) {
     attr_change_callback = callback;
     io_log("ZIGBEE", "Registered attribute change callback");
+}
+
+void hal_zigbee_register_on_zcl_activity_callback(
+    hal_zcl_activity_callback_t callback) {
+    zcl_activity_callback = callback;
+    io_log("ZIGBEE", "Registered ZCL activity callback");
+}
+
+void hal_zigbee_set_poll_rate_ms(uint32_t new_poll_rate_ms) {
+    poll_rate_ms = new_poll_rate_ms;
+    io_log("ZIGBEE", "Set poll rate to %u ms", (unsigned)new_poll_rate_ms);
+}
+
+uint32_t hal_zigbee_get_poll_rate_ms(void) {
+    return poll_rate_ms;
 }
 
 void hal_zigbee_notify_attribute_changed(uint8_t endpoint, uint16_t cluster_id,
@@ -264,6 +265,10 @@ hal_zigbee_cmd_result_t stub_zigbee_simulate_command(uint8_t endpoint,
     io_log("ZIGBEE", "Simulating command: ep=%d, cluster=0x%04x, cmd=0x%02x",
            endpoint, cluster_id, command_id);
 
+    if (zcl_activity_callback != NULL) {
+        zcl_activity_callback();
+    }
+
     // Find the endpoint and cluster
     for (int i = 0; i < endpoints_count; i++) {
         if (endpoints[i].endpoint == endpoint) {
@@ -282,6 +287,10 @@ hal_zigbee_cmd_result_t stub_zigbee_simulate_command(uint8_t endpoint,
 
 void stub_simulate_zigbee_attribute_write(uint8_t endpoint, uint16_t cluster_id,
                                           uint16_t attribute_id) {
+    if (zcl_activity_callback != NULL) {
+        zcl_activity_callback();
+    }
+
     if (attr_change_callback) {
         attr_change_callback(endpoint, cluster_id, attribute_id);
     }

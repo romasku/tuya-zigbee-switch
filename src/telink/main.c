@@ -59,11 +59,6 @@ int real_main(startup_state_e state) {
         // sampleContactSensor / sampleSwitch.
         mac_phyReconfig();
 
-        // SDK may reinitialise this to TRUE during os_init/mac_phyReconfig.
-        // bdb_init_callback (which sets it FALSE) only runs on cold boot,
-        // so we must re-disable it on every retention wake.
-        AUTO_QUICK_DATA_POLL_ENABLE = FALSE;
-
         app_reinit_retention();
     }
 #endif
@@ -83,33 +78,9 @@ int real_main(startup_state_e state) {
         drv_wd_clear();
 
 #if PM_ENABLE
-        if (!tl_stackBusy() && zb_isTaskDone() && hal_zigbee_is_sleep_allowed()) {
-            apsCleanToStopSecondClock();
+        if (!tl_stackBusy() && zb_isTaskDone()) {
             telink_gpio_hal_setup_wake_ups();
-
-            // avoid race condition between checking for pending timers and entering sleep
-            // like in Telink SDK sample code
-            u32 r = drv_disable_irq();
-
-            ev_timer_event_t *timerEvt = ev_timer_nearestGet();
-            // Always use deep retention for realistic power consumption
-            u32 sleepDuration = PM_NORMAL_SLEEP_MAX;
-            if (timerEvt && timerEvt->timeout < sleepDuration) {
-                sleepDuration = timerEvt->timeout;
-            }
-            rf_paShutDown();
-
-            if (sleepDuration > PM_NORMAL_SLEEP_MAX) {
-                drv_pm_longSleep(PM_SLEEP_MODE_DEEP_WITH_RETENTION,
-                                 PM_WAKEUP_SRC_PAD | PM_WAKEUP_SRC_TIMER,
-                                 sleepDuration);
-            } else {
-                drv_pm_sleep(PM_SLEEP_MODE_DEEP_WITH_RETENTION,
-                             PM_WAKEUP_SRC_PAD | PM_WAKEUP_SRC_TIMER,
-                             sleepDuration);
-            }
-
-            drv_restore_irq(r);
+            drv_pm_lowPowerEnter();
         }
 #endif
     }

@@ -144,6 +144,7 @@ TELINK_SOURCES := \
 # Common source files (shared with Silicon Labs build)
 COMMON_SOURCES := \
 	$(SRC_DIR)/app.c \
+	$(SRC_DIR)/poll_rate.c \
 	$(SRC_DIR)/base_components/button.c \
 	$(SRC_DIR)/base_components/led.c \
 	$(SRC_DIR)/base_components/network_indicator.c \

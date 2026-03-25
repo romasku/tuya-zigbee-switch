@@ -25,15 +25,7 @@ static zclAttrInfo_t         attr_tables[MAX_ATTRS];
 static hal_zigbee_endpoint *hal_endpoints = NULL;
 static uint8_t hal_endpoints_cnt          = 0;
 static hal_attribute_change_callback_t attribute_change_callback = NULL;
-
-#ifdef ZB_ED_ROLE
-static void telink_zcl_data_confirm_cb(void *arg) {
-    // arg points to apsdeDataConf_t — we only care about the event itself.
-    (void)arg;
-    telink_zigbee_hal_end_active_period();
-}
-
-#endif
+static hal_zcl_activity_callback_t     zcl_activity_callback     = NULL;
 
 extern status_t zcl_powerCfg_register(u8 endpoint, u16 manuCode, u8 attrNum,
                                       const zclAttrInfo_t *attrTbl,
@@ -76,6 +68,9 @@ static cluster_registerFunc_t get_register_func_by_cluster_id(u16 cluster_id) {
 
 static status_t cmd_callback(u8 endpoint, u16 clusterId, u8 cmdId,
                              void *cmdPayload) {
+    if (zcl_activity_callback != NULL) {
+        zcl_activity_callback();
+    }
     hal_zigbee_cluster *cluster = hal_zigbee_find_cluster(
         hal_endpoints, hal_endpoints_cnt, endpoint, clusterId);
 
@@ -103,6 +98,15 @@ static status_t cmd_callback_level_control(zclIncomingAddrInfo_t *pAddrInfo,
                         cmdPayload);
 }
 
+static status_t cmd_callback_default(zclIncomingAddrInfo_t *pAddrInfo, u8 cmdId, void *cmdPayload) {
+    // Even if we do not pass this callback back to app, we still have to
+    // trigger generic ZCl activity callback
+    if (zcl_activity_callback != NULL) {
+        zcl_activity_callback();
+    }
+    return(ZCL_STA_SUCCESS);
+}
+
 static cluster_forAppCb_t get_cmd_callback_by_cluster_id(u16 cluster_id) {
     if (cluster_id == ZCL_CLUSTER_GEN_LEVEL_CONTROL) { // Level Control cluster
         return cmd_callback_level_control;
@@ -113,13 +117,13 @@ static cluster_forAppCb_t get_cmd_callback_by_cluster_id(u16 cluster_id) {
     if (cluster_id == ZCL_CLUSTER_CLOSURES_WINDOW_COVERING) {
         return cmd_callback_window_covering;
     }
-    return NULL;
+    return cmd_callback_default;
 }
 
 static void zcl_incoming_message_callback(zclIncoming_t *pInHdlrMsg) {
-#ifdef ZB_ED_ROLE
-    telink_zigbee_hal_notify_zcl_activity();
-#endif
+    if (zcl_activity_callback != NULL) {
+        zcl_activity_callback();
+    }
     // Refresh battery value before responding to a read request
     if (pInHdlrMsg->hdr.cmd == ZCL_CMD_READ &&
         (pInHdlrMsg->msg->indInfo.cluster_id == ZCL_CLUSTER_GEN_POWER_CFG ||
@@ -202,14 +206,7 @@ void telink_zigbee_hal_zcl_init(hal_zigbee_endpoint *endpoints,
 
             cluster_info_ptr++;
         }
-        af_endpointRegister(endpoint->endpoint, endpoint_desc_ptr, zcl_rx_handler,
-#ifdef ZB_ED_ROLE
-                            telink_zcl_data_confirm_cb
-#else
-                            NULL
-#endif
-                            );
-
+        af_endpointRegister(endpoint->endpoint, endpoint_desc_ptr, zcl_rx_handler, NULL);
         u8 cluster_count = cluster_info_ptr - endpoint_first_cluster_ptr;
         zcl_register(endpoint->endpoint, cluster_count, endpoint_first_cluster_ptr);
 
@@ -219,25 +216,7 @@ void telink_zigbee_hal_zcl_init(hal_zigbee_endpoint *endpoints,
 
 void hal_zigbee_notify_attribute_changed(uint8_t endpoint, uint16_t cluster_id,
                                          uint16_t attribute_id) {
-    // Direct send — bypasses the SDK reporting engine (report_handler /
-    // zcl_reportingTab) to avoid extra poll cycles.  The attribute value
-    // is already set in the ZCL attribute table by the caller.
-    if (zb_isDeviceJoinedNwk()) {
-        zclAttrInfo_t *pAttrEntry =
-            zcl_findAttribute(endpoint, cluster_id, attribute_id);
-        if (pAttrEntry) {
-            epInfo_t dstEpInfo;
-            TL_SETSTRUCTCONTENT(dstEpInfo, 0);
-            dstEpInfo.profileId   = HA_PROFILE_ID;
-            dstEpInfo.dstAddrMode = APS_DSTADDR_EP_NOTPRESETNT;
-            zcl_sendReportCmd(endpoint, &dstEpInfo, TRUE, ZCL_FRAME_SERVER_CLIENT_DIR,
-                              cluster_id, pAttrEntry->id, pAttrEntry->type,
-                              pAttrEntry->data);
-        }
-    }
-#ifdef ZB_ED_ROLE
-    telink_zigbee_hal_request_active_period();
-#endif
+    report_handler(); // Trigger reporting if needed
 }
 
 hal_zigbee_status_t hal_zigbee_send_cmd_to_bindings(const hal_zigbee_cmd *cmd) {
@@ -274,10 +253,6 @@ hal_zigbee_send_report_attr(uint8_t endpoint, uint16_t cluster_id,
         zcl_sendReportCmd(endpoint, &dstEpInfo, TRUE, ZCL_FRAME_SERVER_CLIENT_DIR,
                           cluster_id, pAttrEntry->id, pAttrEntry->type,
                           pAttrEntry->data);
-#ifdef ZB_ED_ROLE
-        // Ensure the device stays awake until the frame is confirmed.
-        telink_zigbee_hal_request_active_period();
-#endif
     }
     return HAL_ZIGBEE_OK;
 }
@@ -285,6 +260,10 @@ hal_zigbee_send_report_attr(uint8_t endpoint, uint16_t cluster_id,
 void hal_zigbee_register_on_attribute_change_callback(
     hal_attribute_change_callback_t callback) {
     attribute_change_callback = callback;
+}
+
+void hal_zigbee_register_on_zcl_activity_callback(hal_zcl_activity_callback_t callback) {
+    zcl_activity_callback = callback;
 }
 
 // Internal interface functions

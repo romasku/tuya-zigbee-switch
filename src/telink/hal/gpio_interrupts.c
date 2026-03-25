@@ -128,7 +128,6 @@ static void init_isr() {
         printf("Failed to configure GPIO interrupt: %d\r\n", result);
     } else {
         is_isr_initialized = true;
-        printf("GPIO interrupt configured\r\n");
     }
 }
 
