@@ -187,7 +187,7 @@ MODULE_AUBESS_TS0001:
   stock_converter_manufacturer: Tuya
   stock_converter_model: WHD02
   override_z2m_device: null
-  tuya_module: ZT2S
+  tuya_module: ZT2S_real
   mcu_family: Telink
   mcu: TLSR8258
   config_str: 46t1rvdu;WHD02-Aubess;BC4u;LD2;SB4u;RB5;
@@ -216,7 +216,7 @@ MODULE_AUBESS_TS0002:
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0002_basic
   override_z2m_device: TMZ02
-  tuya_module: ZT2S
+  tuya_module: ZT2S_real
   mcu_family: Telink
   mcu: TLSR8258
   config_str: lmlsduws;TS0002-AUB;BC4u;LB1;SC2u;RB7;SC3u;RB4;
@@ -243,7 +243,7 @@ MODULE_AUBESS_TS0003:
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0003_switch_module_2
   override_z2m_device: null
-  tuya_module: ZT2S
+  tuya_module: ZT2S_real
   mcu_family: Telink
   mcu: TLSR8258
   config_str: lvhy15ix;TS0003-AUB;BC4u;LB1;SC2u;RB7;SC3u;RB4;SD2u;RB5;
@@ -852,7 +852,7 @@ MODULE_FARYLINK_L_TS0001:
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0001
   override_z2m_device: null
-  tuya_module: ZT2S
+  tuya_module: ZT2S_real
   mcu_family: Telink
   mcu: TLSR8258
   config_str: qlhs2kqr;TS0001-FL;BB7u;LC2;SC4u;RB1;
@@ -880,7 +880,7 @@ MODULE_FARYLINK_L_TS0002:
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0002
   override_z2m_device: null
-  tuya_module: ZT2S
+  tuya_module: ZT2S_real
   mcu_family: Telink
   mcu: TLSR8258
   config_str: null____;TS0002-FLL;BB7u;LC2;SC4u;RB1;SD2u;RB4;
@@ -907,7 +907,7 @@ MODULE_FARYLINK_L_TS0003:
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0003
   override_z2m_device: null
-  tuya_module: ZT2S
+  tuya_module: ZT2S_real
   mcu_family: Telink
   mcu: TLSR8258
   config_str: null____;TS0003-FL;BB7u;LC2;SC4u;RB1;SD2u;RB4;SC3u;RB5;
@@ -1124,7 +1124,7 @@ MODULE_GIRIER_TS0001:
   stock_converter_manufacturer: Girier
   stock_converter_model: JR-ZDS01
   override_z2m_device: null
-  tuya_module: ZT2S
+  tuya_module: ZT2S_real
   mcu_family: Telink
   mcu: TLSR8258
   config_str: zw7yf6yk;TS0001-GIR;BB1u;LC3i;SB5u;RD2;
@@ -1151,7 +1151,7 @@ MODULE_GIRIER_TS0002:
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0002_basic
   override_z2m_device: null
-  tuya_module: ZT2S
+  tuya_module: ZT2S_real
   mcu_family: Telink
   mcu: TLSR8258
   config_str: zmy4lslw;TS0002-GIR;BD2u;LC2;SB5u;RC4;SB4u;RC3;
@@ -1180,7 +1180,7 @@ MODULE_GIRIER_TS130F_1GANG:
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS130F
   override_z2m_device: TS130F_GIRIER
-  tuya_module: ZT2S
+  tuya_module: ZT2S_real
   mcu_family: Telink
   mcu: TLSR8258
   config_str: dwytrmda;TS130F-GIR;BD2u;LC2;XB5B4f;CC3C4;
@@ -1520,7 +1520,7 @@ MODULE_LVGESS_PM_TSOOO1:
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0001_power
   override_z2m_device: null
-  tuya_module: ZT2S
+  tuya_module: ZT2S_real
   mcu_family: Telink
   mcu: TLSR8258
   config_str: q8r0bbvy;TS0001-PWR;BB1u;LD2i;SC4u;RB5;
@@ -1547,7 +1547,7 @@ MODULE_MOES_TS0002:
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0002_basic
   override_z2m_device: ZM-104B-M
-  tuya_module: ZT2S
+  tuya_module: ZT2S_real
   mcu_family: Telink
   mcu: TLSR8258
   config_str: qaa59zqd;TS0002-MSB;BB1u;LC3;SB5u;RD2;SB4u;RC2;
@@ -1568,7 +1568,7 @@ MODULE_MOES_TS0003:
   power: mains
   neutral: required
   output: relay
-  device_type: router
+  device_type: end_device # enable end device option for poor signal scenarios
   stock_model_name: TS0003
   stock_manufacturer_name: _TZ3000_pfc7i3kt
   stock_converter_manufacturer: Tuya
@@ -1656,7 +1656,7 @@ MODULE_MOES_ZM4LT2_TS0002:
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0002
   override_z2m_device: ZM4LT2
-  tuya_module: ZT2S
+  tuya_module: ZT2S_real
   mcu_family: Telink
   mcu: TLSR8258
   config_str: criiahcg;TS0002-MS;BB1u;LC3;SB5u;RD2;SB4u;RC2;
@@ -1818,7 +1818,7 @@ MODULE_TLED_TS0001:
   stock_converter_manufacturer: Tuya
   stock_converter_model: WHD02
   override_z2m_device: null
-  tuya_module: ZT2S
+  tuya_module: ZT2S_real
   mcu_family: Telink
   mcu: TLSR8258
   config_str: npzfdcof;TS0001-TLED;BD2u;LC3i;SB5u;RB4;
@@ -1990,7 +1990,7 @@ MODULE_TUYA_DEFAULT_C_TS0001:
   stock_converter_manufacturer: Tuya
   stock_converter_model: WHD02
   override_z2m_device: null
-  tuya_module: ZT2S
+  tuya_module: ZT2S_real
   mcu_family: Telink
   mcu: TLSR8258
   config_str: skueekg3C;TS0001-CC;BD2u;LC3i;SB5u;RB4;
@@ -2121,6 +2121,33 @@ MODULE_TUYA_GIRIER_TS0013:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/37
   store: null
+MODULE_TUYA_NOVATO_DRY_TS000F_1GANG:
+  human_name: QS-Zigbee-SEC01-DC
+  category: module
+  power: mains
+  neutral: required
+  output: relay
+  device_type: router
+  stock_model_name: TS000F
+  stock_manufacturer_name: _TZ3218_hdc8bbha
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: QS-Zigbee-SEC01-DC
+  override_z2m_device: null
+  tuya_module: ZTLC9
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: hdc8bbha2;TS000F-DC; null
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: null
+  stock_image_type: null
+  firmware_image_type: 43639
+  build: no
+  status: in_progress
+  info: Needs pinout + RF daughterboard not supported
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/372
+  store: null
 MODULE_TUYA_NOVATO_QS_S05_TS0001:
   human_name: Tuya QS-Zigbee-S05-LN
   category: module
@@ -2202,6 +2229,33 @@ MODULE_TUYA_NOVATO_TS0002:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/298
   store: null
+MODULE_TUYA_NOVATO_TS0003:
+  human_name: QS-Zigbee-S10-3C
+  category: module
+  power: mains
+  neutral: required
+  output: relay
+  device_type: router
+  stock_model_name: TS0003
+  stock_manufacturer_name: _TZ3000_ly9apzky
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0003
+  override_z2m_device: null
+  tuya_module: ZTU
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: ly9apzky;TS0003-Avv;BC2u;LD3i;SB5u;RC1;SB4u;RD2;SC3u;RD4;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
+  firmware_image_type: 47001
+  build: yes
+  status: fully_supported
+  info: Supported
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/371
+  store: https://aliexpress.com/item/1005009352568856.html
 MODULE_TUYA_NOVATO_TS000F_1GANG:
   human_name: NOVATO ZRM01
   category: module
@@ -2248,8 +2302,8 @@ MODULE_TUYA_NOVATO_TS000F_2GANG:
   alt_config_str: null
   old_manufacturer_names: null
   old_zb_models: null
-  stock_manufacturer_id: null
-  stock_image_type: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
   firmware_image_type: 45628
   build: yes
   status: mostly_supported
@@ -2405,7 +2459,7 @@ MODULE_TUYA_TS0002:
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS0002_basic
   override_z2m_device: null
-  tuya_module: ZT2S
+  tuya_module: ZT2S_real
   mcu_family: Telink
   mcu: TLSR8258
   config_str: 01gpyda5;TS0002-custom;BD2u;LC2;SB5u;RC4;SB4u;RC3;
@@ -2557,6 +2611,33 @@ MODULE_UNSH_TS0002:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/216
   store: https://www.aliexpress.com/item/1005005710710150.html
+MODULE_ZBEACON_TS0002:
+  human_name: Zbeacon 2-gang
+  category: module
+  power: mains
+  neutral: required
+  output: relay
+  device_type: router
+  stock_model_name: TS0002
+  stock_manufacturer_name: Zbeacon
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0002
+  override_z2m_device: null
+  tuya_module: ZT2S_fake_no_shield
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: Zbeacon2;TS0002-ZB;BD2u;LD3i;SB4u;RA0;SB5u;RD7;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4107
+  stock_image_type: 524
+  firmware_image_type: 43640
+  build: yes
+  status: mostly_supported
+  info: Needs pinout confirmation
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/216
+  store: https://www.aliexpress.com/item/1005011631868638.html
 OUTLET_BSEED_PM_TS011F:
   human_name: BSEED PM outlet
   category: outlet
@@ -4277,6 +4358,33 @@ SWITCH_MOES_SCENE_TS0726_3GANG_3SCENE:
   info: Only 4 buttons supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/332
   store: null
+SWITCH_NOVADIGITAL_TS0003:
+  human_name: NovaDigital ZTS-3W
+  category: switch
+  power: mains
+  neutral: required
+  output: relay
+  device_type: router
+  stock_model_name: TS0003
+  stock_manufacturer_name: _TZ3000_785olaiq
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0003_switch_3_gang
+  override_z2m_device: WS-US-ZB
+  tuya_module: ZTU
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: 785olaiq;ZTS-3W-CUSTOM;SB6u;RB5;ID3i;SC1u;RB4;ID7i;SC4u;RD2;IC0i;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
+  firmware_image_type: 43614
+  build: yes
+  status: fully_supported
+  info: Supported
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/373
+  store: https://www.aliexpress.com/item/1005010723015326.html
 SWITCH_PSMART_TL_TS0001:
   human_name: PSMART T441/T451 TL
   category: switch
