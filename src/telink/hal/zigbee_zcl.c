@@ -27,14 +27,6 @@ static uint8_t hal_endpoints_cnt          = 0;
 static hal_attribute_change_callback_t attribute_change_callback = NULL;
 static hal_zcl_activity_callback_t     zcl_activity_callback     = NULL;
 
-extern status_t zcl_powerCfg_register(u8 endpoint, u16 manuCode, u8 attrNum,
-                                      const zclAttrInfo_t *attrTbl,
-                                      cluster_forAppCb_t cb);
-
-extern status_t zcl_pollCtrl_register(u8 endpoint, u16 manuCode, u8 attrNum,
-                                      const zclAttrInfo_t attrTbl[],
-                                      cluster_forAppCb_t cb);
-
 static cluster_registerFunc_t get_register_func_by_cluster_id(u16 cluster_id) {
     if (cluster_id == ZCL_CLUSTER_GEN_BASIC) {
         return zcl_basic_register;

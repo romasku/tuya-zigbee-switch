@@ -89,7 +89,7 @@ int real_main(startup_state_e state) {
         if (!tl_stackBusy() && zb_isTaskDone()) {
             telink_gpio_hal_setup_wake_ups();
             // Only use deep retention for battery devices,
-            // as it masses with GPIO state, and relays cannot be
+            // as it messes with GPIO output state, and relays cannot be
             // driven via PULL-ups, it may cause issues.
             if (battery.pin != HAL_INVALID_PIN) {
                 telink_gpio_to_pull_for_deep_retention();
