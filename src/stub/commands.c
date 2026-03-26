@@ -349,7 +349,7 @@ static int cmd_set_battery_voltage(int argc, char **argv) {
         io_res_err("usage");
         return -1;
     }
-    char *e    = NULL;
+    char *e   = NULL;
     long  val = strtol(argv[1], &e, 10);
     if (*argv[1] == '\0' || *e || val < 0 || val > 0xFFFF) {
         fprintf(stderr, "Bad voltage value: %s\n", argv[1]);
@@ -364,22 +364,22 @@ static int cmd_set_battery_voltage(int argc, char **argv) {
 
 /* Command table */
 static const SimpleReplCommand kCmds[] = {
-    { "machine",        cmd_machine        },
-    { "help",           cmd_help           },
-    { "s",              cmd_status         },
-    { "status",         cmd_status         },
-    { "net",            cmd_net            },
-    { "set_pin",        cmd_pin            },
-    { "read_pin",       cmd_read_pin       },
-    { "zcl_read",       cmd_zcl_read       },
-    { "zcl_write",      cmd_zcl_write      },
-    { "zcl_list_attrs", cmd_zcl_list_attrs },
-    { "zcl_cmd",        cmd_zcl_cmd        },
-    { "freeze_time",    cmd_freeze_time    },
-    { "step_time",      cmd_step_time      },
+    { "machine",             cmd_machine             },
+    { "help",                cmd_help                },
+    { "s",                   cmd_status              },
+    { "status",              cmd_status              },
+    { "net",                 cmd_net                 },
+    { "set_pin",             cmd_pin                 },
+    { "read_pin",            cmd_read_pin            },
+    { "zcl_read",            cmd_zcl_read            },
+    { "zcl_write",           cmd_zcl_write           },
+    { "zcl_list_attrs",      cmd_zcl_list_attrs      },
+    { "zcl_cmd",             cmd_zcl_cmd             },
+    { "freeze_time",         cmd_freeze_time         },
+    { "step_time",           cmd_step_time           },
     { "set_battery_voltage", cmd_set_battery_voltage },
-    { "q",              cmd_quit           },
-    { "quit",           cmd_quit           },
+    { "q",                   cmd_quit                },
+    { "quit",                cmd_quit                },
 };
 
 const SimpleReplCommand *commands_table(void) {

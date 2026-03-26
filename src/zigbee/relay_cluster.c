@@ -7,23 +7,23 @@
 
 hal_zigbee_cmd_result_t relay_cluster_callback(zigbee_relay_cluster *cluster,
                                                uint8_t command_id,
-                                      void *cmd_payload,
-                                      uint16_t cmd_payload_len);
+                                               void *cmd_payload,
+                                               uint16_t cmd_payload_len);
 hal_zigbee_cmd_result_t relay_cluster_callback_trampoline(uint8_t endpoint,
                                                           uint16_t cluster_id,
                                                           uint8_t command_id,
-                                               void *cmd_payload,
-                                               uint16_t cmd_payload_len);
+                                                          void *cmd_payload,
+                                                          uint16_t cmd_payload_len);
 
 hal_zigbee_cmd_result_t relay_cluster_level_callback(zigbee_relay_cluster *cluster,
                                                      uint8_t command_id,
-                                           void *cmd_payload,
-                                           uint16_t cmd_payload_len);
+                                                     void *cmd_payload,
+                                                     uint16_t cmd_payload_len);
 hal_zigbee_cmd_result_t relay_cluster_level_callback_trampoline(uint8_t endpoint,
                                                                 uint16_t cluster_id,
                                                                 uint8_t command_id,
-                                                    void *cmd_payload,
-                                                    uint16_t cmd_payload_len);
+                                                                void *cmd_payload,
+                                                                uint16_t cmd_payload_len);
 
 void relay_cluster_on_relay_change(zigbee_relay_cluster *cluster,
                                    uint8_t state);

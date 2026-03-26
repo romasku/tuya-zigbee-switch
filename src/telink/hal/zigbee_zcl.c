@@ -105,6 +105,7 @@ static zclIncoming_t *cmd_incoming_from_addr_info(zclIncomingAddrInfo_t *pAddrIn
 static status_t cmd_callback_on_off(zclIncomingAddrInfo_t *pAddrInfo, u8 cmdId,
                                     void *cmdPayload) {
     zclIncoming_t *pInMsg = cmd_incoming_from_addr_info(pAddrInfo);
+
     return cmd_callback(pAddrInfo->dstEp, ZCL_CLUSTER_GEN_ON_OFF, cmdId,
                         pInMsg->pData, pInMsg->dataLen);
 }
@@ -112,6 +113,7 @@ static status_t cmd_callback_on_off(zclIncomingAddrInfo_t *pAddrInfo, u8 cmdId,
 static status_t cmd_callback_window_covering(zclIncomingAddrInfo_t *pAddrInfo,
                                              u8 cmdId, void *cmdPayload) {
     zclIncoming_t *pInMsg = cmd_incoming_from_addr_info(pAddrInfo);
+
     return cmd_callback(pAddrInfo->dstEp, ZCL_CLUSTER_CLOSURES_WINDOW_COVERING,
                         cmdId, pInMsg->pData, pInMsg->dataLen);
 }
@@ -119,6 +121,7 @@ static status_t cmd_callback_window_covering(zclIncomingAddrInfo_t *pAddrInfo,
 static status_t cmd_callback_level_control(zclIncomingAddrInfo_t *pAddrInfo,
                                            u8 cmdId, void *cmdPayload) {
     zclIncoming_t *pInMsg = cmd_incoming_from_addr_info(pAddrInfo);
+
     return cmd_callback(pAddrInfo->dstEp, ZCL_CLUSTER_GEN_LEVEL_CONTROL, cmdId,
                         pInMsg->pData, pInMsg->dataLen);
 }
@@ -126,6 +129,7 @@ static status_t cmd_callback_level_control(zclIncomingAddrInfo_t *pAddrInfo,
 static status_t cmd_callback_poll_control(zclIncomingAddrInfo_t *pAddrInfo,
                                           u8 cmdId, void *cmdPayload) {
     zclIncoming_t *pInMsg = cmd_incoming_from_addr_info(pAddrInfo);
+
     return cmd_callback(pAddrInfo->dstEp, ZCL_CLUSTER_GEN_POLL_CONTROL, cmdId,
                         pInMsg->pData, pInMsg->dataLen);
 }

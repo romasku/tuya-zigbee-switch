@@ -47,10 +47,10 @@ static uint32_t on_command_callback(sl_service_opcode_t opcode,
     if (hal_cluster == NULL || hal_cluster->cmd_callback == NULL)
         return SL_ZIGBEE_ZCL_STATUS_UNSUP_COMMAND;
 
-    uint8_t *payload = NULL;
+    uint8_t *payload     = NULL;
     uint16_t payload_len = 0;
     if (cmd->bufLen > cmd->payloadStartIndex) {
-        payload = cmd->buffer + cmd->payloadStartIndex;
+        payload     = cmd->buffer + cmd->payloadStartIndex;
         payload_len = cmd->bufLen - cmd->payloadStartIndex;
     }
 
