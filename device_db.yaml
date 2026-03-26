@@ -2933,7 +2933,7 @@ REMOTE_TUYA_TS004F_2:
   old_zb_models: null
   stock_manufacturer_id: null
   stock_image_type: null
-  firmware_image_type: 47001
+  firmware_image_type: 47002
   build: yes
   status: mostly_supported
   info: Low power is implemented, but wasn't battle tested.
