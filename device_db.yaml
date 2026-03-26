@@ -122,7 +122,7 @@ BOARD__SCIMAGIC_TS0001:
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/330
   store: https://aliexpress.com/item/1005004657817159.html
 BOARD__SCIMAGIC_TS0002 :
-  human_name: Scimagic ZG-2002-RF
+  human_name: Scimagic ZG-2002-RF 🅰
   category: board
   power: mains
   neutral: required
@@ -148,6 +148,33 @@ BOARD__SCIMAGIC_TS0002 :
   info: No RF, inching, power-on behavior??
   threads: https://github.com/romasku/tuya-zigbee-switch/pull/282
   store: https://www.aliexpress.com/item/1005009646584697.html
+BOARD__SCIMAGIC_TS0002_1 :
+  human_name: Scimagic ZG-2002-RF 🅱
+  category: board
+  power: mains
+  neutral: required
+  output: relay
+  device_type: router
+  stock_model_name: TS0002
+  stock_manufacturer_name: _TZ3210_nuenzetq
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0002
+  override_z2m_device: ZG-2002-RF
+  tuya_module: ZT3L
+  mcu_family: Telink
+  mcu: TLSR825x
+  config_str: nuenzetq1;TS0002-SC;LC3i;SD7u;RD4;SC0u;RA0;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 513
+  firmware_image_type: 45599
+  build: yes
+  status: mostly_supported
+  info: No RF, inching, power-on behavior??
+  threads: https://github.com/romasku/tuya-zigbee-switch/pull/376
+  store: https://www.aliexpress.com/item/1005006190483000.html
 BOARD__ZIGBEE_ZTU_2:
   human_name: ZTU dev board 2
   category: board
