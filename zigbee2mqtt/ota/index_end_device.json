@@ -1,12 +1,12 @@
 [
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3.zigbee",
-    "fileVersion": 285356032,
-    "fileSize": 144866,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/BOARD__MHCOZY_TS0004_1_END_DEVICE/tlc_switch-1.1.2-afb414c3.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63.zigbee",
+    "fileVersion": 285356067,
+    "fileSize": 150002,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/BOARD__MHCOZY_TS0004_1_END_DEVICE/tlc_switch-1.1.2-aed6cc63.zigbee",
     "imageType": 45631,
     "manufacturerCode": 4417,
-    "sha512": "7bfbdcd63612e8db2980b0b4f5fc4c47f7922e2cecfb4854f474ce597fbadb7fd28fa78c661ff4ba5291b69a85154a438b035f6a133e175df5e13d4acb01ba56",
+    "sha512": "fa3cc5bca925624ee3f49ecb724d8718b71685bdf044623c6034991430f6b27947a866580e6cbfc82446e488f29cb6f5545fa9503f8f4248a20a0b72cd87e998",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3210_imaccztn",
@@ -14,13 +14,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "fileVersion": 4294967295,
-    "fileSize": 144866,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/BOARD__MHCOZY_TS0004_1_END_DEVICE/tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileSize": 150002,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/BOARD__MHCOZY_TS0004_1_END_DEVICE/tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "imageType": 2050,
     "manufacturerCode": 4417,
-    "sha512": "68577d986989e5f2ba91aa05612d0d0eff6d354cc6de4895a57e487fb7cc592fbabbfab501f053c300f0d70575c530a75aeac66fd9447fdaa123b8624240528b",
+    "sha512": "ca18d79f522ea60cbd4d6d5f304ae9a59160e0d2dd174a9cfcb291249c8c9ce91b578c8d24a6a205b8ad3c90d14d468609ee92cbffab859fcc3daa7dc838d27d",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3210_imaccztn",
@@ -28,13 +28,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3.zigbee",
-    "fileVersion": 285356032,
-    "fileSize": 144850,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/BOARD__MHCOZY_TS0004_2_END_DEVICE/tlc_switch-1.1.2-afb414c3.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63.zigbee",
+    "fileVersion": 285356067,
+    "fileSize": 149986,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/BOARD__MHCOZY_TS0004_2_END_DEVICE/tlc_switch-1.1.2-aed6cc63.zigbee",
     "imageType": 45594,
     "manufacturerCode": 4417,
-    "sha512": "cc3dfac75f2cddd05fa9352aa17a4214c8f8364f271a002071b1bfd8775d7ee6cd181c78a1c91a01829a53703e5aa0519af76f91bdb68ed21a21971c7427cac5",
+    "sha512": "e52403b9d60182335d2e83f13c8f4a0127887fc4b37e5b32d797f390c2e5feb4c8bc3777f9d92f0758c894430b208c0868afb206289efa8468f230835304f1f6",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_u3oupgdy",
@@ -42,13 +42,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "fileVersion": 4294967295,
-    "fileSize": 144850,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/BOARD__MHCOZY_TS0004_2_END_DEVICE/tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileSize": 149986,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/BOARD__MHCOZY_TS0004_2_END_DEVICE/tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "imageType": 54179,
     "manufacturerCode": 4417,
-    "sha512": "3924c181e7380603791bf88b4093b470a5a541fd3e87176416cb151afca2d6c94aaec3b20b438b268e95ccfb6d36d0b89f882751d71324e25e13d36de9d5b96a",
+    "sha512": "f463d0d09b41ed24ec2337abc44e66cd29b274d436405f3f7e8685b77d9b94e1dd9a9c57ec4d9b26999781d74ebc1870daf1b31d21f6cce6b7675296dac40cc2",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_u3oupgdy",
@@ -56,13 +56,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3.zigbee",
-    "fileVersion": 285356032,
-    "fileSize": 144834,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/MODULE_AUBESS_TS0001_END_DEVICE/tlc_switch-1.1.2-afb414c3.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63.zigbee",
+    "fileVersion": 285356067,
+    "fileSize": 149970,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/MODULE_AUBESS_TS0001_END_DEVICE/tlc_switch-1.1.2-aed6cc63.zigbee",
     "imageType": 43531,
     "manufacturerCode": 4417,
-    "sha512": "28a0aff4de1e5e1c73d57c3fdcb1a3a11e3258d96089b2087d3ca96215fec437d947d8d16ff68f31b5b207897a0a72e1471229d6111e58ff1ac9701837198363",
+    "sha512": "7050409e3ad2c7f5070cb20f6f3077c5cb5a06bd642692db580d70a7bf9817be67be510b463ff420e71ab461fd3ccb50fa7db6d007f4818f3e58431b2389951d",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_46t1rvdu",
@@ -71,13 +71,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "fileVersion": 4294967295,
-    "fileSize": 144834,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/MODULE_AUBESS_TS0001_END_DEVICE/tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileSize": 149970,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/MODULE_AUBESS_TS0001_END_DEVICE/tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "imageType": 54179,
     "manufacturerCode": 4417,
-    "sha512": "9d046efd90dfb4016baa990572e717a021f35a67fad2494f9ccd76e7bee5ba387e02a58255e7b48d371c4eb8a04cf7bacf17eddc5db3e0afda63e8dea65bd4f6",
+    "sha512": "8f462bdc8a34981fb3ab1a4ac3a509342c07eef820a0ac6c28010b4fcded964889620d956e3a7d1ff81d1934a200031133ae4957eda66bdc6474ccd139ed7204",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_46t1rvdu",
@@ -86,13 +86,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3.zigbee",
-    "fileVersion": 285356032,
-    "fileSize": 144834,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/MODULE_AVATTO_TS0011_END_DEVICE/tlc_switch-1.1.2-afb414c3.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63.zigbee",
+    "fileVersion": 285356067,
+    "fileSize": 149970,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/MODULE_AVATTO_TS0011_END_DEVICE/tlc_switch-1.1.2-aed6cc63.zigbee",
     "imageType": 43537,
     "manufacturerCode": 4417,
-    "sha512": "df949ac5aecc35ec709c067464d8aeee66b3ead8d4e7413154da5c54000876bf687a177f5762744ed3f4abf388eb3e2e798db686044d48daa060f220a42c5b24",
+    "sha512": "02b0e719b0559b0654b20240fa218b72a73205cff8514c763972bc0cee2d9e7359d425860828cdf963beebcc0f12e3633a7fe60854f39faa0e48ee3dcacad4f7",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_hbxsdd6k",
@@ -101,13 +101,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "fileVersion": 4294967295,
-    "fileSize": 144834,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/MODULE_AVATTO_TS0011_END_DEVICE/tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileSize": 149970,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/MODULE_AVATTO_TS0011_END_DEVICE/tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "imageType": 54179,
     "manufacturerCode": 4417,
-    "sha512": "0812f3db951fa2e828dab13207af6409abfefd3db057eefae3f050e12674d087822edf9759e23e2312684a4db12712eefa638f5986d48a9fe973d657acfda416",
+    "sha512": "c9cc37d3d99a661b41d8223bf5bafa846be0eb080d63734ed5cdc6f017acb4551a6cce6cf3cad0f2f6a0faa37619f7a7624cd8c6ff494ef12633c804dc750e9c",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_hbxsdd6k",
@@ -116,13 +116,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3.zigbee",
-    "fileVersion": 285356032,
-    "fileSize": 144850,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/MODULE_AVATTO_TS0012_END_DEVICE/tlc_switch-1.1.2-afb414c3.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63.zigbee",
+    "fileVersion": 285356067,
+    "fileSize": 149986,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/MODULE_AVATTO_TS0012_END_DEVICE/tlc_switch-1.1.2-aed6cc63.zigbee",
     "imageType": 43530,
     "manufacturerCode": 4417,
-    "sha512": "b2569b8d10b91a6aab61b21a732926d0739b33a28fce473f3edbd5364f8e458c33e112f0d7dbfc5d896360b3cb45a1b36ff8b613f5a4020da7a32ec430ae4af5",
+    "sha512": "af743dbf270fa77e41637e945903ad66185177ea8a7b8702ae1cd475d8c50305acecbc4200f340900306a378fbda0d76fa22b9326200ad19005e4156272d4707",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_ljhbw1c9",
@@ -131,13 +131,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "fileVersion": 4294967295,
-    "fileSize": 144850,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/MODULE_AVATTO_TS0012_END_DEVICE/tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileSize": 149986,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/MODULE_AVATTO_TS0012_END_DEVICE/tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "imageType": 54179,
     "manufacturerCode": 4417,
-    "sha512": "de3eea6ea8e1070160dfc72fc99e57390512e1e109be0065b526aacfd4cc21999a8b1a0388329bbe7ed29985dd94b80475a8f6418024dc620761cbf6b325ed5c",
+    "sha512": "b02f682ef4f5912aa63d456390f19fad5c5c8ac208b0ec24a5b3e8022a028c49481afbb6364c9fdca6808c012b31e185db9e9943c0908e09c4b620c848e3cf7f",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_ljhbw1c9",
@@ -146,13 +146,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3.zigbee",
-    "fileVersion": 285356032,
-    "fileSize": 144850,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/MODULE_AVATTO_TS0012_1_END_DEVICE/tlc_switch-1.1.2-afb414c3.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63.zigbee",
+    "fileVersion": 285356067,
+    "fileSize": 149986,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/MODULE_AVATTO_TS0012_1_END_DEVICE/tlc_switch-1.1.2-aed6cc63.zigbee",
     "imageType": 43613,
     "manufacturerCode": 4417,
-    "sha512": "c4a0c9048129603005c26b57b4d200a43976075a47445688c12cb90f6e1f1a7e9d3e3adaf543a4243160f2df78e21e90388bd4035e86cddbd2cf123e8a1e50e1",
+    "sha512": "85d046b66b1262697a56b95090a840d4888aef5381c5f05da63026256649b6050a124beab2fdfeaac5fe212204ebb226cd2227969541703c17e734d6212fd854",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_kpatq5pq",
@@ -160,13 +160,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "fileVersion": 4294967295,
-    "fileSize": 144850,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/MODULE_AVATTO_TS0012_1_END_DEVICE/tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileSize": 149986,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/MODULE_AVATTO_TS0012_1_END_DEVICE/tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "imageType": 54179,
     "manufacturerCode": 4417,
-    "sha512": "2a5776b8739b20f9f99b19b6738411f2fce158a3907beadc1211432aa5bd16865e6fd4e8b2046f5f1917d04f5c1908aa2c81b639f0c7a6b6632970a04e3ce595",
+    "sha512": "a53da92b79ad010cd31fce110482ce9f9d30cd7d85b3fd7e1fd2ca2e87fe679969949e99453542228da1678bbe2e8836838e193e45ca44d864f12e1c023d7a73",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_kpatq5pq",
@@ -174,13 +174,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3.zigbee",
-    "fileVersion": 285356032,
-    "fileSize": 144850,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/MODULE_AVATTO_TS0013_END_DEVICE/tlc_switch-1.1.2-afb414c3.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63.zigbee",
+    "fileVersion": 285356067,
+    "fileSize": 149986,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/MODULE_AVATTO_TS0013_END_DEVICE/tlc_switch-1.1.2-aed6cc63.zigbee",
     "imageType": 43552,
     "manufacturerCode": 4417,
-    "sha512": "ebfc96b68c87f1b9f952ffe75605ce8670715bd1c42ddf847b4c81eb796cffc1c7fda82eb0bde3beef6bb53be087e8eb5c2bf33cab31fc9812fe9ce9be6ec144",
+    "sha512": "f5c05c768afb4eaa0f167e92a274db7a61e520a33608780dc3e38014ba660a60f8906ae8b3259a368ca2709d7040da741b825210249e67d0e23af262c94a8c43",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_avotanj3",
@@ -188,13 +188,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "fileVersion": 4294967295,
-    "fileSize": 144850,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/MODULE_AVATTO_TS0013_END_DEVICE/tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileSize": 149986,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/MODULE_AVATTO_TS0013_END_DEVICE/tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "imageType": 54179,
     "manufacturerCode": 4417,
-    "sha512": "ee3459dc2570d533dfe6081241b484eb7f72930d727a1d429babe9afb9f6bd6a73575d30d1f930a6f3aeb7780904f7ab92cff4bb7165c08312408e1b1d644640",
+    "sha512": "e414202d9c672270aaa1af3e2a169326ffb1011914b48d11d88f88919d13bacaca6da46a8a39c13f80d57e1be32c170f4d83b8dd5b115860d57f39895f9c3f71",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_avotanj3",
@@ -202,13 +202,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3.zigbee",
-    "fileVersion": 285356032,
-    "fileSize": 144834,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/MODULE_EKF_TS0012_END_DEVICE/tlc_switch-1.1.2-afb414c3.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63.zigbee",
+    "fileVersion": 285356067,
+    "fileSize": 149970,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/MODULE_EKF_TS0012_END_DEVICE/tlc_switch-1.1.2-aed6cc63.zigbee",
     "imageType": 45592,
     "manufacturerCode": 4417,
-    "sha512": "6077167d30157c3bf2ba0c47dd80d61c78b2e861ebcee15bffa7517642948fc86520e53c57e8e463aa30dad04479a216c7829cb8e0b310c1eeb7c7ed847e2118",
+    "sha512": "422e286685161a1ed9af800f71eb3768fe2990abcb82a7dbb5c070154f81a723c540e2fe98d4f0cc72b7c72bdc6a501fd7628413150a0f61492074ad1011595a",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_num4zd6s",
@@ -216,13 +216,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "fileVersion": 4294967295,
-    "fileSize": 144834,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/MODULE_EKF_TS0012_END_DEVICE/tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileSize": 149970,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/MODULE_EKF_TS0012_END_DEVICE/tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "imageType": 54179,
     "manufacturerCode": 4417,
-    "sha512": "7f04ad1d131ed3c3a09b63d6cc27ab4c6a646ccf0e584576c259f06412d1cefcb31915397deff4456f14315db26e8836b72b77425db3f89e0eced4d16816e1be",
+    "sha512": "c7dbe5cc4913e8d39311a127e56a91cea38ee62bcaa426664605221ea515532f86e11c2e898f0214bfb3f315f119477b7bdfc8d1235d8e9d57691f2cbd5062df",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_num4zd6s",
@@ -230,13 +230,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3.zigbee",
-    "fileVersion": 285356032,
-    "fileSize": 144834,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/MODULE_FARYLINK_L_TS0001_END_DEVICE/tlc_switch-1.1.2-afb414c3.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63.zigbee",
+    "fileVersion": 285356067,
+    "fileSize": 149970,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/MODULE_FARYLINK_L_TS0001_END_DEVICE/tlc_switch-1.1.2-aed6cc63.zigbee",
     "imageType": 43617,
     "manufacturerCode": 4417,
-    "sha512": "15446507876e65ae04f337582481595207fe2b937deafde7f25e7383960624ffccc4803367826083e0bdd5695c3ca633a159251c3a05996293827aec15ed3c9a",
+    "sha512": "4ae8e8fec6be9562002f87f42d5aeb2e23971559bf3c41d56196c5fa2e01caa70ff1ff81d1cf4810b70f3c58bc21f771bea3189a189bb34c69818cf291d35d59",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_qlhs2kqr",
@@ -244,13 +244,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "fileVersion": 4294967295,
-    "fileSize": 144834,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/MODULE_FARYLINK_L_TS0001_END_DEVICE/tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileSize": 149970,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/MODULE_FARYLINK_L_TS0001_END_DEVICE/tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "imageType": 54179,
     "manufacturerCode": 4417,
-    "sha512": "8d83e93e0abe7570494221780997473b06df7447462132f3c9fe6b5581eaf40e9f97cf6e13da9e0b926d521bdbd1514f9ba2158c8e4b13826b752955d574098a",
+    "sha512": "13f73181b99b0fa272768cb46b85369f57d5a00eb5ab0f581c5852da95ffd614e50beff772feb81f855b8541ebf73108cb8ef0bda3680c6c0a391ea62586b4bd",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_qlhs2kqr",
@@ -258,13 +258,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3.zigbee",
-    "fileVersion": 285356032,
-    "fileSize": 144834,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/MODULE_GIRIER_B_TS0012_END_DEVICE/tlc_switch-1.1.2-afb414c3.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63.zigbee",
+    "fileVersion": 285356067,
+    "fileSize": 149970,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/MODULE_GIRIER_B_TS0012_END_DEVICE/tlc_switch-1.1.2-aed6cc63.zigbee",
     "imageType": 43615,
     "manufacturerCode": 4417,
-    "sha512": "65fcd201474e4f628d7e38cf96780264a89a1168e823ffcf974ee0b4f054ce1825ad16dcc77e1a29bd2ab49dae29034623583cc28c575e6e7e8c603233bb7d76",
+    "sha512": "5d18546318179e8c020c552b1b03f6725a2fadf89bfc2fd8457a91b0282a6561ba116d786fb7db501d406f5fc1e11b673b25588e85f070d64d473678c0b1d6c1",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_5sssic9d",
@@ -272,13 +272,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "fileVersion": 4294967295,
-    "fileSize": 144834,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/MODULE_GIRIER_B_TS0012_END_DEVICE/tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileSize": 149970,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/MODULE_GIRIER_B_TS0012_END_DEVICE/tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "imageType": 2050,
     "manufacturerCode": 4417,
-    "sha512": "cf11ccd7087016422a6ceea8ce4b9549aa6a07073eadf0fc39279cae1d62726608c33477eaca8cd9a077b0a131b788a63ed8d0b766892283fc95ef254247b7ea",
+    "sha512": "2d281e1a3dfa1a5e8b6d2d03cbf5b2cb52719072a1260a1ed1c6a6d18fb8c9ea7dbf1aee46372bc2796e40f8efe4d7a02019911bc5c11af76a1474f45dc0660d",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_5sssic9d",
@@ -286,13 +286,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3.zigbee",
-    "fileVersion": 285356032,
-    "fileSize": 144834,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/MODULE_HOMMYN_TS0011_END_DEVICE/tlc_switch-1.1.2-afb414c3.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63.zigbee",
+    "fileVersion": 285356067,
+    "fileSize": 149970,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/MODULE_HOMMYN_TS0011_END_DEVICE/tlc_switch-1.1.2-aed6cc63.zigbee",
     "imageType": 45591,
     "manufacturerCode": 4417,
-    "sha512": "895289e30811df95b88dafe21d2e47001ff059d133389436596e706a8d29144ca80a9f29e379d8e0188056f81cf83ffd1336b91e2b8a6f5af5fb8880440d8fc5",
+    "sha512": "dc33557afd88f240dc488d0f41be88e4032a875d5f9fde21b1e02b95a046bd825a356af4c408f596031bc65394dd91a03865bb0c2377ef5e75a4d943e6694bc3",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_tw4ztbp4",
@@ -300,13 +300,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "fileVersion": 4294967295,
-    "fileSize": 144834,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/MODULE_HOMMYN_TS0011_END_DEVICE/tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileSize": 149970,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/MODULE_HOMMYN_TS0011_END_DEVICE/tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "imageType": 54179,
     "manufacturerCode": 4417,
-    "sha512": "e920dfcc1cbec2c2675a9c07dcd56574814363b132e927cc3e3fa8604acdab9bc892a4afc91b01cc950269883eb9697bb1952eef4f94733581b64545ecd478d1",
+    "sha512": "b67d17d348ddba436b7614bd46b2b06cbf096b757b1ad9f3abed554e6f455953f12290829e991a05a84e32e75747216b0bbc7db760a765e8da9c605420dba52b",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_tw4ztbp4",
@@ -314,13 +314,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3.zigbee",
-    "fileVersion": 285356032,
-    "fileSize": 144850,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/MODULE_MOES_TS0003_END_DEVICE/tlc_switch-1.1.2-afb414c3.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63.zigbee",
+    "fileVersion": 285356067,
+    "fileSize": 149986,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/MODULE_MOES_TS0003_END_DEVICE/tlc_switch-1.1.2-aed6cc63.zigbee",
     "imageType": 43538,
     "manufacturerCode": 4417,
-    "sha512": "81cacad6d2563b634ef5982dd8293779ddf9facbdd8eb4745f8eda236aa6e7adb4376b3745fd9022c06dc7d81510e7074e4d4351b5a37f0a7bc0d1923ad2095f",
+    "sha512": "3621bca86e2ad05c230fe3853f4e60242377078f67c6d885d853f7ebc83e0df209d233a9a2383901a371530ecedd84f571bc1092604ecf893fa678aea250c428",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_pfc7i3kt",
@@ -329,13 +329,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "fileVersion": 4294967295,
-    "fileSize": 144850,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/MODULE_MOES_TS0003_END_DEVICE/tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileSize": 149986,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/MODULE_MOES_TS0003_END_DEVICE/tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "imageType": 54179,
     "manufacturerCode": 4417,
-    "sha512": "0f24cc8789fa8ff5399d6491645bdd4d002cf68706a97cfdc169775ebc10b6385a094297ba44b304c4458186ec1c3280b04ca04bcdfd61a8d8715453c9890bea",
+    "sha512": "eb757f037908a7e8df38227aa33f9664f74d87dfcbc7d4ae22657c62b449c8ba889bca790e106b226f97ec0eb406abee4d76dba7979df9230f758aa8f6b77845",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_pfc7i3kt",
@@ -344,13 +344,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3.zigbee",
-    "fileVersion": 285356032,
-    "fileSize": 174126,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/MODULE_MOES_TS0011_END_DEVICE/tlc_switch-1.1.2-afb414c3.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63.zigbee",
+    "fileVersion": 285356067,
+    "fileSize": 175414,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/MODULE_MOES_TS0011_END_DEVICE/tlc_switch-1.1.2-aed6cc63.zigbee",
     "imageType": 43629,
     "manufacturerCode": 4169,
-    "sha512": "3a781e73917474ee63ec7facb995089754b2ea57d4148cbd97166878bdb816102963b58ebe26c4b9c125387e32046f7bb7e3bafe28b18ee3f82f3bebf4efee79",
+    "sha512": "4439ba97db30a2362478ec6afb5ec8d485f78f02cc2cec1a3a52e7874271db0d6b04dcb4f7dd511e25863f77a56760b95f6e6af0eaa1b333284c8cc6b9a45c2c",
     "otaHeaderString": "Custom zigbee firmware\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_zzoangmc",
@@ -358,13 +358,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3.zigbee",
-    "fileVersion": 285356032,
-    "fileSize": 178610,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/MODULE_SONOFF_ZBMINIL2_END_DEVICE/tlc_switch-1.1.2-afb414c3.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63.zigbee",
+    "fileVersion": 285356067,
+    "fileSize": 179918,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/MODULE_SONOFF_ZBMINIL2_END_DEVICE/tlc_switch-1.1.2-aed6cc63.zigbee",
     "imageType": 45596,
     "manufacturerCode": 4169,
-    "sha512": "36bae20d331421daea2823ffad00af222bebbc3ec4ef565987230671211a40949de49957f70de5338a07fc83aef46cf5ad3dcbe870a5d1436ca5c3b41e654478",
+    "sha512": "15398d4206bd7f87db24c707d0c303b01ec419300b2d1a0b274eee92ffbe44017e5d27df7419659eea44f6afee48b8bbf292a0192b9c580c1ec6099ebfc8d594",
     "otaHeaderString": "Custom zigbee firmware\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "SONOFF",
@@ -372,13 +372,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3.zigbee",
-    "fileVersion": 285356032,
-    "fileSize": 144834,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/MODULE_TUYA_GIRIER_TS0011_END_DEVICE/tlc_switch-1.1.2-afb414c3.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63.zigbee",
+    "fileVersion": 285356067,
+    "fileSize": 149970,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/MODULE_TUYA_GIRIER_TS0011_END_DEVICE/tlc_switch-1.1.2-aed6cc63.zigbee",
     "imageType": 43524,
     "manufacturerCode": 4417,
-    "sha512": "72511441410379c9e968922f7744005d3752c204e173d165189c44ed6b5706fbca7ea08019f3cbb1f24385c7f3f7800d7e8a65bcdd92db7a9488b0d9e5b78fbf",
+    "sha512": "cd29362bc8a5207dfd3466be91ef8fc54cd5b143785bcd977444119bfa9ede14f20ec659c2b76e466d00d640646ccf5dd4a089172e04975d4844fbfddc4e0b08",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_ji4araar",
@@ -387,13 +387,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "fileVersion": 4294967295,
-    "fileSize": 144834,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/MODULE_TUYA_GIRIER_TS0011_END_DEVICE/tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileSize": 149970,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/MODULE_TUYA_GIRIER_TS0011_END_DEVICE/tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "imageType": 54179,
     "manufacturerCode": 4417,
-    "sha512": "3ed9c9ebffcf2866c151bd6eb83db1a251da52a54643d41776e9d8bf0ada0463d88d5c3c992c89234c1d6f38c358150685af9195c7c2677171e3b9460872655c",
+    "sha512": "761a28ee6dd024a0a23d71edecb8f7acf397ef885d3917200ee320b3b9bebefb584c99d7f4c2d8886ab25a3c9bf6d22afae4e2b137cf19fbe14ab1355569bb8d",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_ji4araar",
@@ -402,13 +402,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3.zigbee",
-    "fileVersion": 285356032,
-    "fileSize": 144834,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/MODULE_TUYA_GIRIER_TS0011_2_END_DEVICE/tlc_switch-1.1.2-afb414c3.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63.zigbee",
+    "fileVersion": 285356067,
+    "fileSize": 149970,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/MODULE_TUYA_GIRIER_TS0011_2_END_DEVICE/tlc_switch-1.1.2-aed6cc63.zigbee",
     "imageType": 45576,
     "manufacturerCode": 4417,
-    "sha512": "dcf0026c9f327e19d47644acde34dc6d48344e6e65856054403861fea3ac1a06330f685d32df78a16ebccfc821df406c15b56cad1e4042c2adf2d7a807e8df14",
+    "sha512": "09f89e4430b78b865d9efde0cb1932bfc6502f8fd86eab329f3d9c46508ba5bd988351015df4fc825564ff1444a8dbeffd72a8e2bc12d5cf8cf55b7e15e34f8e",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_ji4araar",
@@ -416,13 +416,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "fileVersion": 4294967295,
-    "fileSize": 144834,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/MODULE_TUYA_GIRIER_TS0011_2_END_DEVICE/tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileSize": 149970,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/MODULE_TUYA_GIRIER_TS0011_2_END_DEVICE/tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "imageType": 515,
     "manufacturerCode": 4417,
-    "sha512": "d7ad5018a7cfffe00b915bda2bf646f04ffaed986d8da01403c7bbcca765f1d4fc166a16265c56791943ef311717d872876d43625cf031df17a3f2c3f6b31b97",
+    "sha512": "2bf8e94c359aa7f3bd5c940cec557820d76bc73a5db3b43aef07eb63385c5c65c5a0dd460d898f3843e85127f1b918f0740ba6636d66dc1fd7ece14e6189471b",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_ji4araar",
@@ -430,13 +430,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3.zigbee",
-    "fileVersion": 285356032,
-    "fileSize": 144850,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/MODULE_TUYA_GIRIER_TS0012_END_DEVICE/tlc_switch-1.1.2-afb414c3.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63.zigbee",
+    "fileVersion": 285356067,
+    "fileSize": 149986,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/MODULE_TUYA_GIRIER_TS0012_END_DEVICE/tlc_switch-1.1.2-aed6cc63.zigbee",
     "imageType": 43521,
     "manufacturerCode": 4417,
-    "sha512": "6cf4529f95038071ee18a25f06abdfef9934f8ab5a533b102095c3fde41c3e3b527e370e29396367512f854b787db0c8d415d754608909f4bd83c9f28a826b09",
+    "sha512": "8dde2fa3879c2bc5d5bbd2132379f580675b08c2888ff7175493b9dc212a7cf3adaee042c97ca3cbb1624f5ad8613e313611730fdc04b05439be3cae7c3de9e5",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_jl7qyupf",
@@ -446,13 +446,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "fileVersion": 4294967295,
-    "fileSize": 144850,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/MODULE_TUYA_GIRIER_TS0012_END_DEVICE/tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileSize": 149986,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/MODULE_TUYA_GIRIER_TS0012_END_DEVICE/tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "imageType": 54179,
     "manufacturerCode": 4417,
-    "sha512": "f841288ca4ec3a65e56fa27869e77ad763b550080e35bac598e5af8ac98963af7e0c85d89f91e53d5bb6942cb57412dca37abff67d760bae278de71501c8d3f0",
+    "sha512": "db29bee862fcbcf34de5687c43bfc19f7da1eb3034f0524d35f3f7c3e854c4322069e7210b6cb3d1408ffaba8db2c239f60cbf19891c795a35a4a5458b1fc5c6",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_jl7qyupf",
@@ -462,13 +462,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3.zigbee",
-    "fileVersion": 285356032,
-    "fileSize": 144850,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/MODULE_TUYA_GIRIER_TS0013_END_DEVICE/tlc_switch-1.1.2-afb414c3.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63.zigbee",
+    "fileVersion": 285356067,
+    "fileSize": 149986,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/MODULE_TUYA_GIRIER_TS0013_END_DEVICE/tlc_switch-1.1.2-aed6cc63.zigbee",
     "imageType": 43539,
     "manufacturerCode": 4417,
-    "sha512": "c215eea527148d320c190c2495c9438e4b40ead476db218f5ba814345aed8f6d061c0ccf49662e0bc322cf65f1deb100a26a6708c1b01ff168b6a3149b6c8325",
+    "sha512": "dbab2192f4f7445ac97641ab61a0a5441f552439db29484385d0892b845e3588c779a9d6322bb6e751c48e405565ad4dba57a3862f9c350fcbada6a21bf4f239",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_ypgri8yz",
@@ -478,13 +478,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "fileVersion": 4294967295,
-    "fileSize": 144850,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/MODULE_TUYA_GIRIER_TS0013_END_DEVICE/tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileSize": 149986,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/MODULE_TUYA_GIRIER_TS0013_END_DEVICE/tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "imageType": 54179,
     "manufacturerCode": 4417,
-    "sha512": "1b0db8bf96711606e7eaa5108012007e2780b72eb8d12c8fe05b361944ba7ef5dff0472c9c2b4cd7632765807dc866968b25272eddd2474033b6ae344a95772f",
+    "sha512": "767b3af552a13ef966282edcd991674019f5affb9046883a65a757b07c5db9a398ba9e612280ea84b7e7d0af4d7e18942eba4a0abbeabdae083d54b9b941c406",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_ypgri8yz",
@@ -494,13 +494,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3.zigbee",
-    "fileVersion": 285356032,
-    "fileSize": 144834,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/MODULE_TUYA_NOVATO_QS_S05_TS0001_END_DEVICE/tlc_switch-1.1.2-afb414c3.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63.zigbee",
+    "fileVersion": 285356067,
+    "fileSize": 149970,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/MODULE_TUYA_NOVATO_QS_S05_TS0001_END_DEVICE/tlc_switch-1.1.2-aed6cc63.zigbee",
     "imageType": 45577,
     "manufacturerCode": 4417,
-    "sha512": "ae84e6e8339926891034d9c436844a856b51392f205fda4cfd181265bae35a89d6c312679611aba9cc9167b7e468f81540d0e8bcebceefc0e3432834b7adda92",
+    "sha512": "e692ca8a8ffcf21461a5e1c61fca1a9f81cbbb56fb31fb0d4d50c6ae2228464d25695c089f8867674a96d81a83c6ca37a2a2038757645b7c62fa78affb701d32",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_yl3zuyaw",
@@ -508,13 +508,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "fileVersion": 4294967295,
-    "fileSize": 144834,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/MODULE_TUYA_NOVATO_QS_S05_TS0001_END_DEVICE/tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileSize": 149970,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/MODULE_TUYA_NOVATO_QS_S05_TS0001_END_DEVICE/tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "imageType": 54179,
     "manufacturerCode": 4417,
-    "sha512": "95d102b75bffb08273176f3c21f8810440e07c62d69fa37b1362d892c285e6e6e578d5bc5b1bda291e1c8e806dfcc416060e93115d56cf7431976c2fb8a08f9d",
+    "sha512": "4c0074a6c0e12a94e8d654a3392454088eaaa7af2a1fb3d914bfac1913233d63fbd9ea081ed8d3263cca30f2f693cc146c0e18ea0cef5d956dc705f50e6dfb70",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_yl3zuyaw",
@@ -522,13 +522,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3.zigbee",
-    "fileVersion": 285356032,
-    "fileSize": 144834,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/MODULE_TUYA_NOVATO_QS_S05_TS0011_END_DEVICE/tlc_switch-1.1.2-afb414c3.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63.zigbee",
+    "fileVersion": 285356067,
+    "fileSize": 149970,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/MODULE_TUYA_NOVATO_QS_S05_TS0011_END_DEVICE/tlc_switch-1.1.2-aed6cc63.zigbee",
     "imageType": 45578,
     "manufacturerCode": 4417,
-    "sha512": "cf7274036f4582bd7d2365e5c263f8aefe6458278ae8dcc9dd4059a5f632806dedbe905bca8c56b47a9e26edccaa6fea0a71dff1cd0ece97d46ea447b256bd76",
+    "sha512": "ebd5e0f4bfef27f0bce646fe5496545af3a4e2e855d391df9954d5551529acb18392e171beb936146cb7067ed97b1bbbf363877b901d007b2b641268ac768910",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_qmi1cfuq",
@@ -536,13 +536,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "fileVersion": 4294967295,
-    "fileSize": 144834,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/MODULE_TUYA_NOVATO_QS_S05_TS0011_END_DEVICE/tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileSize": 149970,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/MODULE_TUYA_NOVATO_QS_S05_TS0011_END_DEVICE/tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "imageType": 54179,
     "manufacturerCode": 4417,
-    "sha512": "22eeb0d536db2de99be3c4fb9375b2eba9c4c3ec411cc753b681480d79cb103adb2dcd44ace80d8bfe785f3a882dcda7f5761c3cf8cc1f75a72982b0e7d8a3d4",
+    "sha512": "d6c8a3bef47f0d62df85873a4ef1e2a3827709471b274c4a775e854d6f1213e4b4999d5a294658ee62fa8d0c0d3615dd1e1465ba2761e415f26e40d880c2a099",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_qmi1cfuq",
@@ -550,13 +550,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3.zigbee",
-    "fileVersion": 285356032,
-    "fileSize": 144834,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/MODULE_TUYA_NOVATO_TS0011_END_DEVICE/tlc_switch-1.1.2-afb414c3.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63.zigbee",
+    "fileVersion": 285356067,
+    "fileSize": 149970,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/MODULE_TUYA_NOVATO_TS0011_END_DEVICE/tlc_switch-1.1.2-aed6cc63.zigbee",
     "imageType": 45593,
     "manufacturerCode": 4417,
-    "sha512": "a88ce0ef092f02ef62dcc8c3393e4281a488b30511a43852e7cc5a0b1cd0c26cc906d1bd475e2601e4d93b765358831deb5b2f5a9e007218c393eb1a9e4bd01f",
+    "sha512": "600e1942bff1b33958ef490b3ac4732c7ff4d2db863c7255e208d1e2e025d72c4e8e62781b467e08199daa26e8dcd08ecd0045ff0578ff12fb0370d510329070",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_30jqysvd",
@@ -564,13 +564,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3.zigbee",
-    "fileVersion": 285356032,
-    "fileSize": 144850,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/MODULE_TUYA_NOVATO_TS0012_END_DEVICE/tlc_switch-1.1.2-afb414c3.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63.zigbee",
+    "fileVersion": 285356067,
+    "fileSize": 149986,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/MODULE_TUYA_NOVATO_TS0012_END_DEVICE/tlc_switch-1.1.2-aed6cc63.zigbee",
     "imageType": 45590,
     "manufacturerCode": 4417,
-    "sha512": "872a08785932ef8444a4ac08d5992fbf56edf9ff0b6fd1d8f0fdc72bd0512045c2731b0e097bc2986be4300a6c6e7355d41a873f48d3067a786fa7b46e459cad",
+    "sha512": "1d67d139f44aa6bc763ab41beb7fd3b93bdd8bd22e2a2c399de400d572f38b4a7a0e4124894a66dcbf2c0f441bbf11f5e5daec920db9fa89704c7644384e5707",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_c4muk4ys",
@@ -578,13 +578,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "fileVersion": 4294967295,
-    "fileSize": 144850,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/MODULE_TUYA_NOVATO_TS0012_END_DEVICE/tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileSize": 149986,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/MODULE_TUYA_NOVATO_TS0012_END_DEVICE/tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "imageType": 54179,
     "manufacturerCode": 4417,
-    "sha512": "c752f80dfebdb16c0b3eec37174fdc2de81d21af21dfec991edf2987be8847a024f4b7fd691efa8fc467f981e37b2cbe56a52699a4b32f651ea1257cc1a6a7be",
+    "sha512": "623686c83a9b65002d4d01de61ea12e4510aeeadfcfc0b4350d4722ec7c3ccff5e069ba1bf4cf8fb202ac9b1805ed0dfb744351ecc9a76e002f96336bf22b0cf",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_c4muk4ys",
@@ -592,13 +592,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3.zigbee",
-    "fileVersion": 285356032,
-    "fileSize": 144850,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/REMOTE_IHSENO_TS0044_END_DEVICE/tlc_switch-1.1.2-afb414c3.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63.zigbee",
+    "fileVersion": 285356067,
+    "fileSize": 149986,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/REMOTE_IHSENO_TS0044_END_DEVICE/tlc_switch-1.1.2-aed6cc63.zigbee",
     "imageType": 43563,
     "manufacturerCode": 4417,
-    "sha512": "ea29b4d6605c4e2c7fcad8c0fdcd8d093e685534ae09b146d5161c49690f5f88058f72bb58555e9dc8771ea9b76d4486746a12462eb086e10ff6d46e6c0b2254",
+    "sha512": "9bba1dea769336638996b8708e9a510f32e85100c09ab5c0a60a7c033c12bd3f855fcc0f23b284bbd8eebb00d2ba8488b4538f6d590d9095e03de57aa8e2d7df",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_mh9px7cq",
@@ -606,13 +606,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "fileVersion": 4294967295,
-    "fileSize": 144850,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/REMOTE_IHSENO_TS0044_END_DEVICE/tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileSize": 149986,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/REMOTE_IHSENO_TS0044_END_DEVICE/tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "imageType": 54179,
     "manufacturerCode": 4417,
-    "sha512": "1c24341f25f318733298c704b6fed4406d6a43c03e856462ff40f253f26c52587c3c84f43ff6d10904af484b309bbdc6f6d90bff5d9d0909cff3e09aac292e4f",
+    "sha512": "89adf6f213254d042e59522383cbde2ab7ca6c73c35977b0f93b67761cba646e65e4316deee3f0019c1ce7a882f4d87737247936272e67863d380498db21674c",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_mh9px7cq",
@@ -620,13 +620,55 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3.zigbee",
-    "fileVersion": 285356032,
-    "fileSize": 144834,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/SWITCH_BSEED_TOUCH_LATCHING_TS0011_END_DEVICE/tlc_switch-1.1.2-afb414c3.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63.zigbee",
+    "fileVersion": 285356067,
+    "fileSize": 149986,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/REMOTE_MOES_SWITCH_TS0044_END_DEVICE/tlc_switch-1.1.2-aed6cc63.zigbee",
+    "imageType": 43572,
+    "manufacturerCode": 4417,
+    "sha512": "16dbf6891885955fbf8d093dbb2c70b437197ce7e05def0f21eb47145c39411a91c0dc173ec42cd8b79364568c2f8f7122623d6802baca08bf4e6eb3d6e3831b",
+    "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
+    "manufacturerName": [
+      "_TZ3000_zgyzgdua",
+      "zgyzgdua"
+    ]
+  },
+  {
+    "fileName": "tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
+    "fileVersion": 4294967295,
+    "fileSize": 149986,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/REMOTE_MOES_SWITCH_TS0044_END_DEVICE/tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
+    "imageType": 54179,
+    "manufacturerCode": 4417,
+    "sha512": "af5334e7fcd9c5c8e17857306e6022080ec11e91ec9d08691d70210a21ad4223ea596a65586b088d147feff8dd07015da01a271aea5c6934552146b312e2f38a",
+    "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
+    "manufacturerName": [
+      "_TZ3000_zgyzgdua",
+      "zgyzgdua"
+    ]
+  },
+  {
+    "fileName": "tlc_switch-1.1.2-aed6cc63.zigbee",
+    "fileVersion": 285356067,
+    "fileSize": 149970,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/REMOTE_TUYA_TS004F_2_END_DEVICE/tlc_switch-1.1.2-aed6cc63.zigbee",
+    "imageType": 47002,
+    "manufacturerCode": 4417,
+    "sha512": "389459fb761e18fca3caaf2fe4fdd4de272c4010af84a4b6ff488da061570832f2eb732233e7f8e6b4b55d92540c36a52fe2266333108437bf0fc2efe9d0b5f0",
+    "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
+    "manufacturerName": [
+      "_TZ3000_ja5osu5g",
+      "ja5osu5g"
+    ]
+  },
+  {
+    "fileName": "tlc_switch-1.1.2-aed6cc63.zigbee",
+    "fileVersion": 285356067,
+    "fileSize": 149970,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/SWITCH_BSEED_TOUCH_LATCHING_TS0011_END_DEVICE/tlc_switch-1.1.2-aed6cc63.zigbee",
     "imageType": 43585,
     "manufacturerCode": 4417,
-    "sha512": "3f2179a328569682dddfab3c67fc0217b03d143fde3020110422269adac1208f7f06204fcc0ad90f747194ae0e60c53884eeaa751bfa73063a7cd08c884af1bb",
+    "sha512": "fb5781fd0ec8f2f30ea5efb045dd66991c8ca2bb08069f7ca1d4f43f8074874c5ed4d10a2b89f771eba181011ee5c1ad17c8216ebf17d04484971b44c62c9863",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_aetquff4",
@@ -634,13 +676,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "fileVersion": 4294967295,
-    "fileSize": 144834,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/SWITCH_BSEED_TOUCH_LATCHING_TS0011_END_DEVICE/tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileSize": 149970,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/SWITCH_BSEED_TOUCH_LATCHING_TS0011_END_DEVICE/tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "imageType": 54179,
     "manufacturerCode": 4417,
-    "sha512": "5355bdeaa136193b35ca58fa958a6e75e0968a5cb6b3b3612f253d064af6f199642b5965abc2ea7a7cfee4e72e706fba4d660dcdc83530ec2e13a1df90358791",
+    "sha512": "baa0ac2fe7387da410afba902adbab4edb92e86055e326115ae9177a77250d9f750c21a2295dfa70f2a9b2aaf3932ed1193d65fc02f0ca32d948706e55357774",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_aetquff4",
@@ -648,13 +690,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3.zigbee",
-    "fileVersion": 285356032,
-    "fileSize": 144850,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/SWITCH_BSEED_TOUCH_LATCHING_TS0012_END_DEVICE/tlc_switch-1.1.2-afb414c3.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63.zigbee",
+    "fileVersion": 285356067,
+    "fileSize": 149986,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/SWITCH_BSEED_TOUCH_LATCHING_TS0012_END_DEVICE/tlc_switch-1.1.2-aed6cc63.zigbee",
     "imageType": 43544,
     "manufacturerCode": 4417,
-    "sha512": "4bcd91ae370352974acff0765c84487747e1f8e33db00a4328e770d9cf1da0704a03c7b1f060866c51aed1830c273b335a56feb7dc1860342d6bbf185e1ed938",
+    "sha512": "e977e052a7faed87484ecc10ecaaa8e417f6d8c8b7dfec92fac9fc2995d25c524ac0b016825bbfbf6e5a60126e073a36a7fa98df2a6b09bc4c1bb4f3171c67bf",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_xk5udnd6",
@@ -663,13 +705,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "fileVersion": 4294967295,
-    "fileSize": 144850,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/SWITCH_BSEED_TOUCH_LATCHING_TS0012_END_DEVICE/tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileSize": 149986,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/SWITCH_BSEED_TOUCH_LATCHING_TS0012_END_DEVICE/tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "imageType": 54179,
     "manufacturerCode": 4417,
-    "sha512": "fca4e3d311b41ea0ebc7b9ae86115fa4066d22fb7a6d372b2b30ee0eda468600bc20c8fd5b2252dbbdcf90021910a61f30d2acac87356788d8c322b96062b964",
+    "sha512": "2275efe65a114a44a6645f540e891b5caa9faf0e1f527ab50082ab94e8c3948cdec5234616abd4302a7bf021231741092494202b9bf2418745db07221e357cdd",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_xk5udnd6",
@@ -678,13 +720,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3.zigbee",
-    "fileVersion": 285356032,
-    "fileSize": 144866,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/SWITCH_BSEED_TOUCH_LATCHING_TS0013_END_DEVICE/tlc_switch-1.1.2-afb414c3.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63.zigbee",
+    "fileVersion": 285356067,
+    "fileSize": 150002,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/SWITCH_BSEED_TOUCH_LATCHING_TS0013_END_DEVICE/tlc_switch-1.1.2-aed6cc63.zigbee",
     "imageType": 43580,
     "manufacturerCode": 4417,
-    "sha512": "7059245630e2dde25e8dd856ee871487a88ea3df76ad39f5f617e3ccc7198687afdd2acf86222848c0c21014f7c058a04119bde95ac1664ead20842942b05fbd",
+    "sha512": "d9e73fea51c57b8dd67dee690806f376382991306217d4fe9c76363e89bc94e917dc81a40faab99cf177e1ae6e8d3c959b0bda6dd2d04b363cd5fc192c6907ef",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_kfwhmnvc",
@@ -692,13 +734,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "fileVersion": 4294967295,
-    "fileSize": 144866,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/SWITCH_BSEED_TOUCH_LATCHING_TS0013_END_DEVICE/tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileSize": 150002,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/SWITCH_BSEED_TOUCH_LATCHING_TS0013_END_DEVICE/tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "imageType": 54179,
     "manufacturerCode": 4417,
-    "sha512": "0f6d6246477587454acae2e920751da7677f585c98d4521835ed35974295ce0a1d86a52bfb05db7c7434b23e923ac0d0c6418e4f17620341312c061320b24ac3",
+    "sha512": "80d3a3b207d4d44ed8318423f51e985bcae4edb77a9e74a95590147bcfedaceb1fd6a9976f20b2e532774eb8be57d94e9f64674231fe1816a900cb94fc1103d1",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_kfwhmnvc",
@@ -706,13 +748,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3.zigbee",
-    "fileVersion": 285356032,
-    "fileSize": 144834,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/SWITCH_BSEED_TOUCH_TS0011_END_DEVICE/tlc_switch-1.1.2-afb414c3.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63.zigbee",
+    "fileVersion": 285356067,
+    "fileSize": 149970,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/SWITCH_BSEED_TOUCH_TS0011_END_DEVICE/tlc_switch-1.1.2-aed6cc63.zigbee",
     "imageType": 43564,
     "manufacturerCode": 4417,
-    "sha512": "5532121b9764a7459a10a236823040883acffefbb20f0e889f7e7ea00b6fbb9f69251910c53ff518c5726836880c57fdc0d58b176c1c92c00ed3d7f55b533c0d",
+    "sha512": "75546b1ff7b2bd35c2f5f748760c9fd4ddcc49bb777e763a01d04e95d79977cc3e205cf2d40185127e1b576e8ec2d9b3d15c3d15fbb7268870c23d3aa9f115f5",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_hafsqare",
@@ -720,13 +762,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "fileVersion": 4294967295,
-    "fileSize": 144834,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/SWITCH_BSEED_TOUCH_TS0011_END_DEVICE/tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileSize": 149970,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/SWITCH_BSEED_TOUCH_TS0011_END_DEVICE/tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "imageType": 54179,
     "manufacturerCode": 4417,
-    "sha512": "795df1d3073a6f826c101cf76f904ee22bc98c13bd012176741342ad0dc0ab1595e26abd2758b8fa6243bb5f1305d5c54e3e93c035338352ad06842a298a25d5",
+    "sha512": "6f5d3dd0dee7742102275bc0f45d40bbe1d448c1bed05637fc73e130a1c07c00156b6afe5b17df4da640c2b45088877408479ebb79f5a0e1c240cfbf9f7f92fb",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_hafsqare",
@@ -734,13 +776,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3.zigbee",
-    "fileVersion": 285356032,
-    "fileSize": 144850,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/SWITCH_BSEED_TOUCH_TS0012_1_END_DEVICE/tlc_switch-1.1.2-afb414c3.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63.zigbee",
+    "fileVersion": 285356067,
+    "fileSize": 149986,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/SWITCH_BSEED_TOUCH_TS0012_1_END_DEVICE/tlc_switch-1.1.2-aed6cc63.zigbee",
     "imageType": 43534,
     "manufacturerCode": 4417,
-    "sha512": "f91af59faf951c81d7ce599975f0e198ecb541b4695e10c09f96d6787cd87df4584a7b2fcafb6ae5d05065ff14822c12e718456c25eb9f7af9c85f3c2e729428",
+    "sha512": "c4ca80eaf12b309ade6db9f00a72ffca58e8542bb2067cdf9b7f557de4071e09d2956b0497ba1345cc865a84bf3328bb4ceb7af7c0f2c9c6bbbd116048d0afcb",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_f2slq5pj",
@@ -749,13 +791,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "fileVersion": 4294967295,
-    "fileSize": 144850,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/SWITCH_BSEED_TOUCH_TS0012_1_END_DEVICE/tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileSize": 149986,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/SWITCH_BSEED_TOUCH_TS0012_1_END_DEVICE/tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "imageType": 54179,
     "manufacturerCode": 4417,
-    "sha512": "e809f0ee34dbf4e0405101b3eb9e9a04e12bedf61a2c55bb08802f1b7ae60ea92a45c94cf5b25ddfaf79a69c20a62c4cd491be1f581b8aa4d91150b61343001e",
+    "sha512": "8805b80735a914feb0ef86a062f742c64433457069e2519de615090831b006853c780985aadb52f99e6d1a6c8dced93a0eb4108849f8f6887a667b9ce5352bef",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_f2slq5pj",
@@ -764,13 +806,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3.zigbee",
-    "fileVersion": 285356032,
-    "fileSize": 144850,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/SWITCH_BSEED_TOUCH_TS0012_2_END_DEVICE/tlc_switch-1.1.2-afb414c3.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63.zigbee",
+    "fileVersion": 285356067,
+    "fileSize": 149986,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/SWITCH_BSEED_TOUCH_TS0012_2_END_DEVICE/tlc_switch-1.1.2-aed6cc63.zigbee",
     "imageType": 43569,
     "manufacturerCode": 4417,
-    "sha512": "dd0b00790792791cf87dc1f769bf04ae2c16de8a25e86204066f77f77b91e239a4a9b3c0765c241405b7044fcfe059de0b06321bfb3aff8c4f0d6f306b8a6195",
+    "sha512": "a8c93a32b8fa1ca42ddae83d1725eea285848d49a784c3e24b9373d966f9e2e8ef4978a4692ad1324bb399d6a1b81b995bffe17ff6d55ea89e810b7852d3e889",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_e98krvvk",
@@ -778,13 +820,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "fileVersion": 4294967295,
-    "fileSize": 144850,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/SWITCH_BSEED_TOUCH_TS0012_2_END_DEVICE/tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileSize": 149986,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/SWITCH_BSEED_TOUCH_TS0012_2_END_DEVICE/tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "imageType": 54179,
     "manufacturerCode": 4417,
-    "sha512": "0b94a3f5aa3530aa849b6011bb08a8eafee8b15364117f99da68db7f800a6c2cfa940ae4f81b5d8ea06c0cbb2212c54704895636e90b3b2340fa4b9587682c8c",
+    "sha512": "00e47fb55ec404805a8e3e2b78c9e61428a47548a8bff0c2a4a6c7a662d1951d31bd3f2fe5df3750e57021b832165e958cece2e4c08a76cfd3ea74d091a0c014",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_e98krvvk",
@@ -792,13 +834,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3.zigbee",
-    "fileVersion": 285356032,
-    "fileSize": 144866,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/SWITCH_BSEED_TOUCH_TS0013_END_DEVICE/tlc_switch-1.1.2-afb414c3.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63.zigbee",
+    "fileVersion": 285356067,
+    "fileSize": 150002,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/SWITCH_BSEED_TOUCH_TS0013_END_DEVICE/tlc_switch-1.1.2-aed6cc63.zigbee",
     "imageType": 43570,
     "manufacturerCode": 4417,
-    "sha512": "3566ddc02c626ae67b71dd36eca9b69e7508f9630c58696cceac06e06b65862b37e91768e15c024d70cf7b1496f2c3e8c59f53fe05ae2b3c9092dec95ad33725",
+    "sha512": "a0e0bc56fc70c46219bf7a4ac379f44b5b7b6f2a56059a48a912f14aef85b1baac86c0a426c1f9963072295bdf43c0adf6f8f1c634dec13fd8c4fd46d5d93f7a",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_5e5ptb24",
@@ -806,13 +848,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "fileVersion": 4294967295,
-    "fileSize": 144866,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/SWITCH_BSEED_TOUCH_TS0013_END_DEVICE/tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileSize": 150002,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/SWITCH_BSEED_TOUCH_TS0013_END_DEVICE/tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "imageType": 54179,
     "manufacturerCode": 4417,
-    "sha512": "7df838e6fe38dc35c34ef86cef75ab1993962049f4cdfec7b0fcd2fc62c020f8e0d9a7f8252fd46f5f1b984c69f499a303204ce244411d9d0cd2d86c4b4e3918",
+    "sha512": "4ddfc958960eab6cbb4a95f62bae8042edb0a8d6fe7ba136a05a432496a4bc638448c4835794ad5de3087d8ae4035254cf1205f66262025870c199e91c11545a",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_5e5ptb24",
@@ -820,13 +862,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3.zigbee",
-    "fileVersion": 285356032,
-    "fileSize": 144834,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/SWITCH_BSEED_TS0726_1GANG_END_DEVICE/tlc_switch-1.1.2-afb414c3.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63.zigbee",
+    "fileVersion": 285356067,
+    "fileSize": 149970,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/SWITCH_BSEED_TS0726_1GANG_END_DEVICE/tlc_switch-1.1.2-aed6cc63.zigbee",
     "imageType": 45580,
     "manufacturerCode": 4417,
-    "sha512": "b144c4c06d742a8f806d3417c2614f65524e3fb199e681a479d6a15c04b7b3ead743b5c8ef83abea75f61e7ab099915c5cc00e14569d8a2e6edf4085ccd91c53",
+    "sha512": "1c7059c91bd8c87236ea8aae44aaebfcb44004e7d56e9200ff2b2f3db896d9520c0e140fabaebabd2b7245a5667c5a016dfe710a848f56b8a6c0dfe158c1978a",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3002_jn2x20tg",
@@ -834,13 +876,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "fileVersion": 4294967295,
-    "fileSize": 144834,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/SWITCH_BSEED_TS0726_1GANG_END_DEVICE/tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileSize": 149970,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/SWITCH_BSEED_TS0726_1GANG_END_DEVICE/tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "imageType": 54179,
     "manufacturerCode": 4417,
-    "sha512": "dd68949a8466cce49d6d2335eddd75376d345a08334490151d5af2106e30c6261bc482d918a8635df07f35f1ca73db6a13d505c616237b1875728b6befb5e69d",
+    "sha512": "87782ed1dd834915d13fcf6c791958b89e243387510a24e5b3c8a4614fe5e83750ec2224e0fb6b01cb4f8a6499c3ba96a74179bd1a5a69c8765650101608f496",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3002_jn2x20tg",
@@ -848,13 +890,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3.zigbee",
-    "fileVersion": 285356032,
-    "fileSize": 144850,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/SWITCH_BSEED_TS0726_2GANG_END_DEVICE/tlc_switch-1.1.2-afb414c3.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63.zigbee",
+    "fileVersion": 285356067,
+    "fileSize": 149986,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/SWITCH_BSEED_TS0726_2GANG_END_DEVICE/tlc_switch-1.1.2-aed6cc63.zigbee",
     "imageType": 43562,
     "manufacturerCode": 4417,
-    "sha512": "0e8d956be38a340320b84926ce24b1b28988a605c7d66ed8299d9873959459741142ce52c141e3a7a0748452ed6f39f2a6a5724e3333ca229e62903812700893",
+    "sha512": "a09bc7949930b8870abb01560f5d2b749aafc33e7e90d9c569dfdf0f35bf810a526906c7b058ead8a3ef477a92ecd1a64ce5403c56ebfe06fc132380beb6861f",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3002_zjuvw9zf",
@@ -862,13 +904,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "fileVersion": 4294967295,
-    "fileSize": 144850,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/SWITCH_BSEED_TS0726_2GANG_END_DEVICE/tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileSize": 149986,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/SWITCH_BSEED_TS0726_2GANG_END_DEVICE/tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "imageType": 54179,
     "manufacturerCode": 4417,
-    "sha512": "2008483d84a96ed63595b7b47659439b959ec13146549acdd0b4cc1a85f1f453b74967212f22595594b6a56926721d7029e4caf7b56141c09316c614aa1d1581",
+    "sha512": "9be5ccae4fbe6150f6ea4352a85ed30122b972e70bf5094951785c22fb6063ec379e8d3a63e4b8f766454df8b962253d4cb464eafbb6cf709e068f6180147291",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3002_zjuvw9zf",
@@ -876,13 +918,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3.zigbee",
-    "fileVersion": 285356032,
-    "fileSize": 144834,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/SWITCH_BSEED_TS0726_L_1GANG_END_DEVICE/tlc_switch-1.1.2-afb414c3.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63.zigbee",
+    "fileVersion": 285356067,
+    "fileSize": 149970,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/SWITCH_BSEED_TS0726_L_1GANG_END_DEVICE/tlc_switch-1.1.2-aed6cc63.zigbee",
     "imageType": 43632,
     "manufacturerCode": 4417,
-    "sha512": "9f3225e9f6b49713bf21ace92e35f5d695b16d71845aff1a81b2d97f2a4e9985f4d888bb63f44adb3ba2e1b1573a3dc1d84eb4a467df4045dc7812dcb5fc04a4",
+    "sha512": "1e0ed88df12aa29da600fff61c492b742839fd4699204de38784ba65227b28780077c98ec5a2379841a482a40256a78f1ee30b771e770435567b78dc8051a4cb",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3002_xkxgfxsg",
@@ -890,13 +932,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "fileVersion": 4294967295,
-    "fileSize": 144834,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/SWITCH_BSEED_TS0726_L_1GANG_END_DEVICE/tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileSize": 149970,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/SWITCH_BSEED_TS0726_L_1GANG_END_DEVICE/tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "imageType": 54179,
     "manufacturerCode": 4417,
-    "sha512": "82fb5368bcfc6744273e0fed66320287f9ed44faa44a172f5ed7f3c2002e7a0d3d6adbb6879dfe76153cb891d6c2a2cf0bc49182ac8fed3846d3695e878bfc4c",
+    "sha512": "61c037940718698c55b791daecc9215c57bfd86075049f98c388f0257bad37db7f2a7b06c7637f37b5fbaf676b00fd2d55c68145fe6eedd71bc8a03f868feec1",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3002_xkxgfxsg",
@@ -904,13 +946,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3.zigbee",
-    "fileVersion": 285356032,
-    "fileSize": 144850,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/SWITCH_BSEED_TS0726_L_2GANG_END_DEVICE/tlc_switch-1.1.2-afb414c3.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63.zigbee",
+    "fileVersion": 285356067,
+    "fileSize": 149986,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/SWITCH_BSEED_TS0726_L_2GANG_END_DEVICE/tlc_switch-1.1.2-aed6cc63.zigbee",
     "imageType": 43633,
     "manufacturerCode": 4417,
-    "sha512": "742ecac39d5bf4e762e986d058b26d4cd35435ef4e829a83898f53e7f2027169b46cfa470d8e43e0531be86c074a25896c7f6d9f96906b8f195c4503f8ea96ab",
+    "sha512": "50cf040811df3ecec96cdb4073204860a659c36a9ee3e98776394752e5de08dca75f975d5b2c508a541271febbe47cbb1c9d63243bd614d8d4ca8b96ecb15513",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3002_tlsvxhxc",
@@ -918,13 +960,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "fileVersion": 4294967295,
-    "fileSize": 144850,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/SWITCH_BSEED_TS0726_L_2GANG_END_DEVICE/tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileSize": 149986,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/SWITCH_BSEED_TS0726_L_2GANG_END_DEVICE/tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "imageType": 54179,
     "manufacturerCode": 4417,
-    "sha512": "05b8e3bbcae960c28e33274c7cda68571292e6a21fc29329861099df907f960caf03687a7a982ea81a10dbf97380421db82271c0b7e6344c78103d2ea0ad60dd",
+    "sha512": "b271ab17ce9cd378f3b28e3ed2d778a997c2782117f0813655cb7396f417e230f3b8caf1f289fc732894ec028787942ca673625396fdbb1771e6881f71fe45fc",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3002_tlsvxhxc",
@@ -932,13 +974,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3.zigbee",
-    "fileVersion": 285356032,
-    "fileSize": 144834,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/SWITCH_HOBEIAN_TS0011_END_DEVICE/tlc_switch-1.1.2-afb414c3.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63.zigbee",
+    "fileVersion": 285356067,
+    "fileSize": 149970,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/SWITCH_HOBEIAN_TS0011_END_DEVICE/tlc_switch-1.1.2-aed6cc63.zigbee",
     "imageType": 43622,
     "manufacturerCode": 4417,
-    "sha512": "02d3b0a25a55257d9943af25f43d4af6c69388640053f25bed46fa17c8b1ab04f3d1e4d881b5bd1c578fc240badd4fbf38314925df8d3c7a4ef128bce7e35b60",
+    "sha512": "3a738ca13408233ec062f09108e7c20a40278bacb396e7da30db96231c36e4884e57cda24692acbd3fe6dff88ec7e8b7745ea40c06daa130bc3bd0fd799b7a2d",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "HOBEIAN",
@@ -946,13 +988,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3.zigbee",
-    "fileVersion": 285356032,
-    "fileSize": 144834,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/SWITCH_IHSENO_TS0001_END_DEVICE/tlc_switch-1.1.2-afb414c3.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63.zigbee",
+    "fileVersion": 285356067,
+    "fileSize": 149970,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/SWITCH_IHSENO_TS0001_END_DEVICE/tlc_switch-1.1.2-aed6cc63.zigbee",
     "imageType": 43557,
     "manufacturerCode": 4417,
-    "sha512": "a2a5e4c31a21b340c478ecdb3d009f51fbbda55947b7761fcfb7d29529decf926f2aeb4a8b87bf11074d065cc9b5d52622cf10278a2e106785785cce7d6247b8",
+    "sha512": "405b1499cdcce3ef70f0e5a1ec50be380e8282ad8ea3d8a7ab61c971ea75c9ffeb0f940f4875dce183810329265202c16b3a5a543c1d84a0fdbd4707f73688e3",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_qq9ahj6z",
@@ -960,13 +1002,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "fileVersion": 4294967295,
-    "fileSize": 144834,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/SWITCH_IHSENO_TS0001_END_DEVICE/tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileSize": 149970,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/SWITCH_IHSENO_TS0001_END_DEVICE/tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "imageType": 54179,
     "manufacturerCode": 4417,
-    "sha512": "b2d633694199f3638c53120e18a35c32c0e098886bfa26f2aca13f27a3cf052506c2ca75b85cb1b3ad8708c2bdc5e814f2ffbca9f09d057c4bba04fd092e0055",
+    "sha512": "ced056103ea7145060d7b66ff90a2ca372ccbb16dcb50027bc09423a8a18e4fd5767d13de513297a65de9b1e04834c2303b6fd3d748c0b870ee533d3673b4028",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_qq9ahj6z",
@@ -974,13 +1016,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3.zigbee",
-    "fileVersion": 285356032,
-    "fileSize": 144834,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/SWITCH_IHSENO_TS0002_END_DEVICE/tlc_switch-1.1.2-afb414c3.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63.zigbee",
+    "fileVersion": 285356067,
+    "fileSize": 149970,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/SWITCH_IHSENO_TS0002_END_DEVICE/tlc_switch-1.1.2-aed6cc63.zigbee",
     "imageType": 43558,
     "manufacturerCode": 4417,
-    "sha512": "9d8291a2588ae68b856c0ad327e35fb57a98d960beeb0f169eed2f9f68018b63d6cea9478198645938f9b46548af406afd8dd25b374d30be2969377c0dbf1b4d",
+    "sha512": "e5624c157eefd8d9f4b8c601fe97615851840a3c13253fa7b70499e9c03684384aee566439050a5edbed47da1fc40cc56b2feb2eecaf6401a042e8af78feeeca",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_zxrfobzw",
@@ -988,13 +1030,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "fileVersion": 4294967295,
-    "fileSize": 144834,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/SWITCH_IHSENO_TS0002_END_DEVICE/tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileSize": 149970,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/SWITCH_IHSENO_TS0002_END_DEVICE/tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "imageType": 54179,
     "manufacturerCode": 4417,
-    "sha512": "6afc5cb4a134b00615e09f2a74208a6c8d201aae2f229821265e61a7cebc041e50ae051c57a109b3c7db3e8962baef2a88d9cb712c22cd879f176f97037ad496",
+    "sha512": "729df578c8b17e1b4884525a812713c6aa50b6416c83b6e35b653056975413802da65c0d53e17d9108465c5fd0f55ff8f942baa5a7db40410077d6381534a1ac",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_zxrfobzw",
@@ -1002,13 +1044,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3.zigbee",
-    "fileVersion": 285356032,
-    "fileSize": 144850,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/SWITCH_IHSENO_TS0003_END_DEVICE/tlc_switch-1.1.2-afb414c3.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63.zigbee",
+    "fileVersion": 285356067,
+    "fileSize": 149986,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/SWITCH_IHSENO_TS0003_END_DEVICE/tlc_switch-1.1.2-aed6cc63.zigbee",
     "imageType": 45640,
     "manufacturerCode": 4417,
-    "sha512": "d84eca7cd5c578e7789bdba581ee74df1690525019998484d037582a5306b8d4a8f0c3ed36c3cc367a7bcaaa4d9808a4f2c8ce3faf1808dd8460d680116e7fce",
+    "sha512": "74d68edd4b87de406912672b18715c527634c4babc8eb5b1271db63ded2d81146aa9cbd5da1ae51b074e0a1ca4551f76277ff9c088856ce96c8286761210561d",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_ju82pu2b",
@@ -1016,13 +1058,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "fileVersion": 4294967295,
-    "fileSize": 144850,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/SWITCH_IHSENO_TS0003_END_DEVICE/tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileSize": 149986,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/SWITCH_IHSENO_TS0003_END_DEVICE/tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "imageType": 54179,
     "manufacturerCode": 4417,
-    "sha512": "fd357a0dc84599ebd88a4b1f6809fb93c416a944010bf536fccb47f7c5dbc2e97a3c6c3a350d4891f0abf651f3200df9998df7a1213a6bc81d2dd7a848bc85bf",
+    "sha512": "9f67cb8ab76b77043b6a24818c1ab2e58dc3e40cc79ccc8d44da00391b28b2c633bca2a52a5f4913983e50765384e1ea07d948d400b48671fd940109c10c37e9",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_ju82pu2b",
@@ -1030,13 +1072,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3.zigbee",
-    "fileVersion": 285356032,
-    "fileSize": 144850,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/SWITCH_LERLINK_TS0012_END_DEVICE/tlc_switch-1.1.2-afb414c3.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63.zigbee",
+    "fileVersion": 285356067,
+    "fileSize": 149986,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/SWITCH_LERLINK_TS0012_END_DEVICE/tlc_switch-1.1.2-aed6cc63.zigbee",
     "imageType": 43510,
     "manufacturerCode": 4417,
-    "sha512": "2467591fb0dadd2ae8e6dfabc469816261b9bfbacc5ebcb5690ace419e86cf428224bb856eba630aa27bf15ce2ce2e65210dc5f27e5c4dbdb1f95dda3ce37b04",
+    "sha512": "6428f055403a45487624ed1b1017b697c7b4d93ae24c067e909f91b3d4d311e747199a1a16f9c3a4700bd32cb0897c39565622e22c7d8cf13a14c5ad81d042c9",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_dlp6yvs8",
@@ -1044,13 +1086,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "fileVersion": 4294967295,
-    "fileSize": 144850,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/SWITCH_LERLINK_TS0012_END_DEVICE/tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileSize": 149986,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/SWITCH_LERLINK_TS0012_END_DEVICE/tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "imageType": 54179,
     "manufacturerCode": 4417,
-    "sha512": "868867bb1d48c622447d4d799fe110cf9d13405580e988d7f840ff8472b57ca1644e41ba702caeed911f53a323af27e372b841bb237cdebddf11d7513336695a",
+    "sha512": "a955f778340a912b747dac05b47087bd83ff03e70b8f98e9d1a10f5802487871c01c12f46c4ef10c5689c46b4fc61ada81ec32e1c1f1b4edf8d4fde3338da486",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_dlp6yvs8",
@@ -1058,13 +1100,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3.zigbee",
-    "fileVersion": 285356032,
-    "fileSize": 144866,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/SWITCH_LERLINK_TS0013_END_DEVICE/tlc_switch-1.1.2-afb414c3.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63.zigbee",
+    "fileVersion": 285356067,
+    "fileSize": 150002,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/SWITCH_LERLINK_TS0013_END_DEVICE/tlc_switch-1.1.2-aed6cc63.zigbee",
     "imageType": 43533,
     "manufacturerCode": 4417,
-    "sha512": "307cd054b316b11c67202760aefe41b8a60b255d2c3e6bcddf0e01a0bd61d669e38baeb693b27cfaacdcd141aeef69cf8bd3f18a2b40875801e16d9702f62167",
+    "sha512": "9c3108f06216e471d2a9467f48a7bc2f6661087bed9f781efe8b2416ef29f9baedb2a7e462c5a929d4c40f0864361b6d9e1712f77aff1339bdef3d87ffd3c714",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_qp7x8u3a",
@@ -1072,13 +1114,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "fileVersion": 4294967295,
-    "fileSize": 144866,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/SWITCH_LERLINK_TS0013_END_DEVICE/tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileSize": 150002,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/SWITCH_LERLINK_TS0013_END_DEVICE/tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "imageType": 54179,
     "manufacturerCode": 4417,
-    "sha512": "12458d4df35c584fdf3629c36dc8d1a12747dc57d59694a369520980037cade19b04c8538cd17944de0ceeac79d1acb51d44811e1d25275195823a90375fa302",
+    "sha512": "e092687cacd70f7e0e20dc37a57bc440a431dde0f4f2733f1de988964f19a4a8be9a45fdcffb5a4d7644761dd435f3f37104bbf112917706ff15d6e5cf9aa971",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_qp7x8u3a",
@@ -1086,13 +1128,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3.zigbee",
-    "fileVersion": 285356032,
-    "fileSize": 144834,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/SWITCH_MANHOT_A_TS0011_END_DEVICE/tlc_switch-1.1.2-afb414c3.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63.zigbee",
+    "fileVersion": 285356067,
+    "fileSize": 149970,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/SWITCH_MANHOT_A_TS0011_END_DEVICE/tlc_switch-1.1.2-aed6cc63.zigbee",
     "imageType": 43599,
     "manufacturerCode": 4417,
-    "sha512": "9890b67d308f40c8309bcd48e111cfae1952a70698570c3083e1227bfe80622864a84e65eee7ddeb07e86abafb584b12b5b40d65d43fdf39782430f5dfd922ce",
+    "sha512": "9ca6188ac346ecca475908abac2b3e9d31d269d835a1e6f51cca8ff24f321be91869644cb2156fb53404cc6c007485380b315581b9e8626d3dfe636eb360e0eb",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_kea5qgnd",
@@ -1100,13 +1142,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "fileVersion": 4294967295,
-    "fileSize": 144834,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/SWITCH_MANHOT_A_TS0011_END_DEVICE/tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileSize": 149970,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/SWITCH_MANHOT_A_TS0011_END_DEVICE/tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "imageType": 54179,
     "manufacturerCode": 4417,
-    "sha512": "6786e483df134e53c1526cc5ca0acb26a204a06b704454ac359cae20072cd843709a9ecd3d36be8fbe6d32cf0df0545a8ccf1b97b1c4d2c964903aa786a12a61",
+    "sha512": "9ce71461cca96d77231b09e7a0e732c95e595fb57702f3ebf7bed80a3c01a29b836958a6885a94d5644b294c601a77aa793e396c9d277f23259af5499bbcf31f",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_kea5qgnd",
@@ -1114,13 +1156,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3.zigbee",
-    "fileVersion": 285356032,
-    "fileSize": 144850,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/SWITCH_MANHOT_A_TS0012_END_DEVICE/tlc_switch-1.1.2-afb414c3.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63.zigbee",
+    "fileVersion": 285356067,
+    "fileSize": 149986,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/SWITCH_MANHOT_A_TS0012_END_DEVICE/tlc_switch-1.1.2-aed6cc63.zigbee",
     "imageType": 43600,
     "manufacturerCode": 4417,
-    "sha512": "522e133fb3c2c7ec9e85bdf05f96d3c3b85187bbc36bd41d9464efce494ddf2fc20a12424dca9295acbbb2a7fd4c520ea34b68174b91c700e0cb8870e1283dcc",
+    "sha512": "c9182062fdb0a46e2a0284882b02a534cac8f44f004d2bc6e0b8516143a5d999730d951196142dbd34210a47681ae82094f399ab65f0448ae582a9f71a3be6a4",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_toaaawnr",
@@ -1128,13 +1170,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "fileVersion": 4294967295,
-    "fileSize": 144850,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/SWITCH_MANHOT_A_TS0012_END_DEVICE/tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileSize": 149986,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/SWITCH_MANHOT_A_TS0012_END_DEVICE/tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "imageType": 54179,
     "manufacturerCode": 4417,
-    "sha512": "a7d3915ff94061e05b42ea6b2f75b9cddbde0cf385ef31d0e099deb205734bd025c2f68131f3c87df0f0a58dc9857880acf6031117a95a942510e4eee0f084ed",
+    "sha512": "67e3e8a47defcf071adbca9015dc25f527a37dd35f64ebf1fd2d923a4876b6ea1af650632c136b96d47004f6f1ef73287a7fd027cbfc192c10d4381697ca0238",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_toaaawnr",
@@ -1142,13 +1184,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3.zigbee",
-    "fileVersion": 285356032,
-    "fileSize": 144866,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/SWITCH_MANHOT_A_TS0013_END_DEVICE/tlc_switch-1.1.2-afb414c3.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63.zigbee",
+    "fileVersion": 285356067,
+    "fileSize": 150002,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/SWITCH_MANHOT_A_TS0013_END_DEVICE/tlc_switch-1.1.2-aed6cc63.zigbee",
     "imageType": 43550,
     "manufacturerCode": 4417,
-    "sha512": "9383723e93283dc74d2bee12f923532e318038d33fad06a3c38212c4d4d00e05e78377bb6bd0b425f7aece92f4f1950b73aef169162a2f59c0218ce660452b3c",
+    "sha512": "f2e4805435660261602be1203a846558e8b7973352ba735629e298422a854e7e667958d5982a9ea296389b218c07592f4f549208bca9de65beaba260abc7d799",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_tqwydnqn",
@@ -1156,13 +1198,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "fileVersion": 4294967295,
-    "fileSize": 144866,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/SWITCH_MANHOT_A_TS0013_END_DEVICE/tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileSize": 150002,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/SWITCH_MANHOT_A_TS0013_END_DEVICE/tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "imageType": 54179,
     "manufacturerCode": 4417,
-    "sha512": "720b8b17f1aa8de5d3f532bf434d08bbd372c855c8844a39dccba9351a11d94cdaa2db94943017e5ca3324805dfe3785411eb3c17635cc585577e00e596e4930",
+    "sha512": "1ea9c050cc5076203633f18b0eb7a2ae9d99f0304d6ecfb964e5d5ed0b8016fcd4b224576c2fddd2c54529b5fec28ddd61af8c32ee4d3c26474378dc10fd7976",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_tqwydnqn",
@@ -1170,13 +1212,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3.zigbee",
-    "fileVersion": 285356032,
-    "fileSize": 174174,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/SWITCH_MANHOT_B_TS0011_END_DEVICE/tlc_switch-1.1.2-afb414c3.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63.zigbee",
+    "fileVersion": 285356067,
+    "fileSize": 175426,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/SWITCH_MANHOT_B_TS0011_END_DEVICE/tlc_switch-1.1.2-aed6cc63.zigbee",
     "imageType": 43586,
     "manufacturerCode": 4169,
-    "sha512": "dc77aef9ecad23c39f0e043939cd3f264258bbf01e96586efa1c57be74806319ed5f1131fab2abccfeedfa846699849079c23a09e06c0aea119177bc9f647792",
+    "sha512": "3a95d951b0a00ad1efbffddf62c36a3f63e30ad9b87121653e3da63380fce373b202efb2666be52d186397265265f45790f134b84c915064eaf1004d4dc814aa",
     "otaHeaderString": "Custom zigbee firmware\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_bmzfjnbp",
@@ -1184,13 +1226,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3.zigbee",
-    "fileVersion": 285356032,
-    "fileSize": 174166,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/SWITCH_MANHOT_B_TS0012_END_DEVICE/tlc_switch-1.1.2-afb414c3.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63.zigbee",
+    "fileVersion": 285356067,
+    "fileSize": 175450,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/SWITCH_MANHOT_B_TS0012_END_DEVICE/tlc_switch-1.1.2-aed6cc63.zigbee",
     "imageType": 43587,
     "manufacturerCode": 4169,
-    "sha512": "304fa0804f660e4b68393c572ad3901e42a84d0443258fa3f35306dc9d27ff9ae4bc0c695550ce5c8cb03c73d181f7ada9608f28d73a22c540fbc8be3a8567d9",
+    "sha512": "07ea5309d3c659a4bb44f6d555eae69aa6b8554b381d97f754d0ddddcdc3b601a49194907d5871a88639c2b8491a4ba02e888aba8da98cbd94d16eb7c95b789d",
     "otaHeaderString": "Custom zigbee firmware\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_ugaem1nb",
@@ -1198,13 +1240,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3.zigbee",
-    "fileVersion": 285356032,
-    "fileSize": 174134,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/SWITCH_MANHOT_B_TS0013_END_DEVICE/tlc_switch-1.1.2-afb414c3.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63.zigbee",
+    "fileVersion": 285356067,
+    "fileSize": 175450,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/SWITCH_MANHOT_B_TS0013_END_DEVICE/tlc_switch-1.1.2-aed6cc63.zigbee",
     "imageType": 45586,
     "manufacturerCode": 4169,
-    "sha512": "a837a493b40ebfc595f5aceddeb29fcb16cbab30c910737bdfec4ec1a3364a9d1715b54d437b1454bbc503d194be72dbaef0d93af365db55192f012d8454e745",
+    "sha512": "16b035e75e1274c248e76fceb7c61b4195dd87535b55f774d6a49a7fa1b7f87d202706c285f44674b2244368889f3d5d0c31e21d04934552e53fb30da4a9a419",
     "otaHeaderString": "Custom zigbee firmware\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_snq47izk",
@@ -1212,13 +1254,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3.zigbee",
-    "fileVersion": 285356032,
-    "fileSize": 144834,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/SWITCH_MOES_ALL_TS0011_END_DEVICE/tlc_switch-1.1.2-afb414c3.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63.zigbee",
+    "fileVersion": 285356067,
+    "fileSize": 149970,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/SWITCH_MOES_ALL_TS0011_END_DEVICE/tlc_switch-1.1.2-aed6cc63.zigbee",
     "imageType": 43532,
     "manufacturerCode": 4417,
-    "sha512": "f87c6cc8b6606a70d2b77283351fcbbafea5bd0936e536cb071af9b3e42b9002f60d41a54b937fe14e43ca162feb65bf3281a599be37c7b433f7ba420c6e5b8f",
+    "sha512": "c9d9af78316b623a5a2e850ea1e7278d4798afb2c4c2cb73e32f2224d3dde30a4bdc5c9e4c7a80558dbe63c7a09ef914affbed8d5c6628f60de8825b3dcb9e65",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_hhiodade",
@@ -1227,13 +1269,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "fileVersion": 4294967295,
-    "fileSize": 144834,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/SWITCH_MOES_ALL_TS0011_END_DEVICE/tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileSize": 149970,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/SWITCH_MOES_ALL_TS0011_END_DEVICE/tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "imageType": 54179,
     "manufacturerCode": 4417,
-    "sha512": "98bc0f69e3d39dc4463d1c2e415ddd16a19384c194a370980961b08bff87740a0b10beea1c10a4703b5d757c79c4c7194b726e4e7819a73fb32e381218a88af1",
+    "sha512": "305513065ab29859f3e4561346a3fb4ea4c1e0a45d418d87f35e289f594e104a13a914c72e567797b84369a7820454700a1c7a65dff2e88449f40acd27feea42",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_hhiodade",
@@ -1242,13 +1284,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3.zigbee",
-    "fileVersion": 285356032,
-    "fileSize": 144850,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/SWITCH_MOES_ALL_TS0012_END_DEVICE/tlc_switch-1.1.2-afb414c3.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63.zigbee",
+    "fileVersion": 285356067,
+    "fileSize": 149986,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/SWITCH_MOES_ALL_TS0012_END_DEVICE/tlc_switch-1.1.2-aed6cc63.zigbee",
     "imageType": 43510,
     "manufacturerCode": 4417,
-    "sha512": "f17eee14ec4123865e0224307b2b51a6299e09d92005aa31cb21d1050bc28419a3d68de607fa6d18572fef1ca6d5b2c6f332144aa6ceae170ea787ece5198806",
+    "sha512": "951350d29ed61e94926611b993d0016aa8a8e69e45d9a4481cbd20100e0f115abca9542373632b2d20bb7a92c160d9674334e7d0fe6c91d4af4cdfb7661938f8",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_18ejxno0",
@@ -1257,13 +1299,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "fileVersion": 4294967295,
-    "fileSize": 144850,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/SWITCH_MOES_ALL_TS0012_END_DEVICE/tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileSize": 149986,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/SWITCH_MOES_ALL_TS0012_END_DEVICE/tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "imageType": 54179,
     "manufacturerCode": 4417,
-    "sha512": "0126f4274d59260534d92c1ca53f81cb8e53c749fe9b23a63ad77049983a960b78f5935f80be0c53a215b717866074cfa648b743216d2c9d615e2dc1ed22bd99",
+    "sha512": "cdd927587fde9d01262fde4842cccb048986cd1ef7fa50de48610ea6d7fe7dc901614089d425c655738a0717e785fc44a7931fcbdfdddf2651a62977eed07775",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_18ejxno0",
@@ -1272,13 +1314,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3.zigbee",
-    "fileVersion": 285356032,
-    "fileSize": 144850,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/SWITCH_MOES_ALL_TS0013_END_DEVICE/tlc_switch-1.1.2-afb414c3.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63.zigbee",
+    "fileVersion": 285356067,
+    "fileSize": 149986,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/SWITCH_MOES_ALL_TS0013_END_DEVICE/tlc_switch-1.1.2-aed6cc63.zigbee",
     "imageType": 43533,
     "manufacturerCode": 4417,
-    "sha512": "5f928811df9081698a74a1dea496364a306bf02ebda72ab989183c8ce8e32166182f4a2e1b8b12df9f63809b63a2265fe966316315a599ef4b4710bdd39fcc34",
+    "sha512": "8c733f4f74b22f69800d9af3c961ec8dad15cd3143daf61f9750ed4d3115b514be1ec185674ece9f64df78063322b1e67ffdb3e0ccbdc6106e043d44bf68c16c",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_qewo8dlz",
@@ -1287,13 +1329,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "fileVersion": 4294967295,
-    "fileSize": 144850,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/SWITCH_MOES_ALL_TS0013_END_DEVICE/tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileSize": 149986,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/SWITCH_MOES_ALL_TS0013_END_DEVICE/tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "imageType": 54179,
     "manufacturerCode": 4417,
-    "sha512": "9200da35f634c4f6ba0dcbbcda1dc4536a4c680517dd8de06148d843522bf580b9f1f5fa27782d0899c4a8efa11c1481a0b512d99cbb9b59d39f64389090fc3d",
+    "sha512": "6e949ad78efb76a539d51b6e0e052cccbf27066862c70fe00042136e5a2800810fd24299a87f8a9e22471834e00d3573b23f59e20e9ea9c2bbb52aeb9b573d2f",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_qewo8dlz",
@@ -1302,13 +1344,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3.zigbee",
-    "fileVersion": 285356032,
-    "fileSize": 174150,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/SWITCH_MOES_ALL_TS0014_END_DEVICE/tlc_switch-1.1.2-afb414c3.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63.zigbee",
+    "fileVersion": 285356067,
+    "fileSize": 175438,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/SWITCH_MOES_ALL_TS0014_END_DEVICE/tlc_switch-1.1.2-aed6cc63.zigbee",
     "imageType": 43566,
     "manufacturerCode": 4169,
-    "sha512": "39bba26ae1910bef10ab80c52d65e316e2eeca99157ac73b3165779d94fc44a609432e9df9ff968116ad8b138093b6b6c63054e765d99508780a958fdaf68f58",
+    "sha512": "c60fc12c2e84f6dac7e98729c094ba1ce7d28204b0ddf112f2ff0af960caf6aa7c19a4061ae76fd1bd8f4da350345777108f70064dd390d7f6e3863a6f9de744",
     "otaHeaderString": "Custom zigbee firmware\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_mrduubod",
@@ -1316,13 +1358,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3.zigbee",
-    "fileVersion": 285356032,
-    "fileSize": 144850,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/SWITCH_ZEMISMART_1_TS0012_END_DEVICE/tlc_switch-1.1.2-afb414c3.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63.zigbee",
+    "fileVersion": 285356067,
+    "fileSize": 149986,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/SWITCH_ZEMISMART_1_TS0012_END_DEVICE/tlc_switch-1.1.2-aed6cc63.zigbee",
     "imageType": 43536,
     "manufacturerCode": 4417,
-    "sha512": "bcc760e666484cb2cfa1afebf837b39253f16fa07b7f2a1d365d13c76aa594c5889ed011a55f39fa5d513c2eb6e139456fdce9a9b2edd579501f8767098f9466",
+    "sha512": "9016a592148dada939ccd4ad1429587a6cc8822873ff16eaffa320a53b88072763fc9b862c445ed7efcfa647d2919c08a9b6ffe335be985731b993fc2b7c0801",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_zmlunnhy",
@@ -1331,13 +1373,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "fileVersion": 4294967295,
-    "fileSize": 144850,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/SWITCH_ZEMISMART_1_TS0012_END_DEVICE/tlc_switch-1.1.2-afb414c3-from_tuya.zigbee",
+    "fileSize": 149986,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/SWITCH_ZEMISMART_1_TS0012_END_DEVICE/tlc_switch-1.1.2-aed6cc63-from_tuya.zigbee",
     "imageType": 54179,
     "manufacturerCode": 4417,
-    "sha512": "225dfb4ed881e1639535acd7968e5e75a27929afebfb379be9ad15aba0be68307f2df37669ee90383624cb7754f0ff49b33bef34663e80430b22ef6729c54341",
+    "sha512": "1961f48d4656b75c0a259a0256e48064bd96281ede7aa5e3dd507db1c89e2d71bba373b0cac7eb4d988ffca62198781f1bf403d0aa7bffcb03528801a488f5b8",
     "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_zmlunnhy",
@@ -1346,13 +1388,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3.zigbee",
-    "fileVersion": 285356032,
-    "fileSize": 174146,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/SWITCH_ZEMISMART_2_TS0011_END_DEVICE/tlc_switch-1.1.2-afb414c3.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63.zigbee",
+    "fileVersion": 285356067,
+    "fileSize": 175450,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/SWITCH_ZEMISMART_2_TS0011_END_DEVICE/tlc_switch-1.1.2-aed6cc63.zigbee",
     "imageType": 45589,
     "manufacturerCode": 4169,
-    "sha512": "53067728888de0eef51d9e9ee7942f58bda1d9e0d268cbd98293eee4df07b036be906a2ce36a5b5505ba69d8fdbeca2369da2b61d42be004d78c0917e92af85e",
+    "sha512": "22f048bc58c2084a19e2895f7c965449ac7906eda7360cbcf3bfbd6aadbbd011d701a08595276aab218a0bd8aeef6eba6a7564c440831b20548e7ce2b16020d8",
     "otaHeaderString": "Custom zigbee firmware\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_ilauzyjm",
@@ -1360,13 +1402,13 @@
     ]
   },
   {
-    "fileName": "tlc_switch-1.1.2-afb414c3.zigbee",
-    "fileVersion": 285356032,
-    "fileSize": 174138,
-    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/2b9de214d7c48cc962becdf7576a8c87183253bd/bin/end_device/SWITCH_ZEMISMART_2_TS0012_END_DEVICE/tlc_switch-1.1.2-afb414c3.zigbee",
+    "fileName": "tlc_switch-1.1.2-aed6cc63.zigbee",
+    "fileVersion": 285356067,
+    "fileSize": 175438,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/rs/battery-polling-deepsleep-build/bin/end_device/SWITCH_ZEMISMART_2_TS0012_END_DEVICE/tlc_switch-1.1.2-aed6cc63.zigbee",
     "imageType": 45589,
     "manufacturerCode": 4169,
-    "sha512": "f361d0e3fbcf9031bc648d124fd376954677d0177d7cb86099744d0c7880372a57393dd55739357baf7762388fb29f3f934fb80b5d4414dbf212af6f9703a6f6",
+    "sha512": "0f1c70a665ec23a24ef80fa51cd0aba608c327283b8dd735c5704d95b04926724cc5b727d36eb0434b56939cc5080a7f12aceb121aebbe1c288a0f550702a4b0",
     "otaHeaderString": "Custom zigbee firmware\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
     "manufacturerName": [
       "_TZ3000_rbl8c85w",

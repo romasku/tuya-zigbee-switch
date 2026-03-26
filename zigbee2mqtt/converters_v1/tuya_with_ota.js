@@ -81,6 +81,7 @@ for (let definition of tuyaDefinitions) {
 
 const moesModels = [
     "SR-ZS",
+    "ZG-101ZL",
     "ZS-EUB_1gang",
 ];
 
