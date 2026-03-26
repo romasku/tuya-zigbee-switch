@@ -88,6 +88,7 @@ The pinout is stored in the **device config string**.
 | Ch      | Peripheral    | Function                                                                                                          |
 |--------:|---------------|-------------------------------------------------------------------------------------------------------------------|
 | **`B`** | Reset button  | • Puts device in pairing                                                                                          |
+| **`BT`** | Battery ADC   | • Enables battery-powered mode <br> • Format: `BTC5` - ADC input on pin `C5`                                     |
 | **`L`** | Network led   | • Blinks while pairing <br> • Is the backlight sometimes                                                          |
 | **`S`** | Switch        | • User input <br> • Tactile/touch button or external switch <br> • Spam to put in pairing mode                    |
 | **`R`** | Relay / Triac | • Output <br> • Non-latching: `RC1` - 1 pin: on when high <br> • Latching: `RC2C3` - 2 pins: pulse on, pulse off  |
@@ -108,6 +109,7 @@ Additional options:
 |-------------:|------------------------------|-----------------------------------------------------------------------------------|
 | **`i00000`** | Image type                   | • Change OTA image_type (migrate to another build)                                |
 | **`M`**      | Momentary                    | • Defaults buttons to momentary mode (for devices with built-in switches)         |
+| **`BT<pin>`** | Battery mode                | • Enables battery-powered behavior <br> • Adds battery measurement/reporting using the selected ADC pin |
 | **`SLP`**    | Simultaneous Latching Pulses |  • Enable simultaneous pulses for latching relays (they are disallowed by default)|
 
 ## Build and install

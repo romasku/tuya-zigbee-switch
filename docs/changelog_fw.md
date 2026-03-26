@@ -33,6 +33,7 @@ Please describe what you are working on:
   - Poll rate controller: fast polling + slow polling support
   - PowerCfg cluster for battery level monitoring
   - PollCtrl cluster to allow settings poll rate via ZCL
+  - Add `BT<pin>` config option to enable battery mode
 
 ### Bugs
 
