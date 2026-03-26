@@ -14,8 +14,8 @@ NVM_MIGRATIONS_VERSION ?= $(shell cat ../../NVM_MIGRATIONS_VERSION 2>/dev/null |
 FIRMWARE_BASENAME ?= tlc_switch
 DEVICE_TYPE ?= router
 DEBUG ?= 0
-# CONFIG_STR ?= jl7qyupf;TS0012-custom;LC4;SC2u;BTB5;
-CONFIG_STR ?= jl7qyupf;TS0012-custom;BA0f;LD7;SC2f;RC0;SC3f;RB4;
+CONFIG_STR ?= jl7qyupf;TS0012-custom;LC4;SC2u;BTB5;
+# CONFIG_STR ?= jl7qyupf;TS0012-custom;BA0f;LD7;SC2f;RC0;SC3f;RB4;
 MANUFACTURER_ID ?= 4417
 IMAGE_TYPE ?= 43521
 OTA_VERSION ?= 
@@ -145,7 +145,7 @@ TELINK_SOURCES := \
 # Common source files (shared with Silicon Labs build)
 COMMON_SOURCES := \
 	$(SRC_DIR)/app.c \
-	$(SRC_DIR)/poll_rate.c \
+	$(SRC_DIR)/zigbee/poll_control_cluster.c \
 	$(SRC_DIR)/base_components/button.c \
 	$(SRC_DIR)/base_components/led.c \
 	$(SRC_DIR)/base_components/network_indicator.c \

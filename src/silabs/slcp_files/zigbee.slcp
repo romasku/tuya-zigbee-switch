@@ -7,7 +7,8 @@ quality: experimental
 source:
 - {path: ../../app.c}
 - {path: ../../app.h}
-- {path: ../../poll_rate.c}
+- {path: ../../zigbee/poll_control_cluster.c}
+- {path: ../../zigbee/poll_control_cluster.h}
 - {path: ../../silabs/main.c}
 - {path: ../../silabs/hal/zigbee.c}
 - {path: ../../silabs/hal/gpio.c}

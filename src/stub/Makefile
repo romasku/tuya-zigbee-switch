@@ -33,7 +33,7 @@ help:
 # Source files for stub build
 SOURCES := \
 	$(SRC_DIR)/app.c \
-	$(SRC_DIR)/poll_rate.c \
+	$(SRC_DIR)/zigbee/poll_control_cluster.c \
 	$(SRC_DIR)/stub/main.c \
 	$(SRC_DIR)/stub/hal/gpio.c \
 	$(SRC_DIR)/stub/hal/system.c \

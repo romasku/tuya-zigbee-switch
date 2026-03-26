@@ -31,6 +31,10 @@ extern status_t zcl_powerCfg_register(u8 endpoint, u16 manuCode, u8 attrNum,
                                       const zclAttrInfo_t *attrTbl,
                                       cluster_forAppCb_t cb);
 
+extern status_t zcl_pollCtrl_register(u8 endpoint, u16 manuCode, u8 attrNum,
+                                      const zclAttrInfo_t attrTbl[],
+                                      cluster_forAppCb_t cb);
+
 static cluster_registerFunc_t get_register_func_by_cluster_id(u16 cluster_id) {
     if (cluster_id == ZCL_CLUSTER_GEN_BASIC) {
         return zcl_basic_register;
@@ -62,6 +66,9 @@ static cluster_registerFunc_t get_register_func_by_cluster_id(u16 cluster_id) {
     }
     if (cluster_id == 0xFC01) { // Cover Switch Config
         return zcl_cover_switch_config_register;
+    }
+    if (cluster_id == ZCL_CLUSTER_GEN_POLL_CONTROL) {
+        return zcl_pollCtrl_register;
     }
     return NULL;
 }
@@ -98,6 +105,12 @@ static status_t cmd_callback_level_control(zclIncomingAddrInfo_t *pAddrInfo,
                         cmdPayload);
 }
 
+static status_t cmd_callback_poll_control(zclIncomingAddrInfo_t *pAddrInfo,
+                                          u8 cmdId, void *cmdPayload) {
+    return cmd_callback(pAddrInfo->dstEp, ZCL_CLUSTER_GEN_POLL_CONTROL, cmdId,
+                        cmdPayload);
+}
+
 static status_t cmd_callback_default(zclIncomingAddrInfo_t *pAddrInfo, u8 cmdId, void *cmdPayload) {
     // Even if we do not pass this callback back to app, we still have to
     // trigger generic ZCl activity callback
@@ -116,6 +129,9 @@ static cluster_forAppCb_t get_cmd_callback_by_cluster_id(u16 cluster_id) {
     }
     if (cluster_id == ZCL_CLUSTER_CLOSURES_WINDOW_COVERING) {
         return cmd_callback_window_covering;
+    }
+    if (cluster_id == ZCL_CLUSTER_GEN_POLL_CONTROL) {
+        return cmd_callback_poll_control;
     }
     return cmd_callback_default;
 }

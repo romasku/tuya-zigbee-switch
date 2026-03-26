@@ -8,6 +8,7 @@
 #include "zigbee/cover_switch_cluster.h"
 #include "zigbee/group_cluster.h"
 #include "zigbee/relay_cluster.h"
+#include "zigbee/poll_control_cluster.h"
 #include "zigbee/switch_cluster.h"
 
 #include <stdint.h>
@@ -319,6 +320,13 @@ void parse_config() {
         static zigbee_battery_cluster battery_cluster;
         battery_cluster_add_to_endpoint(&battery_cluster, &endpoints[0]);
     }
+
+#ifdef END_DEVICE
+    // Add poll control cluster for end devices
+    static zigbee_poll_control_cluster poll_ctrl_cluster;
+    poll_control_cluster_add_to_endpoint(&poll_ctrl_cluster, &endpoints[0],
+                                         battery.pin != HAL_INVALID_PIN);
+#endif
 
     for (int index = 0; index < switch_clusters_cnt; index++) {
         if (index != 0) {

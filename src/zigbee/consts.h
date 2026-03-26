@@ -102,6 +102,15 @@
 #define ZCL_ATTR_COVER_SWITCH_CONFIG_BINDED_MODE                     0x0004
 #define ZCL_ATTR_COVER_SWITCH_CONFIG_LONG_PRESS_DUR                  0x0005
 
+// Poll Control cluster
+#define ZCL_CLUSTER_POLL_CONTROL                                     0x0020
+
+// Poll Control attributes
+#define ZCL_ATTR_POLL_CTRL_CHECK_IN_INTERVAL                         0x0000
+#define ZCL_ATTR_POLL_CTRL_LONG_POLL_INTERVAL                        0x0001
+#define ZCL_ATTR_POLL_CTRL_SHORT_POLL_INTERVAL                       0x0002
+#define ZCL_ATTR_POLL_CTRL_FAST_POLL_TIMEOUT                         0x0003
+
 // OTA cluster
 
 #define ZCL_ATTR_OTA_UPGRADE_SERVER_ID                  0x0000
@@ -212,6 +221,15 @@
 #define ZCL_CMD_OTA_UPGRADE_END_RESPONSE                   0x07
 #define ZCL_CMD_OTA_QUERY_DEVICE_SPECIFIC_FILE_REQUEST     0x08
 #define ZCL_CMD_OTA_QUERY_DEVICE_SPECIFIC_FILE_RESPONSE    0x09
+
+// Poll Control Cluster (client -> server)
+#define ZCL_CMD_POLL_CTRL_CHECK_IN_RSP                     0x00
+#define ZCL_CMD_POLL_CTRL_FAST_POLL_STOP                   0x01
+#define ZCL_CMD_POLL_CTRL_SET_LONG_POLL_INTERVAL           0x02
+#define ZCL_CMD_POLL_CTRL_SET_SHORT_POLL_INTERVAL          0x03
+
+// Poll Control Cluster (server -> client)
+#define ZCL_CMD_POLL_CTRL_CHECK_IN                         0x00
 
 // Data types
 
