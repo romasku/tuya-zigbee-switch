@@ -30,20 +30,9 @@ Please describe what you are working on:
   - Add `SLP;` to the config string for simultaneous toggles (risky, might damage the device)
 - **Power management for battery end devices**
   - Reduced TX power (~3 dBm instead of ~10 dBm) to save battery
-  - Poll rate: 120s (battery) vs 1s (router)
-  - Post-join adaptive settle: fast poll (250ms) for up to 45s after join, with early exit on ZCL silence
-  - Post-settle transition: intermediate 4s poll before switching to slow 120s poll
-  - Report active period: device stays awake briefly after attribute change to send ZCL report, then sleeps
-  - Data-confirm callback shortens active window after MAC ACK
-  - `AUTO_QUICK_DATA_POLL_ENABLE = FALSE` to avoid unnecessary extra polls
-  - Direct `zcl_sendReportCmd()` bypasses SDK reporting engine for fewer poll cycles
-- **Network LED auto-off** after battery device joins (saves power)
-- **Switch cluster** now handles `relay_index == 0` safely (no relay access)
-  - `TOGGLE_SMART_SYNC` / `TOGGLE_SMART_OPPOSITE` fall back to `TOGGLE` when no relay
-- **Z2M converter** improvements
-  - Hide `relay_mode` and `relay_index` exposes for relay-less devices
-  - Battery reporting configuration in `configure()` block
-  - Fix: `switch_names` count was based on `relay_cnt` instead of `switch_cnt`
+  - Poll rate controller: fast polling + slow polling support
+  - PowerCfg cluster for battery level monitoring
+  - PollCtrl cluster to allow settings poll rate via ZCL
 
 ### Bugs
 
@@ -54,9 +43,6 @@ Please describe what you are working on:
   - AC noise affecting Telink GPIO
   - Changing device type breaks Silabs NVM data
   - Reset needed 11 presses instead of 10
-  - Switch cluster crash when `relay_index` is 0 (relay-less devices)
-  - Long press detection off-by-one (`<` → `<=`)
-  - Z2M converter: switch names count used relay count instead of switch count
 - **New**
   - SONOFF ZBMINIL2 version updates broken?
 
