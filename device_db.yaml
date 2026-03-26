@@ -2804,6 +2804,33 @@ REMOTE_TUYA_TS0044:
   info: Huge battery drain! LEDs on C1, C2, C0, D0
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/171
   store: null
+REMOTE_TUYA_TS004F_2:
+  human_name: Tuya button wireless switch
+  category: remote
+  power: CR2032
+  neutral: without
+  output: nothing
+  device_type: end_device
+  stock_model_name: TS004F
+  stock_manufacturer_name: _TZ3000_ja5osu5g
+  stock_converter_manufacturer: Moes
+  stock_converter_model: ZG-101ZL
+  override_z2m_device: null
+  tuya_module: none
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: ja5osu5g;TS004F-Loginovo;LC4i;SC2u;BTB5;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: null
+  stock_image_type: null
+  firmware_image_type: 47001
+  build: yes
+  status: mostly_supported
+  info: Low power is implemented, but wasn't battle tested.
+  threads: null
+  store: https://www.aliexpress.com/item/1005006762476931.html
 REMOTE_TUYA_TS004F:
   human_name: Tuya 4-button wireless switch 🅱
   category: remote
@@ -2819,7 +2846,7 @@ REMOTE_TUYA_TS004F:
   tuya_module: ZS3L
   mcu_family: Silabs
   mcu: EFR32MG21A020F768IM32
-  config_str: xabckq1v;TS004F-TUYA;SA0d;SA3d;SA4d;SB0d;M;
+  config_str: xabckq1v;TS004F-MOES;SA0d;SA3d;SA4d;SB0d;M;
   alt_config_str: null
   old_manufacturer_names: null
   old_zb_models: null

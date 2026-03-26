@@ -87,12 +87,25 @@ int real_main(startup_state_e state) {
 
 #if PM_ENABLE
         if (!tl_stackBusy() && zb_isTaskDone()) {
-            telink_gpio_to_pull_for_deep_retention();
             telink_gpio_hal_setup_wake_ups();
-            drv_pm_lowPowerEnter();
-            // If we didn't actually enter deep retention, restore GPIO
-            // as it was configured to use pulls for retention
-            telink_gpio_reinit_after_deep_retention();
+            // Only use deep retention for battery devices,
+            // as it masses with GPIO state, and relays cannot be
+            // driven via PULL-ups, it may cause issues.
+            if (battery.pin != HAL_INVALID_PIN) {
+                telink_gpio_to_pull_for_deep_retention();
+                drv_pm_lowPowerEnter();
+                // If we didn't actually enter deep retention, restore GPIO
+                // as it was configured to use pulls for retention
+                telink_gpio_reinit_after_deep_retention();
+            } else {
+                ev_timer_event_t *timerEvt = ev_timer_nearestGet();
+                u32 sleepDuration          = 1000;
+                if (timerEvt) {
+                    sleepDuration = timerEvt->timeout < 1000 ? timerEvt->timeout : 1000;
+                }
+                drv_pm_sleep(PM_SLEEP_MODE_SUSPEND,
+                             PM_WAKEUP_SRC_PAD | PM_WAKEUP_SRC_TIMER, sleepDuration);
+            }
         }
 #endif
     }

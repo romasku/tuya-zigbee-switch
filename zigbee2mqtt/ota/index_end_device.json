@@ -1314,5 +1314,19 @@
       "_TZ3000_rbl8c85w",
       "rbl8c85w"
     ]
+  },
+  {
+    "fileName": "tlc_switch-1.1.2-93899a55.zigbee",
+    "fileVersion": 285356058,
+    "fileSize": 149954,
+    "url": "https://github.com/RealByron/tuya-zigbee-switch/raw/refs/heads/pr/RealByron/342/bin/end_device/REMOTE_TUYA_TS004F_2_END_DEVICE/tlc_switch-1.1.2-93899a55.zigbee",
+    "imageType": 43578,
+    "manufacturerCode": 4417,
+    "sha512": "e9ffe0bb3f81833f02ad802487c28886586130a381c5d3de60df260d52a414c5deceadee9b55a230e70bdf316c93c9adf3895d11fc9495d78526e67b21b72c08",
+    "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
+    "manufacturerName": [
+      "_TZ3000_ja5osu5g",
+      "ja5osu5g"
+    ]
   }
 ]
