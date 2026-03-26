@@ -2954,7 +2954,7 @@ REMOTE_TUYA_TS004F:
   tuya_module: ZS3L
   mcu_family: Silabs
   mcu: EFR32MG21A020F768IM32
-  config_str: xabckq1v;TS004F-MOES;SA0d;SA3d;SA4d;SB0d;M;
+  config_str: xabckq1v;TS004F-TUYA;SA0d;SA3d;SA4d;SB0d;M;
   alt_config_str: null
   old_manufacturer_names: null
   old_zb_models: null
