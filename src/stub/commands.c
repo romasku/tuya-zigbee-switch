@@ -270,12 +270,22 @@ static int cmd_zcl_cmd(int argc, char **argv) {
     }
 
     hal_zigbee_cmd_result_t result = stub_zigbee_simulate_command(
-        ep, cluster, cmd_id, payload_len > 0 ? payload : NULL);
+        ep, cluster, cmd_id, payload_len > 0 ? payload : NULL,
+        payload_len);
 
     const char *result_str;
     switch (result) {
     case HAL_ZIGBEE_CMD_PROCESSED:
         result_str = "PROCESSED";
+        break;
+    case HAL_ZIGBEE_INVALID_VALUE:
+        result_str = "INVALID_VALUE";
+        break;
+    case HAL_ZIGBEE_MALFORMED_COMMAND:
+        result_str = "MALFORMED_COMMAND";
+        break;
+    case HAL_ZIGBEE_ACTION_DENIED:
+        result_str = "ACTION_DENIED";
         break;
     case HAL_ZIGBEE_CMD_SKIPPED:
         result_str = "SKIPPED";
@@ -333,6 +343,25 @@ static int cmd_step_time(int argc, char **argv) {
     return 0;
 }
 
+static int cmd_set_battery_voltage(int argc, char **argv) {
+    if (argc != 2) {
+        fprintf(stderr, "Usage: set_battery_voltage <millivolts>\n");
+        io_res_err("usage");
+        return -1;
+    }
+    char *e    = NULL;
+    long  val = strtol(argv[1], &e, 10);
+    if (*argv[1] == '\0' || *e || val < 0 || val > 0xFFFF) {
+        fprintf(stderr, "Bad voltage value: %s\n", argv[1]);
+        io_res_err("bad_value=%s", argv[1]);
+        return -1;
+    }
+    stub_set_battery_voltage_mv((uint16_t)val);
+    printf("Battery voltage set to %ld mV\n", val);
+    io_res_ok("voltage_mv=%ld", val);
+    return 0;
+}
+
 /* Command table */
 static const SimpleReplCommand kCmds[] = {
     { "machine",        cmd_machine        },
@@ -348,6 +377,7 @@ static const SimpleReplCommand kCmds[] = {
     { "zcl_cmd",        cmd_zcl_cmd        },
     { "freeze_time",    cmd_freeze_time    },
     { "step_time",      cmd_step_time      },
+    { "set_battery_voltage", cmd_set_battery_voltage },
     { "q",              cmd_quit           },
     { "quit",           cmd_quit           },
 };

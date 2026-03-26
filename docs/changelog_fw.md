@@ -22,8 +22,6 @@ Please describe what you are working on:
 - **Battery measurement & reporting** (Zigbee `genPowerCfg` cluster) for Telink devices
 - **Deep retention sleep** for Telink end devices
 
->>>>>>> main
-
 ### Changes
 
 - **Bi-stable (latching) relays** have been reworked

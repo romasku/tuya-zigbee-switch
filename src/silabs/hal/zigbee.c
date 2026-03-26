@@ -47,14 +47,29 @@ static uint32_t on_command_callback(sl_service_opcode_t opcode,
     if (hal_cluster == NULL || hal_cluster->cmd_callback == NULL)
         return SL_ZIGBEE_ZCL_STATUS_UNSUP_COMMAND;
 
+    uint8_t *payload = NULL;
+    uint16_t payload_len = 0;
+    if (cmd->bufLen > cmd->payloadStartIndex) {
+        payload = cmd->buffer + cmd->payloadStartIndex;
+        payload_len = cmd->bufLen - cmd->payloadStartIndex;
+    }
+
     hal_zigbee_cmd_result_t res = hal_cluster->cmd_callback(
         cmd->apsFrame->destinationEndpoint, cmd->apsFrame->clusterId,
-        cmd->commandId, cmd->buffer);
-    if (res == HAL_ZIGBEE_CMD_PROCESSED) {
-        sl_zigbee_af_send_immediate_default_response(SL_ZIGBEE_ZCL_STATUS_SUCCESS);
-        return SL_ZIGBEE_ZCL_STATUS_SUCCESS;
+        cmd->commandId, payload, payload_len);
+    if (res == HAL_ZIGBEE_CMD_SKIPPED) {
+        return SL_ZIGBEE_ZCL_STATUS_UNSUP_COMMAND;
     }
-    return SL_ZIGBEE_ZCL_STATUS_UNSUP_COMMAND;
+    sl_zigbee_af_status_t status = SL_ZIGBEE_ZCL_STATUS_SUCCESS;
+    if (res == HAL_ZIGBEE_INVALID_VALUE) {
+        status = SL_ZIGBEE_ZCL_STATUS_INVALID_VALUE;
+    } else if (res == HAL_ZIGBEE_MALFORMED_COMMAND) {
+        status = SL_ZIGBEE_ZCL_STATUS_MALFORMED_COMMAND;
+    } else if (res == HAL_ZIGBEE_ACTION_DENIED) {
+        status = SL_ZIGBEE_ZCL_STATUS_ACTION_DENIED;
+    }
+    sl_zigbee_af_send_immediate_default_response(status);
+    return status;
 }
 
 bool sl_zigbee_af_pre_command_received_cb(sl_zigbee_af_cluster_command_t *cmd) {

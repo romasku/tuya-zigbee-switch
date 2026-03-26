@@ -15,6 +15,9 @@ typedef enum {
 typedef enum {
     HAL_ZIGBEE_CMD_PROCESSED,
     HAL_ZIGBEE_CMD_SKIPPED,
+    HAL_ZIGBEE_INVALID_VALUE,
+    HAL_ZIGBEE_MALFORMED_COMMAND,
+    HAL_ZIGBEE_ACTION_DENIED,
 } hal_zigbee_cmd_result_t;
 
 /** Zigbee network connection state */
@@ -36,7 +39,7 @@ typedef struct {
 /** Function called when cluster receives a command */
 typedef hal_zigbee_cmd_result_t (*hal_zigbee_cmd_callback_t)(
     uint8_t endpoint, uint16_t cluster_id, uint8_t command_id,
-    void *cmd_payload);
+    void *cmd_payload, uint16_t cmd_payload_len);
 
 /** Zigbee cluster (group of related attributes and commands) */
 typedef struct {

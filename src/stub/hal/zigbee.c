@@ -261,7 +261,8 @@ hal_zigbee_endpoint *stub_zigbee_get_endpoints(uint8_t *count) {
 hal_zigbee_cmd_result_t stub_zigbee_simulate_command(uint8_t endpoint,
                                                      uint16_t cluster_id,
                                                      uint8_t command_id,
-                                                     void *payload) {
+                                                     void *payload,
+                                                     uint16_t payload_len) {
     io_log("ZIGBEE", "Simulating command: ep=%d, cluster=0x%04x, cmd=0x%02x",
            endpoint, cluster_id, command_id);
 
@@ -276,7 +277,7 @@ hal_zigbee_cmd_result_t stub_zigbee_simulate_command(uint8_t endpoint,
                 hal_zigbee_cluster *cluster = &endpoints[i].clusters[j];
                 if (cluster->cluster_id == cluster_id && cluster->cmd_callback) {
                     return cluster->cmd_callback(endpoint, cluster_id, command_id,
-                                                 payload);
+                                                 payload, payload_len);
                 }
             }
         }

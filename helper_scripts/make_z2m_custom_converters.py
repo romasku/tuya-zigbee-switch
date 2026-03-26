@@ -44,6 +44,7 @@ if __name__ == "__main__":
         cover_cnt = 0
         indicators_cnt = 0
         has_dedicated_net_led = False
+        has_battery_cluster = False
         for peripheral in peripherals:
             if peripheral == "SLP" or peripheral == "M":
                 continue
@@ -59,6 +60,8 @@ if __name__ == "__main__":
                 indicators_cnt += 1
             if peripheral[0] == "L":
                 has_dedicated_net_led = True
+            if peripheral[:2] == "BT":
+                has_battery_cluster = True
 
         if switch_cnt == 1:
             switch_names = ["switch"]
@@ -102,10 +105,6 @@ if __name__ == "__main__":
         else:
             cover_names = [f"cover_{index}" for index in range(cover_cnt)]
 
-        # Detect battery-powered devices
-        power_source = device.get("power", "mains")
-        is_battery_powered = power_source not in ["mains", "DC", "USB", None]
-
         devices.append(
             {
                 "zb_models": [zb_model] + (device.get("old_zb_models") or []),
@@ -117,7 +116,7 @@ if __name__ == "__main__":
                 "coverSwitchNames": cover_switch_names,
                 "coverNames": cover_names,
                 "has_dedicated_net_led": has_dedicated_net_led,
-                "is_battery_powered": is_battery_powered,
+                "has_battery_cluster": has_battery_cluster,
             }
         )
 

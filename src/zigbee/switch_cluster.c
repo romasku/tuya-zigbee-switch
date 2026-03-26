@@ -30,6 +30,10 @@ void switch_cluster_on_button_long_press(zigbee_switch_cluster *cluster);
 
 zigbee_switch_cluster *switch_cluster_by_endpoint[10];
 
+static bool switch_cluster_has_valid_relay(const zigbee_switch_cluster *cluster) {
+    return cluster->relay_index > 0 && cluster->relay_index <= relay_clusters_cnt;
+}
+
 void switch_cluster_store_attrs_to_nv(zigbee_switch_cluster *cluster);
 void switch_cluster_load_attrs_from_nv(zigbee_switch_cluster *cluster);
 void switch_cluster_on_write_attr(zigbee_switch_cluster *cluster,
@@ -126,7 +130,8 @@ void switch_cluster_add_to_endpoint(zigbee_switch_cluster *cluster,
 
 // Perform the relay action for ON position (position 1 in ZCL docs)
 void switch_cluster_relay_action_on(zigbee_switch_cluster *cluster) {
-    if (cluster->relay_index == 0) return;
+    if (!switch_cluster_has_valid_relay(cluster))
+        return;
 
     zigbee_relay_cluster *relay_cluster =
         &relay_clusters[cluster->relay_index - 1];
@@ -152,7 +157,8 @@ void switch_cluster_relay_action_on(zigbee_switch_cluster *cluster) {
 
 // Perform the relay action for OFF position (position 2 in ZCL docs)
 void switch_cluster_relay_action_off(zigbee_switch_cluster *cluster) {
-    if (cluster->relay_index == 0) return;
+    if (!switch_cluster_has_valid_relay(cluster))
+        return;
 
     zigbee_relay_cluster *relay_cluster =
         &relay_clusters[cluster->relay_index - 1];
@@ -200,7 +206,7 @@ void switch_cluster_binding_action_on(zigbee_switch_cluster *cluster) {
 
     case ZCL_ONOFF_CONFIGURATION_SWITCH_ACTION_TOGGLE_SMART_SYNC:
     case ZCL_ONOFF_CONFIGURATION_SWITCH_ACTION_TOGGLE_SMART_OPPOSITE:
-        if (cluster->relay_index == 0) {
+        if (!switch_cluster_has_valid_relay(cluster)) {
             cmd_id = ZCL_CMD_ONOFF_TOGGLE;
         } else {
             zigbee_relay_cluster *relay_cluster =
@@ -247,7 +253,7 @@ void switch_cluster_binding_action_off(zigbee_switch_cluster *cluster) {
 
     case ZCL_ONOFF_CONFIGURATION_SWITCH_ACTION_TOGGLE_SMART_SYNC:
     case ZCL_ONOFF_CONFIGURATION_SWITCH_ACTION_TOGGLE_SMART_OPPOSITE:
-        if (cluster->relay_index == 0) {
+        if (!switch_cluster_has_valid_relay(cluster)) {
             cmd_id = ZCL_CMD_ONOFF_TOGGLE;
         } else {
             zigbee_relay_cluster *relay_cluster =
@@ -363,7 +369,7 @@ void switch_cluster_on_button_long_press(zigbee_switch_cluster *cluster) {
     }
 
     if (cluster->relay_mode == ZCL_ONOFF_CONFIGURATION_RELAY_MODE_LONG) {
-        if (cluster->relay_index > 0) {
+        if (switch_cluster_has_valid_relay(cluster)) {
             relay_cluster_toggle(&relay_clusters[cluster->relay_index - 1]);
         }
     }

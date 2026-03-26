@@ -44,8 +44,10 @@ void battery_cluster_add_to_endpoint(zigbee_battery_cluster *cluster,
 }
 
 void battery_cluster_update(zigbee_battery_cluster *cluster) {
-    cluster->percentage_remaining = battery_get_charge(&battery, 100);
-    cluster->voltage_100mv        = battery_get_mv(&battery) / 100;
+    battery_status_t status = battery_get_status(&battery);
+
+    cluster->percentage_remaining = status.charge;
+    cluster->voltage_100mv        = status.voltage_mv / 100;
 
     hal_zigbee_notify_attribute_changed(cluster->endpoint, ZCL_CLUSTER_POWER_CFG,
                                         ZCL_ATTR_POWER_CFG_BATTERY_VOLTAGE);

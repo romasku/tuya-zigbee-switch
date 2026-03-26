@@ -74,50 +74,60 @@ static cluster_registerFunc_t get_register_func_by_cluster_id(u16 cluster_id) {
 }
 
 static status_t cmd_callback(u8 endpoint, u16 clusterId, u8 cmdId,
-                             void *cmdPayload) {
-    if (zcl_activity_callback != NULL) {
-        zcl_activity_callback();
-    }
+                             void *cmdPayload, u16 cmdPayloadLen) {
     hal_zigbee_cluster *cluster = hal_zigbee_find_cluster(
         hal_endpoints, hal_endpoints_cnt, endpoint, clusterId);
 
     if (cluster && cluster->cmd_callback) {
-        return cluster->cmd_callback(endpoint, clusterId, cmdId, cmdPayload);
+        hal_zigbee_cmd_result_t status = cluster->cmd_callback(
+            endpoint, clusterId, cmdId, cmdPayload, cmdPayloadLen);
+        if (status == HAL_ZIGBEE_CMD_PROCESSED) {
+            return ZCL_STA_SUCCESS;
+        } else if (status == HAL_ZIGBEE_INVALID_VALUE) {
+            return ZCL_STA_INVALID_VALUE;
+        } else if (status == HAL_ZIGBEE_MALFORMED_COMMAND) {
+            return ZCL_STA_MALFORMED_COMMAND;
+        } else if (status == HAL_ZIGBEE_ACTION_DENIED) {
+            return ZCL_STA_ACTION_DENIED;
+        } else if (status == HAL_ZIGBEE_CMD_SKIPPED) {
+            return ZCL_STA_UNSUP_CLUSTER_COMMAND;
+        }
     }
     return(ZCL_STA_SUCCESS);
+}
+
+static zclIncoming_t *cmd_incoming_from_addr_info(zclIncomingAddrInfo_t *pAddrInfo) {
+    // Telink passes &zclIncoming_t.addrInfo into clusterAppCb, so recover the
+    // enclosing message to access the raw payload bytes and length.
+    return (zclIncoming_t *)((char *)pAddrInfo - offsetof(zclIncoming_t, addrInfo));
 }
 
 static status_t cmd_callback_on_off(zclIncomingAddrInfo_t *pAddrInfo, u8 cmdId,
                                     void *cmdPayload) {
+    zclIncoming_t *pInMsg = cmd_incoming_from_addr_info(pAddrInfo);
     return cmd_callback(pAddrInfo->dstEp, ZCL_CLUSTER_GEN_ON_OFF, cmdId,
-                        cmdPayload);
+                        pInMsg->pData, pInMsg->dataLen);
 }
 
 static status_t cmd_callback_window_covering(zclIncomingAddrInfo_t *pAddrInfo,
                                              u8 cmdId, void *cmdPayload) {
+    zclIncoming_t *pInMsg = cmd_incoming_from_addr_info(pAddrInfo);
     return cmd_callback(pAddrInfo->dstEp, ZCL_CLUSTER_CLOSURES_WINDOW_COVERING,
-                        cmdId, cmdPayload);
+                        cmdId, pInMsg->pData, pInMsg->dataLen);
 }
 
 static status_t cmd_callback_level_control(zclIncomingAddrInfo_t *pAddrInfo,
                                            u8 cmdId, void *cmdPayload) {
+    zclIncoming_t *pInMsg = cmd_incoming_from_addr_info(pAddrInfo);
     return cmd_callback(pAddrInfo->dstEp, ZCL_CLUSTER_GEN_LEVEL_CONTROL, cmdId,
-                        cmdPayload);
+                        pInMsg->pData, pInMsg->dataLen);
 }
 
 static status_t cmd_callback_poll_control(zclIncomingAddrInfo_t *pAddrInfo,
                                           u8 cmdId, void *cmdPayload) {
+    zclIncoming_t *pInMsg = cmd_incoming_from_addr_info(pAddrInfo);
     return cmd_callback(pAddrInfo->dstEp, ZCL_CLUSTER_GEN_POLL_CONTROL, cmdId,
-                        cmdPayload);
-}
-
-static status_t cmd_callback_default(zclIncomingAddrInfo_t *pAddrInfo, u8 cmdId, void *cmdPayload) {
-    // Even if we do not pass this callback back to app, we still have to
-    // trigger generic ZCl activity callback
-    if (zcl_activity_callback != NULL) {
-        zcl_activity_callback();
-    }
-    return(ZCL_STA_SUCCESS);
+                        pInMsg->pData, pInMsg->dataLen);
 }
 
 static cluster_forAppCb_t get_cmd_callback_by_cluster_id(u16 cluster_id) {
@@ -133,13 +143,10 @@ static cluster_forAppCb_t get_cmd_callback_by_cluster_id(u16 cluster_id) {
     if (cluster_id == ZCL_CLUSTER_GEN_POLL_CONTROL) {
         return cmd_callback_poll_control;
     }
-    return cmd_callback_default;
+    return NULL;
 }
 
 static void zcl_incoming_message_callback(zclIncoming_t *pInHdlrMsg) {
-    if (zcl_activity_callback != NULL) {
-        zcl_activity_callback();
-    }
     if (pInHdlrMsg->hdr.cmd == ZCL_CMD_WRITE ||
         pInHdlrMsg->hdr.cmd == ZCL_CMD_WRITE_NO_RSP) {
         if (attribute_change_callback == NULL) {
@@ -152,6 +159,13 @@ static void zcl_incoming_message_callback(zclIncoming_t *pInHdlrMsg) {
                                       writeCmd->attrList[i].attrID);
         }
     }
+}
+
+static void af_rx_callback(void *arg) {
+    if (zcl_activity_callback != NULL) {
+        zcl_activity_callback();
+    }
+    zcl_rx_handler(arg);
 }
 
 void telink_zigbee_hal_zcl_init(hal_zigbee_endpoint *endpoints,
@@ -216,7 +230,8 @@ void telink_zigbee_hal_zcl_init(hal_zigbee_endpoint *endpoints,
 
             cluster_info_ptr++;
         }
-        af_endpointRegister(endpoint->endpoint, endpoint_desc_ptr, zcl_rx_handler, NULL);
+        af_endpointRegister(endpoint->endpoint, endpoint_desc_ptr,
+                            af_rx_callback, NULL);
         u8 cluster_count = cluster_info_ptr - endpoint_first_cluster_ptr;
         zcl_register(endpoint->endpoint, cluster_count, endpoint_first_cluster_ptr);
 

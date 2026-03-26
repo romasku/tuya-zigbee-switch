@@ -7,12 +7,16 @@ typedef struct {
     hal_gpio_pin_t pin;
     uint16_t       voltage_min;
     uint16_t       voltage_max;
+    uint16_t       charge_range;
 } battery_t;
+
+typedef struct {
+    uint16_t voltage_mv;
+    uint16_t charge;
+} battery_status_t;
 
 void battery_init(battery_t *battery);
 
-uint16_t battery_get_mv(battery_t *battery);
-
-uint16_t battery_get_charge(battery_t *battery, uint16_t range);
+battery_status_t battery_get_status(battery_t *battery);
 
 #endif // _BATTERY_H_

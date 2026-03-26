@@ -85,6 +85,10 @@ build: $(BUILD_DIR)
 	$(HOST_CC) $(CFLAGS) $(INCLUDES) $(SOURCES) -o $(BINARY) $(LDFLAGS)
 	@echo "Stub binary built: $(BINARY)"
 
+build_end_device: $(BUILD_DIR)
+	$(HOST_CC) $(CFLAGS) -DEND_DEVICE $(INCLUDES) $(SOURCES) -o $(BUILD_DIR)/stub_end_device $(LDFLAGS)
+	@echo "End device stub binary built: $(BUILD_DIR)/stub_end_device"
+
 run: build
 	./$(BINARY) --device-config "$(CONFIG)"
 

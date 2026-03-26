@@ -11,7 +11,8 @@
 
 // GPIO config tracking for deep retention re-init
 // After deep retention wake, all GPIO SFRs are lost and must be replayed.
-#define MAX_GPIO_CONFIGS    16
+// 32 should cover all GPIOs, as we have 4 ports with 8 pins each.
+#define MAX_GPIO_CONFIGS    32
 
 
 typedef struct {

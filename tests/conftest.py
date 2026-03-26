@@ -204,10 +204,32 @@ class Device:
         assert res.ok
         return res.payload
 
-    def call_zigbee_cmd(self, endpoint: int, cluster: int, cmd: int) -> dict[str, str]:
-        res = self.p.exec(f"zcl_cmd {endpoint} 0x{cluster:04X} 0x{cmd:02X}")
+    def _exec_zigbee_cmd(
+        self, endpoint: int, cluster: int, cmd: int, payload: bytes | None = None
+    ) -> dict[str, str]:
+        cmd_str = f"zcl_cmd {endpoint} 0x{cluster:04X} 0x{cmd:02X}"
+        if payload:
+            cmd_str += " " + " ".join(f"{b:02X}" for b in payload)
+        res = self.p.exec(cmd_str)
         assert res.ok
         return res.payload
+
+    def call_zigbee_cmd(
+        self,
+        endpoint: int,
+        cluster: int,
+        cmd: int,
+        payload: bytes | None = None,
+        expected_result: str = "PROCESSED",
+    ) -> dict[str, str]:
+        result = self._exec_zigbee_cmd(endpoint, cluster, cmd, payload)
+        assert result.get("result") == expected_result, result
+        return result
+
+    def call_zigbee_cmd_raw(
+        self, endpoint: int, cluster: int, cmd: int, payload: bytes | None = None
+    ) -> dict[str, str]:
+        return self._exec_zigbee_cmd(endpoint, cluster, cmd, payload)
 
     def freeze_time(self) -> None:
         res = self.p.exec("freeze_time 1")
@@ -220,6 +242,10 @@ class Device:
     def step_time(self, ms: int) -> None:
         res = self.p.exec(f"step_time {ms}")
         assert res.ok, f"Step time failed: {res.payload}"
+
+    def set_battery_voltage(self, mv: int) -> None:
+        res = self.p.exec(f"set_battery_voltage {mv}")
+        assert res.ok, f"set_battery_voltage failed: {res.payload}"
 
     def _evt_parser(self, evt: Event) -> None:
         if evt.kind == "gpio":
@@ -467,6 +493,16 @@ def ensure_never_true(condition_fn: Callable[[], bool], timeout: float = 0.05) -
         if condition_fn():
             raise AssertionError("Condition became true")
         time.sleep(0.05)
+
+
+@pytest.fixture()
+def end_device_stub_proc(device_config: str) -> Iterator[StubProc]:
+    proc = StubProc(
+        cmd=["./build/stub/stub_end_device"],
+        device_config=device_config,
+    ).start()
+    yield proc
+    proc.stop()
 
 
 @pytest.fixture

@@ -24,7 +24,7 @@ const ota = require("zigbee-herdsman-converters/lib/ota");
   - `switch_custom.md.jinja`        - update the template
   - `make_z2m_custom_converters.py` - update generation script
 
-  Generate with: `make converters`
+  Generate with: `make tools/update_converters`
 ********************************************************************/
 
 const romasku = {
@@ -368,8 +368,9 @@ const definitions = [
         description: "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
         {% set first_endpoint = device.switchNames[0] if device.switchNames else (device.relayNames[0] if device.relayNames else device.coverNames[0]) %}
         extend: [
-            {% if device.is_battery_powered %}
+            {% if device.has_battery_cluster %}
             romasku.batteryPercentage(),
+            {% endif %}
             {% if device.coverSwitchNames %}
             deviceAddCustomCluster("manuSpecificTuyaCoverSwitchConfig", {
                 ID: 0xFC01,
@@ -471,7 +472,7 @@ const definitions = [
                 },
             ]);
             {% endfor %}
-            {% if device.is_battery_powered %}
+            {% if device.has_battery_cluster %}
             // Battery reporting
             const batteryEndpoint = device.getEndpoint(1);
             await reporting.bind(batteryEndpoint, coordinatorEndpoint, ["genPowerCfg"]);

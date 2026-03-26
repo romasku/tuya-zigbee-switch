@@ -169,7 +169,8 @@ void cover_cluster_callback_attr_write_trampoline(uint8_t endpoint, uint16_t att
 
 hal_zigbee_cmd_result_t cover_cluster_callback(zigbee_cover_cluster *cluster,
                                                uint8_t command_id,
-                                               void *cmd_payload) {
+                                               void *cmd_payload,
+                                               uint16_t cmd_payload_len) {
     switch (command_id) {
     case ZCL_CMD_WINDOW_COVERING_UP_OPEN:
         cover_open(cluster);
@@ -191,8 +192,10 @@ hal_zigbee_cmd_result_t cover_cluster_callback(zigbee_cover_cluster *cluster,
 hal_zigbee_cmd_result_t cover_cluster_callback_trampoline(uint8_t endpoint,
                                                           uint16_t cluster_id,
                                                           uint8_t command_id,
-                                                          void *cmd_payload) {
-    return(cover_cluster_callback(cover_cluster_by_endpoint[endpoint], command_id, cmd_payload));
+                                                          void *cmd_payload,
+                                                          uint16_t cmd_payload_len) {
+    return(cover_cluster_callback(cover_cluster_by_endpoint[endpoint], command_id,
+                                  cmd_payload, cmd_payload_len));
 }
 
 // ============================================================================

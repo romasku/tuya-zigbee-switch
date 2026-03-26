@@ -227,12 +227,14 @@ void parse_config() {
             buttons[buttons_cnt].pin = open_pin;
             buttons[buttons_cnt].long_press_duration_ms  = 800;
             buttons[buttons_cnt].multi_press_duration_ms = 800;
+            buttons[buttons_cnt].debounce_delay_ms       = DEBOUNCE_DELAY_MS;
             buttons[buttons_cnt].on_multi_press          = on_multi_press_reset;
             button_t *open_button = &buttons[buttons_cnt++];
 
             buttons[buttons_cnt].pin = close_pin;
             buttons[buttons_cnt].long_press_duration_ms  = 800;
             buttons[buttons_cnt].multi_press_duration_ms = 800;
+            buttons[buttons_cnt].debounce_delay_ms       = DEBOUNCE_DELAY_MS;
             buttons[buttons_cnt].on_multi_press          = on_multi_press_reset;
             button_t *close_button = &buttons[buttons_cnt++];
 
@@ -287,11 +289,11 @@ void parse_config() {
 
     hal_zigbee_cluster *cluster_ptr = clusters;
 
-    if (relay_clusters_cnt == 0) {
-        // If there is no relays, then set all switches to detached mode
-        // to avoid them trying to control non-existing relays
-        for (int index = 0; index < switch_clusters_cnt; index++) {
-            switch_clusters[index].relay_mode  = ZCL_ONOFF_CONFIGURATION_RELAY_MODE_DETACHED;
+    for (int index = 0; index < switch_clusters_cnt; index++) {
+        if (switch_clusters[index].relay_index > relay_clusters_cnt) {
+            // Detach switches that point past the available relay count.
+            switch_clusters[index].relay_mode  =
+                ZCL_ONOFF_CONFIGURATION_RELAY_MODE_DETACHED;
             switch_clusters[index].relay_index = 0;
         }
     }

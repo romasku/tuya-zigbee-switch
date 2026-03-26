@@ -84,7 +84,7 @@ board/%:
 PYTHON ?= $(shell command -v python >/dev/null 2>&1 && echo python || echo python3)
 
 # Run pytest tests (requires stub to be built)
-tests: stub/build
+tests: stub/build stub/build_end_device
 	$(PYTHON) -m pytest tests/ -v
 
 # Format all C/H files using uncrustify

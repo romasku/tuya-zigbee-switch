@@ -9,6 +9,8 @@
 
 #include "telink_size_t_hack.h"
 
+#include "device_config/config_parser.h"
+
 #include "app.h"
 #include "hal/gpio.h"
 #include "hal/telink_zigbee_hal.h"
@@ -63,6 +65,11 @@ int real_main(startup_state_e state) {
         telink_gpio_reinit_interrupts();
     }
 #endif
+
+    if (battery.pin != HAL_INVALID_PIN) {
+        // Use lower TX power if battery powered
+        g_zb_txPowerSet = RF_POWER_INDEX_P3p01dBm;
+    }
 
     drv_wd_setInterval(1000);
     drv_wd_start();
