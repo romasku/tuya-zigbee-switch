@@ -34,6 +34,22 @@ static bool switch_cluster_has_valid_relay(const zigbee_switch_cluster *cluster)
     return cluster->relay_index > 0 && cluster->relay_index <= relay_clusters_cnt;
 }
 
+static void switch_cluster_flash_indicator(zigbee_switch_cluster *cluster) {
+    if (cluster->indicator_led == NULL) {
+        return;
+    }
+    // Skip flash when relay is attached — the relay toggle itself changes the
+    // indicator, and the blink would race with sync_indicator_led.
+    if (cluster->relay_mode != ZCL_ONOFF_CONFIGURATION_RELAY_MODE_DETACHED &&
+        switch_cluster_has_valid_relay(cluster)) {
+        return;
+    }
+    // Only flash when LED is idle (not in "not connected" forever-blink)
+    if (cluster->indicator_led->blink_times_left == 0) {
+        led_blink(cluster->indicator_led, 50, 50, 1);
+    }
+}
+
 void switch_cluster_store_attrs_to_nv(zigbee_switch_cluster *cluster);
 void switch_cluster_load_attrs_from_nv(zigbee_switch_cluster *cluster);
 void switch_cluster_on_write_attr(zigbee_switch_cluster *cluster,
@@ -303,6 +319,8 @@ void switch_cluster_level_control(zigbee_switch_cluster *cluster) {
 }
 
 void switch_cluster_on_button_press(zigbee_switch_cluster *cluster) {
+    switch_cluster_flash_indicator(cluster);
+
     if (cluster->mode == ZCL_ONOFF_CONFIGURATION_SWITCH_TYPE_TOGGLE) {
         // Toggle does not support modes (RISE, SHORT, LONG)
         if (cluster->relay_mode != ZCL_ONOFF_CONFIGURATION_RELAY_MODE_DETACHED) {
@@ -331,6 +349,8 @@ void switch_cluster_on_button_press(zigbee_switch_cluster *cluster) {
 }
 
 void switch_cluster_on_button_release(zigbee_switch_cluster *cluster) {
+    switch_cluster_flash_indicator(cluster);
+
     if (cluster->mode == ZCL_ONOFF_CONFIGURATION_SWITCH_TYPE_TOGGLE) {
         // Toggle does not support modes (RISE, SHORT, LONG)
         if (cluster->relay_mode != ZCL_ONOFF_CONFIGURATION_RELAY_MODE_DETACHED) {
