@@ -37,6 +37,10 @@ def read_poll_attr(device: Device, attr: int) -> int:
     return int(device.read_zigbee_attr(1, ZCL_CLUSTER_POLL_CONTROL, attr))
 
 
+def assert_poll_rate(device: Device, expected_qs: int) -> None:
+    assert device.poll_rate_ms() == expected_qs * QS_TO_MS
+
+
 def make_end_device(
     config: str, joined: bool = True, freeze_time: bool = True
 ) -> StubProc:
@@ -128,46 +132,58 @@ def test_check_in_rsp_starts_fast_poll(bat_device: Device):
     """Check-in response with start_fast_polling=true enters fast poll."""
     # Wait for initial fast poll to expire
     bat_device.step_time(BATTERY_FAST_POLL_TIMEOUT * QS_TO_MS + 1)
+    assert_poll_rate(bat_device, BATTERY_LONG_POLL_INTERVAL)
+
     # Now send check-in response: start_fast_polling=1, timeout=0x0028 (10s)
     timeout_qs = 0x0028
     payload = struct.pack("<BH", 1, timeout_qs)
     bat_device.call_zigbee_cmd(
         1, ZCL_CLUSTER_POLL_CONTROL, ZCL_CMD_POLL_CTRL_CHECK_IN_RSP, payload
     )
-    # Verify short poll rate is active
-    assert (
-        read_poll_attr(bat_device, ZCL_ATTR_POLL_CTRL_SHORT_POLL_INTERVAL)
-        == BATTERY_SHORT_POLL_INTERVAL
-    )
+
+    assert_poll_rate(bat_device, BATTERY_SHORT_POLL_INTERVAL)
+
+    bat_device.step_time(timeout_qs * QS_TO_MS + 1)
+    assert_poll_rate(bat_device, BATTERY_LONG_POLL_INTERVAL)
 
 
 def test_check_in_rsp_stops_fast_poll(bat_device: Device):
     """Check-in response with start_fast_polling=false exits fast poll."""
+    assert_poll_rate(bat_device, BATTERY_SHORT_POLL_INTERVAL)
+
     payload = struct.pack("<BH", 0, 0)
     bat_device.call_zigbee_cmd(
         1, ZCL_CLUSTER_POLL_CONTROL, ZCL_CMD_POLL_CTRL_CHECK_IN_RSP, payload
     )
-    # Device should now be in long poll mode
+
+    assert_poll_rate(bat_device, BATTERY_LONG_POLL_INTERVAL)
 
 
 def test_fast_poll_stop_cmd(bat_device: Device):
     """Fast poll stop command while in fast poll exits fast poll."""
-    # Device starts in fast poll mode
+    assert_poll_rate(bat_device, BATTERY_SHORT_POLL_INTERVAL)
+
     bat_device.call_zigbee_cmd(
         1, ZCL_CLUSTER_POLL_CONTROL, ZCL_CMD_POLL_CTRL_FAST_POLL_STOP
     )
 
+    assert_poll_rate(bat_device, BATTERY_LONG_POLL_INTERVAL)
 
-def test_fast_poll_stop_after_timeout_still_processed(bat_device: Device):
-    """Fast poll stop after timeout is processed because zcl_activity re-enables fast poll."""
+
+def test_fast_poll_stop_after_timeout_is_denied_without_zcl_activity(
+    bat_device: Device,
+):
+    """Fast poll stop is denied once fast poll has expired and no activity re-enables it."""
     # Wait for fast poll to expire
     bat_device.step_time(BATTERY_FAST_POLL_TIMEOUT * QS_TO_MS + 1)
-    # Any ZCL command triggers zcl_activity callback which re-enters fast poll,
-    # so fast_poll_stop will always succeed (it enters fast poll, then stops it)
-    result = bat_device.call_zigbee_cmd_raw(
+
+    assert_poll_rate(bat_device, BATTERY_LONG_POLL_INTERVAL)
+
+    result = bat_device.call_zigbee_cmd_no_activity_raw(
         1, ZCL_CLUSTER_POLL_CONTROL, ZCL_CMD_POLL_CTRL_FAST_POLL_STOP
     )
-    assert result.get("result") == "PROCESSED"
+    assert result.get("result") == "ACTION_DENIED"
+    assert_poll_rate(bat_device, BATTERY_LONG_POLL_INTERVAL)
 
 
 def test_set_long_poll_interval_valid(bat_device: Device):
@@ -239,14 +255,13 @@ def test_fast_poll_timeout_writable(bat_device: Device):
 
 def test_fast_poll_expires_after_timeout(bat_device: Device):
     """Fast poll mode expires after the timeout period - long poll interval is restored."""
+    assert_poll_rate(bat_device, BATTERY_SHORT_POLL_INTERVAL)
+
     # Device starts in fast poll. Step past timeout.
     # poll_control_cluster_update() in app_task will detect expiry and switch to long poll.
     bat_device.step_time(BATTERY_FAST_POLL_TIMEOUT * QS_TO_MS + 1)
-    # Verify we can read the long poll interval (confirming device is still functional)
-    assert (
-        read_poll_attr(bat_device, ZCL_ATTR_POLL_CTRL_LONG_POLL_INTERVAL)
-        == BATTERY_LONG_POLL_INTERVAL
-    )
+
+    assert_poll_rate(bat_device, BATTERY_LONG_POLL_INTERVAL)
 
 
 def test_check_in_sends_event(bat_device: Device):
@@ -287,18 +302,15 @@ def test_zcl_activity_triggers_fast_poll(bat_device: Device):
 
     Since every zcl_cmd triggers the activity callback before dispatching,
     we verify this by sending a relay command after the fast poll timeout expires,
-    then confirming fast_poll_stop succeeds (proving fast poll was re-entered).
+    then confirming the poll rate returns to fast-poll cadence.
     """
     # Wait for initial fast poll to expire
     bat_device.step_time(BATTERY_FAST_POLL_TIMEOUT * QS_TO_MS + 1)
+    assert_poll_rate(bat_device, BATTERY_LONG_POLL_INTERVAL)
 
     # Send a relay command - this triggers zcl_activity which re-enters fast poll
     from zcl_consts import ZCL_CLUSTER_ON_OFF, ZCL_CMD_ONOFF_ON
 
     bat_device.call_zigbee_cmd(2, ZCL_CLUSTER_ON_OFF, ZCL_CMD_ONOFF_ON)
 
-    # Fast poll stop succeeds, proving the relay command triggered fast poll
-    result = bat_device.call_zigbee_cmd_raw(
-        1, ZCL_CLUSTER_POLL_CONTROL, ZCL_CMD_POLL_CTRL_FAST_POLL_STOP
-    )
-    assert result.get("result") == "PROCESSED"
+    assert_poll_rate(bat_device, BATTERY_SHORT_POLL_INTERVAL)

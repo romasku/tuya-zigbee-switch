@@ -69,8 +69,8 @@ static int cmd_status(int argc, char **argv) {
     (void)argc;
     (void)argv;
     stub_app_show_status();
-    io_res_ok("uptime_ms=%u joined=%d", hal_millis(),
-              hal_zigbee_get_network_status());
+    io_res_ok("uptime_ms=%u joined=%d poll_rate_ms=%u", hal_millis(),
+              hal_zigbee_get_network_status(), hal_zigbee_get_poll_rate_ms());
     return 0;
 }
 
@@ -236,7 +236,7 @@ static int cmd_read_pin(int argc, char **argv) {
     return 0;
 }
 
-static int cmd_zcl_cmd(int argc, char **argv) {
+static int cmd_zcl_cmd_impl(int argc, char **argv, bool trigger_activity) {
     if (argc < 4) {
         fprintf(stderr, "Usage: zcl_cmd <ep:dec> <cluster:hex> <cmd:hex> "
                 "[payload:hex_bytes...]\n");
@@ -269,9 +269,16 @@ static int cmd_zcl_cmd(int argc, char **argv) {
         payload[payload_len++] = (uint8_t)byte_val;
     }
 
-    hal_zigbee_cmd_result_t result = stub_zigbee_simulate_command(
-        ep, cluster, cmd_id, payload_len > 0 ? payload : NULL,
-        payload_len);
+    hal_zigbee_cmd_result_t result;
+    if (trigger_activity) {
+        result = stub_zigbee_simulate_command(ep, cluster, cmd_id,
+                                              payload_len > 0 ? payload : NULL,
+                                              payload_len);
+    } else {
+        result = stub_zigbee_simulate_command_without_activity(
+            ep, cluster, cmd_id, payload_len > 0 ? payload : NULL,
+            payload_len);
+    }
 
     const char *result_str;
     switch (result) {
@@ -302,6 +309,14 @@ static int cmd_zcl_cmd(int argc, char **argv) {
               cluster, cmd_id, result_str, payload_len);
 
     return 0;
+}
+
+static int cmd_zcl_cmd(int argc, char **argv) {
+    return cmd_zcl_cmd_impl(argc, argv, true);
+}
+
+static int cmd_zcl_cmd_no_activity(int argc, char **argv) {
+    return cmd_zcl_cmd_impl(argc, argv, false);
 }
 
 static int cmd_freeze_time(int argc, char **argv) {
@@ -375,6 +390,7 @@ static const SimpleReplCommand kCmds[] = {
     { "zcl_write",           cmd_zcl_write           },
     { "zcl_list_attrs",      cmd_zcl_list_attrs      },
     { "zcl_cmd",             cmd_zcl_cmd             },
+    { "zcl_cmd_no_activity", cmd_zcl_cmd_no_activity },
     { "freeze_time",         cmd_freeze_time         },
     { "step_time",           cmd_step_time           },
     { "set_battery_voltage", cmd_set_battery_voltage },

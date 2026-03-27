@@ -29,6 +29,12 @@ hal_zigbee_cmd_result_t stub_zigbee_simulate_command(uint8_t endpoint,
                                                      uint8_t command_id,
                                                      void *payload,
                                                      uint16_t payload_len);
+hal_zigbee_cmd_result_t
+stub_zigbee_simulate_command_without_activity(uint8_t endpoint,
+                                              uint16_t cluster_id,
+                                              uint8_t command_id,
+                                              void *payload,
+                                              uint16_t payload_len);
 void stub_simulate_zigbee_attribute_write(uint8_t endpoint, uint16_t cluster_id,
                                           uint16_t attribute_id);
 

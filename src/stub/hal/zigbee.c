@@ -257,16 +257,15 @@ hal_zigbee_endpoint *stub_zigbee_get_endpoints(uint8_t *count) {
     return endpoints;
 }
 
-// Simulate receiving a ZCL command
-hal_zigbee_cmd_result_t stub_zigbee_simulate_command(uint8_t endpoint,
-                                                     uint16_t cluster_id,
-                                                     uint8_t command_id,
-                                                     void *payload,
-                                                     uint16_t payload_len) {
+static hal_zigbee_cmd_result_t
+stub_zigbee_simulate_command_internal(uint8_t endpoint, uint16_t cluster_id,
+                                      uint8_t command_id, void *payload,
+                                      uint16_t payload_len,
+                                      bool trigger_activity) {
     io_log("ZIGBEE", "Simulating command: ep=%d, cluster=0x%04x, cmd=0x%02x",
            endpoint, cluster_id, command_id);
 
-    if (zcl_activity_callback != NULL) {
+    if (trigger_activity && zcl_activity_callback != NULL) {
         zcl_activity_callback();
     }
 
@@ -284,6 +283,28 @@ hal_zigbee_cmd_result_t stub_zigbee_simulate_command(uint8_t endpoint,
     }
 
     return HAL_ZIGBEE_CMD_SKIPPED;
+}
+
+// Simulate receiving a ZCL command
+hal_zigbee_cmd_result_t stub_zigbee_simulate_command(uint8_t endpoint,
+                                                     uint16_t cluster_id,
+                                                     uint8_t command_id,
+                                                     void *payload,
+                                                     uint16_t payload_len) {
+    return stub_zigbee_simulate_command_internal(endpoint, cluster_id,
+                                                 command_id, payload,
+                                                 payload_len, true);
+}
+
+hal_zigbee_cmd_result_t
+stub_zigbee_simulate_command_without_activity(uint8_t endpoint,
+                                              uint16_t cluster_id,
+                                              uint8_t command_id,
+                                              void *payload,
+                                              uint16_t payload_len) {
+    return stub_zigbee_simulate_command_internal(endpoint, cluster_id,
+                                                 command_id, payload,
+                                                 payload_len, false);
 }
 
 void stub_simulate_zigbee_attribute_write(uint8_t endpoint, uint16_t cluster_id,

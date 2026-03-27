@@ -11,7 +11,6 @@ from tests.zcl_consts import (
     ZCL_ATTR_COVER_SWITCH_BINDED_MODE,
     ZCL_ATTR_COVER_SWITCH_COVER_INDEX,
     ZCL_ATTR_COVER_SWITCH_LOCAL_MODE,
-    ZCL_ATTR_COVER_SWITCH_LONG_PRESS_DURATION,
     ZCL_ATTR_COVER_SWITCH_SWITCH_TYPE,
     ZCL_ATTR_MULTISTATE_INPUT_PRESENT_VALUE,
     ZCL_ATTR_ONOFF,
@@ -28,9 +27,9 @@ from tests.zcl_consts import (
     ZCL_CLUSTER_WINDOW_COVERING,
     ZCL_CMD_ONOFF_OFF,
     ZCL_CMD_ONOFF_ON,
-    ZCL_CMD_WINDOW_COVERING_UP_OPEN,
     ZCL_CMD_WINDOW_COVERING_DOWN_CLOSE,
     ZCL_CMD_WINDOW_COVERING_STOP,
+    ZCL_CMD_WINDOW_COVERING_UP_OPEN,
 )
 
 DEBOUNCE_MS = 50  # Must match DEBOUNCE_DELAY_MS in button.h
@@ -231,6 +230,33 @@ class Device:
     ) -> dict[str, str]:
         return self._exec_zigbee_cmd(endpoint, cluster, cmd, payload)
 
+    def _exec_zigbee_cmd_no_activity(
+        self, endpoint: int, cluster: int, cmd: int, payload: bytes | None = None
+    ) -> dict[str, str]:
+        cmd_str = f"zcl_cmd_no_activity {endpoint} 0x{cluster:04X} 0x{cmd:02X}"
+        if payload:
+            cmd_str += " " + " ".join(f"{b:02X}" for b in payload)
+        res = self.p.exec(cmd_str)
+        assert res.ok
+        return res.payload
+
+    def call_zigbee_cmd_no_activity(
+        self,
+        endpoint: int,
+        cluster: int,
+        cmd: int,
+        payload: bytes | None = None,
+        expected_result: str = "PROCESSED",
+    ) -> dict[str, str]:
+        result = self._exec_zigbee_cmd_no_activity(endpoint, cluster, cmd, payload)
+        assert result.get("result") == expected_result, result
+        return result
+
+    def call_zigbee_cmd_no_activity_raw(
+        self, endpoint: int, cluster: int, cmd: int, payload: bytes | None = None
+    ) -> dict[str, str]:
+        return self._exec_zigbee_cmd_no_activity(endpoint, cluster, cmd, payload)
+
     def freeze_time(self) -> None:
         res = self.p.exec("freeze_time 1")
         assert res.ok, f"Freeze time failed: {res.payload}"
@@ -265,6 +291,9 @@ class Device:
     # --- Zigbee helpers ---
     def is_joined(self) -> bool:
         return self.status().get("joined") == "1"
+
+    def poll_rate_ms(self) -> int:
+        return int(self.status()["poll_rate_ms"])
 
     def set_network(self, network_state: int) -> None:
         res = self.p.exec(f"net {network_state}")
@@ -438,11 +467,11 @@ class Device:
 
     # Cover helpers:
     def zcl_cover_get_moving(self, endpoint: int) -> int:
-        return int(self.read_zigbee_attr(
-            endpoint,
-            ZCL_CLUSTER_WINDOW_COVERING,
-            ZCL_ATTR_WINDOW_COVERING_MOVING
-        ))
+        return int(
+            self.read_zigbee_attr(
+                endpoint, ZCL_CLUSTER_WINDOW_COVERING, ZCL_ATTR_WINDOW_COVERING_MOVING
+            )
+        )
 
     def zcl_cover_motor_reversal_set(self, endpoint: int, motor_reversal: int) -> None:
         self.write_zigbee_attr(
@@ -453,13 +482,20 @@ class Device:
         )
 
     def zcl_cover_open(self, endpoint: int) -> None:
-        self.call_zigbee_cmd(endpoint, ZCL_CLUSTER_WINDOW_COVERING, ZCL_CMD_WINDOW_COVERING_UP_OPEN)
+        self.call_zigbee_cmd(
+            endpoint, ZCL_CLUSTER_WINDOW_COVERING, ZCL_CMD_WINDOW_COVERING_UP_OPEN
+        )
 
     def zcl_cover_close(self, endpoint: int) -> None:
-        self.call_zigbee_cmd(endpoint, ZCL_CLUSTER_WINDOW_COVERING, ZCL_CMD_WINDOW_COVERING_DOWN_CLOSE)
+        self.call_zigbee_cmd(
+            endpoint, ZCL_CLUSTER_WINDOW_COVERING, ZCL_CMD_WINDOW_COVERING_DOWN_CLOSE
+        )
 
     def zcl_cover_stop(self, endpoint: int) -> None:
-        self.call_zigbee_cmd(endpoint, ZCL_CLUSTER_WINDOW_COVERING, ZCL_CMD_WINDOW_COVERING_STOP)
+        self.call_zigbee_cmd(
+            endpoint, ZCL_CLUSTER_WINDOW_COVERING, ZCL_CMD_WINDOW_COVERING_STOP
+        )
+
 
 def wait_for(
     condition_fn: Callable[[], bool], timeout: float = 2.0, interval: float = 0.1

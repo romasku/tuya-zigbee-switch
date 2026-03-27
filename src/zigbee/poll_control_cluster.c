@@ -14,7 +14,7 @@
 // All values in quarter-seconds
 
 #define BATTERY_CHECK_IN_INTERVAL          3600 * 4 // 1 hour in quarter-seconds
-#define BATTERY_LONG_POLL_INTERVAL         120 * 4  // 5 seconds
+#define BATTERY_LONG_POLL_INTERVAL         120 * 4  // 2 minutes
 #define BATTERY_SHORT_POLL_INTERVAL        2        // 500ms
 #define BATTERY_FAST_POLL_TIMEOUT          10 * 4   // 10 seconds
 
