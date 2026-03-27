@@ -2928,7 +2928,7 @@ REMOTE_TUYA_TS004F_2:
   tuya_module: none
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: ja5osu5g;TS004F-Loginovo;LC4i;SC2u;BTB5;M;
+  config_str: ja5osu5g;TS004F-Loginovo;IC4i;SC2u;BTB5;M;
   alt_config_str: null
   old_manufacturer_names: null
   old_zb_models: null

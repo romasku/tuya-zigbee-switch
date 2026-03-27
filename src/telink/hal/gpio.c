@@ -90,12 +90,14 @@ void hal_gpio_init(hal_gpio_pin_t gpio_pin, uint8_t is_input,
 
 void telink_gpio_reinit_after_deep_retention(void) {
     for (uint8_t i = 0; i < gpio_config_cnt; i++) {
-        gpio_init_hw(gpio_configs[i].pin, gpio_configs[i].is_input,
-                     gpio_configs[i].pull);
         if (!gpio_configs[i].is_input) {
-            // Restore output value
+            // Restore output value before reconfiguring pin,
+            // to avoid driving it to the 0 level unconditionally
+            // briefly during re-init
             gpio_write((GPIO_PinTypeDef)gpio_configs[i].pin, gpio_configs[i].value);
         }
+        gpio_init_hw(gpio_configs[i].pin, gpio_configs[i].is_input,
+                     gpio_configs[i].pull);
     }
 }
 

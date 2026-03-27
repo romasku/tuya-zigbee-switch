@@ -161,6 +161,13 @@ void parse_config() {
                 }
             }
 
+            for (int index = 0; index < 4; index++) {
+                if (switch_clusters[index].indicator_led == NULL) {
+                    switch_clusters[index].indicator_led = &leds[leds_cnt];
+                    break;
+                }
+            }
+
             if (!has_dedicated_status_led) {
                 for (int index = 0; index < 4; index++) {
                     if (network_indicator.leds[index] == NULL) {
