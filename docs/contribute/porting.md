@@ -106,6 +106,7 @@ For LEDs, add `i` to invert the state.
 Additional options: 
 | Format       | Option                       | Function                                                                          |
 |-------------:|------------------------------|-----------------------------------------------------------------------------------|
+| **`D<N>`**   | Debounce delay               | • Set software debounce in ms for all buttons/switches <br> • Example: `D0` disables it |
 | **`i00000`** | Image type                   | • Change OTA image_type (migrate to another build)                                |
 | **`M`**      | Momentary                    | • Defaults buttons to momentary mode (for devices with built-in switches)         |
 | **`BT<pin>`** | Battery mode                | • Enables battery-powered behavior <br> • Adds battery measurement/reporting using the selected ADC pin |
