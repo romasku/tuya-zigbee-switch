@@ -2837,6 +2837,7 @@ REMOTE_MOES_SWITCH_TS0044:
   category: remote
   power: CR2430
   neutral: without
+  output: nothing
   device_type: end_device
   stock_model_name: TS0044
   stock_manufacturer_name: _TZ3000_zgyzgdua

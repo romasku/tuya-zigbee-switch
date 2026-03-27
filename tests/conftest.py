@@ -531,16 +531,6 @@ def ensure_never_true(condition_fn: Callable[[], bool], timeout: float = 0.05) -
         time.sleep(0.05)
 
 
-@pytest.fixture()
-def end_device_stub_proc(device_config: str) -> Iterator[StubProc]:
-    proc = StubProc(
-        cmd=["./build/stub/stub_end_device"],
-        device_config=device_config,
-    ).start()
-    yield proc
-    proc.stop()
-
-
 @pytest.fixture
 def device(stub_proc: StubProc) -> Device:
     dev = Device(stub_proc)

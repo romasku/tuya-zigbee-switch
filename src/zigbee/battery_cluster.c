@@ -11,7 +11,7 @@
 
 const uint16_t battery_cluster_revision = 0x01;
 
-#define BATTERY_REFRESH_INTERVAL_MS    60000
+#define BATTERY_REFRESH_INTERVAL_MS    300000   // 5 minutes
 
 void battery_cluster_add_to_endpoint(zigbee_battery_cluster *cluster,
                                      hal_zigbee_endpoint *endpoint) {

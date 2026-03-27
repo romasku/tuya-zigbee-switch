@@ -197,7 +197,7 @@ uint32_t hal_zigbee_get_poll_rate_ms(void) {
 void telink_zigbee_hal_network_init(void) {
     zb_init();
     zb_zdoCbRegister(&zdo_callbacks);
-    af_powerDescPowerModeUpdate(POWER_MODE_RECEIVER_COMES_WHEN_STIMULATED);
+    af_powerDescPowerModeUpdate(POWER_MODE_RECEIVER_COMES_PERIODICALLY);
 }
 
 void telink_zigbee_hal_bdb_init(af_simple_descriptor_t *endpoint_descriptor) {

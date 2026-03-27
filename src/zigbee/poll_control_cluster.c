@@ -13,16 +13,16 @@
 // Battery device defaults (ZCL spec)
 // All values in quarter-seconds
 
-#define BATTERY_CHECK_IN_INTERVAL          3600 * 4 // 1 hour in quarter-seconds
-#define BATTERY_LONG_POLL_INTERVAL         120 * 4  // 2 minutes
-#define BATTERY_SHORT_POLL_INTERVAL        2        // 500ms
-#define BATTERY_FAST_POLL_TIMEOUT          10 * 4   // 10 seconds
+#define BATTERY_CHECK_IN_INTERVAL          (3600 * 4) // 1 hour in quarter-seconds
+#define BATTERY_LONG_POLL_INTERVAL         (120 * 4)  // 2 minutes
+#define BATTERY_SHORT_POLL_INTERVAL        2          // 500ms
+#define BATTERY_FAST_POLL_TIMEOUT          (10 * 4)   // 10 seconds
 
 // Non-battery device defaults
-#define NON_BATTERY_CHECK_IN_INTERVAL      3600 * 4 // 1 hour in quarter-seconds
-#define NON_BATTERY_LONG_POLL_INTERVAL     1        // 250ms (same as short)
-#define NON_BATTERY_SHORT_POLL_INTERVAL    1        // 250ms
-#define NON_BATTERY_FAST_POLL_TIMEOUT      10 * 4   // 10 seconds
+#define NON_BATTERY_CHECK_IN_INTERVAL      (3600 * 4) // 1 hour in quarter-seconds
+#define NON_BATTERY_LONG_POLL_INTERVAL     1          // 250ms (same as short)
+#define NON_BATTERY_SHORT_POLL_INTERVAL    1          // 250ms
+#define NON_BATTERY_FAST_POLL_TIMEOUT      (10 * 4)   // 10 seconds
 
 #define QS_TO_MS(qs)    ((uint32_t)(qs) * 250)
 
@@ -60,7 +60,9 @@ static void poll_control_load_from_nv(zigbee_poll_control_cluster *cluster) {
     if (st != HAL_NVM_SUCCESS)
         return;
 
-    if (nv_config_buffer.check_in_interval < nv_config_buffer.long_poll_interval ||
+    if (
+        (nv_config_buffer.check_in_interval != 0 &&
+         nv_config_buffer.check_in_interval < nv_config_buffer.long_poll_interval) ||
         nv_config_buffer.long_poll_interval < nv_config_buffer.short_poll_interval)
         return; // Invalid data in NVM, ignore
 
@@ -172,9 +174,11 @@ static hal_zigbee_cmd_result_t poll_control_cmd_callback(
         printf("Poll control: set long poll interval=%lu\r\n",
                (unsigned long)new_interval);
         if (new_interval < 0x04 || new_interval > 0x6E0000 ||
-            new_interval > cluster->check_in_interval ||
-            new_interval < cluster->short_poll_interval)
+            (cluster->check_in_interval != 0 &&
+             new_interval > cluster->check_in_interval) ||
+            new_interval < cluster->short_poll_interval) {
             return HAL_ZIGBEE_INVALID_VALUE;
+        }
 
         cluster->long_poll_interval = new_interval;
         if (!cluster->in_fast_poll) {
@@ -229,6 +233,11 @@ void poll_control_cluster_callback_attr_write(uint16_t attribute_id) {
     if (attribute_id == ZCL_ATTR_POLL_CTRL_CHECK_IN_INTERVAL) {
         printf("Poll control: check-in interval written=%lu\r\n",
                (unsigned long)cluster->check_in_interval);
+        if (cluster->check_in_interval != 0 &&
+            (cluster->check_in_interval < cluster->long_poll_interval)) {
+            printf("Poll control: invalid check-in interval, reverting\r\n");
+            cluster->check_in_interval = cluster->long_poll_interval;
+        }
         // Reschedule check-in timer
         hal_tasks_unschedule(&cluster->check_in_task);
         if (cluster->check_in_interval != 0) {

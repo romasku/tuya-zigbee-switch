@@ -8,7 +8,7 @@ from zcl_consts import (
     ZCL_CLUSTER_POWER_CFG,
 )
 
-BATTERY_REFRESH_INTERVAL_MS = 60000
+BATTERY_REFRESH_INTERVAL_MS = 300000
 
 
 @pytest.fixture

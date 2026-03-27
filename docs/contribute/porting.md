@@ -88,7 +88,6 @@ The pinout is stored in the **device config string**.
 | Ch      | Peripheral    | Function                                                                                                          |
 |--------:|---------------|-------------------------------------------------------------------------------------------------------------------|
 | **`B`** | Reset button  | • Puts device in pairing                                                                                          |
-| **`BT`** | Battery ADC   | • Enables battery-powered mode <br> • Format: `BTC5` - ADC input on pin `C5`                                     |
 | **`L`** | Network led   | • Blinks while pairing <br> • Is the backlight sometimes                                                          |
 | **`S`** | Switch        | • User input <br> • Tactile/touch button or external switch <br> • Spam to put in pairing mode                    |
 | **`R`** | Relay / Triac | • Output <br> • Non-latching: `RC1` - 1 pin: on when high <br> • Latching: `RC2C3` - 2 pins: pulse on, pulse off  |

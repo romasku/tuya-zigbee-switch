@@ -355,8 +355,8 @@ void hal_zigbee_set_poll_rate_ms(uint32_t poll_rate_ms) {
     if (!hal_zigbee_poll_rate_supported()) {
         return;
     }
-
-    sl_zigbee_af_set_short_poll_interval_ms_cb((uint16_t)poll_rate_ms);
+    // Only set the long poll interval, keep short poll managed by
+    // SDK itself for Silabs
     sl_zigbee_af_set_long_poll_interval_ms_cb(poll_rate_ms);
 }
 
@@ -365,7 +365,7 @@ uint32_t hal_zigbee_get_poll_rate_ms(void) {
         return 0;
     }
 
-    return sl_zigbee_af_get_current_poll_interval_ms_cb();
+    return sl_zigbee_af_get_long_poll_interval_ms_cb();
 }
 
 void hal_zigbee_init_ota() {
