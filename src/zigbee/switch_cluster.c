@@ -349,7 +349,11 @@ void switch_cluster_on_button_press(zigbee_switch_cluster *cluster) {
 }
 
 void switch_cluster_on_button_release(zigbee_switch_cluster *cluster) {
-    switch_cluster_flash_indicator(cluster);
+    if (cluster->mode == ZCL_ONOFF_CONFIGURATION_SWITCH_TYPE_TOGGLE) {
+        // Only flash on release for toggles,
+        // for momentary flash on press only
+        switch_cluster_flash_indicator(cluster);
+    }
 
     if (cluster->mode == ZCL_ONOFF_CONFIGURATION_SWITCH_TYPE_TOGGLE) {
         // Toggle does not support modes (RISE, SHORT, LONG)

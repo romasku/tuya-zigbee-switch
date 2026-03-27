@@ -44,15 +44,19 @@ static void led_blink_handler(void *arg) {
 
 void led_blink(led_t *led, uint16_t on_time_ms, uint16_t off_time_ms,
                uint16_t times) {
+    // Always set new durations
+    led->blink_time_on  = on_time_ms;
+    led->blink_time_off = off_time_ms;
+
     if (led->blink_times_left != 0) {
+        // If we already blinking, do not reschedule
+        // to unnecessary avoid jumps in blinking pace
         led->blink_times_left = times;
         return;
     }
 
     hal_gpio_write(led->pin, led->on_high);
-    led->on                 = 1;
-    led->blink_time_on      = on_time_ms;
-    led->blink_time_off     = off_time_ms;
+    led->on = 1;
     led->blink_times_left   = times;
     led->blink_task.handler = led_blink_handler;
     led->blink_task.arg     = led;

@@ -110,9 +110,8 @@ void parse_config() {
     }
     memcpy(basic_cluster.modelId + 1, zb_model, basic_cluster.modelId[0]);
 
-    bool    has_dedicated_status_led = false;
-    uint8_t switch_indicator_cnt     = 0;  // tracks I LEDs assigned to switch clusters
-    char *  entry;
+    bool  has_dedicated_status_led = false;
+    char *entry;
     for (entry = extract_next_entry(&cursor); *entry != '\0';
          entry = extract_next_entry(&cursor)) {
         if (entry[0] == 'S' && entry[1] == 'L' && entry[2] == 'P') {
@@ -162,10 +161,11 @@ void parse_config() {
                 }
             }
 
-            // Assign I to its associated switch_cluster (the P that preceded it)
-            if (switch_indicator_cnt < switch_clusters_cnt) {
-                switch_clusters[switch_indicator_cnt].indicator_led = &leds[leds_cnt];
-                switch_indicator_cnt++;
+            for (int index = 0; index < 4; index++) {
+                if (switch_clusters[index].indicator_led == NULL) {
+                    switch_clusters[index].indicator_led = &leds[leds_cnt];
+                    break;
+                }
             }
 
             if (!has_dedicated_status_led) {

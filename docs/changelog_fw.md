@@ -16,7 +16,7 @@ Please describe what you are working on:
   - Level = 0 -> Turn off relay
   - Level > 0 -> Turn on  relay
 - Configurable multi-press factory reset count (set 1-255 or 0 to disable)
-- **Indicator LED press confirmation**: I LEDs briefly flash on button press/release as visual feedback
+- **Indicator LED press confirmation**:  LEDs briefly flash on button press/release as visual feedback.
 - **Push-button without relay** support for battery-powered scene switches
   - Switches auto-detect absence of relays and default to detached mode
   - New device: Moes 4-gang scene switch (`REMOTE_MOES_SWITCH_TS0044`)
