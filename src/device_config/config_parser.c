@@ -110,13 +110,20 @@ void parse_config() {
     }
     memcpy(basic_cluster.modelId + 1, zb_model, basic_cluster.modelId[0]);
 
-    bool  has_dedicated_status_led = false;
-    char *entry;
+    bool     has_dedicated_status_led = false;
+    uint16_t debounce_ms = DEBOUNCE_DELAY_MS;
+    char *   entry;
     for (entry = extract_next_entry(&cursor); *entry != '\0';
          entry = extract_next_entry(&cursor)) {
         if (entry[0] == 'S' && entry[1] == 'L' && entry[2] == 'P') {
             // Simultaneous Latching Pulses == SLP
             allow_simultaneous_latching_pulses = 1;
+        } else if (entry[0] == 'D' && entry[1] >= '0' && entry[1] <= '9') {
+            // D<N> sets the global debounce duration in milliseconds.
+            debounce_ms = (uint16_t)parse_int(entry + 1);
+            for (int i = 0; i < buttons_cnt; i++) {
+                buttons[i].debounce_delay_ms = debounce_ms;
+            }
         } else if (entry[0] == 'B' && entry[1] == 'T') {
             // Battery: BT<pin>, e.g. BTC5
             hal_gpio_pin_t pin = hal_gpio_parse_pin(entry + 2);
@@ -130,7 +137,7 @@ void parse_config() {
             buttons[buttons_cnt].pin = pin;
             buttons[buttons_cnt].long_press_duration_ms  = 2000;
             buttons[buttons_cnt].multi_press_duration_ms = 800;
-            buttons[buttons_cnt].debounce_delay_ms       = DEBOUNCE_DELAY_MS;
+            buttons[buttons_cnt].debounce_delay_ms       = debounce_ms;
             buttons[buttons_cnt].on_long_press           = on_reset_clicked;
             buttons_cnt++;
         } else if (entry[0] == 'L') {
@@ -185,7 +192,7 @@ void parse_config() {
             buttons[buttons_cnt].pin = pin;
             buttons[buttons_cnt].long_press_duration_ms  = 800;
             buttons[buttons_cnt].multi_press_duration_ms = 800;
-            buttons[buttons_cnt].debounce_delay_ms       = DEBOUNCE_DELAY_MS;
+            buttons[buttons_cnt].debounce_delay_ms       = debounce_ms;
             buttons[buttons_cnt].on_multi_press          = on_multi_press_reset;
 
             if (entry[3] == 'd')
@@ -234,14 +241,14 @@ void parse_config() {
             buttons[buttons_cnt].pin = open_pin;
             buttons[buttons_cnt].long_press_duration_ms  = 800;
             buttons[buttons_cnt].multi_press_duration_ms = 800;
-            buttons[buttons_cnt].debounce_delay_ms       = DEBOUNCE_DELAY_MS;
+            buttons[buttons_cnt].debounce_delay_ms       = debounce_ms;
             buttons[buttons_cnt].on_multi_press          = on_multi_press_reset;
             button_t *open_button = &buttons[buttons_cnt++];
 
             buttons[buttons_cnt].pin = close_pin;
             buttons[buttons_cnt].long_press_duration_ms  = 800;
             buttons[buttons_cnt].multi_press_duration_ms = 800;
-            buttons[buttons_cnt].debounce_delay_ms       = DEBOUNCE_DELAY_MS;
+            buttons[buttons_cnt].debounce_delay_ms       = debounce_ms;
             buttons[buttons_cnt].on_multi_press          = on_multi_press_reset;
             button_t *close_button = &buttons[buttons_cnt++];
 

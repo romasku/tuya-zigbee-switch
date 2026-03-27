@@ -25,6 +25,7 @@ Please describe what you are working on:
 
 ### Changes
 
+- Add `D<N>` config option to customize button debounce delay in milliseconds
 - **Bi-stable (latching) relays** have been reworked
   - They now use proper pulses instead of continuously driving the coil
   - Pressing multiple buttons will toggle the relays with small delays in-between (safe)
