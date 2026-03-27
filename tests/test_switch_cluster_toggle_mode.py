@@ -32,6 +32,7 @@ def toggle_device(device: Device, relay_button_pair: RelayButtonPair) -> Device:
     return device
 
 
+@pytest.mark.skipif(DEBOUNCE_MS == 0, reason="No software debounce configured")
 def test_toggle_mode_no_reaction_before_debounce(
     toggle_device: Device, relay_button_pair: RelayButtonPair
 ):

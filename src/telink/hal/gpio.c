@@ -9,6 +9,30 @@
 #include <string.h>
 // hal_gpio_pin_t directly stores GPIO_PinTypeDef values
 
+// GPIO config tracking for deep retention re-init
+// After deep retention wake, all GPIO SFRs are lost and must be replayed.
+// 32 should cover all GPIOs, as we have 4 ports with 8 pins each.
+#define MAX_GPIO_CONFIGS    32
+
+
+typedef struct {
+    hal_gpio_pin_t  pin;
+    uint8_t         is_input;
+    hal_gpio_pull_t pull;
+    uint8_t         value;
+} gpio_config_t;
+static gpio_config_t gpio_configs[MAX_GPIO_CONFIGS];
+static uint8_t       gpio_config_cnt = 0;
+
+static gpio_config_t *find_gpio_config(hal_gpio_pin_t pin) {
+    for (uint8_t i = 0; i < gpio_config_cnt; i++) {
+        if (gpio_configs[i].pin == pin) {
+            return &gpio_configs[i];
+        }
+    }
+    return NULL;
+}
+
 // Convert HAL pull type to Telink pull type
 static GPIO_PullTypeDef hal_to_telink_pull(hal_gpio_pull_t pull) {
     switch (pull) {
@@ -29,8 +53,8 @@ static GPIO_PullTypeDef hal_to_telink_pull(hal_gpio_pull_t pull) {
     }
 }
 
-void hal_gpio_init(hal_gpio_pin_t gpio_pin, uint8_t is_input,
-                   hal_gpio_pull_t pull) {
+static void gpio_init_hw(hal_gpio_pin_t gpio_pin, uint8_t is_input,
+                         hal_gpio_pull_t pull) {
     GPIO_PinTypeDef telink_pin = (GPIO_PinTypeDef)gpio_pin;
 
     if (is_input) {
@@ -45,12 +69,66 @@ void hal_gpio_init(hal_gpio_pin_t gpio_pin, uint8_t is_input,
     gpio_setup_up_down_resistor(telink_pin, hal_to_telink_pull(pull));
 }
 
+void hal_gpio_init(hal_gpio_pin_t gpio_pin, uint8_t is_input,
+                   hal_gpio_pull_t pull) {
+    gpio_init_hw(gpio_pin, is_input, pull);
+
+    gpio_config_t *config = find_gpio_config(gpio_pin);
+    if (config == NULL) {
+        if (gpio_config_cnt >= MAX_GPIO_CONFIGS) {
+            return;
+        }
+        config = &gpio_configs[gpio_config_cnt++];
+    }
+
+    // Track config for deep retention re-init
+    config->pin      = gpio_pin;
+    config->is_input = is_input;
+    config->value    = 0;
+    config->pull     = pull;
+}
+
+void telink_gpio_reinit_after_deep_retention(void) {
+    for (uint8_t i = 0; i < gpio_config_cnt; i++) {
+        gpio_init_hw(gpio_configs[i].pin, gpio_configs[i].is_input,
+                     gpio_configs[i].pull);
+        if (!gpio_configs[i].is_input) {
+            // Restore output value
+            gpio_write((GPIO_PinTypeDef)gpio_configs[i].pin, gpio_configs[i].value);
+        }
+    }
+}
+
+void telink_gpio_to_pull_for_deep_retention() {
+    // Uses pull-up or downs to emulate output levels during deep retention,
+    // as telink doesn't support true GPIO output retention.
+    for (uint8_t i = 0; i < gpio_config_cnt; i++) {
+        if (gpio_configs[i].is_input) {
+            continue;
+        }
+        GPIO_PinTypeDef  telink_pin = (GPIO_PinTypeDef)gpio_configs[i].pin;
+        GPIO_PullTypeDef pull       =
+            gpio_configs[i].value ? PM_PIN_PULLUP_1M : PM_PIN_PULLDOWN_100K;
+        gpio_set_input_en(telink_pin, 1);
+        gpio_set_output_en(telink_pin, 0);
+        gpio_setup_up_down_resistor(telink_pin, pull);
+    }
+}
+
 void hal_gpio_set(hal_gpio_pin_t gpio_pin) {
     gpio_write((GPIO_PinTypeDef)gpio_pin, 1);
+    gpio_config_t *config = find_gpio_config(gpio_pin);
+    if (config) {
+        config->value = 1;
+    }
 }
 
 void hal_gpio_clear(hal_gpio_pin_t gpio_pin) {
     gpio_write((GPIO_PinTypeDef)gpio_pin, 0);
+    gpio_config_t *config = find_gpio_config(gpio_pin);
+    if (config) {
+        config->value = 0;
+    }
 }
 
 uint8_t hal_gpio_read(hal_gpio_pin_t gpio_pin) {

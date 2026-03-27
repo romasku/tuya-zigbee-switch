@@ -1,16 +1,18 @@
 #pragma pack(push, 1)
 #include "tl_common.h"
 #include "zb_api.h"
+#include "zcl_cover_switch_config.h"
 #include "zcl_include.h"
 #include "zcl_multistate_input.h"
 #include "zcl_onoff_configuration.h"
-#include "zcl_cover_switch_config.h"
 #pragma pack(pop)
 
 #include "telink_size_t_hack.h"
 
 #include "hal/zigbee.h"
 #include "telink_zigbee_hal.h"
+#include "zigbee/battery_cluster.h"
+#include "zigbee/consts.h"
 
 // Storage for Telink endpoint configuration
 static af_simple_descriptor_t endpoint_descriptors[MAX_ENDPOINTS];
@@ -23,67 +25,105 @@ static zclAttrInfo_t         attr_tables[MAX_ATTRS];
 static hal_zigbee_endpoint *hal_endpoints = NULL;
 static uint8_t hal_endpoints_cnt          = 0;
 static hal_attribute_change_callback_t attribute_change_callback = NULL;
+static hal_zcl_activity_callback_t     zcl_activity_callback     = NULL;
 
 static cluster_registerFunc_t get_register_func_by_cluster_id(u16 cluster_id) {
-    if (cluster_id == ZCL_CLUSTER_GEN_BASIC) { // Basic cluster
+    if (cluster_id == ZCL_CLUSTER_GEN_BASIC) {
         return zcl_basic_register;
     }
-    if (cluster_id == ZCL_CLUSTER_GEN_IDENTIFY) { // Identify cluster
+    if (cluster_id == ZCL_CLUSTER_GEN_POWER_CFG ||
+        cluster_id == ZCL_CLUSTER_POWER_CFG) {
+        return zcl_powerCfg_register;
+    }
+    if (cluster_id == ZCL_CLUSTER_GEN_IDENTIFY) {
         return zcl_identify_register;
     }
-    if (cluster_id == ZCL_CLUSTER_GEN_GROUPS) { // Groups cluster
+    if (cluster_id == ZCL_CLUSTER_GEN_GROUPS) {
         return zcl_group_register;
     }
-    if (cluster_id ==
-        ZCL_CLUSTER_GEN_ON_OFF_SWITCH_CONFIG) { // On/Off Switch Configuration
+    if (cluster_id == ZCL_CLUSTER_GEN_ON_OFF_SWITCH_CONFIG) {
         return zcl_onoff_configuration_register;
     }
-    if (cluster_id == ZCL_CLUSTER_GEN_LEVEL_CONTROL) { // Level Control cluster
+    if (cluster_id == ZCL_CLUSTER_GEN_LEVEL_CONTROL) {
         return zcl_level_register;
     }
-    if (cluster_id == ZCL_CLUSTER_GEN_ON_OFF) { // On/Off cluster
+    if (cluster_id == ZCL_CLUSTER_GEN_ON_OFF) {
         return zcl_onOff_register;
     }
-    if (cluster_id ==
-        ZCL_CLUSTER_GEN_MULTISTATE_INPUT_BASIC) { // Multistate Input
+    if (cluster_id == ZCL_CLUSTER_GEN_MULTISTATE_INPUT_BASIC) {
         return zcl_multistate_input_register;
     }
-    if (cluster_id == ZCL_CLUSTER_CLOSURES_WINDOW_COVERING) { // Window Covering
+    if (cluster_id == ZCL_CLUSTER_CLOSURES_WINDOW_COVERING) {
         return zcl_windowCovering_register;
     }
     if (cluster_id == 0xFC01) { // Cover Switch Config
         return zcl_cover_switch_config_register;
     }
+    if (cluster_id == ZCL_CLUSTER_GEN_POLL_CONTROL) {
+        return zcl_pollCtrl_register;
+    }
     return NULL;
 }
 
 static status_t cmd_callback(u8 endpoint, u16 clusterId, u8 cmdId,
-                             void *cmdPayload) {
+                             void *cmdPayload, u16 cmdPayloadLen) {
     hal_zigbee_cluster *cluster = hal_zigbee_find_cluster(
         hal_endpoints, hal_endpoints_cnt, endpoint, clusterId);
 
     if (cluster && cluster->cmd_callback) {
-        return cluster->cmd_callback(endpoint, clusterId, cmdId, cmdPayload);
+        hal_zigbee_cmd_result_t status = cluster->cmd_callback(
+            endpoint, clusterId, cmdId, cmdPayload, cmdPayloadLen);
+        if (status == HAL_ZIGBEE_CMD_PROCESSED) {
+            return ZCL_STA_SUCCESS;
+        } else if (status == HAL_ZIGBEE_INVALID_VALUE) {
+            return ZCL_STA_INVALID_VALUE;
+        } else if (status == HAL_ZIGBEE_MALFORMED_COMMAND) {
+            return ZCL_STA_MALFORMED_COMMAND;
+        } else if (status == HAL_ZIGBEE_ACTION_DENIED) {
+            return ZCL_STA_ACTION_DENIED;
+        } else if (status == HAL_ZIGBEE_CMD_SKIPPED) {
+            return ZCL_STA_UNSUP_CLUSTER_COMMAND;
+        }
     }
     return(ZCL_STA_SUCCESS);
 }
 
+static zclIncoming_t *cmd_incoming_from_addr_info(zclIncomingAddrInfo_t *pAddrInfo) {
+    // Telink passes &zclIncoming_t.addrInfo into clusterAppCb, so recover the
+    // enclosing message to access the raw payload bytes and length.
+    return (zclIncoming_t *)((char *)pAddrInfo - offsetof(zclIncoming_t, addrInfo));
+}
+
 static status_t cmd_callback_on_off(zclIncomingAddrInfo_t *pAddrInfo, u8 cmdId,
                                     void *cmdPayload) {
+    zclIncoming_t *pInMsg = cmd_incoming_from_addr_info(pAddrInfo);
+
     return cmd_callback(pAddrInfo->dstEp, ZCL_CLUSTER_GEN_ON_OFF, cmdId,
-                        cmdPayload);
+                        pInMsg->pData, pInMsg->dataLen);
 }
 
-static status_t cmd_callback_window_covering(zclIncomingAddrInfo_t *pAddrInfo, u8 cmdId,
-                                             void *cmdPayload) {
-    return cmd_callback(pAddrInfo->dstEp, ZCL_CLUSTER_CLOSURES_WINDOW_COVERING, cmdId,
-                        cmdPayload);
+static status_t cmd_callback_window_covering(zclIncomingAddrInfo_t *pAddrInfo,
+                                             u8 cmdId, void *cmdPayload) {
+    zclIncoming_t *pInMsg = cmd_incoming_from_addr_info(pAddrInfo);
+
+    return cmd_callback(pAddrInfo->dstEp, ZCL_CLUSTER_CLOSURES_WINDOW_COVERING,
+                        cmdId, pInMsg->pData, pInMsg->dataLen);
 }
 
-static status_t cmd_callback_level_control(zclIncomingAddrInfo_t *pAddrInfo, u8 cmdId,
-                                           void *cmdPayload) {
+static status_t cmd_callback_level_control(zclIncomingAddrInfo_t *pAddrInfo,
+                                           u8 cmdId, void *cmdPayload) {
+    zclIncoming_t *pInMsg = cmd_incoming_from_addr_info(pAddrInfo);
+
     return cmd_callback(pAddrInfo->dstEp, ZCL_CLUSTER_GEN_LEVEL_CONTROL, cmdId,
-                        cmdPayload);
+                        pInMsg->pData, pInMsg->dataLen);
+}
+
+static status_t cmd_callback_poll_control(zclIncomingAddrInfo_t *pAddrInfo,
+                                          u8 cmdId, void *cmdPayload) {
+    zclIncoming_t *pInMsg = cmd_incoming_from_addr_info(pAddrInfo);
+
+    return cmd_callback(pAddrInfo->dstEp, ZCL_CLUSTER_GEN_POLL_CONTROL, cmdId,
+                        pInMsg->pData, pInMsg->dataLen);
 }
 
 static cluster_forAppCb_t get_cmd_callback_by_cluster_id(u16 cluster_id) {
@@ -93,8 +133,11 @@ static cluster_forAppCb_t get_cmd_callback_by_cluster_id(u16 cluster_id) {
     if (cluster_id == ZCL_CLUSTER_GEN_ON_OFF) { // On/Off cluster
         return cmd_callback_on_off;
     }
-    if (cluster_id == ZCL_CLUSTER_CLOSURES_WINDOW_COVERING) { // Window Covering cluster
+    if (cluster_id == ZCL_CLUSTER_CLOSURES_WINDOW_COVERING) {
         return cmd_callback_window_covering;
+    }
+    if (cluster_id == ZCL_CLUSTER_GEN_POLL_CONTROL) {
+        return cmd_callback_poll_control;
     }
     return NULL;
 }
@@ -107,14 +150,18 @@ static void zcl_incoming_message_callback(zclIncoming_t *pInHdlrMsg) {
         }
         zclWriteCmd_t *writeCmd = (zclWriteCmd_t *)pInHdlrMsg->attrCmd;
         for (u8 i = 0; i < writeCmd->numAttr; i++) {
-            printf("Attr write on endpoint %d, cluster %d, attribute %d\r\n",
-                   pInHdlrMsg->msg->indInfo.dst_ep,
-                   pInHdlrMsg->msg->indInfo.cluster_id, writeCmd->attrList[i].attrID);
             attribute_change_callback(pInHdlrMsg->msg->indInfo.dst_ep,
                                       pInHdlrMsg->msg->indInfo.cluster_id,
                                       writeCmd->attrList[i].attrID);
         }
     }
+}
+
+static void af_rx_callback(void *arg) {
+    if (zcl_activity_callback != NULL) {
+        zcl_activity_callback();
+    }
+    zcl_rx_handler(arg);
 }
 
 void telink_zigbee_hal_zcl_init(hal_zigbee_endpoint *endpoints,
@@ -133,7 +180,6 @@ void telink_zigbee_hal_zcl_init(hal_zigbee_endpoint *endpoints,
 
     for (hal_zigbee_endpoint *endpoint = endpoints;
          endpoint < endpoints + hal_endpoints_cnt; endpoint++) {
-        // Initialize endpoint descriptors
         endpoint_desc_ptr->endpoint            = endpoint->endpoint;
         endpoint_desc_ptr->app_profile_id      = endpoint->profile_id;
         endpoint_desc_ptr->app_dev_id          = endpoint->device_id;
@@ -154,10 +200,8 @@ void telink_zigbee_hal_zcl_init(hal_zigbee_endpoint *endpoints,
                 endpoint_desc_ptr->app_out_cluster_count++;
             }
             if (cluster->cluster_id == ZCL_CLUSTER_OTA) {
-                // OTA cluster is handled separately
                 continue;
             }
-            // Initialize cluster info
             cluster_info_ptr->clusterId           = cluster->cluster_id;
             cluster_info_ptr->manuCode            = 0;
             cluster_info_ptr->attrTbl             = attr_table_ptr;
@@ -168,7 +212,6 @@ void telink_zigbee_hal_zcl_init(hal_zigbee_endpoint *endpoints,
                 get_cmd_callback_by_cluster_id(cluster->cluster_id);
             for (hal_zigbee_attribute *attr = cluster->attributes;
                  attr < cluster->attributes + cluster->attribute_count; attr++) {
-                // Copy attribute to global table
                 attr_table_ptr->id     = attr->attribute_id;
                 attr_table_ptr->type   = attr->data_type_id;
                 attr_table_ptr->access =
@@ -183,11 +226,11 @@ void telink_zigbee_hal_zcl_init(hal_zigbee_endpoint *endpoints,
 
             cluster_info_ptr++;
         }
-        af_endpointRegister(endpoint->endpoint, endpoint_desc_ptr, zcl_rx_handler,
-                            NULL);
-        zcl_register(endpoint->endpoint,
-                     cluster_info_ptr - endpoint_first_cluster_ptr,
-                     endpoint_first_cluster_ptr);
+        af_endpointRegister(endpoint->endpoint, endpoint_desc_ptr,
+                            af_rx_callback, NULL);
+        u8 cluster_count = cluster_info_ptr - endpoint_first_cluster_ptr;
+        zcl_register(endpoint->endpoint, cluster_count, endpoint_first_cluster_ptr);
+
         endpoint_desc_ptr++;
     }
 }
@@ -210,7 +253,7 @@ hal_zigbee_status_t hal_zigbee_send_cmd_to_bindings(const hal_zigbee_cmd *cmd) {
                   ? ZCL_FRAME_CLIENT_SERVER_DIR
                   : ZCL_FRAME_SERVER_CLIENT_DIR,
                 cmd->disable_default_rsp, cmd->manufacturer_code, ZCL_SEQ_NUM,
-                cmd->payload_len, cmd->payload);
+                cmd->payload_len, (u8 *)cmd->payload);
 
     return HAL_ZIGBEE_OK;
 }
@@ -219,8 +262,6 @@ hal_zigbee_status_t
 hal_zigbee_send_report_attr(uint8_t endpoint, uint16_t cluster_id,
                             uint16_t attr_id, uint8_t zcl_type_id,
                             const void *value, uint8_t value_len) {
-    printf("Sending attribute report, ep: %d, cluster: %d, attr: %d\r\n",
-           endpoint, cluster_id, attr_id);
     if (zb_isDeviceJoinedNwk()) {
         epInfo_t dstEpInfo;
         TL_SETSTRUCTCONTENT(dstEpInfo, 0);
@@ -230,10 +271,9 @@ hal_zigbee_send_report_attr(uint8_t endpoint, uint16_t cluster_id,
 
         zclAttrInfo_t *pAttrEntry;
         pAttrEntry = zcl_findAttribute(endpoint, cluster_id, attr_id);
-        status_t status = zcl_sendReportCmd(
-            endpoint, &dstEpInfo, TRUE, ZCL_FRAME_SERVER_CLIENT_DIR, cluster_id,
-            pAttrEntry->id, pAttrEntry->type, pAttrEntry->data);
-        printf("Sent attribute report, status: %d\r\n", status);
+        zcl_sendReportCmd(endpoint, &dstEpInfo, TRUE, ZCL_FRAME_SERVER_CLIENT_DIR,
+                          cluster_id, pAttrEntry->id, pAttrEntry->type,
+                          pAttrEntry->data);
     }
     return HAL_ZIGBEE_OK;
 }
@@ -241,6 +281,10 @@ hal_zigbee_send_report_attr(uint8_t endpoint, uint16_t cluster_id,
 void hal_zigbee_register_on_attribute_change_callback(
     hal_attribute_change_callback_t callback) {
     attribute_change_callback = callback;
+}
+
+void hal_zigbee_register_on_zcl_activity_callback(hal_zcl_activity_callback_t callback) {
+    zcl_activity_callback = callback;
 }
 
 // Internal interface functions

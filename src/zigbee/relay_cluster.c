@@ -7,19 +7,23 @@
 
 hal_zigbee_cmd_result_t relay_cluster_callback(zigbee_relay_cluster *cluster,
                                                uint8_t command_id,
-                                               void *cmd_payload);
+                                               void *cmd_payload,
+                                               uint16_t cmd_payload_len);
 hal_zigbee_cmd_result_t relay_cluster_callback_trampoline(uint8_t endpoint,
                                                           uint16_t cluster_id,
                                                           uint8_t command_id,
-                                                          void *cmd_payload);
+                                                          void *cmd_payload,
+                                                          uint16_t cmd_payload_len);
 
 hal_zigbee_cmd_result_t relay_cluster_level_callback(zigbee_relay_cluster *cluster,
                                                      uint8_t command_id,
-                                                     void *cmd_payload);
+                                                     void *cmd_payload,
+                                                     uint16_t cmd_payload_len);
 hal_zigbee_cmd_result_t relay_cluster_level_callback_trampoline(uint8_t endpoint,
                                                                 uint16_t cluster_id,
                                                                 uint8_t command_id,
-                                                                void *cmd_payload);
+                                                                void *cmd_payload,
+                                                                uint16_t cmd_payload_len);
 
 void relay_cluster_on_relay_change(zigbee_relay_cluster *cluster,
                                    uint8_t state);
@@ -92,14 +96,16 @@ void relay_cluster_add_to_endpoint(zigbee_relay_cluster *cluster,
 hal_zigbee_cmd_result_t relay_cluster_callback_trampoline(uint8_t endpoint,
                                                           uint16_t cluster_id,
                                                           uint8_t command_id,
-                                                          void *cmd_payload) {
+                                                          void *cmd_payload,
+                                                          uint16_t cmd_payload_len) {
     return relay_cluster_callback(relay_cluster_by_endpoint[endpoint], command_id,
-                                  cmd_payload);
+                                  cmd_payload, cmd_payload_len);
 }
 
 hal_zigbee_cmd_result_t relay_cluster_callback(zigbee_relay_cluster *cluster,
                                                uint8_t command_id,
-                                               void *cmd_payload) {
+                                               void *cmd_payload,
+                                               uint16_t cmd_payload_len) {
     switch (command_id) {
     case ZCL_CMD_ONOFF_ON:
     case ZCL_CMD_ON_WITH_RECALL_GLOBAL_SCENE:
@@ -125,18 +131,20 @@ hal_zigbee_cmd_result_t relay_cluster_callback(zigbee_relay_cluster *cluster,
 hal_zigbee_cmd_result_t relay_cluster_level_callback_trampoline(uint8_t endpoint,
                                                                 uint16_t cluster_id,
                                                                 uint8_t command_id,
-                                                                void *cmd_payload) {
+                                                                void *cmd_payload,
+                                                                uint16_t cmd_payload_len) {
     return relay_cluster_level_callback(relay_cluster_by_endpoint[endpoint], command_id,
-                                        cmd_payload);
+                                        cmd_payload, cmd_payload_len);
 }
 
 hal_zigbee_cmd_result_t relay_cluster_level_callback(zigbee_relay_cluster *cluster,
                                                      uint8_t command_id,
-                                                     void *cmd_payload) {
+                                                     void *cmd_payload,
+                                                     uint16_t cmd_payload_len) {
     switch (command_id) {
     case ZCL_CMD_LEVEL_MOVE_TO_LEVEL_WITH_ON_OFF:
-        if (cmd_payload == NULL) {
-            return HAL_ZIGBEE_CMD_SKIPPED;
+        if (cmd_payload == NULL || cmd_payload_len < 1) {
+            return HAL_ZIGBEE_MALFORMED_COMMAND;
         }
         uint8_t level = *(uint8_t *)cmd_payload;
         if (level == 0) {

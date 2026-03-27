@@ -20,6 +20,7 @@ typedef struct {
     uint16_t                         long_press_duration_ms;
     uint32_t                         multi_press_duration_ms;
     uint8_t                          multi_press_cnt;
+    uint16_t                         debounce_delay_ms;
     hal_task_t                       update_task;
     uint8_t                          debounce_last_state;
     uint32_t                         debounce_last_change;

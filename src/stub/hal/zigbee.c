@@ -29,7 +29,9 @@ static hal_zigbee_endpoint *endpoints             = NULL;
 static uint8_t endpoints_count                    = 0;
 static hal_zigbee_network_status_t network_status =
     HAL_ZIGBEE_NETWORK_NOT_JOINED;
-static hal_attribute_change_callback_t attr_change_callback = NULL;
+static hal_attribute_change_callback_t attr_change_callback  = NULL;
+static hal_zcl_activity_callback_t     zcl_activity_callback = NULL;
+static uint32_t poll_rate_ms = 0;
 
 static stub_binding_t bindings[MAX_BINDINGS];
 static int            binding_count = 0;
@@ -123,29 +125,38 @@ void hal_zigbee_start_network_steering() {
     }
 }
 
-void hal_zigbee_notify_attribute_changed(uint8_t endpoint, uint16_t cluster_id,
-                                         uint16_t attribute_id) {
-    io_log("ZIGBEE", "Attribute changed: ep=%d, cluster=0x%04x, attr=0x%04x",
-           endpoint, cluster_id, attribute_id);
-    hal_zigbee_attribute *attr = hal_zigbee_find_attribute(
-        endpoints, endpoints_count, endpoint, cluster_id, attribute_id);
-    if (!attr) {
-        io_log("ZIGBEE",
-               "Error: Notified about change of unregistered attribute "
-               "not found for ep=%d, cluster=0x%04x, attr=0x%04x",
-               endpoint, cluster_id, attribute_id);
-
-        // TODO: Fix this properly
-        // exit(1);
-    }
-    io_evt("zcl_attr_change ep=%u cluster=0x%04X attr=0x%04X", endpoint,
-           cluster_id, attribute_id);
-}
-
 void hal_zigbee_register_on_attribute_change_callback(
     hal_attribute_change_callback_t callback) {
     attr_change_callback = callback;
     io_log("ZIGBEE", "Registered attribute change callback");
+}
+
+void hal_zigbee_register_on_zcl_activity_callback(
+    hal_zcl_activity_callback_t callback) {
+    zcl_activity_callback = callback;
+    io_log("ZIGBEE", "Registered ZCL activity callback");
+}
+
+void hal_zigbee_set_poll_rate_ms(uint32_t new_poll_rate_ms) {
+    poll_rate_ms = new_poll_rate_ms;
+    io_log("ZIGBEE", "Set poll rate to %u ms", (unsigned)new_poll_rate_ms);
+}
+
+uint32_t hal_zigbee_get_poll_rate_ms(void) {
+    return poll_rate_ms;
+}
+
+void hal_zigbee_notify_attribute_changed(uint8_t endpoint, uint16_t cluster_id,
+                                         uint16_t attribute_id) {
+    io_log("ZIGBEE", "Attribute changed: ep=%d, cluster=0x%04x, attr=0x%04x",
+           endpoint, cluster_id, attribute_id);
+    // In stub, do NOT call attr_change_callback here.
+    // That callback models "attribute written via Zigbee" (incoming write).
+    // Calling it from notify_attribute_changed() causes recursion when the
+    // application updates attributes in response to a write.
+    // Instead, emit an event so Python tests can observe the change.
+    io_evt("zcl_attr_change ep=%u cluster=0x%04X attr=0x%04X", endpoint,
+           cluster_id, attribute_id);
 }
 
 hal_zigbee_status_t hal_zigbee_send_cmd_to_bindings(const hal_zigbee_cmd *cmd) {
@@ -246,13 +257,17 @@ hal_zigbee_endpoint *stub_zigbee_get_endpoints(uint8_t *count) {
     return endpoints;
 }
 
-// Simulate receiving a ZCL command
-hal_zigbee_cmd_result_t stub_zigbee_simulate_command(uint8_t endpoint,
-                                                     uint16_t cluster_id,
-                                                     uint8_t command_id,
-                                                     void *payload) {
+static hal_zigbee_cmd_result_t
+stub_zigbee_simulate_command_internal(uint8_t endpoint, uint16_t cluster_id,
+                                      uint8_t command_id, void *payload,
+                                      uint16_t payload_len,
+                                      bool trigger_activity) {
     io_log("ZIGBEE", "Simulating command: ep=%d, cluster=0x%04x, cmd=0x%02x",
            endpoint, cluster_id, command_id);
+
+    if (trigger_activity && zcl_activity_callback != NULL) {
+        zcl_activity_callback();
+    }
 
     // Find the endpoint and cluster
     for (int i = 0; i < endpoints_count; i++) {
@@ -261,7 +276,7 @@ hal_zigbee_cmd_result_t stub_zigbee_simulate_command(uint8_t endpoint,
                 hal_zigbee_cluster *cluster = &endpoints[i].clusters[j];
                 if (cluster->cluster_id == cluster_id && cluster->cmd_callback) {
                     return cluster->cmd_callback(endpoint, cluster_id, command_id,
-                                                 payload);
+                                                 payload, payload_len);
                 }
             }
         }
@@ -270,8 +285,34 @@ hal_zigbee_cmd_result_t stub_zigbee_simulate_command(uint8_t endpoint,
     return HAL_ZIGBEE_CMD_SKIPPED;
 }
 
+// Simulate receiving a ZCL command
+hal_zigbee_cmd_result_t stub_zigbee_simulate_command(uint8_t endpoint,
+                                                     uint16_t cluster_id,
+                                                     uint8_t command_id,
+                                                     void *payload,
+                                                     uint16_t payload_len) {
+    return stub_zigbee_simulate_command_internal(endpoint, cluster_id,
+                                                 command_id, payload,
+                                                 payload_len, true);
+}
+
+hal_zigbee_cmd_result_t
+stub_zigbee_simulate_command_without_activity(uint8_t endpoint,
+                                              uint16_t cluster_id,
+                                              uint8_t command_id,
+                                              void *payload,
+                                              uint16_t payload_len) {
+    return stub_zigbee_simulate_command_internal(endpoint, cluster_id,
+                                                 command_id, payload,
+                                                 payload_len, false);
+}
+
 void stub_simulate_zigbee_attribute_write(uint8_t endpoint, uint16_t cluster_id,
                                           uint16_t attribute_id) {
+    if (zcl_activity_callback != NULL) {
+        zcl_activity_callback();
+    }
+
     if (attr_change_callback) {
         attr_change_callback(endpoint, cluster_id, attribute_id);
     }

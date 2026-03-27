@@ -128,7 +128,6 @@ static void init_isr() {
         printf("Failed to configure GPIO interrupt: %d\r\n", result);
     } else {
         is_isr_initialized = true;
-        printf("GPIO interrupt configured\r\n");
     }
 }
 
@@ -170,6 +169,13 @@ void hal_gpio_unreg_callback(hal_gpio_pin_t gpio_pin) {
             break;
         }
     }
+}
+
+void telink_gpio_reinit_interrupts(void) {
+    // Reset ISR flag so it gets reconfigured (SFRs lost during deep retention)
+    is_isr_initialized = false;
+    init_isr();
+    gpio_dispatch_handler(NULL); // Trigger all, as we may slept through gpio change
 }
 
 void telink_gpio_hal_setup_wake_ups() {

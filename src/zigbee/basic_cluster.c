@@ -4,6 +4,7 @@
 #include "cluster_common.h"
 #include "consts.h"
 #include "device_config/config_nv.h"
+#include "device_config/config_parser.h"
 #include "device_config/device_params_nv.h"
 #include "device_config/nvm_items.h"
 #include "device_config/reset.h"
@@ -20,7 +21,8 @@ const uint8_t appVersion   = 0x03;
 const uint8_t stackVersion = 0x02;
 const uint8_t hwVersion    = 0x00;
 
-const uint8_t powerSource = 0x01; // POWER_SOURCE_MAINS_1_PHASE
+// Power source - set at runtime based on battery config
+uint8_t powerSource = POWER_SOURCE_MAINS_1_PHASE; // 0x01 default
 
 const uint16_t cluster_revision = 0x01;
 DEF_STR(STRINGIFY_VALUE(VERSION_STR), swBuildId);
@@ -47,6 +49,11 @@ void basic_cluster_callback_attr_write_trampoline(uint16_t attribute_id) {
 
 void basic_cluster_add_to_endpoint(zigbee_basic_cluster *cluster,
                                    hal_zigbee_endpoint *endpoint) {
+    // Set power source based on runtime battery configuration
+    if (battery.pin != HAL_INVALID_PIN) {
+        powerSource = POWER_SOURCE_BATTERY;
+    }
+
     // Initialize build date buffer
     zb_build_date_init(ZB_BUILD_DATE_YYYYMMDD);
 

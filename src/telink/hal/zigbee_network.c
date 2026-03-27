@@ -81,7 +81,6 @@ void bdb_init_callback(u8 status, u8 joinedNetwork) {
             ota_queryStart(OTA_QUERY_INTERVAL);
       #ifdef ZB_ED_ROLE
             zb_setPollRate(POLL_RATE);
-            printf("Set poll rate to %d\r\n", POLL_RATE);
       #endif
         }
     } else {
@@ -98,6 +97,9 @@ void bdb_commissioning_callback(u8 status, void *arg) {
     case BDB_COMMISSION_STA_SUCCESS:
         ota_queryStart(OTA_QUERY_INTERVAL);
 #ifdef ZB_ED_ROLE
+        // Need set poll rate manually,
+        // to avoid bugs related to no poll task
+        // after fast re-connect.
         zb_setPollRate(POLL_RATE);
         printf("Set poll rate to %d\r\n", POLL_RATE);
 #endif
@@ -182,12 +184,20 @@ hal_zigbee_status_t hal_zigbee_send_announce(void) {
     return HAL_ZIGBEE_OK;
 }
 
+void hal_zigbee_set_poll_rate_ms(uint32_t poll_rate_ms) {
+    zb_setPollRate(poll_rate_ms);
+}
+
+uint32_t hal_zigbee_get_poll_rate_ms(void) {
+    return zb_getPollRate();
+}
+
 // Internal interface functions
 
 void telink_zigbee_hal_network_init(void) {
     zb_init();
     zb_zdoCbRegister(&zdo_callbacks);
-    af_powerDescPowerModeUpdate(POWER_MODE_RECEIVER_COMES_WHEN_STIMULATED);
+    af_powerDescPowerModeUpdate(POWER_MODE_RECEIVER_COMES_PERIODICALLY);
 }
 
 void telink_zigbee_hal_bdb_init(af_simple_descriptor_t *endpoint_descriptor) {

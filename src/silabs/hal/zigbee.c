@@ -15,6 +15,13 @@ sl_zigbee_af_attribute_metadata_t attributes_buffer[MAX_ATTRS];
 
 hal_zigbee_endpoint *hal_endpoints;
 uint8_t hal_endpoints_cnt;
+static hal_zcl_activity_callback_t zcl_activity_callback = NULL;
+
+static void notify_zcl_activity(void) {
+    if (zcl_activity_callback != NULL) {
+        zcl_activity_callback();
+    }
+}
 
 hal_zigbee_cluster *find_hal_cluster(uint8_t endpoint,
                                      sl_zigbee_af_cluster_id_t clusterId) {
@@ -40,14 +47,35 @@ static uint32_t on_command_callback(sl_service_opcode_t opcode,
     if (hal_cluster == NULL || hal_cluster->cmd_callback == NULL)
         return SL_ZIGBEE_ZCL_STATUS_UNSUP_COMMAND;
 
+    uint8_t *payload     = NULL;
+    uint16_t payload_len = 0;
+    if (cmd->bufLen > cmd->payloadStartIndex) {
+        payload     = cmd->buffer + cmd->payloadStartIndex;
+        payload_len = cmd->bufLen - cmd->payloadStartIndex;
+    }
+
     hal_zigbee_cmd_result_t res = hal_cluster->cmd_callback(
         cmd->apsFrame->destinationEndpoint, cmd->apsFrame->clusterId,
-        cmd->commandId, cmd->buffer);
-    if (res == HAL_ZIGBEE_CMD_PROCESSED) {
-        sl_zigbee_af_send_immediate_default_response(SL_ZIGBEE_ZCL_STATUS_SUCCESS);
-        return SL_ZIGBEE_ZCL_STATUS_SUCCESS;
+        cmd->commandId, payload, payload_len);
+    if (res == HAL_ZIGBEE_CMD_SKIPPED) {
+        return SL_ZIGBEE_ZCL_STATUS_UNSUP_COMMAND;
     }
-    return SL_ZIGBEE_ZCL_STATUS_UNSUP_COMMAND;
+    sl_zigbee_af_status_t status = SL_ZIGBEE_ZCL_STATUS_SUCCESS;
+    if (res == HAL_ZIGBEE_INVALID_VALUE) {
+        status = SL_ZIGBEE_ZCL_STATUS_INVALID_VALUE;
+    } else if (res == HAL_ZIGBEE_MALFORMED_COMMAND) {
+        status = SL_ZIGBEE_ZCL_STATUS_MALFORMED_COMMAND;
+    } else if (res == HAL_ZIGBEE_ACTION_DENIED) {
+        status = SL_ZIGBEE_ZCL_STATUS_ACTION_DENIED;
+    }
+    sl_zigbee_af_send_immediate_default_response(status);
+    return status;
+}
+
+bool sl_zigbee_af_pre_command_received_cb(sl_zigbee_af_cluster_command_t *cmd) {
+    (void)cmd;
+    notify_zcl_activity();
+    return false;
 }
 
 void hal_zigbee_init(hal_zigbee_endpoint *endpoints, uint8_t endpoints_cnt) {
@@ -138,6 +166,11 @@ static hal_attribute_change_callback_t attribute_change_callback = NULL;
 void hal_zigbee_register_on_attribute_change_callback(
     hal_attribute_change_callback_t callback) {
     attribute_change_callback = callback;
+}
+
+void hal_zigbee_register_on_zcl_activity_callback(
+    hal_zcl_activity_callback_t callback) {
+    zcl_activity_callback = callback;
 }
 
 sl_zigbee_af_status_t sl_zigbee_af_external_attribute_read_cb(
@@ -303,6 +336,36 @@ hal_zigbee_status_t hal_zigbee_send_announce(void) {
         return HAL_ZIGBEE_ERR_SEND_FAILED;
     }
     return HAL_ZIGBEE_OK;
+}
+
+static bool hal_zigbee_poll_rate_supported(void) {
+    sl_zigbee_node_type_t node_type = SL_ZIGBEE_UNKNOWN_DEVICE;
+
+    if (sl_zigbee_af_get_node_type(&node_type) != SL_STATUS_OK) {
+        return false;
+    }
+
+    return node_type == SL_ZIGBEE_END_DEVICE ||
+           node_type == SL_ZIGBEE_SLEEPY_END_DEVICE ||
+           node_type == SL_ZIGBEE_S2S_INITIATOR_DEVICE ||
+           node_type == SL_ZIGBEE_S2S_TARGET_DEVICE;
+}
+
+void hal_zigbee_set_poll_rate_ms(uint32_t poll_rate_ms) {
+    if (!hal_zigbee_poll_rate_supported()) {
+        return;
+    }
+    // Only set the long poll interval, keep short poll managed by
+    // SDK itself for Silabs
+    sl_zigbee_af_set_long_poll_interval_ms_cb(poll_rate_ms);
+}
+
+uint32_t hal_zigbee_get_poll_rate_ms(void) {
+    if (!hal_zigbee_poll_rate_supported()) {
+        return 0;
+    }
+
+    return sl_zigbee_af_get_long_poll_interval_ms_cb();
 }
 
 void hal_zigbee_init_ota() {

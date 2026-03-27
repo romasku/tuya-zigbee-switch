@@ -2,27 +2,30 @@
 #include "hal/printf_selector.h"
 #include "hal/zigbee.h"
 #include "zigbee/basic_cluster.h"
+#include "zigbee/battery_cluster.h"
 #include "zigbee/consts.h"
+#include "zigbee/cover_cluster.h"
+#include "zigbee/cover_switch_cluster.h"
 #include "zigbee/group_cluster.h"
 #include "zigbee/relay_cluster.h"
+#include "zigbee/poll_control_cluster.h"
 #include "zigbee/switch_cluster.h"
-#include "zigbee/cover_switch_cluster.h"
-#include "zigbee/cover_cluster.h"
 
 #include <stdint.h>
 #include <string.h>
 
 #include "base_components/led.h"
 #include "base_components/network_indicator.h"
+#include "base_components/battery.h"
 #include "config_nv.h"
+#include "device_config/device_params_nv.h"
 #include "device_config/reset.h"
 #include "hal/system.h"
 #include "hal/zigbee.h"
 #include "hal/zigbee_ota.h"
-#include "device_config/device_params_nv.h"
 
 // Forward declarations
-void periferals_init(void);
+void peripherals_init(void);
 
 // extern ota_preamble_t baseEndpoint_otaInfo;
 
@@ -63,6 +66,12 @@ hal_zigbee_cluster  clusters[32];
 hal_zigbee_endpoint endpoints[10];
 
 uint8_t allow_simultaneous_latching_pulses = 0;
+
+battery_t battery = {
+    .pin         = HAL_INVALID_PIN,
+    .voltage_min =            2000,
+    .voltage_max =            3000,
+};
 
 uint32_t parse_int(const char *s);
 char *seek_until(char *cursor, char needle);
@@ -108,6 +117,11 @@ void parse_config() {
         if (entry[0] == 'S' && entry[1] == 'L' && entry[2] == 'P') {
             // Simultaneous Latching Pulses == SLP
             allow_simultaneous_latching_pulses = 1;
+        } else if (entry[0] == 'B' && entry[1] == 'T') {
+            // Battery: BT<pin>, e.g. BTC5
+            hal_gpio_pin_t pin = hal_gpio_parse_pin(entry + 2);
+            battery.pin = pin;
+            battery_init(&battery);
         } else if (entry[0] == 'B') {
             hal_gpio_pin_t  pin  = hal_gpio_parse_pin(entry + 1);
             hal_gpio_pull_t pull = hal_gpio_parse_pull(entry + 3);
@@ -116,6 +130,7 @@ void parse_config() {
             buttons[buttons_cnt].pin = pin;
             buttons[buttons_cnt].long_press_duration_ms  = 2000;
             buttons[buttons_cnt].multi_press_duration_ms = 800;
+            buttons[buttons_cnt].debounce_delay_ms       = DEBOUNCE_DELAY_MS;
             buttons[buttons_cnt].on_long_press           = on_reset_clicked;
             buttons_cnt++;
         } else if (entry[0] == 'L') {
@@ -163,8 +178,11 @@ void parse_config() {
             buttons[buttons_cnt].pin = pin;
             buttons[buttons_cnt].long_press_duration_ms  = 800;
             buttons[buttons_cnt].multi_press_duration_ms = 800;
+            buttons[buttons_cnt].debounce_delay_ms       = DEBOUNCE_DELAY_MS;
             buttons[buttons_cnt].on_multi_press          = on_multi_press_reset;
 
+            if (entry[3] == 'd')
+                buttons[buttons_cnt].pressed_when_high = 1;
             switch_clusters[switch_clusters_cnt].switch_idx = switch_clusters_cnt;
             switch_clusters[switch_clusters_cnt].mode       =
                 ZCL_ONOFF_CONFIGURATION_SWITCH_TYPE_TOGGLE;
@@ -174,8 +192,7 @@ void parse_config() {
                 ZCL_ONOFF_CONFIGURATION_RELAY_MODE_SHORT;
             switch_clusters[switch_clusters_cnt].binded_mode =
                 ZCL_ONOFF_CONFIGURATION_BINDED_MODE_SHORT;
-            switch_clusters[switch_clusters_cnt].relay_index =
-                switch_clusters_cnt + 1;
+            switch_clusters[switch_clusters_cnt].relay_index     = switch_clusters_cnt + 1;
             switch_clusters[switch_clusters_cnt].button          = &buttons[buttons_cnt];
             switch_clusters[switch_clusters_cnt].level_move_rate = 50;
             buttons_cnt++;
@@ -210,17 +227,21 @@ void parse_config() {
             buttons[buttons_cnt].pin = open_pin;
             buttons[buttons_cnt].long_press_duration_ms  = 800;
             buttons[buttons_cnt].multi_press_duration_ms = 800;
+            buttons[buttons_cnt].debounce_delay_ms       = DEBOUNCE_DELAY_MS;
             buttons[buttons_cnt].on_multi_press          = on_multi_press_reset;
             button_t *open_button = &buttons[buttons_cnt++];
 
             buttons[buttons_cnt].pin = close_pin;
             buttons[buttons_cnt].long_press_duration_ms  = 800;
             buttons[buttons_cnt].multi_press_duration_ms = 800;
+            buttons[buttons_cnt].debounce_delay_ms       = DEBOUNCE_DELAY_MS;
             buttons[buttons_cnt].on_multi_press          = on_multi_press_reset;
             button_t *close_button = &buttons[buttons_cnt++];
 
-            cover_switch_clusters[cover_switch_clusters_cnt].open_button      = open_button;
-            cover_switch_clusters[cover_switch_clusters_cnt].close_button     = close_button;
+            cover_switch_clusters[cover_switch_clusters_cnt].open_button =
+                open_button;
+            cover_switch_clusters[cover_switch_clusters_cnt].close_button =
+                close_button;
             cover_switch_clusters[cover_switch_clusters_cnt].cover_switch_idx =
                 cover_switch_clusters_cnt;
             cover_switch_clusters_cnt++;
@@ -256,15 +277,26 @@ void parse_config() {
         }
     }
 
-    periferals_init();
+    peripherals_init();
 
-    printf("Initializing Zigbee with %d switches, %d relays, %d cover switches, %d covers\r\n",
-           switch_clusters_cnt, relay_clusters_cnt, cover_switch_clusters_cnt, cover_clusters_cnt);
+    printf("Initializing Zigbee with %d switches, %d relays, %d cover switches, "
+           "%d covers\r\n",
+           switch_clusters_cnt, relay_clusters_cnt, cover_switch_clusters_cnt,
+           cover_clusters_cnt);
 
     uint8_t total_endpoints = switch_clusters_cnt + relay_clusters_cnt +
                               cover_switch_clusters_cnt + cover_clusters_cnt;
 
     hal_zigbee_cluster *cluster_ptr = clusters;
+
+    for (int index = 0; index < switch_clusters_cnt; index++) {
+        if (switch_clusters[index].relay_index > relay_clusters_cnt) {
+            // Detach switches that point past the available relay count.
+            switch_clusters[index].relay_mode =
+                ZCL_ONOFF_CONFIGURATION_RELAY_MODE_DETACHED;
+            switch_clusters[index].relay_index = 0;
+        }
+    }
 
     // special case when no switches or relays are defined, so we can init a
     // "clean" device and configure it while running endpoint 1 still needs to be
@@ -284,6 +316,19 @@ void parse_config() {
 
     hal_ota_cluster_setup(&endpoints[0].clusters[endpoints[0].cluster_count]);
     endpoints[0].cluster_count++;
+
+    // Add battery cluster for battery-powered devices
+    if (battery.pin != HAL_INVALID_PIN) {
+        static zigbee_battery_cluster battery_cluster;
+        battery_cluster_add_to_endpoint(&battery_cluster, &endpoints[0]);
+    }
+
+#ifdef END_DEVICE
+    // Add poll control cluster for end devices
+    static zigbee_poll_control_cluster poll_ctrl_cluster;
+    poll_control_cluster_add_to_endpoint(&poll_ctrl_cluster, &endpoints[0],
+                                         battery.pin != HAL_INVALID_PIN);
+#endif
 
     for (int index = 0; index < switch_clusters_cnt; index++) {
         if (index != 0) {
@@ -314,7 +359,8 @@ void parse_config() {
                                              &endpoints[cover_switch_base + index]);
     }
 
-    int cover_base = switch_clusters_cnt + relay_clusters_cnt + cover_switch_clusters_cnt;
+    int cover_base =
+        switch_clusters_cnt + relay_clusters_cnt + cover_switch_clusters_cnt;
     for (int index = 0; index < cover_clusters_cnt; index++) {
         if (cover_base + index != 0) {
             cluster_ptr += endpoints[cover_base + index - 1].cluster_count;
@@ -339,6 +385,9 @@ void network_indicator_on_network_status_change(
     hal_zigbee_network_status_t new_status) {
     printf("Network status changed to %d\r\n", new_status);
     if (new_status == HAL_ZIGBEE_NETWORK_JOINED) {
+        if (battery.pin != HAL_INVALID_PIN) {
+            network_indicator.manual_state_when_connected = 0;
+        }
         network_indicator_connected(&network_indicator);
         update_relay_clusters();
     } else {
@@ -346,7 +395,7 @@ void network_indicator_on_network_status_change(
     }
 }
 
-void periferals_init() {
+void peripherals_init() {
     for (int index = 0; index < buttons_cnt; index++) {
         btn_init(&buttons[index]);
     }

@@ -108,6 +108,7 @@ Additional options:
 |-------------:|------------------------------|-----------------------------------------------------------------------------------|
 | **`i00000`** | Image type                   | • Change OTA image_type (migrate to another build)                                |
 | **`M`**      | Momentary                    | • Defaults buttons to momentary mode (for devices with built-in switches)         |
+| **`BT<pin>`** | Battery mode                | • Enables battery-powered behavior <br> • Adds battery measurement/reporting using the selected ADC pin |
 | **`SLP`**    | Simultaneous Latching Pulses |  • Enable simultaneous pulses for latching relays (they are disallowed by default)|
 
 ## Build and install
