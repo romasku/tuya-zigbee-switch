@@ -215,6 +215,10 @@ const romasku = {
                 for (const part of parts.slice(2)) {
                     if (part == 'SLP') {
                         continue;   
+                    } else if (part[0] == 'D') {
+                        if (!/^D\d+$/.test(part)) {
+                            throw new Error(`Debounce option ${part} is invalid. Use D<N>, e.g. D100 or D0`);
+                        }
                     } else if (part.startsWith('BT')) {
                         validatePin(part.slice(2,4));
                     } else if (part[0] == 'B' || part[0] == 'S') {
@@ -238,7 +242,7 @@ const romasku = {
                     } else if(part[0] == 'i') {
                         ; // TODO: write validation
                     } else {
-                        throw new Error(`Invalid entry ${part}. Should start with one of B, BT, R, L, S, I, X, C`);
+                        throw new Error(`Invalid entry ${part}. Should start with one of B, BT, C, D, I, L, M, R, S, SLP, X, i`);
                     }
                 }
             },
