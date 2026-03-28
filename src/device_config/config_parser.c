@@ -403,6 +403,7 @@ void network_indicator_on_network_status_change(
             network_indicator.manual_state_when_connected = 0;
         }
         network_indicator_connected(&network_indicator);
+        update_switch_clusters();
         update_relay_clusters();
     } else {
         network_indicator_not_connected(&network_indicator);
@@ -421,6 +422,8 @@ void peripherals_init() {
     }
     if (hal_zigbee_get_network_status() == HAL_ZIGBEE_NETWORK_JOINED) {
         network_indicator_connected(&network_indicator);
+        update_switch_clusters();
+        update_relay_clusters();
     } else {
         network_indicator_not_connected(&network_indicator);
     }
