@@ -8,30 +8,15 @@
 #include "zigbee_app_framework_event.h"
 
 #include "hal/gpio.h"
+#include "silabs/hal/silabs_gpio_utils.h"
 #include <stdio.h>
 
 // Get container structure from embedded member pointer
 #define container_of(ptr, type, member) \
         ((type *)((char *)(ptr) - offsetof(type, member)))
 
-// ------ Encoding helpers ------
-// hal_gpio_pin_t: upper byte = port index (A=0, B=1, ...), lower byte = pin
-// [0..15]
-#define HAL_GPIO_PIN_NUM(g)       ((uint8_t)((g) & 0xFF))
-#define HAL_GPIO_PORT_INDEX(g)    ((uint8_t)(((g) >> 8) & 0xFF))
-#define HAL_GPIO_TO_SL_GPIO(g)                                             \
-        ((sl_gpio_t){ .port = hal_port_from_index(HAL_GPIO_PORT_INDEX(g)), \
-                      .pin = HAL_GPIO_PIN_NUM(g) })
-
 #define LINE_MISSING     0xFF
 #define MAX_INT_LINES    16
-
-static inline uint8_t hal_port_from_index(uint8_t idx) {
-    static const uint8_t lut[] = { gpioPortA, gpioPortB, gpioPortC, gpioPortD };
-
-    EFM_ASSERT(idx < (sizeof(lut) / sizeof(lut[0])));
-    return lut[idx];
-}
 
 // ------ One-time init guards ------
 static bool s_gpio_clock_enabled = false;
@@ -103,7 +88,7 @@ void hal_gpio_init(hal_gpio_pin_t gpio_pin, uint8_t is_input,
                    hal_gpio_pull_t pull_direction) {
     hal_gpio_ensure_clock();
 
-    const sl_gpio_t sl_gpio = HAL_GPIO_TO_SL_GPIO(gpio_pin);
+    const sl_gpio_t sl_gpio = silabs_hal_gpio_to_sl_gpio(gpio_pin);
 
     if (is_input) {
         switch (pull_direction) {
@@ -130,19 +115,19 @@ void hal_gpio_init(hal_gpio_pin_t gpio_pin, uint8_t is_input,
 }
 
 void hal_gpio_set(hal_gpio_pin_t gpio_pin) {
-    const sl_gpio_t sl_gpio = HAL_GPIO_TO_SL_GPIO(gpio_pin);
+    const sl_gpio_t sl_gpio = silabs_hal_gpio_to_sl_gpio(gpio_pin);
 
     sl_gpio_set_pin(&sl_gpio);
 }
 
 void hal_gpio_clear(hal_gpio_pin_t gpio_pin) {
-    const sl_gpio_t sl_gpio = HAL_GPIO_TO_SL_GPIO(gpio_pin);
+    const sl_gpio_t sl_gpio = silabs_hal_gpio_to_sl_gpio(gpio_pin);
 
     sl_gpio_clear_pin(&sl_gpio);
 }
 
 uint8_t hal_gpio_read(hal_gpio_pin_t gpio_pin) {
-    const sl_gpio_t sl_gpio = HAL_GPIO_TO_SL_GPIO(gpio_pin);
+    const sl_gpio_t sl_gpio = silabs_hal_gpio_to_sl_gpio(gpio_pin);
     bool            value   = 0;
 
     sl_gpio_get_pin_input(&sl_gpio, &value);
@@ -161,7 +146,7 @@ void hal_gpio_callback(hal_gpio_pin_t gpio_pin, gpio_callback_t callback,
     hal_gpio_ensure_clock();
     hal_gpio_ensure_gpio_init();
 
-    const sl_gpio_t sl_gpio = HAL_GPIO_TO_SL_GPIO(gpio_pin);
+    const sl_gpio_t sl_gpio = silabs_hal_gpio_to_sl_gpio(gpio_pin);
 
     // Allocate a regular EXTI line (for edge interrupts while awake)
     int32_t slot_no = alloc_int_slot();
@@ -189,7 +174,6 @@ void hal_gpio_callback(hal_gpio_pin_t gpio_pin, gpio_callback_t callback,
 void hal_gpio_unreg_callback(hal_gpio_pin_t gpio_pin) {
     printf("hal_gpio_unreg_callback pin %02X\r\n", gpio_pin);
 
-    int32_t int_no = LINE_MISSING;
     for (uint8_t i = 0; i < MAX_INT_LINES; i++) {
         if (s_slots[i].in_use && s_slots[i].hal_pin == gpio_pin) {
             sl_gpio_deconfigure_external_interrupt(s_slots[i].line);
