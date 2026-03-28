@@ -314,3 +314,34 @@ def test_nvm_persist_v2_attributes() -> None:
             assert actual == expected, (
                 f"Attribute 0x{attr_id:04x} not preserved: expected {expected}, got {actual}"
             )
+
+
+# ---------------------------------------------------------------------------
+# Simultaneous presses on multiple buttons
+# ---------------------------------------------------------------------------
+
+
+def test_simultaneous_presses_are_independent(
+    device: Device, relay_button_pairs: list[RelayButtonPair]
+):
+    """Near-simultaneous presses on two buttons don't interfere: each cluster tracks its own n_press."""
+    assert len(relay_button_pairs) >= 2, "Need at least 2 switch+relay pairs"
+    pair_a, pair_b = relay_button_pairs[0], relay_button_pairs[1]
+
+    for ep in (pair_a.switch_endpoint, pair_b.switch_endpoint):
+        device.zcl_switch_mode_set(ep, ZCL_ONOFF_CONFIGURATION_SWITCH_TYPE_MOMENTARY)
+        device.zcl_switch_relay_mode_set(ep, ZCL_ONOFF_CONFIGURATION_RELAY_MODE_DETACHED)
+        device.zcl_switch_binding_mode_set(ep, 0)
+
+    # Button A: double-click
+    device.click_button(pair_a.button_pin)
+    device.click_button(pair_a.button_pin)
+
+    # Button B: single-click (interleaved, nearly simultaneous)
+    device.click_button(pair_b.button_pin)
+
+    device.step_time(CONFIRM_STEP_MS)
+
+    # A must report double_press (7), B must report single_press (5)
+    assert device.zcl_switch_get_multistate_value(pair_a.switch_endpoint) == "7"
+    assert device.zcl_switch_get_multistate_value(pair_b.switch_endpoint) == "5"
