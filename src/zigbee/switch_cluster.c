@@ -36,13 +36,37 @@ const uint8_t multistate_flags          = 0;
 
 extern zigbee_relay_cluster relay_clusters[];
 extern uint8_t relay_clusters_cnt;
+extern zigbee_switch_cluster switch_clusters[];
+extern uint8_t switch_clusters_cnt;
 
 void switch_cluster_on_button_press(zigbee_switch_cluster *cluster);
 void switch_cluster_on_button_release(zigbee_switch_cluster *cluster);
 void switch_cluster_timer_hold_cb(zigbee_switch_cluster *cluster);
 void switch_cluster_timer_confirm_cb(zigbee_switch_cluster *cluster);
+void switch_cluster_on_button_long_press(zigbee_switch_cluster *cluster);
+static bool switch_cluster_has_valid_relay(
+    const zigbee_switch_cluster *cluster);
 
 zigbee_switch_cluster *switch_cluster_by_endpoint[10];
+
+static void sync_switch_indicator_led(zigbee_switch_cluster *cluster) {
+    if (cluster->indicator_led == NULL) {
+        return;
+    }
+
+    if (cluster->relay_mode != ZCL_ONOFF_CONFIGURATION_RELAY_MODE_DETACHED &&
+        switch_cluster_has_valid_relay(cluster)) {
+        return;
+    }
+
+    led_off(cluster->indicator_led);
+}
+
+void update_switch_clusters() {
+    for (int i = 0; i < switch_clusters_cnt; i++) {
+        sync_switch_indicator_led(&switch_clusters[i]);
+    }
+}
 
 static bool switch_cluster_has_valid_relay(const zigbee_switch_cluster *cluster) {
     return cluster->relay_index > 0 && cluster->relay_index <= relay_clusters_cnt;

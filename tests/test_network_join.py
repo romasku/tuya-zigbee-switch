@@ -43,6 +43,17 @@ def test_led_stops_blinking_after_join() -> None:
             assert device.get_gpio("B0", refresh=True) == state
 
 
+def test_shared_switch_indicator_turns_off_after_join() -> None:
+    with StubProc(device_config="A;B;SA0u;IA1;", joined=False) as proc:
+        device = Device(proc)
+
+        assert device.get_gpio("A1", refresh=True)
+
+        device.set_network(HAL_ZIGBEE_NETWORK_JOINED)
+
+        assert not device.get_gpio("A1", refresh=True)
+
+
 def test_auto_joining_after_kicked() -> None:
     with StubProc(device_config="A;B;LB0;") as proc:
         device = Device(proc)
@@ -131,9 +142,9 @@ def test_multipress_reset_disabled_when_zero() -> None:
         # Pressing up to 15 times should never cause the device to leave
         for i in range(1, 16):
             device.click_button("A0")
-            assert device.status()["joined"] == str(
-                HAL_ZIGBEE_NETWORK_JOINED
-            ), f"Device unexpectedly reset after {i} presses"
+            assert device.status()["joined"] == str(HAL_ZIGBEE_NETWORK_JOINED), (
+                f"Device unexpectedly reset after {i} presses"
+            )
 
 
 def test_leaves_on_onboard_button_long_press() -> None:

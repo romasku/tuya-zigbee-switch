@@ -228,15 +228,20 @@ hal_zigbee_network_status_t hal_zigbee_get_network_status() {
 static hal_network_status_change_callback_t network_status_change_callback =
     NULL;
 
+static void notify_network_status_change(void) {
+    if (network_status_change_callback != NULL) {
+        network_status_change_callback(hal_zigbee_get_network_status());
+    }
+}
+
 void hal_register_on_network_status_change_callback(
     hal_network_status_change_callback_t callback) {
     network_status_change_callback = callback;
 }
 
-void sl_zigbee_af_stack_status_callback(sl_status_t status) {
-    if (network_status_change_callback != NULL) {
-        network_status_change_callback(hal_zigbee_get_network_status());
-    }
+void sl_zigbee_af_stack_status_cb(sl_status_t status) {
+    (void)status;
+    notify_network_status_change();
 }
 
 void hal_zigbee_leave_network() {
@@ -255,12 +260,13 @@ void sl_zigbee_af_network_steering_complete_cb(sl_status_t status,
                                                uint8_t totalBeacons,
                                                uint8_t joinAttempts,
                                                uint8_t finalState) {
+    (void)status;
+    (void)totalBeacons;
+    (void)joinAttempts;
+    (void)finalState;
     network_steering_in_progress = false;
 
-    // Notify application of network status change
-    if (network_status_change_callback != NULL) {
-        network_status_change_callback(hal_zigbee_get_network_status());
-    }
+    notify_network_status_change();
 }
 
 static uint8_t make_frame_control(const hal_zigbee_cmd *c) {

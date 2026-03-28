@@ -18,6 +18,7 @@ source:
 - {path: ../../silabs/hal/system.c}
 - {path: ../../silabs/hal/adc.c}
 - {path: ../../silabs/hal/ota.c}
+- {path: ../../silabs/hal/silabs_gpio_utils.h}
 - {path: ../../hal/adc.h}
 - {path: ../../hal/zigbee.h}
 - {path: ../../hal/gpio.h}
@@ -75,6 +76,7 @@ component:
 - instance: [example]
   id: cli
 - {id: gpiointerrupt}
+- {id: emlib_iadc}
 - {id: iostream_recommended_stream}
 - { instance: [inst], id: iostream_usart}
 - {id: toolchain_gcc}
@@ -147,4 +149,3 @@ ui_hints: {}
 define: 
   - name: HAL_SILABS
     value: '1'
-

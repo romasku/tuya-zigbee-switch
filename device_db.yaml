@@ -2955,16 +2955,16 @@ REMOTE_TUYA_TS004F:
   tuya_module: ZS3L
   mcu_family: Silabs
   mcu: EFR32MG21A020F768IM32
-  config_str: xabckq1v;TS004F-TUYA;SA0d;SA3d;SA4d;SB0d;M;
+  config_str: xabckq1v;TS004F-TUYA;SA0d;IC1i;SA3d;IC2i;SA4d;IC0i;SB0d;ID0i;BTA0;M;
   alt_config_str: null
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: null
   stock_image_type: null
   firmware_image_type: 43578
-  build: no
-  status: in_progress
-  info: Huge battery drain! LEDs on C1, C2, C0, D0
+  build: yes
+  status: mostly_supported
+  info: Should work, measured battery drain is ~5uA, but wasn't battle tested.
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/171
   store: null
 SWITCH_AVATTO_TOUCH_TS0001:
