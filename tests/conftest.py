@@ -16,6 +16,8 @@ from tests.zcl_consts import (
     ZCL_ATTR_ONOFF,
     ZCL_ATTR_ONOFF_CONFIGURATION_SWITCH_ACTIONS,
     ZCL_ATTR_ONOFF_CONFIGURATION_SWITCH_BINDING_MODE,
+    ZCL_ATTR_ONOFF_CONFIGURATION_SWITCH_CONFIRM_RELEASE_DUR,
+    ZCL_ATTR_ONOFF_CONFIGURATION_SWITCH_MAX_PRESS_COUNT,
     ZCL_ATTR_ONOFF_CONFIGURATION_SWITCH_MODE,
     ZCL_ATTR_ONOFF_CONFIGURATION_SWITCH_RELAY_MODE,
     ZCL_ATTR_WINDOW_COVERING_MOTOR_REVERSAL,
@@ -415,6 +417,30 @@ class Device:
             ZCL_CLUSTER_ON_OFF_SWITCH_CONFIG,
             ZCL_ATTR_ONOFF_CONFIGURATION_SWITCH_BINDING_MODE,
             binding_mode,
+        )
+
+    def zcl_switch_confirm_release_dur_set(self, endpoint: int, dur_ms: int) -> None:
+        self.write_zigbee_attr(
+            endpoint,
+            ZCL_CLUSTER_ON_OFF_SWITCH_CONFIG,
+            ZCL_ATTR_ONOFF_CONFIGURATION_SWITCH_CONFIRM_RELEASE_DUR,
+            dur_ms,
+        )
+
+    def zcl_switch_max_press_count_set(self, endpoint: int, count: int) -> None:
+        self.write_zigbee_attr(
+            endpoint,
+            ZCL_CLUSTER_ON_OFF_SWITCH_CONFIG,
+            ZCL_ATTR_ONOFF_CONFIGURATION_SWITCH_MAX_PRESS_COUNT,
+            count,
+        )
+
+    def zcl_switch_action_set(self, endpoint: int, attr_id: int, action: int) -> None:
+        self.write_zigbee_attr(
+            endpoint,
+            ZCL_CLUSTER_ON_OFF_SWITCH_CONFIG,
+            attr_id,
+            action,
         )
 
     def zcl_switch_get_multistate_value(self, endpoint: int) -> str:

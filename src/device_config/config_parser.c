@@ -111,6 +111,7 @@ void parse_config() {
     memcpy(basic_cluster.modelId + 1, zb_model, basic_cluster.modelId[0]);
 
     bool     has_dedicated_status_led = false;
+    uint8_t  switch_indicator_cnt     = 0;
     uint16_t debounce_ms = DEBOUNCE_DELAY_MS;
     char *   entry;
     for (entry = extract_next_entry(&cursor); *entry != '\0';
@@ -119,7 +120,7 @@ void parse_config() {
             // Simultaneous Latching Pulses == SLP
             allow_simultaneous_latching_pulses = 1;
         } else if (entry[0] == 'D' && entry[1] >= '0' && entry[1] <= '9') {
-            // D<N> sets the global debounce duration in milliseconds.
+            // D<N> — global debounce duration in ms (e.g. D0 to disable)
             debounce_ms = (uint16_t)parse_int(entry + 1);
             for (int i = 0; i < buttons_cnt; i++) {
                 buttons[i].debounce_delay_ms = debounce_ms;
@@ -161,18 +162,18 @@ void parse_config() {
             leds[leds_cnt].on_high = entry[3] != 'i';
             led_init(&leds[leds_cnt]);
 
-            for (int index = 0; index < 4; index++) {
-                if (relay_clusters[index].indicator_led == NULL) {
-                    relay_clusters[index].indicator_led = &leds[leds_cnt];
-                    break;
+            if (relay_clusters_cnt > 0) {
+                for (int index = 0; index < 4; index++) {
+                    if (relay_clusters[index].indicator_led == NULL) {
+                        relay_clusters[index].indicator_led = &leds[leds_cnt];
+                        break;
+                    }
                 }
             }
 
-            for (int index = 0; index < 4; index++) {
-                if (switch_clusters[index].indicator_led == NULL) {
-                    switch_clusters[index].indicator_led = &leds[leds_cnt];
-                    break;
-                }
+            if (switch_indicator_cnt < switch_clusters_cnt) {
+                switch_clusters[switch_indicator_cnt].indicator_led = &leds[leds_cnt];
+                switch_indicator_cnt++;
             }
 
             if (!has_dedicated_status_led) {

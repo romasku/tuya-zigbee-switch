@@ -20,6 +20,12 @@ Please describe what you are working on:
 - **Push-button without relay** support for battery-powered scene switches
   - Switches auto-detect absence of relays and default to detached mode
   - New device: Moes 4-gang scene switch (`REMOTE_MOES_SWITCH_TS0044`)
+- **Multi-press action reporting** — firmware detects single, double, triple (and beyond) presses and reports them as distinct multistate values. Automations are handled entirely in Z2M/ZHA.
+  - New multistate values: `single_press` (5), `single_release` (6), `double_press` (7), `double_hold` (8), `double_release` (9), `triple_press` (10), `triple_hold` (11), `triple_release` (12), …
+  - Two new configurable attributes per switch endpoint:
+    - **`confirm_release_ms`** (0xFF06) — window to wait for a follow-up press before confirming the count (default 200 ms)
+    - **`max_press_count`** (0xFF07) — maximum number of presses to detect; set to 3 for triple-press support (default 2)
+  - Fully backward-compatible: `long_press` still maps to multistate value 2
 - **Battery measurement & reporting** (Zigbee `genPowerCfg` cluster) for Telink devices
 - **Deep retention sleep** for Telink end devices
 

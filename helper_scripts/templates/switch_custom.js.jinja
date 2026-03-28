@@ -107,15 +107,42 @@ const romasku = {
             valueMax: 255,
             entityCategory: "config",
         }),
+    confirmReleaseMs: (name, endpointName) =>
+        numeric({
+            name,
+            endpointNames: [endpointName],
+            cluster: "genOnOffSwitchCfg",
+            attribute: { ID: 0xff06, type: 0x21 }, // uint16
+            description: "Time (ms) to wait after release before confirming press count (single vs double etc.)",
+            valueMin: 0,
+            valueMax: 2000,
+            entityCategory: "config",
+        }),
+    maxPressCount: (name, endpointName) =>
+        numeric({
+            name,
+            endpointNames: [endpointName],
+            cluster: "genOnOffSwitchCfg",
+            attribute: { ID: 0xff07, type: 0x20 }, // uint8
+            description: "Maximum number of consecutive presses to differentiate (1=single only, 2=single+double, 3=+triple)",
+            valueMin: 1,
+            valueMax: 3,
+            entityCategory: "config",
+        }),
     pressAction: (name, endpointName) =>
         enumLookup({
             name,
             endpointName,
             access: "STATE_GET",
-            lookup: { released: 0, press: 1, long_press: 2, position_on: 3, position_off: 4 },
+            lookup: {
+                released: 0, press: 1, long_press: 2, position_on: 3, position_off: 4,
+                single_press: 5, single_release: 6,
+                double_press: 7, double_hold: 8, double_release: 9,
+                triple_press: 10, triple_hold: 11, triple_release: 12,
+            },
             cluster: "genMultistateInput",
             attribute: "presentValue",
-            description: "Action of the switch: 'released' or 'press' or 'long_press'",
+            description: "Action of the switch: press/long_press/single_press/double_press/triple_press etc.",
             entityCategory: "diagnostic",
         }),
     relayIndicatorMode: (name, endpointName) =>
@@ -435,6 +462,8 @@ const definitions = [
             romasku.bindedMode("{{switchName}}_binded_mode", "{{switchName}}"),
             romasku.longPressDuration("{{switchName}}_long_press_duration", "{{switchName}}"),
             romasku.levelMoveRate("{{switchName}}_level_move_rate", "{{switchName}}"),
+            romasku.confirmReleaseMs("{{switchName}}_confirm_release_ms", "{{switchName}}"),
+            romasku.maxPressCount("{{switchName}}_max_press_count", "{{switchName}}"),
             {% endfor %}
             {% for relayName in device.relayIndicatorNames %}
             romasku.relayIndicatorMode("{{relayName}}_indicator_mode", "{{relayName}}"),
