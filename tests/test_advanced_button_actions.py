@@ -95,6 +95,20 @@ def test_triple_press_multistate_is_10(
     assert momentary_detached.zcl_switch_get_multistate_value(ep) == "10"
 
 
+def test_press_count_clamped_to_max(
+    momentary_detached: Device, relay_button_pair: RelayButtonPair
+):
+    """n_press is clamped to max_press_count: 5 rapid clicks with max=3 still reports triple_press (10)."""
+    ep = relay_button_pair.switch_endpoint
+    momentary_detached.zcl_switch_max_press_count_set(ep, 3)
+
+    for _ in range(5):
+        momentary_detached.click_button(relay_button_pair.button_pin)
+
+    momentary_detached.step_time(CONFIRM_STEP_MS)
+    assert momentary_detached.zcl_switch_get_multistate_value(ep) == "10"
+
+
 # ---------------------------------------------------------------------------
 # Hold multistate values (persists during hold)
 # ---------------------------------------------------------------------------
