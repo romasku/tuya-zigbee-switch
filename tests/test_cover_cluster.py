@@ -2,14 +2,12 @@
 import pytest
 
 from client import StubProc
-from conftest import Device
+from conftest import Device, MINIMUM_SWITCH_TIME_MS
 from zcl_consts import (
     ZCL_WINDOW_COVERING_MOVING_STOPPED,
     ZCL_WINDOW_COVERING_MOVING_OPENING,
     ZCL_WINDOW_COVERING_MOVING_CLOSING,
 )
-
-MINIMUM_SWITCH_TIME_MS = 200
 
 
 @pytest.fixture

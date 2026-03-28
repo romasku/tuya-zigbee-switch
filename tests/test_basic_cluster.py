@@ -12,6 +12,7 @@ from tests.zcl_consts import (
     ZCL_ATTR_BASIC_HW_VER,
     ZCL_ATTR_BASIC_MFR_NAME,
     ZCL_ATTR_BASIC_MODEL_ID,
+    ZCL_ATTR_BASIC_MULTI_PRESS_RESET_COUNT,
     ZCL_ATTR_BASIC_POWER_SOURCE,
     ZCL_ATTR_BASIC_STACK_VER,
     ZCL_ATTR_BASIC_STATUS_LED_STATE,
@@ -130,6 +131,32 @@ def test_network_led_preserved_via_nvm_control(device: Device, state: str) -> No
             == state
         )
         assert device.get_gpio("B0", refresh=True) == (state == "1")
+
+
+def test_multi_press_reset_count_default(device: Device) -> None:
+    assert (
+        device.read_zigbee_attr(
+            1, ZCL_CLUSTER_BASIC, ZCL_ATTR_BASIC_MULTI_PRESS_RESET_COUNT
+        )
+        == "10"
+    )
+
+
+def test_multi_press_reset_count_preserved_via_nvm() -> None:
+    with StubProc(device_config="A;B;SA0u;RB0;") as proc:
+        device = Device(proc)
+        device.write_zigbee_attr(
+            1, ZCL_CLUSTER_BASIC, ZCL_ATTR_BASIC_MULTI_PRESS_RESET_COUNT, "5"
+        )
+
+    with StubProc(device_config="A;B;SA0u;RB0;") as proc:
+        device = Device(proc)
+        assert (
+            device.read_zigbee_attr(
+                1, ZCL_CLUSTER_BASIC, ZCL_ATTR_BASIC_MULTI_PRESS_RESET_COUNT
+            )
+            == "5"
+        )
 
 
 def test_device_config_write_schedules_reset(tmp_path):

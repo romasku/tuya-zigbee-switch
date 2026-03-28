@@ -1,6 +1,5 @@
 #include "commands.h"
 #include "machine_io.h"
-#include "parsing.h"
 
 #include "hal/timer.h"
 #include "hal/zigbee.h"
@@ -10,7 +9,30 @@
 #include "stub/stub_app.h"
 #include "zigbee/consts.h"
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
+
+static int parse_u8_dec(const char *s, uint8_t *out) {
+    char *e = NULL;
+    long  v = strtol(s, &e, 10);
+
+    if (*s == '\0' || *e || v < 0 || v > 255)
+        return -1;
+
+    *out = (uint8_t)v;
+    return 0;
+}
+
+static int parse_u16_hex(const char *s, uint16_t *out) {
+    char *e = NULL;
+    long  v = strtol(s, &e, 16);
+
+    if (*s == '\0' || *e || v < 0 || v > 0xFFFF)
+        return -1;
+
+    *out = (uint16_t)v;
+    return 0;
+}
 
 extern volatile sig_atomic_t g_should_exit;
 
@@ -47,8 +69,8 @@ static int cmd_status(int argc, char **argv) {
     (void)argc;
     (void)argv;
     stub_app_show_status();
-    io_res_ok("uptime_ms=%u joined=%d", hal_millis(),
-              hal_zigbee_get_network_status());
+    io_res_ok("uptime_ms=%u joined=%d poll_rate_ms=%u", hal_millis(),
+              hal_zigbee_get_network_status(), hal_zigbee_get_poll_rate_ms());
     return 0;
 }
 
@@ -214,7 +236,7 @@ static int cmd_read_pin(int argc, char **argv) {
     return 0;
 }
 
-static int cmd_zcl_cmd(int argc, char **argv) {
+static int cmd_zcl_cmd_impl(int argc, char **argv, bool trigger_activity) {
     if (argc < 4) {
         fprintf(stderr, "Usage: zcl_cmd <ep:dec> <cluster:hex> <cmd:hex> "
                 "[payload:hex_bytes...]\n");
@@ -247,13 +269,30 @@ static int cmd_zcl_cmd(int argc, char **argv) {
         payload[payload_len++] = (uint8_t)byte_val;
     }
 
-    hal_zigbee_cmd_result_t result = stub_zigbee_simulate_command(
-        ep, cluster, cmd_id, payload_len > 0 ? payload : NULL);
+    hal_zigbee_cmd_result_t result;
+    if (trigger_activity) {
+        result = stub_zigbee_simulate_command(ep, cluster, cmd_id,
+                                              payload_len > 0 ? payload : NULL,
+                                              payload_len);
+    } else {
+        result = stub_zigbee_simulate_command_without_activity(
+            ep, cluster, cmd_id, payload_len > 0 ? payload : NULL,
+            payload_len);
+    }
 
     const char *result_str;
     switch (result) {
     case HAL_ZIGBEE_CMD_PROCESSED:
         result_str = "PROCESSED";
+        break;
+    case HAL_ZIGBEE_INVALID_VALUE:
+        result_str = "INVALID_VALUE";
+        break;
+    case HAL_ZIGBEE_MALFORMED_COMMAND:
+        result_str = "MALFORMED_COMMAND";
+        break;
+    case HAL_ZIGBEE_ACTION_DENIED:
+        result_str = "ACTION_DENIED";
         break;
     case HAL_ZIGBEE_CMD_SKIPPED:
         result_str = "SKIPPED";
@@ -270,6 +309,14 @@ static int cmd_zcl_cmd(int argc, char **argv) {
               cluster, cmd_id, result_str, payload_len);
 
     return 0;
+}
+
+static int cmd_zcl_cmd(int argc, char **argv) {
+    return cmd_zcl_cmd_impl(argc, argv, true);
+}
+
+static int cmd_zcl_cmd_no_activity(int argc, char **argv) {
+    return cmd_zcl_cmd_impl(argc, argv, false);
 }
 
 static int cmd_freeze_time(int argc, char **argv) {
@@ -311,23 +358,44 @@ static int cmd_step_time(int argc, char **argv) {
     return 0;
 }
 
+static int cmd_set_battery_voltage(int argc, char **argv) {
+    if (argc != 2) {
+        fprintf(stderr, "Usage: set_battery_voltage <millivolts>\n");
+        io_res_err("usage");
+        return -1;
+    }
+    char *e   = NULL;
+    long  val = strtol(argv[1], &e, 10);
+    if (*argv[1] == '\0' || *e || val < 0 || val > 0xFFFF) {
+        fprintf(stderr, "Bad voltage value: %s\n", argv[1]);
+        io_res_err("bad_value=%s", argv[1]);
+        return -1;
+    }
+    stub_set_battery_voltage_mv((uint16_t)val);
+    printf("Battery voltage set to %ld mV\n", val);
+    io_res_ok("voltage_mv=%ld", val);
+    return 0;
+}
+
 /* Command table */
 static const SimpleReplCommand kCmds[] = {
-    { "machine",        cmd_machine        },
-    { "help",           cmd_help           },
-    { "s",              cmd_status         },
-    { "status",         cmd_status         },
-    { "net",            cmd_net            },
-    { "set_pin",        cmd_pin            },
-    { "read_pin",       cmd_read_pin       },
-    { "zcl_read",       cmd_zcl_read       },
-    { "zcl_write",      cmd_zcl_write      },
-    { "zcl_list_attrs", cmd_zcl_list_attrs },
-    { "zcl_cmd",        cmd_zcl_cmd        },
-    { "freeze_time",    cmd_freeze_time    },
-    { "step_time",      cmd_step_time      },
-    { "q",              cmd_quit           },
-    { "quit",           cmd_quit           },
+    { "machine",             cmd_machine             },
+    { "help",                cmd_help                },
+    { "s",                   cmd_status              },
+    { "status",              cmd_status              },
+    { "net",                 cmd_net                 },
+    { "set_pin",             cmd_pin                 },
+    { "read_pin",            cmd_read_pin            },
+    { "zcl_read",            cmd_zcl_read            },
+    { "zcl_write",           cmd_zcl_write           },
+    { "zcl_list_attrs",      cmd_zcl_list_attrs      },
+    { "zcl_cmd",             cmd_zcl_cmd             },
+    { "zcl_cmd_no_activity", cmd_zcl_cmd_no_activity },
+    { "freeze_time",         cmd_freeze_time         },
+    { "step_time",           cmd_step_time           },
+    { "set_battery_voltage", cmd_set_battery_voltage },
+    { "q",                   cmd_quit                },
+    { "quit",                cmd_quit                },
 };
 
 const SimpleReplCommand *commands_table(void) {

@@ -92,18 +92,29 @@ if __name__ == "__main__":
             }
         })
 
+        # multiPressResetCount on Basic cluster, endpoint 1
+        basic_custom_attrs = {
+            "multiPressResetCount": {"type": "value", "clusterId": 0x0000, "attributeId": 0xff02, "dataType": 0x20, "action": True}
+        }
+        basic_exposes = ["multiPressResetCount"]
+        basic_options = {
+            "multiPressResetCount": {"type": "number", "min": 0, "max": 255}
+        }
+
         if has_dedicated_net_led:
-            data[zb_manufacturer].append({
-                "modelNames": model_names,
-                "exposes": ["networkIndicator"],
-                "options": {
-                    "customAttributes": {
-                        "networkIndicator": {"type": "bool", "clusterId": 0x0000, "attributeId": 0xff01, "dataType": 0x10, "action": True}
-                    },
-                    "networkIndicator": {"type": "toggle"}
-                },
-                "endpointId": 1
-            })
+            basic_custom_attrs["networkIndicator"] = {"type": "bool", "clusterId": 0x0000, "attributeId": 0xff01, "dataType": 0x10, "action": True}
+            basic_exposes.append("networkIndicator")
+            basic_options["networkIndicator"] = {"type": "toggle"}
+
+        data[zb_manufacturer].append({
+            "modelNames": model_names,
+            "exposes": basic_exposes,
+            "options": {
+                "customAttributes": basic_custom_attrs,
+                **basic_options
+            },
+            "endpointId": 1
+        })
 
         if relay_cnt:
             relay_endpoints = list(range(switch_cnt + 1, switch_cnt + 1 + relay_cnt))
@@ -135,11 +146,11 @@ if __name__ == "__main__":
                         "levelMoveRate": {"type": "value", "clusterId": 0x0007, "attributeId": 0xff04, "dataType": 0x20, "action": True},
                         "bindedMode": {"type": "enum", "clusterId": 0x0007, "attributeId": 0xff05, "dataType": 0x30, "action": True},
                         "pressAction": {"type": "enum", "clusterId": 0x0012, "attributeId": 0x0055, "dataType": 0x21, "binding": True,
-                                        "reporting": {"minInterval": 0, "maxInterval": 65535, "valueChange": 1}}
+                                        "reporting": {"minInterval": 0, "maxInterval": 255, "valueChange": 1}}
                     },
                     "switchAction": {"type": "select", "enum": ["on_off", "off_on", "toggle_simple", "toggle_smart_sync", "toggle_smart_opposite"]},
                     "switchMode": {"type": "select", "enum": ["toggle", "momentary", "momentary_nc"]},
-                    "relayMode": {"type": "select", "enum": ["detached", "press_start", "short_press", "long_press"]},
+                    "relayMode": {"type": "select", "enum": ["detached", "press_start", "long_press", "short_press"]},
                     "relayIndex": {"type": "select", "enum": {str(i + 1): f"relay_{i + 1}" for i in range(relay_cnt)}},
                     "longPressDuration": {"type": "number", "min": 0, "max": 5000},
                     "levelMoveRate": {"type": "number", "min": 1, "max": 255},

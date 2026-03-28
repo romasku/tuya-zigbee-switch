@@ -44,12 +44,12 @@
 /*
  * ZCL Cluster Support Configuration
  */
-#define ZCL_POWER_CFG_SUPPORT          0 /* Power configuration cluster */
+#define ZCL_POWER_CFG_SUPPORT          1 /* Power configuration cluster */
 #define ZCL_ON_OFF_SUPPORT             1 /* On/Off cluster */
 #define ZCL_ONOFF_CONFIGUATION         1 /* On/Off cluster configuration */
 #define ZCL_LEVEL_CTRL                 1 /* Level control cluster */
 /* #define ZCL_IAS_ZONE_SUPPORT 1     */ /* IAS Zone cluster (disabled) */
-#define ZCL_POLL_CTRL_SUPPORT          0 /* Poll control cluster */
+#define ZCL_POLL_CTRL_SUPPORT          1 /* Poll control cluster */
 #define ZCL_GROUP_SUPPORT              1 /* Groups cluster */
 #define ZCL_OTA_SUPPORT                1 /* OTA upgrade cluster */
 #define ZCL_WINDOW_COVERING_SUPPORT    1 /* Window covering cluster */

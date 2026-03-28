@@ -2,6 +2,7 @@
 #define _SWITCH_CLUSTER_H_
 
 #include "base_components/button.h"
+#include "base_components/led.h"
 #include "hal/zigbee.h"
 #include <stdint.h>
 
@@ -29,6 +30,7 @@ typedef struct {
     hal_zigbee_attribute multistate_attr_infos[4];
     uint8_t              level_move_rate;
     uint8_t              level_move_direction;
+    led_t *              indicator_led;
 } zigbee_switch_cluster;
 
 void switch_cluster_add_to_endpoint(zigbee_switch_cluster *cluster,
@@ -36,5 +38,7 @@ void switch_cluster_add_to_endpoint(zigbee_switch_cluster *cluster,
 
 void switch_cluster_callback_attr_write_trampoline(uint8_t endpoint,
                                                    uint16_t attribute_id);
+
+void update_switch_clusters(void);
 
 #endif

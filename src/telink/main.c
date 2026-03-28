@@ -9,9 +9,10 @@
 
 #include "telink_size_t_hack.h"
 
+#include "device_config/config_parser.h"
+
 #include "app.h"
 #include "hal/gpio.h"
-#include "hal/tasks.h"
 #include "hal/telink_zigbee_hal.h"
 #include "hal/zigbee.h"
 
@@ -42,15 +43,33 @@ _attribute_ram_code_sec_ int main(void) {
 }
 
 int real_main(startup_state_e state) {
-    printf("Started!\r\n");
-
     uint8_t isRetention = (state == SYSTEM_DEEP_RETENTION) ? 1 : 0;
 
     os_init(isRetention);
 
     irq_enable();
 
-    app_init();
+    if (!isRetention) {
+        app_init();
+    }
+#ifdef ZB_ED_ROLE
+    else {
+        // Re-configure radio PHY — hardware registers are lost during deep
+        // retention.  Without this the MAC layer can hang on the next Data
+        // Request (e.g. tl_zbNwkQuickDataPollCb), keeping the radio powered
+        // (~4 mA) indefinitely.  Matches the Telink SDK pattern used in
+        // sampleContactSensor / sampleSwitch.
+        mac_phyReconfig();
+
+        telink_gpio_reinit_after_deep_retention();
+        telink_gpio_reinit_interrupts();
+    }
+#endif
+
+    if (battery.pin != HAL_INVALID_PIN) {
+        // Use lower TX power if battery powered
+        g_zb_txPowerSet = RF_POWER_INDEX_P3p01dBm;
+    }
 
     drv_wd_setInterval(1000);
     drv_wd_start();
@@ -69,13 +88,24 @@ int real_main(startup_state_e state) {
 #if PM_ENABLE
         if (!tl_stackBusy() && zb_isTaskDone()) {
             telink_gpio_hal_setup_wake_ups();
-            ev_timer_event_t *timerEvt = ev_timer_nearestGet();
-            u32 sleepDuration          = 1000;
-            if (timerEvt) {
-                sleepDuration = timerEvt->timeout < 1000 ? timerEvt->timeout : 1000;
+            // Only use deep retention for battery devices,
+            // as it messes with GPIO output state, and relays cannot be
+            // driven via PULL-ups, it may cause issues.
+            if (battery.pin != HAL_INVALID_PIN) {
+                telink_gpio_to_pull_for_deep_retention();
+                drv_pm_lowPowerEnter();
+                // If we didn't actually enter deep retention, restore GPIO
+                // as it was configured to use pulls for retention
+                telink_gpio_reinit_after_deep_retention();
+            } else {
+                ev_timer_event_t *timerEvt = ev_timer_nearestGet();
+                u32 sleepDuration          = 1000;
+                if (timerEvt) {
+                    sleepDuration = timerEvt->timeout < 1000 ? timerEvt->timeout : 1000;
+                }
+                drv_pm_sleep(PM_SLEEP_MODE_SUSPEND,
+                             PM_WAKEUP_SRC_PAD | PM_WAKEUP_SRC_TIMER, sleepDuration);
             }
-            drv_pm_sleep(PM_SLEEP_MODE_SUSPEND,
-                         PM_WAKEUP_SRC_PAD | PM_WAKEUP_SRC_TIMER, sleepDuration);
         }
 #endif
     }

@@ -110,9 +110,9 @@ ifeq ($(PLATFORM_PREFIX),silabs)
 		MCU=$(MCU) 
 endif
 ifeq ($(PLATFORM_PREFIX),telink)
-	$(MAKE) telink/clean
+	$(MAKE) -C src/telink clean
 endif
-	$(MAKE) $(PLATFORM_PREFIX)/build \
+	$(MAKE) -C src/$(PLATFORM_PREFIX) build \
 		VERSION_STR=$(VERSION_STR) \
 		NVM_MIGRATIONS_VERSION=$(NVM_MIGRATIONS_VERSION) \
 		FILE_VERSION=$(FILE_VERSION) \

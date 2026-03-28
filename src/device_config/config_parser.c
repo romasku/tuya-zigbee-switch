@@ -2,25 +2,30 @@
 #include "hal/printf_selector.h"
 #include "hal/zigbee.h"
 #include "zigbee/basic_cluster.h"
+#include "zigbee/battery_cluster.h"
 #include "zigbee/consts.h"
+#include "zigbee/cover_cluster.h"
+#include "zigbee/cover_switch_cluster.h"
 #include "zigbee/group_cluster.h"
 #include "zigbee/relay_cluster.h"
+#include "zigbee/poll_control_cluster.h"
 #include "zigbee/switch_cluster.h"
-#include "zigbee/cover_cluster.h"
 
 #include <stdint.h>
 #include <string.h>
 
 #include "base_components/led.h"
 #include "base_components/network_indicator.h"
+#include "base_components/battery.h"
 #include "config_nv.h"
+#include "device_config/device_params_nv.h"
 #include "device_config/reset.h"
 #include "hal/system.h"
 #include "hal/zigbee.h"
 #include "hal/zigbee_ota.h"
 
 // Forward declarations
-void periferals_init(void);
+void peripherals_init(void);
 
 // extern ota_preamble_t baseEndpoint_otaInfo;
 
@@ -33,7 +38,7 @@ network_indicator_t network_indicator = {
 led_t   leds[5];
 uint8_t leds_cnt = 0;
 
-button_t buttons[5];
+button_t buttons[11];
 uint8_t  buttons_cnt = 0;
 
 relay_t relays[10]; // 4 relay endpoints + 3 cover endpoints
@@ -51,6 +56,9 @@ uint8_t switch_clusters_cnt = 0;
 zigbee_relay_cluster relay_clusters[4];
 uint8_t relay_clusters_cnt = 0;
 
+zigbee_cover_switch_cluster cover_switch_clusters[3];
+uint8_t cover_switch_clusters_cnt = 0;
+
 zigbee_cover_cluster cover_clusters[3];
 uint8_t cover_clusters_cnt = 0;
 
@@ -58,6 +66,12 @@ hal_zigbee_cluster  clusters[32];
 hal_zigbee_endpoint endpoints[10];
 
 uint8_t allow_simultaneous_latching_pulses = 0;
+
+battery_t battery = {
+    .pin         = HAL_INVALID_PIN,
+    .voltage_min =            2000,
+    .voltage_max =            3000,
+};
 
 uint32_t parse_int(const char *s);
 char *seek_until(char *cursor, char needle);
@@ -67,9 +81,16 @@ void on_reset_clicked(void *_) {
     hal_factory_reset();
 }
 
+void on_multi_press_reset(void *_, uint8_t press_count) {
+    if (g_multi_press_reset_count != 0 &&
+        press_count >= g_multi_press_reset_count) {
+        hal_factory_reset();
+    }
+}
+
 void parse_config() {
     device_config_read_from_nv();
-    char *cursor = device_config_str.data;
+    char *cursor = (char *)device_config_str.data;
 
     const char *zb_manufacturer = extract_next_entry(&cursor);
 
@@ -89,13 +110,25 @@ void parse_config() {
     }
     memcpy(basic_cluster.modelId + 1, zb_model, basic_cluster.modelId[0]);
 
-    bool  has_dedicated_status_led = false;
-    char *entry;
+    bool     has_dedicated_status_led = false;
+    uint16_t debounce_ms = DEBOUNCE_DELAY_MS;
+    char *   entry;
     for (entry = extract_next_entry(&cursor); *entry != '\0';
          entry = extract_next_entry(&cursor)) {
         if (entry[0] == 'S' && entry[1] == 'L' && entry[2] == 'P') {
             // Simultaneous Latching Pulses == SLP
             allow_simultaneous_latching_pulses = 1;
+        } else if (entry[0] == 'D' && entry[1] >= '0' && entry[1] <= '9') {
+            // D<N> sets the global debounce duration in milliseconds.
+            debounce_ms = (uint16_t)parse_int(entry + 1);
+            for (int i = 0; i < buttons_cnt; i++) {
+                buttons[i].debounce_delay_ms = debounce_ms;
+            }
+        } else if (entry[0] == 'B' && entry[1] == 'T') {
+            // Battery: BT<pin>, e.g. BTC5
+            hal_gpio_pin_t pin = hal_gpio_parse_pin(entry + 2);
+            battery.pin = pin;
+            battery_init(&battery);
         } else if (entry[0] == 'B') {
             hal_gpio_pin_t  pin  = hal_gpio_parse_pin(entry + 1);
             hal_gpio_pull_t pull = hal_gpio_parse_pull(entry + 3);
@@ -104,6 +137,7 @@ void parse_config() {
             buttons[buttons_cnt].pin = pin;
             buttons[buttons_cnt].long_press_duration_ms  = 2000;
             buttons[buttons_cnt].multi_press_duration_ms = 800;
+            buttons[buttons_cnt].debounce_delay_ms       = debounce_ms;
             buttons[buttons_cnt].on_long_press           = on_reset_clicked;
             buttons_cnt++;
         } else if (entry[0] == 'L') {
@@ -134,6 +168,13 @@ void parse_config() {
                 }
             }
 
+            for (int index = 0; index < 4; index++) {
+                if (switch_clusters[index].indicator_led == NULL) {
+                    switch_clusters[index].indicator_led = &leds[leds_cnt];
+                    break;
+                }
+            }
+
             if (!has_dedicated_status_led) {
                 for (int index = 0; index < 4; index++) {
                     if (network_indicator.leds[index] == NULL) {
@@ -151,7 +192,11 @@ void parse_config() {
             buttons[buttons_cnt].pin = pin;
             buttons[buttons_cnt].long_press_duration_ms  = 800;
             buttons[buttons_cnt].multi_press_duration_ms = 800;
+            buttons[buttons_cnt].debounce_delay_ms       = debounce_ms;
+            buttons[buttons_cnt].on_multi_press          = on_multi_press_reset;
 
+            if (entry[3] == 'd')
+                buttons[buttons_cnt].pressed_when_high = 1;
             switch_clusters[switch_clusters_cnt].switch_idx = switch_clusters_cnt;
             switch_clusters[switch_clusters_cnt].mode       =
                 ZCL_ONOFF_CONFIGURATION_SWITCH_TYPE_TOGGLE;
@@ -161,8 +206,7 @@ void parse_config() {
                 ZCL_ONOFF_CONFIGURATION_RELAY_MODE_SHORT;
             switch_clusters[switch_clusters_cnt].binded_mode =
                 ZCL_ONOFF_CONFIGURATION_BINDED_MODE_SHORT;
-            switch_clusters[switch_clusters_cnt].relay_index =
-                switch_clusters_cnt + 1;
+            switch_clusters[switch_clusters_cnt].relay_index     = switch_clusters_cnt + 1;
             switch_clusters[switch_clusters_cnt].button          = &buttons[buttons_cnt];
             switch_clusters[switch_clusters_cnt].level_move_rate = 50;
             buttons_cnt++;
@@ -186,6 +230,35 @@ void parse_config() {
 
             relays_cnt++;
             relay_clusters_cnt++;
+        } else if (entry[0] == 'X') {
+            hal_gpio_pin_t  open_pin  = hal_gpio_parse_pin(entry + 1);
+            hal_gpio_pin_t  close_pin = hal_gpio_parse_pin(entry + 3);
+            hal_gpio_pull_t pull      = hal_gpio_parse_pull(entry + 5);
+
+            hal_gpio_init(open_pin, 1, pull);
+            hal_gpio_init(close_pin, 1, pull);
+
+            buttons[buttons_cnt].pin = open_pin;
+            buttons[buttons_cnt].long_press_duration_ms  = 800;
+            buttons[buttons_cnt].multi_press_duration_ms = 800;
+            buttons[buttons_cnt].debounce_delay_ms       = debounce_ms;
+            buttons[buttons_cnt].on_multi_press          = on_multi_press_reset;
+            button_t *open_button = &buttons[buttons_cnt++];
+
+            buttons[buttons_cnt].pin = close_pin;
+            buttons[buttons_cnt].long_press_duration_ms  = 800;
+            buttons[buttons_cnt].multi_press_duration_ms = 800;
+            buttons[buttons_cnt].debounce_delay_ms       = debounce_ms;
+            buttons[buttons_cnt].on_multi_press          = on_multi_press_reset;
+            button_t *close_button = &buttons[buttons_cnt++];
+
+            cover_switch_clusters[cover_switch_clusters_cnt].open_button =
+                open_button;
+            cover_switch_clusters[cover_switch_clusters_cnt].close_button =
+                close_button;
+            cover_switch_clusters[cover_switch_clusters_cnt].cover_switch_idx =
+                cover_switch_clusters_cnt;
+            cover_switch_clusters_cnt++;
         } else if (entry[0] == 'C') {
             hal_gpio_pin_t open_pin  = hal_gpio_parse_pin(entry + 1);
             hal_gpio_pin_t close_pin = hal_gpio_parse_pin(entry + 3);
@@ -218,14 +291,26 @@ void parse_config() {
         }
     }
 
-    periferals_init();
+    peripherals_init();
 
-    printf("Initializing Zigbee with %d switches, %d relays, %d covers\r\n",
-           switch_clusters_cnt, relay_clusters_cnt, cover_clusters_cnt);
+    printf("Initializing Zigbee with %d switches, %d relays, %d cover switches, "
+           "%d covers\r\n",
+           switch_clusters_cnt, relay_clusters_cnt, cover_switch_clusters_cnt,
+           cover_clusters_cnt);
 
-    uint8_t total_endpoints = switch_clusters_cnt + relay_clusters_cnt + cover_clusters_cnt;
+    uint8_t total_endpoints = switch_clusters_cnt + relay_clusters_cnt +
+                              cover_switch_clusters_cnt + cover_clusters_cnt;
 
     hal_zigbee_cluster *cluster_ptr = clusters;
+
+    for (int index = 0; index < switch_clusters_cnt; index++) {
+        if (switch_clusters[index].relay_index > relay_clusters_cnt) {
+            // Detach switches that point past the available relay count.
+            switch_clusters[index].relay_mode =
+                ZCL_ONOFF_CONFIGURATION_RELAY_MODE_DETACHED;
+            switch_clusters[index].relay_index = 0;
+        }
+    }
 
     // special case when no switches or relays are defined, so we can init a
     // "clean" device and configure it while running endpoint 1 still needs to be
@@ -246,6 +331,19 @@ void parse_config() {
     hal_ota_cluster_setup(&endpoints[0].clusters[endpoints[0].cluster_count]);
     endpoints[0].cluster_count++;
 
+    // Add battery cluster for battery-powered devices
+    if (battery.pin != HAL_INVALID_PIN) {
+        static zigbee_battery_cluster battery_cluster;
+        battery_cluster_add_to_endpoint(&battery_cluster, &endpoints[0]);
+    }
+
+#ifdef END_DEVICE
+    // Add poll control cluster for end devices
+    static zigbee_poll_control_cluster poll_ctrl_cluster;
+    poll_control_cluster_add_to_endpoint(&poll_ctrl_cluster, &endpoints[0],
+                                         battery.pin != HAL_INVALID_PIN);
+#endif
+
     for (int index = 0; index < switch_clusters_cnt; index++) {
         if (index != 0) {
             cluster_ptr += endpoints[index - 1].cluster_count;
@@ -254,18 +352,34 @@ void parse_config() {
         switch_cluster_add_to_endpoint(&switch_clusters[index], &endpoints[index]);
     }
     for (int index = 0; index < relay_clusters_cnt; index++) {
-        cluster_ptr += endpoints[switch_clusters_cnt + index - 1].cluster_count;
-        endpoints[switch_clusters_cnt + index].clusters = cluster_ptr;
+        if (switch_clusters_cnt + index != 0) {
+            cluster_ptr += endpoints[switch_clusters_cnt + index - 1].cluster_count;
+            endpoints[switch_clusters_cnt + index].clusters = cluster_ptr;
+        }
         relay_cluster_add_to_endpoint(&relay_clusters[index],
                                       &endpoints[switch_clusters_cnt + index]);
         // Group cluster is stateless, safe to add to multiple endpoints
         group_cluster_add_to_endpoint(&group_cluster,
                                       &endpoints[switch_clusters_cnt + index]);
     }
-    int cover_base = switch_clusters_cnt + relay_clusters_cnt;
+
+    int cover_switch_base = switch_clusters_cnt + relay_clusters_cnt;
+    for (int index = 0; index < cover_switch_clusters_cnt; index++) {
+        if (cover_switch_base + index != 0) {
+            cluster_ptr += endpoints[cover_switch_base + index - 1].cluster_count;
+            endpoints[cover_switch_base + index].clusters = cluster_ptr;
+        }
+        cover_switch_cluster_add_to_endpoint(&cover_switch_clusters[index],
+                                             &endpoints[cover_switch_base + index]);
+    }
+
+    int cover_base =
+        switch_clusters_cnt + relay_clusters_cnt + cover_switch_clusters_cnt;
     for (int index = 0; index < cover_clusters_cnt; index++) {
-        cluster_ptr += endpoints[cover_base + index - 1].cluster_count;
-        endpoints[cover_base + index].clusters = cluster_ptr;
+        if (cover_base + index != 0) {
+            cluster_ptr += endpoints[cover_base + index - 1].cluster_count;
+            endpoints[cover_base + index].clusters = cluster_ptr;
+        }
         cover_cluster_add_to_endpoint(&cover_clusters[index],
                                       &endpoints[cover_base + index]);
     }
@@ -285,14 +399,18 @@ void network_indicator_on_network_status_change(
     hal_zigbee_network_status_t new_status) {
     printf("Network status changed to %d\r\n", new_status);
     if (new_status == HAL_ZIGBEE_NETWORK_JOINED) {
+        if (battery.pin != HAL_INVALID_PIN) {
+            network_indicator.manual_state_when_connected = 0;
+        }
         network_indicator_connected(&network_indicator);
+        update_switch_clusters();
         update_relay_clusters();
     } else {
         network_indicator_not_connected(&network_indicator);
     }
 }
 
-void periferals_init() {
+void peripherals_init() {
     for (int index = 0; index < buttons_cnt; index++) {
         btn_init(&buttons[index]);
     }
@@ -304,6 +422,8 @@ void periferals_init() {
     }
     if (hal_zigbee_get_network_status() == HAL_ZIGBEE_NETWORK_JOINED) {
         network_indicator_connected(&network_indicator);
+        update_switch_clusters();
+        update_relay_clusters();
     } else {
         network_indicator_not_connected(&network_indicator);
     }

@@ -62,4 +62,22 @@ static inline hal_zigbee_cmd build_level_stop_onoff_cmd(uint8_t endpoint) {
     return c;
 }
 
+static inline hal_zigbee_cmd build_window_covering_cmd(uint8_t endpoint,
+                                                       uint8_t cmd_id) {
+    hal_zigbee_cmd c = {
+        .endpoint            = endpoint,
+        .profile_id          = ZCL_HA_PROFILE,
+        .cluster_id          = ZCL_CLUSTER_WINDOW_COVERING,
+        .command_id          = cmd_id,
+        .cluster_specific    =                               1,
+        .direction           = HAL_ZIGBEE_DIR_CLIENT_TO_SERVER,
+        .disable_default_rsp =                               1,
+        .manufacturer_code   =                               0,
+        .payload             = NULL,
+        .payload_len         =                               0,
+    };
+
+    return c;
+}
+
 #endif

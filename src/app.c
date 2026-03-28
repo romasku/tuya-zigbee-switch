@@ -7,7 +7,11 @@
 #include "hal/system.h"
 #include "hal/zigbee.h"
 #include "hal/zigbee_ota.h"
+#include "zigbee/battery_cluster.h"
 #include "zigbee/general_commands.h"
+#ifdef END_DEVICE
+#include "zigbee/poll_control_cluster.h"
+#endif
 
 void process_device_type_change() {
     // If device was updated from router to end device or vice versa,
@@ -52,6 +56,10 @@ void app_init(void) {
 static bool boot_announce_sent = false;
 
 void app_task() {
+#ifdef END_DEVICE
+    poll_control_cluster_update();
+#endif
+
     // TODO: add jitter to avoid all devices trying to join at once
     if (hal_zigbee_get_network_status() != HAL_ZIGBEE_NETWORK_JOINED &&
         hal_zigbee_get_network_status() != HAL_ZIGBEE_NETWORK_JOINING) {

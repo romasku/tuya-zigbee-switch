@@ -12,9 +12,10 @@ Before reporting any issues:
   Just restart it if there's no update
 3. Re-download the custom [converters/](../zigbee2mqtt/converters/)
 4. Restart Z2M 
-5. **Interview device `i`** 
-6. **Reconfigure device `🗘`**
-7. Boost signal if possible
+5. Boost signal if possible
+6. Ensure **stable power** for no-Neutral switches (big load - non-smart bulb)
+7. **Interview device `i`** 
+8. **Reconfigure device `🗘`**
 
 Resetting the device may also help  
 ⤷ Spam any switch / Hold reset button / Remove from Z2M

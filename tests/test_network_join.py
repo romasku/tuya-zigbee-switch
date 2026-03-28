@@ -1,5 +1,11 @@
+import pytest
+
 from tests.client import StubProc
 from tests.conftest import Device
+from tests.zcl_consts import (
+    ZCL_ATTR_BASIC_MULTI_PRESS_RESET_COUNT,
+    ZCL_CLUSTER_BASIC,
+)
 
 HAL_ZIGBEE_NETWORK_NOT_JOINED = 0
 HAL_ZIGBEE_NETWORK_JOINED = 1
@@ -37,6 +43,17 @@ def test_led_stops_blinking_after_join() -> None:
             assert device.get_gpio("B0", refresh=True) == state
 
 
+def test_shared_switch_indicator_turns_off_after_join() -> None:
+    with StubProc(device_config="A;B;SA0u;IA1;", joined=False) as proc:
+        device = Device(proc)
+
+        assert device.get_gpio("A1", refresh=True)
+
+        device.set_network(HAL_ZIGBEE_NETWORK_JOINED)
+
+        assert not device.get_gpio("A1", refresh=True)
+
+
 def test_auto_joining_after_kicked() -> None:
     with StubProc(device_config="A;B;LB0;") as proc:
         device = Device(proc)
@@ -60,20 +77,74 @@ def test_led_blinks_after_kicked() -> None:
             state = not state
 
 
-def test_leaves_on_multipress() -> None:
-    with StubProc(device_config="A;B;SA0u;RB1;") as proc:
+@pytest.mark.parametrize(
+    "device_config,button",
+    [
+        ("A;B;SA0u;RB1;", "A0"),
+        ("A;B;XA0A1u;CB0B1;", "A0"),
+        ("A;B;XA0A1u;CB0B1;", "A1"),
+    ],
+    ids=["switch", "cover_switch_open", "cover_switch_close"],
+)
+def test_leaves_on_multipress(device_config: str, button: str) -> None:
+    with StubProc(device_config=device_config) as proc:
         device = Device(proc)
         assert device.status()["joined"] == str(HAL_ZIGBEE_NETWORK_JOINED)
 
         # 9 presses should not cause the device to leave the network
         for _ in range(9):
-            device.click_button("A0")
+            device.click_button(button)
 
         assert device.status()["joined"] == str(HAL_ZIGBEE_NETWORK_JOINED)
 
         # 10th press should cause the device to leave the network
+        device.click_button(button)
+        assert device.status()["joined"] != str(HAL_ZIGBEE_NETWORK_JOINED)
+
+
+def test_leaves_on_multipress_configurable() -> None:
+    with StubProc(device_config="A;B;SA0u;RB1;") as proc:
+        device = Device(proc)
+        assert device.status()["joined"] == str(HAL_ZIGBEE_NETWORK_JOINED)
+
+        # Set multi-press count to reset to 5 via Basic cluster
+        device.write_zigbee_attr(
+            1,
+            ZCL_CLUSTER_BASIC,
+            ZCL_ATTR_BASIC_MULTI_PRESS_RESET_COUNT,
+            5,
+        )
+
+        # 4 presses should not cause the device to leave the network
+        for _ in range(4):
+            device.click_button("A0")
+
+        assert device.status()["joined"] == str(HAL_ZIGBEE_NETWORK_JOINED)
+
+        # 5th press should cause the device to leave the network
         device.click_button("A0")
         assert device.status()["joined"] != str(HAL_ZIGBEE_NETWORK_JOINED)
+
+
+def test_multipress_reset_disabled_when_zero() -> None:
+    with StubProc(device_config="A;B;SA0u;RB1;") as proc:
+        device = Device(proc)
+        assert device.status()["joined"] == str(HAL_ZIGBEE_NETWORK_JOINED)
+
+        # Disable multi-press reset by setting to 0 via Basic cluster
+        device.write_zigbee_attr(
+            1,
+            ZCL_CLUSTER_BASIC,
+            ZCL_ATTR_BASIC_MULTI_PRESS_RESET_COUNT,
+            0,
+        )
+
+        # Pressing up to 15 times should never cause the device to leave
+        for i in range(1, 16):
+            device.click_button("A0")
+            assert device.status()["joined"] == str(HAL_ZIGBEE_NETWORK_JOINED), (
+                f"Device unexpectedly reset after {i} presses"
+            )
 
 
 def test_leaves_on_onboard_button_long_press() -> None:

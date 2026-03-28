@@ -7,6 +7,7 @@
 // Clusters
 
 #define ZCL_CLUSTER_BASIC                     0
+#define ZCL_CLUSTER_POWER_CFG                 1
 #define ZCL_CLUSTER_ON_OFF                    6
 #define ZCL_CLUSTER_ON_OFF_SWITCH_CONFIG      7
 #define ZCL_CLUSTER_MULTISTATE_INPUT_BASIC    0x0012
@@ -14,6 +15,7 @@
 #define ZCL_CLUSTER_GROUPS                    0x0004
 #define ZCL_CLUSTER_OTA_BOOTLOAD              0x0019
 #define ZCL_CLUSTER_WINDOW_COVERING           0x0102
+#define ZCL_CLUSTER_COVER_SWITCH_CONFIG       0xFC01
 
 
 // Attributes
@@ -24,23 +26,35 @@
 
 // Basic cluster
 
-#define ZCL_ATTR_BASIC_ZCL_VER              0x0000
-#define ZCL_ATTR_BASIC_APP_VER              0x0001
-#define ZCL_ATTR_BASIC_STACK_VER            0x0002
-#define ZCL_ATTR_BASIC_HW_VER               0x0003
-#define ZCL_ATTR_BASIC_MFR_NAME             0x0004
-#define ZCL_ATTR_BASIC_MODEL_ID             0x0005
-#define ZCL_ATTR_BASIC_DATE_CODE            0x0006
-#define ZCL_ATTR_BASIC_POWER_SOURCE         0x0007
-#define ZCL_ATTR_BASIC_LOC_DESC             0x0010
-#define ZCL_ATTR_BASIC_PHY_ENV              0x0011
-#define ZCL_ATTR_BASIC_DEV_ENABLED          0x0012
-#define ZCL_ATTR_BASIC_ALARM_MASK           0x0013
-#define ZCL_ATTR_BASIC_DISABLE_LOCAL_CFG    0x0014
-#define ZCL_ATTR_BASIC_SW_BUILD_ID          0x4000
+#define ZCL_ATTR_BASIC_ZCL_VER                    0x0000
+#define ZCL_ATTR_BASIC_APP_VER                    0x0001
+#define ZCL_ATTR_BASIC_STACK_VER                  0x0002
+#define ZCL_ATTR_BASIC_HW_VER                     0x0003
+#define ZCL_ATTR_BASIC_MFR_NAME                   0x0004
+#define ZCL_ATTR_BASIC_MODEL_ID                   0x0005
+#define ZCL_ATTR_BASIC_DATE_CODE                  0x0006
+#define ZCL_ATTR_BASIC_POWER_SOURCE               0x0007
+#define ZCL_ATTR_BASIC_LOC_DESC                   0x0010
+#define ZCL_ATTR_BASIC_PHY_ENV                    0x0011
+#define ZCL_ATTR_BASIC_DEV_ENABLED                0x0012
+#define ZCL_ATTR_BASIC_ALARM_MASK                 0x0013
+#define ZCL_ATTR_BASIC_DISABLE_LOCAL_CFG          0x0014
+#define ZCL_ATTR_BASIC_SW_BUILD_ID                0x4000
 
-#define ZCL_ATTR_BASIC_DEVICE_CONFIG        0xff00
-#define ZCL_ATTR_BASIC_STATUS_LED_STATE     0xff01
+#define ZCL_ATTR_BASIC_DEVICE_CONFIG              0xff00
+#define ZCL_ATTR_BASIC_STATUS_LED_STATE           0xff01
+#define ZCL_ATTR_BASIC_MULTI_PRESS_RESET_COUNT    0xff02
+
+// Power Configuration cluster
+
+#define ZCL_ATTR_POWER_CFG_BATTERY_VOLTAGE       0x0020
+#define ZCL_ATTR_POWER_CFG_BATTERY_PERCENTAGE    0x0021
+
+// Power source values
+#define POWER_SOURCE_UNKNOWN                     0x00
+#define POWER_SOURCE_MAINS_1_PHASE               0x01
+#define POWER_SOURCE_BATTERY                     0x03
+#define POWER_SOURCE_DC                          0x04
 
 // OnOff cluster
 
@@ -79,6 +93,23 @@
 #define ZCL_ATTR_WINDOW_COVERING_CURRENT_POSITION_LIFT_PERCENTAGE    0x0008
 #define ZCL_ATTR_WINDOW_COVERING_MOVING                              0xff00
 #define ZCL_ATTR_WINDOW_COVERING_MOTOR_REVERSAL                      0xff01
+
+// Cover Switch Configuration cluster
+#define ZCL_ATTR_COVER_SWITCH_CONFIG_SWITCH_TYPE                     0x0000
+#define ZCL_ATTR_COVER_SWITCH_CONFIG_COVER_INDEX                     0x0001
+#define ZCL_ATTR_COVER_SWITCH_CONFIG_REVERSAL                        0x0002
+#define ZCL_ATTR_COVER_SWITCH_CONFIG_LOCAL_MODE                      0x0003
+#define ZCL_ATTR_COVER_SWITCH_CONFIG_BINDED_MODE                     0x0004
+#define ZCL_ATTR_COVER_SWITCH_CONFIG_LONG_PRESS_DUR                  0x0005
+
+// Poll Control cluster
+#define ZCL_CLUSTER_POLL_CONTROL                                     0x0020
+
+// Poll Control attributes
+#define ZCL_ATTR_POLL_CTRL_CHECK_IN_INTERVAL                         0x0000
+#define ZCL_ATTR_POLL_CTRL_LONG_POLL_INTERVAL                        0x0001
+#define ZCL_ATTR_POLL_CTRL_SHORT_POLL_INTERVAL                       0x0002
+#define ZCL_ATTR_POLL_CTRL_FAST_POLL_TIMEOUT                         0x0003
 
 // OTA cluster
 
@@ -140,6 +171,16 @@
 #define ZCL_ATTR_WINDOW_COVERING_MOVING_OPENING    0x01
 #define ZCL_ATTR_WINDOW_COVERING_MOVING_CLOSING    0x02
 
+// Cover Switch Configuration cluster
+
+#define ZCL_COVER_SWITCH_TYPE_TOGGLE         0x00
+#define ZCL_COVER_SWITCH_TYPE_MOMENTARY      0x01
+
+#define ZCL_COVER_SWITCH_MODE_IMMEDIATE      0x00
+#define ZCL_COVER_SWITCH_MODE_SHORT_PRESS    0x01
+#define ZCL_COVER_SWITCH_MODE_LONG_PRESS     0x02
+#define ZCL_COVER_SWITCH_MODE_HYBRID         0x03
+
 // Commands
 
 // OnOff Cluster
@@ -180,6 +221,15 @@
 #define ZCL_CMD_OTA_UPGRADE_END_RESPONSE                   0x07
 #define ZCL_CMD_OTA_QUERY_DEVICE_SPECIFIC_FILE_REQUEST     0x08
 #define ZCL_CMD_OTA_QUERY_DEVICE_SPECIFIC_FILE_RESPONSE    0x09
+
+// Poll Control Cluster (client -> server)
+#define ZCL_CMD_POLL_CTRL_CHECK_IN_RSP                     0x00
+#define ZCL_CMD_POLL_CTRL_FAST_POLL_STOP                   0x01
+#define ZCL_CMD_POLL_CTRL_SET_LONG_POLL_INTERVAL           0x02
+#define ZCL_CMD_POLL_CTRL_SET_SHORT_POLL_INTERVAL          0x03
+
+// Poll Control Cluster (server -> client)
+#define ZCL_CMD_POLL_CTRL_CHECK_IN                         0x00
 
 // Data types
 

@@ -15,6 +15,9 @@ typedef enum {
 typedef enum {
     HAL_ZIGBEE_CMD_PROCESSED,
     HAL_ZIGBEE_CMD_SKIPPED,
+    HAL_ZIGBEE_INVALID_VALUE,
+    HAL_ZIGBEE_MALFORMED_COMMAND,
+    HAL_ZIGBEE_ACTION_DENIED,
 } hal_zigbee_cmd_result_t;
 
 /** Zigbee network connection state */
@@ -34,10 +37,9 @@ typedef struct {
 } hal_zigbee_attribute;
 
 /** Function called when cluster receives a command */
-typedef hal_zigbee_cmd_result_t (*hal_zigbee_cmd_callback_t)(uint8_t endpoint,
-                                                             uint16_t cluster_id,
-                                                             uint8_t command_id,
-                                                             void *cmd_payload);
+typedef hal_zigbee_cmd_result_t (*hal_zigbee_cmd_callback_t)(
+    uint8_t endpoint, uint16_t cluster_id, uint8_t command_id,
+    void *cmd_payload, uint16_t cmd_payload_len);
 
 /** Zigbee cluster (group of related attributes and commands) */
 typedef struct {
@@ -170,6 +172,32 @@ hal_zigbee_send_report_attr(uint8_t endpoint, uint16_t cluster_id,
  * @return HAL_ZIGBEE_OK on success, error code otherwise
  */
 hal_zigbee_status_t hal_zigbee_send_announce(void);
+
+
+/** Function called when any ZCL command is received, both generic and cluster-specific */
+typedef void (*hal_zcl_activity_callback_t)();
+
+/**
+ * Register callback for ZCL activity from network
+ * @param callback Function to call when ZCL commands are received
+ *
+ * Idea is to use this for battery device to control polling rate after incoming messages.
+ */
+void hal_zigbee_register_on_zcl_activity_callback(
+    hal_zcl_activity_callback_t callback);
+
+
+/** Set end device poll rate in milliseconds
+ *
+ * No-op for routers.
+ */
+void hal_zigbee_set_poll_rate_ms(uint32_t poll_rate_ms);
+
+/** Get current end device poll rate in milliseconds
+ *
+ * Returns 0 for routers.
+ */
+uint32_t hal_zigbee_get_poll_rate_ms(void);
 
 /** Find cluster definition by endpoint and cluster ID */
 static inline hal_zigbee_cluster *

@@ -27,9 +27,20 @@ hal_zigbee_endpoint *stub_zigbee_get_endpoints(uint8_t *count);
 hal_zigbee_cmd_result_t stub_zigbee_simulate_command(uint8_t endpoint,
                                                      uint16_t cluster_id,
                                                      uint8_t command_id,
-                                                     void *payload);
+                                                     void *payload,
+                                                     uint16_t payload_len);
+hal_zigbee_cmd_result_t
+stub_zigbee_simulate_command_without_activity(uint8_t endpoint,
+                                              uint16_t cluster_id,
+                                              uint8_t command_id,
+                                              void *payload,
+                                              uint16_t payload_len);
 void stub_simulate_zigbee_attribute_write(uint8_t endpoint, uint16_t cluster_id,
                                           uint16_t attribute_id);
+
+// ADC stub functions
+void stub_set_adc_voltage_mv(uint16_t voltage_mv);
+void stub_set_battery_voltage_mv(uint16_t voltage_mv);
 
 // Millis stub functions
 void stub_millis_init();

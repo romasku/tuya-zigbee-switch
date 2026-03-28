@@ -13,18 +13,6 @@ girierDefinitions = girierDefinitions.definitions ?? girierDefinitions;
 lonsonhoDefinitions = lonsonhoDefinitions.definitions ?? lonsonhoDefinitions;
 
 const definitions = [];
-const multiplePinoutsDescription = "WARNING! There are multiple known pinouts for the AVATTO ZSWM16 4gang! Before flashing custom firmware, it is recommended you disassemble the device and trace the board pinout. Please check https://github.com/romasku/tuya-zigbee-switch/tree/main/docs/devices/multiple_pinouts.md";
-
-/********************************************************************
-  This file (`tuya_with_ota.js`) is generated. 
-  
-  You can edit it for testing, but for PRs please use:
-  - `device_db.yaml`                - add or edit devices
-  - `tuya_with_ota.md.jinja`        - update the template
-  - `make_z2m_tuya_converters.py`   - update generation script
-
-  Generate with: `make converters`
-********************************************************************/
 
 /********************************************************************
   This file (`tuya_with_ota.js`) is generated. 
@@ -42,6 +30,7 @@ const tuyaModels = [
     "QS-Zigbee-SEC01-U",
     "QS-Zigbee-SEC02-U",
     "TS0001",
+    "TS0001_power",
     "TS0001_switch_1_gang",
     "TS0001_switch_module",
     "TS0001_switch_module_1",
@@ -63,84 +52,46 @@ const tuyaModels = [
     "TS0013_switch_module",
     "TS0014",
     "TS0044",
+    "TS004F",
     "TS011F_plug_1",
     "TS011F_plug_2",
+    "TS0601_switch_1_gang",
     "TS0726_1_gang_scene_switch",
     "TS0726_2_gang_scene_switch",
     "TS0726_3_gang",
     "TS0726_3_gang_scene_switch",
+    "TS0726_4_gang_scene_switch",
     "TS130F",
+    "TW-03",
     "WHD02",
-    "ZG-301Z",
     "_TZ3000_pgq7ormg",
-];
-
-const tuyaMultiplePinoutsModels = [
-    "TS0001_switch_1_gang",
-    "TS0001_switch_module",
-    "TS0001_switch_module_1",
-    "TS0002_basic",
-    "TS0002_limited",
-    "TS0003_switch_3_gang",
-    "TS0004",
-    "TS0004_switch_module_2",
-    "TS0012",
-    "TS130F",
 ];
 
 for (let definition of tuyaDefinitions) {
     if (tuyaModels.includes(definition.model)) {
-        if (tuyaMultiplePinoutsModels.includes(definition.model)) {
-            definitions.push(
-                {
-                    ...definition,
-                    description: multiplePinoutsDescription,
-                    whiteLabel: definition.whiteLabel.map(entry => ({...entry, description: multiplePinoutsDescription,})),
-                    ota: true,
-                }
-            )
-        }
-        else {
-            definitions.push(
-                {
-                    ...definition,
-                    ota: true,
-                }
-            )
-        }
+        definitions.push(
+            {
+                ...definition,
+                ota: true,
+            }
+        )
     }
 }
 
 const moesModels = [
-    "ZM4LT2",
-    "ZM4LT3",
-    "ZM4LT4",
+    "SR-ZS",
+    "ZG-101ZL",
     "ZS-EUB_1gang",
-];
-
-const moesMultiplePinoutsModels = [
 ];
 
 for (let definition of moesDefinitions) {
     if (moesModels.includes(definition.model)) {
-        if (moesMultiplePinoutsModels.includes(definition.model)) {
-            definitions.push(
-                {
-                    ...definition,
-                    description: multiplePinoutsDescription,
-                    whiteLabel: definition.whiteLabel.map(entry => ({...entry, description: multiplePinoutsDescription,})),
-                    ota: true,
-                }
-            )
-        }
-        else {
-            definitions.push(
-                {
-                    ...definition,
-                    ota: true,
-                }
-            )
-        }
+        definitions.push(
+            {
+                ...definition,
+                ota: true,
+            }
+        )
     }
 }
 
@@ -148,29 +99,14 @@ const avattoModels = [
     "LZWSM16-1",
 ];
 
-const avattoMultiplePinoutsModels = [
-];
-
 for (let definition of avattoDefinitions) {
     if (avattoModels.includes(definition.model)) {
-        if (avattoMultiplePinoutsModels.includes(definition.model)) {
-            definitions.push(
-                {
-                    ...definition,
-                    description: multiplePinoutsDescription,
-                    whiteLabel: definition.whiteLabel.map(entry => ({...entry, description: multiplePinoutsDescription,})),
-                    ota: true,
-                }
-            )
-        }
-        else {
-            definitions.push(
-                {
-                    ...definition,
-                    ota: true,
-                }
-            )
-        }
+        definitions.push(
+            {
+                ...definition,
+                ota: true,
+            }
+        )
     }
 }
 
@@ -178,29 +114,14 @@ const girierModels = [
     "JR-ZDS01",
 ];
 
-const girierMultiplePinoutsModels = [
-];
-
 for (let definition of girierDefinitions) {
     if (girierModels.includes(definition.model)) {
-        if (girierMultiplePinoutsModels.includes(definition.model)) {
-            definitions.push(
-                {
-                    ...definition,
-                    description: multiplePinoutsDescription,
-                    whiteLabel: definition.whiteLabel.map(entry => ({...entry, description: multiplePinoutsDescription,})),
-                    ota: true,
-                }
-            )
-        }
-        else {
-            definitions.push(
-                {
-                    ...definition,
-                    ota: true,
-                }
-            )
-        }
+        definitions.push(
+            {
+                ...definition,
+                ota: true,
+            }
+        )
     }
 }
 
@@ -208,30 +129,14 @@ const lonsonhoModels = [
     "TS130F_dual",
 ];
 
-const lonsonhoMultiplePinoutsModels = [
-    "TS130F_dual",
-];
-
 for (let definition of lonsonhoDefinitions) {
     if (lonsonhoModels.includes(definition.model)) {
-        if (lonsonhoMultiplePinoutsModels.includes(definition.model)) {
-            definitions.push(
-                {
-                    ...definition,
-                    description: multiplePinoutsDescription,
-                    whiteLabel: definition.whiteLabel.map(entry => ({...entry, description: multiplePinoutsDescription,})),
-                    ota: true,
-                }
-            )
-        }
-        else {
-            definitions.push(
-                {
-                    ...definition,
-                    ota: true,
-                }
-            )
-        }
+        definitions.push(
+            {
+                ...definition,
+                ota: true,
+            }
+        )
     }
 }
 

@@ -14,7 +14,7 @@ env = Environment(
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description="Create Zigbee2mqtt converter for custom devices",
-        epilog="Generates a js file that adds support of re-flashed devices to z2m",
+        epilog="Generates an mjs file that adds support of re-flashed devices to z2m",
     )
     parser.add_argument(
         "db_file", metavar="INPUT", type=str, help="File with device db"
@@ -32,65 +32,13 @@ if __name__ == "__main__":
         if not device.get("build", True):
             continue
 
-        config = device["config_str"]
-        zb_manufacturer, zb_model, *peripherals = config.rstrip(";").split(";")
-
-        relay_cnt = 0
-        switch_cnt = 0
-        cover_cnt = 0
-        indicators_cnt = 0
-        has_dedicated_net_led = False
-        for peripheral in peripherals:
-            if peripheral == "SLP":
-                continue
-            if peripheral[0] == "R":
-                relay_cnt += 1
-            if peripheral[0] == "S":
-                switch_cnt += 1
-            if peripheral[0] == "C":
-                cover_cnt += 1
-            if peripheral[0] == "I":
-                indicators_cnt += 1
-            if peripheral[0] == "L":
-                has_dedicated_net_led = True
-
-        if switch_cnt == 1:
-            switch_names = ["switch"]
-        elif switch_cnt == 2:
-            switch_names = ["switch_left", "switch_right"]
-        elif switch_cnt == 3:
-            switch_names = ["switch_left", "switch_middle", "switch_right"]
-        else:
-            switch_names = [f"switch_{index}" for index in range(relay_cnt)]
-
-        if relay_cnt == 1:
-            relay_names = ["relay"]
-        elif relay_cnt == 2:
-            relay_names = ["relay_left", "relay_right"]
-        elif relay_cnt == 3:
-            relay_names = ["relay_left", "relay_middle", "relay_right"]
-        else:
-            relay_names = [f"relay_{index}" for index in range(relay_cnt)]
-
-        if cover_cnt == 1:
-            cover_names = ["cover"]
-        elif cover_cnt == 2:
-            cover_names = ["cover_left", "cover_right"]
-        elif cover_cnt == 3:
-            cover_names = ["cover_left", "cover_middle", "cover_right"]
-        else:
-            cover_names = [f"cover_{index}" for index in range(cover_cnt)]
+        _, zb_model, *_ = device["config_str"].rstrip(";").split(";")
 
         devices.append(
             {
                 "zb_models": [zb_model] + (device.get("old_zb_models") or []),
                 "model": device.get("override_z2m_device")
                 or device["stock_converter_model"],
-                "switchNames": switch_names,
-                "relayNames": relay_names,
-                "relayIndicatorNames": relay_names[:indicators_cnt],
-                "coverNames": cover_names,
-                "has_dedicated_net_led": has_dedicated_net_led,
             }
         )
 

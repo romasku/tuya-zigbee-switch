@@ -19,7 +19,7 @@
   "package": [
     {
       "pathRelativity": "relativeToZap",
-      "path": "../../silabs_tools/gecko_sdk/app/zcl/zcl-zap.json",
+      "path": "../../silabs_tools/simplicity_sdk/app/zcl/zcl-zap.json",
       "type": "zcl-properties",
       "category": "zigbee",
       "version": 1,
@@ -27,7 +27,7 @@
     },
     {
       "pathRelativity": "relativeToZap",
-      "path": "../../silabs_tools/gecko_sdk/protocol/zigbee/app/framework/gen-template/gen-templates.json",
+      "path": "../../silabs_tools/simplicity_sdk/protocol/zigbee/app/framework/gen-template/gen-templates.json",
       "type": "gen-templates-json",
       "category": "zigbee",
       "version": "zigbee-v0"

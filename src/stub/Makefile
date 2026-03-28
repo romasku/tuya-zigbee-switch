@@ -33,12 +33,14 @@ help:
 # Source files for stub build
 SOURCES := \
 	$(SRC_DIR)/app.c \
+	$(SRC_DIR)/zigbee/poll_control_cluster.c \
 	$(SRC_DIR)/stub/main.c \
 	$(SRC_DIR)/stub/hal/gpio.c \
 	$(SRC_DIR)/stub/hal/system.c \
 	$(SRC_DIR)/stub/hal/timer.c \
 	$(SRC_DIR)/stub/hal/tasks.c \
 	$(SRC_DIR)/stub/hal/nvm.c \
+	$(SRC_DIR)/stub/hal/adc.c \
 	$(SRC_DIR)/stub/hal/zigbee.c \
 	$(SRC_DIR)/stub/hal/ota.c \
 	$(SRC_DIR)/stub/simple_repl.c \
@@ -48,9 +50,11 @@ SOURCES := \
 	$(SRC_DIR)/base_components/led.c \
 	$(SRC_DIR)/base_components/relay.c \
 	$(SRC_DIR)/base_components/button.c \
+	$(SRC_DIR)/base_components/battery.c \
 	$(SRC_DIR)/base_components/network_indicator.c \
 	$(SRC_DIR)/device_config/config_parser.c \
 	$(SRC_DIR)/device_config/config_nv.c \
+	$(SRC_DIR)/device_config/device_params_nv.c \
 	$(SRC_DIR)/device_config/reset.c \
 	$(SRC_DIR)/device_config/nvm_migrations.c \
 	$(SRC_DIR)/zigbee/basic_cluster.c \
@@ -58,7 +62,9 @@ SOURCES := \
 	$(SRC_DIR)/zigbee/switch_cluster.c \
 	$(SRC_DIR)/zigbee/group_cluster.c \
 	$(SRC_DIR)/zigbee/general_commands.c \
-	$(SRC_DIR)/zigbee/cover_cluster.c
+	$(SRC_DIR)/zigbee/cover_switch_cluster.c \
+	$(SRC_DIR)/zigbee/cover_cluster.c \
+	$(SRC_DIR)/zigbee/battery_cluster.c
 
 INCLUDES := \
 	-I$(SRC_DIR) \
@@ -68,6 +74,7 @@ CFLAGS := -Wall -Wno-unused-parameter -Wno-unused-variable -g -O0 \
     -DHAL_STUB -DSTACK_BUILD=1001 -D_DEFAULT_SOURCE -DVERSION_STR="0.0.0" \
 	-DNVM_MIGRATIONS_VERSION=1 \
 	-std=c99
+
 LDFLAGS := -lpthread
 
 # Build targets
@@ -77,6 +84,10 @@ $(BUILD_DIR):
 build: $(BUILD_DIR)
 	$(HOST_CC) $(CFLAGS) $(INCLUDES) $(SOURCES) -o $(BINARY) $(LDFLAGS)
 	@echo "Stub binary built: $(BINARY)"
+
+build_end_device: $(BUILD_DIR)
+	$(HOST_CC) $(CFLAGS) -DEND_DEVICE $(INCLUDES) $(SOURCES) -o $(BUILD_DIR)/stub_end_device $(LDFLAGS)
+	@echo "End device stub binary built: $(BUILD_DIR)/stub_end_device"
 
 run: build
 	./$(BINARY) --device-config "$(CONFIG)"

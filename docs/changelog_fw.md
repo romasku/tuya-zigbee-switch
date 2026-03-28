@@ -1,4 +1,4 @@
-*Open the **Outline** (table of contents) from the top right.*  
+_Open the **Outline** (table of contents) from the top right._
 
 # Firmware Changelog
 
@@ -8,14 +8,34 @@ Please describe what you are working on:
 
 ### Features
 
-- Control cover motors (WIP)
+- **Cover cluster** (window covering) for controlling the motor of curtains, blinds, and shutters.
+  Supports open, close, and stop commands with motor safety delays.
+- **Cover switch cluster** for handling user input from window covering switches.
+  Supports toggle/momentary switches, stop-on-repeat, stop button, local control, and remote device binding.
+- Relays now respond to *MoveToLevelWithOnOff*
+  - Level = 0 -> Turn off relay
+  - Level > 0 -> Turn on  relay
+- Configurable multi-press factory reset count (set 1-255 or 0 to disable)
+- **Indicator LED press confirmation**:  LEDs briefly flash on button press/release as visual feedback.
+- **Push-button without relay** support for battery-powered scene switches
+  - Switches auto-detect absence of relays and default to detached mode
+  - New device: Moes 4-gang scene switch (`REMOTE_MOES_SWITCH_TS0044`)
+- **Battery measurement & reporting** (Zigbee `genPowerCfg` cluster) for Telink devices
+- **Deep retention sleep** for Telink end devices
 
 ### Changes
 
+- Add `D<N>` config option to customize button debounce delay in milliseconds
 - **Bi-stable (latching) relays** have been reworked
   - They now use proper pulses instead of continuously driving the coil
   - Pressing multiple buttons will toggle the relays with small delays in-between (safe)
   - Add `SLP;` to the config string for simultaneous toggles (risky, might damage the device)
+- **Power management for battery end devices**
+  - Reduced TX power (~3 dBm instead of ~10 dBm) to save battery
+  - Poll rate controller: fast polling + slow polling support
+  - PowerCfg cluster for battery level monitoring
+  - PollCtrl cluster to allow settings poll rate via ZCL
+  - Add `BT<pin>` config option to enable battery mode
 
 ### Bugs
 
@@ -33,11 +53,11 @@ Please describe what you are working on:
 
 ## v1.1.2
 
-*Bug-fix update*
+_Bug-fix update_
 
 ### Bugs
 
-- **Fixed** 
+- **Fixed**
   - Setting 'long press duration' to 0ms crashes device
   - Can't change device imageType in config string
   - Option 'Relay indicator - manual on' is not kept after reboot
@@ -45,7 +65,7 @@ Please describe what you are working on:
 
 ## v1.1.1
 
-*Critical bug-fix update for previous version*
+_Critical bug-fix update for previous version_
 
 ### Changes
 
@@ -57,7 +77,7 @@ Please describe what you are working on:
 
 ## v1.1.0
 
-*Contains **substantial restructuring** of the firmware architecture, but doesn't bring new features*
+_Contains **substantial restructuring** of the firmware architecture, but doesn't bring new features_
 
 ### Changes
 
@@ -69,15 +89,20 @@ Please describe what you are working on:
 
 ### Bugs
 
-- **Fixed** 
+- **Fixed**
   - Old SDK freezes device in some network conditions
-- **New** 
+- **New**
   - Floating pin (or other device conditions) **freezes device**
   - Setting 'long press duration' to 0ms **crashes device**
   - Can't change device imageType in config string
   - Option 'Relay indicator - manual on' is not kept after reboot
   - Relay indicators sometimes go out-of-sync ([#38](https://github.com/romasku/tuya-zigbee-switch/issues/38))
   - Telink End_device unreachable from Z2M after a while ([#217](https://github.com/romasku/tuya-zigbee-switch/issues/217))
+  - Switch randomly toggles on TLSR8253 512KB devices ([#289](https://github.com/romasku/tuya-zigbee-switch/issues/289))
+    (HOBEIAN and Zbeacon)
+  - _Power-on behavior_ doesn't fully work on some devices
+  - _momentary_nc_ not working after power loss.
+    (Apply the setting again)
 
 ## v1.0.21
 
@@ -87,7 +112,7 @@ Please describe what you are working on:
 
 ### New features
 
-- Add support for Zigbee commands: 
+- Add support for Zigbee commands:
   - **off_with_effect** (0x40)
   - **on_with_recall_global_scene** (0x41)
 - Add support for **normally-closed momentary buttons**
@@ -110,9 +135,9 @@ Please describe what you are working on:
 
 ### New features
 
-- Add support for the **levelCtrl** cluster  
-  - This enables brightness control of compatible Zigbee bulbs via Zigbee binding.  
-  - The feature works only for momentary switches using long press: once a long press is detected, brightness will begin to slowly change. Each subsequent long press reverses the direction (increase/decrease).  
+- Add support for the **levelCtrl** cluster
+  - This enables brightness control of compatible Zigbee bulbs via Zigbee binding.
+  - The feature works only for momentary switches using long press: once a long press is detected, brightness will begin to slowly change. Each subsequent long press reverses the direction (increase/decrease).
   - Requires manual update of converters and reconfiguration.
 
 ### Changes
@@ -136,7 +161,7 @@ Please describe what you are working on:
 
 ## v1.0.16
 
-- Add new toggle modes: TOGGLE_SMART_SYNC/TOGGLE_SMART_OPPOSITE (requires re-download of `switch_custom.js`).
+- Add new toggle modes: TOGGLE_SMART_SYNC/TOGGLE_SMART_OPPOSITE (requires re-download of `switch_custom.mjs`).
 
 ## v1.0.15
 
@@ -149,15 +174,15 @@ Please describe what you are working on:
 ## v1.0.13
 
 - Fix power on behavior = OFF not working if toggle in pressed state during boot.
-- Add way to control network state led state (requires re-download of `switch_custom.js`).
+- Add way to control network state led state (requires re-download of `switch_custom.mjs`).
 
 ## v1.0.12
 
 - Fix led indicator state in manual mode not preserved after reboot.
 - Add forced device announcement after boot to make sure device is seen as "available" as soon as it boots.
-- Restored device pictures in z2m (requires re-download of `switch_custom.js`).
+- Restored device pictures in z2m (requires re-download of `switch_custom.mjs`).
 - Cleaned-up z2m converter (fix typos, inconsistent names, etc.). **Warning!** This may break your automations as it changes .
-  property names (requires re-download of `switch_custom.js`).
+  property names (requires re-download of `switch_custom.mjs`).
 
 ## v1.0.11
 
