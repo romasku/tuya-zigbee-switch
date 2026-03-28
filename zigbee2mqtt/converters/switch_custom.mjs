@@ -2,7 +2,6 @@ import { setupAttributes } from "zigbee-herdsman-converters/lib/modernExtend";
 import {
   assertString,
   getOptions,
-  postfixWithEndpointName,
 } from "zigbee-herdsman-converters/lib/utils";
 import exposes from "zigbee-herdsman-converters/lib/exposes";
 import { Zcl } from "zigbee-herdsman";
@@ -176,7 +175,7 @@ const parseConfig = (config) => {
   const result = {
     switchCount: 0,
     relayCount: 0,
-    relayIndicatorCount: 0,
+    indicatorCount: 0,
     coverSwitchCount: 0,
     coverCount: 0,
     hasNetworkLed: false,
@@ -204,7 +203,7 @@ const parseConfig = (config) => {
     } else if (part[0] === "R") {
       result.relayCount += 1;
     } else if (part[0] === "I") {
-      result.relayIndicatorCount += 1;
+      result.indicatorCount += 1;
     } else if (part[0] === "L") {
       result.hasNetworkLed = true;
     } else if (part[0] === "X") {
@@ -212,13 +211,6 @@ const parseConfig = (config) => {
     } else if (part[0] === "C") {
       result.coverCount += 1;
     }
-  }
-
-  if (result.relayIndicatorCount > result.relayCount) {
-    logger.warning(
-      `There are more relay indicators (${result.relayIndicatorCount}) than relays (${result.relayCount})`,
-      NS
-    );
   }
 
   return result;
@@ -257,6 +249,28 @@ const getEndpointRole = (deviceConfig, endpointId) => {
   }
 
   return { type: "unknown", index: endpointId };
+};
+
+const getFunctionalEndpointName = (msg, meta, deviceConfig) => {
+  const resolvedConfig = deviceConfig ?? (() => {
+    const config = getDeviceConfigString(meta.device);
+    return config ? parseConfig(config) : undefined;
+  })();
+
+  if (resolvedConfig) {
+    const role = getEndpointRole(resolvedConfig, msg.endpoint.ID);
+    if (role.type !== "unknown") {
+      return `${role.type}_${role.index}`;
+    }
+  }
+
+  const endpointName = meta.endpoint_name;
+  return endpointName && endpointName !== MAIN_ENDPOINT ? endpointName : undefined;
+};
+
+const postfixWithFunctionalEndpointName = (key, msg, meta, deviceConfig) => {
+  const endpointName = getFunctionalEndpointName(msg, meta, deviceConfig);
+  return endpointName ? `${key}_${endpointName}` : key;
 };
 
 const getEndpointMap = (deviceConfig) => {
@@ -794,33 +808,54 @@ const customFromZigbee = {
     type: ["readResponse", "attributeReport"],
     convert(model, msg, publish, options, meta) {
       const result = {};
+      const config = getDeviceConfigString(meta.device);
+      const deviceConfig = config ? parseConfig(config) : undefined;
 
       if (msg.data.switchMode !== undefined) {
-        result[postfixWithEndpointName("switch_mode", msg, model, meta)] =
+        result[
+          postfixWithFunctionalEndpointName("switch_mode", msg, meta, deviceConfig)
+        ] =
           DEC.SWITCH_MODE[msg.data.switchMode] ?? msg.data.switchMode;
       }
       if (msg.data.switchActions !== undefined) {
-        result[postfixWithEndpointName("switch_actions", msg, model, meta)] =
+        result[
+          postfixWithFunctionalEndpointName("switch_actions", msg, meta, deviceConfig)
+        ] =
           DEC.SWITCH_ACTIONS[msg.data.switchActions] ?? msg.data.switchActions;
       }
       if (msg.data.relayMode !== undefined) {
-        result[postfixWithEndpointName("relay_mode", msg, model, meta)] =
+        result[
+          postfixWithFunctionalEndpointName("relay_mode", msg, meta, deviceConfig)
+        ] =
           DEC.RELAY_MODE[msg.data.relayMode] ?? msg.data.relayMode;
       }
       if (msg.data.relayIndex !== undefined) {
-        result[postfixWithEndpointName("relay_index", msg, model, meta)] =
+        result[
+          postfixWithFunctionalEndpointName("relay_index", msg, meta, deviceConfig)
+        ] =
           `relay_${msg.data.relayIndex}`;
       }
       if (msg.data.longPressDuration !== undefined) {
-        result[postfixWithEndpointName("long_press_duration", msg, model, meta)] =
+        result[
+          postfixWithFunctionalEndpointName(
+            "long_press_duration",
+            msg,
+            meta,
+            deviceConfig
+          )
+        ] =
           msg.data.longPressDuration;
       }
       if (msg.data.levelMoveRate !== undefined) {
-        result[postfixWithEndpointName("level_move_rate", msg, model, meta)] =
+        result[
+          postfixWithFunctionalEndpointName("level_move_rate", msg, meta, deviceConfig)
+        ] =
           msg.data.levelMoveRate;
       }
       if (msg.data.boundMode !== undefined) {
-        result[postfixWithEndpointName("bound_mode", msg, model, meta)] =
+        result[
+          postfixWithFunctionalEndpointName("bound_mode", msg, meta, deviceConfig)
+        ] =
           DEC.BOUND_MODE[msg.data.boundMode] ?? msg.data.boundMode;
       }
 
@@ -849,11 +884,18 @@ const customFromZigbee = {
       const result = {};
 
       if (role.type === "switch") {
-        result[postfixWithEndpointName("press_action", msg, model, meta)] =
+        result[
+          postfixWithFunctionalEndpointName("press_action", msg, meta, deviceConfig)
+        ] =
           DEC.PRESS_ACTIONS[msg.data.presentValue] ?? msg.data.presentValue;
       } else if (role.type === "cover_switch") {
         result[
-          postfixWithEndpointName("cover_switch_press_action", msg, model, meta)
+          postfixWithFunctionalEndpointName(
+            "cover_switch_press_action",
+            msg,
+            meta,
+            deviceConfig
+          )
         ] =
           DEC.COVER_SWITCH_PRESS_ACTIONS[msg.data.presentValue] ??
           msg.data.presentValue;
@@ -910,16 +952,30 @@ const customFromZigbee = {
     type: ["readResponse", "attributeReport"],
     convert(model, msg, publish, options, meta) {
       const result = {};
+      const config = getDeviceConfigString(meta.device);
+      const deviceConfig = config ? parseConfig(config) : undefined;
 
       if (msg.data.relayIndicatorMode !== undefined) {
         result[
-          postfixWithEndpointName("relay_indicator_mode", msg, model, meta)
+          postfixWithFunctionalEndpointName(
+            "relay_indicator_mode",
+            msg,
+            meta,
+            deviceConfig
+          )
         ] =
           DEC.RELAY_INDICATOR_MODE[msg.data.relayIndicatorMode] ??
           msg.data.relayIndicatorMode;
       }
       if (msg.data.relayIndicator !== undefined) {
-        result[postfixWithEndpointName("relay_indicator", msg, model, meta)] =
+        result[
+          postfixWithFunctionalEndpointName(
+            "relay_indicator",
+            msg,
+            meta,
+            deviceConfig
+          )
+        ] =
           msg.data.relayIndicator === 1 ? "ON" : "OFF";
       }
 
@@ -935,40 +991,69 @@ const customFromZigbee = {
     type: ["readResponse", "attributeReport"],
     convert(model, msg, publish, options, meta) {
       const result = {};
+      const config = getDeviceConfigString(meta.device);
+      const deviceConfig = config ? parseConfig(config) : undefined;
 
       if (msg.data.switchType !== undefined) {
-        result[postfixWithEndpointName("cover_switch_type", msg, model, meta)] =
+        result[
+          postfixWithFunctionalEndpointName(
+            "cover_switch_type",
+            msg,
+            meta,
+            deviceConfig
+          )
+        ] =
           DEC.COVER_SWITCH_TYPE[msg.data.switchType] ?? msg.data.switchType;
       }
       if (msg.data.coverIndex !== undefined) {
         result[
-          postfixWithEndpointName("cover_switch_cover_index", msg, model, meta)
+          postfixWithFunctionalEndpointName(
+            "cover_switch_cover_index",
+            msg,
+            meta,
+            deviceConfig
+          )
         ] = msg.data.coverIndex === 0 ? "detached" : `cover_${msg.data.coverIndex}`;
       }
       if (msg.data.reversal !== undefined) {
         result[
-          postfixWithEndpointName("cover_switch_invert", msg, model, meta)
+          postfixWithFunctionalEndpointName(
+            "cover_switch_invert",
+            msg,
+            meta,
+            deviceConfig
+          )
         ] = msg.data.reversal === 1 ? "ON" : "OFF";
       }
       if (msg.data.localMode !== undefined) {
         result[
-          postfixWithEndpointName("cover_switch_local_mode", msg, model, meta)
+          postfixWithFunctionalEndpointName(
+            "cover_switch_local_mode",
+            msg,
+            meta,
+            deviceConfig
+          )
         ] =
           DEC.COVER_SWITCH_MODE[msg.data.localMode] ?? msg.data.localMode;
       }
       if (msg.data.bindedMode !== undefined) {
         result[
-          postfixWithEndpointName("cover_switch_bound_mode", msg, model, meta)
+          postfixWithFunctionalEndpointName(
+            "cover_switch_bound_mode",
+            msg,
+            meta,
+            deviceConfig
+          )
         ] =
           DEC.COVER_SWITCH_MODE[msg.data.bindedMode] ?? msg.data.bindedMode;
       }
       if (msg.data.longPressDuration !== undefined) {
         result[
-          postfixWithEndpointName(
+          postfixWithFunctionalEndpointName(
             "cover_switch_long_press_duration",
             msg,
-            model,
-            meta
+            meta,
+            deviceConfig
           )
         ] = msg.data.longPressDuration;
       }
@@ -985,21 +1070,38 @@ const customFromZigbee = {
     type: ["readResponse", "attributeReport"],
     convert(model, msg, publish, options, meta) {
       const result = {};
+      const config = getDeviceConfigString(meta.device);
+      const deviceConfig = config ? parseConfig(config) : undefined;
 
       if (msg.data.moving !== undefined) {
         const moving =
           DEC.COVER_MOVING[msg.data.moving] ?? msg.data.moving;
-        result[postfixWithEndpointName("moving", msg, model, meta)] = moving;
+        result[
+          postfixWithFunctionalEndpointName("moving", msg, meta, deviceConfig)
+        ] = moving;
         if (moving === "opening") {
-          result[postfixWithEndpointName("state", msg, model, meta)] = "OPEN";
+          result[
+            postfixWithFunctionalEndpointName("state", msg, meta, deviceConfig)
+          ] = "OPEN";
         } else if (moving === "closing") {
-          result[postfixWithEndpointName("state", msg, model, meta)] = "CLOSE";
+          result[
+            postfixWithFunctionalEndpointName("state", msg, meta, deviceConfig)
+          ] = "CLOSE";
         } else if (moving === "stopped") {
-          result[postfixWithEndpointName("state", msg, model, meta)] = "STOP";
+          result[
+            postfixWithFunctionalEndpointName("state", msg, meta, deviceConfig)
+          ] = "STOP";
         }
       }
       if (msg.data.motorReversal !== undefined) {
-        result[postfixWithEndpointName("motor_reversal", msg, model, meta)] =
+        result[
+          postfixWithFunctionalEndpointName(
+            "motor_reversal",
+            msg,
+            meta,
+            deviceConfig
+          )
+        ] =
           msg.data.motorReversal === 1;
       }
 
@@ -1095,6 +1197,10 @@ const baseDefinition = {
     }
 
     const deviceConfig = parseConfig(config);
+    const relayIndicatorCount = Math.min(
+      deviceConfig.indicatorCount,
+      deviceConfig.relayCount
+    );
 
     if (deviceConfig.hasBatteryCluster) {
       dynamicExposes.unshift(customExposes.batteryPercentage());
@@ -1127,7 +1233,7 @@ const baseDefinition = {
       }
     }
 
-    for (let i = 1; i <= deviceConfig.relayIndicatorCount; i++) {
+    for (let i = 1; i <= relayIndicatorCount; i++) {
       dynamicExposes.push(
         customExposes.relayIndicator(i),
         customExposes.relayIndicatorMode(i)
@@ -1236,6 +1342,10 @@ const baseDefinition = {
     }
 
     const deviceConfig = parseConfig(config);
+    const relayIndicatorCount = Math.min(
+      deviceConfig.indicatorCount,
+      deviceConfig.relayCount
+    );
     logger.debug(
       `Parsed config as ${JSON.stringify(deviceConfig)} during configure`,
       NS
@@ -1282,7 +1392,7 @@ const baseDefinition = {
         switchEndpoint,
         coordinatorEndpoint,
         "genMultistateInput",
-        [{ attribute: "presentValue", min: 0, max: 60, change: 1 }]
+        [{ attribute: "presentValue", min: 0, max: "MAX", change: 1 }]
       );
     }
 
@@ -1301,7 +1411,7 @@ const baseDefinition = {
         [{ attribute: "startUpOnOff", min: -1, max: -1, change: -1 }],
         false
       );
-      if (i <= deviceConfig.relayIndicatorCount) {
+      if (i <= relayIndicatorCount) {
         await setupAttributes(
           relayEndpoint,
           coordinatorEndpoint,
@@ -1336,7 +1446,7 @@ const baseDefinition = {
         coverSwitchEndpoint,
         coordinatorEndpoint,
         "genMultistateInput",
-        [{ attribute: "presentValue", min: 0, max: 60, change: 1 }]
+        [{ attribute: "presentValue", min: 0, max: "MAX", change: 1 }]
       );
     }
 
