@@ -882,7 +882,7 @@ MODULE_FARYLINK_L_TS0001:
   tuya_module: ZT2S_real
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: qlhs2kqr;TS0001-FL;BB7u;LC2;SC4u;RB1;
+  config_str: qlhs2kqr;TS0001-FL;BB7u;LB1;SC4u;RC2;
   alt_config_str: null
   old_manufacturer_names: null
   old_zb_models: 
@@ -891,8 +891,8 @@ MODULE_FARYLINK_L_TS0001:
   stock_image_type: 54179
   firmware_image_type: 43617
   build: yes
-  status: mostly_supported
-  info: Needs netled pin
+  status: fully_supported
+  info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/326
   store: null
 MODULE_FARYLINK_L_TS0002:
@@ -910,7 +910,7 @@ MODULE_FARYLINK_L_TS0002:
   tuya_module: ZT2S_real
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: null____;TS0002-FLL;BB7u;LC2;SC4u;RB1;SD2u;RB4;
+  config_str: null____;TS0002-FLL;BB7u;LB1;SC4u;RC2;SD2u;RB4;
   alt_config_str: null
   old_manufacturer_names: null
   old_zb_models: null
@@ -937,7 +937,7 @@ MODULE_FARYLINK_L_TS0003:
   tuya_module: ZT2S_real
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: null____;TS0003-FL;BB7u;LC2;SC4u;RB1;SD2u;RB4;SC3u;RB5;
+  config_str: null____;TS0003-FL;BB7u;LB1;SC4u;RC2;SD2u;RB4;SC3u;RB5;
   alt_config_str: null
   old_manufacturer_names: null
   old_zb_models: null
