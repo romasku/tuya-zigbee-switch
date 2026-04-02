@@ -2832,6 +2832,60 @@ REMOTE_IHSENO_TS0044:
   store:
   - https://www.aliexpress.com/item/1005005792534172.html
   - https://allegro.pl/oferta/pilot-atlo-rc4-tuya-zigbee-tuya-smart-da-16513965398
+REMOTE_MOES_SWITCH_A_TS0043:
+  human_name: Moes 3-gang scene switch (multiple variants)
+  category: remote
+  power: CR2032
+  neutral: without
+  output: nothing
+  device_type: end_device
+  stock_model_name: TS0043
+  stock_manufacturer_name: _TZ3000_gbm10jnj
+  stock_converter_manufacturer: Moes
+  stock_converter_model: ZT-B-EU3
+  override_z2m_device: null
+  tuya_module: ZS3L
+  mcu_family: Silabs
+  mcu: EFR32MG21A020F768IM32
+  config_str: gbm10jnj;TS0043-MA;SA0u;ID0i;SA4u;IC1i;SA3u;IC0i;BTA0;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
+  firmware_image_type: 45633
+  build: yes
+  status: mostly_supported
+  info: Needs testing
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/382
+  store: null
+REMOTE_MOES_SWITCH_A_TS0044:
+  human_name: Moes 4-gang scene switch (multiple variants)
+  category: remote
+  power: CR2032
+  neutral: without
+  output: nothing
+  device_type: end_device
+  stock_model_name: TS0044
+  stock_manufacturer_name: _TZ3000_a4xycprs
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0044
+  override_z2m_device: ZT-SR-EU4
+  tuya_module: ZS3L
+  mcu_family: Silabs
+  mcu: EFR32MG21A020F768IM32
+  config_str: a4xycprs;TS0044-MA;SA0u;ID0i;SA4u;IC1i;SA3u;IC0i;SB0u;ID1i;BTA0;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
+  firmware_image_type: 45634
+  build: yes
+  status: mostly_supported
+  info: Needs testing
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/382
+  store: null
 REMOTE_MOES_SWITCH_TS0044:
   human_name: Moes 4-gang scene switch
   category: remote
