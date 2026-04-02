@@ -2160,7 +2160,7 @@ MODULE_TUYA_NOVATO_DRY_TS000F_1GANG:
   stock_converter_manufacturer: Tuya
   stock_converter_model: QS-Zigbee-SEC01-DC
   override_z2m_device: null
-  tuya_module: ZTLC9
+  tuya_module: ZTLC9S
   mcu_family: Telink
   mcu: TLSR8258
   config_str: hdc8bbha2;TS000F-DC; null
