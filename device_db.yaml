@@ -2832,6 +2832,35 @@ REMOTE_IHSENO_TS0044:
   store:
   - https://www.aliexpress.com/item/1005005792534172.html
   - https://allegro.pl/oferta/pilot-atlo-rc4-tuya-zigbee-tuya-smart-da-16513965398
+REMOTE_MOES_SWITCH_A_TS0042:
+  human_name: Moes 2-gang scene switch (multiple variants)
+  category: remote
+  power: CR2032
+  neutral: without
+  output: nothing
+  device_type: end_device
+  stock_model_name: TS0042
+  stock_manufacturer_name: _TZ3000_5e235jpa
+  stock_converter_manufacturer: Moes
+  stock_converter_model: ZT-B-EU2
+  override_z2m_device: null
+  tuya_module: ZS3L
+  mcu_family: Silabs
+  mcu: EFR32MG21A020F768IM32
+  config_str: 5e235jpa;TS0042-MA;SA0u;ID0i;SA4u;IC1i;BTA0;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
+  firmware_image_type: 45635
+  build: yes
+  status: mostly_supported
+  info: Needs testing
+  threads: 
+  - https://github.com/romasku/tuya-zigbee-switch/issues/370
+  - https://github.com/romasku/tuya-zigbee-switch/issues/382
+  store: null
 REMOTE_MOES_SWITCH_A_TS0043:
   human_name: Moes 3-gang scene switch (multiple variants)
   category: remote
@@ -2857,7 +2886,9 @@ REMOTE_MOES_SWITCH_A_TS0043:
   build: yes
   status: mostly_supported
   info: Needs testing
-  threads: https://github.com/romasku/tuya-zigbee-switch/issues/382
+  threads: 
+  - https://github.com/romasku/tuya-zigbee-switch/issues/370
+  - https://github.com/romasku/tuya-zigbee-switch/issues/382
   store: null
 REMOTE_MOES_SWITCH_A_TS0044:
   human_name: Moes 4-gang scene switch (multiple variants)
@@ -2884,7 +2915,9 @@ REMOTE_MOES_SWITCH_A_TS0044:
   build: yes
   status: mostly_supported
   info: Needs testing
-  threads: https://github.com/romasku/tuya-zigbee-switch/issues/382
+  threads: 
+  - https://github.com/romasku/tuya-zigbee-switch/issues/370
+  - https://github.com/romasku/tuya-zigbee-switch/issues/382
   store: null
 REMOTE_MOES_SWITCH_TS0044:
   human_name: Moes 4-gang scene switch
