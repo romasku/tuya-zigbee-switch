@@ -2913,6 +2913,33 @@ REMOTE_TUYA_TS0044:
   info: Huge battery drain! LEDs on C1, C2, C0, D0
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/171
   store: null
+REMOTE_TUYA_TLSR82xx_2GANG:
+  human_name: Tuya 2-button remote
+  category: remote
+  power: AAA
+  neutral: without
+  output: nothing
+  device_type: end_device
+  stock_model_name: TLSR82xx
+  stock_manufacturer_name: TELINK
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TLSR82xx_2btn_remote
+  override_z2m_device: null
+  tuya_module: none
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: TELINK;TLSR82xx-2G;SC0u;IB4;SD7u;IB4;BTB5;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: null
+  stock_image_type: null
+  firmware_image_type: 45632
+  build: yes
+  status: mostly_supported
+  info: Low power is implemented, but wasn't battle tested.
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/383
+  store: https://www.aliexpress.com/item/1005005471414149.html
 REMOTE_TUYA_TS004F_2:
   human_name: Tuya button wireless switch
   category: remote
