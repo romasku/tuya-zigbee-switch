@@ -4,7 +4,11 @@ _Open the **Outline** (table of contents) from the top right._
 
 <!------------------------------------------------------
 
-Please describe what you are working on:
+Please describe what you are working on, under ## Upcoming
+
+------------------------------------------------------->
+
+## Upcoming
 
 ### Features
 
@@ -48,8 +52,6 @@ Please describe what you are working on:
   - Reset needed 11 presses instead of 10
 - **New**
   - SONOFF ZBMINIL2 version updates broken?
-
-------------------------------------------------------->
 
 ## v1.1.2
 
