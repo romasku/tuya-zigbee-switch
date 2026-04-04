@@ -171,8 +171,8 @@ static hal_zigbee_cmd_result_t poll_control_cmd_callback(
                                 ((uint32_t)data[1] << 8) |
                                 ((uint32_t)data[2] << 16) |
                                 ((uint32_t)data[3] << 24);
-        printf("Poll control: set long poll interval=%lu\r\n",
-               (unsigned long)new_interval);
+        printf("Poll control: set long poll interval=%d\r\n",
+               (int)new_interval);
         if (new_interval < 0x04 || new_interval > 0x6E0000 ||
             (cluster->check_in_interval != 0 &&
              new_interval > cluster->check_in_interval) ||
@@ -231,8 +231,8 @@ void poll_control_cluster_callback_attr_write(uint16_t attribute_id) {
     zigbee_poll_control_cluster *cluster = poll_ctrl_instance;
 
     if (attribute_id == ZCL_ATTR_POLL_CTRL_CHECK_IN_INTERVAL) {
-        printf("Poll control: check-in interval written=%lu\r\n",
-               (unsigned long)cluster->check_in_interval);
+        printf("Poll control: check-in interval written=%d\r\n",
+               (int)cluster->check_in_interval);
         if (cluster->check_in_interval != 0 &&
             (cluster->check_in_interval < cluster->long_poll_interval)) {
             printf("Poll control: invalid check-in interval, reverting\r\n");
@@ -326,8 +326,14 @@ void poll_control_cluster_update(void) {
     zigbee_poll_control_cluster *cluster = poll_ctrl_instance;
     if (cluster->in_fast_poll &&
         (int32_t)(hal_millis() - cluster->fast_poll_end_ms) >= 0) {
-        printf("Poll control: fast poll timeout, switching to long poll\r\n");
-        exit_fast_poll(cluster);
+        if (hal_zigbee_get_network_status() != HAL_ZIGBEE_NETWORK_JOINED) {
+            // Stay in fast poll until the device has joined
+            cluster->fast_poll_end_ms =
+                hal_millis() + QS_TO_MS(cluster->fast_poll_timeout);
+        } else {
+            printf("Poll control: fast poll timeout, switching to long poll\r\n");
+            exit_fast_poll(cluster);
+        }
     }
 
     // Ensure poll rate is correct, just in case

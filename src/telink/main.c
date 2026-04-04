@@ -82,7 +82,9 @@ int real_main(startup_state_e state) {
         drv_wd_clear();
         app_task();
         drv_wd_clear();
-        report_handler();
+        if (battery.pin == HAL_INVALID_PIN) {
+            report_handler();
+        }
         drv_wd_clear();
 
 #if PM_ENABLE
