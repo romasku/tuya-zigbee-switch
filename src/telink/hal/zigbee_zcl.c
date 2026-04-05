@@ -240,11 +240,29 @@ void telink_zigbee_hal_zcl_init(hal_zigbee_endpoint *endpoints,
 
 void hal_zigbee_notify_attribute_changed(uint8_t endpoint, uint16_t cluster_id,
                                          uint16_t attribute_id) {
-    if (battery.pin != HAL_INVALID_PIN) {
-        // Battery device: send report directly, SDK reporting timers
-        // don't survive deep retention.
+    if (battery.pin != HAL_INVALID_PIN &&
+        cluster_id == ZCL_CLUSTER_GEN_MULTISTATE_INPUT_BASIC) {
+        // Button events: send report directly to avoid SDK reporting
+        // timers (reportingTimerCb ~100ms) which cause extra wake-ups
+        // from deep retention.
         hal_zigbee_send_report_attr(endpoint, cluster_id, attribute_id,
                                     0, NULL, 0);
+        // Sync prevData in the reporting table so report_handler() in
+        // the main loop does not see a stale diff and schedule another
+        // reporting timer for the same change.
+        reportCfgInfo_t *e = zcl_reportCfgInfoEntryFind(endpoint,
+                                                        cluster_id,
+                                                        attribute_id);
+        if (e) {
+            zclAttrInfo_t *a = zcl_findAttribute(endpoint, cluster_id,
+                                                 attribute_id);
+            if (a) {
+                u8 len = zcl_getAttrSize(a->type, a->data);
+                if (len > REPORTABLE_CHANGE_MAX_ANALOG_SIZE)
+                    len = REPORTABLE_CHANGE_MAX_ANALOG_SIZE;
+                memcpy(e->prevData, a->data, len);
+            }
+        }
     } else {
         report_handler();
     }

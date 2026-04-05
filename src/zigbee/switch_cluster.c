@@ -342,8 +342,6 @@ void switch_cluster_level_control(zigbee_switch_cluster *cluster) {
 }
 
 void switch_cluster_on_button_press(zigbee_switch_cluster *cluster) {
-    switch_cluster_flash_indicator(cluster);
-
     if (cluster->mode == ZCL_ONOFF_CONFIGURATION_SWITCH_TYPE_TOGGLE) {
         // Toggle does not support modes (RISE, SHORT, LONG)
         if (cluster->relay_mode != ZCL_ONOFF_CONFIGURATION_RELAY_MODE_DETACHED) {
@@ -354,6 +352,7 @@ void switch_cluster_on_button_press(zigbee_switch_cluster *cluster) {
         hal_zigbee_notify_attribute_changed(
             cluster->endpoint, ZCL_CLUSTER_MULTISTATE_INPUT_BASIC,
             ZCL_ATTR_MULTISTATE_INPUT_PRESENT_VALUE);
+        switch_cluster_flash_indicator(cluster);
         return;
     }
 
@@ -369,15 +368,10 @@ void switch_cluster_on_button_press(zigbee_switch_cluster *cluster) {
     hal_zigbee_notify_attribute_changed(cluster->endpoint,
                                         ZCL_CLUSTER_MULTISTATE_INPUT_BASIC,
                                         ZCL_ATTR_MULTISTATE_INPUT_PRESENT_VALUE);
+    switch_cluster_flash_indicator(cluster);
 }
 
 void switch_cluster_on_button_release(zigbee_switch_cluster *cluster) {
-    if (cluster->mode == ZCL_ONOFF_CONFIGURATION_SWITCH_TYPE_TOGGLE) {
-        // Only flash on release for toggles,
-        // for momentary flash on press only
-        switch_cluster_flash_indicator(cluster);
-    }
-
     if (cluster->mode == ZCL_ONOFF_CONFIGURATION_SWITCH_TYPE_TOGGLE) {
         // Toggle does not support modes (RISE, SHORT, LONG)
         if (cluster->relay_mode != ZCL_ONOFF_CONFIGURATION_RELAY_MODE_DETACHED) {
@@ -388,6 +382,7 @@ void switch_cluster_on_button_release(zigbee_switch_cluster *cluster) {
         hal_zigbee_notify_attribute_changed(
             cluster->endpoint, ZCL_CLUSTER_MULTISTATE_INPUT_BASIC,
             ZCL_ATTR_MULTISTATE_INPUT_PRESENT_VALUE);
+        switch_cluster_flash_indicator(cluster);
         return;
     }
 
