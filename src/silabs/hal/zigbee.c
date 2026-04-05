@@ -147,7 +147,7 @@ void hal_zigbee_init(hal_zigbee_endpoint *endpoints, uint8_t endpoints_cnt) {
 }
 
 void hal_zigbee_notify_attribute_changed(uint8_t endpoint, uint16_t cluster_id,
-                                         uint16_t attribute_id) {
+                                         uint16_t attribute_id, bool immediate) {
     hal_zigbee_cluster *  cluster = find_hal_cluster(endpoint, cluster_id);
     hal_zigbee_attribute *attr    =
         find_hal_attr(endpoint, cluster_id, attribute_id);

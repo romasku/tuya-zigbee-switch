@@ -176,7 +176,7 @@ void cover_switch_cluster_update_present_value(zigbee_cover_switch_cluster *clus
     cluster->present_value = present_value;
     hal_zigbee_notify_attribute_changed(cluster->endpoint,
                                         ZCL_CLUSTER_MULTISTATE_INPUT_BASIC,
-                                        ZCL_ATTR_MULTISTATE_INPUT_PRESENT_VALUE);
+                                        ZCL_ATTR_MULTISTATE_INPUT_PRESENT_VALUE, true);
 
     if (local_cmd != 0xFF) {
         cover_switch_trigger_local_cmd(cluster, local_cmd);
@@ -304,7 +304,7 @@ void cover_switch_cluster_on_write_attr(zigbee_cover_switch_cluster *cluster,
         }
         hal_zigbee_notify_attribute_changed(cluster->endpoint,
                                             ZCL_CLUSTER_MULTISTATE_INPUT_BASIC,
-                                            ZCL_ATTR_MULTISTATE_INPUT_PRESENT_VALUE);
+                                            ZCL_ATTR_MULTISTATE_INPUT_PRESENT_VALUE, false);
         cover_switch_cluster_store_attrs_to_nv(cluster);
         break;
     case ZCL_ATTR_COVER_SWITCH_CONFIG_COVER_INDEX:

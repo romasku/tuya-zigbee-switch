@@ -11,11 +11,7 @@
 
 #include "hal/zigbee.h"
 #include "telink_zigbee_hal.h"
-#include "zigbee/battery_cluster.h"
-#include "base_components/battery.h"
 #include "zigbee/consts.h"
-
-extern battery_t battery;
 
 // Storage for Telink endpoint configuration
 static af_simple_descriptor_t endpoint_descriptors[MAX_ENDPOINTS];
@@ -239,11 +235,10 @@ void telink_zigbee_hal_zcl_init(hal_zigbee_endpoint *endpoints,
 }
 
 void hal_zigbee_notify_attribute_changed(uint8_t endpoint, uint16_t cluster_id,
-                                         uint16_t attribute_id) {
-    if (battery.pin != HAL_INVALID_PIN &&
-        cluster_id == ZCL_CLUSTER_GEN_MULTISTATE_INPUT_BASIC) {
-        // Button events: send report directly to avoid SDK reporting
-        // timers (reportingTimerCb ~100ms) which cause extra wake-ups
+                                         uint16_t attribute_id, bool immediate) {
+    if (immediate) {
+        // Send report directly to avoid SDK reporting timers
+        // (reportingTimerCb ~100ms) which cause extra wake-ups
         // from deep retention.
         hal_zigbee_send_report_attr(endpoint, cluster_id, attribute_id,
                                     0, NULL, 0);
