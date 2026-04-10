@@ -1493,7 +1493,7 @@ MODULE_IHSENO_TS0004:
   tuya_module: ZTU
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: knoj8lpk;TS0004-IHS;BC3u;LC2i;SB5u;RD2;SB4u;RD3;SD7u;RC0;SD4u;RC1;
+  config_str: knoj8lpk;TS0004-IHS;BC3u;LC2i;SB5u;RD2;EB4uD7uD4u;
   alt_config_str: null
   old_manufacturer_names:
   - TS0004-IHS
