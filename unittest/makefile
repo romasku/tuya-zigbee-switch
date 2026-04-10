@@ -57,7 +57,7 @@ default: $(SRC_FILES1)
 	- ./$(TARGET1)
 	
 test/test_runners/test_1_runner.c: test/test_1.c
-	ruby $(UNITY_ROOT)/auto/generate_test_runner.rb test/test_runners/test_1_runner.c
+	ruby $(UNITY_ROOT)/auto/generate_test_runner.rb test/test_1.c test/test_runners/test_1_runner.c
 
 clean:
 	$(CLEANUP) $(TARGET1)

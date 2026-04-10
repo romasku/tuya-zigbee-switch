@@ -31,3 +31,9 @@ void test_WhichPasses(void)
   /* You should see this line pass in your test summary */
   TEST_ASSERT_EQUAL(8, 8);
 }
+
+void test_anotherWhichPasses(void)
+{
+  /* You should see this line pass in your test summary */
+  TEST_ASSERT_EQUAL(9, 9);
+}
