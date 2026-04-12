@@ -7,6 +7,7 @@
 void _encoder_gpio_callback(hal_gpio_pin_t pin, void *arg);
 void _pinAChanged(uint8_t new_state, encoder_t *encoder);
 void _pinBChanged(uint8_t new_state, encoder_t *encoder);
+void _pinSWChanged(uint8_t new_state, encoder_t *encoder);
 
 void encoder_init(encoder_t *encoder)
 {
@@ -32,8 +33,6 @@ void _encoder_gpio_callback(hal_gpio_pin_t pin, void *arg)
   if (pin == encoder->pin_a && new_state != encoder->pin_a_state && (hal_millis() - encoder->pin_a_last_change) > 50)
   {
     // Pin A Changed and has not changed in the last 50 milliseconds
-    printf("Pin A (%d) Changed!\r\n", encoder->pin_a);
-
     encoder->pin_a_state = new_state;
     encoder->pin_a_last_change = hal_millis();
 
@@ -43,8 +42,6 @@ void _encoder_gpio_callback(hal_gpio_pin_t pin, void *arg)
   if (pin == encoder->pin_b && new_state != encoder->pin_b_state && (hal_millis() - encoder->pin_b_last_change) > 50)
   {
     // Pin B Changed and has not changed in the last 50 milliseconds
-    printf("Pin B (%d) Changed!\r\n", encoder->pin_b);
-
     encoder->pin_b_state = new_state;
     encoder->pin_b_last_change = hal_millis();
 
@@ -53,16 +50,10 @@ void _encoder_gpio_callback(hal_gpio_pin_t pin, void *arg)
 
   if (pin == encoder->pin_sw && new_state != encoder->pin_sw_state && (hal_millis() - encoder->pin_sw_last_change) > 50)
   {
-    // Pin SW Changed and has not changed in the last 50 milliseconds
-    printf("Pin SW Changed!\r\n");
-
-    if (new_state == 0 && encoder->on_press != NULL)
-    {
-      encoder->on_press();
-    }
-
     encoder->pin_sw_state = new_state;
     encoder->pin_sw_last_change = hal_millis();
+
+    _pinSWChanged(new_state, encoder);
   }
 }
 
@@ -111,5 +102,20 @@ void _pinBChanged(uint8_t new_state, encoder_t *encoder)
         encoder->on_rotate_cw();
       }
     }
+  }
+}
+
+void _pinSWChanged(uint8_t new_state, encoder_t *encoder)
+{
+  if (new_state == 0)
+  {
+    printf("Pressed\r\n");
+
+    if (encoder->on_press != NULL)
+      encoder->on_press();
+  }
+  else
+  {
+    printf("Released\r\n");
   }
 }
