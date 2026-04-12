@@ -2,6 +2,7 @@
 
 /*=======Automagically Detected Files To Include=====*/
 #include "unity.h"
+#include "base_components/encoder.h"
 
 /*=======External Functions This Runner Calls=====*/
 extern void setUp(void);
@@ -70,9 +71,9 @@ static void run_test(UnityTestFunction func, const char* name, UNITY_LINE_TYPE l
 int main(void)
 {
   UnityBegin("test/test_1.c");
-  run_test(test_WhichFails, "test_WhichFails", 18);
-  run_test(test_WhichPasses, "test_WhichPasses", 29);
-  run_test(test_anotherWhichPasses, "test_anotherWhichPasses", 35);
+  run_test(test_WhichFails, "test_WhichFails", 19);
+  run_test(test_WhichPasses, "test_WhichPasses", 30);
+  run_test(test_anotherWhichPasses, "test_anotherWhichPasses", 36);
 
   return UNITY_END();
 }

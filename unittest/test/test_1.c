@@ -6,6 +6,7 @@
 ========================================================================= */
 
 #include "unity.h"
+#include "base_components/encoder.h"
 
 void setUp(void)
 {

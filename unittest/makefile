@@ -30,24 +30,61 @@ UNITY_ROOT=./unity
 
 CFLAGS=-std=c89
 CFLAGS += -Wall
-CFLAGS += -Wextra
-CFLAGS += -Wpointer-arith
-CFLAGS += -Wcast-align
-CFLAGS += -Wwrite-strings
-CFLAGS += -Wswitch-default
-CFLAGS += -Wunreachable-code
-CFLAGS += -Winit-self
-CFLAGS += -Wmissing-field-initializers
-CFLAGS += -Wno-unknown-pragmas
-CFLAGS += -Wstrict-prototypes
-CFLAGS += -Wundef
-CFLAGS += -Wold-style-definition
+CFLAGS += -Wno-unused-parameter
+CFLAGS += -Wno-unused-variable
+# CFLAGS += -Wextra
+# CFLAGS += -Wpointer-arith
+# CFLAGS += -Wcast-align
+# CFLAGS += -Wwrite-strings
+# CFLAGS += -Wunreachable-code
+# CFLAGS += -Winit-self
+# CFLAGS += -Wmissing-field-initializers
+# CFLAGS += -Wno-unknown-pragmas
+# CFLAGS += -Wundef
+# CFLAGS += -fgnu89-inline
 #CFLAGS += -Wno-misleading-indentation
+CFLAGS += -Wall -Wno-unused-parameter -Wno-unused-variable -g -O0 \
+    -DHAL_STUB -DSTACK_BUILD=1001 -D_DEFAULT_SOURCE -DVERSION_STR="0.0.0" \
+	-DNVM_MIGRATIONS_VERSION=1 \
+	-std=c99
+
+# Source files for stub build
+SRC_DIR            := ../src
+SOURCES := \
+	$(SRC_DIR)/zigbee/poll_control_cluster.c \
+	$(SRC_DIR)/stub/hal/gpio.c \
+	$(SRC_DIR)/stub/hal/system.c \
+	$(SRC_DIR)/stub/hal/timer.c \
+	$(SRC_DIR)/stub/hal/tasks.c \
+	$(SRC_DIR)/stub/hal/nvm.c \
+	$(SRC_DIR)/stub/hal/adc.c \
+	$(SRC_DIR)/stub/hal/zigbee.c \
+	$(SRC_DIR)/stub/hal/ota.c \
+	$(SRC_DIR)/stub/machine_io.c \
+	$(SRC_DIR)/base_components/led.c \
+	$(SRC_DIR)/base_components/relay.c \
+	$(SRC_DIR)/base_components/button.c \
+	$(SRC_DIR)/base_components/battery.c \
+	$(SRC_DIR)/base_components/network_indicator.c \
+	$(SRC_DIR)/base_components/encoder.c \
+	$(SRC_DIR)/device_config/config_parser.c \
+	$(SRC_DIR)/device_config/config_nv.c \
+	$(SRC_DIR)/device_config/device_params_nv.c \
+	$(SRC_DIR)/device_config/reset.c \
+	$(SRC_DIR)/device_config/nvm_migrations.c \
+	$(SRC_DIR)/zigbee/basic_cluster.c \
+	$(SRC_DIR)/zigbee/relay_cluster.c \
+	$(SRC_DIR)/zigbee/switch_cluster.c \
+	$(SRC_DIR)/zigbee/group_cluster.c \
+	$(SRC_DIR)/zigbee/general_commands.c \
+	$(SRC_DIR)/zigbee/cover_switch_cluster.c \
+	$(SRC_DIR)/zigbee/cover_cluster.c \
+	$(SRC_DIR)/zigbee/battery_cluster.c
 
 TARGET_BASE1=test_1
 TARGET1 = $(TARGET_BASE1)$(TARGET_EXTENSION)
-SRC_FILES1=$(UNITY_ROOT)/src/unity.c test/test_1.c  test/test_runners/test_1_runner.c
-INC_DIRS=-Isrc -I$(UNITY_ROOT)/src
+SRC_FILES1=$(UNITY_ROOT)/src/unity.c $(SOURCES) test/test_1.c  test/test_runners/test_1_runner.c
+INC_DIRS=-I$(UNITY_ROOT)/src -I$(SRC_DIR) 
 SYMBOLS=
 
 all: clean default
