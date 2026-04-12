@@ -21,3 +21,6 @@
 	mv ../test_tools/cmock/temp/*/* ../test_tools/cmock
 
 setup: | ../test_tools/cmock/src
+
+generate_hal_mocks: 
+	ruby ../test_tools/cmock/lib/cmock.rb -o mock_config.yaml ../src/hal/gpio.h ../src/hal/timer.h 
