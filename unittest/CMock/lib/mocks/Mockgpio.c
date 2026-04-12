@@ -24,6 +24,7 @@ static const char* CMockString_s = "s";
 typedef struct _CMOCK_hal_gpio_init_CALL_INSTANCE
 {
   UNITY_LINE_TYPE LineNumber;
+  char ExpectAnyArgsBool;
   hal_gpio_pin_t Expected_gpio_pin;
   uint8_t Expected_is_input;
   hal_gpio_pull_t Expected_pull;
@@ -33,6 +34,7 @@ typedef struct _CMOCK_hal_gpio_init_CALL_INSTANCE
 typedef struct _CMOCK_hal_gpio_set_CALL_INSTANCE
 {
   UNITY_LINE_TYPE LineNumber;
+  char ExpectAnyArgsBool;
   hal_gpio_pin_t Expected_gpio_pin;
 
 } CMOCK_hal_gpio_set_CALL_INSTANCE;
@@ -40,6 +42,7 @@ typedef struct _CMOCK_hal_gpio_set_CALL_INSTANCE
 typedef struct _CMOCK_hal_gpio_clear_CALL_INSTANCE
 {
   UNITY_LINE_TYPE LineNumber;
+  char ExpectAnyArgsBool;
   hal_gpio_pin_t Expected_gpio_pin;
 
 } CMOCK_hal_gpio_clear_CALL_INSTANCE;
@@ -47,6 +50,7 @@ typedef struct _CMOCK_hal_gpio_clear_CALL_INSTANCE
 typedef struct _CMOCK_hal_gpio_read_CALL_INSTANCE
 {
   UNITY_LINE_TYPE LineNumber;
+  char ExpectAnyArgsBool;
   uint8_t ReturnVal;
   hal_gpio_pin_t Expected_gpio_pin;
 
@@ -55,15 +59,18 @@ typedef struct _CMOCK_hal_gpio_read_CALL_INSTANCE
 typedef struct _CMOCK_hal_gpio_callback_CALL_INSTANCE
 {
   UNITY_LINE_TYPE LineNumber;
+  char ExpectAnyArgsBool;
   hal_gpio_pin_t Expected_gpio_pin;
   gpio_callback_t Expected_callback;
   void* Expected_arg;
+  int Expected_arg_Depth;
 
 } CMOCK_hal_gpio_callback_CALL_INSTANCE;
 
 typedef struct _CMOCK_hal_gpio_unreg_callback_CALL_INSTANCE
 {
   UNITY_LINE_TYPE LineNumber;
+  char ExpectAnyArgsBool;
   hal_gpio_pin_t Expected_gpio_pin;
 
 } CMOCK_hal_gpio_unreg_callback_CALL_INSTANCE;
@@ -71,6 +78,7 @@ typedef struct _CMOCK_hal_gpio_unreg_callback_CALL_INSTANCE
 typedef struct _CMOCK_hal_gpio_parse_pin_CALL_INSTANCE
 {
   UNITY_LINE_TYPE LineNumber;
+  char ExpectAnyArgsBool;
   hal_gpio_pin_t ReturnVal;
   const char* Expected_s;
 
@@ -79,6 +87,7 @@ typedef struct _CMOCK_hal_gpio_parse_pin_CALL_INSTANCE
 typedef struct _CMOCK_hal_gpio_parse_pull_CALL_INSTANCE
 {
   UNITY_LINE_TYPE LineNumber;
+  char ExpectAnyArgsBool;
   hal_gpio_pull_t ReturnVal;
   const char* Expected_pull_str;
 
@@ -86,13 +95,48 @@ typedef struct _CMOCK_hal_gpio_parse_pull_CALL_INSTANCE
 
 static struct MockgpioInstance
 {
+  char hal_gpio_init_IgnoreBool;
+  char hal_gpio_init_CallbackBool;
+  CMOCK_hal_gpio_init_CALLBACK hal_gpio_init_CallbackFunctionPointer;
+  int hal_gpio_init_CallbackCalls;
   CMOCK_MEM_INDEX_TYPE hal_gpio_init_CallInstance;
+  char hal_gpio_set_IgnoreBool;
+  char hal_gpio_set_CallbackBool;
+  CMOCK_hal_gpio_set_CALLBACK hal_gpio_set_CallbackFunctionPointer;
+  int hal_gpio_set_CallbackCalls;
   CMOCK_MEM_INDEX_TYPE hal_gpio_set_CallInstance;
+  char hal_gpio_clear_IgnoreBool;
+  char hal_gpio_clear_CallbackBool;
+  CMOCK_hal_gpio_clear_CALLBACK hal_gpio_clear_CallbackFunctionPointer;
+  int hal_gpio_clear_CallbackCalls;
   CMOCK_MEM_INDEX_TYPE hal_gpio_clear_CallInstance;
+  char hal_gpio_read_IgnoreBool;
+  uint8_t hal_gpio_read_FinalReturn;
+  char hal_gpio_read_CallbackBool;
+  CMOCK_hal_gpio_read_CALLBACK hal_gpio_read_CallbackFunctionPointer;
+  int hal_gpio_read_CallbackCalls;
   CMOCK_MEM_INDEX_TYPE hal_gpio_read_CallInstance;
+  char hal_gpio_callback_IgnoreBool;
+  char hal_gpio_callback_CallbackBool;
+  CMOCK_hal_gpio_callback_CALLBACK hal_gpio_callback_CallbackFunctionPointer;
+  int hal_gpio_callback_CallbackCalls;
   CMOCK_MEM_INDEX_TYPE hal_gpio_callback_CallInstance;
+  char hal_gpio_unreg_callback_IgnoreBool;
+  char hal_gpio_unreg_callback_CallbackBool;
+  CMOCK_hal_gpio_unreg_callback_CALLBACK hal_gpio_unreg_callback_CallbackFunctionPointer;
+  int hal_gpio_unreg_callback_CallbackCalls;
   CMOCK_MEM_INDEX_TYPE hal_gpio_unreg_callback_CallInstance;
+  char hal_gpio_parse_pin_IgnoreBool;
+  hal_gpio_pin_t hal_gpio_parse_pin_FinalReturn;
+  char hal_gpio_parse_pin_CallbackBool;
+  CMOCK_hal_gpio_parse_pin_CALLBACK hal_gpio_parse_pin_CallbackFunctionPointer;
+  int hal_gpio_parse_pin_CallbackCalls;
   CMOCK_MEM_INDEX_TYPE hal_gpio_parse_pin_CallInstance;
+  char hal_gpio_parse_pull_IgnoreBool;
+  hal_gpio_pull_t hal_gpio_parse_pull_FinalReturn;
+  char hal_gpio_parse_pull_CallbackBool;
+  CMOCK_hal_gpio_parse_pull_CALLBACK hal_gpio_parse_pull_CallbackFunctionPointer;
+  int hal_gpio_parse_pull_CallbackCalls;
   CMOCK_MEM_INDEX_TYPE hal_gpio_parse_pull_CallInstance;
 } Mock;
 
@@ -102,52 +146,108 @@ void Mockgpio_Verify(void)
   UNITY_LINE_TYPE cmock_line = TEST_LINE_NUM;
   CMOCK_MEM_INDEX_TYPE call_instance;
   call_instance = Mock.hal_gpio_init_CallInstance;
+  if (Mock.hal_gpio_init_IgnoreBool)
+    call_instance = CMOCK_GUTS_NONE;
   if (CMOCK_GUTS_NONE != call_instance)
   {
     UNITY_SET_DETAIL(CMockString_hal_gpio_init);
     UNITY_TEST_FAIL(cmock_line, CMockStringCalledLess);
   }
+  if (Mock.hal_gpio_init_CallbackFunctionPointer != NULL)
+  {
+    call_instance = CMOCK_GUTS_NONE;
+    (void)call_instance;
+  }
   call_instance = Mock.hal_gpio_set_CallInstance;
+  if (Mock.hal_gpio_set_IgnoreBool)
+    call_instance = CMOCK_GUTS_NONE;
   if (CMOCK_GUTS_NONE != call_instance)
   {
     UNITY_SET_DETAIL(CMockString_hal_gpio_set);
     UNITY_TEST_FAIL(cmock_line, CMockStringCalledLess);
   }
+  if (Mock.hal_gpio_set_CallbackFunctionPointer != NULL)
+  {
+    call_instance = CMOCK_GUTS_NONE;
+    (void)call_instance;
+  }
   call_instance = Mock.hal_gpio_clear_CallInstance;
+  if (Mock.hal_gpio_clear_IgnoreBool)
+    call_instance = CMOCK_GUTS_NONE;
   if (CMOCK_GUTS_NONE != call_instance)
   {
     UNITY_SET_DETAIL(CMockString_hal_gpio_clear);
     UNITY_TEST_FAIL(cmock_line, CMockStringCalledLess);
   }
+  if (Mock.hal_gpio_clear_CallbackFunctionPointer != NULL)
+  {
+    call_instance = CMOCK_GUTS_NONE;
+    (void)call_instance;
+  }
   call_instance = Mock.hal_gpio_read_CallInstance;
+  if (Mock.hal_gpio_read_IgnoreBool)
+    call_instance = CMOCK_GUTS_NONE;
   if (CMOCK_GUTS_NONE != call_instance)
   {
     UNITY_SET_DETAIL(CMockString_hal_gpio_read);
     UNITY_TEST_FAIL(cmock_line, CMockStringCalledLess);
   }
+  if (Mock.hal_gpio_read_CallbackFunctionPointer != NULL)
+  {
+    call_instance = CMOCK_GUTS_NONE;
+    (void)call_instance;
+  }
   call_instance = Mock.hal_gpio_callback_CallInstance;
+  if (Mock.hal_gpio_callback_IgnoreBool)
+    call_instance = CMOCK_GUTS_NONE;
   if (CMOCK_GUTS_NONE != call_instance)
   {
     UNITY_SET_DETAIL(CMockString_hal_gpio_callback);
     UNITY_TEST_FAIL(cmock_line, CMockStringCalledLess);
   }
+  if (Mock.hal_gpio_callback_CallbackFunctionPointer != NULL)
+  {
+    call_instance = CMOCK_GUTS_NONE;
+    (void)call_instance;
+  }
   call_instance = Mock.hal_gpio_unreg_callback_CallInstance;
+  if (Mock.hal_gpio_unreg_callback_IgnoreBool)
+    call_instance = CMOCK_GUTS_NONE;
   if (CMOCK_GUTS_NONE != call_instance)
   {
     UNITY_SET_DETAIL(CMockString_hal_gpio_unreg_callback);
     UNITY_TEST_FAIL(cmock_line, CMockStringCalledLess);
   }
+  if (Mock.hal_gpio_unreg_callback_CallbackFunctionPointer != NULL)
+  {
+    call_instance = CMOCK_GUTS_NONE;
+    (void)call_instance;
+  }
   call_instance = Mock.hal_gpio_parse_pin_CallInstance;
+  if (Mock.hal_gpio_parse_pin_IgnoreBool)
+    call_instance = CMOCK_GUTS_NONE;
   if (CMOCK_GUTS_NONE != call_instance)
   {
     UNITY_SET_DETAIL(CMockString_hal_gpio_parse_pin);
     UNITY_TEST_FAIL(cmock_line, CMockStringCalledLess);
   }
+  if (Mock.hal_gpio_parse_pin_CallbackFunctionPointer != NULL)
+  {
+    call_instance = CMOCK_GUTS_NONE;
+    (void)call_instance;
+  }
   call_instance = Mock.hal_gpio_parse_pull_CallInstance;
+  if (Mock.hal_gpio_parse_pull_IgnoreBool)
+    call_instance = CMOCK_GUTS_NONE;
   if (CMOCK_GUTS_NONE != call_instance)
   {
     UNITY_SET_DETAIL(CMockString_hal_gpio_parse_pull);
     UNITY_TEST_FAIL(cmock_line, CMockStringCalledLess);
+  }
+  if (Mock.hal_gpio_parse_pull_CallbackFunctionPointer != NULL)
+  {
+    call_instance = CMOCK_GUTS_NONE;
+    (void)call_instance;
   }
 }
 
@@ -169,8 +269,22 @@ void hal_gpio_init(hal_gpio_pin_t gpio_pin, uint8_t is_input, hal_gpio_pull_t pu
   UNITY_SET_DETAIL(CMockString_hal_gpio_init);
   cmock_call_instance = (CMOCK_hal_gpio_init_CALL_INSTANCE*)CMock_Guts_GetAddressFor(Mock.hal_gpio_init_CallInstance);
   Mock.hal_gpio_init_CallInstance = CMock_Guts_MemNext(Mock.hal_gpio_init_CallInstance);
+  if (Mock.hal_gpio_init_IgnoreBool)
+  {
+    UNITY_CLR_DETAILS();
+    return;
+  }
+  if (!Mock.hal_gpio_init_CallbackBool &&
+      Mock.hal_gpio_init_CallbackFunctionPointer != NULL)
+  {
+    Mock.hal_gpio_init_CallbackFunctionPointer(gpio_pin, is_input, pull, Mock.hal_gpio_init_CallbackCalls++);
+    UNITY_CLR_DETAILS();
+    return;
+  }
   UNITY_TEST_ASSERT_NOT_NULL(cmock_call_instance, cmock_line, CMockStringCalledMore);
   cmock_line = cmock_call_instance->LineNumber;
+  if (!cmock_call_instance->ExpectAnyArgsBool)
+  {
   {
     UNITY_SET_DETAILS(CMockString_hal_gpio_init,CMockString_gpio_pin);
     UNITY_TEST_ASSERT_EQUAL_MEMORY((void*)(&cmock_call_instance->Expected_gpio_pin), (void*)(&gpio_pin), sizeof(hal_gpio_pin_t), cmock_line, CMockStringMismatch);
@@ -182,6 +296,11 @@ void hal_gpio_init(hal_gpio_pin_t gpio_pin, uint8_t is_input, hal_gpio_pull_t pu
   {
     UNITY_SET_DETAILS(CMockString_hal_gpio_init,CMockString_pull);
     UNITY_TEST_ASSERT_EQUAL_MEMORY((void*)(&cmock_call_instance->Expected_pull), (void*)(&pull), sizeof(hal_gpio_pull_t), cmock_line, CMockStringMismatch);
+  }
+  }
+  if (Mock.hal_gpio_init_CallbackFunctionPointer != NULL)
+  {
+    Mock.hal_gpio_init_CallbackFunctionPointer(gpio_pin, is_input, pull, Mock.hal_gpio_init_CallbackCalls++);
   }
   UNITY_CLR_DETAILS();
 }
@@ -196,6 +315,29 @@ void CMockExpectParameters_hal_gpio_init(CMOCK_hal_gpio_init_CALL_INSTANCE* cmoc
          sizeof(hal_gpio_pull_t[sizeof(pull) == sizeof(hal_gpio_pull_t) ? 1 : -1])); /* add hal_gpio_pull_t to :treat_as_array if this causes an error */
 }
 
+void hal_gpio_init_CMockIgnore(void)
+{
+  Mock.hal_gpio_init_IgnoreBool = (char)1;
+}
+
+void hal_gpio_init_CMockStopIgnore(void)
+{
+  Mock.hal_gpio_init_IgnoreBool = (char)0;
+}
+
+void hal_gpio_init_CMockExpectAnyArgs(UNITY_LINE_TYPE cmock_line)
+{
+  CMOCK_MEM_INDEX_TYPE cmock_guts_index = CMock_Guts_MemNew(sizeof(CMOCK_hal_gpio_init_CALL_INSTANCE));
+  CMOCK_hal_gpio_init_CALL_INSTANCE* cmock_call_instance = (CMOCK_hal_gpio_init_CALL_INSTANCE*)CMock_Guts_GetAddressFor(cmock_guts_index);
+  UNITY_TEST_ASSERT_NOT_NULL(cmock_call_instance, cmock_line, CMockStringOutOfMemory);
+  memset(cmock_call_instance, 0, sizeof(*cmock_call_instance));
+  Mock.hal_gpio_init_CallInstance = CMock_Guts_MemChain(Mock.hal_gpio_init_CallInstance, cmock_guts_index);
+  Mock.hal_gpio_init_IgnoreBool = (char)0;
+  cmock_call_instance->LineNumber = cmock_line;
+  cmock_call_instance->ExpectAnyArgsBool = (char)0;
+  cmock_call_instance->ExpectAnyArgsBool = (char)1;
+}
+
 void hal_gpio_init_CMockExpect(UNITY_LINE_TYPE cmock_line, hal_gpio_pin_t gpio_pin, uint8_t is_input, hal_gpio_pull_t pull)
 {
   CMOCK_MEM_INDEX_TYPE cmock_guts_index = CMock_Guts_MemNew(sizeof(CMOCK_hal_gpio_init_CALL_INSTANCE));
@@ -203,8 +345,24 @@ void hal_gpio_init_CMockExpect(UNITY_LINE_TYPE cmock_line, hal_gpio_pin_t gpio_p
   UNITY_TEST_ASSERT_NOT_NULL(cmock_call_instance, cmock_line, CMockStringOutOfMemory);
   memset(cmock_call_instance, 0, sizeof(*cmock_call_instance));
   Mock.hal_gpio_init_CallInstance = CMock_Guts_MemChain(Mock.hal_gpio_init_CallInstance, cmock_guts_index);
+  Mock.hal_gpio_init_IgnoreBool = (char)0;
   cmock_call_instance->LineNumber = cmock_line;
+  cmock_call_instance->ExpectAnyArgsBool = (char)0;
   CMockExpectParameters_hal_gpio_init(cmock_call_instance, gpio_pin, is_input, pull);
+}
+
+void hal_gpio_init_AddCallback(CMOCK_hal_gpio_init_CALLBACK Callback)
+{
+  Mock.hal_gpio_init_IgnoreBool = (char)0;
+  Mock.hal_gpio_init_CallbackBool = (char)1;
+  Mock.hal_gpio_init_CallbackFunctionPointer = Callback;
+}
+
+void hal_gpio_init_Stub(CMOCK_hal_gpio_init_CALLBACK Callback)
+{
+  Mock.hal_gpio_init_IgnoreBool = (char)0;
+  Mock.hal_gpio_init_CallbackBool = (char)0;
+  Mock.hal_gpio_init_CallbackFunctionPointer = Callback;
 }
 
 void hal_gpio_set(hal_gpio_pin_t gpio_pin)
@@ -214,11 +372,30 @@ void hal_gpio_set(hal_gpio_pin_t gpio_pin)
   UNITY_SET_DETAIL(CMockString_hal_gpio_set);
   cmock_call_instance = (CMOCK_hal_gpio_set_CALL_INSTANCE*)CMock_Guts_GetAddressFor(Mock.hal_gpio_set_CallInstance);
   Mock.hal_gpio_set_CallInstance = CMock_Guts_MemNext(Mock.hal_gpio_set_CallInstance);
+  if (Mock.hal_gpio_set_IgnoreBool)
+  {
+    UNITY_CLR_DETAILS();
+    return;
+  }
+  if (!Mock.hal_gpio_set_CallbackBool &&
+      Mock.hal_gpio_set_CallbackFunctionPointer != NULL)
+  {
+    Mock.hal_gpio_set_CallbackFunctionPointer(gpio_pin, Mock.hal_gpio_set_CallbackCalls++);
+    UNITY_CLR_DETAILS();
+    return;
+  }
   UNITY_TEST_ASSERT_NOT_NULL(cmock_call_instance, cmock_line, CMockStringCalledMore);
   cmock_line = cmock_call_instance->LineNumber;
+  if (!cmock_call_instance->ExpectAnyArgsBool)
+  {
   {
     UNITY_SET_DETAILS(CMockString_hal_gpio_set,CMockString_gpio_pin);
     UNITY_TEST_ASSERT_EQUAL_MEMORY((void*)(&cmock_call_instance->Expected_gpio_pin), (void*)(&gpio_pin), sizeof(hal_gpio_pin_t), cmock_line, CMockStringMismatch);
+  }
+  }
+  if (Mock.hal_gpio_set_CallbackFunctionPointer != NULL)
+  {
+    Mock.hal_gpio_set_CallbackFunctionPointer(gpio_pin, Mock.hal_gpio_set_CallbackCalls++);
   }
   UNITY_CLR_DETAILS();
 }
@@ -230,6 +407,29 @@ void CMockExpectParameters_hal_gpio_set(CMOCK_hal_gpio_set_CALL_INSTANCE* cmock_
          sizeof(hal_gpio_pin_t[sizeof(gpio_pin) == sizeof(hal_gpio_pin_t) ? 1 : -1])); /* add hal_gpio_pin_t to :treat_as_array if this causes an error */
 }
 
+void hal_gpio_set_CMockIgnore(void)
+{
+  Mock.hal_gpio_set_IgnoreBool = (char)1;
+}
+
+void hal_gpio_set_CMockStopIgnore(void)
+{
+  Mock.hal_gpio_set_IgnoreBool = (char)0;
+}
+
+void hal_gpio_set_CMockExpectAnyArgs(UNITY_LINE_TYPE cmock_line)
+{
+  CMOCK_MEM_INDEX_TYPE cmock_guts_index = CMock_Guts_MemNew(sizeof(CMOCK_hal_gpio_set_CALL_INSTANCE));
+  CMOCK_hal_gpio_set_CALL_INSTANCE* cmock_call_instance = (CMOCK_hal_gpio_set_CALL_INSTANCE*)CMock_Guts_GetAddressFor(cmock_guts_index);
+  UNITY_TEST_ASSERT_NOT_NULL(cmock_call_instance, cmock_line, CMockStringOutOfMemory);
+  memset(cmock_call_instance, 0, sizeof(*cmock_call_instance));
+  Mock.hal_gpio_set_CallInstance = CMock_Guts_MemChain(Mock.hal_gpio_set_CallInstance, cmock_guts_index);
+  Mock.hal_gpio_set_IgnoreBool = (char)0;
+  cmock_call_instance->LineNumber = cmock_line;
+  cmock_call_instance->ExpectAnyArgsBool = (char)0;
+  cmock_call_instance->ExpectAnyArgsBool = (char)1;
+}
+
 void hal_gpio_set_CMockExpect(UNITY_LINE_TYPE cmock_line, hal_gpio_pin_t gpio_pin)
 {
   CMOCK_MEM_INDEX_TYPE cmock_guts_index = CMock_Guts_MemNew(sizeof(CMOCK_hal_gpio_set_CALL_INSTANCE));
@@ -237,8 +437,24 @@ void hal_gpio_set_CMockExpect(UNITY_LINE_TYPE cmock_line, hal_gpio_pin_t gpio_pi
   UNITY_TEST_ASSERT_NOT_NULL(cmock_call_instance, cmock_line, CMockStringOutOfMemory);
   memset(cmock_call_instance, 0, sizeof(*cmock_call_instance));
   Mock.hal_gpio_set_CallInstance = CMock_Guts_MemChain(Mock.hal_gpio_set_CallInstance, cmock_guts_index);
+  Mock.hal_gpio_set_IgnoreBool = (char)0;
   cmock_call_instance->LineNumber = cmock_line;
+  cmock_call_instance->ExpectAnyArgsBool = (char)0;
   CMockExpectParameters_hal_gpio_set(cmock_call_instance, gpio_pin);
+}
+
+void hal_gpio_set_AddCallback(CMOCK_hal_gpio_set_CALLBACK Callback)
+{
+  Mock.hal_gpio_set_IgnoreBool = (char)0;
+  Mock.hal_gpio_set_CallbackBool = (char)1;
+  Mock.hal_gpio_set_CallbackFunctionPointer = Callback;
+}
+
+void hal_gpio_set_Stub(CMOCK_hal_gpio_set_CALLBACK Callback)
+{
+  Mock.hal_gpio_set_IgnoreBool = (char)0;
+  Mock.hal_gpio_set_CallbackBool = (char)0;
+  Mock.hal_gpio_set_CallbackFunctionPointer = Callback;
 }
 
 void hal_gpio_clear(hal_gpio_pin_t gpio_pin)
@@ -248,11 +464,30 @@ void hal_gpio_clear(hal_gpio_pin_t gpio_pin)
   UNITY_SET_DETAIL(CMockString_hal_gpio_clear);
   cmock_call_instance = (CMOCK_hal_gpio_clear_CALL_INSTANCE*)CMock_Guts_GetAddressFor(Mock.hal_gpio_clear_CallInstance);
   Mock.hal_gpio_clear_CallInstance = CMock_Guts_MemNext(Mock.hal_gpio_clear_CallInstance);
+  if (Mock.hal_gpio_clear_IgnoreBool)
+  {
+    UNITY_CLR_DETAILS();
+    return;
+  }
+  if (!Mock.hal_gpio_clear_CallbackBool &&
+      Mock.hal_gpio_clear_CallbackFunctionPointer != NULL)
+  {
+    Mock.hal_gpio_clear_CallbackFunctionPointer(gpio_pin, Mock.hal_gpio_clear_CallbackCalls++);
+    UNITY_CLR_DETAILS();
+    return;
+  }
   UNITY_TEST_ASSERT_NOT_NULL(cmock_call_instance, cmock_line, CMockStringCalledMore);
   cmock_line = cmock_call_instance->LineNumber;
+  if (!cmock_call_instance->ExpectAnyArgsBool)
+  {
   {
     UNITY_SET_DETAILS(CMockString_hal_gpio_clear,CMockString_gpio_pin);
     UNITY_TEST_ASSERT_EQUAL_MEMORY((void*)(&cmock_call_instance->Expected_gpio_pin), (void*)(&gpio_pin), sizeof(hal_gpio_pin_t), cmock_line, CMockStringMismatch);
+  }
+  }
+  if (Mock.hal_gpio_clear_CallbackFunctionPointer != NULL)
+  {
+    Mock.hal_gpio_clear_CallbackFunctionPointer(gpio_pin, Mock.hal_gpio_clear_CallbackCalls++);
   }
   UNITY_CLR_DETAILS();
 }
@@ -264,6 +499,29 @@ void CMockExpectParameters_hal_gpio_clear(CMOCK_hal_gpio_clear_CALL_INSTANCE* cm
          sizeof(hal_gpio_pin_t[sizeof(gpio_pin) == sizeof(hal_gpio_pin_t) ? 1 : -1])); /* add hal_gpio_pin_t to :treat_as_array if this causes an error */
 }
 
+void hal_gpio_clear_CMockIgnore(void)
+{
+  Mock.hal_gpio_clear_IgnoreBool = (char)1;
+}
+
+void hal_gpio_clear_CMockStopIgnore(void)
+{
+  Mock.hal_gpio_clear_IgnoreBool = (char)0;
+}
+
+void hal_gpio_clear_CMockExpectAnyArgs(UNITY_LINE_TYPE cmock_line)
+{
+  CMOCK_MEM_INDEX_TYPE cmock_guts_index = CMock_Guts_MemNew(sizeof(CMOCK_hal_gpio_clear_CALL_INSTANCE));
+  CMOCK_hal_gpio_clear_CALL_INSTANCE* cmock_call_instance = (CMOCK_hal_gpio_clear_CALL_INSTANCE*)CMock_Guts_GetAddressFor(cmock_guts_index);
+  UNITY_TEST_ASSERT_NOT_NULL(cmock_call_instance, cmock_line, CMockStringOutOfMemory);
+  memset(cmock_call_instance, 0, sizeof(*cmock_call_instance));
+  Mock.hal_gpio_clear_CallInstance = CMock_Guts_MemChain(Mock.hal_gpio_clear_CallInstance, cmock_guts_index);
+  Mock.hal_gpio_clear_IgnoreBool = (char)0;
+  cmock_call_instance->LineNumber = cmock_line;
+  cmock_call_instance->ExpectAnyArgsBool = (char)0;
+  cmock_call_instance->ExpectAnyArgsBool = (char)1;
+}
+
 void hal_gpio_clear_CMockExpect(UNITY_LINE_TYPE cmock_line, hal_gpio_pin_t gpio_pin)
 {
   CMOCK_MEM_INDEX_TYPE cmock_guts_index = CMock_Guts_MemNew(sizeof(CMOCK_hal_gpio_clear_CALL_INSTANCE));
@@ -271,8 +529,24 @@ void hal_gpio_clear_CMockExpect(UNITY_LINE_TYPE cmock_line, hal_gpio_pin_t gpio_
   UNITY_TEST_ASSERT_NOT_NULL(cmock_call_instance, cmock_line, CMockStringOutOfMemory);
   memset(cmock_call_instance, 0, sizeof(*cmock_call_instance));
   Mock.hal_gpio_clear_CallInstance = CMock_Guts_MemChain(Mock.hal_gpio_clear_CallInstance, cmock_guts_index);
+  Mock.hal_gpio_clear_IgnoreBool = (char)0;
   cmock_call_instance->LineNumber = cmock_line;
+  cmock_call_instance->ExpectAnyArgsBool = (char)0;
   CMockExpectParameters_hal_gpio_clear(cmock_call_instance, gpio_pin);
+}
+
+void hal_gpio_clear_AddCallback(CMOCK_hal_gpio_clear_CALLBACK Callback)
+{
+  Mock.hal_gpio_clear_IgnoreBool = (char)0;
+  Mock.hal_gpio_clear_CallbackBool = (char)1;
+  Mock.hal_gpio_clear_CallbackFunctionPointer = Callback;
+}
+
+void hal_gpio_clear_Stub(CMOCK_hal_gpio_clear_CALLBACK Callback)
+{
+  Mock.hal_gpio_clear_IgnoreBool = (char)0;
+  Mock.hal_gpio_clear_CallbackBool = (char)0;
+  Mock.hal_gpio_clear_CallbackFunctionPointer = Callback;
 }
 
 uint8_t hal_gpio_read(hal_gpio_pin_t gpio_pin)
@@ -282,11 +556,33 @@ uint8_t hal_gpio_read(hal_gpio_pin_t gpio_pin)
   UNITY_SET_DETAIL(CMockString_hal_gpio_read);
   cmock_call_instance = (CMOCK_hal_gpio_read_CALL_INSTANCE*)CMock_Guts_GetAddressFor(Mock.hal_gpio_read_CallInstance);
   Mock.hal_gpio_read_CallInstance = CMock_Guts_MemNext(Mock.hal_gpio_read_CallInstance);
+  if (Mock.hal_gpio_read_IgnoreBool)
+  {
+    UNITY_CLR_DETAILS();
+    if (cmock_call_instance == NULL)
+      return Mock.hal_gpio_read_FinalReturn;
+    Mock.hal_gpio_read_FinalReturn = cmock_call_instance->ReturnVal;
+    return cmock_call_instance->ReturnVal;
+  }
+  if (!Mock.hal_gpio_read_CallbackBool &&
+      Mock.hal_gpio_read_CallbackFunctionPointer != NULL)
+  {
+    uint8_t cmock_cb_ret = Mock.hal_gpio_read_CallbackFunctionPointer(gpio_pin, Mock.hal_gpio_read_CallbackCalls++);
+    UNITY_CLR_DETAILS();
+    return cmock_cb_ret;
+  }
   UNITY_TEST_ASSERT_NOT_NULL(cmock_call_instance, cmock_line, CMockStringCalledMore);
   cmock_line = cmock_call_instance->LineNumber;
+  if (!cmock_call_instance->ExpectAnyArgsBool)
+  {
   {
     UNITY_SET_DETAILS(CMockString_hal_gpio_read,CMockString_gpio_pin);
     UNITY_TEST_ASSERT_EQUAL_MEMORY((void*)(&cmock_call_instance->Expected_gpio_pin), (void*)(&gpio_pin), sizeof(hal_gpio_pin_t), cmock_line, CMockStringMismatch);
+  }
+  }
+  if (Mock.hal_gpio_read_CallbackFunctionPointer != NULL)
+  {
+    cmock_call_instance->ReturnVal = Mock.hal_gpio_read_CallbackFunctionPointer(gpio_pin, Mock.hal_gpio_read_CallbackCalls++);
   }
   UNITY_CLR_DETAILS();
   return cmock_call_instance->ReturnVal;
@@ -299,6 +595,41 @@ void CMockExpectParameters_hal_gpio_read(CMOCK_hal_gpio_read_CALL_INSTANCE* cmoc
          sizeof(hal_gpio_pin_t[sizeof(gpio_pin) == sizeof(hal_gpio_pin_t) ? 1 : -1])); /* add hal_gpio_pin_t to :treat_as_array if this causes an error */
 }
 
+void hal_gpio_read_CMockIgnoreAndReturn(UNITY_LINE_TYPE cmock_line, uint8_t cmock_to_return)
+{
+  CMOCK_MEM_INDEX_TYPE cmock_guts_index = CMock_Guts_MemNew(sizeof(CMOCK_hal_gpio_read_CALL_INSTANCE));
+  CMOCK_hal_gpio_read_CALL_INSTANCE* cmock_call_instance = (CMOCK_hal_gpio_read_CALL_INSTANCE*)CMock_Guts_GetAddressFor(cmock_guts_index);
+  UNITY_TEST_ASSERT_NOT_NULL(cmock_call_instance, cmock_line, CMockStringOutOfMemory);
+  memset(cmock_call_instance, 0, sizeof(*cmock_call_instance));
+  Mock.hal_gpio_read_CallInstance = CMock_Guts_MemChain(Mock.hal_gpio_read_CallInstance, cmock_guts_index);
+  Mock.hal_gpio_read_IgnoreBool = (char)0;
+  cmock_call_instance->LineNumber = cmock_line;
+  cmock_call_instance->ExpectAnyArgsBool = (char)0;
+  cmock_call_instance->ReturnVal = cmock_to_return;
+  Mock.hal_gpio_read_IgnoreBool = (char)1;
+}
+
+void hal_gpio_read_CMockStopIgnore(void)
+{
+  if(Mock.hal_gpio_read_IgnoreBool)
+    Mock.hal_gpio_read_CallInstance = CMock_Guts_MemNext(Mock.hal_gpio_read_CallInstance);
+  Mock.hal_gpio_read_IgnoreBool = (char)0;
+}
+
+void hal_gpio_read_CMockExpectAnyArgsAndReturn(UNITY_LINE_TYPE cmock_line, uint8_t cmock_to_return)
+{
+  CMOCK_MEM_INDEX_TYPE cmock_guts_index = CMock_Guts_MemNew(sizeof(CMOCK_hal_gpio_read_CALL_INSTANCE));
+  CMOCK_hal_gpio_read_CALL_INSTANCE* cmock_call_instance = (CMOCK_hal_gpio_read_CALL_INSTANCE*)CMock_Guts_GetAddressFor(cmock_guts_index);
+  UNITY_TEST_ASSERT_NOT_NULL(cmock_call_instance, cmock_line, CMockStringOutOfMemory);
+  memset(cmock_call_instance, 0, sizeof(*cmock_call_instance));
+  Mock.hal_gpio_read_CallInstance = CMock_Guts_MemChain(Mock.hal_gpio_read_CallInstance, cmock_guts_index);
+  Mock.hal_gpio_read_IgnoreBool = (char)0;
+  cmock_call_instance->LineNumber = cmock_line;
+  cmock_call_instance->ExpectAnyArgsBool = (char)0;
+  cmock_call_instance->ReturnVal = cmock_to_return;
+  cmock_call_instance->ExpectAnyArgsBool = (char)1;
+}
+
 void hal_gpio_read_CMockExpectAndReturn(UNITY_LINE_TYPE cmock_line, hal_gpio_pin_t gpio_pin, uint8_t cmock_to_return)
 {
   CMOCK_MEM_INDEX_TYPE cmock_guts_index = CMock_Guts_MemNew(sizeof(CMOCK_hal_gpio_read_CALL_INSTANCE));
@@ -306,9 +637,25 @@ void hal_gpio_read_CMockExpectAndReturn(UNITY_LINE_TYPE cmock_line, hal_gpio_pin
   UNITY_TEST_ASSERT_NOT_NULL(cmock_call_instance, cmock_line, CMockStringOutOfMemory);
   memset(cmock_call_instance, 0, sizeof(*cmock_call_instance));
   Mock.hal_gpio_read_CallInstance = CMock_Guts_MemChain(Mock.hal_gpio_read_CallInstance, cmock_guts_index);
+  Mock.hal_gpio_read_IgnoreBool = (char)0;
   cmock_call_instance->LineNumber = cmock_line;
+  cmock_call_instance->ExpectAnyArgsBool = (char)0;
   CMockExpectParameters_hal_gpio_read(cmock_call_instance, gpio_pin);
   cmock_call_instance->ReturnVal = cmock_to_return;
+}
+
+void hal_gpio_read_AddCallback(CMOCK_hal_gpio_read_CALLBACK Callback)
+{
+  Mock.hal_gpio_read_IgnoreBool = (char)0;
+  Mock.hal_gpio_read_CallbackBool = (char)1;
+  Mock.hal_gpio_read_CallbackFunctionPointer = Callback;
+}
+
+void hal_gpio_read_Stub(CMOCK_hal_gpio_read_CALLBACK Callback)
+{
+  Mock.hal_gpio_read_IgnoreBool = (char)0;
+  Mock.hal_gpio_read_CallbackBool = (char)0;
+  Mock.hal_gpio_read_CallbackFunctionPointer = Callback;
 }
 
 void hal_gpio_callback(hal_gpio_pin_t gpio_pin, gpio_callback_t callback, void* arg)
@@ -318,8 +665,22 @@ void hal_gpio_callback(hal_gpio_pin_t gpio_pin, gpio_callback_t callback, void* 
   UNITY_SET_DETAIL(CMockString_hal_gpio_callback);
   cmock_call_instance = (CMOCK_hal_gpio_callback_CALL_INSTANCE*)CMock_Guts_GetAddressFor(Mock.hal_gpio_callback_CallInstance);
   Mock.hal_gpio_callback_CallInstance = CMock_Guts_MemNext(Mock.hal_gpio_callback_CallInstance);
+  if (Mock.hal_gpio_callback_IgnoreBool)
+  {
+    UNITY_CLR_DETAILS();
+    return;
+  }
+  if (!Mock.hal_gpio_callback_CallbackBool &&
+      Mock.hal_gpio_callback_CallbackFunctionPointer != NULL)
+  {
+    Mock.hal_gpio_callback_CallbackFunctionPointer(gpio_pin, callback, arg, Mock.hal_gpio_callback_CallbackCalls++);
+    UNITY_CLR_DETAILS();
+    return;
+  }
   UNITY_TEST_ASSERT_NOT_NULL(cmock_call_instance, cmock_line, CMockStringCalledMore);
   cmock_line = cmock_call_instance->LineNumber;
+  if (!cmock_call_instance->ExpectAnyArgsBool)
+  {
   {
     UNITY_SET_DETAILS(CMockString_hal_gpio_callback,CMockString_gpio_pin);
     UNITY_TEST_ASSERT_EQUAL_MEMORY((void*)(&cmock_call_instance->Expected_gpio_pin), (void*)(&gpio_pin), sizeof(hal_gpio_pin_t), cmock_line, CMockStringMismatch);
@@ -333,19 +694,48 @@ void hal_gpio_callback(hal_gpio_pin_t gpio_pin, gpio_callback_t callback, void* 
     if (cmock_call_instance->Expected_arg == NULL)
       { UNITY_TEST_ASSERT_NULL(arg, cmock_line, CMockStringExpNULL); }
     else
-      { UNITY_TEST_ASSERT_EQUAL_HEX8_ARRAY(cmock_call_instance->Expected_arg, arg, 1, cmock_line, CMockStringMismatch); }
+      { UNITY_TEST_ASSERT_EQUAL_HEX8_ARRAY(cmock_call_instance->Expected_arg, arg, cmock_call_instance->Expected_arg_Depth, cmock_line, CMockStringMismatch); }
+  }
+  }
+  if (Mock.hal_gpio_callback_CallbackFunctionPointer != NULL)
+  {
+    Mock.hal_gpio_callback_CallbackFunctionPointer(gpio_pin, callback, arg, Mock.hal_gpio_callback_CallbackCalls++);
   }
   UNITY_CLR_DETAILS();
 }
 
-void CMockExpectParameters_hal_gpio_callback(CMOCK_hal_gpio_callback_CALL_INSTANCE* cmock_call_instance, hal_gpio_pin_t gpio_pin, gpio_callback_t callback, void* arg);
-void CMockExpectParameters_hal_gpio_callback(CMOCK_hal_gpio_callback_CALL_INSTANCE* cmock_call_instance, hal_gpio_pin_t gpio_pin, gpio_callback_t callback, void* arg)
+void CMockExpectParameters_hal_gpio_callback(CMOCK_hal_gpio_callback_CALL_INSTANCE* cmock_call_instance, hal_gpio_pin_t gpio_pin, gpio_callback_t callback, void* arg, int arg_Depth);
+void CMockExpectParameters_hal_gpio_callback(CMOCK_hal_gpio_callback_CALL_INSTANCE* cmock_call_instance, hal_gpio_pin_t gpio_pin, gpio_callback_t callback, void* arg, int arg_Depth)
 {
   memcpy((void*)(&cmock_call_instance->Expected_gpio_pin), (void*)(&gpio_pin),
          sizeof(hal_gpio_pin_t[sizeof(gpio_pin) == sizeof(hal_gpio_pin_t) ? 1 : -1])); /* add hal_gpio_pin_t to :treat_as_array if this causes an error */
   memcpy((void*)(&cmock_call_instance->Expected_callback), (void*)(&callback),
          sizeof(gpio_callback_t[sizeof(callback) == sizeof(gpio_callback_t) ? 1 : -1])); /* add gpio_callback_t to :treat_as_array if this causes an error */
   cmock_call_instance->Expected_arg = arg;
+  cmock_call_instance->Expected_arg_Depth = arg_Depth;
+}
+
+void hal_gpio_callback_CMockIgnore(void)
+{
+  Mock.hal_gpio_callback_IgnoreBool = (char)1;
+}
+
+void hal_gpio_callback_CMockStopIgnore(void)
+{
+  Mock.hal_gpio_callback_IgnoreBool = (char)0;
+}
+
+void hal_gpio_callback_CMockExpectAnyArgs(UNITY_LINE_TYPE cmock_line)
+{
+  CMOCK_MEM_INDEX_TYPE cmock_guts_index = CMock_Guts_MemNew(sizeof(CMOCK_hal_gpio_callback_CALL_INSTANCE));
+  CMOCK_hal_gpio_callback_CALL_INSTANCE* cmock_call_instance = (CMOCK_hal_gpio_callback_CALL_INSTANCE*)CMock_Guts_GetAddressFor(cmock_guts_index);
+  UNITY_TEST_ASSERT_NOT_NULL(cmock_call_instance, cmock_line, CMockStringOutOfMemory);
+  memset(cmock_call_instance, 0, sizeof(*cmock_call_instance));
+  Mock.hal_gpio_callback_CallInstance = CMock_Guts_MemChain(Mock.hal_gpio_callback_CallInstance, cmock_guts_index);
+  Mock.hal_gpio_callback_IgnoreBool = (char)0;
+  cmock_call_instance->LineNumber = cmock_line;
+  cmock_call_instance->ExpectAnyArgsBool = (char)0;
+  cmock_call_instance->ExpectAnyArgsBool = (char)1;
 }
 
 void hal_gpio_callback_CMockExpect(UNITY_LINE_TYPE cmock_line, hal_gpio_pin_t gpio_pin, gpio_callback_t callback, void* arg)
@@ -355,8 +745,37 @@ void hal_gpio_callback_CMockExpect(UNITY_LINE_TYPE cmock_line, hal_gpio_pin_t gp
   UNITY_TEST_ASSERT_NOT_NULL(cmock_call_instance, cmock_line, CMockStringOutOfMemory);
   memset(cmock_call_instance, 0, sizeof(*cmock_call_instance));
   Mock.hal_gpio_callback_CallInstance = CMock_Guts_MemChain(Mock.hal_gpio_callback_CallInstance, cmock_guts_index);
+  Mock.hal_gpio_callback_IgnoreBool = (char)0;
   cmock_call_instance->LineNumber = cmock_line;
-  CMockExpectParameters_hal_gpio_callback(cmock_call_instance, gpio_pin, callback, arg);
+  cmock_call_instance->ExpectAnyArgsBool = (char)0;
+  CMockExpectParameters_hal_gpio_callback(cmock_call_instance, gpio_pin, callback, arg, 1);
+}
+
+void hal_gpio_callback_AddCallback(CMOCK_hal_gpio_callback_CALLBACK Callback)
+{
+  Mock.hal_gpio_callback_IgnoreBool = (char)0;
+  Mock.hal_gpio_callback_CallbackBool = (char)1;
+  Mock.hal_gpio_callback_CallbackFunctionPointer = Callback;
+}
+
+void hal_gpio_callback_Stub(CMOCK_hal_gpio_callback_CALLBACK Callback)
+{
+  Mock.hal_gpio_callback_IgnoreBool = (char)0;
+  Mock.hal_gpio_callback_CallbackBool = (char)0;
+  Mock.hal_gpio_callback_CallbackFunctionPointer = Callback;
+}
+
+void hal_gpio_callback_CMockExpectWithArray(UNITY_LINE_TYPE cmock_line, hal_gpio_pin_t gpio_pin, gpio_callback_t callback, void* arg, int arg_Depth)
+{
+  CMOCK_MEM_INDEX_TYPE cmock_guts_index = CMock_Guts_MemNew(sizeof(CMOCK_hal_gpio_callback_CALL_INSTANCE));
+  CMOCK_hal_gpio_callback_CALL_INSTANCE* cmock_call_instance = (CMOCK_hal_gpio_callback_CALL_INSTANCE*)CMock_Guts_GetAddressFor(cmock_guts_index);
+  UNITY_TEST_ASSERT_NOT_NULL(cmock_call_instance, cmock_line, CMockStringOutOfMemory);
+  memset(cmock_call_instance, 0, sizeof(*cmock_call_instance));
+  Mock.hal_gpio_callback_CallInstance = CMock_Guts_MemChain(Mock.hal_gpio_callback_CallInstance, cmock_guts_index);
+  Mock.hal_gpio_callback_IgnoreBool = (char)0;
+  cmock_call_instance->LineNumber = cmock_line;
+  cmock_call_instance->ExpectAnyArgsBool = (char)0;
+  CMockExpectParameters_hal_gpio_callback(cmock_call_instance, gpio_pin, callback, arg, arg_Depth);
 }
 
 void hal_gpio_unreg_callback(hal_gpio_pin_t gpio_pin)
@@ -366,11 +785,30 @@ void hal_gpio_unreg_callback(hal_gpio_pin_t gpio_pin)
   UNITY_SET_DETAIL(CMockString_hal_gpio_unreg_callback);
   cmock_call_instance = (CMOCK_hal_gpio_unreg_callback_CALL_INSTANCE*)CMock_Guts_GetAddressFor(Mock.hal_gpio_unreg_callback_CallInstance);
   Mock.hal_gpio_unreg_callback_CallInstance = CMock_Guts_MemNext(Mock.hal_gpio_unreg_callback_CallInstance);
+  if (Mock.hal_gpio_unreg_callback_IgnoreBool)
+  {
+    UNITY_CLR_DETAILS();
+    return;
+  }
+  if (!Mock.hal_gpio_unreg_callback_CallbackBool &&
+      Mock.hal_gpio_unreg_callback_CallbackFunctionPointer != NULL)
+  {
+    Mock.hal_gpio_unreg_callback_CallbackFunctionPointer(gpio_pin, Mock.hal_gpio_unreg_callback_CallbackCalls++);
+    UNITY_CLR_DETAILS();
+    return;
+  }
   UNITY_TEST_ASSERT_NOT_NULL(cmock_call_instance, cmock_line, CMockStringCalledMore);
   cmock_line = cmock_call_instance->LineNumber;
+  if (!cmock_call_instance->ExpectAnyArgsBool)
+  {
   {
     UNITY_SET_DETAILS(CMockString_hal_gpio_unreg_callback,CMockString_gpio_pin);
     UNITY_TEST_ASSERT_EQUAL_MEMORY((void*)(&cmock_call_instance->Expected_gpio_pin), (void*)(&gpio_pin), sizeof(hal_gpio_pin_t), cmock_line, CMockStringMismatch);
+  }
+  }
+  if (Mock.hal_gpio_unreg_callback_CallbackFunctionPointer != NULL)
+  {
+    Mock.hal_gpio_unreg_callback_CallbackFunctionPointer(gpio_pin, Mock.hal_gpio_unreg_callback_CallbackCalls++);
   }
   UNITY_CLR_DETAILS();
 }
@@ -382,6 +820,29 @@ void CMockExpectParameters_hal_gpio_unreg_callback(CMOCK_hal_gpio_unreg_callback
          sizeof(hal_gpio_pin_t[sizeof(gpio_pin) == sizeof(hal_gpio_pin_t) ? 1 : -1])); /* add hal_gpio_pin_t to :treat_as_array if this causes an error */
 }
 
+void hal_gpio_unreg_callback_CMockIgnore(void)
+{
+  Mock.hal_gpio_unreg_callback_IgnoreBool = (char)1;
+}
+
+void hal_gpio_unreg_callback_CMockStopIgnore(void)
+{
+  Mock.hal_gpio_unreg_callback_IgnoreBool = (char)0;
+}
+
+void hal_gpio_unreg_callback_CMockExpectAnyArgs(UNITY_LINE_TYPE cmock_line)
+{
+  CMOCK_MEM_INDEX_TYPE cmock_guts_index = CMock_Guts_MemNew(sizeof(CMOCK_hal_gpio_unreg_callback_CALL_INSTANCE));
+  CMOCK_hal_gpio_unreg_callback_CALL_INSTANCE* cmock_call_instance = (CMOCK_hal_gpio_unreg_callback_CALL_INSTANCE*)CMock_Guts_GetAddressFor(cmock_guts_index);
+  UNITY_TEST_ASSERT_NOT_NULL(cmock_call_instance, cmock_line, CMockStringOutOfMemory);
+  memset(cmock_call_instance, 0, sizeof(*cmock_call_instance));
+  Mock.hal_gpio_unreg_callback_CallInstance = CMock_Guts_MemChain(Mock.hal_gpio_unreg_callback_CallInstance, cmock_guts_index);
+  Mock.hal_gpio_unreg_callback_IgnoreBool = (char)0;
+  cmock_call_instance->LineNumber = cmock_line;
+  cmock_call_instance->ExpectAnyArgsBool = (char)0;
+  cmock_call_instance->ExpectAnyArgsBool = (char)1;
+}
+
 void hal_gpio_unreg_callback_CMockExpect(UNITY_LINE_TYPE cmock_line, hal_gpio_pin_t gpio_pin)
 {
   CMOCK_MEM_INDEX_TYPE cmock_guts_index = CMock_Guts_MemNew(sizeof(CMOCK_hal_gpio_unreg_callback_CALL_INSTANCE));
@@ -389,8 +850,24 @@ void hal_gpio_unreg_callback_CMockExpect(UNITY_LINE_TYPE cmock_line, hal_gpio_pi
   UNITY_TEST_ASSERT_NOT_NULL(cmock_call_instance, cmock_line, CMockStringOutOfMemory);
   memset(cmock_call_instance, 0, sizeof(*cmock_call_instance));
   Mock.hal_gpio_unreg_callback_CallInstance = CMock_Guts_MemChain(Mock.hal_gpio_unreg_callback_CallInstance, cmock_guts_index);
+  Mock.hal_gpio_unreg_callback_IgnoreBool = (char)0;
   cmock_call_instance->LineNumber = cmock_line;
+  cmock_call_instance->ExpectAnyArgsBool = (char)0;
   CMockExpectParameters_hal_gpio_unreg_callback(cmock_call_instance, gpio_pin);
+}
+
+void hal_gpio_unreg_callback_AddCallback(CMOCK_hal_gpio_unreg_callback_CALLBACK Callback)
+{
+  Mock.hal_gpio_unreg_callback_IgnoreBool = (char)0;
+  Mock.hal_gpio_unreg_callback_CallbackBool = (char)1;
+  Mock.hal_gpio_unreg_callback_CallbackFunctionPointer = Callback;
+}
+
+void hal_gpio_unreg_callback_Stub(CMOCK_hal_gpio_unreg_callback_CALLBACK Callback)
+{
+  Mock.hal_gpio_unreg_callback_IgnoreBool = (char)0;
+  Mock.hal_gpio_unreg_callback_CallbackBool = (char)0;
+  Mock.hal_gpio_unreg_callback_CallbackFunctionPointer = Callback;
 }
 
 hal_gpio_pin_t hal_gpio_parse_pin(const char* s)
@@ -400,11 +877,34 @@ hal_gpio_pin_t hal_gpio_parse_pin(const char* s)
   UNITY_SET_DETAIL(CMockString_hal_gpio_parse_pin);
   cmock_call_instance = (CMOCK_hal_gpio_parse_pin_CALL_INSTANCE*)CMock_Guts_GetAddressFor(Mock.hal_gpio_parse_pin_CallInstance);
   Mock.hal_gpio_parse_pin_CallInstance = CMock_Guts_MemNext(Mock.hal_gpio_parse_pin_CallInstance);
+  if (Mock.hal_gpio_parse_pin_IgnoreBool)
+  {
+    UNITY_CLR_DETAILS();
+    if (cmock_call_instance == NULL)
+      return Mock.hal_gpio_parse_pin_FinalReturn;
+    memcpy((void*)(&Mock.hal_gpio_parse_pin_FinalReturn), (void*)(&cmock_call_instance->ReturnVal),
+         sizeof(hal_gpio_pin_t[sizeof(cmock_call_instance->ReturnVal) == sizeof(hal_gpio_pin_t) ? 1 : -1])); /* add hal_gpio_pin_t to :treat_as_array if this causes an error */
+    return cmock_call_instance->ReturnVal;
+  }
+  if (!Mock.hal_gpio_parse_pin_CallbackBool &&
+      Mock.hal_gpio_parse_pin_CallbackFunctionPointer != NULL)
+  {
+    hal_gpio_pin_t cmock_cb_ret = Mock.hal_gpio_parse_pin_CallbackFunctionPointer(s, Mock.hal_gpio_parse_pin_CallbackCalls++);
+    UNITY_CLR_DETAILS();
+    return cmock_cb_ret;
+  }
   UNITY_TEST_ASSERT_NOT_NULL(cmock_call_instance, cmock_line, CMockStringCalledMore);
   cmock_line = cmock_call_instance->LineNumber;
+  if (!cmock_call_instance->ExpectAnyArgsBool)
+  {
   {
     UNITY_SET_DETAILS(CMockString_hal_gpio_parse_pin,CMockString_s);
     UNITY_TEST_ASSERT_EQUAL_STRING(cmock_call_instance->Expected_s, s, cmock_line, CMockStringMismatch);
+  }
+  }
+  if (Mock.hal_gpio_parse_pin_CallbackFunctionPointer != NULL)
+  {
+    cmock_call_instance->ReturnVal = Mock.hal_gpio_parse_pin_CallbackFunctionPointer(s, Mock.hal_gpio_parse_pin_CallbackCalls++);
   }
   UNITY_CLR_DETAILS();
   return cmock_call_instance->ReturnVal;
@@ -416,6 +916,41 @@ void CMockExpectParameters_hal_gpio_parse_pin(CMOCK_hal_gpio_parse_pin_CALL_INST
   cmock_call_instance->Expected_s = s;
 }
 
+void hal_gpio_parse_pin_CMockIgnoreAndReturn(UNITY_LINE_TYPE cmock_line, hal_gpio_pin_t cmock_to_return)
+{
+  CMOCK_MEM_INDEX_TYPE cmock_guts_index = CMock_Guts_MemNew(sizeof(CMOCK_hal_gpio_parse_pin_CALL_INSTANCE));
+  CMOCK_hal_gpio_parse_pin_CALL_INSTANCE* cmock_call_instance = (CMOCK_hal_gpio_parse_pin_CALL_INSTANCE*)CMock_Guts_GetAddressFor(cmock_guts_index);
+  UNITY_TEST_ASSERT_NOT_NULL(cmock_call_instance, cmock_line, CMockStringOutOfMemory);
+  memset(cmock_call_instance, 0, sizeof(*cmock_call_instance));
+  Mock.hal_gpio_parse_pin_CallInstance = CMock_Guts_MemChain(Mock.hal_gpio_parse_pin_CallInstance, cmock_guts_index);
+  Mock.hal_gpio_parse_pin_IgnoreBool = (char)0;
+  cmock_call_instance->LineNumber = cmock_line;
+  cmock_call_instance->ExpectAnyArgsBool = (char)0;
+  cmock_call_instance->ReturnVal = cmock_to_return;
+  Mock.hal_gpio_parse_pin_IgnoreBool = (char)1;
+}
+
+void hal_gpio_parse_pin_CMockStopIgnore(void)
+{
+  if(Mock.hal_gpio_parse_pin_IgnoreBool)
+    Mock.hal_gpio_parse_pin_CallInstance = CMock_Guts_MemNext(Mock.hal_gpio_parse_pin_CallInstance);
+  Mock.hal_gpio_parse_pin_IgnoreBool = (char)0;
+}
+
+void hal_gpio_parse_pin_CMockExpectAnyArgsAndReturn(UNITY_LINE_TYPE cmock_line, hal_gpio_pin_t cmock_to_return)
+{
+  CMOCK_MEM_INDEX_TYPE cmock_guts_index = CMock_Guts_MemNew(sizeof(CMOCK_hal_gpio_parse_pin_CALL_INSTANCE));
+  CMOCK_hal_gpio_parse_pin_CALL_INSTANCE* cmock_call_instance = (CMOCK_hal_gpio_parse_pin_CALL_INSTANCE*)CMock_Guts_GetAddressFor(cmock_guts_index);
+  UNITY_TEST_ASSERT_NOT_NULL(cmock_call_instance, cmock_line, CMockStringOutOfMemory);
+  memset(cmock_call_instance, 0, sizeof(*cmock_call_instance));
+  Mock.hal_gpio_parse_pin_CallInstance = CMock_Guts_MemChain(Mock.hal_gpio_parse_pin_CallInstance, cmock_guts_index);
+  Mock.hal_gpio_parse_pin_IgnoreBool = (char)0;
+  cmock_call_instance->LineNumber = cmock_line;
+  cmock_call_instance->ExpectAnyArgsBool = (char)0;
+  cmock_call_instance->ReturnVal = cmock_to_return;
+  cmock_call_instance->ExpectAnyArgsBool = (char)1;
+}
+
 void hal_gpio_parse_pin_CMockExpectAndReturn(UNITY_LINE_TYPE cmock_line, const char* s, hal_gpio_pin_t cmock_to_return)
 {
   CMOCK_MEM_INDEX_TYPE cmock_guts_index = CMock_Guts_MemNew(sizeof(CMOCK_hal_gpio_parse_pin_CALL_INSTANCE));
@@ -423,10 +958,26 @@ void hal_gpio_parse_pin_CMockExpectAndReturn(UNITY_LINE_TYPE cmock_line, const c
   UNITY_TEST_ASSERT_NOT_NULL(cmock_call_instance, cmock_line, CMockStringOutOfMemory);
   memset(cmock_call_instance, 0, sizeof(*cmock_call_instance));
   Mock.hal_gpio_parse_pin_CallInstance = CMock_Guts_MemChain(Mock.hal_gpio_parse_pin_CallInstance, cmock_guts_index);
+  Mock.hal_gpio_parse_pin_IgnoreBool = (char)0;
   cmock_call_instance->LineNumber = cmock_line;
+  cmock_call_instance->ExpectAnyArgsBool = (char)0;
   CMockExpectParameters_hal_gpio_parse_pin(cmock_call_instance, s);
   memcpy((void*)(&cmock_call_instance->ReturnVal), (void*)(&cmock_to_return),
          sizeof(hal_gpio_pin_t[sizeof(cmock_to_return) == sizeof(hal_gpio_pin_t) ? 1 : -1])); /* add hal_gpio_pin_t to :treat_as_array if this causes an error */
+}
+
+void hal_gpio_parse_pin_AddCallback(CMOCK_hal_gpio_parse_pin_CALLBACK Callback)
+{
+  Mock.hal_gpio_parse_pin_IgnoreBool = (char)0;
+  Mock.hal_gpio_parse_pin_CallbackBool = (char)1;
+  Mock.hal_gpio_parse_pin_CallbackFunctionPointer = Callback;
+}
+
+void hal_gpio_parse_pin_Stub(CMOCK_hal_gpio_parse_pin_CALLBACK Callback)
+{
+  Mock.hal_gpio_parse_pin_IgnoreBool = (char)0;
+  Mock.hal_gpio_parse_pin_CallbackBool = (char)0;
+  Mock.hal_gpio_parse_pin_CallbackFunctionPointer = Callback;
 }
 
 hal_gpio_pull_t hal_gpio_parse_pull(const char* pull_str)
@@ -436,11 +987,34 @@ hal_gpio_pull_t hal_gpio_parse_pull(const char* pull_str)
   UNITY_SET_DETAIL(CMockString_hal_gpio_parse_pull);
   cmock_call_instance = (CMOCK_hal_gpio_parse_pull_CALL_INSTANCE*)CMock_Guts_GetAddressFor(Mock.hal_gpio_parse_pull_CallInstance);
   Mock.hal_gpio_parse_pull_CallInstance = CMock_Guts_MemNext(Mock.hal_gpio_parse_pull_CallInstance);
+  if (Mock.hal_gpio_parse_pull_IgnoreBool)
+  {
+    UNITY_CLR_DETAILS();
+    if (cmock_call_instance == NULL)
+      return Mock.hal_gpio_parse_pull_FinalReturn;
+    memcpy((void*)(&Mock.hal_gpio_parse_pull_FinalReturn), (void*)(&cmock_call_instance->ReturnVal),
+         sizeof(hal_gpio_pull_t[sizeof(cmock_call_instance->ReturnVal) == sizeof(hal_gpio_pull_t) ? 1 : -1])); /* add hal_gpio_pull_t to :treat_as_array if this causes an error */
+    return cmock_call_instance->ReturnVal;
+  }
+  if (!Mock.hal_gpio_parse_pull_CallbackBool &&
+      Mock.hal_gpio_parse_pull_CallbackFunctionPointer != NULL)
+  {
+    hal_gpio_pull_t cmock_cb_ret = Mock.hal_gpio_parse_pull_CallbackFunctionPointer(pull_str, Mock.hal_gpio_parse_pull_CallbackCalls++);
+    UNITY_CLR_DETAILS();
+    return cmock_cb_ret;
+  }
   UNITY_TEST_ASSERT_NOT_NULL(cmock_call_instance, cmock_line, CMockStringCalledMore);
   cmock_line = cmock_call_instance->LineNumber;
+  if (!cmock_call_instance->ExpectAnyArgsBool)
+  {
   {
     UNITY_SET_DETAILS(CMockString_hal_gpio_parse_pull,CMockString_pull_str);
     UNITY_TEST_ASSERT_EQUAL_STRING(cmock_call_instance->Expected_pull_str, pull_str, cmock_line, CMockStringMismatch);
+  }
+  }
+  if (Mock.hal_gpio_parse_pull_CallbackFunctionPointer != NULL)
+  {
+    cmock_call_instance->ReturnVal = Mock.hal_gpio_parse_pull_CallbackFunctionPointer(pull_str, Mock.hal_gpio_parse_pull_CallbackCalls++);
   }
   UNITY_CLR_DETAILS();
   return cmock_call_instance->ReturnVal;
@@ -452,6 +1026,41 @@ void CMockExpectParameters_hal_gpio_parse_pull(CMOCK_hal_gpio_parse_pull_CALL_IN
   cmock_call_instance->Expected_pull_str = pull_str;
 }
 
+void hal_gpio_parse_pull_CMockIgnoreAndReturn(UNITY_LINE_TYPE cmock_line, hal_gpio_pull_t cmock_to_return)
+{
+  CMOCK_MEM_INDEX_TYPE cmock_guts_index = CMock_Guts_MemNew(sizeof(CMOCK_hal_gpio_parse_pull_CALL_INSTANCE));
+  CMOCK_hal_gpio_parse_pull_CALL_INSTANCE* cmock_call_instance = (CMOCK_hal_gpio_parse_pull_CALL_INSTANCE*)CMock_Guts_GetAddressFor(cmock_guts_index);
+  UNITY_TEST_ASSERT_NOT_NULL(cmock_call_instance, cmock_line, CMockStringOutOfMemory);
+  memset(cmock_call_instance, 0, sizeof(*cmock_call_instance));
+  Mock.hal_gpio_parse_pull_CallInstance = CMock_Guts_MemChain(Mock.hal_gpio_parse_pull_CallInstance, cmock_guts_index);
+  Mock.hal_gpio_parse_pull_IgnoreBool = (char)0;
+  cmock_call_instance->LineNumber = cmock_line;
+  cmock_call_instance->ExpectAnyArgsBool = (char)0;
+  cmock_call_instance->ReturnVal = cmock_to_return;
+  Mock.hal_gpio_parse_pull_IgnoreBool = (char)1;
+}
+
+void hal_gpio_parse_pull_CMockStopIgnore(void)
+{
+  if(Mock.hal_gpio_parse_pull_IgnoreBool)
+    Mock.hal_gpio_parse_pull_CallInstance = CMock_Guts_MemNext(Mock.hal_gpio_parse_pull_CallInstance);
+  Mock.hal_gpio_parse_pull_IgnoreBool = (char)0;
+}
+
+void hal_gpio_parse_pull_CMockExpectAnyArgsAndReturn(UNITY_LINE_TYPE cmock_line, hal_gpio_pull_t cmock_to_return)
+{
+  CMOCK_MEM_INDEX_TYPE cmock_guts_index = CMock_Guts_MemNew(sizeof(CMOCK_hal_gpio_parse_pull_CALL_INSTANCE));
+  CMOCK_hal_gpio_parse_pull_CALL_INSTANCE* cmock_call_instance = (CMOCK_hal_gpio_parse_pull_CALL_INSTANCE*)CMock_Guts_GetAddressFor(cmock_guts_index);
+  UNITY_TEST_ASSERT_NOT_NULL(cmock_call_instance, cmock_line, CMockStringOutOfMemory);
+  memset(cmock_call_instance, 0, sizeof(*cmock_call_instance));
+  Mock.hal_gpio_parse_pull_CallInstance = CMock_Guts_MemChain(Mock.hal_gpio_parse_pull_CallInstance, cmock_guts_index);
+  Mock.hal_gpio_parse_pull_IgnoreBool = (char)0;
+  cmock_call_instance->LineNumber = cmock_line;
+  cmock_call_instance->ExpectAnyArgsBool = (char)0;
+  cmock_call_instance->ReturnVal = cmock_to_return;
+  cmock_call_instance->ExpectAnyArgsBool = (char)1;
+}
+
 void hal_gpio_parse_pull_CMockExpectAndReturn(UNITY_LINE_TYPE cmock_line, const char* pull_str, hal_gpio_pull_t cmock_to_return)
 {
   CMOCK_MEM_INDEX_TYPE cmock_guts_index = CMock_Guts_MemNew(sizeof(CMOCK_hal_gpio_parse_pull_CALL_INSTANCE));
@@ -459,9 +1068,25 @@ void hal_gpio_parse_pull_CMockExpectAndReturn(UNITY_LINE_TYPE cmock_line, const 
   UNITY_TEST_ASSERT_NOT_NULL(cmock_call_instance, cmock_line, CMockStringOutOfMemory);
   memset(cmock_call_instance, 0, sizeof(*cmock_call_instance));
   Mock.hal_gpio_parse_pull_CallInstance = CMock_Guts_MemChain(Mock.hal_gpio_parse_pull_CallInstance, cmock_guts_index);
+  Mock.hal_gpio_parse_pull_IgnoreBool = (char)0;
   cmock_call_instance->LineNumber = cmock_line;
+  cmock_call_instance->ExpectAnyArgsBool = (char)0;
   CMockExpectParameters_hal_gpio_parse_pull(cmock_call_instance, pull_str);
   memcpy((void*)(&cmock_call_instance->ReturnVal), (void*)(&cmock_to_return),
          sizeof(hal_gpio_pull_t[sizeof(cmock_to_return) == sizeof(hal_gpio_pull_t) ? 1 : -1])); /* add hal_gpio_pull_t to :treat_as_array if this causes an error */
+}
+
+void hal_gpio_parse_pull_AddCallback(CMOCK_hal_gpio_parse_pull_CALLBACK Callback)
+{
+  Mock.hal_gpio_parse_pull_IgnoreBool = (char)0;
+  Mock.hal_gpio_parse_pull_CallbackBool = (char)1;
+  Mock.hal_gpio_parse_pull_CallbackFunctionPointer = Callback;
+}
+
+void hal_gpio_parse_pull_Stub(CMOCK_hal_gpio_parse_pull_CALLBACK Callback)
+{
+  Mock.hal_gpio_parse_pull_IgnoreBool = (char)0;
+  Mock.hal_gpio_parse_pull_CallbackBool = (char)0;
+  Mock.hal_gpio_parse_pull_CallbackFunctionPointer = Callback;
 }
 

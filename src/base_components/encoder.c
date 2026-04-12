@@ -25,6 +25,8 @@ void encoder_init(encoder_t *encoder)
 
 void _encoder_gpio_callback(hal_gpio_pin_t pin, void *arg)
 {
+  printf("A Pin Changed\r\n");
+
   encoder_t *encoder = (encoder_t *)arg;
   uint8_t new_state = hal_gpio_read(pin);
 

@@ -10,6 +10,7 @@
 extern void setUp(void);
 extern void tearDown(void);
 extern void test_encoder_init_sets_states(void);
+extern void test_encoder_on_pin_change(void);
 
 
 /*=======Mock Management=====*/
@@ -75,6 +76,7 @@ int main(void)
 {
   UnityBegin("test/test_1.c");
   run_test(test_encoder_init_sets_states, "test_encoder_init_sets_states", 21);
+  run_test(test_encoder_on_pin_change, "test_encoder_on_pin_change", 61);
 
   CMock_Guts_MemFreeFinal();
   return UNITY_END();
