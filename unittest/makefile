@@ -51,35 +51,11 @@ CFLAGS += -Wall -Wno-unused-parameter -Wno-unused-variable -g -O0 \
 # Source files for stub build
 SRC_DIR            := ../src
 SOURCES := \
-	$(SRC_DIR)/zigbee/poll_control_cluster.c \
-	mock/gpio.c \
-	$(SRC_DIR)/stub/hal/system.c \
+	mock/hal/gpio.c \
 	$(SRC_DIR)/stub/hal/timer.c \
 	$(SRC_DIR)/stub/hal/tasks.c \
-	$(SRC_DIR)/stub/hal/nvm.c \
-	$(SRC_DIR)/stub/hal/adc.c \
-	$(SRC_DIR)/stub/hal/zigbee.c \
-	$(SRC_DIR)/stub/hal/ota.c \
 	$(SRC_DIR)/stub/machine_io.c \
-	$(SRC_DIR)/base_components/led.c \
-	$(SRC_DIR)/base_components/relay.c \
-	$(SRC_DIR)/base_components/button.c \
-	$(SRC_DIR)/base_components/battery.c \
-	$(SRC_DIR)/base_components/network_indicator.c \
 	$(SRC_DIR)/base_components/encoder.c \
-	$(SRC_DIR)/device_config/config_parser.c \
-	$(SRC_DIR)/device_config/config_nv.c \
-	$(SRC_DIR)/device_config/device_params_nv.c \
-	$(SRC_DIR)/device_config/reset.c \
-	$(SRC_DIR)/device_config/nvm_migrations.c \
-	$(SRC_DIR)/zigbee/basic_cluster.c \
-	$(SRC_DIR)/zigbee/relay_cluster.c \
-	$(SRC_DIR)/zigbee/switch_cluster.c \
-	$(SRC_DIR)/zigbee/group_cluster.c \
-	$(SRC_DIR)/zigbee/general_commands.c \
-	$(SRC_DIR)/zigbee/cover_switch_cluster.c \
-	$(SRC_DIR)/zigbee/cover_cluster.c \
-	$(SRC_DIR)/zigbee/battery_cluster.c
 
 TARGET_BASE1=test_1
 TARGET1 = $(TARGET_BASE1)$(TARGET_EXTENSION)
