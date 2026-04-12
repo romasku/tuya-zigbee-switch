@@ -87,7 +87,7 @@ static void run_test(UnityTestFunction func, const char* name, UNITY_LINE_TYPE l
 /*=======MAIN=====*/
 int main(void)
 {
-  UnityBegin("test/test_1.c");
+  UnityBegin("test/test_encoder.c");
   run_test(test_encoder_init_sets_states, "test_encoder_init_sets_states", 54);
   run_test(test_encoder_pin_a_changing_before_pin_b, "test_encoder_pin_a_changing_before_pin_b", 115);
   run_test(test_encoder_pin_a_changing_after_pin_b, "test_encoder_pin_a_changing_after_pin_b", 133);

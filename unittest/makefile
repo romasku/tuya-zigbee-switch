@@ -45,9 +45,9 @@ SOURCES := \
 	$(SRC_DIR)/base_components/encoder.c \
 
 
-TARGET_BASE1=test_1
+TARGET_BASE1=test_encoder
 TARGET1 = $(TARGET_BASE1)$(TARGET_EXTENSION)
-SRC_FILES1=$(UNITY_ROOT)/src/unity.c $(SOURCES) test/test_1.c  test/test_runners/test_1_runner.c
+SRC_FILES1=$(UNITY_ROOT)/src/unity.c $(SOURCES) test/test_encoder.c  test/test_runners/test_encoder_runner.c
 INC_DIRS=-I$(UNITY_ROOT)/src -I$(SRC_DIR) -I$(SRC_DIR)/hal -I$(CMOCK_ROOT)/src -I./mocks
 SYMBOLS=
 
@@ -63,8 +63,8 @@ default: $(SRC_FILES1)
 	$(C_COMPILER) $(CFLAGS) $(INC_DIRS) $(SYMBOLS) $(SRC_FILES1) -o $(TARGET1)
 	- ./$(TARGET1)
 	
-test/test_runners/test_1_runner.c: test/test_1.c
-	ruby $(UNITY_ROOT)/auto/generate_test_runner.rb test/test_1.c test/test_runners/test_1_runner.c
+test/test_runners/test_encoder_runner.c: test/test_encoder.c
+	ruby $(UNITY_ROOT)/auto/generate_test_runner.rb test/test_encoder.c test/test_runners/test_encoder_runner.c
 
 clean:
 	$(CLEANUP) $(TARGET1)
