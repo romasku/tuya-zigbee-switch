@@ -6,6 +6,7 @@
 
 void _encoder_gpio_callback(hal_gpio_pin_t pin, void *arg);
 void _pinAChanged(uint8_t new_state, encoder_t *encoder);
+void _pinBChanged(uint8_t new_state, encoder_t *encoder);
 
 void encoder_init(encoder_t *encoder)
 {
@@ -46,6 +47,8 @@ void _encoder_gpio_callback(hal_gpio_pin_t pin, void *arg)
 
     encoder->pin_b_state = new_state;
     encoder->pin_b_last_change = hal_millis();
+
+    _pinBChanged(new_state, encoder);
   }
 
   if (pin == encoder->pin_sw && new_state != encoder->pin_sw_state && (hal_millis() - encoder->pin_sw_last_change) > 50)
@@ -65,13 +68,26 @@ void _encoder_gpio_callback(hal_gpio_pin_t pin, void *arg)
 
 void _pinAChanged(uint8_t new_state, encoder_t *encoder)
 {
-  if (new_state != encoder->pin_b)
+  if (new_state != encoder->pin_b_state)
   {
     printf("Rotating CCW\r\n");
 
     if (encoder->on_rotate_ccw != NULL)
     {
       encoder->on_rotate_ccw();
+    }
+  }
+}
+
+void _pinBChanged(uint8_t new_state, encoder_t *encoder)
+{
+  if (new_state != encoder->pin_a_state)
+  {
+    printf("Rotating CC\r\n");
+
+    if (encoder->on_rotate_cw != NULL)
+    {
+      encoder->on_rotate_cw();
     }
   }
 }

@@ -23,6 +23,7 @@ typedef struct
 
   ev_encoder_callback_t on_press;
   ev_encoder_callback_t on_rotate_ccw;
+  ev_encoder_callback_t on_rotate_cw;
 } encoder_t;
 
 void encoder_init(encoder_t *encoder);

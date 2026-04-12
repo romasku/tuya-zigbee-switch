@@ -14,6 +14,8 @@ extern void tearDown(void);
 extern void test_encoder_init_sets_states(void);
 extern void test_encoder_pin_a_changing_before_pin_b(void);
 extern void test_encoder_pin_a_changing_after_pin_b(void);
+extern void test_encoder_pin_b_changing_before_pin_a(void);
+extern void test_encoder_pin_b_changing_after_pin_a(void);
 
 
 /*=======Mock Management=====*/
@@ -81,9 +83,11 @@ static void run_test(UnityTestFunction func, const char* name, UNITY_LINE_TYPE l
 int main(void)
 {
   UnityBegin("test/test_1.c");
-  run_test(test_encoder_init_sets_states, "test_encoder_init_sets_states", 25);
-  run_test(test_encoder_pin_a_changing_before_pin_b, "test_encoder_pin_a_changing_before_pin_b", 53);
-  run_test(test_encoder_pin_a_changing_after_pin_b, "test_encoder_pin_a_changing_after_pin_b", 80);
+  run_test(test_encoder_init_sets_states, "test_encoder_init_sets_states", 33);
+  run_test(test_encoder_pin_a_changing_before_pin_b, "test_encoder_pin_a_changing_before_pin_b", 91);
+  run_test(test_encoder_pin_a_changing_after_pin_b, "test_encoder_pin_a_changing_after_pin_b", 106);
+  run_test(test_encoder_pin_b_changing_before_pin_a, "test_encoder_pin_b_changing_before_pin_a", 121);
+  run_test(test_encoder_pin_b_changing_after_pin_a, "test_encoder_pin_b_changing_after_pin_a", 136);
 
   CMock_Guts_MemFreeFinal();
   return UNITY_END();
