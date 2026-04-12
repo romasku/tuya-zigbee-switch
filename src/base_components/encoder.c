@@ -43,7 +43,7 @@ void _encoder_gpio_callback(hal_gpio_pin_t pin, void *arg)
   if (pin == encoder->pin_b && new_state != encoder->pin_b_state && (hal_millis() - encoder->pin_b_last_change) > 50)
   {
     // Pin B Changed and has not changed in the last 50 milliseconds
-    printf("Pin B Changed!\r\n");
+    printf("Pin B (%d) Changed!\r\n", encoder->pin_b);
 
     encoder->pin_b_state = new_state;
     encoder->pin_b_last_change = hal_millis();
@@ -69,5 +69,10 @@ void _pinAChanged(uint8_t new_state, encoder_t *encoder)
   if (new_state != encoder->pin_b)
   {
     printf("Rotating CCW\r\n");
+
+    if (encoder->on_rotate_ccw != NULL)
+    {
+      encoder->on_rotate_ccw();
+    }
   }
 }

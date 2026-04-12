@@ -22,6 +22,7 @@ typedef struct
   uint32_t pin_sw_last_change;
 
   ev_encoder_callback_t on_press;
+  ev_encoder_callback_t on_rotate_ccw;
 } encoder_t;
 
 void encoder_init(encoder_t *encoder);

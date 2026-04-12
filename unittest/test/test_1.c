@@ -3,10 +3,18 @@
 #include "base_components/encoder.h"
 #include "gpio_callback_helper.h"
 
+int on_rotate_ccw_calls = 0;
+void on_rotate_ccw(void)
+{
+  on_rotate_ccw_calls++;
+}
+
 void setUp(void)
 {
   // Put a space between tests for readability
   printf("\r\n");
+
+  on_rotate_ccw_calls = 0; // Reset
 }
 
 void tearDown(void)
@@ -46,6 +54,7 @@ void test_encoder_pin_a_changing_before_pin_b(void)
   encoder.pin_a = 1;
   encoder.pin_b = 2;
   encoder.pin_sw = 3;
+  encoder.on_rotate_ccw = on_rotate_ccw;
 
   hal_gpio_read_IgnoreAndReturn(1);
   hal_gpio_callback_StubWithCallback(captured_hal_gpio_callback);
@@ -59,8 +68,8 @@ void test_encoder_pin_a_changing_before_pin_b(void)
   // Trigger pin A change call back
   trigger_pin_change(0);
 
-  // Pin A state is now low
-  TEST_ASSERT_EQUAL(0, encoder.pin_a_state);
+  // on_rotate_ccw was called once
+  TEST_ASSERT_EQUAL(1, on_rotate_ccw_calls);
 }
 
 // When Pin A changes from high to low, after pin b, we should do nothing
@@ -71,6 +80,7 @@ void test_encoder_pin_a_changing_after_pin_b(void)
   encoder.pin_a = 1;
   encoder.pin_b = 2;
   encoder.pin_sw = 3;
+  encoder.on_rotate_ccw = on_rotate_ccw;
 
   hal_gpio_read_ExpectAndReturn(encoder.pin_a, 0);
   hal_gpio_read_ExpectAndReturn(encoder.pin_b, 1); // Pin B is already high
@@ -80,12 +90,12 @@ void test_encoder_pin_a_changing_after_pin_b(void)
   encoder_init(&encoder);
 
   // Prep For pin a changing to 0/low
-  encoder.pin_a_last_change = -100; // TEMP: force last change to be over 100ms ago
+  encoder.pin_b_last_change = -100; // TEMP: force last change to be over 100ms ago
   hal_gpio_read_ExpectAndReturn(encoder.pin_a, 0);
 
   // Trigger pin A change call back
   trigger_pin_change(0);
 
-  // Pin A state is now low
-  TEST_ASSERT_EQUAL(0, encoder.pin_a_state);
+  // on_rotate_ccw was not called
+  TEST_ASSERT_EQUAL(0, on_rotate_ccw_calls);
 }

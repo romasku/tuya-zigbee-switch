@@ -77,9 +77,9 @@ static void run_test(UnityTestFunction func, const char* name, UNITY_LINE_TYPE l
 int main(void)
 {
   UnityBegin("test/test_1.c");
-  run_test(test_encoder_init_sets_states, "test_encoder_init_sets_states", 15);
-  run_test(test_encoder_pin_a_changing_before_pin_b, "test_encoder_pin_a_changing_before_pin_b", 41);
-  run_test(test_encoder_pin_a_changing_after_pin_b, "test_encoder_pin_a_changing_after_pin_b", 66);
+  run_test(test_encoder_init_sets_states, "test_encoder_init_sets_states", 24);
+  run_test(test_encoder_pin_a_changing_before_pin_b, "test_encoder_pin_a_changing_before_pin_b", 50);
+  run_test(test_encoder_pin_a_changing_after_pin_b, "test_encoder_pin_a_changing_after_pin_b", 76);
 
   CMock_Guts_MemFreeFinal();
   return UNITY_END();
