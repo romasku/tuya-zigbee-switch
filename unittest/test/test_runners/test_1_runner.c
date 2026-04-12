@@ -4,6 +4,7 @@
 #include "unity.h"
 #include "cmock.h"
 #include "base_components/encoder.h"
+#include "gpio_callback_helper.h"
 #include "Mockgpio.h"
 
 /*=======External Functions This Runner Calls=====*/
@@ -75,8 +76,8 @@ static void run_test(UnityTestFunction func, const char* name, UNITY_LINE_TYPE l
 int main(void)
 {
   UnityBegin("test/test_1.c");
-  run_test(test_encoder_init_sets_states, "test_encoder_init_sets_states", 21);
-  run_test(test_encoder_on_pin_change, "test_encoder_on_pin_change", 59);
+  run_test(test_encoder_init_sets_states, "test_encoder_init_sets_states", 14);
+  run_test(test_encoder_on_pin_change, "test_encoder_on_pin_change", 39);
 
   CMock_Guts_MemFreeFinal();
   return UNITY_END();

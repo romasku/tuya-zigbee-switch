@@ -39,6 +39,7 @@ SRC_DIR            := ../src
 SOURCES := \
 	$(CMOCK_ROOT)/src/cmock.c \
 	$(CMOCK_ROOT)/lib/mocks/Mockgpio.c \
+	$(CMOCK_ROOT)/lib/mocks/gpio_callback_helper.c \
 	$(SRC_DIR)/stub/hal/timer.c \
 	$(SRC_DIR)/stub/hal/tasks.c \
 	$(SRC_DIR)/stub/machine_io.c \
