@@ -27,23 +27,9 @@ C_COMPILER=clang
 endif
 
 UNITY_ROOT=./unity
+CMOCK_ROOT=./CMock
 
-CFLAGS=-std=c89
-CFLAGS += -Wall
-CFLAGS += -Wno-unused-parameter
-CFLAGS += -Wno-unused-variable
-# CFLAGS += -Wextra
-# CFLAGS += -Wpointer-arith
-# CFLAGS += -Wcast-align
-# CFLAGS += -Wwrite-strings
-# CFLAGS += -Wunreachable-code
-# CFLAGS += -Winit-self
-# CFLAGS += -Wmissing-field-initializers
-# CFLAGS += -Wno-unknown-pragmas
-# CFLAGS += -Wundef
-# CFLAGS += -fgnu89-inline
-#CFLAGS += -Wno-misleading-indentation
-CFLAGS += -Wall -Wno-unused-parameter -Wno-unused-variable -g -O0 \
+CFLAGS := -Wall -Wno-unused-parameter -Wno-unused-variable -g -O0 \
     -DHAL_STUB -DSTACK_BUILD=1001 -D_DEFAULT_SOURCE -DVERSION_STR="0.0.0" \
 	-DNVM_MIGRATIONS_VERSION=1 \
 	-std=c99
@@ -51,8 +37,8 @@ CFLAGS += -Wall -Wno-unused-parameter -Wno-unused-variable -g -O0 \
 # Source files for stub build
 SRC_DIR            := ../src
 SOURCES := \
-	./CMock/src/cmock.c \
-	./CMock/lib/mocks/Mockgpio.c \
+	$(CMOCK_ROOT)/src/cmock.c \
+	$(CMOCK_ROOT)/lib/mocks/Mockgpio.c \
 	$(SRC_DIR)/stub/hal/timer.c \
 	$(SRC_DIR)/stub/hal/tasks.c \
 	$(SRC_DIR)/stub/machine_io.c \
@@ -62,7 +48,7 @@ SOURCES := \
 TARGET_BASE1=test_1
 TARGET1 = $(TARGET_BASE1)$(TARGET_EXTENSION)
 SRC_FILES1=$(UNITY_ROOT)/src/unity.c $(SOURCES) test/test_1.c  test/test_runners/test_1_runner.c
-INC_DIRS=-I$(UNITY_ROOT)/src -I$(SRC_DIR) -I./CMock/src -I./Cmock/lib/mocks
+INC_DIRS=-I$(UNITY_ROOT)/src -I$(SRC_DIR) -I$(CMOCK_ROOT)/src -I$(CMOCK_ROOT)/lib/mocks
 SYMBOLS=
 
 all: clean default
