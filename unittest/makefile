@@ -28,7 +28,7 @@ endif
 
 PROJECT_ROOT=..
 UNITY_ROOT=$(PROJECT_ROOT)/test_tools/unity
-CMOCK_ROOT=./CMock
+CMOCK_ROOT=$(PROJECT_ROOT)/test_tools/cmock
 
 CFLAGS := -Wall -Wno-unused-parameter -Wno-unused-variable -g -O0 \
     -DHAL_STUB -DSTACK_BUILD=1001 -D_DEFAULT_SOURCE -DVERSION_STR="0.0.0" \
@@ -51,7 +51,13 @@ SRC_FILES1=$(UNITY_ROOT)/src/unity.c $(SOURCES) test/test_1.c  test/test_runners
 INC_DIRS=-I$(UNITY_ROOT)/src -I$(SRC_DIR) -I$(SRC_DIR)/hal -I$(CMOCK_ROOT)/src -I./mocks
 SYMBOLS=
 
-all: setup clean default
+unity/%:
+	$(MAKE) -f unity.mk $*
+
+cmock/%:
+	$(MAKE) -f cmock.mk $*
+
+all: unity/setup cmock/setup clean default
 
 default: $(SRC_FILES1)
 	$(C_COMPILER) $(CFLAGS) $(INC_DIRS) $(SYMBOLS) $(SRC_FILES1) -o $(TARGET1)
@@ -59,28 +65,6 @@ default: $(SRC_FILES1)
 	
 test/test_runners/test_1_runner.c: test/test_1.c
 	ruby $(UNITY_ROOT)/auto/generate_test_runner.rb test/test_1.c test/test_runners/test_1_runner.c
-
-../test_tools:
-	mkdir -p ../test_tools
-
-../test_tools/unity: | ../test_tools
-	mkdir -p ../test_tools/unity
-
-../test_tools/unity/download.zip: | ../test_tools/unity
-	@echo "Downloading Unity"
-	curl -L "https://github.com/ThrowTheSwitch/Unity/archive/refs/tags/v2.6.1.zip" \
-	  -o ../test_tools/unity/download.zip \
-		--fail --show-error --connect-timeout 30
-
-../test_tools/unity/temp: | ../test_tools/unity/download.zip
-	@echo "Extracting Unity"
-	@unzip -q ../test_tools/unity/download.zip -d ../test_tools/unity/temp
-
-../test_tools/unity/src: | ../test_tools/unity/temp
-	@echo "Copying Src Unity Files"
-	mv ../test_tools/unity/temp/*/* ../test_tools/unity
-
-setup: | ../test_tools/unity/src
 
 clean:
 	$(CLEANUP) $(TARGET1)
