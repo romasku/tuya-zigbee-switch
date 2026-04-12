@@ -70,11 +70,22 @@ void _pinAChanged(uint8_t new_state, encoder_t *encoder)
 {
   if (new_state != encoder->pin_b_state)
   {
-    printf("Rotating CCW\r\n");
 
-    if (encoder->on_rotate_ccw != NULL)
+    if (encoder->pin_sw_state == 0)
     {
-      encoder->on_rotate_ccw();
+      printf("Rotating CCW while Pressed\r\n");
+      if (encoder->on_rotate_ccw_while_pressed != NULL)
+      {
+        encoder->on_rotate_ccw_while_pressed();
+      }
+    }
+    else
+    {
+      printf("Rotating CCW\r\n");
+      if (encoder->on_rotate_ccw != NULL)
+      {
+        encoder->on_rotate_ccw();
+      }
     }
   }
 }
@@ -83,11 +94,22 @@ void _pinBChanged(uint8_t new_state, encoder_t *encoder)
 {
   if (new_state != encoder->pin_a_state)
   {
-    printf("Rotating CC\r\n");
-
-    if (encoder->on_rotate_cw != NULL)
+    if (encoder->pin_sw_state == 0)
     {
-      encoder->on_rotate_cw();
+      printf("Rotating CW while Pressed\r\n");
+      if (encoder->on_rotate_cw_while_pressed != NULL)
+      {
+        encoder->on_rotate_cw_while_pressed();
+      }
+    }
+    else
+    {
+      printf("Rotating CW\r\n");
+
+      if (encoder->on_rotate_cw != NULL)
+      {
+        encoder->on_rotate_cw();
+      }
     }
   }
 }
