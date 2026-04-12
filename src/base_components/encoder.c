@@ -6,6 +6,7 @@
 #include <stddef.h>
 
 void _encoder_gpio_callback(hal_gpio_pin_t pin, void *arg);
+void _pinAChanged(uint8_t new_state, encoder_t *encoder);
 
 void encoder_init(encoder_t *encoder)
 {
@@ -35,6 +36,8 @@ void _encoder_gpio_callback(hal_gpio_pin_t pin, void *arg)
 
     encoder->pin_a_state = new_state;
     encoder->pin_a_last_change = hal_millis();
+
+    _pinAChanged(new_state, encoder);
   }
 
   if (pin == encoder->pin_b && new_state != encoder->pin_b_state && (hal_millis() - encoder->pin_b_last_change) > 50)
@@ -58,5 +61,13 @@ void _encoder_gpio_callback(hal_gpio_pin_t pin, void *arg)
 
     encoder->pin_sw_state = new_state;
     encoder->pin_sw_last_change = hal_millis();
+  }
+}
+
+void _pinAChanged(uint8_t new_state, encoder_t *encoder)
+{
+  if (new_state != encoder->pin_b)
+  {
+    printf("Rotating CCW\r\n");
   }
 }

@@ -5,6 +5,8 @@
 
 void setUp(void)
 {
+  // Put a space between tests for readability
+  printf("\r\n");
 }
 
 void tearDown(void)
@@ -36,10 +38,9 @@ void test_encoder_init_sets_states(void)
   TEST_ASSERT_EQUAL(1, encoder.pin_sw_state);
 }
 
-void test_encoder_on_pin_change(void)
+// When Pin A changes from high to low, before pin b, we should see this as Rotating CCW
+void test_encoder_pin_a_changing_before_pin_b(void)
 {
-  // Test Pin 1 starting high and then changing to low
-
   // Setup Encoder
   encoder_t encoder = {};
   encoder.pin_a = 1;
@@ -47,19 +48,43 @@ void test_encoder_on_pin_change(void)
   encoder.pin_sw = 3;
 
   hal_gpio_read_IgnoreAndReturn(1);
-
   hal_gpio_callback_StubWithCallback(captured_hal_gpio_callback);
 
   encoder_init(&encoder);
-
-  TEST_ASSERT_EQUAL(1, encoder.pin_a_state);
 
   // Prep For pin a changing to 0/low
   encoder.pin_a_last_change = -100; // TEMP: force last change to be over 100ms ago
   hal_gpio_read_ExpectAndReturn(encoder.pin_a, 0);
 
-  // Trigger pin change call back
-  trigger_pin_change();
+  // Trigger pin A change call back
+  trigger_pin_change(0);
+
+  // Pin A state is now low
+  TEST_ASSERT_EQUAL(0, encoder.pin_a_state);
+}
+
+// When Pin A changes from high to low, after pin b, we should do nothing
+void test_encoder_pin_a_changing_after_pin_b(void)
+{
+  // Setup Encoder
+  encoder_t encoder = {};
+  encoder.pin_a = 1;
+  encoder.pin_b = 2;
+  encoder.pin_sw = 3;
+
+  hal_gpio_read_ExpectAndReturn(encoder.pin_a, 0);
+  hal_gpio_read_ExpectAndReturn(encoder.pin_b, 1); // Pin B is already high
+  hal_gpio_read_ExpectAndReturn(encoder.pin_sw, 0);
+  hal_gpio_callback_StubWithCallback(captured_hal_gpio_callback);
+
+  encoder_init(&encoder);
+
+  // Prep For pin a changing to 0/low
+  encoder.pin_a_last_change = -100; // TEMP: force last change to be over 100ms ago
+  hal_gpio_read_ExpectAndReturn(encoder.pin_a, 0);
+
+  // Trigger pin A change call back
+  trigger_pin_change(0);
 
   // Pin A state is now low
   TEST_ASSERT_EQUAL(0, encoder.pin_a_state);
