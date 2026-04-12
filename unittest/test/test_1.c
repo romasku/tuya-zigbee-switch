@@ -1,5 +1,6 @@
 #include "unity.h"
 #include "Mockgpio.h"
+#include "Mocktimer.h"
 #include "base_components/encoder.h"
 #include "gpio_callback_helper.h"
 
@@ -37,6 +38,8 @@ void test_encoder_init_sets_states(void)
 
   hal_gpio_callback_Ignore();
 
+  hal_millis_IgnoreAndReturn(10);
+
   // Run Test
   encoder_init(&encoder);
 
@@ -57,12 +60,13 @@ void test_encoder_pin_a_changing_before_pin_b(void)
   encoder.on_rotate_ccw = on_rotate_ccw;
 
   hal_gpio_read_IgnoreAndReturn(1);
+  hal_millis_IgnoreAndReturn(10);
   hal_gpio_callback_StubWithCallback(captured_hal_gpio_callback);
 
   encoder_init(&encoder);
 
   // Prep For pin a changing to 0/low
-  encoder.pin_a_last_change = -100; // TEMP: force last change to be over 100ms ago
+  hal_millis_IgnoreAndReturn(110); // Move time on 100ms
   hal_gpio_read_ExpectAndReturn(encoder.pin_a, 0);
 
   // Trigger pin A change call back
@@ -82,6 +86,7 @@ void test_encoder_pin_a_changing_after_pin_b(void)
   encoder.pin_sw = 3;
   encoder.on_rotate_ccw = on_rotate_ccw;
 
+  hal_millis_IgnoreAndReturn(10);
   hal_gpio_read_ExpectAndReturn(encoder.pin_a, 0);
   hal_gpio_read_ExpectAndReturn(encoder.pin_b, 1); // Pin B is already high
   hal_gpio_read_ExpectAndReturn(encoder.pin_sw, 0);
@@ -90,7 +95,7 @@ void test_encoder_pin_a_changing_after_pin_b(void)
   encoder_init(&encoder);
 
   // Prep For pin a changing to 0/low
-  encoder.pin_b_last_change = -100; // TEMP: force last change to be over 100ms ago
+  hal_millis_IgnoreAndReturn(110); // Move time on 100ms
   hal_gpio_read_ExpectAndReturn(encoder.pin_a, 0);
 
   // Trigger pin A change call back

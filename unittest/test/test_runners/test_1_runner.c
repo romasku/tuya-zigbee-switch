@@ -6,6 +6,7 @@
 #include "base_components/encoder.h"
 #include "gpio_callback_helper.h"
 #include "Mockgpio.h"
+#include "Mocktimer.h"
 
 /*=======External Functions This Runner Calls=====*/
 extern void setUp(void);
@@ -19,14 +20,17 @@ extern void test_encoder_pin_a_changing_after_pin_b(void);
 static void CMock_Init(void)
 {
   Mockgpio_Init();
+  Mocktimer_Init();
 }
 static void CMock_Verify(void)
 {
   Mockgpio_Verify();
+  Mocktimer_Verify();
 }
 static void CMock_Destroy(void)
 {
   Mockgpio_Destroy();
+  Mocktimer_Destroy();
 }
 
 /*=======Test Reset Options=====*/
@@ -77,9 +81,9 @@ static void run_test(UnityTestFunction func, const char* name, UNITY_LINE_TYPE l
 int main(void)
 {
   UnityBegin("test/test_1.c");
-  run_test(test_encoder_init_sets_states, "test_encoder_init_sets_states", 24);
-  run_test(test_encoder_pin_a_changing_before_pin_b, "test_encoder_pin_a_changing_before_pin_b", 50);
-  run_test(test_encoder_pin_a_changing_after_pin_b, "test_encoder_pin_a_changing_after_pin_b", 76);
+  run_test(test_encoder_init_sets_states, "test_encoder_init_sets_states", 25);
+  run_test(test_encoder_pin_a_changing_before_pin_b, "test_encoder_pin_a_changing_before_pin_b", 53);
+  run_test(test_encoder_pin_a_changing_after_pin_b, "test_encoder_pin_a_changing_after_pin_b", 80);
 
   CMock_Guts_MemFreeFinal();
   return UNITY_END();

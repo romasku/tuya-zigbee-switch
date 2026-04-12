@@ -1,6 +1,5 @@
 #include "encoder.h"
 #include "hal/printf_selector.h"
-#include "hal/tasks.h"
 #include "hal/timer.h"
 #include <stdbool.h>
 #include <stddef.h>
