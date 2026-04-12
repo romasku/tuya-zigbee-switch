@@ -1,0 +1,14 @@
+# =========================================================================
+#   CMock - Automatic Mock Generation for C
+#   ThrowTheSwitch.org
+#   Copyright (c) 2007-25 Mike Karlesky, Mark VanderVoord, & Greg Williams
+#   SPDX-License-Identifier: MIT
+# =========================================================================
+
+:cmock:
+  :plugins:
+    - 'soda'
+    - 'pizza'
+  :treat_externs:  :include
+  :treat_inlines:  :include
+  :inline_function_patterns: ['MY_INLINE_FUNCTION_DECLARATION_PATTERN']

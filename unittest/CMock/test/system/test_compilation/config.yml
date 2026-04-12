@@ -1,0 +1,17 @@
+# =========================================================================
+#   CMock - Automatic Mock Generation for C
+#   ThrowTheSwitch.org
+#   Copyright (c) 2007-25 Mike Karlesky, Mark VanderVoord, & Greg Williams
+#   SPDX-License-Identifier: MIT
+# =========================================================================
+
+---
+:cmock:
+  :plugins: []
+  :includes: []
+  :mock_path: ./system/generated/
+  :mock_prefix: mock_
+  :treat_inlines: :include
+  :treat_as_void:
+  - OSEK_TASK
+  - VOID_TYPE_CRAZINESS

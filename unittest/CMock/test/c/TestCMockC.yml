@@ -1,0 +1,21 @@
+# =========================================================================
+#   CMock - Automatic Mock Generation for C
+#   ThrowTheSwitch.org
+#   Copyright (c) 2007-25 Mike Karlesky, Mark VanderVoord, & Greg Williams
+#   SPDX-License-Identifier: MIT
+# =========================================================================
+
+---
+:files:
+  - '../src/cmock.c'
+  - './c/TestCMockC.c'
+  - './c/TestCMockC_Runner.c'
+  - '../vendor/unity/src/unity.c'
+:options:
+  - 'TEST'
+  - 'CMOCK_MEM_STATIC'
+  - 'CMOCK_MEM_SIZE=128'
+  #- 'CMOCK_MEM_SIZE=40000'
+  - 'CMOCK_MEM_ALIGN=2'
+  - 'CMOCK_MEM_INDEX_TYPE=int'
+

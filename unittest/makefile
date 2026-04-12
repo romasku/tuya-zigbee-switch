@@ -51,16 +51,18 @@ CFLAGS += -Wall -Wno-unused-parameter -Wno-unused-variable -g -O0 \
 # Source files for stub build
 SRC_DIR            := ../src
 SOURCES := \
-	mock/hal/gpio.c \
+	./CMock/src/cmock.c \
+	./CMock/lib/mocks/Mockgpio.c \
 	$(SRC_DIR)/stub/hal/timer.c \
 	$(SRC_DIR)/stub/hal/tasks.c \
 	$(SRC_DIR)/stub/machine_io.c \
 	$(SRC_DIR)/base_components/encoder.c \
 
+
 TARGET_BASE1=test_1
 TARGET1 = $(TARGET_BASE1)$(TARGET_EXTENSION)
 SRC_FILES1=$(UNITY_ROOT)/src/unity.c $(SOURCES) test/test_1.c  test/test_runners/test_1_runner.c
-INC_DIRS=-I$(UNITY_ROOT)/src -I$(SRC_DIR) 
+INC_DIRS=-I$(UNITY_ROOT)/src -I$(SRC_DIR) -I./CMock/src -I./Cmock/lib/mocks
 SYMBOLS=
 
 all: clean default
