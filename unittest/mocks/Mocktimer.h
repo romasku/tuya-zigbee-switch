@@ -3,7 +3,7 @@
 #define _MOCKTIMER_H
 
 #include "unity.h"
-#include "hal/timer.h"
+#include "timer.h"
 
 /* Ignore the following warnings, since we are copying code */
 #if defined(__GNUC__) && !defined(__ICC) && !defined(__TMS470__)
@@ -18,25 +18,27 @@
 #endif
 
 #ifdef __cplusplus
-extern "C"
-{
+extern "C" {
 #endif
 
-  void Mocktimer_Init(void);
-  void Mocktimer_Destroy(void);
-  void Mocktimer_Verify(void);
+void Mocktimer_Init(void);
+void Mocktimer_Destroy(void);
+void Mocktimer_Verify(void);
+
+
+
 
 #define hal_millis_Ignore() TEST_FAIL_MESSAGE("hal_millis requires _IgnoreAndReturn");
 #define hal_millis_IgnoreAndReturn(cmock_retval) hal_millis_CMockIgnoreAndReturn(__LINE__, cmock_retval)
-  void hal_millis_CMockIgnoreAndReturn(UNITY_LINE_TYPE cmock_line, uint32_t cmock_to_return);
+void hal_millis_CMockIgnoreAndReturn(UNITY_LINE_TYPE cmock_line, uint32_t cmock_to_return);
 #define hal_millis_StopIgnore() hal_millis_CMockStopIgnore()
-  void hal_millis_CMockStopIgnore(void);
+void hal_millis_CMockStopIgnore(void);
 #define hal_millis_Expect() TEST_FAIL_MESSAGE("hal_millis requires _ExpectAndReturn");
 #define hal_millis_ExpectAndReturn(cmock_retval) hal_millis_CMockExpectAndReturn(__LINE__, cmock_retval)
-  void hal_millis_CMockExpectAndReturn(UNITY_LINE_TYPE cmock_line, uint32_t cmock_to_return);
-  typedef uint32_t (*CMOCK_hal_millis_CALLBACK)(int cmock_num_calls);
-  void hal_millis_AddCallback(CMOCK_hal_millis_CALLBACK Callback);
-  void hal_millis_Stub(CMOCK_hal_millis_CALLBACK Callback);
+void hal_millis_CMockExpectAndReturn(UNITY_LINE_TYPE cmock_line, uint32_t cmock_to_return);
+typedef uint32_t (* CMOCK_hal_millis_CALLBACK)(int cmock_num_calls);
+void hal_millis_AddCallback(CMOCK_hal_millis_CALLBACK Callback);
+void hal_millis_Stub(CMOCK_hal_millis_CALLBACK Callback);
 #define hal_millis_StubWithCallback hal_millis_Stub
 
 #ifdef __cplusplus

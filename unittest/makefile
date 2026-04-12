@@ -38,16 +38,16 @@ CFLAGS := -Wall -Wno-unused-parameter -Wno-unused-variable -g -O0 \
 SRC_DIR            := ../src
 SOURCES := \
 	$(CMOCK_ROOT)/src/cmock.c \
-	$(CMOCK_ROOT)/lib/mocks/Mockgpio.c \
-	$(CMOCK_ROOT)/lib/mocks/gpio_callback_helper.c \
-	$(CMOCK_ROOT)/lib/mocks/Mocktimer.c \
+	./mocks/Mockgpio.c \
+	./mocks/gpio_callback_helper.c \
+	./mocks/Mocktimer.c \
 	$(SRC_DIR)/base_components/encoder.c \
 
 
 TARGET_BASE1=test_1
 TARGET1 = $(TARGET_BASE1)$(TARGET_EXTENSION)
 SRC_FILES1=$(UNITY_ROOT)/src/unity.c $(SOURCES) test/test_1.c  test/test_runners/test_1_runner.c
-INC_DIRS=-I$(UNITY_ROOT)/src -I$(SRC_DIR) -I$(CMOCK_ROOT)/src -I$(CMOCK_ROOT)/lib/mocks
+INC_DIRS=-I$(UNITY_ROOT)/src -I$(SRC_DIR) -I$(SRC_DIR)/hal -I$(CMOCK_ROOT)/src -I./mocks
 SYMBOLS=
 
 all: clean default

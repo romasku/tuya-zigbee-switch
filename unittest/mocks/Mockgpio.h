@@ -3,7 +3,7 @@
 #define _MOCKGPIO_H
 
 #include "unity.h"
-#include "hal/gpio.h"
+#include "gpio.h"
 
 /* Ignore the following warnings, since we are copying code */
 #if defined(__GNUC__) && !defined(__ICC) && !defined(__TMS470__)
@@ -18,136 +18,138 @@
 #endif
 
 #ifdef __cplusplus
-extern "C"
-{
+extern "C" {
 #endif
 
-  void Mockgpio_Init(void);
-  void Mockgpio_Destroy(void);
-  void Mockgpio_Verify(void);
+void Mockgpio_Init(void);
+void Mockgpio_Destroy(void);
+void Mockgpio_Verify(void);
+
+
+
 
 #define hal_gpio_init_IgnoreAndReturn(cmock_retval) TEST_FAIL_MESSAGE("hal_gpio_init requires _Ignore (not AndReturn)");
 #define hal_gpio_init_Ignore() hal_gpio_init_CMockIgnore()
-  void hal_gpio_init_CMockIgnore(void);
+void hal_gpio_init_CMockIgnore(void);
 #define hal_gpio_init_StopIgnore() hal_gpio_init_CMockStopIgnore()
-  void hal_gpio_init_CMockStopIgnore(void);
+void hal_gpio_init_CMockStopIgnore(void);
 #define hal_gpio_init_ExpectAnyArgsAndReturn(cmock_retval) TEST_FAIL_MESSAGE("hal_gpio_init requires _ExpectAnyArgs (not AndReturn)");
 #define hal_gpio_init_ExpectAnyArgs() hal_gpio_init_CMockExpectAnyArgs(__LINE__)
-  void hal_gpio_init_CMockExpectAnyArgs(UNITY_LINE_TYPE cmock_line);
+void hal_gpio_init_CMockExpectAnyArgs(UNITY_LINE_TYPE cmock_line);
 #define hal_gpio_init_ExpectAndReturn(gpio_pin, is_input, pull, cmock_retval) TEST_FAIL_MESSAGE("hal_gpio_init requires _Expect (not AndReturn)");
 #define hal_gpio_init_Expect(gpio_pin, is_input, pull) hal_gpio_init_CMockExpect(__LINE__, gpio_pin, is_input, pull)
-  void hal_gpio_init_CMockExpect(UNITY_LINE_TYPE cmock_line, hal_gpio_pin_t gpio_pin, uint8_t is_input, hal_gpio_pull_t pull);
-  typedef void (*CMOCK_hal_gpio_init_CALLBACK)(hal_gpio_pin_t gpio_pin, uint8_t is_input, hal_gpio_pull_t pull, int cmock_num_calls);
-  void hal_gpio_init_AddCallback(CMOCK_hal_gpio_init_CALLBACK Callback);
-  void hal_gpio_init_Stub(CMOCK_hal_gpio_init_CALLBACK Callback);
+void hal_gpio_init_CMockExpect(UNITY_LINE_TYPE cmock_line, hal_gpio_pin_t gpio_pin, uint8_t is_input, hal_gpio_pull_t pull);
+typedef void (* CMOCK_hal_gpio_init_CALLBACK)(hal_gpio_pin_t gpio_pin, uint8_t is_input, hal_gpio_pull_t pull, int cmock_num_calls);
+void hal_gpio_init_AddCallback(CMOCK_hal_gpio_init_CALLBACK Callback);
+void hal_gpio_init_Stub(CMOCK_hal_gpio_init_CALLBACK Callback);
 #define hal_gpio_init_StubWithCallback hal_gpio_init_Stub
 #define hal_gpio_set_IgnoreAndReturn(cmock_retval) TEST_FAIL_MESSAGE("hal_gpio_set requires _Ignore (not AndReturn)");
 #define hal_gpio_set_Ignore() hal_gpio_set_CMockIgnore()
-  void hal_gpio_set_CMockIgnore(void);
+void hal_gpio_set_CMockIgnore(void);
 #define hal_gpio_set_StopIgnore() hal_gpio_set_CMockStopIgnore()
-  void hal_gpio_set_CMockStopIgnore(void);
+void hal_gpio_set_CMockStopIgnore(void);
 #define hal_gpio_set_ExpectAnyArgsAndReturn(cmock_retval) TEST_FAIL_MESSAGE("hal_gpio_set requires _ExpectAnyArgs (not AndReturn)");
 #define hal_gpio_set_ExpectAnyArgs() hal_gpio_set_CMockExpectAnyArgs(__LINE__)
-  void hal_gpio_set_CMockExpectAnyArgs(UNITY_LINE_TYPE cmock_line);
+void hal_gpio_set_CMockExpectAnyArgs(UNITY_LINE_TYPE cmock_line);
 #define hal_gpio_set_ExpectAndReturn(gpio_pin, cmock_retval) TEST_FAIL_MESSAGE("hal_gpio_set requires _Expect (not AndReturn)");
 #define hal_gpio_set_Expect(gpio_pin) hal_gpio_set_CMockExpect(__LINE__, gpio_pin)
-  void hal_gpio_set_CMockExpect(UNITY_LINE_TYPE cmock_line, hal_gpio_pin_t gpio_pin);
-  typedef void (*CMOCK_hal_gpio_set_CALLBACK)(hal_gpio_pin_t gpio_pin, int cmock_num_calls);
-  void hal_gpio_set_AddCallback(CMOCK_hal_gpio_set_CALLBACK Callback);
-  void hal_gpio_set_Stub(CMOCK_hal_gpio_set_CALLBACK Callback);
+void hal_gpio_set_CMockExpect(UNITY_LINE_TYPE cmock_line, hal_gpio_pin_t gpio_pin);
+typedef void (* CMOCK_hal_gpio_set_CALLBACK)(hal_gpio_pin_t gpio_pin, int cmock_num_calls);
+void hal_gpio_set_AddCallback(CMOCK_hal_gpio_set_CALLBACK Callback);
+void hal_gpio_set_Stub(CMOCK_hal_gpio_set_CALLBACK Callback);
 #define hal_gpio_set_StubWithCallback hal_gpio_set_Stub
 #define hal_gpio_clear_IgnoreAndReturn(cmock_retval) TEST_FAIL_MESSAGE("hal_gpio_clear requires _Ignore (not AndReturn)");
 #define hal_gpio_clear_Ignore() hal_gpio_clear_CMockIgnore()
-  void hal_gpio_clear_CMockIgnore(void);
+void hal_gpio_clear_CMockIgnore(void);
 #define hal_gpio_clear_StopIgnore() hal_gpio_clear_CMockStopIgnore()
-  void hal_gpio_clear_CMockStopIgnore(void);
+void hal_gpio_clear_CMockStopIgnore(void);
 #define hal_gpio_clear_ExpectAnyArgsAndReturn(cmock_retval) TEST_FAIL_MESSAGE("hal_gpio_clear requires _ExpectAnyArgs (not AndReturn)");
 #define hal_gpio_clear_ExpectAnyArgs() hal_gpio_clear_CMockExpectAnyArgs(__LINE__)
-  void hal_gpio_clear_CMockExpectAnyArgs(UNITY_LINE_TYPE cmock_line);
+void hal_gpio_clear_CMockExpectAnyArgs(UNITY_LINE_TYPE cmock_line);
 #define hal_gpio_clear_ExpectAndReturn(gpio_pin, cmock_retval) TEST_FAIL_MESSAGE("hal_gpio_clear requires _Expect (not AndReturn)");
 #define hal_gpio_clear_Expect(gpio_pin) hal_gpio_clear_CMockExpect(__LINE__, gpio_pin)
-  void hal_gpio_clear_CMockExpect(UNITY_LINE_TYPE cmock_line, hal_gpio_pin_t gpio_pin);
-  typedef void (*CMOCK_hal_gpio_clear_CALLBACK)(hal_gpio_pin_t gpio_pin, int cmock_num_calls);
-  void hal_gpio_clear_AddCallback(CMOCK_hal_gpio_clear_CALLBACK Callback);
-  void hal_gpio_clear_Stub(CMOCK_hal_gpio_clear_CALLBACK Callback);
+void hal_gpio_clear_CMockExpect(UNITY_LINE_TYPE cmock_line, hal_gpio_pin_t gpio_pin);
+typedef void (* CMOCK_hal_gpio_clear_CALLBACK)(hal_gpio_pin_t gpio_pin, int cmock_num_calls);
+void hal_gpio_clear_AddCallback(CMOCK_hal_gpio_clear_CALLBACK Callback);
+void hal_gpio_clear_Stub(CMOCK_hal_gpio_clear_CALLBACK Callback);
 #define hal_gpio_clear_StubWithCallback hal_gpio_clear_Stub
 #define hal_gpio_read_Ignore() TEST_FAIL_MESSAGE("hal_gpio_read requires _IgnoreAndReturn");
 #define hal_gpio_read_IgnoreAndReturn(cmock_retval) hal_gpio_read_CMockIgnoreAndReturn(__LINE__, cmock_retval)
-  void hal_gpio_read_CMockIgnoreAndReturn(UNITY_LINE_TYPE cmock_line, uint8_t cmock_to_return);
+void hal_gpio_read_CMockIgnoreAndReturn(UNITY_LINE_TYPE cmock_line, uint8_t cmock_to_return);
 #define hal_gpio_read_StopIgnore() hal_gpio_read_CMockStopIgnore()
-  void hal_gpio_read_CMockStopIgnore(void);
+void hal_gpio_read_CMockStopIgnore(void);
 #define hal_gpio_read_ExpectAnyArgs() TEST_FAIL_MESSAGE("hal_gpio_read requires _ExpectAnyArgsAndReturn");
 #define hal_gpio_read_ExpectAnyArgsAndReturn(cmock_retval) hal_gpio_read_CMockExpectAnyArgsAndReturn(__LINE__, cmock_retval)
-  void hal_gpio_read_CMockExpectAnyArgsAndReturn(UNITY_LINE_TYPE cmock_line, uint8_t cmock_to_return);
+void hal_gpio_read_CMockExpectAnyArgsAndReturn(UNITY_LINE_TYPE cmock_line, uint8_t cmock_to_return);
 #define hal_gpio_read_Expect(gpio_pin) TEST_FAIL_MESSAGE("hal_gpio_read requires _ExpectAndReturn");
 #define hal_gpio_read_ExpectAndReturn(gpio_pin, cmock_retval) hal_gpio_read_CMockExpectAndReturn(__LINE__, gpio_pin, cmock_retval)
-  void hal_gpio_read_CMockExpectAndReturn(UNITY_LINE_TYPE cmock_line, hal_gpio_pin_t gpio_pin, uint8_t cmock_to_return);
-  typedef uint8_t (*CMOCK_hal_gpio_read_CALLBACK)(hal_gpio_pin_t gpio_pin, int cmock_num_calls);
-  void hal_gpio_read_AddCallback(CMOCK_hal_gpio_read_CALLBACK Callback);
-  void hal_gpio_read_Stub(CMOCK_hal_gpio_read_CALLBACK Callback);
+void hal_gpio_read_CMockExpectAndReturn(UNITY_LINE_TYPE cmock_line, hal_gpio_pin_t gpio_pin, uint8_t cmock_to_return);
+typedef uint8_t (* CMOCK_hal_gpio_read_CALLBACK)(hal_gpio_pin_t gpio_pin, int cmock_num_calls);
+void hal_gpio_read_AddCallback(CMOCK_hal_gpio_read_CALLBACK Callback);
+void hal_gpio_read_Stub(CMOCK_hal_gpio_read_CALLBACK Callback);
 #define hal_gpio_read_StubWithCallback hal_gpio_read_Stub
 #define hal_gpio_callback_IgnoreAndReturn(cmock_retval) TEST_FAIL_MESSAGE("hal_gpio_callback requires _Ignore (not AndReturn)");
 #define hal_gpio_callback_Ignore() hal_gpio_callback_CMockIgnore()
-  void hal_gpio_callback_CMockIgnore(void);
+void hal_gpio_callback_CMockIgnore(void);
 #define hal_gpio_callback_StopIgnore() hal_gpio_callback_CMockStopIgnore()
-  void hal_gpio_callback_CMockStopIgnore(void);
+void hal_gpio_callback_CMockStopIgnore(void);
 #define hal_gpio_callback_ExpectAnyArgsAndReturn(cmock_retval) TEST_FAIL_MESSAGE("hal_gpio_callback requires _ExpectAnyArgs (not AndReturn)");
 #define hal_gpio_callback_ExpectAnyArgs() hal_gpio_callback_CMockExpectAnyArgs(__LINE__)
-  void hal_gpio_callback_CMockExpectAnyArgs(UNITY_LINE_TYPE cmock_line);
+void hal_gpio_callback_CMockExpectAnyArgs(UNITY_LINE_TYPE cmock_line);
 #define hal_gpio_callback_ExpectAndReturn(gpio_pin, callback, arg, cmock_retval) TEST_FAIL_MESSAGE("hal_gpio_callback requires _Expect (not AndReturn)");
 #define hal_gpio_callback_Expect(gpio_pin, callback, arg) hal_gpio_callback_CMockExpect(__LINE__, gpio_pin, callback, arg)
-  void hal_gpio_callback_CMockExpect(UNITY_LINE_TYPE cmock_line, hal_gpio_pin_t gpio_pin, gpio_callback_t callback, void *arg);
-  typedef void (*CMOCK_hal_gpio_callback_CALLBACK)(hal_gpio_pin_t gpio_pin, gpio_callback_t callback, void *arg, int cmock_num_calls);
-  void hal_gpio_callback_AddCallback(CMOCK_hal_gpio_callback_CALLBACK Callback);
-  void hal_gpio_callback_Stub(CMOCK_hal_gpio_callback_CALLBACK Callback);
+void hal_gpio_callback_CMockExpect(UNITY_LINE_TYPE cmock_line, hal_gpio_pin_t gpio_pin, gpio_callback_t callback, void* arg);
+typedef void (* CMOCK_hal_gpio_callback_CALLBACK)(hal_gpio_pin_t gpio_pin, gpio_callback_t callback, void* arg, int cmock_num_calls);
+void hal_gpio_callback_AddCallback(CMOCK_hal_gpio_callback_CALLBACK Callback);
+void hal_gpio_callback_Stub(CMOCK_hal_gpio_callback_CALLBACK Callback);
 #define hal_gpio_callback_StubWithCallback hal_gpio_callback_Stub
 #define hal_gpio_callback_ExpectWithArrayAndReturn(gpio_pin, callback, arg, arg_Depth, cmock_retval) TEST_FAIL_MESSAGE("hal_gpio_callback requires _ExpectWithArray (not AndReturn)");
 #define hal_gpio_callback_ExpectWithArray(gpio_pin, callback, arg, arg_Depth) hal_gpio_callback_CMockExpectWithArray(__LINE__, gpio_pin, callback, arg, (arg_Depth))
-  void hal_gpio_callback_CMockExpectWithArray(UNITY_LINE_TYPE cmock_line, hal_gpio_pin_t gpio_pin, gpio_callback_t callback, void *arg, int arg_Depth);
+void hal_gpio_callback_CMockExpectWithArray(UNITY_LINE_TYPE cmock_line, hal_gpio_pin_t gpio_pin, gpio_callback_t callback, void* arg, int arg_Depth);
 #define hal_gpio_unreg_callback_IgnoreAndReturn(cmock_retval) TEST_FAIL_MESSAGE("hal_gpio_unreg_callback requires _Ignore (not AndReturn)");
 #define hal_gpio_unreg_callback_Ignore() hal_gpio_unreg_callback_CMockIgnore()
-  void hal_gpio_unreg_callback_CMockIgnore(void);
+void hal_gpio_unreg_callback_CMockIgnore(void);
 #define hal_gpio_unreg_callback_StopIgnore() hal_gpio_unreg_callback_CMockStopIgnore()
-  void hal_gpio_unreg_callback_CMockStopIgnore(void);
+void hal_gpio_unreg_callback_CMockStopIgnore(void);
 #define hal_gpio_unreg_callback_ExpectAnyArgsAndReturn(cmock_retval) TEST_FAIL_MESSAGE("hal_gpio_unreg_callback requires _ExpectAnyArgs (not AndReturn)");
 #define hal_gpio_unreg_callback_ExpectAnyArgs() hal_gpio_unreg_callback_CMockExpectAnyArgs(__LINE__)
-  void hal_gpio_unreg_callback_CMockExpectAnyArgs(UNITY_LINE_TYPE cmock_line);
+void hal_gpio_unreg_callback_CMockExpectAnyArgs(UNITY_LINE_TYPE cmock_line);
 #define hal_gpio_unreg_callback_ExpectAndReturn(gpio_pin, cmock_retval) TEST_FAIL_MESSAGE("hal_gpio_unreg_callback requires _Expect (not AndReturn)");
 #define hal_gpio_unreg_callback_Expect(gpio_pin) hal_gpio_unreg_callback_CMockExpect(__LINE__, gpio_pin)
-  void hal_gpio_unreg_callback_CMockExpect(UNITY_LINE_TYPE cmock_line, hal_gpio_pin_t gpio_pin);
-  typedef void (*CMOCK_hal_gpio_unreg_callback_CALLBACK)(hal_gpio_pin_t gpio_pin, int cmock_num_calls);
-  void hal_gpio_unreg_callback_AddCallback(CMOCK_hal_gpio_unreg_callback_CALLBACK Callback);
-  void hal_gpio_unreg_callback_Stub(CMOCK_hal_gpio_unreg_callback_CALLBACK Callback);
+void hal_gpio_unreg_callback_CMockExpect(UNITY_LINE_TYPE cmock_line, hal_gpio_pin_t gpio_pin);
+typedef void (* CMOCK_hal_gpio_unreg_callback_CALLBACK)(hal_gpio_pin_t gpio_pin, int cmock_num_calls);
+void hal_gpio_unreg_callback_AddCallback(CMOCK_hal_gpio_unreg_callback_CALLBACK Callback);
+void hal_gpio_unreg_callback_Stub(CMOCK_hal_gpio_unreg_callback_CALLBACK Callback);
 #define hal_gpio_unreg_callback_StubWithCallback hal_gpio_unreg_callback_Stub
 #define hal_gpio_parse_pin_Ignore() TEST_FAIL_MESSAGE("hal_gpio_parse_pin requires _IgnoreAndReturn");
 #define hal_gpio_parse_pin_IgnoreAndReturn(cmock_retval) hal_gpio_parse_pin_CMockIgnoreAndReturn(__LINE__, cmock_retval)
-  void hal_gpio_parse_pin_CMockIgnoreAndReturn(UNITY_LINE_TYPE cmock_line, hal_gpio_pin_t cmock_to_return);
+void hal_gpio_parse_pin_CMockIgnoreAndReturn(UNITY_LINE_TYPE cmock_line, hal_gpio_pin_t cmock_to_return);
 #define hal_gpio_parse_pin_StopIgnore() hal_gpio_parse_pin_CMockStopIgnore()
-  void hal_gpio_parse_pin_CMockStopIgnore(void);
+void hal_gpio_parse_pin_CMockStopIgnore(void);
 #define hal_gpio_parse_pin_ExpectAnyArgs() TEST_FAIL_MESSAGE("hal_gpio_parse_pin requires _ExpectAnyArgsAndReturn");
 #define hal_gpio_parse_pin_ExpectAnyArgsAndReturn(cmock_retval) hal_gpio_parse_pin_CMockExpectAnyArgsAndReturn(__LINE__, cmock_retval)
-  void hal_gpio_parse_pin_CMockExpectAnyArgsAndReturn(UNITY_LINE_TYPE cmock_line, hal_gpio_pin_t cmock_to_return);
+void hal_gpio_parse_pin_CMockExpectAnyArgsAndReturn(UNITY_LINE_TYPE cmock_line, hal_gpio_pin_t cmock_to_return);
 #define hal_gpio_parse_pin_Expect(s) TEST_FAIL_MESSAGE("hal_gpio_parse_pin requires _ExpectAndReturn");
 #define hal_gpio_parse_pin_ExpectAndReturn(s, cmock_retval) hal_gpio_parse_pin_CMockExpectAndReturn(__LINE__, s, cmock_retval)
-  void hal_gpio_parse_pin_CMockExpectAndReturn(UNITY_LINE_TYPE cmock_line, const char *s, hal_gpio_pin_t cmock_to_return);
-  typedef hal_gpio_pin_t (*CMOCK_hal_gpio_parse_pin_CALLBACK)(const char *s, int cmock_num_calls);
-  void hal_gpio_parse_pin_AddCallback(CMOCK_hal_gpio_parse_pin_CALLBACK Callback);
-  void hal_gpio_parse_pin_Stub(CMOCK_hal_gpio_parse_pin_CALLBACK Callback);
+void hal_gpio_parse_pin_CMockExpectAndReturn(UNITY_LINE_TYPE cmock_line, const char* s, hal_gpio_pin_t cmock_to_return);
+typedef hal_gpio_pin_t (* CMOCK_hal_gpio_parse_pin_CALLBACK)(const char* s, int cmock_num_calls);
+void hal_gpio_parse_pin_AddCallback(CMOCK_hal_gpio_parse_pin_CALLBACK Callback);
+void hal_gpio_parse_pin_Stub(CMOCK_hal_gpio_parse_pin_CALLBACK Callback);
 #define hal_gpio_parse_pin_StubWithCallback hal_gpio_parse_pin_Stub
 #define hal_gpio_parse_pull_Ignore() TEST_FAIL_MESSAGE("hal_gpio_parse_pull requires _IgnoreAndReturn");
 #define hal_gpio_parse_pull_IgnoreAndReturn(cmock_retval) hal_gpio_parse_pull_CMockIgnoreAndReturn(__LINE__, cmock_retval)
-  void hal_gpio_parse_pull_CMockIgnoreAndReturn(UNITY_LINE_TYPE cmock_line, hal_gpio_pull_t cmock_to_return);
+void hal_gpio_parse_pull_CMockIgnoreAndReturn(UNITY_LINE_TYPE cmock_line, hal_gpio_pull_t cmock_to_return);
 #define hal_gpio_parse_pull_StopIgnore() hal_gpio_parse_pull_CMockStopIgnore()
-  void hal_gpio_parse_pull_CMockStopIgnore(void);
+void hal_gpio_parse_pull_CMockStopIgnore(void);
 #define hal_gpio_parse_pull_ExpectAnyArgs() TEST_FAIL_MESSAGE("hal_gpio_parse_pull requires _ExpectAnyArgsAndReturn");
 #define hal_gpio_parse_pull_ExpectAnyArgsAndReturn(cmock_retval) hal_gpio_parse_pull_CMockExpectAnyArgsAndReturn(__LINE__, cmock_retval)
-  void hal_gpio_parse_pull_CMockExpectAnyArgsAndReturn(UNITY_LINE_TYPE cmock_line, hal_gpio_pull_t cmock_to_return);
+void hal_gpio_parse_pull_CMockExpectAnyArgsAndReturn(UNITY_LINE_TYPE cmock_line, hal_gpio_pull_t cmock_to_return);
 #define hal_gpio_parse_pull_Expect(pull_str) TEST_FAIL_MESSAGE("hal_gpio_parse_pull requires _ExpectAndReturn");
 #define hal_gpio_parse_pull_ExpectAndReturn(pull_str, cmock_retval) hal_gpio_parse_pull_CMockExpectAndReturn(__LINE__, pull_str, cmock_retval)
-  void hal_gpio_parse_pull_CMockExpectAndReturn(UNITY_LINE_TYPE cmock_line, const char *pull_str, hal_gpio_pull_t cmock_to_return);
-  typedef hal_gpio_pull_t (*CMOCK_hal_gpio_parse_pull_CALLBACK)(const char *pull_str, int cmock_num_calls);
-  void hal_gpio_parse_pull_AddCallback(CMOCK_hal_gpio_parse_pull_CALLBACK Callback);
-  void hal_gpio_parse_pull_Stub(CMOCK_hal_gpio_parse_pull_CALLBACK Callback);
+void hal_gpio_parse_pull_CMockExpectAndReturn(UNITY_LINE_TYPE cmock_line, const char* pull_str, hal_gpio_pull_t cmock_to_return);
+typedef hal_gpio_pull_t (* CMOCK_hal_gpio_parse_pull_CALLBACK)(const char* pull_str, int cmock_num_calls);
+void hal_gpio_parse_pull_AddCallback(CMOCK_hal_gpio_parse_pull_CALLBACK Callback);
+void hal_gpio_parse_pull_Stub(CMOCK_hal_gpio_parse_pull_CALLBACK Callback);
 #define hal_gpio_parse_pull_StubWithCallback hal_gpio_parse_pull_Stub
 
 #ifdef __cplusplus
