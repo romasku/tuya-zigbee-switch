@@ -56,7 +56,7 @@ void _encoder_gpio_callback(hal_gpio_pin_t pin, void *arg)
     // Pin SW Changed and has not changed in the last 50 milliseconds
     printf("Pin SW Changed!\r\n");
 
-    if (encoder->on_press != NULL)
+    if (new_state == 0 && encoder->on_press != NULL)
     {
       encoder->on_press();
     }

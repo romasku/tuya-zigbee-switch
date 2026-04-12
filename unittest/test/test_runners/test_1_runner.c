@@ -16,6 +16,9 @@ extern void test_encoder_pin_a_changing_before_pin_b(void);
 extern void test_encoder_pin_a_changing_after_pin_b(void);
 extern void test_encoder_pin_b_changing_before_pin_a(void);
 extern void test_encoder_pin_b_changing_after_pin_a(void);
+extern void test_encoder_pin_sw_changes_to_low(void);
+extern void test_encoder_pin_sw_changes_to_high(void);
+extern void test_encoder_pin_sw_changes_to_low_noisy(void);
 
 
 /*=======Mock Management=====*/
@@ -83,11 +86,14 @@ static void run_test(UnityTestFunction func, const char* name, UNITY_LINE_TYPE l
 int main(void)
 {
   UnityBegin("test/test_1.c");
-  run_test(test_encoder_init_sets_states, "test_encoder_init_sets_states", 33);
-  run_test(test_encoder_pin_a_changing_before_pin_b, "test_encoder_pin_a_changing_before_pin_b", 91);
-  run_test(test_encoder_pin_a_changing_after_pin_b, "test_encoder_pin_a_changing_after_pin_b", 106);
-  run_test(test_encoder_pin_b_changing_before_pin_a, "test_encoder_pin_b_changing_before_pin_a", 121);
-  run_test(test_encoder_pin_b_changing_after_pin_a, "test_encoder_pin_b_changing_after_pin_a", 136);
+  run_test(test_encoder_init_sets_states, "test_encoder_init_sets_states", 40);
+  run_test(test_encoder_pin_a_changing_before_pin_b, "test_encoder_pin_a_changing_before_pin_b", 99);
+  run_test(test_encoder_pin_a_changing_after_pin_b, "test_encoder_pin_a_changing_after_pin_b", 115);
+  run_test(test_encoder_pin_b_changing_before_pin_a, "test_encoder_pin_b_changing_before_pin_a", 131);
+  run_test(test_encoder_pin_b_changing_after_pin_a, "test_encoder_pin_b_changing_after_pin_a", 147);
+  run_test(test_encoder_pin_sw_changes_to_low, "test_encoder_pin_sw_changes_to_low", 162);
+  run_test(test_encoder_pin_sw_changes_to_high, "test_encoder_pin_sw_changes_to_high", 179);
+  run_test(test_encoder_pin_sw_changes_to_low_noisy, "test_encoder_pin_sw_changes_to_low_noisy", 197);
 
   CMock_Guts_MemFreeFinal();
   return UNITY_END();
