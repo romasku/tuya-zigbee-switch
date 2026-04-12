@@ -52,7 +52,7 @@ CFLAGS += -Wall -Wno-unused-parameter -Wno-unused-variable -g -O0 \
 SRC_DIR            := ../src
 SOURCES := \
 	$(SRC_DIR)/zigbee/poll_control_cluster.c \
-	$(SRC_DIR)/stub/hal/gpio.c \
+	mock/gpio.c \
 	$(SRC_DIR)/stub/hal/system.c \
 	$(SRC_DIR)/stub/hal/timer.c \
 	$(SRC_DIR)/stub/hal/tasks.c \

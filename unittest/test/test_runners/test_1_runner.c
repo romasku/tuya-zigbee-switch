@@ -7,9 +7,7 @@
 /*=======External Functions This Runner Calls=====*/
 extern void setUp(void);
 extern void tearDown(void);
-extern void test_WhichFails(void);
-extern void test_WhichPasses(void);
-extern void test_anotherWhichPasses(void);
+extern void test_encoder_init_sets_states(void);
 
 
 /*=======Mock Management=====*/
@@ -71,9 +69,7 @@ static void run_test(UnityTestFunction func, const char* name, UNITY_LINE_TYPE l
 int main(void)
 {
   UnityBegin("test/test_1.c");
-  run_test(test_WhichFails, "test_WhichFails", 19);
-  run_test(test_WhichPasses, "test_WhichPasses", 30);
-  run_test(test_anotherWhichPasses, "test_anotherWhichPasses", 36);
+  run_test(test_encoder_init_sets_states, "test_encoder_init_sets_states", 19);
 
   return UNITY_END();
 }

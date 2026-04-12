@@ -16,25 +16,19 @@ void tearDown(void)
 {
 }
 
-void test_WhichFails(void)
+void test_encoder_init_sets_states(void)
 {
-  /* You should see this line fail in your test summary */
-  TEST_ASSERT_EQUAL(1, 2);
+  // Setup Encoder
+  encoder_t encoder = {};
+  encoder.pin_a = 1;
+  encoder.pin_b = 2;
+  encoder.pin_sw = 3;
 
-  /* Notice the rest of these didn't get a chance to run because the line above failed.
-   * Unit tests abort each test function on the first sign of trouble.
-   * Then NEXT test function runs as normal. */
-  TEST_ASSERT_EQUAL(8, 8);
-}
+  // Run Test
+  encoder_init(&encoder);
 
-void test_WhichPasses(void)
-{
-  /* You should see this line pass in your test summary */
-  TEST_ASSERT_EQUAL(8, 8);
-}
-
-void test_anotherWhichPasses(void)
-{
-  /* You should see this line pass in your test summary */
-  TEST_ASSERT_EQUAL(9, 9);
+  // All pins current state should be set to 1/high
+  TEST_ASSERT_EQUAL(1, encoder.pin_a_state);
+  TEST_ASSERT_EQUAL(1, encoder.pin_b_state);
+  TEST_ASSERT_EQUAL(1, encoder.pin_sw_state);
 }
