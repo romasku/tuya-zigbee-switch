@@ -76,7 +76,7 @@ int main(void)
 {
   UnityBegin("test/test_1.c");
   run_test(test_encoder_init_sets_states, "test_encoder_init_sets_states", 21);
-  run_test(test_encoder_on_pin_change, "test_encoder_on_pin_change", 61);
+  run_test(test_encoder_on_pin_change, "test_encoder_on_pin_change", 59);
 
   CMock_Guts_MemFreeFinal();
   return UNITY_END();

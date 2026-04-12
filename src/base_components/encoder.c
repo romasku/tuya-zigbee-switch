@@ -9,7 +9,7 @@ void _encoder_gpio_callback(hal_gpio_pin_t pin, void *arg);
 
 void encoder_init(encoder_t *encoder)
 {
-  printf("Encoder Init reached\r\n");
+  printf("Encoder Init, with PinA: %d, PinB: %d, PinSW: %d\r\n", encoder->pin_a, encoder->pin_b, encoder->pin_sw);
 
   encoder->pin_a_state = hal_gpio_read(encoder->pin_a);
   encoder->pin_a_last_change = hal_millis();
@@ -25,15 +25,13 @@ void encoder_init(encoder_t *encoder)
 
 void _encoder_gpio_callback(hal_gpio_pin_t pin, void *arg)
 {
-  printf("A Pin Changed\r\n");
-
   encoder_t *encoder = (encoder_t *)arg;
   uint8_t new_state = hal_gpio_read(pin);
 
   if (pin == encoder->pin_a && new_state != encoder->pin_a_state && (hal_millis() - encoder->pin_a_last_change) > 50)
   {
     // Pin A Changed and has not changed in the last 50 milliseconds
-    printf("Pin A Changed!\r\n");
+    printf("Pin A (%d) Changed!\r\n", encoder->pin_a);
 
     encoder->pin_a_state = new_state;
     encoder->pin_a_last_change = hal_millis();
