@@ -4,6 +4,7 @@
 #include "hal/gpio.h"
 #include "hal/tasks.h"
 #include <stdint.h>
+#include <stdbool.h>
 
 typedef void (*ev_encoder_callback_t)();
 
@@ -20,6 +21,8 @@ typedef struct
   hal_gpio_pin_t pin_sw;
   uint8_t pin_sw_state;
   uint32_t pin_sw_last_change;
+
+  bool rotate_since_pressed;
 
   ev_encoder_callback_t on_press;
   ev_encoder_callback_t on_rotate_ccw;

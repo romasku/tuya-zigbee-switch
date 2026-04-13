@@ -192,10 +192,8 @@ void test_encoder_pin_sw_changes_to_low(void)
   // Trigger pin sw change, to low, 100ms later
   _trigger_pin_change(2, encoder.pin_sw, 0, 110);
 
-  // On Press Callback triggered
-  TEST_ASSERT_EQUAL(1, on_press_calls);
-
-  // no other callbacks called
+  // Not callbacks triggered (we trigger on press cb on release)
+  TEST_ASSERT_EQUAL(0, on_press_calls);
   TEST_ASSERT_EQUAL(0, on_rotate_ccw_calls);
   TEST_ASSERT_EQUAL(0, on_rotate_cw_calls);
   TEST_ASSERT_EQUAL(0, on_rotate_cw_while_pressed_calls);
@@ -211,8 +209,8 @@ void test_encoder_pin_sw_changes_to_high(void)
   // Trigger pin sw change, to high, 100ms later
   _trigger_pin_change(2, encoder.pin_sw, 1, 110);
 
-  // On Press Callback not triggered
-  TEST_ASSERT_EQUAL(0, on_press_calls);
+  // On Press Callback triggered
+  TEST_ASSERT_EQUAL(1, on_press_calls);
 
   // no other callbacks called
   TEST_ASSERT_EQUAL(0, on_rotate_ccw_calls);
@@ -222,7 +220,7 @@ void test_encoder_pin_sw_changes_to_high(void)
 }
 
 // Pin changes are often noisy, this checks the debouncing logic filters the extra events
-void test_encoder_pin_sw_changes_to_low_noisy(void)
+void test_encoder_sw_pressed_noisy(void)
 {
   // Setup Encoder
   encoder_t encoder = {};
@@ -236,6 +234,14 @@ void test_encoder_pin_sw_changes_to_low_noisy(void)
   _trigger_pin_change(2, encoder.pin_sw, 1, 117);
   _trigger_pin_change(2, encoder.pin_sw, 0, 123);
   _trigger_pin_change(2, encoder.pin_sw, 0, 125);
+
+  // And then back to high, again with noise
+  _trigger_pin_change(2, encoder.pin_sw, 1, 300);
+  _trigger_pin_change(2, encoder.pin_sw, 0, 305);
+  _trigger_pin_change(2, encoder.pin_sw, 1, 310);
+  _trigger_pin_change(2, encoder.pin_sw, 0, 312);
+  _trigger_pin_change(2, encoder.pin_sw, 1, 320);
+  _trigger_pin_change(2, encoder.pin_sw, 1, 325);
 
   // On Press Callback triggered - Only once!
   TEST_ASSERT_EQUAL(1, on_press_calls);
@@ -284,5 +290,32 @@ void test_encoder_pin_b_changing_before_pin_a_while_sw_is_low(void)
   TEST_ASSERT_EQUAL(0, on_rotate_cw_calls);
   TEST_ASSERT_EQUAL(0, on_rotate_ccw_calls);
   TEST_ASSERT_EQUAL(0, on_press_calls);
+  TEST_ASSERT_EQUAL(0, on_rotate_ccw_while_pressed_calls);
+}
+
+// When sw is pressed and then rotated CW, pressed should not be triggered
+void test_encoder_pressed_and_rotated__pressed_cb_not_triggered(void)
+{
+  // Setup Encoder, with all pins high
+  encoder_t encoder = {};
+  _setup_encoder(&encoder, 1, 1, 1);
+
+  // Press Encoder
+  _trigger_pin_change(2, encoder.pin_sw, 0, 100);
+
+  // Rotate CW
+  _trigger_pin_change(1, encoder.pin_b, 0, 200);
+  _trigger_pin_change(0, encoder.pin_a, 0, 300);
+
+  // Release Encoder
+  _trigger_pin_change(2, encoder.pin_sw, 1, 400);
+
+  //
+  TEST_ASSERT_EQUAL(1, on_rotate_cw_while_pressed_calls);
+  TEST_ASSERT_EQUAL(0, on_press_calls);
+
+  // on_rotate_ccw was called once
+  TEST_ASSERT_EQUAL(0, on_rotate_ccw_calls);
+  TEST_ASSERT_EQUAL(0, on_rotate_cw_calls);
   TEST_ASSERT_EQUAL(0, on_rotate_ccw_while_pressed_calls);
 }

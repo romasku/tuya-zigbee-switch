@@ -18,9 +18,10 @@ extern void test_encoder_pin_b_changing_before_pin_a(void);
 extern void test_encoder_pin_b_changing_after_pin_a(void);
 extern void test_encoder_pin_sw_changes_to_low(void);
 extern void test_encoder_pin_sw_changes_to_high(void);
-extern void test_encoder_pin_sw_changes_to_low_noisy(void);
+extern void test_encoder_sw_pressed_noisy(void);
 extern void test_encoder_pin_a_changing_before_pin_b_while_sw_is_low(void);
 extern void test_encoder_pin_b_changing_before_pin_a_while_sw_is_low(void);
+extern void test_encoder_pressed_and_rotated__pressed_cb_not_triggered(void);
 
 
 /*=======Mock Management=====*/
@@ -94,10 +95,11 @@ int main(void)
   run_test(test_encoder_pin_b_changing_before_pin_a, "test_encoder_pin_b_changing_before_pin_a", 151);
   run_test(test_encoder_pin_b_changing_after_pin_a, "test_encoder_pin_b_changing_after_pin_a", 169);
   run_test(test_encoder_pin_sw_changes_to_low, "test_encoder_pin_sw_changes_to_low", 186);
-  run_test(test_encoder_pin_sw_changes_to_high, "test_encoder_pin_sw_changes_to_high", 205);
-  run_test(test_encoder_pin_sw_changes_to_low_noisy, "test_encoder_pin_sw_changes_to_low_noisy", 225);
-  run_test(test_encoder_pin_a_changing_before_pin_b_while_sw_is_low, "test_encoder_pin_a_changing_before_pin_b_while_sw_is_low", 251);
-  run_test(test_encoder_pin_b_changing_before_pin_a_while_sw_is_low, "test_encoder_pin_b_changing_before_pin_a_while_sw_is_low", 271);
+  run_test(test_encoder_pin_sw_changes_to_high, "test_encoder_pin_sw_changes_to_high", 203);
+  run_test(test_encoder_sw_pressed_noisy, "test_encoder_sw_pressed_noisy", 223);
+  run_test(test_encoder_pin_a_changing_before_pin_b_while_sw_is_low, "test_encoder_pin_a_changing_before_pin_b_while_sw_is_low", 257);
+  run_test(test_encoder_pin_b_changing_before_pin_a_while_sw_is_low, "test_encoder_pin_b_changing_before_pin_a_while_sw_is_low", 277);
+  run_test(test_encoder_pressed_and_rotated__pressed_cb_not_triggered, "test_encoder_pressed_and_rotated__pressed_cb_not_triggered", 297);
 
   CMock_Guts_MemFreeFinal();
   return UNITY_END();

@@ -23,6 +23,8 @@ void encoder_init(encoder_t *encoder)
   hal_gpio_callback(encoder->pin_a, _encoder_gpio_callback, encoder);
   hal_gpio_callback(encoder->pin_b, _encoder_gpio_callback, encoder);
   hal_gpio_callback(encoder->pin_sw, _encoder_gpio_callback, encoder);
+
+  encoder->rotate_since_pressed = false;
 }
 
 void _encoder_gpio_callback(hal_gpio_pin_t pin, void *arg)
@@ -61,6 +63,7 @@ void _pinAChanged(uint8_t new_state, encoder_t *encoder)
 {
   if (new_state != encoder->pin_b_state)
   {
+    encoder->rotate_since_pressed = true;
 
     if (encoder->pin_sw_state == 0)
     {
@@ -85,6 +88,8 @@ void _pinBChanged(uint8_t new_state, encoder_t *encoder)
 {
   if (new_state != encoder->pin_a_state)
   {
+    encoder->rotate_since_pressed = true;
+
     if (encoder->pin_sw_state == 0)
     {
       printf("Rotating CW while Pressed\r\n");
@@ -111,11 +116,13 @@ void _pinSWChanged(uint8_t new_state, encoder_t *encoder)
   {
     printf("Pressed\r\n");
 
-    if (encoder->on_press != NULL)
-      encoder->on_press(encoder->callback_param);
+    encoder->rotate_since_pressed = false;
   }
   else
   {
     printf("Released\r\n");
+
+    if (!encoder->rotate_since_pressed && encoder->on_press != NULL)
+      encoder->on_press(encoder->callback_param);
   }
 }
