@@ -2854,8 +2854,10 @@ REMOTE_IHSENO_TS0044:
   firmware_image_type: 43563
   build: yes
   status: in_progress
-  info: Battery Pin is not connected, so will alway report 100%
-  threads: https://github.com/romasku/tuya-zigbee-switch/issues/171
+  info: Battery Pin is not connected, so will always report 100%
+  threads: 
+   - https://github.com/romasku/tuya-zigbee-switch/issues/171
+   - https://github.com/romasku/tuya-zigbee-switch/pull/395
   store:
   - https://www.aliexpress.com/item/1005005792534172.html
   - https://allegro.pl/oferta/pilot-atlo-rc4-tuya-zigbee-tuya-smart-da-16513965398
