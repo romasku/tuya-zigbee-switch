@@ -67,7 +67,7 @@ void _pinAChanged(uint8_t new_state, encoder_t *encoder)
       printf("Rotating CCW while Pressed\r\n");
       if (encoder->on_rotate_ccw_while_pressed != NULL)
       {
-        encoder->on_rotate_ccw_while_pressed();
+        encoder->on_rotate_ccw_while_pressed(encoder->callback_param);
       }
     }
     else
@@ -75,7 +75,7 @@ void _pinAChanged(uint8_t new_state, encoder_t *encoder)
       printf("Rotating CCW\r\n");
       if (encoder->on_rotate_ccw != NULL)
       {
-        encoder->on_rotate_ccw();
+        encoder->on_rotate_ccw(encoder->callback_param);
       }
     }
   }
@@ -90,7 +90,7 @@ void _pinBChanged(uint8_t new_state, encoder_t *encoder)
       printf("Rotating CW while Pressed\r\n");
       if (encoder->on_rotate_cw_while_pressed != NULL)
       {
-        encoder->on_rotate_cw_while_pressed();
+        encoder->on_rotate_cw_while_pressed(encoder->callback_param);
       }
     }
     else
@@ -99,7 +99,7 @@ void _pinBChanged(uint8_t new_state, encoder_t *encoder)
 
       if (encoder->on_rotate_cw != NULL)
       {
-        encoder->on_rotate_cw();
+        encoder->on_rotate_cw(encoder->callback_param);
       }
     }
   }
@@ -112,7 +112,7 @@ void _pinSWChanged(uint8_t new_state, encoder_t *encoder)
     printf("Pressed\r\n");
 
     if (encoder->on_press != NULL)
-      encoder->on_press();
+      encoder->on_press(encoder->callback_param);
   }
   else
   {
