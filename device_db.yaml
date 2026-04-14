@@ -2889,6 +2889,33 @@ REMOTE_IHSENO_TS0044:
   store:
   - https://www.aliexpress.com/item/1005005792534172.html
   - https://allegro.pl/oferta/pilot-atlo-rc4-tuya-zigbee-tuya-smart-da-16513965398
+REMOTE_LIDL_BUTTON_TS004F:
+  human_name: LIDL button
+  category: remote
+  power: CR2032
+  neutral: without
+  output: nothing
+  device_type: end_device
+  stock_model_name: TS004F
+  stock_manufacturer_name: _TZ3000_rco1yzb1
+  stock_converter_manufacturer: Lidl
+  stock_converter_model: HG08164
+  override_z2m_device: null
+  tuya_module: none
+  mcu_family: Silabs
+  mcu: EFR32MG21A020F768IM32
+  config_str: rco1yzb1;TS004F-LIDL;BA0u;SB0u;ID0;BTC1;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
+  firmware_image_type: 45635
+  build: yes
+  status: mostly_supported
+  info: Lower battery life
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/388
+  store: null
 REMOTE_MOES_SWITCH_A_TS0042:
   human_name: Moes 2-gang scene switch (multiple variants)
   category: remote
