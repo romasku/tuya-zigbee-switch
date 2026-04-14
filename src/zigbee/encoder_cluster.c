@@ -30,6 +30,7 @@ void encoder_cluster_on_button_press(zigbee_encoder_cluster *cluster);
 void encoder_cluster_on_button_release(zigbee_encoder_cluster *cluster);
 void encoder_cluster_on_button_long_press(zigbee_encoder_cluster *cluster);
 void encoder_cluster_on_rotate_cw(zigbee_encoder_cluster *cluster);
+void encoder_cluster_on_rotate_ccw(zigbee_encoder_cluster *cluster);
 
 static bool encoder_cluster_has_valid_relay(
     const zigbee_encoder_cluster *cluster);
@@ -61,6 +62,7 @@ void encoder_cluster_add_to_endpoint(zigbee_encoder_cluster *cluster,
   cluster->encoder->on_press =
       (ev_encoder_callback_t)encoder_cluster_on_button_press;
   cluster->encoder->on_rotate_cw = (ev_encoder_callback_t)encoder_cluster_on_rotate_cw;
+  cluster->encoder->on_rotate_ccw = (ev_encoder_callback_t)encoder_cluster_on_rotate_ccw;
   cluster->encoder->callback_param = cluster;
 
   SETUP_ATTR(0, ZCL_ATTR_ONOFF_CONFIGURATION_SWITCH_TYPE, ZCL_DATA_TYPE_ENUM8,
@@ -243,7 +245,7 @@ void encoder_cluster_level_control(zigbee_encoder_cluster *cluster)
   }
 }
 
-void encoder_cluster_level_control_step(zigbee_encoder_cluster *cluster)
+void build_and_send_brightness_command(zigbee_encoder_cluster *cluster, uint8_t dir)
 {
   if (hal_zigbee_get_network_status() != HAL_ZIGBEE_NETWORK_JOINED)
   {
@@ -252,7 +254,7 @@ void encoder_cluster_level_control_step(zigbee_encoder_cluster *cluster)
 
   printf("Sending Level Step Command\r\n");
 
-  hal_zigbee_cmd c = build_level_step_cmd(cluster->endpoint);
+  hal_zigbee_cmd c = build_level_step_cmd(cluster->endpoint, dir, 13);
   hal_zigbee_send_cmd_to_bindings(&c);
 }
 
@@ -275,5 +277,11 @@ void encoder_cluster_on_write_attr(zigbee_encoder_cluster *cluster,
 void encoder_cluster_on_rotate_cw(zigbee_encoder_cluster *cluster)
 {
   printf("Encoder Cluster rotate cw cb triggered\r\n");
-  encoder_cluster_level_control_step(cluster);
+  build_and_send_brightness_command(cluster, ZCL_LEVEL_MOVE_UP);
+}
+
+void encoder_cluster_on_rotate_ccw(zigbee_encoder_cluster *cluster)
+{
+  printf("Encoder Cluster rotate ccw cb triggered\r\n");
+  build_and_send_brightness_command(cluster, ZCL_LEVEL_MOVE_DOWN);
 }

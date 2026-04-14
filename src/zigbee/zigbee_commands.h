@@ -62,11 +62,11 @@ static inline hal_zigbee_cmd build_level_stop_onoff_cmd(uint8_t endpoint) {
     return c;
 }
 
-static inline hal_zigbee_cmd build_level_step_cmd(uint8_t endpoint) {
+static inline hal_zigbee_cmd build_level_step_cmd(uint8_t endpoint, uint8_t dir, uint8_t step_size) {
   static uint8_t buf[4];
 
-    buf[0] = 1; // Step Mode 0 up, 1 down
-    buf[1] = 13; // Step size  
+    buf[0] = dir; // Step Mode 0 up, 1 down
+    buf[1] = step_size; // Step size  
 
     // Transistion Time
     buf[2] = 0; 
