@@ -31,6 +31,7 @@ const tuyaModels = [
     "FZB-1",
     "QS-Zigbee-SEC01-U",
     "QS-Zigbee-SEC02-U",
+    "TLSR82xx_2btn_remote",
     "TS0001",
     "TS0001_power",
     "TS0001_switch_1_gang",
@@ -53,6 +54,9 @@ const tuyaModels = [
     "TS0013",
     "TS0013_switch_module",
     "TS0014",
+    "TS0041",
+    "TS0042",
+    "TS0043",
     "TS0044",
     "TS004F",
     "TS011F_plug_1",
@@ -84,6 +88,8 @@ const moesModels = [
     "SR-ZS",
     "ZG-101ZL",
     "ZS-EUB_1gang",
+    "ZT-B-EU2",
+    "ZT-B-EU3",
 ];
 
 for (let definition of moesDefinitions) {
