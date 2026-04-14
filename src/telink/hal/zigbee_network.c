@@ -8,6 +8,7 @@
 
 #include "telink_size_t_hack.h"
 
+#include "device_config/config_parser.h"
 #include "hal/zigbee.h"
 #include "telink_zigbee_hal.h"
 #include "version_cfg.h"
@@ -80,7 +81,7 @@ void bdb_init_callback(u8 status, u8 joinedNetwork) {
         if (joinedNetwork) {
             ota_queryStart(OTA_QUERY_INTERVAL);
       #ifdef ZB_ED_ROLE
-            zb_setPollRate(POLL_RATE);
+            hal_zigbee_set_poll_rate_ms(POLL_RATE);
       #endif
         }
     } else {
@@ -100,7 +101,7 @@ void bdb_commissioning_callback(u8 status, void *arg) {
         // Need set poll rate manually,
         // to avoid bugs related to no poll task
         // after fast re-connect.
-        zb_setPollRate(POLL_RATE);
+        hal_zigbee_set_poll_rate_ms(POLL_RATE);
         printf("Set poll rate to %d\r\n", POLL_RATE);
 #endif
         steeringInProgress = 0;
@@ -186,6 +187,13 @@ hal_zigbee_status_t hal_zigbee_send_announce(void) {
 
 void hal_zigbee_set_poll_rate_ms(uint32_t poll_rate_ms) {
     zb_setPollRate(poll_rate_ms);
+
+    // Disable the SDK's automatic quick data polls (3 extra MAC polls after
+    // each send) in long-poll mode to avoid unnecessary wake-ups from
+    // deep retention.
+    if (battery.pin != HAL_INVALID_PIN) {
+        AUTO_QUICK_DATA_POLL_ENABLE = (poll_rate_ms <= 10000);
+    }
 }
 
 uint32_t hal_zigbee_get_poll_rate_ms(void) {

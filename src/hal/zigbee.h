@@ -103,9 +103,12 @@ void hal_zigbee_set_image_type(uint16_t image_type);
  * @param endpoint Endpoint number
  * @param cluster_id Cluster ID
  * @param attribute_id Attribute ID that changed
+ * @param immediate If true, send report immediately instead of using SDK
+ *                  reporting timers (avoids unnecessary wake-ups on battery
+ *                  devices)
  */
 void hal_zigbee_notify_attribute_changed(uint8_t endpoint, uint16_t cluster_id,
-                                         uint16_t attribute_id);
+                                         uint16_t attribute_id, bool immediate);
 
 /** Function called when attribute is written via Zigbee */
 typedef void (*hal_attribute_change_callback_t)(uint8_t endpoint,

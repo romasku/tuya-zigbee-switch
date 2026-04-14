@@ -61,7 +61,7 @@ void cover_apply_movement(zigbee_cover_cluster *cluster, uint8_t moving) {
 
     hal_zigbee_notify_attribute_changed(cluster->endpoint,
                                         ZCL_CLUSTER_WINDOW_COVERING,
-                                        ZCL_ATTR_WINDOW_COVERING_MOVING);
+                                        ZCL_ATTR_WINDOW_COVERING_MOVING, false);
 }
 
 void cover_schedule_movement(zigbee_cover_cluster *cluster, uint8_t moving, uint32_t delay) {

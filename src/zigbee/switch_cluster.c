@@ -342,8 +342,6 @@ void switch_cluster_level_control(zigbee_switch_cluster *cluster) {
 }
 
 void switch_cluster_on_button_press(zigbee_switch_cluster *cluster) {
-    switch_cluster_flash_indicator(cluster);
-
     if (cluster->mode == ZCL_ONOFF_CONFIGURATION_SWITCH_TYPE_TOGGLE) {
         // Toggle does not support modes (RISE, SHORT, LONG)
         if (cluster->relay_mode != ZCL_ONOFF_CONFIGURATION_RELAY_MODE_DETACHED) {
@@ -353,7 +351,8 @@ void switch_cluster_on_button_press(zigbee_switch_cluster *cluster) {
         cluster->multistate_state = MULTISTATE_POSITION_ON;
         hal_zigbee_notify_attribute_changed(
             cluster->endpoint, ZCL_CLUSTER_MULTISTATE_INPUT_BASIC,
-            ZCL_ATTR_MULTISTATE_INPUT_PRESENT_VALUE);
+            ZCL_ATTR_MULTISTATE_INPUT_PRESENT_VALUE, true);
+        switch_cluster_flash_indicator(cluster);
         return;
     }
 
@@ -368,16 +367,11 @@ void switch_cluster_on_button_press(zigbee_switch_cluster *cluster) {
     cluster->multistate_state = MULTISTATE_PRESS;
     hal_zigbee_notify_attribute_changed(cluster->endpoint,
                                         ZCL_CLUSTER_MULTISTATE_INPUT_BASIC,
-                                        ZCL_ATTR_MULTISTATE_INPUT_PRESENT_VALUE);
+                                        ZCL_ATTR_MULTISTATE_INPUT_PRESENT_VALUE, true);
+    switch_cluster_flash_indicator(cluster);
 }
 
 void switch_cluster_on_button_release(zigbee_switch_cluster *cluster) {
-    if (cluster->mode == ZCL_ONOFF_CONFIGURATION_SWITCH_TYPE_TOGGLE) {
-        // Only flash on release for toggles,
-        // for momentary flash on press only
-        switch_cluster_flash_indicator(cluster);
-    }
-
     if (cluster->mode == ZCL_ONOFF_CONFIGURATION_SWITCH_TYPE_TOGGLE) {
         // Toggle does not support modes (RISE, SHORT, LONG)
         if (cluster->relay_mode != ZCL_ONOFF_CONFIGURATION_RELAY_MODE_DETACHED) {
@@ -387,7 +381,8 @@ void switch_cluster_on_button_release(zigbee_switch_cluster *cluster) {
         cluster->multistate_state = MULTISTATE_POSITION_OFF;
         hal_zigbee_notify_attribute_changed(
             cluster->endpoint, ZCL_CLUSTER_MULTISTATE_INPUT_BASIC,
-            ZCL_ATTR_MULTISTATE_INPUT_PRESENT_VALUE);
+            ZCL_ATTR_MULTISTATE_INPUT_PRESENT_VALUE, true);
+        switch_cluster_flash_indicator(cluster);
         return;
     }
 
@@ -406,7 +401,7 @@ void switch_cluster_on_button_release(zigbee_switch_cluster *cluster) {
     cluster->multistate_state = MULTISTATE_NOT_PRESSED;
     hal_zigbee_notify_attribute_changed(cluster->endpoint,
                                         ZCL_CLUSTER_MULTISTATE_INPUT_BASIC,
-                                        ZCL_ATTR_MULTISTATE_INPUT_PRESENT_VALUE);
+                                        ZCL_ATTR_MULTISTATE_INPUT_PRESENT_VALUE, true);
 }
 
 void switch_cluster_on_button_long_press(zigbee_switch_cluster *cluster) {
@@ -430,7 +425,7 @@ void switch_cluster_on_button_long_press(zigbee_switch_cluster *cluster) {
     cluster->multistate_state = MULTISTATE_LONG_PRESS;
     hal_zigbee_notify_attribute_changed(cluster->endpoint,
                                         ZCL_CLUSTER_MULTISTATE_INPUT_BASIC,
-                                        ZCL_ATTR_MULTISTATE_INPUT_PRESENT_VALUE);
+                                        ZCL_ATTR_MULTISTATE_INPUT_PRESENT_VALUE, true);
 }
 
 void synchronize_multistate_state(zigbee_switch_cluster *cluster) {
@@ -451,7 +446,7 @@ void synchronize_multistate_state(zigbee_switch_cluster *cluster) {
     }
     hal_zigbee_notify_attribute_changed(cluster->endpoint,
                                         ZCL_CLUSTER_MULTISTATE_INPUT_BASIC,
-                                        ZCL_ATTR_MULTISTATE_INPUT_PRESENT_VALUE);
+                                        ZCL_ATTR_MULTISTATE_INPUT_PRESENT_VALUE, false);
 }
 
 void switch_cluster_on_write_attr(zigbee_switch_cluster *cluster,

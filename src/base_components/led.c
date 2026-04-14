@@ -6,7 +6,12 @@
 
 #include <stdio.h>
 
+static void led_blink_handler(void *arg);
+
 void led_init(led_t *led) {
+    led->blink_task.handler = led_blink_handler;
+    led->blink_task.arg     = led;
+    hal_tasks_init(&led->blink_task);
     led_off(led);
 }
 
@@ -34,7 +39,9 @@ static void led_blink_handler(void *arg) {
         if (led->blink_times_left != LED_BLINK_FOREVER) {
             led->blink_times_left--;
         }
-        hal_tasks_schedule(&led->blink_task, led->blink_time_off);
+        if (led->blink_times_left > 0) {
+            hal_tasks_schedule(&led->blink_task, led->blink_time_off);
+        }
     } else {
         led->on = 1;
         hal_gpio_write(led->pin, led->on_high);
@@ -57,9 +64,6 @@ void led_blink(led_t *led, uint16_t on_time_ms, uint16_t off_time_ms,
 
     hal_gpio_write(led->pin, led->on_high);
     led->on = 1;
-    led->blink_times_left   = times;
-    led->blink_task.handler = led_blink_handler;
-    led->blink_task.arg     = led;
-    hal_tasks_init(&led->blink_task);
+    led->blink_times_left = times;
     hal_tasks_schedule(&led->blink_task, on_time_ms);
 }

@@ -50,8 +50,8 @@ void battery_cluster_update(zigbee_battery_cluster *cluster) {
     cluster->voltage_100mv        = status.voltage_mv / 100;
 
     hal_zigbee_notify_attribute_changed(cluster->endpoint, ZCL_CLUSTER_POWER_CFG,
-                                        ZCL_ATTR_POWER_CFG_BATTERY_VOLTAGE);
+                                        ZCL_ATTR_POWER_CFG_BATTERY_VOLTAGE, false);
     hal_zigbee_notify_attribute_changed(cluster->endpoint, ZCL_CLUSTER_POWER_CFG,
-                                        ZCL_ATTR_POWER_CFG_BATTERY_PERCENTAGE);
+                                        ZCL_ATTR_POWER_CFG_BATTERY_PERCENTAGE, false);
     hal_tasks_schedule(&cluster->refresh_values_task, BATTERY_REFRESH_INTERVAL_MS);
 }
