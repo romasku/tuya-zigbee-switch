@@ -2991,7 +2991,7 @@ REMOTE_MOES_SWITCH_TS0044:
   tuya_module: ZT3L
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: zgyzgdua;TS0044-MOES;SD2d;SC3d;SC2d;SB4d;LD4i;BTC5;M;
+  config_str: zgyzgdua;TS0044-MOES;SD2d;IC4i;SC3d;IA0i;SC2d;ID7i;SB4d;ID4i;BTC5;M;D0;
   alt_config_str: null
   old_manufacturer_names: null
   old_zb_models: null
@@ -3000,7 +3000,7 @@ REMOTE_MOES_SWITCH_TS0044:
   firmware_image_type: 43572
   build: yes
   status: in_progress
-  info: Huge battery drain! LEDs on C4, A0, D7 and D4, WIP for led control as press confirmation, no relays.
+  info: no relay
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/342
   store: https://moeshouse.com/products/zigbee-wireless-scene-switch-battery-powered?variant=43700045283643
 REMOTE_TUYA_BUTTON_TS0041:

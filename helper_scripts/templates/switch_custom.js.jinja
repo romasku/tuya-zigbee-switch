@@ -12,6 +12,7 @@ const {assertString} = require("zigbee-herdsman-converters/lib/utils");
 const reporting = require("zigbee-herdsman-converters/lib/reporting");
 const constants = require("zigbee-herdsman-converters/lib/constants");
 const Zcl = require('zigbee-herdsman').Zcl;
+const e = require("zigbee-herdsman-converters/lib/exposes");
 {% if z2m_v1 %}
 const ota = require("zigbee-herdsman-converters/lib/ota");
 {% endif%}
@@ -107,16 +108,27 @@ const romasku = {
             valueMax: 255,
             entityCategory: "config",
         }),
-    pressAction: (name, endpointName) =>
-        enumLookup({
+    confirmReleaseMs: (name, endpointName) =>
+        numeric({
             name,
-            endpointName,
-            access: "STATE_GET",
-            lookup: { released: 0, press: 1, long_press: 2, position_on: 3, position_off: 4 },
-            cluster: "genMultistateInput",
-            attribute: "presentValue",
-            description: "Action of the switch: 'released' or 'press' or 'long_press'",
-            entityCategory: "diagnostic",
+            endpointNames: [endpointName],
+            cluster: "genOnOffSwitchCfg",
+            attribute: { ID: 0xff06, type: 0x21 }, // uint16
+            description: "Time (ms) to wait after release before confirming press count (single vs double etc.)",
+            valueMin: 0,
+            valueMax: 2000,
+            entityCategory: "config",
+        }),
+    maxPressCount: (name, endpointName) =>
+        numeric({
+            name,
+            endpointNames: [endpointName],
+            cluster: "genOnOffSwitchCfg",
+            attribute: { ID: 0xff07, type: 0x20 }, // uint8
+            description: "Maximum number of consecutive presses to differentiate (1=single only, 2=single+double, 3=+triple)",
+            valueMin: 1,
+            valueMax: 3,
+            entityCategory: "config",
         }),
     relayIndicatorMode: (name, endpointName) =>
         enumLookup({
@@ -360,6 +372,14 @@ const romasku = {
         }),
 };
 
+// Multistate presentValue → action suffix mapping (values 0 and 1 are not published)
+const SWITCH_MULTISTATE_ACTION_MAP = {
+    2: 'single_hold',  3: 'position_on',      4: 'position_off',
+    5: 'single',       6: 'single_release',
+    7: 'double',       8: 'double_hold',      9: 'double_release',
+    10: 'triple',      11: 'triple_hold',     12: 'triple_release',
+};
+
 const definitions = [
 {% for device in devices %}
     {
@@ -424,8 +444,30 @@ const definitions = [
             {% if device.relayNames %}
             onOff({ endpointNames: {{device.relayNames | tojson }} }),
             {% endif %}
+            {% if device.switchNames %}
+            {%- set ns = device.switchNames | length -%}
+            {%- set action_values = [] -%}
+            {%- for i in range(1, ns + 1) -%}
+                {%- for s in ['single', 'single_hold', 'single_release', 'double', 'double_hold', 'double_release', 'triple', 'triple_hold', 'triple_release', 'position_on', 'position_off'] -%}
+                    {%- set _ = action_values.append(i ~ '_' ~ s) -%}
+                {%- endfor -%}
+            {%- endfor -%}
+            {
+                fromZigbee: [{
+                    cluster: 'genMultistateInput',
+                    type: ['attributeReport', 'readResponse'],
+                    convert: (model, msg, publish, options, meta) => {
+                        if (msg.endpoint.ID > {{ns}}) return;
+                        const suffix = SWITCH_MULTISTATE_ACTION_MAP[msg.data['presentValue']];
+                        if (suffix === undefined) return;
+                        return {action: `${msg.endpoint.ID}_${suffix}`};
+                    },
+                }],
+                toZigbee: [],
+                exposes: [e.action({{ action_values | tojson }})],
+            },
+            {% endif %}
             {% for switchName in device.switchNames %}
-            romasku.pressAction("{{switchName}}_press_action", "{{switchName}}"),
             romasku.switchMode("{{switchName}}_mode", "{{switchName}}"),
             romasku.switchAction("{{switchName}}_action_mode", "{{switchName}}"),
             {% if device.relayNames %}
@@ -435,6 +477,8 @@ const definitions = [
             romasku.bindedMode("{{switchName}}_binded_mode", "{{switchName}}"),
             romasku.longPressDuration("{{switchName}}_long_press_duration", "{{switchName}}"),
             romasku.levelMoveRate("{{switchName}}_level_move_rate", "{{switchName}}"),
+            romasku.confirmReleaseMs("{{switchName}}_confirm_release_ms", "{{switchName}}"),
+            romasku.maxPressCount("{{switchName}}_max_press_count", "{{switchName}}"),
             {% endfor %}
             {% for relayName in device.relayIndicatorNames %}
             romasku.relayIndicatorMode("{{relayName}}_indicator_mode", "{{relayName}}"),
