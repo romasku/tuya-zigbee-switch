@@ -62,6 +62,32 @@ static inline hal_zigbee_cmd build_level_stop_onoff_cmd(uint8_t endpoint) {
     return c;
 }
 
+static inline hal_zigbee_cmd build_level_step_cmd(uint8_t endpoint) {
+  static uint8_t buf[4];
+
+    buf[0] = 1; // Step Mode 0 up, 1 down
+    buf[1] = 13; // Step size  
+
+    // Transistion Time
+    buf[2] = 0; 
+    buf[3] = 0;
+  
+  hal_zigbee_cmd c = {
+        .endpoint            = endpoint,
+        .profile_id          = ZCL_HA_PROFILE,
+        .cluster_id          = ZCL_CLUSTER_LEVEL_CONTROL,
+        .command_id          = ZCL_CMD_LEVEL_STEP,
+        .cluster_specific    =                               1,
+        .direction           = HAL_ZIGBEE_DIR_CLIENT_TO_SERVER,
+        .disable_default_rsp =                               1,
+        .manufacturer_code   =                               0,
+        .payload             = buf,
+        .payload_len         = sizeof(buf),
+    };
+
+    return c;
+}
+
 static inline hal_zigbee_cmd build_window_covering_cmd(uint8_t endpoint,
                                                        uint8_t cmd_id) {
     hal_zigbee_cmd c = {
