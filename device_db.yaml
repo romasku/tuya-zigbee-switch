@@ -3003,6 +3003,33 @@ REMOTE_MOES_SWITCH_TS0044:
   info: Huge battery drain! LEDs on C4, A0, D7 and D4, WIP for led control as press confirmation, no relays.
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/342
   store: https://moeshouse.com/products/zigbee-wireless-scene-switch-battery-powered?variant=43700045283643
+REMOTE_TUYA_BUTTON_TS0041:
+  human_name: Tuya button
+  category: remote
+  power: CR2430
+  neutral: without
+  output: nothing
+  device_type: end_device
+  stock_model_name: TS0041
+  stock_manufacturer_name: _TZ3000_mrpevh8p
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0041
+  override_z2m_device: SH-SC07
+  tuya_module: ZTC
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: mrpevh8p;TS0041-TB;BB4d;SB5u;ID2;BTB5;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
+  firmware_image_type: 45636
+  build: yes
+  status: fully_supported
+  info: Supported
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/394
+  store: null
 REMOTE_TUYA_SWITCH_TS0041:
   human_name: Tuya/Moes 1-gang scene switch
   category: remote
