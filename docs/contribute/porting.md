@@ -82,7 +82,7 @@ The pinout is stored in the **device config string**.
 **Complex example** (2-gang switch with bi-stable relays):  
 ⤷ `osap2dsa;TS0002-ABC;BC3u;LC2i;SB5u;RD2D4;IA0;SB4u;RD3B1;IA1;M;i43533;`
 
-**Cover example** (1-gang cover controller):
+**Cover example** (1-gang cover controller):  
 ⤷ `mfgname;TS130F-CVR;BC5u;LA3;XA2B3u;CC4D2;`
 
 | Ch      | Peripheral    | Function                                                                                                          |
