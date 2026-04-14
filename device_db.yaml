@@ -2445,6 +2445,33 @@ MODULE_TUYA_NOVATO_TS130F:
   info: Curtains in progress!
   threads: https://github.com/romasku/tuya-zigbee-switch/pull/231
   store: https://www.aliexpress.com/item/1005007010573203.html
+MODULE_TUYA_OXT_A_TS0003:
+  human_name: Tuya/OXT 3-gang
+  category: module
+  power: mains
+  neutral: required
+  output: relay
+  device_type: router
+  stock_model_name: TS0003
+  stock_manufacturer_name: _TZ3210_aksyshpw
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0003
+  override_z2m_device: null
+  tuya_module: ZT3L
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: aksyshpw;TS0003-C;BB1u;LD7;SC2u;RC0;SC3u;RB4;SD2u;RB5;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 2050
+  firmware_image_type: 43642
+  build: yes
+  status: fully_supported
+  info: Supported
+  threads: https://github.com/romasku/tuya-zigbee-switch/pull/396
+  store: https://psmart.pl/pl/p/Modul-OXT-Mini-przekaznik-3-Obwody-ZigBee-TUYA/1561
 MODULE_TUYA_OXT_TS0001:
   human_name: Tuya/OXT 1-gang
   category: module
