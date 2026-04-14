@@ -3166,7 +3166,7 @@ REMOTE_TUYA_TS0041:
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/171
   store: null
 REMOTE_TUYA_TS0044:
-  human_name: Tuya 4-button wireless switch 🅰
+  human_name: Tuya/Moes 4-button wireless switch 🅰
   category: remote
   power: CR2430
   neutral: without
@@ -3180,16 +3180,16 @@ REMOTE_TUYA_TS0044:
   tuya_module: ZS3L
   mcu_family: Silabs
   mcu: EFR32MG21A020F768IM32
-  config_str: wkai4ga5;TS0044-TUYA;SA0d;SA3d;SA4d;SB0d;M;
+  config_str: wkai4ga5;TS0044-TUYA;SA0d;IC1i;SA3d;IC2i;SA4d;IC0i;SB0d;ID0i;BTA0;M;
   alt_config_str: null
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: null
   stock_image_type: null
   firmware_image_type: 43577
-  build: no
-  status: in_progress
-  info: Huge battery drain! LEDs on C1, C2, C0, D0
+  build: yes
+  status: fully_supported
+  info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/171
   store: null
 REMOTE_TUYA_TLSR82XX_2GANG:
