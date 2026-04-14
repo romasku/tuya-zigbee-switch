@@ -3112,7 +3112,7 @@ REMOTE_TUYA_SWITCH_TS0042:
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/293
   store: https://www.aliexpress.com/item/1005006468926708.html
 REMOTE_TUYA_SWITCH_TS0043:
-  human_name: Tuya/Moes 3-gang scene switch
+  human_name: Tuya/Moes 3-gang scene switch 🅰
   category: remote
   power: CR2430
   neutral: without
@@ -3136,6 +3136,33 @@ REMOTE_TUYA_SWITCH_TS0043:
   build: yes
   status: mostly_supported
   info: Needs testing
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/293
+  store: https://www.aliexpress.com/item/1005006468926708.html
+REMOTE_TUYA_SWITCH_TS0043_1:
+  human_name: Tuya/Moes 3-gang scene switch 🅱
+  category: remote
+  power: CR2430
+  neutral: without
+  output: nothing
+  device_type: end_device
+  stock_model_name: TS0043
+  stock_manufacturer_name: _TZ3000_sj7jbgks
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0043
+  override_z2m_device: null
+  tuya_module: ZT3L
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: sj7jbgks;TS0043-MB;SD2u;ID4;SC2u;IC4;SC3u;ID7;BTD4;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
+  firmware_image_type: 45637
+  build: yes
+  status: fully_supported
+  info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/293
   store: https://www.aliexpress.com/item/1005006468926708.html
 REMOTE_TUYA_TS0041:
