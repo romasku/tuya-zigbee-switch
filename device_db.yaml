@@ -2693,7 +2693,7 @@ MODULE_ZBEACON_TS0002:
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/216
   store: https://www.aliexpress.com/item/1005011631868638.html
 OUTLET_BSEED_PM_TS011F:
-  human_name: BSEED PM outlet
+  human_name: BSEED PM outlet 🅰
   category: outlet
   power: mains
   neutral: required
@@ -2723,7 +2723,7 @@ OUTLET_BSEED_PM_TS011F:
   - https://www.aliexpress.com/i/1005005835434423.html
   - https://www.aliexpress.com/item/1005003350696939.html
 OUTLET_BSEED_PM_TS011F_1:
-  human_name: BSEED PM outlet
+  human_name: BSEED PM outlet 🅱
   category: outlet
   power: mains
   neutral: required
@@ -2733,7 +2733,7 @@ OUTLET_BSEED_PM_TS011F_1:
   stock_manufacturer_name: _TZ3000_ko6v90pg
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS011F_plug_1
-  override_z2m_device: TS011F_plug_1_3
+  override_z2m_device: TS011F_plug_1_2
   tuya_module: ZTU
   mcu_family: Telink
   mcu: TLSR8258
