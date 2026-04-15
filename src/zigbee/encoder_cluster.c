@@ -25,6 +25,7 @@ void encoder_cluster_add_to_endpoint(zigbee_encoder_cluster *cluster,
   
   cluster->endpoint = endpoint->endpoint;
 
+  //////// Cluster Setup ////////
   // Output ON OFF to bind to other devices
   endpoint->clusters[endpoint->cluster_count].cluster_id = ZCL_CLUSTER_ON_OFF;
   endpoint->clusters[endpoint->cluster_count].attribute_count = 0;
@@ -32,13 +33,22 @@ void encoder_cluster_add_to_endpoint(zigbee_encoder_cluster *cluster,
   endpoint->clusters[endpoint->cluster_count].is_server = 0;
   endpoint->cluster_count++;
 
-  // Output Level for other devices
+  // Output Level (Brightness) for other devices
   endpoint->clusters[endpoint->cluster_count].cluster_id =
       ZCL_CLUSTER_LEVEL_CONTROL;
   endpoint->clusters[endpoint->cluster_count].attribute_count = 0;
   endpoint->clusters[endpoint->cluster_count].attributes = NULL;
   endpoint->clusters[endpoint->cluster_count].is_server = 0;
   endpoint->cluster_count++;
+
+   // Output lightingColorCtrl for other devices
+  endpoint->clusters[endpoint->cluster_count].cluster_id =
+      ZCL_CLUSTER_LIGHTING_COLOR_CONTROL;
+  endpoint->clusters[endpoint->cluster_count].attribute_count = 0;
+  endpoint->clusters[endpoint->cluster_count].attributes = NULL;
+  endpoint->clusters[endpoint->cluster_count].is_server = 0;
+  endpoint->cluster_count++;
+  //////// End of Cluster Setup ////////
 
   // Link Encoder Callbacks to this clusters actions
   cluster->encoder->on_press =
