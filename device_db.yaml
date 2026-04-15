@@ -2774,7 +2774,39 @@ OUTLET_BSEED_PM_TS011F_1:
   build: yes
   status: in_progress
   info: Power monitoring not implemented
-  threads: https://github.com/romasku/tuya-zigbee-switch/issues/145
+  threads:
+  - https://github.com/romasku/tuya-zigbee-switch/issues/145
+  - https://github.com/romasku/tuya-zigbee-switch/pull/390
+  store:
+  - https://www.aliexpress.com/item/1005005714480181.html
+OUTLET_BSEED_PM_TS011F_2:
+  human_name: BSEED PM outlet 🅲
+  category: outlet
+  power: mains
+  neutral: required
+  output: relay
+  device_type: router
+  stock_model_name: TS011F
+  stock_manufacturer_name: _TZ3000_4ux0ondb
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS011F_plug_1
+  override_z2m_device: TS011F_plug_1_2
+  tuya_module: ZTU
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: 4ux0ondb;TS011F-BS-PM-2;LB4;SB5u;RD2;IC3;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
+  firmware_image_type: 47004
+  build: yes
+  status: in_progress
+  info: Power monitoring not implemented
+  threads: 
+  - https://github.com/romasku/tuya-zigbee-switch/issues/145
+  - https://github.com/romasku/tuya-zigbee-switch/pull/397
   store:
   - https://www.aliexpress.com/item/1005005714480181.html
 OUTLET_BSEED_TS011F:
