@@ -2774,7 +2774,9 @@ OUTLET_BSEED_PM_TS011F_1:
   build: yes
   status: in_progress
   info: Power monitoring not implemented
-  threads: https://github.com/romasku/tuya-zigbee-switch/issues/145
+  threads:
+  - https://github.com/romasku/tuya-zigbee-switch/issues/145
+  - https://github.com/romasku/tuya-zigbee-switch/pull/390
   store:
   - https://www.aliexpress.com/item/1005005714480181.html
 OUTLET_BSEED_PM_TS011F_2:
@@ -2792,7 +2794,7 @@ OUTLET_BSEED_PM_TS011F_2:
   tuya_module: ZTU
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: 4ux0ondb;TS011F-BS-PM;LB4;SB5u;RD2;IC3;M;
+  config_str: 4ux0ondb;TS011F-BS-PM-2;LB4;SB5u;RD2;IC3;M;
   alt_config_str: null
   old_manufacturer_names: null
   old_zb_models: null
@@ -2802,7 +2804,9 @@ OUTLET_BSEED_PM_TS011F_2:
   build: yes
   status: in_progress
   info: Power monitoring not implemented
-  threads: https://github.com/romasku/tuya-zigbee-switch/issues/145
+  threads: 
+  - https://github.com/romasku/tuya-zigbee-switch/issues/145
+  - https://github.com/romasku/tuya-zigbee-switch/pull/397
   store:
   - https://www.aliexpress.com/item/1005005714480181.html
 OUTLET_BSEED_TS011F:
