@@ -3357,7 +3357,7 @@ REMOTE_TUYA_TS004F_2:
   build: yes
   status: mostly_supported
   info: Low power is implemented, but wasn't battle tested. Buttons swapped?
-  threads: null
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/399
   store: https://www.aliexpress.com/item/1005006762476931.html
 REMOTE_TUYA_TS004F:
   human_name: Tuya 4-button wireless switch 🅱
