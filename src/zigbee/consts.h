@@ -15,7 +15,7 @@
 #define ZCL_CLUSTER_GROUPS                    0x0004
 #define ZCL_CLUSTER_OTA_BOOTLOAD              0x0019
 #define ZCL_CLUSTER_WINDOW_COVERING           0x0102
-#define ZCL_CLUSTER_LIGHTING_COLOR_CONTROL             0x0300 
+#define ZCL_CLUSTER_LIGHTING_COLOR_CONTROL    0x0300 
 #define ZCL_CLUSTER_COVER_SWITCH_CONFIG       0xFC01
 
 
@@ -203,6 +203,10 @@
 #define ZCL_CMD_LEVEL_MOVE_WITH_ON_OFF             0x05
 #define ZCL_CMD_LEVEL_STEP_WITH_ON_OFF             0x06
 #define ZCL_CMD_LEVEL_STOP_WITH_ON_OFF             0x07
+
+// Lighting Color Control Cluster
+
+#define ZCL_CMD_LIGHTING_COLOR_STEP_TEMP    0x4c 
 
 // WindowCovering Cluster
 
