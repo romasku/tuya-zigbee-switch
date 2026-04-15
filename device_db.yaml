@@ -2917,6 +2917,33 @@ REMOTE_HOBEIAN_TS0044:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/237
   store: null
+REMOTE_HOBEIAN_BUTTON_TS0001:
+  human_name: HOBEIAN ZG-101ZL button
+  category: remote
+  power: CR2032
+  neutral: without
+  output: nothing
+  device_type: end_device
+  stock_model_name: ZG-101ZL
+  stock_manufacturer_name: HOBEIAN
+  stock_converter_manufacturer: Moes
+  stock_converter_model: ERS-10TZBVB-AA
+  override_z2m_device: ZG-101ZL
+  tuya_module: none
+  mcu_family: Telink
+  mcu: TLSR8258 # and TLSR8253F512AT32 variant
+  config_str: ZG-101ZL;TS0001-HB;IC4i;SC2u;BTB5;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
+  firmware_image_type: 47002
+  build: yes
+  status: in_progress
+  info: 1MB variant working, 512KB not
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/399
+  store: null
 REMOTE_IHSENO_TS0044:
   human_name: iHseno 4-button remote
   category: remote
