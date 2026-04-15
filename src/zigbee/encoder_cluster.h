@@ -38,9 +38,4 @@ typedef struct
 void encoder_cluster_add_to_endpoint(zigbee_encoder_cluster *cluster,
                                      hal_zigbee_endpoint *endpoint);
 
-void encoder_cluster_callback_attr_write_trampoline(uint8_t endpoint,
-                                                    uint16_t attribute_id);
-
-void update_encoder_clusters(void);
-
 #endif
