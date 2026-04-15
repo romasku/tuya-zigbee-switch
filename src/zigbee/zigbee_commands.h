@@ -102,13 +102,15 @@ static inline hal_zigbee_cmd build_color_temp_step_cmd(uint8_t endpoint, uint8_t
     buf[3] = 0x00; 
     buf[4] = 0x00;
 
-    // Minimum 0x00FA - 250
-    buf[5] = 0xFA; 
+    // Minimum 0x0000 - 0 - default min
+    // TODO: spec says 0x0000 should work as ignore
+    buf[5] = 0x00; 
     buf[6] = 0x00;
 
-    // Maximum  0x01C6 - 454
-    buf[7] = 0xC6; 
-    buf[8] = 0x01;
+    // Maximum  0xfeff - 65279 - default max (ffff does not seem to work) 
+    // TODO: spec says 0x0000 should work as ignore
+    buf[7] = 0xfe; 
+    buf[8] = 0xff;
   
   hal_zigbee_cmd c = {
         .endpoint            = endpoint,
