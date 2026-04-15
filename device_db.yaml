@@ -3347,8 +3347,8 @@ REMOTE_TUYA_TS004F_2:
   tuya_module: none
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: ja5osu5g;TS004F-Loginovo;IC4i;SC2u;BTB5;M;
-  alt_config_str: null
+  config_str: ja5osu5g;TS004F-Loginovo;BB6u;SC2u;IC4i;BTB5;M;
+  alt_config_str: ja5osu5g;TS004F-Loginovo;BC2u;SB6u;IC4i;BTB5;M;
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: null
@@ -3356,7 +3356,7 @@ REMOTE_TUYA_TS004F_2:
   firmware_image_type: 47002
   build: yes
   status: mostly_supported
-  info: Low power is implemented, but wasn't battle tested.
+  info: Low power is implemented, but wasn't battle tested. Buttons swapped?
   threads: null
   store: https://www.aliexpress.com/item/1005006762476931.html
 REMOTE_TUYA_TS004F:
