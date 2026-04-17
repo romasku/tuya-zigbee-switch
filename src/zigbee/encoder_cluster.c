@@ -1,14 +1,7 @@
 #include "encoder_cluster.h"
-#include "base_components/relay.h"
-#include "cluster_common.h"
 #include "consts.h"
-#include "device_config/nvm_items.h"
-#include "hal/nvm.h"
 
 #include "hal/printf_selector.h"
-#include "hal/system.h"
-#include "hal/tasks.h"
-#include "relay_cluster.h"
 #include "zigbee_commands.h"
 
 void encoder_cluster_on_button_press(zigbee_encoder_cluster *cluster);

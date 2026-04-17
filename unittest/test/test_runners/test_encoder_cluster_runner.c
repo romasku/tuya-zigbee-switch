@@ -2,22 +2,29 @@
 
 /*=======Automagically Detected Files To Include=====*/
 #include "unity.h"
+#include "cmock.h"
+#include "zigbee/encoder_cluster.h"
+#include "zigbee/consts.h"
+#include "Mockzigbee.h"
 
 /*=======External Functions This Runner Calls=====*/
 extern void setUp(void);
 extern void tearDown(void);
-extern void test_example(void);
+extern void test_encoder_is_clicked(void);
 
 
 /*=======Mock Management=====*/
 static void CMock_Init(void)
 {
+  Mockzigbee_Init();
 }
 static void CMock_Verify(void)
 {
+  Mockzigbee_Verify();
 }
 static void CMock_Destroy(void)
 {
+  Mockzigbee_Destroy();
 }
 
 /*=======Test Reset Options=====*/
@@ -68,7 +75,8 @@ static void run_test(UnityTestFunction func, const char* name, UNITY_LINE_TYPE l
 int main(void)
 {
   UnityBegin("test/test_encoder_cluster.c");
-  run_test(test_example, "test_example", 13);
+  run_test(test_encoder_is_clicked, "test_encoder_is_clicked", 26);
 
+  CMock_Guts_MemFreeFinal();
   return UNITY_END();
 }

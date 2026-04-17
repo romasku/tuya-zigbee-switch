@@ -2,7 +2,6 @@
 #define _ENCODER_CLUSTER_H_
 
 #include "base_components/encoder.h"
-#include "base_components/led.h"
 #include "hal/zigbee.h"
 #include <stdint.h>
 
@@ -32,7 +31,6 @@ typedef struct
   hal_zigbee_attribute multistate_attr_infos[4];
   uint8_t level_move_rate;
   uint8_t level_move_direction;
-  led_t *indicator_led;
 } zigbee_encoder_cluster;
 
 void encoder_cluster_add_to_endpoint(zigbee_encoder_cluster *cluster,

@@ -42,6 +42,7 @@ SOURCES := \
 	./mocks/Mockgpio.c \
 	./mocks/gpio_callback_helper.c \
 	./mocks/Mocktimer.c \
+	./mocks/Mockzigbee.c \
 	$(SRC_DIR)/base_components/encoder.c \
 
 
@@ -51,7 +52,7 @@ SRC_FILES1=$(UNITY_ROOT)/src/unity.c $(SOURCES) test/test_encoder.c  test/test_r
 
 TARGET_BASE2=test_encoder_cluster
 TARGET2 = $(TARGET_BASE2)$(TARGET_EXTENSION)
-SRC_FILES2=$(UNITY_ROOT)/src/unity.c $(SOURCES) test/test_encoder_cluster.c  test/test_runners/test_encoder_cluster_runner.c
+SRC_FILES2=$(UNITY_ROOT)/src/unity.c $(SOURCES) $(SRC_DIR)/zigbee/encoder_cluster.c test/test_encoder_cluster.c  test/test_runners/test_encoder_cluster_runner.c
 
 INC_DIRS=-I$(UNITY_ROOT)/src -I$(SRC_DIR) -I$(SRC_DIR)/hal -I$(CMOCK_ROOT)/src -I./mocks
 SYMBOLS=
