@@ -34,7 +34,7 @@ const romasku = {
             endpointName,
             lookup: { on_off: 0, off_on: 1, toggle_simple: 2, toggle_smart_sync: 3, toggle_smart_opposite: 4 },
             cluster: "genOnOffSwitchCfg",
-            attribute: {ID: 0x0010, type: 0x30, required: true, write: true, min: 0, max: 4}, // Enum8
+            attribute: {ID: 0x0010, type: Zcl.DataType.ENUM8, required: true, write: true, min: 0, max: 4},
             description: `Select how switch should work:
             - on_off: When switch physically moved to position 1 it always generates ON command, and when moved to position 2 it generates OFF command
             - off_on: Same as on_off, but positions are swapped
@@ -49,7 +49,7 @@ const romasku = {
             endpointName,
             lookup: { toggle: 0, momentary: 1, momentary_nc: 2 },
             cluster: "genOnOffSwitchCfg",
-            attribute: { ID: 0xff00, type: 0x30 }, // Enum8
+            attribute: { ID: 0xff00, type: Zcl.DataType.ENUM8 },
             description: "Select the type of switch connected to the device",
             entityCategory: "config",
         }),
@@ -59,7 +59,7 @@ const romasku = {
             endpointName,
             lookup: { detached: 0, press_start: 1, short_press: 3, long_press: 2},
             cluster: "genOnOffSwitchCfg",
-            attribute: { ID: 0xff01, type: 0x30 }, // Enum8
+            attribute: { ID: 0xff01, type: Zcl.DataType.ENUM8 },
             description: "When to turn on/off internal relay",
             entityCategory: "config",
         }),
@@ -71,7 +71,7 @@ const romasku = {
                 Array.from({ length: relay_cnt || 2 }, (_, i) => [`relay_${i + 1}`, i + 1])
             ),
             cluster: "genOnOffSwitchCfg",
-            attribute: { ID: 0xff02, type: 0x20 }, // uint8
+            attribute: { ID: 0xff02, type: Zcl.DataType.UINT8 },
             description: "Which internal relay it should trigger",
             entityCategory: "config",
         }),
@@ -81,7 +81,7 @@ const romasku = {
             endpointName,
             lookup: { press_start: 1, short_press: 3, long_press: 2},
             cluster: "genOnOffSwitchCfg",
-            attribute: { ID: 0xff05, type: 0x30 }, // Enum8
+            attribute: { ID: 0xff05, type: Zcl.DataType.ENUM8 },
             description: "When turn on/off binded device",
             entityCategory: "config",
         }),
@@ -90,7 +90,7 @@ const romasku = {
             name,
             endpointNames: [endpointName],
             cluster: "genOnOffSwitchCfg",
-            attribute: { ID: 0xff03, type: 0x21 }, // uint16
+            attribute: { ID: 0xff03, type: Zcl.DataType.UINT16 },
             description: "What duration is considerd to be long press",
             valueMin: 0,
             valueMax: 5000,
@@ -101,7 +101,7 @@ const romasku = {
             name,
             endpointNames: [endpointName],
             cluster: "genOnOffSwitchCfg",
-            attribute: { ID: 0xff04, type: 0x20 }, // uint8
+            attribute: { ID: 0xff04, type: Zcl.DataType.UINT8 },
             description: "Level (dim) move rate in steps per ms",
             valueMin: 1,
             valueMax: 255,
@@ -124,7 +124,7 @@ const romasku = {
             endpointName,
             lookup: { same: 0, opposite: 1, manual: 2 },
             cluster: "genOnOff",
-            attribute: { ID: 0xff01, type: 0x30 }, // Enum8
+            attribute: { ID: 0xff01, type: Zcl.DataType.ENUM8 },
             description: "Mode for the relay indicator LED",
             entityCategory: "config",
         }),
@@ -135,7 +135,7 @@ const romasku = {
             valueOn: ["ON", 1],
             valueOff: ["OFF", 0],
             cluster: "genOnOff",
-            attribute: {ID: 0xff02, type: 0x10},  // Boolean
+            attribute: {ID: 0xff02, type: Zcl.DataType.BOOLEAN},
             description: "State of the relay indicator LED",
             access: "ALL",
             entityCategory: "config",
@@ -170,17 +170,18 @@ const romasku = {
             valueOn: ["ON", 1],
             valueOff: ["OFF", 0],
             cluster: "genBasic",
-            attribute: {ID: 0xff01, type: 0x10},  // Boolean
+            attribute: {ID: 0xff01, type: Zcl.DataType.BOOLEAN},
             description: "State of the network indicator LED",
             access: "ALL",
             entityCategory: "config",
         }),
+
     multiPressResetCount: (name, endpointName) =>
         numeric({
             name,
             endpointNames: [endpointName],
             cluster: "genBasic",
-            attribute: { ID: 0xff02, type: 0x20 }, // uint8
+            attribute: { ID: 0xff02, type: Zcl.DataType.UINT8 },
             description: "Number of consecutive presses to trigger factory reset (0 = disabled)",
             valueMin: 0,
             valueMax: 255,
@@ -192,7 +193,7 @@ const romasku = {
             endpointName,
             access: "ALL",
             cluster: "genBasic",
-            attribute:  { ID: 0xff00, type: 0x44 }, // long str
+            attribute:  { ID: 0xff00, type: Zcl.DataType.LONG_CHAR_STR },
             description: "Current configuration of the device",
             zigbeeCommandOptions: {timeout: 30_000},
             validate: (value) => {
@@ -343,7 +344,7 @@ const romasku = {
                 closing: 2
             },
             cluster: "closuresWindowCovering",
-            attribute: "moving",
+            attribute: { ID: 0xff00, type: Zcl.DataType.ENUM8 },
             description: "Cover movement status",
             entityCategory: "diagnostic",
         }),
@@ -354,8 +355,32 @@ const romasku = {
             valueOn: [true, 1],
             valueOff: [false, 0],
             cluster: "closuresWindowCovering",
-            attribute: "motorReversal",
+            attribute: { ID: 0xff01, type: Zcl.DataType.BOOLEAN },
             description: "Reverse motor direction (swap OPEN/CLOSE relays)",
+            entityCategory: "config",
+        }),
+    coverOpenTime: (name, endpointName) =>
+        numeric({
+            name,
+            endpointName,
+            cluster: "closuresWindowCovering",
+            attribute: { ID: 0xff02, type: Zcl.DataType.UINT16 },
+            description: "Full open (up) travel time in milliseconds. Set to 0 to disable position tracking",
+            valueMin: 0,
+            valueMax: 60000,
+            unit: "ms",
+            entityCategory: "config",
+        }),
+    coverCloseTime: (name, endpointName) =>
+        numeric({
+            name,
+            endpointName,
+            cluster: "closuresWindowCovering",
+            attribute: { ID: 0xff03, type: Zcl.DataType.UINT16 },
+            description: "Full close (down) travel time in milliseconds. Set to 0 to disable position tracking",
+            valueMin: 0,
+            valueMax: 60000,
+            unit: "ms",
             entityCategory: "config",
         }),
 };
@@ -390,15 +415,6 @@ const definitions = [
                 },
                 commands: {},
                 commandsResponse: {},
-            }),
-            {% endif %}
-            {% if device.coverNames %}
-            deviceAddCustomCluster("closuresWindowCovering", {
-                ID: 0x0102,
-                attributes: {
-                    moving: {ID: 0xff00, type: Zcl.DataType.ENUM8},
-                    motorReversal: {ID: 0xff01, type: Zcl.DataType.BOOLEAN, write: true},
-                },
             }),
             {% endif %}
             deviceEndpoints({ endpoints: {
@@ -441,12 +457,14 @@ const definitions = [
             romasku.relayIndicator("{{relayName}}_indicator", "{{relayName}}"),
             {% endfor %}
             {% for coverName in device.coverNames %}
-            windowCovering({ 
+            windowCovering({
                 controls: ["lift"],
                 coverInverted: true,
                 configureReporting: false,
                 endpointNames: ["{{coverName}}"]
             }),
+            romasku.coverOpenTime("{{coverName}}_open_time", "{{coverName}}"),
+            romasku.coverCloseTime("{{coverName}}_close_time", "{{coverName}}"),
             romasku.coverMoving("{{coverName}}_moving", "{{coverName}}"),
             romasku.coverMotorReversal("{{coverName}}_motor_reversal", "{{coverName}}"),
             {% endfor %}
@@ -470,7 +488,7 @@ const definitions = [
             // switch action:
             await endpoint{{loop.index}}.configureReporting("genMultistateInput", [
                 {
-                    attribute: {ID: 0x0055 /* presentValue */, type: 0x21}, // uint16
+                    attribute: {ID: 0x0055 /* presentValue */, type: Zcl.DataType.UINT16},
                     minimumReportInterval: 0,
                     maximumReportInterval: constants.repInterval.MAX,
                     reportableChange: 1,
@@ -483,7 +501,7 @@ const definitions = [
             await reporting.bind(batteryEndpoint, coordinatorEndpoint, ["genPowerCfg"]);
             await batteryEndpoint.configureReporting("genPowerCfg", [
                 {
-                    attribute: {ID: 0x0021, type: 0x20}, // BatteryPercentageRemaining
+                    attribute: {ID: 0x0021, type: Zcl.DataType.UINT8}, // BatteryPercentageRemaining
                     minimumReportInterval: 0,
                     maximumReportInterval: constants.repInterval.HOUR,
                     reportableChange: 2, // 1% (2 in ZCL 0-200 format)
@@ -503,7 +521,7 @@ const definitions = [
             {% for relayName in device.relayIndicatorNames %}
             await endpoint{{loop.index  + (device.switchNames | length)}}.configureReporting("genOnOff", [
                 {
-                    attribute: {ID: 0xff02, type: 0x10}, // Boolean
+                    attribute: {ID: 0xff02, type: Zcl.DataType.BOOLEAN},
                     minimumReportInterval: 0,
                     maximumReportInterval: constants.repInterval.MAX,
                     reportableChange: 1,
@@ -529,7 +547,13 @@ const definitions = [
             await reporting.bind(cover{{loop.index}}, coordinatorEndpoint, ["closuresWindowCovering"]);
             await cover{{loop.index}}.configureReporting("closuresWindowCovering", [
                 {
-                    attribute: "moving",
+                    attribute: {ID: 0xff00, type: Zcl.DataType.ENUM8}, // moving
+                    minimumReportInterval: 0,
+                    maximumReportInterval: constants.repInterval.MAX,
+                    reportableChange: 1,
+                },
+                {
+                    attribute: {ID: 0x0008, type: Zcl.DataType.UINT8}, // currentPositionLiftPercentage
                     minimumReportInterval: 0,
                     maximumReportInterval: constants.repInterval.MAX,
                     reportableChange: 1,
