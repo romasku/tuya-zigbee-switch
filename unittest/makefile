@@ -70,12 +70,20 @@ default: $(SRC_FILES1) $(SRC_FILES2)
 	- ./$(TARGET1)
 	- ./$(TARGET2)
 
-test/$(TARGET_BASE1): $(SRC_FILES1)
+./$(TARGET1): $(SRC_FILES1)
 	$(C_COMPILER) $(CFLAGS) $(INC_DIRS) $(SYMBOLS) $(SRC_FILES1) -o $(TARGET1)
+
+test/$(TARGET_BASE1): ./$(TARGET1)
 	- ./$(TARGET1)
 
-test/$(TARGET_BASE2): $(SRC_FILES2)
+./$(TARGET2): $(SRC_FILES2)
 	$(C_COMPILER) $(CFLAGS) $(INC_DIRS) $(SYMBOLS) $(SRC_FILES2) -o $(TARGET2)
+
+test/$(TARGET_BASE2): ./$(TARGET2)
+	- ./$(TARGET2)
+
+test/all: ./$(TARGET1) ./$(TARGET2)
+	- ./$(TARGET1)
 	- ./$(TARGET2)
 
 test/test_runners/test_encoder_runner.c: test/test_encoder.c
