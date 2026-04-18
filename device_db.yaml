@@ -5077,22 +5077,22 @@ SWITCH_TUYA_CN_TS0001:
   info: Needs netled on A0
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/181
   store: null
-SWITCH_TUYA_TS0001_1:
-  human_name: Tuya 1-gang switch
+SWITCH_TUYA_TS0001:
+  human_name: Tuya/Lonsonho 1-gang switch
   category: switch
   power: mains
   neutral: required
-  output: null
+  output: relay
   device_type: router
   stock_model_name: TS0001
   stock_manufacturer_name: _TZ3000_ehgouyvu
-  stock_converter_manufacturer: Tuya
+  stock_converter_manufacturer: Lonsonho
   stock_converter_model: TS0001
-  override_z2m_device: null
-  tuya_module: ZS3L
+  override_z2m_device: X701A
+  tuya_module: null
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: ehgouyvu;TS0001-GS;SC2u;RC3;IB1;
+  config_str: ehgouyvu;TS0001-LS;SC2u;RC3;IB1;
   alt_config_str: null
   old_manufacturer_names: null
   old_zb_models: null
@@ -5101,9 +5101,9 @@ SWITCH_TUYA_TS0001_1:
   firmware_image_type: 47005
   build: yes
   status: fully_supported
-  info:
-  threads:
-  store: https://de.aliexpress.com/item/1005010686659544.html
+  info: Supported
+  threads: https://github.com/romasku/tuya-zigbee-switch/pull/404
+  store: https://www.aliexpress.com/item/1005010686659544.html
 SWITCH_TUYA_CN_TS0002:
   human_name: Tuya 2-gang switch
   category: switch
