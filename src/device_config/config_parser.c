@@ -133,12 +133,14 @@ void parse_config() {
             hal_gpio_pin_t  pin  = hal_gpio_parse_pin(entry + 1);
             hal_gpio_pull_t pull = hal_gpio_parse_pull(entry + 3);
             hal_gpio_init(pin, 1, pull);
+            bool pressed_when_high = (pull == HAL_GPIO_PULL_DOWN) ? 1 : 0;
 
             buttons[buttons_cnt].pin = pin;
             buttons[buttons_cnt].long_press_duration_ms  = 2000;
             buttons[buttons_cnt].multi_press_duration_ms = 800;
             buttons[buttons_cnt].debounce_delay_ms       = debounce_ms;
             buttons[buttons_cnt].on_long_press           = on_reset_clicked;
+            buttons[buttons_cnt].pressed_when_high       = pressed_when_high;
             buttons_cnt++;
         } else if (entry[0] == 'L') {
             hal_gpio_pin_t pin = hal_gpio_parse_pin(entry + 1);
@@ -188,15 +190,14 @@ void parse_config() {
             hal_gpio_pin_t  pin  = hal_gpio_parse_pin(entry + 1);
             hal_gpio_pull_t pull = hal_gpio_parse_pull(entry + 3);
             hal_gpio_init(pin, 1, pull);
+            bool pressed_when_high = (pull == HAL_GPIO_PULL_DOWN) ? 1 : 0;
 
             buttons[buttons_cnt].pin = pin;
-            buttons[buttons_cnt].long_press_duration_ms  = 800;
-            buttons[buttons_cnt].multi_press_duration_ms = 800;
-            buttons[buttons_cnt].debounce_delay_ms       = debounce_ms;
-            buttons[buttons_cnt].on_multi_press          = on_multi_press_reset;
-
-            if (entry[3] == 'd')
-                buttons[buttons_cnt].pressed_when_high = 1;
+            buttons[buttons_cnt].long_press_duration_ms     = 800;
+            buttons[buttons_cnt].multi_press_duration_ms    = 800;
+            buttons[buttons_cnt].debounce_delay_ms          = debounce_ms;
+            buttons[buttons_cnt].on_multi_press             = on_multi_press_reset;
+            buttons[buttons_cnt].pressed_when_high          = pressed_when_high;
             switch_clusters[switch_clusters_cnt].switch_idx = switch_clusters_cnt;
             switch_clusters[switch_clusters_cnt].mode       =
                 ZCL_ONOFF_CONFIGURATION_SWITCH_TYPE_TOGGLE;
@@ -212,13 +213,14 @@ void parse_config() {
             buttons_cnt++;
             switch_clusters_cnt++;
         } else if (entry[0] == 'R') {
-            hal_gpio_pin_t pin = hal_gpio_parse_pin(entry + 1);
+            hal_gpio_pin_t pin     = hal_gpio_parse_pin(entry + 1);
+            bool           on_high = entry[3] != 'i';
             hal_gpio_init(pin, 0, HAL_GPIO_PULL_NONE);
 
             relays[relays_cnt].pin     = pin;
-            relays[relays_cnt].on_high = 1;
+            relays[relays_cnt].on_high = on_high;
 
-            if (entry[3] != '\0') {
+            if (entry[3] != '\0' && entry[3] != 'i') {
                 pin = hal_gpio_parse_pin(entry + 3);
                 hal_gpio_init(pin, 0, HAL_GPIO_PULL_NONE);
                 relays[relays_cnt].off_pin     = pin;
@@ -231,9 +233,10 @@ void parse_config() {
             relays_cnt++;
             relay_clusters_cnt++;
         } else if (entry[0] == 'X') {
-            hal_gpio_pin_t  open_pin  = hal_gpio_parse_pin(entry + 1);
-            hal_gpio_pin_t  close_pin = hal_gpio_parse_pin(entry + 3);
-            hal_gpio_pull_t pull      = hal_gpio_parse_pull(entry + 5);
+            hal_gpio_pin_t  open_pin          = hal_gpio_parse_pin(entry + 1);
+            hal_gpio_pin_t  close_pin         = hal_gpio_parse_pin(entry + 3);
+            hal_gpio_pull_t pull              = hal_gpio_parse_pull(entry + 5);
+            bool            pressed_when_high = (pull == HAL_GPIO_PULL_DOWN) ? 1 : 0;
 
             hal_gpio_init(open_pin, 1, pull);
             hal_gpio_init(close_pin, 1, pull);
@@ -243,6 +246,7 @@ void parse_config() {
             buttons[buttons_cnt].multi_press_duration_ms = 800;
             buttons[buttons_cnt].debounce_delay_ms       = debounce_ms;
             buttons[buttons_cnt].on_multi_press          = on_multi_press_reset;
+            buttons[buttons_cnt].pressed_when_high       = pressed_when_high;
             button_t *open_button = &buttons[buttons_cnt++];
 
             buttons[buttons_cnt].pin = close_pin;
@@ -250,6 +254,7 @@ void parse_config() {
             buttons[buttons_cnt].multi_press_duration_ms = 800;
             buttons[buttons_cnt].debounce_delay_ms       = debounce_ms;
             buttons[buttons_cnt].on_multi_press          = on_multi_press_reset;
+            buttons[buttons_cnt].pressed_when_high       = pressed_when_high;
             button_t *close_button = &buttons[buttons_cnt++];
 
             cover_switch_clusters[cover_switch_clusters_cnt].open_button =
@@ -262,17 +267,18 @@ void parse_config() {
         } else if (entry[0] == 'C') {
             hal_gpio_pin_t open_pin  = hal_gpio_parse_pin(entry + 1);
             hal_gpio_pin_t close_pin = hal_gpio_parse_pin(entry + 3);
+            bool           on_high   = entry[5] != 'i';
 
             hal_gpio_init(open_pin, 0, HAL_GPIO_PULL_NONE);
             hal_gpio_init(close_pin, 0, HAL_GPIO_PULL_NONE);
 
             relays[relays_cnt].pin         = open_pin;
-            relays[relays_cnt].on_high     = 1;
+            relays[relays_cnt].on_high     = on_high;
             relays[relays_cnt].is_latching = 0;
             relay_t *open_relay = &relays[relays_cnt++];
 
             relays[relays_cnt].pin         = close_pin;
-            relays[relays_cnt].on_high     = 1;
+            relays[relays_cnt].on_high     = on_high;
             relays[relays_cnt].is_latching = 0;
             relay_t *close_relay = &relays[relays_cnt++];
 
