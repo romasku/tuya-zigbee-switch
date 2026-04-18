@@ -5077,33 +5077,6 @@ SWITCH_TUYA_CN_TS0001:
   info: Needs netled on A0
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/181
   store: null
-SWITCH_TUYA_TS0001:
-  human_name: Tuya/Lonsonho 1-gang switch
-  category: switch
-  power: mains
-  neutral: required
-  output: relay
-  device_type: router
-  stock_model_name: TS0001
-  stock_manufacturer_name: _TZ3000_ehgouyvu
-  stock_converter_manufacturer: Lonsonho
-  stock_converter_model: TS0001
-  override_z2m_device: X701A
-  tuya_module: null
-  mcu_family: Telink
-  mcu: TLSR8258
-  config_str: ehgouyvu;TS0001-LS;SC2u;RC3;IB1;
-  alt_config_str: null
-  old_manufacturer_names: null
-  old_zb_models: null
-  stock_manufacturer_id: 4417
-  stock_image_type: 54179
-  firmware_image_type: 47005
-  build: yes
-  status: fully_supported
-  info: Supported
-  threads: https://github.com/romasku/tuya-zigbee-switch/pull/404
-  store: https://www.aliexpress.com/item/1005010686659544.html
 SWITCH_TUYA_CN_TS0002:
   human_name: Tuya 2-gang switch
   category: switch
@@ -5212,6 +5185,33 @@ SWITCH_TUYA_TOUCH_TS0011:
   info: Needs pinout
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/104
   store: null
+SWITCH_TUYA_TS0001:
+  human_name: Tuya/Lonsonho 1-gang switch
+  category: switch
+  power: mains
+  neutral: required
+  output: relay
+  device_type: router
+  stock_model_name: TS0001
+  stock_manufacturer_name: _TZ3000_ehgouyvu
+  stock_converter_manufacturer: Lonsonho
+  stock_converter_model: TS0001
+  override_z2m_device: X701A
+  tuya_module: null
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: ehgouyvu;TS0001-LS;SC2u;RC3;IB1;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
+  firmware_image_type: 47005
+  build: yes
+  status: fully_supported
+  info: Supported
+  threads: https://github.com/romasku/tuya-zigbee-switch/pull/404
+  store: https://www.aliexpress.com/item/1005010686659544.html
 SWITCH_ZEMISMART_1_TS0012:
   human_name: Zemismart 2-gang switch 🅰
   category: switch
