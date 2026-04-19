@@ -2836,8 +2836,8 @@ OUTLET_BSEED_TS011F:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/145
   store: https://www.aliexpress.com/item/1005004402438527.html
-OUTLET_BORUIDAPLS_PM_TS011F:
-  human_name: Boruidapls PM Outlet
+OUTLET_BSEED_BORUIDAPLS_PM_TS011F:
+  human_name: BSEED/Boruidapls PM Outlet
   category: outlet
   power: mains
   neutral: required
@@ -2845,16 +2845,17 @@ OUTLET_BORUIDAPLS_PM_TS011F:
   device_type: router
   stock_model_name: TS011F
   stock_manufacturer_name: _TZ3210_zifx0xoj
-  stock_converter_manufacturer: BORUIDAPLS
+  stock_converter_manufacturer: Tuya
   stock_converter_model: TS011F_plug_1
-  override_z2m_device: WK34-EU
+  override_z2m_device: TS011F_plug_1_2
   tuya_module: ZTU
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: zifx0xoj;TS011F-BORUIDAPLS-PM;LC3i;SB7u;RC2;M;
+  config_str: zifx0xoj;TS011F-BD-PM;LC3i;SB7u;RC2;M;
   alt_config_str: null
   old_manufacturer_names: null
-  old_zb_models: null
+  old_zb_models: 
+  - TS011F-BORUIDAPLS-PM
   stock_manufacturer_id: 4417
   stock_image_type: 54179
   firmware_image_type: 47006
@@ -2863,6 +2864,7 @@ OUTLET_BORUIDAPLS_PM_TS011F:
   info: Power monitoring not implemented
   threads:
   - https://github.com/romasku/tuya-zigbee-switch/issues/145
+  - https://github.com/romasku/tuya-zigbee-switch/pull/406
   store:
   - https://www.aliexpress.com/item/1005007725022757.html
 PLUG___AUBESS_PM_TS011F:
