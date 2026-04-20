@@ -10,6 +10,7 @@
 /*=======External Functions This Runner Calls=====*/
 extern void setUp(void);
 extern void tearDown(void);
+extern void test_encoder_is_clicked(void);
 extern void test_encoder_is_rotated_cw(void);
 
 
@@ -75,6 +76,7 @@ static void run_test(UnityTestFunction func, const char* name, UNITY_LINE_TYPE l
 int main(void)
 {
   UnityBegin("test/test_encoder_cluster.c");
+  run_test(test_encoder_is_clicked, "test_encoder_is_clicked", 40);
   run_test(test_encoder_is_rotated_cw, "test_encoder_is_rotated_cw", 67);
 
   CMock_Guts_MemFreeFinal();
