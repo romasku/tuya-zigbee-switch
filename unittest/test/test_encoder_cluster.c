@@ -12,12 +12,25 @@ hal_zigbee_status_t captured_send_cmd_to_bindings(const hal_zigbee_cmd *cmd, int
   return HAL_ZIGBEE_OK;
 }
 
+hal_zigbee_endpoint mock_endpoint = {};
+hal_zigbee_cluster endpoint_clusters[10];
+encoder_t mock_encoder = {};
+zigbee_encoder_cluster encoder_cluster = {};
+
 void setUp(void)
 {
   // Put a space between tests for readability
   printf("\r\n");
 
   send_cmd_call_count = 0;
+
+  // Setup endpoint, cluster and encoder 
+  mock_endpoint.endpoint = 1;
+  hal_zigbee_cluster endpoint_clusters[10];
+  mock_endpoint.clusters = endpoint_clusters;
+  mock_endpoint.cluster_count = 0;
+  encoder_cluster.encoder = &mock_encoder;
+  encoder_cluster_add_to_endpoint(&encoder_cluster, &mock_endpoint);
 }
 
 void tearDown(void)
@@ -28,23 +41,14 @@ void test_encoder_is_clicked(void)
 {
   // Toggle On Off Zigbee commmand should be sent
 
-  hal_zigbee_endpoint mock_endpoint = {};
-  mock_endpoint.endpoint = 1;
-  mock_endpoint.cluster_count = 0;
-  hal_zigbee_cluster endpoint_clusters[10];
-  mock_endpoint.clusters = endpoint_clusters;
-
-  encoder_t mock_encoder = {};
-
-  zigbee_encoder_cluster encoder_cluster = {};
-  encoder_cluster.encoder = &mock_encoder;
-
-  encoder_cluster_add_to_endpoint(&encoder_cluster, &mock_endpoint);
-
-  hal_zigbee_get_network_status_ExpectAndReturn(HAL_ZIGBEE_NETWORK_JOINED);
-
+  // Setup
+  // Always report the zigbee status as connected
+  hal_zigbee_get_network_status_IgnoreAndReturn(HAL_ZIGBEE_NETWORK_JOINED);
+ 
+  // Capture zigbee commands sent
   hal_zigbee_send_cmd_to_bindings_Stub(captured_send_cmd_to_bindings);
 
+  // Trigger a on press event
   mock_encoder.on_press(mock_encoder.callback_param);
 
   // Check one command was sent 
@@ -63,24 +67,13 @@ void test_encoder_is_clicked(void)
 void test_encoder_is_rotated_cw(void)
 {
   // Step Brightness Up Zigbee commmand should be sent
-
-  hal_zigbee_endpoint mock_endpoint = {};
-  mock_endpoint.endpoint = 1;
-  mock_endpoint.cluster_count = 0;
-  hal_zigbee_cluster endpoint_clusters[10];
-  mock_endpoint.clusters = endpoint_clusters;
-
-  encoder_t mock_encoder = {};
-
-  zigbee_encoder_cluster encoder_cluster = {};
-  encoder_cluster.encoder = &mock_encoder;
-
-  encoder_cluster_add_to_endpoint(&encoder_cluster, &mock_endpoint);
-
+  // Always report the zigbee status as connected
   hal_zigbee_get_network_status_ExpectAndReturn(HAL_ZIGBEE_NETWORK_JOINED);
 
+  // Capture zigbee commands sent
   hal_zigbee_send_cmd_to_bindings_Stub(captured_send_cmd_to_bindings);
 
+  // Trigger a rotate clockwise event
   mock_encoder.on_rotate_cw(mock_encoder.callback_param);
 
   // Check one command was sent 
@@ -100,7 +93,7 @@ void test_encoder_is_rotated_cw(void)
     payload[2] = 0; 
     payload[3] = 0;
   
-  //TEST_ASSERT_EQUAL(4, sizeof(captured_commands[0].payload)); // Why is this 8?
+  TEST_ASSERT_EQUAL(4, sizeof(captured_commands[0].payload)); // Why is this 8?
   TEST_ASSERT_EQUAL_INT8_ARRAY(payload, captured_commands[0].payload, sizeof(payload));
   TEST_ASSERT_EQUAL(4, captured_commands[0].payload_len);
 }
