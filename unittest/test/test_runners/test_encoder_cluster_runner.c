@@ -12,6 +12,9 @@ extern void setUp(void);
 extern void tearDown(void);
 extern void test_encoder_is_clicked(void);
 extern void test_encoder_is_rotated_cw(void);
+extern void test_encoder_is_rotated_ccw(void);
+extern void test_encoder_is_rotated_cw_while_pressed(void);
+extern void test_encoder_is_rotated_ccw_while_pressed(void);
 
 
 /*=======Mock Management=====*/
@@ -78,6 +81,9 @@ int main(void)
   UnityBegin("test/test_encoder_cluster.c");
   run_test(test_encoder_is_clicked, "test_encoder_is_clicked", 69);
   run_test(test_encoder_is_rotated_cw, "test_encoder_is_rotated_cw", 76);
+  run_test(test_encoder_is_rotated_ccw, "test_encoder_is_rotated_ccw", 89);
+  run_test(test_encoder_is_rotated_cw_while_pressed, "test_encoder_is_rotated_cw_while_pressed", 102);
+  run_test(test_encoder_is_rotated_ccw_while_pressed, "test_encoder_is_rotated_ccw_while_pressed", 128);
 
   CMock_Guts_MemFreeFinal();
   return UNITY_END();

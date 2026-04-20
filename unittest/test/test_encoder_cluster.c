@@ -37,7 +37,7 @@ void tearDown(void)
 {
 }
 
-void _action_casues_sending_zigbee_command(ev_encoder_callback_t action, uint8_t cluster_id, uint8_t command_id, uint8_t payload[], int payload_length) 
+void _action_casues_sending_zigbee_command(ev_encoder_callback_t action, uint16_t cluster_id, uint8_t command_id, uint8_t payload[], int payload_length) 
 {
   // Always report the zigbee status as connected
   hal_zigbee_get_network_status_ExpectAndReturn(HAL_ZIGBEE_NETWORK_JOINED);
@@ -84,4 +84,69 @@ void test_encoder_is_rotated_cw(void)
 
   // Step Brightness Up Zigbee commmand should be sent
   _action_casues_sending_zigbee_command(mock_encoder.on_rotate_cw, ZCL_CLUSTER_LEVEL_CONTROL, ZCL_CMD_LEVEL_STEP, payload, 4);
+}
+
+void test_encoder_is_rotated_ccw(void)
+{
+  uint8_t payload[4];
+    payload[0] = ZCL_LEVEL_MOVE_DOWN; // Step Mode 0 up, 1 down
+    payload[1] = 13; // Step size  
+    // Transistion Time
+    payload[2] = 0; 
+    payload[3] = 0;
+
+  // Step Brightness Up Zigbee commmand should be sent
+  _action_casues_sending_zigbee_command(mock_encoder.on_rotate_ccw, ZCL_CLUSTER_LEVEL_CONTROL, ZCL_CMD_LEVEL_STEP, payload, 4);
+}
+
+void test_encoder_is_rotated_cw_while_pressed(void)
+{
+  uint8_t payload[9];
+  payload[0] = 0x01; // Step Mode 1 up, 3 down
+
+    // Little Endian (least significant byte first)
+    // Step size  0x000C - 12
+    payload[1] = 0x0C; 
+    payload[2] = 0x00;
+
+    // Transistion Time 0x0000 - 0
+    payload[3] = 0x00; 
+    payload[4] = 0x00;
+
+    // Minimum 0x00FA - 250
+    payload[5] = 0xFA; 
+    payload[6] = 0x00;
+
+    // Maximum  0x01C6 - 454
+    payload[7] = 0xC6; 
+    payload[8] = 0x01;
+
+  // Step Brightness Up Zigbee commmand should be sent
+  _action_casues_sending_zigbee_command(mock_encoder.on_rotate_cw_while_pressed, ZCL_CLUSTER_LIGHTING_COLOR_CONTROL, ZCL_CMD_LIGHTING_COLOR_STEP_TEMP, payload, 9);
+}
+
+void test_encoder_is_rotated_ccw_while_pressed(void)
+{
+  uint8_t payload[9];
+  payload[0] = 0x03; // Step Mode 1 up, 3 down
+
+    // Little Endian (least significant byte first)
+    // Step size  0x000C - 12
+    payload[1] = 0x0C; 
+    payload[2] = 0x00;
+
+    // Transistion Time 0x0000 - 0
+    payload[3] = 0x00; 
+    payload[4] = 0x00;
+
+    // Minimum 0x00FA - 250
+    payload[5] = 0xFA; 
+    payload[6] = 0x00;
+
+    // Maximum  0x01C6 - 454
+    payload[7] = 0xC6; 
+    payload[8] = 0x01;
+
+  // Step Brightness Up Zigbee commmand should be sent
+  _action_casues_sending_zigbee_command(mock_encoder.on_rotate_ccw_while_pressed, ZCL_CLUSTER_LIGHTING_COLOR_CONTROL, ZCL_CMD_LIGHTING_COLOR_STEP_TEMP, payload, 9);
 }
