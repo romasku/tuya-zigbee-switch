@@ -76,8 +76,8 @@ static void run_test(UnityTestFunction func, const char* name, UNITY_LINE_TYPE l
 int main(void)
 {
   UnityBegin("test/test_encoder_cluster.c");
-  run_test(test_encoder_is_clicked, "test_encoder_is_clicked", 40);
-  run_test(test_encoder_is_rotated_cw, "test_encoder_is_rotated_cw", 67);
+  run_test(test_encoder_is_clicked, "test_encoder_is_clicked", 69);
+  run_test(test_encoder_is_rotated_cw, "test_encoder_is_rotated_cw", 76);
 
   CMock_Guts_MemFreeFinal();
   return UNITY_END();
