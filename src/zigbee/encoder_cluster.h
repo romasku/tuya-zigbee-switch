@@ -4,6 +4,7 @@
 #include "base_components/encoder.h"
 #include "hal/zigbee.h"
 #include <stdint.h>
+#include "step_command_handler.h"
 
 typedef struct
 {
@@ -31,9 +32,12 @@ typedef struct
   hal_zigbee_attribute multistate_attr_infos[4];
   uint8_t level_move_rate;
   uint8_t level_move_direction;
+
+  step_command_handler_t *step_command_handler;
 } zigbee_encoder_cluster;
 
 void encoder_cluster_add_to_endpoint(zigbee_encoder_cluster *cluster,
-                                     hal_zigbee_endpoint *endpoint);
+                                     hal_zigbee_endpoint *endpoint,
+                                    step_command_handler_t *step_command_handler);
 
 #endif

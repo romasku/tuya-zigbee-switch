@@ -1,18 +1,24 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include "hal/tasks.h"
+#include "hal/zigbee.h"
+
+typedef void (*zigbee_command_callback_t)();
 
 typedef struct
 {
-  uint8_t debounce;
-  uint8_t step_ammount;
+  uint32_t debounce;
+  uint16_t step_ammount;
 
-  uint32_t time_last_command_sent;
+  int time_last_command_sent;
 
   bool is_command_scheduled;
   int scheduled_change;
 
-  hal_task_t                       update_task;
+  hal_task_t update_task;
+
+  void * sent_zigbee_command_param;
+  zigbee_command_callback_t sent_zigbee_command;
   
 } step_command_handler_t;
 

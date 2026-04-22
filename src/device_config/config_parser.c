@@ -75,6 +75,8 @@ uint8_t encoder_clusters_cnt = 0;
 
 uint8_t allow_simultaneous_latching_pulses = 0;
 
+step_command_handler_t step_command_handler = {};
+
 battery_t battery = {
     .pin = HAL_INVALID_PIN,
     .voltage_min = 2000,
@@ -480,6 +482,7 @@ void parse_config()
                                   &endpoints[cover_base + index]);
   }
 
+  
   int encoder_base =
       switch_clusters_cnt + relay_clusters_cnt + cover_switch_clusters_cnt + cover_clusters_cnt;
   for (int index = 0; index < encoder_clusters_cnt; index++)
@@ -490,7 +493,7 @@ void parse_config()
       endpoints[encoder_base + index].clusters = cluster_ptr;
     }
     printf("Adding encoder cluster as endpoint %d\r\n", encoder_base + index);
-    encoder_cluster_add_to_endpoint(&encoder_clusters[index], &endpoints[encoder_base + index]);
+    encoder_cluster_add_to_endpoint(&encoder_clusters[index], &endpoints[encoder_base + index], &step_command_handler);
   }
 
   hal_zigbee_init(endpoints, total_endpoints);

@@ -69,7 +69,7 @@ static inline hal_zigbee_cmd build_level_step_cmd(uint8_t endpoint, uint8_t dir,
     buf[1] = step_size; // Step size  
 
     // Transistion Time
-    buf[2] = 0; 
+    buf[2] = 0x01; 
     buf[3] = 0;
   
   hal_zigbee_cmd c = {
