@@ -1,11 +1,26 @@
 #include <stdint.h>
+#include <stdlib.h>
 #include "step_command_handler.h"
 #include "hal/tasks.h"
 #include "hal/timer.h"
 #include "hal/printf_selector.h"
 #include "consts.h"
 
-void send_command(step_command_handler_t *step_command_handler) {
+void step_command_handle_step_up(step_command_handler_2_t *self) {
+  printf("Step Up Called, value is %d\r\n", self->value);
+}
+
+step_command_handler_2_t * new_step_command_handler() {
+
+  step_command_handler_2_t *step_command_handler = malloc(sizeof(step_command_handler_2_t));
+
+  step_command_handler->step_up = step_command_handle_step_up;
+
+  return step_command_handler;
+}
+
+void send_command(void *arg) {
+  step_command_handler_t *step_command_handler = (step_command_handler_t *)arg;
   printf("Sending command, to change by %d in %d ms\r\n", step_command_handler->scheduled_change, step_command_handler->debounce);
 
   step_command_handler->sent_zigbee_command(step_command_handler->sent_zigbee_command_param, 0, step_command_handler->scheduled_change, step_command_handler->debounce);

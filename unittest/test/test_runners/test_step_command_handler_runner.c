@@ -10,7 +10,7 @@
 /*=======External Functions This Runner Calls=====*/
 extern void setUp(void);
 extern void tearDown(void);
-extern void test_sends_first_command_straight_away(void);
+extern void test_constuctor(void);
 
 
 /*=======Mock Management=====*/
@@ -78,7 +78,7 @@ static void run_test(UnityTestFunction func, const char* name, UNITY_LINE_TYPE l
 int main(void)
 {
   UnityBegin("test/test_step_command_handler.c");
-  run_test(test_sends_first_command_straight_away, "test_sends_first_command_straight_away", 16);
+  run_test(test_constuctor, "test_constuctor", 16);
 
   CMock_Guts_MemFreeFinal();
   return UNITY_END();

@@ -27,3 +27,16 @@ void setup_step_command_handler(step_command_handler_t *step_command_handler);
 void step_command_handler_step_up(step_command_handler_t *step_command_handler);
 
 //void step_command_handler_step_down(step_command_handler *step_command_handler);
+
+
+
+typedef struct step_command_handler_2_t
+{
+ 
+  int value;
+
+  void (*step_up) (struct step_command_handler_2_t*);
+ 
+} step_command_handler_2_t;
+
+step_command_handler_2_t * new_step_command_handler();

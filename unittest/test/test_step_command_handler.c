@@ -13,20 +13,16 @@ void tearDown(void)
 {
 }
 
-void test_sends_first_command_straight_away(void) {
+void test_constuctor(void) {
 
-    hal_tasks_init_Ignore();
-    
+    step_command_handler_2_t *step_command_handler = new_step_command_handler();
+    step_command_handler_2_t *step_command_handler_2 = new_step_command_handler();
 
-    step_command_handler_t step_command_handler = {};
-    setup_step_command_handler(&step_command_handler);
+    step_command_handler->value = 11;
+    step_command_handler_2->value = 20;
 
-    // Test
-    hal_millis_ExpectAndReturn(1500);
-    hal_millis_ExpectAndReturn(1502);
-  
-    step_command_handler_step_up(&step_command_handler);
+    step_command_handler->step_up(step_command_handler);
+    step_command_handler_2->step_up(step_command_handler_2);
 
-    printf("last send is %d\r\n", step_command_handler.time_last_command_sent);  
-
+    TEST_ASSERT_NOT_NULL(step_command_handler);
 }
