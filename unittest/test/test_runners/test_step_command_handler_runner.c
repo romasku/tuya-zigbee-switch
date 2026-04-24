@@ -10,7 +10,8 @@
 /*=======External Functions This Runner Calls=====*/
 extern void setUp(void);
 extern void tearDown(void);
-extern void test_constuctor(void);
+extern void test_first_call_to_step_up_triggers_callback(void);
+extern void test_first_call_to_step_down_triggers_callback(void);
 
 
 /*=======Mock Management=====*/
@@ -78,7 +79,8 @@ static void run_test(UnityTestFunction func, const char* name, UNITY_LINE_TYPE l
 int main(void)
 {
   UnityBegin("test/test_step_command_handler.c");
-  run_test(test_constuctor, "test_constuctor", 16);
+  run_test(test_first_call_to_step_up_triggers_callback, "test_first_call_to_step_up_triggers_callback", 34);
+  run_test(test_first_call_to_step_down_triggers_callback, "test_first_call_to_step_down_triggers_callback", 49);
 
   CMock_Guts_MemFreeFinal();
   return UNITY_END();
