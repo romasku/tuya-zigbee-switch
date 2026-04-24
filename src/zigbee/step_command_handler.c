@@ -6,49 +6,64 @@
 #include "hal/printf_selector.h"
 #include "consts.h"
 
-static void _register_callback(step_command_handler_2_t*self,  step_command_handler_callback_t callback, void * callback_arg);
-static void _step_up(step_command_handler_2_t *self);
-static void _step_down(step_command_handler_2_t *self);
-static void _trigger_callback(void *arg);
+static void register_callback(step_command_handler_2_t*self,  step_command_handler_callback_t callback, void * callback_arg);
+static void step_up(step_command_handler_2_t *self);
+static void step_down(step_command_handler_2_t *self);
+static void _trigger_callback(step_command_handler_2_t *self);
 
 // Constructor
 step_command_handler_2_t * new_step_command_handler() {
 
-  step_command_handler_2_t *step_command_handler = malloc(sizeof(step_command_handler_2_t));
+  step_command_handler_2_t *self = malloc(sizeof(step_command_handler_2_t));
 
-  step_command_handler->_scheduled_change = 0;
+  self->_scheduled_change = 0;
+  self->_last_command_sent_time = 0;
+  self->_callback_running = false;
 
-  step_command_handler->step_up = _step_up;
-  step_command_handler->step_down = _step_down;
-  step_command_handler->register_callback = _register_callback;
+  self->step_up = step_up;
+  self->step_down = step_down;
+  self->register_callback = register_callback;
 
-  return step_command_handler;
+  return self;
 }
 
 // Public Functions
-static void _step_up(step_command_handler_2_t *self) {
+static void step_up(step_command_handler_2_t *self) {
   self->_scheduled_change += 10;
 
-  _trigger_callback(self);
+  printf("_last_command_sent_time is %d \r\n", self->_last_command_sent_time);
+
+  if(!self->_callback_running && self->_last_command_sent_time + 50 < hal_millis()) {
+    // Last command was sent over 50 millis ago, we can send another
+    _trigger_callback(self);
+  }
 }
 
-static void _step_down(step_command_handler_2_t *self) {
+static void step_down(step_command_handler_2_t *self) {
   self->_scheduled_change -= 10;
 
-  _trigger_callback(self);
+  if(!self->_callback_running && self->_last_command_sent_time + 50 < hal_millis()) {
+    // Last command was sent over 50 millis ago, we can send another
+    _trigger_callback(self);
+  }
 }
 
-static void _register_callback(step_command_handler_2_t*self,  step_command_handler_callback_t callback, void * callback_arg) {
+static void register_callback(step_command_handler_2_t*self,  step_command_handler_callback_t callback, void * callback_arg) {
   self->_callback = callback;
   self->_callback_arg = callback_arg;
 }
 
 // Private Functions
-static void _trigger_callback(void *arg) {
-  step_command_handler_2_t *step_command_handler = (step_command_handler_2_t *)arg;
+static void _trigger_callback(step_command_handler_2_t *self) {
+  self->_callback_running = true; // Guard against more calls coming in while this one is completing
 
-  printf("Sending command, to change by %d in %d*0.1sec\r\n", step_command_handler->_scheduled_change, 1);
+  printf("Sending command, to change by %d in %d*0.1sec\r\n", self->_scheduled_change, 1);
+  
+  self->_callback(self->_callback_arg, self->_scheduled_change, 1);
 
-  step_command_handler->_callback(step_command_handler->_callback_arg, step_command_handler->_scheduled_change, 1);
+  self->_last_command_sent_time = hal_millis();
+  self->_scheduled_change = 0;
+  
+  self->_callback_running = false;
 }
 

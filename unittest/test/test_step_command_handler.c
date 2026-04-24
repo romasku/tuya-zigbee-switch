@@ -37,6 +37,7 @@ void test_first_call_to_step_up_triggers_callback(void) {
     int arg = 6;
     step_command_handler->register_callback(step_command_handler, mock_callback, &arg);
 
+    hal_millis_IgnoreAndReturn(100); // Make time 100ms since start up
     step_command_handler->step_up(step_command_handler);
     
     // Callback was called once, with the expected arguments
@@ -52,6 +53,7 @@ void test_first_call_to_step_down_triggers_callback(void) {
     int arg = 6;
     step_command_handler->register_callback(step_command_handler, mock_callback, &arg);
 
+    hal_millis_IgnoreAndReturn(100); // Make time 100ms since start up
     step_command_handler->step_down(step_command_handler);
     
     // Callback was called once, with the expected arguments
@@ -59,4 +61,60 @@ void test_first_call_to_step_down_triggers_callback(void) {
     TEST_ASSERT_EQUAL(&arg, callback_args_0[0]); // Check the pointer we got back is the same as the pointer we sent 
     TEST_ASSERT_EQUAL(-10, callback_args_1[0]); // A single single step down, should be -10
     TEST_ASSERT_EQUAL(1, callback_args_2[0]); 
+}
+
+void test_step_up_calls_very_close_together_are_debounced(void) {
+    step_command_handler_2_t *step_command_handler = new_step_command_handler();
+
+    int arg = 6;
+    step_command_handler->register_callback(step_command_handler, mock_callback, &arg);
+
+    // Send a first step up command, at 100ms after start up, callback will be triggered
+    hal_millis_IgnoreAndReturn(100);
+    step_command_handler->step_up(step_command_handler);
+    TEST_ASSERT_EQUAL(1, callback_call_times);
+    TEST_ASSERT_EQUAL(&arg, callback_args_0[0]); 
+    TEST_ASSERT_EQUAL(10, callback_args_1[0]);
+    TEST_ASSERT_EQUAL(1, callback_args_2[0]); 
+
+    // Send a second step up command, 10ms after the first, callback will not be triggered. Change will be queued
+    hal_millis_IgnoreAndReturn(105);
+    step_command_handler->step_up(step_command_handler);
+    TEST_ASSERT_EQUAL(1, callback_call_times); // Still only called once.
+
+    // Send a third step up command, 100ms after the first, callback will be triggered.
+    hal_millis_IgnoreAndReturn(200);
+    step_command_handler->step_up(step_command_handler);
+    TEST_ASSERT_EQUAL(2, callback_call_times); // Has been called a second time
+    TEST_ASSERT_EQUAL(&arg, callback_args_0[1]); 
+    TEST_ASSERT_EQUAL(20, callback_args_1[1]); // Change includes the queued change from the second step up call.
+    TEST_ASSERT_EQUAL(1, callback_args_2[1]); 
+}
+
+void test_step_down_calls_very_close_together_are_debounced(void) {
+    step_command_handler_2_t *step_command_handler = new_step_command_handler();
+
+    int arg = 6;
+    step_command_handler->register_callback(step_command_handler, mock_callback, &arg);
+
+    // Send a first step down command, at 100ms after start up, callback will be triggered
+    hal_millis_IgnoreAndReturn(100);
+    step_command_handler->step_down(step_command_handler);
+    TEST_ASSERT_EQUAL(1, callback_call_times);
+    TEST_ASSERT_EQUAL(&arg, callback_args_0[0]); 
+    TEST_ASSERT_EQUAL(-10, callback_args_1[0]);
+    TEST_ASSERT_EQUAL(1, callback_args_2[0]); 
+
+    // Send a second step down command, 10ms after the first, callback will not be triggered. Change will be queued
+    hal_millis_IgnoreAndReturn(105);
+    step_command_handler->step_down(step_command_handler);
+    TEST_ASSERT_EQUAL(1, callback_call_times); // Still only called once.
+
+    // Send a third step down command, 100ms after the first, callback will be triggered.
+    hal_millis_IgnoreAndReturn(200);
+    step_command_handler->step_down(step_command_handler);
+    TEST_ASSERT_EQUAL(2, callback_call_times); // Has been called a second time
+    TEST_ASSERT_EQUAL(&arg, callback_args_0[1]); 
+    TEST_ASSERT_EQUAL(-20, callback_args_1[1]); // Change includes the queued change from the second step up call.
+    TEST_ASSERT_EQUAL(1, callback_args_2[1]); 
 }

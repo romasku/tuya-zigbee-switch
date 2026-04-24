@@ -8,6 +8,8 @@ typedef void (*step_command_handler_callback_t)(void *arg, int change, uint16_t 
 typedef struct step_command_handler_2_t
 {
   int _scheduled_change;
+  uint32_t _last_command_sent_time;
+  bool _callback_running;
 
   step_command_handler_callback_t _callback;
   void * _callback_arg;
