@@ -3,6 +3,7 @@
 
 #include "hal/printf_selector.h"
 #include "zigbee_commands.h"
+#include "stdlib.h"
 
 void encoder_cluster_on_button_press(zigbee_encoder_cluster *cluster);
 void encoder_cluster_on_rotate_cw(zigbee_encoder_cluster *cluster);
@@ -13,9 +14,9 @@ void encoder_cluster_on_rotate_ccw_pressed(zigbee_encoder_cluster *cluster);
 // Not currently used, but will be when we implement attribute writing callback
 zigbee_encoder_cluster *encoder_cluster_by_endpoint[10];
 
-void build_and_send_brightness_command(void *arg, uint8_t direction, uint16_t step_ammount, uint16_t trans_time)
+void build_and_send_brightness_command(void *arg, int step_ammount, uint16_t trans_time)
 {
-  printf("build_and_send_brightness_command cb reached\r\n");
+  printf("build_and_send_brightness_command cb reached, step amound:%d, trans time:%d\r\n", step_ammount, trans_time);
   zigbee_encoder_cluster *cluster = (zigbee_encoder_cluster *)arg;
 
   if (hal_zigbee_get_network_status() != HAL_ZIGBEE_NETWORK_JOINED)
@@ -25,13 +26,12 @@ void build_and_send_brightness_command(void *arg, uint8_t direction, uint16_t st
 
   printf("Sending Level Step Command\r\n");
 
-  hal_zigbee_cmd c = build_level_step_cmd(cluster->endpoint, direction, 13);
+  hal_zigbee_cmd c = build_level_step_cmd(cluster->endpoint, step_ammount > 0 ? ZCL_LEVEL_MOVE_UP : ZCL_LEVEL_MOVE_DOWN, abs(step_ammount));
   hal_zigbee_send_cmd_to_bindings(&c);
 }
 
 void encoder_cluster_add_to_endpoint(zigbee_encoder_cluster *cluster,
-                                     hal_zigbee_endpoint *endpoint,
-                                    step_command_handler_t *step_command_handler)
+                                     hal_zigbee_endpoint *endpoint)
 {
   encoder_cluster_by_endpoint[endpoint->endpoint] = cluster;
   
@@ -71,10 +71,9 @@ void encoder_cluster_add_to_endpoint(zigbee_encoder_cluster *cluster,
   cluster->encoder->on_rotate_ccw_while_pressed = (ev_encoder_callback_t)encoder_cluster_on_rotate_ccw_pressed;
   cluster->encoder->callback_param = cluster;
 
-  cluster->step_command_handler = step_command_handler;
-  setup_step_command_handler(cluster->step_command_handler);
-  cluster->step_command_handler->sent_zigbee_command = build_and_send_brightness_command;
-  cluster->step_command_handler->sent_zigbee_command_param = cluster;
+  cluster->brightness_step_command_handler = new_step_command_handler();
+  cluster->brightness_step_command_handler->_callback = build_and_send_brightness_command;
+  cluster->brightness_step_command_handler->_callback_arg = cluster;
 }
 
 void build_and_send_toggle_on_off_command(zigbee_encoder_cluster *cluster) 
@@ -112,15 +111,15 @@ void encoder_cluster_on_button_press(zigbee_encoder_cluster *cluster)
 void encoder_cluster_on_rotate_cw(zigbee_encoder_cluster *cluster)
 {
   printf("Encoder Cluster rotate cw cb triggered\r\n");
-  printf("last time sent 2 is %d\r\n", cluster->step_command_handler->time_last_command_sent);
-
-  step_command_handler_step_up(cluster->step_command_handler);
+  
+  step_command_handler_step_up(cluster->brightness_step_command_handler);
 }
 
 void encoder_cluster_on_rotate_ccw(zigbee_encoder_cluster *cluster)
 {
   printf("Encoder Cluster rotate ccw cb triggered\r\n");
-  build_and_send_brightness_command(cluster, ZCL_LEVEL_MOVE_DOWN, 16, 0);
+
+  step_command_handler_step_down(cluster->brightness_step_command_handler);
 }
 
 void encoder_cluster_on_rotate_cw_pressed(zigbee_encoder_cluster *cluster)

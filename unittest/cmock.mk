@@ -23,4 +23,4 @@
 setup: | ../test_tools/cmock/src
 
 generate_hal_mocks: 
-	ruby ../test_tools/cmock/lib/cmock.rb -o mock_config.yaml ../src/hal/gpio.h ../src/hal/timer.h ../src/hal/zigbee.h ../src/hal/tasks.h
+	ruby ../test_tools/cmock/lib/cmock.rb -o mock_config.yaml ../src/hal/gpio.h ../src/hal/timer.h ../src/hal/zigbee.h ../src/hal/tasks.h ../src/zigbee/step_command_handler.h

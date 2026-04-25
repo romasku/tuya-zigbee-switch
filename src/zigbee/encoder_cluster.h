@@ -33,11 +33,10 @@ typedef struct
   uint8_t level_move_rate;
   uint8_t level_move_direction;
 
-  step_command_handler_t *step_command_handler;
+  step_command_handler_t *brightness_step_command_handler;
 } zigbee_encoder_cluster;
 
 void encoder_cluster_add_to_endpoint(zigbee_encoder_cluster *cluster,
-                                     hal_zigbee_endpoint *endpoint,
-                                    step_command_handler_t *step_command_handler);
+                                     hal_zigbee_endpoint *endpoint);
 
 #endif

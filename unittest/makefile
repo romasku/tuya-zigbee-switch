@@ -53,13 +53,13 @@ SRC_FILES1=$(UNITY_ROOT)/src/unity.c $(SOURCES) test/test_encoder.c  test/test_r
 
 TARGET_BASE2=test_encoder_cluster
 TARGET2 = $(TARGET_BASE2)$(TARGET_EXTENSION)
-SRC_FILES2=$(UNITY_ROOT)/src/unity.c $(SOURCES) $(SRC_DIR)/zigbee/encoder_cluster.c test/test_encoder_cluster.c  test/test_runners/test_encoder_cluster_runner.c
+SRC_FILES2=$(UNITY_ROOT)/src/unity.c $(SOURCES) ./mocks/Mockstep_command_handler.c $(SRC_DIR)/zigbee/encoder_cluster.c test/test_encoder_cluster.c  test/test_runners/test_encoder_cluster_runner.c
 
 TARGET_BASE3=test_step_command_handler
 TARGET3 = $(TARGET_BASE3)$(TARGET_EXTENSION)
 SRC_FILES3=$(UNITY_ROOT)/src/unity.c $(SOURCES) $(SRC_DIR)/zigbee/step_command_handler.c test/test_step_command_handler.c  test/test_runners/test_step_command_handler_runner.c
 
-INC_DIRS=-I$(UNITY_ROOT)/src -I$(SRC_DIR) -I$(SRC_DIR)/hal -I$(CMOCK_ROOT)/src -I./mocks
+INC_DIRS=-I$(UNITY_ROOT)/src -I$(SRC_DIR) -I$(SRC_DIR)/hal -I$(SRC_DIR)/zigbee -I$(CMOCK_ROOT)/src -I./mocks
 SYMBOLS=
 
 unity/%:

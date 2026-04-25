@@ -6,6 +6,7 @@
 #include "zigbee/encoder_cluster.h"
 #include "zigbee/consts.h"
 #include "Mockzigbee.h"
+#include "Mockstep_command_handler.h"
 
 /*=======External Functions This Runner Calls=====*/
 extern void setUp(void);
@@ -13,6 +14,8 @@ extern void tearDown(void);
 extern void test_encoder_is_clicked(void);
 extern void test_encoder_is_rotated_cw(void);
 extern void test_encoder_is_rotated_ccw(void);
+extern void test_brightness_step_command_handler_callback_with_positive_value(void);
+extern void test_brightness_step_command_handler_callback_with_negative_value(void);
 extern void test_encoder_is_rotated_cw_while_pressed(void);
 extern void test_encoder_is_rotated_ccw_while_pressed(void);
 
@@ -21,14 +24,17 @@ extern void test_encoder_is_rotated_ccw_while_pressed(void);
 static void CMock_Init(void)
 {
   Mockzigbee_Init();
+  Mockstep_command_handler_Init();
 }
 static void CMock_Verify(void)
 {
   Mockzigbee_Verify();
+  Mockstep_command_handler_Verify();
 }
 static void CMock_Destroy(void)
 {
   Mockzigbee_Destroy();
+  Mockstep_command_handler_Destroy();
 }
 
 /*=======Test Reset Options=====*/
@@ -79,11 +85,13 @@ static void run_test(UnityTestFunction func, const char* name, UNITY_LINE_TYPE l
 int main(void)
 {
   UnityBegin("test/test_encoder_cluster.c");
-  run_test(test_encoder_is_clicked, "test_encoder_is_clicked", 69);
-  run_test(test_encoder_is_rotated_cw, "test_encoder_is_rotated_cw", 76);
-  run_test(test_encoder_is_rotated_ccw, "test_encoder_is_rotated_ccw", 89);
-  run_test(test_encoder_is_rotated_cw_while_pressed, "test_encoder_is_rotated_cw_while_pressed", 102);
-  run_test(test_encoder_is_rotated_ccw_while_pressed, "test_encoder_is_rotated_ccw_while_pressed", 128);
+  run_test(test_encoder_is_clicked, "test_encoder_is_clicked", 72);
+  run_test(test_encoder_is_rotated_cw, "test_encoder_is_rotated_cw", 79);
+  run_test(test_encoder_is_rotated_ccw, "test_encoder_is_rotated_ccw", 102);
+  run_test(test_brightness_step_command_handler_callback_with_positive_value, "test_brightness_step_command_handler_callback_with_positive_value", 124);
+  run_test(test_brightness_step_command_handler_callback_with_negative_value, "test_brightness_step_command_handler_callback_with_negative_value", 157);
+  run_test(test_encoder_is_rotated_cw_while_pressed, "test_encoder_is_rotated_cw_while_pressed", 190);
+  run_test(test_encoder_is_rotated_ccw_while_pressed, "test_encoder_is_rotated_ccw_while_pressed", 216);
 
   CMock_Guts_MemFreeFinal();
   return UNITY_END();
