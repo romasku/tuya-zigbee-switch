@@ -18,7 +18,7 @@ typedef struct
   void * _callback_arg; 
 } step_command_handler_t;
 
-step_command_handler_t * new_step_command_handler();
+void new_step_command_handler(step_command_handler_t *);
 void step_command_handler_register_callback(step_command_handler_t *, step_command_handler_callback_t, void *);
 void step_command_handler_step_up(step_command_handler_t *);
 void step_command_handler_step_down(step_command_handler_t *);

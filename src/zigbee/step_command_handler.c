@@ -9,15 +9,11 @@
 static void _trigger_callback(step_command_handler_t *self);
 
 // Constructor
-step_command_handler_t * new_step_command_handler() {
-
-  step_command_handler_t *self = malloc(sizeof(step_command_handler_t));
+void new_step_command_handler(step_command_handler_t *self) {
 
   self->_scheduled_change = 0;
   self->_last_command_sent_time = 0;
   self->_callback_running = false;
-
-  return self;
 }
 
 // Public Functions

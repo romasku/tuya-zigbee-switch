@@ -28,18 +28,24 @@ void Mockstep_command_handler_Verify(void);
 
 
 
-#define new_step_command_handler_Ignore() TEST_FAIL_MESSAGE("new_step_command_handler requires _IgnoreAndReturn");
-#define new_step_command_handler_IgnoreAndReturn(cmock_retval) new_step_command_handler_CMockIgnoreAndReturn(__LINE__, cmock_retval)
-void new_step_command_handler_CMockIgnoreAndReturn(UNITY_LINE_TYPE cmock_line, step_command_handler_t* cmock_to_return);
+#define new_step_command_handler_IgnoreAndReturn(cmock_retval) TEST_FAIL_MESSAGE("new_step_command_handler requires _Ignore (not AndReturn)");
+#define new_step_command_handler_Ignore() new_step_command_handler_CMockIgnore()
+void new_step_command_handler_CMockIgnore(void);
 #define new_step_command_handler_StopIgnore() new_step_command_handler_CMockStopIgnore()
 void new_step_command_handler_CMockStopIgnore(void);
-#define new_step_command_handler_Expect() TEST_FAIL_MESSAGE("new_step_command_handler requires _ExpectAndReturn");
-#define new_step_command_handler_ExpectAndReturn(cmock_retval) new_step_command_handler_CMockExpectAndReturn(__LINE__, cmock_retval)
-void new_step_command_handler_CMockExpectAndReturn(UNITY_LINE_TYPE cmock_line, step_command_handler_t* cmock_to_return);
-typedef step_command_handler_t* (* CMOCK_new_step_command_handler_CALLBACK)(int cmock_num_calls);
+#define new_step_command_handler_ExpectAnyArgsAndReturn(cmock_retval) TEST_FAIL_MESSAGE("new_step_command_handler requires _ExpectAnyArgs (not AndReturn)");
+#define new_step_command_handler_ExpectAnyArgs() new_step_command_handler_CMockExpectAnyArgs(__LINE__)
+void new_step_command_handler_CMockExpectAnyArgs(UNITY_LINE_TYPE cmock_line);
+#define new_step_command_handler_ExpectAndReturn(cmock_arg1, cmock_retval) TEST_FAIL_MESSAGE("new_step_command_handler requires _Expect (not AndReturn)");
+#define new_step_command_handler_Expect(cmock_arg1) new_step_command_handler_CMockExpect(__LINE__, cmock_arg1)
+void new_step_command_handler_CMockExpect(UNITY_LINE_TYPE cmock_line, step_command_handler_t* cmock_arg1);
+typedef void (* CMOCK_new_step_command_handler_CALLBACK)(step_command_handler_t* cmock_arg1, int cmock_num_calls);
 void new_step_command_handler_AddCallback(CMOCK_new_step_command_handler_CALLBACK Callback);
 void new_step_command_handler_Stub(CMOCK_new_step_command_handler_CALLBACK Callback);
 #define new_step_command_handler_StubWithCallback new_step_command_handler_Stub
+#define new_step_command_handler_ExpectWithArrayAndReturn(cmock_arg1, cmock_arg1_Depth, cmock_retval) TEST_FAIL_MESSAGE("new_step_command_handler requires _ExpectWithArray (not AndReturn)");
+#define new_step_command_handler_ExpectWithArray(cmock_arg1, cmock_arg1_Depth) new_step_command_handler_CMockExpectWithArray(__LINE__, cmock_arg1, (cmock_arg1_Depth))
+void new_step_command_handler_CMockExpectWithArray(UNITY_LINE_TYPE cmock_line, step_command_handler_t* cmock_arg1, int cmock_arg1_Depth);
 #define step_command_handler_register_callback_IgnoreAndReturn(cmock_retval) TEST_FAIL_MESSAGE("step_command_handler_register_callback requires _Ignore (not AndReturn)");
 #define step_command_handler_register_callback_Ignore() step_command_handler_register_callback_CMockIgnore()
 void step_command_handler_register_callback_CMockIgnore(void);

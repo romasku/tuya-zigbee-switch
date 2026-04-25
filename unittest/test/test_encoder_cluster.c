@@ -80,7 +80,7 @@ void test_encoder_is_rotated_cw(void)
 {
   // When the encoder is rotated clockwise, the _brightness_step_command_handler step up function is called
 
-  step_command_handler_step_up_Expect(&mock_brightness_step_command_handler);
+  step_command_handler_step_up_Expect(&encoder_cluster.brightness_step_command_handler);
 
   // Trigger the  event
   mock_encoder.on_rotate_cw(mock_encoder.callback_param);

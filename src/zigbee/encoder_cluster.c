@@ -71,9 +71,9 @@ void encoder_cluster_add_to_endpoint(zigbee_encoder_cluster *cluster,
   cluster->encoder->on_rotate_ccw_while_pressed = (ev_encoder_callback_t)encoder_cluster_on_rotate_ccw_pressed;
   cluster->encoder->callback_param = cluster;
 
-  cluster->brightness_step_command_handler = new_step_command_handler();
-  cluster->brightness_step_command_handler->_callback = build_and_send_brightness_command;
-  cluster->brightness_step_command_handler->_callback_arg = cluster;
+  new_step_command_handler(&cluster->brightness_step_command_handler);
+  cluster->brightness_step_command_handler._callback = build_and_send_brightness_command;
+  cluster->brightness_step_command_handler._callback_arg = cluster;
 }
 
 void build_and_send_toggle_on_off_command(zigbee_encoder_cluster *cluster) 
@@ -112,14 +112,14 @@ void encoder_cluster_on_rotate_cw(zigbee_encoder_cluster *cluster)
 {
   printf("Encoder Cluster rotate cw cb triggered\r\n");
   
-  step_command_handler_step_up(cluster->brightness_step_command_handler);
+  step_command_handler_step_up(&cluster->brightness_step_command_handler);
 }
 
 void encoder_cluster_on_rotate_ccw(zigbee_encoder_cluster *cluster)
 {
   printf("Encoder Cluster rotate ccw cb triggered\r\n");
 
-  step_command_handler_step_down(cluster->brightness_step_command_handler);
+  step_command_handler_step_down(&cluster->brightness_step_command_handler);
 }
 
 void encoder_cluster_on_rotate_cw_pressed(zigbee_encoder_cluster *cluster)
