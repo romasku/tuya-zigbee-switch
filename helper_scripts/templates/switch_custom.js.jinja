@@ -6,7 +6,6 @@ const {
     text,
     binary,
     windowCovering,
-    deviceAddCustomCluster,
 } = require("zigbee-herdsman-converters/lib/modernExtend");
 const {assertString} = require("zigbee-herdsman-converters/lib/utils");
 const reporting = require("zigbee-herdsman-converters/lib/reporting");
@@ -271,8 +270,8 @@ const romasku = {
             name,
             endpointName,
             lookup: { toggle: 0, momentary: 1 },
-            cluster: "manuSpecificTuyaCoverSwitchConfig",
-            attribute: "switchType",
+            cluster: 0xFC01,
+            attribute: {ID: 0x0000, type: Zcl.DataType.ENUM8},
             description: "Type of cover switch: toggle (rocker) or momentary (push button)",
             entityCategory: "config",
         }),
@@ -284,8 +283,8 @@ const romasku = {
                 ['detached', 0],
                 ...Array.from({ length: output_cnt || 2 }, (_, i) => [`cover_${i + 1}`, i + 1])
             ]),
-            cluster: "manuSpecificTuyaCoverSwitchConfig",
-            attribute: "coverIndex",
+            cluster: 0xFC01,
+            attribute: {ID: 0x0001, type: Zcl.DataType.UINT8},
             description: "Which cover to control locally (detached = no local control)",
             entityCategory: "config",
         }),
@@ -295,8 +294,8 @@ const romasku = {
             endpointName,
             valueOn: ["ON", 1],
             valueOff: ["OFF", 0],
-            cluster: "manuSpecificTuyaCoverSwitchConfig",
-            attribute: "reversal",
+            cluster: 0xFC01,
+            attribute: {ID: 0x0002, type: Zcl.DataType.BOOLEAN},
             description: "Inverts UP/DOWN direction for inputs",
             access: "ALL",
             entityCategory: "config",
@@ -306,8 +305,8 @@ const romasku = {
             name,
             endpointName,
             lookup: { immediate: 0, short_press: 1, long_press: 2, hybrid: 3 },
-            cluster: "manuSpecificTuyaCoverSwitchConfig",
-            attribute: "localMode",
+            cluster: 0xFC01,
+            attribute: {ID: 0x0003, type: Zcl.DataType.ENUM8},
             description: "When to trigger local cover: immediate (start/stop on press), short_press (trigger on release), long_press (trigger after long press duration), hybrid (trigger on release or continuous movement while held). Only affects momentary switches",
             entityCategory: "config",
         }),
@@ -316,8 +315,8 @@ const romasku = {
             name,
             endpointName,
             lookup: { immediate: 0, short_press: 1, long_press: 2, hybrid: 3 },
-            cluster: "manuSpecificTuyaCoverSwitchConfig",
-            attribute: "bindedMode",
+            cluster: 0xFC01,
+            attribute: {ID: 0x0004, type: Zcl.DataType.ENUM8},
             description: "When to send commands to bound devices: immediate (start/stop on press), short_press (trigger on release), long_press (trigger after long press duration), hybrid (trigger on release or continuous movement while held). Only affects momentary switches",
             entityCategory: "config",
         }),
@@ -325,8 +324,8 @@ const romasku = {
         numeric({
             name,
             endpointNames: [endpointName],
-            cluster: "manuSpecificTuyaCoverSwitchConfig",
-            attribute: "longPressDuration",
+            cluster: 0xFC01,
+            attribute: {ID: 0x0005, type: Zcl.DataType.UINT16},
             description: "Threshold in milliseconds to distinguish short press from long press",
             valueMin: 0,
             valueMax: 5000,
@@ -343,7 +342,7 @@ const romasku = {
                 closing: 2
             },
             cluster: "closuresWindowCovering",
-            attribute: "moving",
+            attribute: {ID: 0xff00, type: Zcl.DataType.ENUM8},
             description: "Cover movement status",
             entityCategory: "diagnostic",
         }),
@@ -354,7 +353,7 @@ const romasku = {
             valueOn: [true, 1],
             valueOff: [false, 0],
             cluster: "closuresWindowCovering",
-            attribute: "motorReversal",
+            attribute: {ID: 0xff01, type: Zcl.DataType.BOOLEAN},
             description: "Reverse motor direction (swap OPEN/CLOSE relays)",
             entityCategory: "config",
         }),
@@ -376,31 +375,7 @@ const definitions = [
             {% if device.has_battery_cluster %}
             romasku.batteryPercentage(),
             {% endif %}
-            {% if device.coverSwitchNames %}
-            deviceAddCustomCluster("manuSpecificTuyaCoverSwitchConfig", {
-                ID: 0xFC01,
-                manufacturerCode: 0x125D,
-                attributes: {
-                    switchType: {ID: 0x0000, type: Zcl.DataType.ENUM8, write: true},
-                    coverIndex: {ID: 0x0001, type: Zcl.DataType.UINT8, write: true},
-                    reversal: {ID: 0x0002, type: Zcl.DataType.BOOLEAN, write: true},
-                    localMode: {ID: 0x0003, type: Zcl.DataType.ENUM8, write: true},
-                    bindedMode: {ID: 0x0004, type: Zcl.DataType.ENUM8, write: true},
-                    longPressDuration: {ID: 0x0005, type: Zcl.DataType.UINT16, write: true},
-                },
-                commands: {},
-                commandsResponse: {},
-            }),
-            {% endif %}
-            {% if device.coverNames %}
-            deviceAddCustomCluster("closuresWindowCovering", {
-                ID: 0x0102,
-                attributes: {
-                    moving: {ID: 0xff00, type: Zcl.DataType.ENUM8},
-                    motorReversal: {ID: 0xff01, type: Zcl.DataType.BOOLEAN, write: true},
-                },
-            }),
-            {% endif %}
+
             deviceEndpoints({ endpoints: {
                 {%- for switchName in device.switchNames -%}
                     "{{switchName}}": {{loop.index}},{{" "}}
@@ -529,7 +504,7 @@ const definitions = [
             await reporting.bind(cover{{loop.index}}, coordinatorEndpoint, ["closuresWindowCovering"]);
             await cover{{loop.index}}.configureReporting("closuresWindowCovering", [
                 {
-                    attribute: "moving",
+                    attribute: {ID: 0xff00, type: Zcl.DataType.ENUM8},
                     minimumReportInterval: 0,
                     maximumReportInterval: constants.repInterval.MAX,
                     reportableChange: 1,
