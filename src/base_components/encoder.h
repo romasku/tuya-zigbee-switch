@@ -6,17 +6,14 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-typedef void (*ev_encoder_callback_t)();
+typedef void (*ev_encoder_callback_t)(void *);
 
 typedef struct
 {
   hal_gpio_pin_t pin_a; // Also known as CLK
-  uint8_t pin_a_state;
-  uint32_t pin_a_last_change;
-
   hal_gpio_pin_t pin_b; // Also known as DT
-  uint8_t pin_b_state;
-  uint32_t pin_b_last_change;
+  uint8_t old_AB;
+  int8_t encval;
 
   hal_gpio_pin_t pin_sw;
   uint8_t pin_sw_state;

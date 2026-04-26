@@ -13,9 +13,9 @@ extern void setUp(void);
 extern void tearDown(void);
 extern void test_encoder_init_sets_states(void);
 extern void test_encoder_pin_a_changing_before_pin_b(void);
-extern void test_encoder_pin_a_changing_after_pin_b(void);
+extern void test_encoder_only_pin_a_changes(void);
 extern void test_encoder_pin_b_changing_before_pin_a(void);
-extern void test_encoder_pin_b_changing_after_pin_a(void);
+extern void test_encoder_only_pin_b_changes(void);
 extern void test_encoder_pin_sw_changes_to_low(void);
 extern void test_encoder_pin_sw_changes_to_high(void);
 extern void test_encoder_sw_pressed_noisy(void);
@@ -90,16 +90,16 @@ int main(void)
 {
   UnityBegin("test/test_encoder.c");
   run_test(test_encoder_init_sets_states, "test_encoder_init_sets_states", 54);
-  run_test(test_encoder_pin_a_changing_before_pin_b, "test_encoder_pin_a_changing_before_pin_b", 115);
-  run_test(test_encoder_pin_a_changing_after_pin_b, "test_encoder_pin_a_changing_after_pin_b", 133);
-  run_test(test_encoder_pin_b_changing_before_pin_a, "test_encoder_pin_b_changing_before_pin_a", 151);
-  run_test(test_encoder_pin_b_changing_after_pin_a, "test_encoder_pin_b_changing_after_pin_a", 169);
-  run_test(test_encoder_pin_sw_changes_to_low, "test_encoder_pin_sw_changes_to_low", 186);
-  run_test(test_encoder_pin_sw_changes_to_high, "test_encoder_pin_sw_changes_to_high", 203);
-  run_test(test_encoder_sw_pressed_noisy, "test_encoder_sw_pressed_noisy", 223);
-  run_test(test_encoder_pin_a_changing_before_pin_b_while_sw_is_low, "test_encoder_pin_a_changing_before_pin_b_while_sw_is_low", 257);
-  run_test(test_encoder_pin_b_changing_before_pin_a_while_sw_is_low, "test_encoder_pin_b_changing_before_pin_a_while_sw_is_low", 277);
-  run_test(test_encoder_pressed_and_rotated__pressed_cb_not_triggered, "test_encoder_pressed_and_rotated__pressed_cb_not_triggered", 297);
+  run_test(test_encoder_pin_a_changing_before_pin_b, "test_encoder_pin_a_changing_before_pin_b", 116);
+  run_test(test_encoder_only_pin_a_changes, "test_encoder_only_pin_a_changes", 143);
+  run_test(test_encoder_pin_b_changing_before_pin_a, "test_encoder_pin_b_changing_before_pin_a", 168);
+  run_test(test_encoder_only_pin_b_changes, "test_encoder_only_pin_b_changes", 195);
+  run_test(test_encoder_pin_sw_changes_to_low, "test_encoder_pin_sw_changes_to_low", 219);
+  run_test(test_encoder_pin_sw_changes_to_high, "test_encoder_pin_sw_changes_to_high", 236);
+  run_test(test_encoder_sw_pressed_noisy, "test_encoder_sw_pressed_noisy", 256);
+  run_test(test_encoder_pin_a_changing_before_pin_b_while_sw_is_low, "test_encoder_pin_a_changing_before_pin_b_while_sw_is_low", 290);
+  run_test(test_encoder_pin_b_changing_before_pin_a_while_sw_is_low, "test_encoder_pin_b_changing_before_pin_a_while_sw_is_low", 317);
+  run_test(test_encoder_pressed_and_rotated__pressed_cb_not_triggered, "test_encoder_pressed_and_rotated__pressed_cb_not_triggered", 344);
 
   CMock_Guts_MemFreeFinal();
   return UNITY_END();
