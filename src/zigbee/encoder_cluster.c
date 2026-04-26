@@ -27,6 +27,19 @@ void build_and_send_brightness_command(void *arg, int step_ammount, uint16_t tra
   hal_zigbee_send_cmd_to_bindings(&c);
 }
 
+void build_and_send_color_temp_command(void *arg, int step_ammount, uint16_t trans_time)
+{
+  zigbee_encoder_cluster *cluster = (zigbee_encoder_cluster *)arg;
+
+  if (hal_zigbee_get_network_status() != HAL_ZIGBEE_NETWORK_JOINED)
+  {
+    return;
+  }
+
+  hal_zigbee_cmd c = build_color_temp_step_cmd(cluster->endpoint, step_ammount > 0 ? ZCL_COLOR_CTRL_TEMP_MOVE_UP : ZCL_COLOR_CTRL_TEMP_MOVE_DOWN, abs(step_ammount));
+  hal_zigbee_send_cmd_to_bindings(&c);
+}
+
 void encoder_cluster_add_to_endpoint(zigbee_encoder_cluster *cluster,
                                      hal_zigbee_endpoint *endpoint)
 {
@@ -71,6 +84,10 @@ void encoder_cluster_add_to_endpoint(zigbee_encoder_cluster *cluster,
   new_step_command_handler(&cluster->brightness_step_command_handler);
   cluster->brightness_step_command_handler._callback = build_and_send_brightness_command;
   cluster->brightness_step_command_handler._callback_arg = cluster;
+
+  new_step_command_handler(&cluster->color_temp_step_command_handler);
+  cluster->color_temp_step_command_handler._callback = build_and_send_color_temp_command;
+  cluster->color_temp_step_command_handler._callback_arg = cluster;
 }
 
 void build_and_send_toggle_on_off_command(zigbee_encoder_cluster *cluster) 
@@ -83,19 +100,6 @@ void build_and_send_toggle_on_off_command(zigbee_encoder_cluster *cluster)
   printf("Sending Toggle On Off Command\r\n");
 
   hal_zigbee_cmd c = build_onoff_cmd(cluster->endpoint, ZCL_CMD_ONOFF_TOGGLE);
-  hal_zigbee_send_cmd_to_bindings(&c);
-}
-
-void build_and_send_color_temp_command(zigbee_encoder_cluster *cluster, uint8_t dir)
-{
-  if (hal_zigbee_get_network_status() != HAL_ZIGBEE_NETWORK_JOINED)
-  {
-    return;
-  }
-
-  printf("Sending Color Temp Step Command\r\n");
-
-  hal_zigbee_cmd c = build_color_temp_step_cmd(cluster->endpoint, dir, 13);
   hal_zigbee_send_cmd_to_bindings(&c);
 }
 
@@ -116,10 +120,10 @@ void encoder_cluster_on_rotate_ccw(zigbee_encoder_cluster *cluster)
 
 void encoder_cluster_on_rotate_cw_pressed(zigbee_encoder_cluster *cluster)
 {
-  build_and_send_color_temp_command(cluster, 0x01);
+  step_command_handler_step_up(&cluster->color_temp_step_command_handler);
 }
 
 void encoder_cluster_on_rotate_ccw_pressed(zigbee_encoder_cluster *cluster)
 { 
-  build_and_send_color_temp_command(cluster, 0x03);
+  step_command_handler_step_down(&cluster->color_temp_step_command_handler);
 }

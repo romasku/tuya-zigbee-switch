@@ -85,17 +85,6 @@ void test_encoder_is_rotated_cw(void)
   mock_encoder.on_rotate_cw(mock_encoder.callback_param);
   
   // mock_brightness_step_command_handler's step up function is called, once
-
-
-  // uint8_t payload[4];
-  //   payload[0] = ZCL_LEVEL_MOVE_UP; // Step Mode 0 up, 1 down
-  //   payload[1] = 13; // Step size  
-  //   // Transistion Time
-  //   payload[2] = 0; 
-  //   payload[3] = 0;
-
-  // Step Brightness Up Zigbee commmand should be sent
-  // _action_casues_sending_zigbee_command(mock_encoder.on_rotate_cw, ZCL_CLUSTER_LEVEL_CONTROL, ZCL_CMD_LEVEL_STEP, payload, 4);
 }
 
 void test_encoder_is_rotated_ccw(void)
@@ -108,16 +97,6 @@ void test_encoder_is_rotated_ccw(void)
   mock_encoder.on_rotate_ccw(mock_encoder.callback_param);
   
   // mock_brightness_step_command_handler's step up function is called, once
-
-  // uint8_t payload[4];
-  //   payload[0] = ZCL_LEVEL_MOVE_DOWN; // Step Mode 0 up, 1 down
-  //   payload[1] = 13; // Step size  
-  //   // Transistion Time
-  //   payload[2] = 0; 
-  //   payload[3] = 0;
-
-  // // Step Brightness Up Zigbee commmand should be sent
-  // _action_casues_sending_zigbee_command(mock_encoder.on_rotate_ccw, ZCL_CLUSTER_LEVEL_CONTROL, ZCL_CMD_LEVEL_STEP, payload, 4);
 }
 
 void test_brightness_step_command_handler_callback_with_positive_value(void)
@@ -144,7 +123,7 @@ void test_brightness_step_command_handler_callback_with_positive_value(void)
   TEST_ASSERT_EQUAL(HAL_ZIGBEE_DIR_CLIENT_TO_SERVER, captured_commands[0].direction);
  
   uint8_t payload[4];
-    payload[0] = ZCL_LEVEL_MOVE_UP; // Step Mode 0 up, 1 down
+    payload[0] = ZCL_LEVEL_MOVE_UP; // Step Mode
     payload[1] = 10; // Step size  
     // Transistion Time
     payload[2] = 0x01; 
@@ -177,7 +156,7 @@ void test_brightness_step_command_handler_callback_with_negative_value(void)
   TEST_ASSERT_EQUAL(HAL_ZIGBEE_DIR_CLIENT_TO_SERVER, captured_commands[0].direction);
  
   uint8_t payload[4];
-    payload[0] = ZCL_LEVEL_MOVE_DOWN; // Step Mode 0 up, 1 down
+    payload[0] = ZCL_LEVEL_MOVE_DOWN; // Step Mode
     payload[1] = 15; // Step size  
     // Transistion Time
     payload[2] = 0x01; 
@@ -188,52 +167,108 @@ void test_brightness_step_command_handler_callback_with_negative_value(void)
 
 void test_encoder_is_rotated_cw_while_pressed(void)
 {
-  uint8_t payload[9];
-  payload[0] = 0x01; // Step Mode 1 up, 3 down
+  // When the encoder is rotated clockwise while pressed, the _color_temp_step_command_handler step up function is called
 
-    // Little Endian (least significant byte first)
-    // Step size  0x000C - 12
-    payload[1] = 0x0C; 
-    payload[2] = 0x00;
+  step_command_handler_step_up_Expect(&encoder_cluster.color_temp_step_command_handler);
 
-    // Transistion Time 0x0000 - 0
-    payload[3] = 0x00; 
-    payload[4] = 0x00;
-
-    // Minimum 0x00FA - 250
-    payload[5] = 0x00; 
-    payload[6] = 0x00;
-
-    // Maximum  0x01C6 - 454
-    payload[7] = 0xfe; 
-    payload[8] = 0xff;
-
-  // Step Brightness Up Zigbee commmand should be sent
-  _action_casues_sending_zigbee_command(mock_encoder.on_rotate_cw_while_pressed, ZCL_CLUSTER_LIGHTING_COLOR_CONTROL, ZCL_CMD_LIGHTING_COLOR_STEP_TEMP, payload, 9);
+  // Trigger the  event
+  mock_encoder.on_rotate_cw_while_pressed(mock_encoder.callback_param);
+  
+  // color_temp_step_command_handler's step up function is called, once
 }
 
 void test_encoder_is_rotated_ccw_while_pressed(void)
 {
+  // When the encoder is rotated counter-clockwise while pressed, the _color_temp_step_command_handler step down function is called
+
+  step_command_handler_step_down_Expect(&encoder_cluster.color_temp_step_command_handler);
+
+  // Trigger the  event
+  mock_encoder.on_rotate_ccw_while_pressed(mock_encoder.callback_param);
+  
+  // color_temp_step_command_handler's step down function is called, once
+}
+
+void test_color_temp_step_command_handler_callback_with_positive_value(void)
+{
+  // When the color_temp_step_command_handler callback is triggered with a positive value, a zigbee color ctrl temp up command level command is sent
+
+  // Always report the zigbee status as connected
+  hal_zigbee_get_network_status_IgnoreAndReturn(HAL_ZIGBEE_NETWORK_JOINED);
+
+  // Capture zigbee commands sent
+  hal_zigbee_send_cmd_to_bindings_Stub(captured_send_cmd_to_bindings);
+
+  // Trigger the  event
+  encoder_cluster.color_temp_step_command_handler._callback(encoder_cluster.color_temp_step_command_handler._callback_arg, 10, 1);
+
+  // Check one command was sent 
+  TEST_ASSERT_EQUAL_MESSAGE(1, send_cmd_call_count, "Unexpected number of commands sent");
+
+  // Check command was step color temp up
+  TEST_ASSERT_EQUAL(mock_endpoint.endpoint, captured_commands[0].endpoint);  
+  TEST_ASSERT_EQUAL(ZCL_HA_PROFILE, captured_commands[0].profile_id);  
+  TEST_ASSERT_EQUAL(ZCL_CLUSTER_LIGHTING_COLOR_CONTROL, captured_commands[0].cluster_id);  
+  TEST_ASSERT_EQUAL(ZCL_CMD_LIGHTING_COLOR_STEP_TEMP, captured_commands[0].command_id);
+  TEST_ASSERT_EQUAL(HAL_ZIGBEE_DIR_CLIENT_TO_SERVER, captured_commands[0].direction);
+ 
+  // Little Endian (least significant byte first)
   uint8_t payload[9];
-  payload[0] = 0x03; // Step Mode 1 up, 3 down
+  payload[0] = ZCL_COLOR_CTRL_TEMP_MOVE_UP; // Step Mode
+  // Step size 
+  payload[1] = 10; 
+  payload[2] = 0x00;
+  // Transistion Time
+  payload[3] = 0x01; 
+  payload[4] = 0x00;
+  // Minimum 
+  payload[5] = 0x00; 
+  payload[6] = 0x00;
+  // Maximum 
+  payload[7] = 0xfe; 
+  payload[8] = 0xff;
+  TEST_ASSERT_EQUAL(9, captured_commands[0].payload_len);
+  TEST_ASSERT_EQUAL_INT8_ARRAY(payload, captured_commands[0].payload, 9);
+}
 
-    // Little Endian (least significant byte first)
-    // Step size  0x000C - 12
-    payload[1] = 0x0C; 
-    payload[2] = 0x00;
+void test_color_temp_step_command_handler_callback_with_negative_value(void)
+{
+  // When the color_temp_step_command_handler callback is triggered with a negative value, a zigbee color ctrl temp down command level command is sent
 
-    // Transistion Time 0x0000 - 0
-    payload[3] = 0x00; 
-    payload[4] = 0x00;
+  // Always report the zigbee status as connected
+  hal_zigbee_get_network_status_IgnoreAndReturn(HAL_ZIGBEE_NETWORK_JOINED);
 
-    // Minimum 0x00FA - 250
-    payload[5] = 0x00; 
-    payload[6] = 0x00;
+  // Capture zigbee commands sent
+  hal_zigbee_send_cmd_to_bindings_Stub(captured_send_cmd_to_bindings);
 
-    // Maximum  0x01C6 - 454
-    payload[7] = 0xfe; 
-    payload[8] = 0xff;
+  // Trigger the  event
+  encoder_cluster.color_temp_step_command_handler._callback(encoder_cluster.color_temp_step_command_handler._callback_arg, -10, 1);
 
-  // Step Brightness Up Zigbee commmand should be sent
-  _action_casues_sending_zigbee_command(mock_encoder.on_rotate_ccw_while_pressed, ZCL_CLUSTER_LIGHTING_COLOR_CONTROL, ZCL_CMD_LIGHTING_COLOR_STEP_TEMP, payload, 9);
+  // Check one command was sent 
+  TEST_ASSERT_EQUAL_MESSAGE(1, send_cmd_call_count, "Unexpected number of commands sent");
+
+  // Check command was step color temp up
+  TEST_ASSERT_EQUAL(mock_endpoint.endpoint, captured_commands[0].endpoint);  
+  TEST_ASSERT_EQUAL(ZCL_HA_PROFILE, captured_commands[0].profile_id);  
+  TEST_ASSERT_EQUAL(ZCL_CLUSTER_LIGHTING_COLOR_CONTROL, captured_commands[0].cluster_id);  
+  TEST_ASSERT_EQUAL(ZCL_CMD_LIGHTING_COLOR_STEP_TEMP, captured_commands[0].command_id);
+  TEST_ASSERT_EQUAL(HAL_ZIGBEE_DIR_CLIENT_TO_SERVER, captured_commands[0].direction);
+ 
+  // Little Endian (least significant byte first)
+  uint8_t payload[9];
+  payload[0] = ZCL_COLOR_CTRL_TEMP_MOVE_DOWN; // Step Mode
+  // Step size 
+  payload[1] = 10; 
+  payload[2] = 0x00;
+  // Transistion Time
+  payload[3] = 0x01; 
+  payload[4] = 0x00;
+  // Minimum 
+  payload[5] = 0x00; 
+  payload[6] = 0x00;
+  // Maximum 
+  payload[7] = 0xfe; 
+  payload[8] = 0xff;
+  TEST_ASSERT_EQUAL(9, captured_commands[0].payload_len);
+  TEST_ASSERT_EQUAL_INT8_ARRAY(payload, captured_commands[0].payload, 9);
 }

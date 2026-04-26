@@ -166,6 +166,11 @@
 #define ZCL_LEVEL_MOVE_UP      0x00
 #define ZCL_LEVEL_MOVE_DOWN    0x01
 
+// Color Control cluser
+
+#define ZCL_COLOR_CTRL_TEMP_MOVE_UP      0x01
+#define ZCL_COLOR_CTRL_TEMP_MOVE_DOWN    0x03
+
 // WindowCovering cluster
 
 #define ZCL_ATTR_WINDOW_COVERING_MOVING_STOPPED    0x00

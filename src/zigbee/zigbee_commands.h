@@ -95,11 +95,11 @@ static inline hal_zigbee_cmd build_color_temp_step_cmd(uint8_t endpoint, uint8_t
 
     // Little Endian (least significant byte first)
     // Step size  0x000C - 12
-    buf[1] = 0x0C; 
+    buf[1] = step_size; 
     buf[2] = 0x00;
 
     // Transistion Time 0x0000 - 0
-    buf[3] = 0x00; 
+    buf[3] = 0x01; 
     buf[4] = 0x00;
 
     // Minimum 0x0000 - 0 - default min

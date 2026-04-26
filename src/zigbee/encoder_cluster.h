@@ -13,6 +13,8 @@ typedef struct
 
   encoder_t *encoder;  
   step_command_handler_t brightness_step_command_handler;
+  step_command_handler_t color_temp_step_command_handler;
+
 } zigbee_encoder_cluster;
 
 void encoder_cluster_add_to_endpoint(zigbee_encoder_cluster *cluster,

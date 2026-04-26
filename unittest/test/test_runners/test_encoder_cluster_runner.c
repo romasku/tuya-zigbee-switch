@@ -18,6 +18,8 @@ extern void test_brightness_step_command_handler_callback_with_positive_value(vo
 extern void test_brightness_step_command_handler_callback_with_negative_value(void);
 extern void test_encoder_is_rotated_cw_while_pressed(void);
 extern void test_encoder_is_rotated_ccw_while_pressed(void);
+extern void test_color_temp_step_command_handler_callback_with_positive_value(void);
+extern void test_color_temp_step_command_handler_callback_with_negative_value(void);
 
 
 /*=======Mock Management=====*/
@@ -87,11 +89,13 @@ int main(void)
   UnityBegin("test/test_encoder_cluster.c");
   run_test(test_encoder_is_clicked, "test_encoder_is_clicked", 71);
   run_test(test_encoder_is_rotated_cw, "test_encoder_is_rotated_cw", 78);
-  run_test(test_encoder_is_rotated_ccw, "test_encoder_is_rotated_ccw", 101);
-  run_test(test_brightness_step_command_handler_callback_with_positive_value, "test_brightness_step_command_handler_callback_with_positive_value", 123);
-  run_test(test_brightness_step_command_handler_callback_with_negative_value, "test_brightness_step_command_handler_callback_with_negative_value", 156);
-  run_test(test_encoder_is_rotated_cw_while_pressed, "test_encoder_is_rotated_cw_while_pressed", 189);
-  run_test(test_encoder_is_rotated_ccw_while_pressed, "test_encoder_is_rotated_ccw_while_pressed", 215);
+  run_test(test_encoder_is_rotated_ccw, "test_encoder_is_rotated_ccw", 90);
+  run_test(test_brightness_step_command_handler_callback_with_positive_value, "test_brightness_step_command_handler_callback_with_positive_value", 102);
+  run_test(test_brightness_step_command_handler_callback_with_negative_value, "test_brightness_step_command_handler_callback_with_negative_value", 135);
+  run_test(test_encoder_is_rotated_cw_while_pressed, "test_encoder_is_rotated_cw_while_pressed", 168);
+  run_test(test_encoder_is_rotated_ccw_while_pressed, "test_encoder_is_rotated_ccw_while_pressed", 180);
+  run_test(test_color_temp_step_command_handler_callback_with_positive_value, "test_color_temp_step_command_handler_callback_with_positive_value", 192);
+  run_test(test_color_temp_step_command_handler_callback_with_negative_value, "test_color_temp_step_command_handler_callback_with_negative_value", 234);
 
   CMock_Guts_MemFreeFinal();
   return UNITY_END();
