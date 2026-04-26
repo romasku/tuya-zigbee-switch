@@ -18,20 +18,18 @@ void new_step_command_handler(step_command_handler_t *self) {
 
 // Public Functions
 void step_command_handler_step_up(step_command_handler_t *self) {
-  self->_scheduled_change += 10;
+  self->_scheduled_change += 13;
 
-  printf("_last_command_sent_time is %d \r\n", self->_last_command_sent_time);
-
-  if(!self->_callback_running && self->_last_command_sent_time + 50 < hal_millis()) {
+  if(!self->_callback_running && self->_last_command_sent_time + 100 < hal_millis()) {
     // Last command was sent over 50 millis ago, we can send another
     _trigger_callback(self);
   }
 }
 
 void step_command_handler_step_down(step_command_handler_t *self) {
-  self->_scheduled_change -= 10;
+  self->_scheduled_change -= 13;
 
-  if(!self->_callback_running && self->_last_command_sent_time + 50 < hal_millis()) {
+  if(!self->_callback_running && self->_last_command_sent_time + 100 < hal_millis()) {
     // Last command was sent over 50 millis ago, we can send another
     _trigger_callback(self);
   }

@@ -16,15 +16,12 @@ zigbee_encoder_cluster *encoder_cluster_by_endpoint[10];
 
 void build_and_send_brightness_command(void *arg, int step_ammount, uint16_t trans_time)
 {
-  printf("build_and_send_brightness_command cb reached, step amound:%d, trans time:%d\r\n", step_ammount, trans_time);
   zigbee_encoder_cluster *cluster = (zigbee_encoder_cluster *)arg;
 
   if (hal_zigbee_get_network_status() != HAL_ZIGBEE_NETWORK_JOINED)
   {
     return;
   }
-
-  printf("Sending Level Step Command\r\n");
 
   hal_zigbee_cmd c = build_level_step_cmd(cluster->endpoint, step_ammount > 0 ? ZCL_LEVEL_MOVE_UP : ZCL_LEVEL_MOVE_DOWN, abs(step_ammount));
   hal_zigbee_send_cmd_to_bindings(&c);
@@ -104,32 +101,25 @@ void build_and_send_color_temp_command(zigbee_encoder_cluster *cluster, uint8_t 
 
 void encoder_cluster_on_button_press(zigbee_encoder_cluster *cluster)
 {
-  printf("Encoder Cluster button pressed cb triggered\r\n");
   build_and_send_toggle_on_off_command(cluster);
 }
 
 void encoder_cluster_on_rotate_cw(zigbee_encoder_cluster *cluster)
 {
-  printf("Encoder Cluster rotate cw cb triggered\r\n");
-  
   step_command_handler_step_up(&cluster->brightness_step_command_handler);
 }
 
 void encoder_cluster_on_rotate_ccw(zigbee_encoder_cluster *cluster)
 {
-  printf("Encoder Cluster rotate ccw cb triggered\r\n");
-
   step_command_handler_step_down(&cluster->brightness_step_command_handler);
 }
 
 void encoder_cluster_on_rotate_cw_pressed(zigbee_encoder_cluster *cluster)
 {
-  printf("Encoder Cluster rotate cw pressed cb triggered\r\n");
   build_and_send_color_temp_command(cluster, 0x01);
 }
 
 void encoder_cluster_on_rotate_ccw_pressed(zigbee_encoder_cluster *cluster)
-{
-  printf("Encoder Cluster rotate ccw pressed cb triggered\r\n");
+{ 
   build_and_send_color_temp_command(cluster, 0x03);
 }

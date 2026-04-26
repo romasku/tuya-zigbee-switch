@@ -31,29 +31,30 @@ void _encoder_gpio_callback(hal_gpio_pin_t pin, void *arg)
 {
   encoder_t *encoder = (encoder_t *)arg;
   uint8_t new_state = hal_gpio_read(pin);
+  uint32_t now = hal_millis();
 
-  if (pin == encoder->pin_a && new_state != encoder->pin_a_state && (hal_millis() - encoder->pin_a_last_change) > 50)
+  if (pin == encoder->pin_a && new_state != encoder->pin_a_state && (now - encoder->pin_a_last_change) > 10)
   {
     // Pin A Changed and has not changed in the last 50 milliseconds
     encoder->pin_a_state = new_state;
-    encoder->pin_a_last_change = hal_millis();
+    encoder->pin_a_last_change = now;
 
     _pinAChanged(new_state, encoder);
   }
 
-  if (pin == encoder->pin_b && new_state != encoder->pin_b_state && (hal_millis() - encoder->pin_b_last_change) > 50)
+  if (pin == encoder->pin_b && new_state != encoder->pin_b_state && (now - encoder->pin_b_last_change) > 10)
   {
     // Pin B Changed and has not changed in the last 50 milliseconds
     encoder->pin_b_state = new_state;
-    encoder->pin_b_last_change = hal_millis();
+    encoder->pin_b_last_change = now;
 
     _pinBChanged(new_state, encoder);
   }
 
-  if (pin == encoder->pin_sw && new_state != encoder->pin_sw_state && (hal_millis() - encoder->pin_sw_last_change) > 50)
+  if (pin == encoder->pin_sw && new_state != encoder->pin_sw_state && (now - encoder->pin_sw_last_change) > 10)
   {
     encoder->pin_sw_state = new_state;
-    encoder->pin_sw_last_change = hal_millis();
+    encoder->pin_sw_last_change = now;
 
     _pinSWChanged(new_state, encoder);
   }
