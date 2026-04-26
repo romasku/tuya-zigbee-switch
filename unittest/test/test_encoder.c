@@ -87,11 +87,11 @@ void _setup_encoder(encoder_t *encoder, uint8_t initial_sw_state)
   encoder->pin_a = 1;
   encoder->pin_b = 2;
   encoder->pin_sw = 3;
-  encoder->on_rotate_ccw = on_rotate_ccw;
-  encoder->on_rotate_cw = on_rotate_cw;
-  encoder->on_press = on_press;
-  encoder->on_rotate_ccw_while_pressed = on_rotate_ccw_while_pressed;
-  encoder->on_rotate_cw_while_pressed = on_rotate_cw_while_pressed;
+  encoder->on_rotate_ccw = (ev_encoder_callback_t)on_rotate_ccw;
+  encoder->on_rotate_cw = (ev_encoder_callback_t)on_rotate_cw;
+  encoder->on_press = (ev_encoder_callback_t)on_press;
+  encoder->on_rotate_ccw_while_pressed = (ev_encoder_callback_t)on_rotate_ccw_while_pressed;
+  encoder->on_rotate_cw_while_pressed = (ev_encoder_callback_t)on_rotate_cw_while_pressed;
 
   hal_gpio_read_ExpectAndReturn(encoder->pin_sw, initial_sw_state);
 
