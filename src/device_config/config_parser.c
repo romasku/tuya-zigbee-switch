@@ -358,17 +358,7 @@ void parse_config()
       hal_gpio_init(sw_pin, 1, sw_pull);
 
       encoder_clusters[encoder_clusters_cnt].switch_idx = encoder_clusters_cnt;
-      encoder_clusters[encoder_clusters_cnt].mode =
-          ZCL_ONOFF_CONFIGURATION_SWITCH_TYPE_MOMENTARY;
-      encoder_clusters[encoder_clusters_cnt].action =
-          ZCL_ONOFF_CONFIGURATION_SWITCH_ACTION_TOGGLE_SIMPLE;
-      encoder_clusters[encoder_clusters_cnt].relay_mode =
-          ZCL_ONOFF_CONFIGURATION_RELAY_MODE_DETACHED;
-      encoder_clusters[encoder_clusters_cnt].binded_mode =
-          ZCL_ONOFF_CONFIGURATION_BINDED_MODE_RISE;
-      encoder_clusters[encoder_clusters_cnt].relay_index = 0;
       encoder_clusters[encoder_clusters_cnt].encoder = &encoders[encoders_cnt];
-      encoder_clusters[encoder_clusters_cnt].level_move_rate = 50;
 
       encoder_clusters_cnt++;
       encoders_cnt++;
