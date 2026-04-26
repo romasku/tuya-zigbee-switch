@@ -22,7 +22,6 @@ void setUp(void)
   // Reset
   callback_call_times = 0;
 
-
   // Put a space between tests for readability
   printf("\r\n");
 }
@@ -39,13 +38,13 @@ void test_first_call_to_step_up_triggers_callback(void) {
     int arg = 6;
     step_command_handler_register_callback(&step_command_handler, mock_callback, &arg);
 
-    hal_millis_IgnoreAndReturn(100); // Make time 100ms since start up
+    hal_millis_IgnoreAndReturn(101); // Make time 100ms since start up
     step_command_handler_step_up(&step_command_handler);
     
     // Callback was called once, with the expected arguments
     TEST_ASSERT_EQUAL(1, callback_call_times);
     TEST_ASSERT_EQUAL(&arg, callback_args_0[0]); // Check the pointer we got back is the same as the pointer we sent 
-    TEST_ASSERT_EQUAL(10, callback_args_1[0]); // A single single step up, should be 10
+    TEST_ASSERT_EQUAL(13, callback_args_1[0]); // A single single step up, should be 10
     TEST_ASSERT_EQUAL(1, callback_args_2[0]); 
 }
 
@@ -61,7 +60,7 @@ void test_first_call_to_step_down_triggers_callback(void) {
     // Callback was called once, with the expected arguments
     TEST_ASSERT_EQUAL(1, callback_call_times);
     TEST_ASSERT_EQUAL(&arg, callback_args_0[0]); // Check the pointer we got back is the same as the pointer we sent 
-    TEST_ASSERT_EQUAL(-10, callback_args_1[0]); // A single single step down, should be -10
+    TEST_ASSERT_EQUAL(-13, callback_args_1[0]); // A single single step down, should be -10
     TEST_ASSERT_EQUAL(1, callback_args_2[0]); 
 }
 
@@ -76,7 +75,7 @@ void test_step_up_calls_very_close_together_are_debounced(void) {
     step_command_handler_step_up(&step_command_handler);
     TEST_ASSERT_EQUAL(1, callback_call_times);
     TEST_ASSERT_EQUAL(&arg, callback_args_0[0]); 
-    TEST_ASSERT_EQUAL(10, callback_args_1[0]);
+    TEST_ASSERT_EQUAL(13, callback_args_1[0]);
     TEST_ASSERT_EQUAL(1, callback_args_2[0]); 
 
     // Send a second step up command, 10ms after the first, callback will not be triggered. Change will be queued
@@ -89,7 +88,7 @@ void test_step_up_calls_very_close_together_are_debounced(void) {
     step_command_handler_step_up(&step_command_handler);
     TEST_ASSERT_EQUAL(2, callback_call_times); // Has been called a second time
     TEST_ASSERT_EQUAL(&arg, callback_args_0[1]); 
-    TEST_ASSERT_EQUAL(20, callback_args_1[1]); // Change includes the queued change from the second step up call.
+    TEST_ASSERT_EQUAL(26, callback_args_1[1]); // Change includes the queued change from the second step up call.
     TEST_ASSERT_EQUAL(1, callback_args_2[1]); 
 }
 
@@ -104,7 +103,7 @@ void test_step_down_calls_very_close_together_are_debounced(void) {
     step_command_handler_step_down(&step_command_handler);
     TEST_ASSERT_EQUAL(1, callback_call_times);
     TEST_ASSERT_EQUAL(&arg, callback_args_0[0]); 
-    TEST_ASSERT_EQUAL(-10, callback_args_1[0]);
+    TEST_ASSERT_EQUAL(-13, callback_args_1[0]);
     TEST_ASSERT_EQUAL(1, callback_args_2[0]); 
 
     // Send a second step down command, 10ms after the first, callback will not be triggered. Change will be queued
@@ -117,6 +116,6 @@ void test_step_down_calls_very_close_together_are_debounced(void) {
     step_command_handler_step_down(&step_command_handler);
     TEST_ASSERT_EQUAL(2, callback_call_times); // Has been called a second time
     TEST_ASSERT_EQUAL(&arg, callback_args_0[1]); 
-    TEST_ASSERT_EQUAL(-20, callback_args_1[1]); // Change includes the queued change from the second step up call.
+    TEST_ASSERT_EQUAL(-26, callback_args_1[1]); // Change includes the queued change from the second step up call.
     TEST_ASSERT_EQUAL(1, callback_args_2[1]); 
 }

@@ -81,10 +81,10 @@ static void run_test(UnityTestFunction func, const char* name, UNITY_LINE_TYPE l
 int main(void)
 {
   UnityBegin("test/test_step_command_handler.c");
-  run_test(test_first_call_to_step_up_triggers_callback, "test_first_call_to_step_up_triggers_callback", 36);
-  run_test(test_first_call_to_step_down_triggers_callback, "test_first_call_to_step_down_triggers_callback", 52);
-  run_test(test_step_up_calls_very_close_together_are_debounced, "test_step_up_calls_very_close_together_are_debounced", 68);
-  run_test(test_step_down_calls_very_close_together_are_debounced, "test_step_down_calls_very_close_together_are_debounced", 96);
+  run_test(test_first_call_to_step_up_triggers_callback, "test_first_call_to_step_up_triggers_callback", 35);
+  run_test(test_first_call_to_step_down_triggers_callback, "test_first_call_to_step_down_triggers_callback", 51);
+  run_test(test_step_up_calls_very_close_together_are_debounced, "test_step_up_calls_very_close_together_are_debounced", 67);
+  run_test(test_step_down_calls_very_close_together_are_debounced, "test_step_down_calls_very_close_together_are_debounced", 95);
 
   CMock_Guts_MemFreeFinal();
   return UNITY_END();

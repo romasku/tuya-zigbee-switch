@@ -13,7 +13,6 @@ hal_zigbee_status_t captured_send_cmd_to_bindings(const hal_zigbee_cmd *cmd, int
   return HAL_ZIGBEE_OK;
 }
 
-step_command_handler_t mock_brightness_step_command_handler = {};
 hal_zigbee_endpoint mock_endpoint = {};
 hal_zigbee_cluster endpoint_clusters[10];
 encoder_t mock_encoder = {};
@@ -25,9 +24,9 @@ void setUp(void)
   printf("\r\n");
 
   send_cmd_call_count = 0;
+  new_step_command_handler_Ignore();
 
   // Setup endpoint, cluster and encoder 
-  new_step_command_handler_IgnoreAndReturn(&mock_brightness_step_command_handler);
   mock_endpoint.endpoint = 1;
   hal_zigbee_cluster endpoint_clusters[10];
   mock_endpoint.clusters = endpoint_clusters;
@@ -103,7 +102,7 @@ void test_encoder_is_rotated_ccw(void)
 {
   // When the encoder is rotated counter-clockwise, the _brightness_step_command_handler step down function is called
 
-  step_command_handler_step_down_Expect(&mock_brightness_step_command_handler);
+  step_command_handler_step_down_Expect(&encoder_cluster.brightness_step_command_handler);
 
   // Trigger the  event
   mock_encoder.on_rotate_ccw(mock_encoder.callback_param);
@@ -132,7 +131,7 @@ void test_brightness_step_command_handler_callback_with_positive_value(void)
   hal_zigbee_send_cmd_to_bindings_Stub(captured_send_cmd_to_bindings);
 
   // Trigger the  event
-  mock_brightness_step_command_handler._callback(mock_brightness_step_command_handler._callback_arg, 10, 1);
+  encoder_cluster.brightness_step_command_handler._callback(encoder_cluster.brightness_step_command_handler._callback_arg, 10, 1);
 
   // Check one command was sent 
   TEST_ASSERT_EQUAL_MESSAGE(1, send_cmd_call_count, "Unexpected number of commands sent");
@@ -165,7 +164,7 @@ void test_brightness_step_command_handler_callback_with_negative_value(void)
   hal_zigbee_send_cmd_to_bindings_Stub(captured_send_cmd_to_bindings);
 
   // Trigger the  event
-  mock_brightness_step_command_handler._callback(mock_brightness_step_command_handler._callback_arg, -15, 1);
+  encoder_cluster.brightness_step_command_handler._callback(encoder_cluster.brightness_step_command_handler._callback_arg, -15, 1);
 
   // Check one command was sent 
   TEST_ASSERT_EQUAL_MESSAGE(1, send_cmd_call_count, "Unexpected number of commands sent");

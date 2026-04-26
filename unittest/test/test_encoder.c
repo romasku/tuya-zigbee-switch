@@ -229,19 +229,19 @@ void test_encoder_sw_pressed_noisy(void)
   // Trigger pin sw change, to low, 100ms later
   // Then retrigger a few times, as if the input is noisy
   _trigger_pin_change(2, encoder.pin_sw, 0, 110);
-  _trigger_pin_change(2, encoder.pin_sw, 1, 112);
-  _trigger_pin_change(2, encoder.pin_sw, 0, 115);
-  _trigger_pin_change(2, encoder.pin_sw, 1, 117);
-  _trigger_pin_change(2, encoder.pin_sw, 0, 123);
-  _trigger_pin_change(2, encoder.pin_sw, 0, 125);
+  _trigger_pin_change(2, encoder.pin_sw, 1, 111);
+  _trigger_pin_change(2, encoder.pin_sw, 0, 112);
+  _trigger_pin_change(2, encoder.pin_sw, 1, 113);
+  _trigger_pin_change(2, encoder.pin_sw, 0, 116);
+  _trigger_pin_change(2, encoder.pin_sw, 0, 119);
 
   // And then back to high, again with noise
   _trigger_pin_change(2, encoder.pin_sw, 1, 300);
+  _trigger_pin_change(2, encoder.pin_sw, 0, 301);
+  _trigger_pin_change(2, encoder.pin_sw, 1, 303);
   _trigger_pin_change(2, encoder.pin_sw, 0, 305);
-  _trigger_pin_change(2, encoder.pin_sw, 1, 310);
-  _trigger_pin_change(2, encoder.pin_sw, 0, 312);
-  _trigger_pin_change(2, encoder.pin_sw, 1, 320);
-  _trigger_pin_change(2, encoder.pin_sw, 1, 325);
+  _trigger_pin_change(2, encoder.pin_sw, 1, 307);
+  _trigger_pin_change(2, encoder.pin_sw, 1, 309);
 
   // On Press Callback triggered - Only once!
   TEST_ASSERT_EQUAL(1, on_press_calls);

@@ -85,13 +85,13 @@ static void run_test(UnityTestFunction func, const char* name, UNITY_LINE_TYPE l
 int main(void)
 {
   UnityBegin("test/test_encoder_cluster.c");
-  run_test(test_encoder_is_clicked, "test_encoder_is_clicked", 72);
-  run_test(test_encoder_is_rotated_cw, "test_encoder_is_rotated_cw", 79);
-  run_test(test_encoder_is_rotated_ccw, "test_encoder_is_rotated_ccw", 102);
-  run_test(test_brightness_step_command_handler_callback_with_positive_value, "test_brightness_step_command_handler_callback_with_positive_value", 124);
-  run_test(test_brightness_step_command_handler_callback_with_negative_value, "test_brightness_step_command_handler_callback_with_negative_value", 157);
-  run_test(test_encoder_is_rotated_cw_while_pressed, "test_encoder_is_rotated_cw_while_pressed", 190);
-  run_test(test_encoder_is_rotated_ccw_while_pressed, "test_encoder_is_rotated_ccw_while_pressed", 216);
+  run_test(test_encoder_is_clicked, "test_encoder_is_clicked", 71);
+  run_test(test_encoder_is_rotated_cw, "test_encoder_is_rotated_cw", 78);
+  run_test(test_encoder_is_rotated_ccw, "test_encoder_is_rotated_ccw", 101);
+  run_test(test_brightness_step_command_handler_callback_with_positive_value, "test_brightness_step_command_handler_callback_with_positive_value", 123);
+  run_test(test_brightness_step_command_handler_callback_with_negative_value, "test_brightness_step_command_handler_callback_with_negative_value", 156);
+  run_test(test_encoder_is_rotated_cw_while_pressed, "test_encoder_is_rotated_cw_while_pressed", 189);
+  run_test(test_encoder_is_rotated_ccw_while_pressed, "test_encoder_is_rotated_ccw_while_pressed", 215);
 
   CMock_Guts_MemFreeFinal();
   return UNITY_END();
