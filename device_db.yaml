@@ -1218,8 +1218,8 @@ MODULE_GIRIER_TS130F_1GANG:
   stock_image_type: 54179
   firmware_image_type: 43616
   build: yes
-  status: in_progress
-  info: Curtains not implemented!
+  status: fully_supported
+  info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/270
   store: https://www.aliexpress.com/item/1005003864471089.html
 MODULE_GIRIER_TS130F_2GANG:
@@ -1245,8 +1245,8 @@ MODULE_GIRIER_TS130F_2GANG:
   stock_image_type: 54179
   firmware_image_type: 45597
   build: yes
-  status: in_progress
-  info: Curtains in progress! Reset button on B4 pin, same as switch
+  status: fully_supported
+  info: Supported - Reset button on B4 pin, same as switch
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/270
   store: https://www.aliexpress.com/item/1005003864471089.html
 MODULE_GIRIER_ZTU_TS0001:
@@ -2441,8 +2441,8 @@ MODULE_TUYA_NOVATO_TS130F:
   stock_image_type: 54179
   firmware_image_type: 43609
   build: yes
-  status: in_progress
-  info: Curtains in progress!
+  status: fully_supported
+  info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/pull/231
   store: https://www.aliexpress.com/item/1005007010573203.html
 MODULE_TUYA_OXT_A_TS0003:

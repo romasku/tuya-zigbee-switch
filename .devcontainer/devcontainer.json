@@ -11,7 +11,8 @@
 			"extensions": [
 				"ms-vscode.cpptools",
 				"ms-vscode.hexeditor",
-				"redhat.vscode-yaml"
+				"redhat.vscode-yaml",
+				"ms-python.python"
 			]
 		}
 	}

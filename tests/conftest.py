@@ -18,8 +18,13 @@ from tests.zcl_consts import (
     ZCL_ATTR_ONOFF_CONFIGURATION_SWITCH_BINDING_MODE,
     ZCL_ATTR_ONOFF_CONFIGURATION_SWITCH_MODE,
     ZCL_ATTR_ONOFF_CONFIGURATION_SWITCH_RELAY_MODE,
+    ZCL_ATTR_WINDOW_COVERING_CLOSED_DEADZONE,
+    ZCL_ATTR_WINDOW_COVERING_CLOSE_TIME,
+    ZCL_ATTR_WINDOW_COVERING_CURRENT_POSITION_LIFT_PERCENTAGE,
     ZCL_ATTR_WINDOW_COVERING_MOTOR_REVERSAL,
     ZCL_ATTR_WINDOW_COVERING_MOVING,
+    ZCL_ATTR_WINDOW_COVERING_OPEN_DEADZONE,
+    ZCL_ATTR_WINDOW_COVERING_OPEN_TIME,
     ZCL_CLUSTER_COVER_SWITCH_CONFIG,
     ZCL_CLUSTER_MULTISTATE_INPUT_BASIC,
     ZCL_CLUSTER_ON_OFF,
@@ -28,6 +33,7 @@ from tests.zcl_consts import (
     ZCL_CMD_ONOFF_OFF,
     ZCL_CMD_ONOFF_ON,
     ZCL_CMD_WINDOW_COVERING_DOWN_CLOSE,
+    ZCL_CMD_WINDOW_COVERING_GO_TO_LIFT_PERCENTAGE,
     ZCL_CMD_WINDOW_COVERING_STOP,
     ZCL_CMD_WINDOW_COVERING_UP_OPEN,
 )
@@ -204,7 +210,7 @@ class Device:
         return res.payload
 
     def _exec_zigbee_cmd(
-        self, endpoint: int, cluster: int, cmd: int, payload: bytes | None = None
+        self, endpoint: int, cluster: int, cmd: int, payload: bytes | list[int] | None = None
     ) -> dict[str, str]:
         cmd_str = f"zcl_cmd {endpoint} 0x{cluster:04X} 0x{cmd:02X}"
         if payload:
@@ -219,9 +225,10 @@ class Device:
         cluster: int,
         cmd: int,
         payload: bytes | None = None,
+        payload_bytes: list[int] | None = None,
         expected_result: str = "PROCESSED",
     ) -> dict[str, str]:
-        result = self._exec_zigbee_cmd(endpoint, cluster, cmd, payload)
+        result = self._exec_zigbee_cmd(endpoint, cluster, cmd, payload or payload_bytes)
         assert result.get("result") == expected_result, result
         return result
 
@@ -496,6 +503,44 @@ class Device:
             endpoint, ZCL_CLUSTER_WINDOW_COVERING, ZCL_CMD_WINDOW_COVERING_STOP
         )
 
+
+    def zcl_cover_goto_position(self, endpoint: int, percentage: int) -> None:
+        self.call_zigbee_cmd(
+            endpoint, ZCL_CLUSTER_WINDOW_COVERING,
+            ZCL_CMD_WINDOW_COVERING_GO_TO_LIFT_PERCENTAGE,
+            payload_bytes=[percentage],
+        )
+
+    def zcl_cover_get_position(self, endpoint: int) -> int:
+        return int(self.read_zigbee_attr(
+            endpoint,
+            ZCL_CLUSTER_WINDOW_COVERING,
+            ZCL_ATTR_WINDOW_COVERING_CURRENT_POSITION_LIFT_PERCENTAGE,
+        ))
+
+    def zcl_cover_set_open_time(self, endpoint: int, value: int) -> None:
+        self.write_zigbee_attr(
+            endpoint, ZCL_CLUSTER_WINDOW_COVERING,
+            ZCL_ATTR_WINDOW_COVERING_OPEN_TIME, value,
+        )
+
+    def zcl_cover_set_close_time(self, endpoint: int, value: int) -> None:
+        self.write_zigbee_attr(
+            endpoint, ZCL_CLUSTER_WINDOW_COVERING,
+            ZCL_ATTR_WINDOW_COVERING_CLOSE_TIME, value,
+        )
+
+    def zcl_cover_set_closed_deadzone(self, endpoint: int, value: int) -> None:
+        self.write_zigbee_attr(
+            endpoint, ZCL_CLUSTER_WINDOW_COVERING,
+            ZCL_ATTR_WINDOW_COVERING_CLOSED_DEADZONE, value,
+        )
+
+    def zcl_cover_set_open_deadzone(self, endpoint: int, value: int) -> None:
+        self.write_zigbee_attr(
+            endpoint, ZCL_CLUSTER_WINDOW_COVERING,
+            ZCL_ATTR_WINDOW_COVERING_OPEN_DEADZONE, value,
+        )
 
 def wait_for(
     condition_fn: Callable[[], bool], timeout: float = 2.0, interval: float = 0.1

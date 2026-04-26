@@ -357,6 +357,68 @@ const romasku = {
             description: "Reverse motor direction (swap OPEN/CLOSE relays)",
             entityCategory: "config",
         }),
+    coverOpenTime: (name, endpointName) =>
+        numeric({
+            name,
+            endpointNames: [endpointName],
+            cluster: "closuresWindowCovering",
+            attribute: {ID: 0xff02, type: Zcl.DataType.UINT16},
+            description: "Travel time for the OPENING direction (0.1 s precision). " +
+                         "For symmetric covers you only need to set this value. " +
+                         "Set both open_time and close_time to 0 to enter manual mode: " +
+                         "position tracking is disabled, the motor runs until stopped or " +
+                         "until a 5-minute safety timeout, and position commands are ignored.",
+            valueMin: 0,
+            valueMax: 300,
+            valueStep: 0.1,
+            scale: 10,
+            unit: "s",
+            entityCategory: "config",
+        }),
+    coverCloseTime: (name, endpointName) =>
+        numeric({
+            name,
+            endpointNames: [endpointName],
+            cluster: "closuresWindowCovering",
+            attribute: {ID: 0xff03, type: Zcl.DataType.UINT16},
+            description: "Travel time for the CLOSING direction (0.1 s precision). " +
+                         "Set to 0 to use the same value as open_time. " +
+                         "Set explicitly only if closing speed differs from opening speed.",
+            valueMin: 0,
+            valueMax: 300,
+            valueStep: 0.1,
+            scale: 10,
+            unit: "s",
+            entityCategory: "config",
+        }),
+    coverOpenDeadzone: (name, endpointName) =>
+        numeric({
+            name,
+            endpointNames: [endpointName],
+            cluster: "closuresWindowCovering",
+            attribute: {ID: 0xff04, type: Zcl.DataType.UINT16},
+            description: "Mechanical deadzone at the OPEN end (100%) as a percentage of " +
+                         "total travel. Motor movement within this zone does not change the " +
+                         "reported position.",
+            valueMin: 0,
+            valueMax: 50,
+            unit: "%",
+            entityCategory: "config",
+        }),
+    coverClosedDeadzone: (name, endpointName) =>
+        numeric({
+            name,
+            endpointNames: [endpointName],
+            cluster: "closuresWindowCovering",
+            attribute: {ID: 0xff05, type: Zcl.DataType.UINT16},
+            description: "Mechanical deadzone at the CLOSED end (0%) as a percentage of " +
+                         "total travel. Motor movement within this zone does not change the " +
+                         "reported position.",
+            valueMin: 0,
+            valueMax: 50,
+            unit: "%",
+            entityCategory: "config",
+        }),
 };
 
 const definitions = [
@@ -375,7 +437,6 @@ const definitions = [
             {% if device.has_battery_cluster %}
             romasku.batteryPercentage(),
             {% endif %}
-
             deviceEndpoints({ endpoints: {
                 {%- for switchName in device.switchNames -%}
                     "{{switchName}}": {{loop.index}},{{" "}}
@@ -419,11 +480,15 @@ const definitions = [
             windowCovering({ 
                 controls: ["lift"],
                 coverInverted: true,
-                configureReporting: false,
+                configureReporting: true,
                 endpointNames: ["{{coverName}}"]
             }),
             romasku.coverMoving("{{coverName}}_moving", "{{coverName}}"),
             romasku.coverMotorReversal("{{coverName}}_motor_reversal", "{{coverName}}"),
+            romasku.coverOpenTime("{{coverName}}_open_time", "{{coverName}}"),
+            romasku.coverCloseTime("{{coverName}}_close_time", "{{coverName}}"),
+            romasku.coverOpenDeadzone("{{coverName}}_open_deadzone", "{{coverName}}"),
+            romasku.coverClosedDeadzone("{{coverName}}_closed_deadzone", "{{coverName}}"),
             {% endfor %}
             {% for coverSwitchName in device.coverSwitchNames %}
             romasku.coverSwitchPressAction("{{coverSwitchName}}_press_action", "{{coverSwitchName}}"),
