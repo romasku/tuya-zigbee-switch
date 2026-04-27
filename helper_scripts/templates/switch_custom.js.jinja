@@ -335,7 +335,7 @@ const romasku = {
         enumLookup({
             name,
             endpointName,
-            access: "STATE_GET",
+            access: "STATE",
             lookup: {
                 stopped: 0,
                 opening: 1,
@@ -483,7 +483,7 @@ const definitions = [
                 configureReporting: true,
                 endpointNames: ["{{coverName}}"]
             }),
-            romasku.coverMoving("{{coverName}}_moving", "{{coverName}}"),
+            romasku.coverMoving("moving", "{{coverName}}"),
             romasku.coverMotorReversal("{{coverName}}_motor_reversal", "{{coverName}}"),
             romasku.coverOpenTime("{{coverName}}_open_time", "{{coverName}}"),
             romasku.coverCloseTime("{{coverName}}_close_time", "{{coverName}}"),
