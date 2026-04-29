@@ -12,7 +12,6 @@ typedef struct
 {
   int _scheduled_change;
   uint32_t _last_command_sent_time;
-  bool _callback_running;
 
   step_command_handler_callback_t _callback;
   void * _callback_arg; 
