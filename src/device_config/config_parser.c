@@ -126,18 +126,18 @@ void parse_config() {
         if (entry[0] == 'S' && entry[1] == 'L' && entry[2] == 'P') {
             // Simultaneous Latching Pulses == SLP
             allow_simultaneous_latching_pulses = 1;
-        }else if (entry[0] == 'D' && entry[1] >= '0' && entry[1] <= '9')  {
+        } else if (entry[0] == 'D' && entry[1] >= '0' && entry[1] <= '9') {
             // D<N> sets the global debounce duration in milliseconds.
             debounce_ms = (uint16_t)parse_int(entry + 1);
             for (int i = 0; i < buttons_cnt; i++) {
                 buttons[i].debounce_delay_ms = debounce_ms;
             }
-        }else if (entry[0] == 'B' && entry[1] == 'T')  {
+        } else if (entry[0] == 'B' && entry[1] == 'T') {
             // Battery: BT<pin>, e.g. BTC5
             hal_gpio_pin_t pin = hal_gpio_parse_pin(entry + 2);
             battery.pin = pin;
             battery_init(&battery);
-        }else if (entry[0] == 'B')  {
+        } else if (entry[0] == 'B') {
             hal_gpio_pin_t  pin  = hal_gpio_parse_pin(entry + 1);
             hal_gpio_pull_t pull = hal_gpio_parse_pull(entry + 3);
             hal_gpio_init(pin, 1, pull);
@@ -148,7 +148,7 @@ void parse_config() {
             buttons[buttons_cnt].debounce_delay_ms       = debounce_ms;
             buttons[buttons_cnt].on_long_press           = on_reset_clicked;
             buttons_cnt++;
-        }else if (entry[0] == 'L')  {
+        } else if (entry[0] == 'L') {
             hal_gpio_pin_t pin = hal_gpio_parse_pin(entry + 1);
             hal_gpio_init(pin, 0, HAL_GPIO_PULL_NONE);
             leds[leds_cnt].pin     = pin;
@@ -162,7 +162,7 @@ void parse_config() {
 
             has_dedicated_status_led = true;
             leds_cnt++;
-        }else if (entry[0] == 'I')  {
+        } else if (entry[0] == 'I') {
             hal_gpio_pin_t pin = hal_gpio_parse_pin(entry + 1);
             hal_gpio_init(pin, 0, HAL_GPIO_PULL_NONE);
             leds[leds_cnt].pin     = pin;
@@ -192,7 +192,7 @@ void parse_config() {
                 }
             }
             leds_cnt++;
-        }else if (entry[0] == 'S')  {
+        } else if (entry[0] == 'S') {
             hal_gpio_pin_t  pin  = hal_gpio_parse_pin(entry + 1);
             hal_gpio_pull_t pull = hal_gpio_parse_pull(entry + 3);
             hal_gpio_init(pin, 1, pull);
@@ -205,7 +205,6 @@ void parse_config() {
 
             if (entry[3] == 'd')
                 buttons[buttons_cnt].pressed_when_high = 1;
-
             switch_clusters[switch_clusters_cnt].switch_idx = switch_clusters_cnt;
             switch_clusters[switch_clusters_cnt].mode       =
                 ZCL_ONOFF_CONFIGURATION_SWITCH_TYPE_TOGGLE;
@@ -218,10 +217,9 @@ void parse_config() {
             switch_clusters[switch_clusters_cnt].relay_index     = switch_clusters_cnt + 1;
             switch_clusters[switch_clusters_cnt].button          = &buttons[buttons_cnt];
             switch_clusters[switch_clusters_cnt].level_move_rate = 50;
-
             buttons_cnt++;
             switch_clusters_cnt++;
-        }else if (entry[0] == 'R')  {
+        } else if (entry[0] == 'R') {
             hal_gpio_pin_t pin = hal_gpio_parse_pin(entry + 1);
             hal_gpio_init(pin, 0, HAL_GPIO_PULL_NONE);
 
@@ -240,7 +238,7 @@ void parse_config() {
 
             relays_cnt++;
             relay_clusters_cnt++;
-        }else if (entry[0] == 'X')  {
+        } else if (entry[0] == 'X') {
             hal_gpio_pin_t  open_pin  = hal_gpio_parse_pin(entry + 1);
             hal_gpio_pin_t  close_pin = hal_gpio_parse_pin(entry + 3);
             hal_gpio_pull_t pull      = hal_gpio_parse_pull(entry + 5);
@@ -269,7 +267,7 @@ void parse_config() {
             cover_switch_clusters[cover_switch_clusters_cnt].cover_switch_idx =
                 cover_switch_clusters_cnt;
             cover_switch_clusters_cnt++;
-        }else if (entry[0] == 'C')  {
+        } else if (entry[0] == 'C') {
             hal_gpio_pin_t open_pin  = hal_gpio_parse_pin(entry + 1);
             hal_gpio_pin_t close_pin = hal_gpio_parse_pin(entry + 3);
 
@@ -290,15 +288,15 @@ void parse_config() {
             cover_clusters[cover_clusters_cnt].close_relay = close_relay;
             cover_clusters[cover_clusters_cnt].cover_idx   = cover_clusters_cnt;
             cover_clusters_cnt++;
-        }else if (entry[0] == 'i')  {
+        } else if (entry[0] == 'i') {
             uint32_t image_type = parse_int(entry + 1);
             hal_zigbee_set_image_type(image_type);
-        }else if (entry[0] == 'M')  {
+        } else if (entry[0] == 'M') {
             for (int index = 0; index < switch_clusters_cnt; index++) {
                 switch_clusters[index].mode =
                     ZCL_ONOFF_CONFIGURATION_SWITCH_TYPE_MOMENTARY;
             }
-        }else if (entry[0] == 'E')  {
+        } else if (entry[0] == 'E') {
             hal_gpio_pin_t  a_pin   = hal_gpio_parse_pin(entry + 1);
             hal_gpio_pull_t a_pull  = hal_gpio_parse_pull(entry + 3);
             hal_gpio_pin_t  b_pin   = hal_gpio_parse_pin(entry + 4);
@@ -449,7 +447,7 @@ void network_indicator_on_network_status_change(
         network_indicator_connected(&network_indicator);
         update_switch_clusters();
         update_relay_clusters();
-    }else {
+    } else {
         network_indicator_not_connected(&network_indicator);
     }
 }
@@ -471,7 +469,7 @@ void peripherals_init() {
         network_indicator_connected(&network_indicator);
         update_switch_clusters();
         update_relay_clusters();
-    }else {
+    } else {
         network_indicator_not_connected(&network_indicator);
     }
     hal_register_on_network_status_change_callback(
