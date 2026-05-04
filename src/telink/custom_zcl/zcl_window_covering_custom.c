@@ -45,13 +45,5 @@ _CODE_ZCL_ static status_t zcl_windowCovering_custom_cmdHandler(zclIncoming_t *i
         return(ZCL_STA_FAILURE);
     }
 
-    zclIncomingAddrInfo_t addr;
-    addr.dirCluster = incoming->hdr.frmCtrl.bf.dir;
-    addr.profileId  = incoming->msg->indInfo.profile_id;
-    addr.srcAddr    = incoming->msg->indInfo.src_short_addr;
-    addr.dstAddr    = incoming->msg->indInfo.dst_addr;
-    addr.srcEp      = incoming->msg->indInfo.src_ep;
-    addr.dstEp      = incoming->msg->indInfo.dst_ep;
-
-    return(incoming->clusterAppCb(&addr, incoming->hdr.cmd, payload));
+    return(incoming->clusterAppCb(&(incoming->addrInfo), incoming->hdr.cmd, payload));
 }
