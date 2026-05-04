@@ -1941,6 +1941,33 @@ MODULE_TUYA_COMMON_TS0001:
   info: Needs pinout confirmation
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/32
   store: null
+MODULE_TUYA_COMMON_TS0001_2:
+  human_name: Tuya common 1-gang
+  category: module
+  power: mains
+  neutral: required
+  output: relay
+  device_type: router
+  stock_model_name: TS0001
+  stock_manufacturer_name: _TZ3000_khmapq4n
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0001
+  override_z2m_device: null
+  tuya_module: ZT3L
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: khmapq4n;TS0001-SB;BA0u;LC0;SB4u;RC2;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
+  firmware_image_type: 47007
+  build: yes
+  status: fully_supported
+  info: Supported
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/398
+  store: null
 MODULE_TUYA_COMMON_TS0002:
   human_name: Tuya common 2-gang
   category: module
@@ -1959,14 +1986,69 @@ MODULE_TUYA_COMMON_TS0002:
   config_str: zbfya6h0;TS0002-C;BA0u;LC0;SB4u;RC2;SB5u;RC3;
   alt_config_str: null
   old_manufacturer_names: null
-  old_zb_models: null
+  old_zb_models: 
+  - TS0002-SB
   stock_manufacturer_id: 4417
   stock_image_type: 54179
   firmware_image_type: 43574
   build: yes
-  status: mostly_supported
-  info: Needs pinout confirmation
+  status: fully_supported
+  info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/32
+  store: null
+MODULE_TUYA_COMMON_TS0004:
+  human_name: Tuya common 4-gang
+  category: module
+  power: mains
+  neutral: required
+  output: relay
+  device_type: router
+  stock_model_name: TS0004
+  stock_manufacturer_name: _TZ3000_liygxtcq
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0004_switch_module
+  override_z2m_device: SB04-Zigbee
+  tuya_module: ZT3L
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: liygxtcq;TS0004-SB;BC0u;LA0;SD7u;RC4;SD2u;RD4;SC3u;RB4;SC2u;RB5;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
+  firmware_image_type: 47004
+  build: yes
+  status: fully_supported
+  info: Supported
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/398
+  store: null
+MODULE_TUYA_COMMON2_TS0003:
+  human_name: Tuya common 3-gang
+  category: module
+  power: mains
+  neutral: required
+  output: relay
+  device_type: router
+  stock_model_name: TS0003
+  stock_manufacturer_name: _TZ3000_pf7swkqp
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0003_switch_module_3
+  override_z2m_device: SB03-Zigbee
+  tuya_module: ZT3L
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: pf7swkqp;TS0003-SB;BA0u;LD7;SC2u;RC0;SC3u;RB4;SD2u;RB5;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
+  firmware_image_type: 47005
+  build: yes
+  status: fully_supported
+  info: Supported
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/398
   store: null
 MODULE_TUYA_DEFAULT_A_TS0001:
   human_name: Tuya default 1-gang 🅰 <br> Girier JR-ZDS01 🅰 <br> Zbeacon TS0001
