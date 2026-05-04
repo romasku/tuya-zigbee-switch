@@ -140,6 +140,7 @@ TELINK_SOURCES := \
 	custom_zcl/zcl_multistate_input.c \
 	custom_zcl/zcl_onoff_configuration.c \
 	custom_zcl/zcl_cover_switch_config.c \
+	custom_zcl/zcl_window_covering_custom.c \
 	patch_sdk/drv_nv.c
 
 # Common source files (shared with Silicon Labs build)
