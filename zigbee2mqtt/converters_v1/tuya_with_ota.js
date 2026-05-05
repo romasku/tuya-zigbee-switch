@@ -29,6 +29,7 @@ const ota = require("zigbee-herdsman-converters/lib/ota");
 
 const tuyaModels = [
     "FZB-1",
+    "IH-K663",
     "QS-Zigbee-SEC01-U",
     "QS-Zigbee-SEC02-U",
     "TLSR82xx_2btn_remote",
@@ -44,6 +45,7 @@ const tuyaModels = [
     "TS0003_switch_3_gang",
     "TS0003_switch_3_gang_with_backlight",
     "TS0003_switch_module_2",
+    "TS0003_switch_module_3",
     "TS0004",
     "TS0004_switch_module",
     "TS0004_switch_module_2",
@@ -85,6 +87,7 @@ for (let definition of tuyaDefinitions) {
 }
 
 const moesModels = [
+    "ERS-10TZBVB-AA",
     "SR-ZS",
     "ZG-101ZL",
     "ZS-EUB_1gang",
@@ -134,6 +137,7 @@ for (let definition of girierDefinitions) {
 }
 
 const lonsonhoModels = [
+    "TS0001",
     "TS130F_dual",
 ];
 
