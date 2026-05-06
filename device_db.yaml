@@ -3169,6 +3169,33 @@ REMOTE_IHSENO_TS0044:
   store:
   - https://www.aliexpress.com/item/1005005792534172.html
   - https://allegro.pl/oferta/pilot-atlo-rc4-tuya-zigbee-tuya-smart-da-16513965398
+REMOTE_IHSENO_TS0046:
+  human_name: iHseno 6-button remote
+  category: remote
+  power: AAA
+  neutral: without
+  output: nothing
+  device_type: end_device
+  stock_model_name: TS0046
+  stock_manufacturer_name: _TZ3000_nrfkrgf4
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0046
+  override_z2m_device: null
+  tuya_module: ZT3L
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: nrfkrgf4;TS0046-IH;SB5u;IC4;SA0u;IC4;SC2u;IC4;SD2u;IC4;BTC5;M;
+  alt_config_str: nrfkrgf4;TS0046-IH;SB5u;IC4;SA0u;IC4;SC2u;IC4;SD2u;IC4;SC3u;IC4;SD7u;IC4;BTC5;M;
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
+  firmware_image_type: 43563
+  build: yes
+  status: in_progress
+  info: Max 4 buttons supported
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/416
+  store: null
 REMOTE_LIDL_BUTTON_TS004F:
   human_name: LIDL button
   category: remote
@@ -3352,7 +3379,7 @@ REMOTE_TUYA_BUTTON_TS0041_2:
   tuya_module: null
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: yj6k7vfo;TS0041-TB2;SC3u;IB4;BTB5;M;
+  config_str: yj6k7vfo;TS0041-TB2;SC3u;IB4i;BTB5;M;
   alt_config_str: null
   old_manufacturer_names: null
   old_zb_models: null
