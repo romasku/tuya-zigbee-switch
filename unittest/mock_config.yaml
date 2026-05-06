@@ -1,0 +1,6 @@
+:cmock:
+  :plugins:
+    - :ignore
+    - :expect_any_args
+    - :array
+    - :callback

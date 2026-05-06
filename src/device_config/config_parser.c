@@ -10,6 +10,7 @@
 #include "zigbee/relay_cluster.h"
 #include "zigbee/poll_control_cluster.h"
 #include "zigbee/switch_cluster.h"
+#include "zigbee/encoder_cluster.h"
 
 #include <stdint.h>
 #include <string.h>
@@ -23,6 +24,7 @@
 #include "hal/system.h"
 #include "hal/zigbee.h"
 #include "hal/zigbee_ota.h"
+#include "base_components/encoder.h"
 
 // Forward declarations
 void peripherals_init(void);
@@ -44,6 +46,9 @@ uint8_t  buttons_cnt = 0;
 relay_t relays[10]; // 4 relay endpoints + 3 cover endpoints
 uint8_t relays_cnt = 0;
 
+encoder_t encoders[3];
+uint8_t   encoders_cnt = 0;
+
 zigbee_basic_cluster basic_cluster = {
     .deviceEnable = 1,
 };
@@ -64,6 +69,9 @@ uint8_t cover_clusters_cnt = 0;
 
 hal_zigbee_cluster  clusters[32];
 hal_zigbee_endpoint endpoints[10];
+
+zigbee_encoder_cluster encoder_clusters[4];
+uint8_t encoder_clusters_cnt = 0;
 
 uint8_t allow_simultaneous_latching_pulses = 0;
 
@@ -288,18 +296,40 @@ void parse_config() {
                 switch_clusters[index].mode =
                     ZCL_ONOFF_CONFIGURATION_SWITCH_TYPE_MOMENTARY;
             }
+        } else if (entry[0] == 'E') {
+            hal_gpio_pin_t  a_pin   = hal_gpio_parse_pin(entry + 1);
+            hal_gpio_pull_t a_pull  = hal_gpio_parse_pull(entry + 3);
+            hal_gpio_pin_t  b_pin   = hal_gpio_parse_pin(entry + 4);
+            hal_gpio_pull_t b_pull  = hal_gpio_parse_pull(entry + 6);
+            hal_gpio_pin_t  sw_pin  = hal_gpio_parse_pin(entry + 7);
+            hal_gpio_pull_t sw_pull = hal_gpio_parse_pull(entry + 6);
+
+            encoders[encoders_cnt].pin_a = a_pin;
+            hal_gpio_init(a_pin, 1, a_pull);
+
+            encoders[encoders_cnt].pin_b = b_pin;
+            hal_gpio_init(b_pin, 1, b_pull);
+
+            encoders[encoders_cnt].pin_sw = sw_pin;
+            hal_gpio_init(sw_pin, 1, sw_pull);
+
+            encoder_clusters[encoder_clusters_cnt].switch_idx = encoder_clusters_cnt;
+            encoder_clusters[encoder_clusters_cnt].encoder    = &encoders[encoders_cnt];
+
+            encoder_clusters_cnt++;
+            encoders_cnt++;
         }
     }
 
     peripherals_init();
 
     printf("Initializing Zigbee with %d switches, %d relays, %d cover switches, "
-           "%d covers\r\n",
+           "%d covers, %d encoders\r\n",
            switch_clusters_cnt, relay_clusters_cnt, cover_switch_clusters_cnt,
-           cover_clusters_cnt);
+           cover_clusters_cnt, encoder_clusters_cnt);
 
     uint8_t total_endpoints = switch_clusters_cnt + relay_clusters_cnt +
-                              cover_switch_clusters_cnt + cover_clusters_cnt;
+                              cover_switch_clusters_cnt + cover_clusters_cnt + encoder_clusters_cnt;
 
     hal_zigbee_cluster *cluster_ptr = clusters;
 
@@ -384,6 +414,18 @@ void parse_config() {
                                       &endpoints[cover_base + index]);
     }
 
+
+    int encoder_base =
+        switch_clusters_cnt + relay_clusters_cnt + cover_switch_clusters_cnt + cover_clusters_cnt;
+    for (int index = 0; index < encoder_clusters_cnt; index++) {
+        if (encoder_base + index != 0) {
+            cluster_ptr += endpoints[encoder_base + index - 1].cluster_count;
+            endpoints[encoder_base + index].clusters = cluster_ptr;
+        }
+        printf("Adding encoder cluster as endpoint %d\r\n", encoder_base + index);
+        encoder_cluster_add_to_endpoint(&encoder_clusters[index], &endpoints[encoder_base + index]);
+    }
+
     hal_zigbee_init(endpoints, total_endpoints);
     while (cursor != (char *)device_config_str.data) {
         cursor--;
@@ -419,6 +461,9 @@ void peripherals_init() {
     }
     for (int index = 0; index < relays_cnt; index++) {
         relay_init(&relays[index]);
+    }
+    for (int index = 0; index < encoders_cnt; index++) {
+        encoder_init(&encoders[index]);
     }
     if (hal_zigbee_get_network_status() == HAL_ZIGBEE_NETWORK_JOINED) {
         network_indicator_connected(&network_indicator);

@@ -147,6 +147,7 @@ COMMON_SOURCES := \
 	$(SRC_DIR)/app.c \
 	$(SRC_DIR)/zigbee/poll_control_cluster.c \
 	$(SRC_DIR)/base_components/button.c \
+	$(SRC_DIR)/base_components/encoder.c \
 	$(SRC_DIR)/base_components/led.c \
 	$(SRC_DIR)/base_components/network_indicator.c \
 	$(SRC_DIR)/base_components/relay.c \
@@ -163,7 +164,9 @@ COMMON_SOURCES := \
 	$(SRC_DIR)/zigbee/switch_cluster.c \
 	$(SRC_DIR)/zigbee/cover_switch_cluster.c \
 	$(SRC_DIR)/zigbee/cover_cluster.c \
-	$(SRC_DIR)/zigbee/battery_cluster.c 
+	$(SRC_DIR)/zigbee/battery_cluster.c \
+	$(SRC_DIR)/zigbee/encoder_cluster.c \
+	$(SRC_DIR)/zigbee/step_command_handler.c \
 
 # All application sources
 ALL_TELINK_SOURCES := $(TELINK_SOURCES) $(COMMON_SOURCES)

@@ -79,6 +79,9 @@ tools/%:
 board/%:
 	$(MAKE) -f board.mk $*
 
+unittest/%:
+	$(MAKE) -C unittest $*
+
 # Pick a Python interpreter for test runs. In some environments (notably WSL
 # minimal installs), `python` may be missing while `python3` exists.
 PYTHON ?= $(shell command -v python >/dev/null 2>&1 && echo python || echo python3)

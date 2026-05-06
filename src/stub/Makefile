@@ -50,6 +50,7 @@ SOURCES := \
 	$(SRC_DIR)/base_components/led.c \
 	$(SRC_DIR)/base_components/relay.c \
 	$(SRC_DIR)/base_components/button.c \
+	$(SRC_DIR)/base_components/encoder.c \
 	$(SRC_DIR)/base_components/battery.c \
 	$(SRC_DIR)/base_components/network_indicator.c \
 	$(SRC_DIR)/device_config/config_parser.c \
@@ -64,7 +65,9 @@ SOURCES := \
 	$(SRC_DIR)/zigbee/general_commands.c \
 	$(SRC_DIR)/zigbee/cover_switch_cluster.c \
 	$(SRC_DIR)/zigbee/cover_cluster.c \
-	$(SRC_DIR)/zigbee/battery_cluster.c
+	$(SRC_DIR)/zigbee/battery_cluster.c \
+	$(SRC_DIR)/zigbee/encoder_cluster.c \
+	$(SRC_DIR)/zigbee/step_command_handler.c \
 
 INCLUDES := \
 	-I$(SRC_DIR) \

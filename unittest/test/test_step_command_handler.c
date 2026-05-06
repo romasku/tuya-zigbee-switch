@@ -1,0 +1,121 @@
+#include "unity.h"
+#include "zigbee/step_command_handler.h"
+#include "Mocktimer.h"
+#include "Mocktasks.h"
+
+int callback_call_times = 0;
+void * callback_args_0[10];
+int callback_args_1[10];
+uint16_t callback_args_2[10];
+
+void mock_callback(void * arg, int change, uint16_t trans_time) {
+
+  callback_args_0[callback_call_times] = arg;
+  callback_args_1[callback_call_times] = change;
+  callback_args_2[callback_call_times] = trans_time;
+
+  callback_call_times++;
+}
+
+void setUp(void)
+{
+  // Reset
+  callback_call_times = 0;
+
+  // Put a space between tests for readability
+  printf("\r\n");
+}
+
+void tearDown(void)
+{
+}
+
+step_command_handler_t step_command_handler = {};
+
+void test_first_call_to_step_up_triggers_callback(void) {
+    new_step_command_handler(&step_command_handler);
+
+    int arg = 6;
+    step_command_handler_register_callback(&step_command_handler, mock_callback, &arg);
+
+    hal_millis_IgnoreAndReturn(101); // Make time 100ms since start up
+    step_command_handler_step_up(&step_command_handler);
+    
+    // Callback was called once, with the expected arguments
+    TEST_ASSERT_EQUAL(1, callback_call_times);
+    TEST_ASSERT_EQUAL(&arg, callback_args_0[0]); // Check the pointer we got back is the same as the pointer we sent 
+    TEST_ASSERT_EQUAL(13, callback_args_1[0]); // A single single step up, should be 10
+    TEST_ASSERT_EQUAL(1, callback_args_2[0]); 
+}
+
+void test_first_call_to_step_down_triggers_callback(void) {
+    new_step_command_handler(&step_command_handler);
+
+    int arg = 6;
+    step_command_handler_register_callback(&step_command_handler, mock_callback, &arg);
+
+    hal_millis_IgnoreAndReturn(100); // Make time 100ms since start up
+    step_command_handler_step_down(&step_command_handler);
+    
+    // Callback was called once, with the expected arguments
+    TEST_ASSERT_EQUAL(1, callback_call_times);
+    TEST_ASSERT_EQUAL(&arg, callback_args_0[0]); // Check the pointer we got back is the same as the pointer we sent 
+    TEST_ASSERT_EQUAL(-13, callback_args_1[0]); // A single single step down, should be -10
+    TEST_ASSERT_EQUAL(1, callback_args_2[0]); 
+}
+
+void test_step_up_calls_very_close_together_are_debounced(void) {
+    new_step_command_handler(&step_command_handler);
+
+    int arg = 6;
+    step_command_handler_register_callback(&step_command_handler, mock_callback, &arg);
+
+    // Send a first step up command, at 100ms after start up, callback will be triggered
+    hal_millis_IgnoreAndReturn(100);
+    step_command_handler_step_up(&step_command_handler);
+    TEST_ASSERT_EQUAL(1, callback_call_times);
+    TEST_ASSERT_EQUAL(&arg, callback_args_0[0]); 
+    TEST_ASSERT_EQUAL(13, callback_args_1[0]);
+    TEST_ASSERT_EQUAL(1, callback_args_2[0]); 
+
+    // Send a second step up command, 10ms after the first, callback will not be triggered. Change will be queued
+    hal_millis_IgnoreAndReturn(105);
+    step_command_handler_step_up(&step_command_handler);
+    TEST_ASSERT_EQUAL(1, callback_call_times); // Still only called once.
+
+    // Send a third step up command, 100ms after the first, callback will be triggered.
+    hal_millis_IgnoreAndReturn(200);
+    step_command_handler_step_up(&step_command_handler);
+    TEST_ASSERT_EQUAL(2, callback_call_times); // Has been called a second time
+    TEST_ASSERT_EQUAL(&arg, callback_args_0[1]); 
+    TEST_ASSERT_EQUAL(26, callback_args_1[1]); // Change includes the queued change from the second step up call.
+    TEST_ASSERT_EQUAL(1, callback_args_2[1]); 
+}
+
+void test_step_down_calls_very_close_together_are_debounced(void) {
+    new_step_command_handler(&step_command_handler);
+
+    int arg = 6;
+    step_command_handler_register_callback(&step_command_handler, mock_callback, &arg);
+
+    // Send a first step down command, at 100ms after start up, callback will be triggered
+    hal_millis_IgnoreAndReturn(100);
+    step_command_handler_step_down(&step_command_handler);
+    TEST_ASSERT_EQUAL(1, callback_call_times);
+    TEST_ASSERT_EQUAL(&arg, callback_args_0[0]); 
+    TEST_ASSERT_EQUAL(-13, callback_args_1[0]);
+    TEST_ASSERT_EQUAL(1, callback_args_2[0]); 
+
+    // Send a second step down command, 10ms after the first, callback will not be triggered. Change will be queued
+    hal_millis_IgnoreAndReturn(105);
+    step_command_handler_step_down(&step_command_handler);
+    TEST_ASSERT_EQUAL(1, callback_call_times); // Still only called once.
+
+    // Send a third step down command, 100ms after the first, callback will be triggered.
+    hal_millis_IgnoreAndReturn(200);
+    step_command_handler_step_down(&step_command_handler);
+    TEST_ASSERT_EQUAL(2, callback_call_times); // Has been called a second time
+    TEST_ASSERT_EQUAL(&arg, callback_args_0[1]); 
+    TEST_ASSERT_EQUAL(-26, callback_args_1[1]); // Change includes the queued change from the second step up call.
+    TEST_ASSERT_EQUAL(1, callback_args_2[1]); 
+}

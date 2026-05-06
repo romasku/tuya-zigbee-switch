@@ -14,7 +14,6 @@ def test_button_debounce_stronger(device: Device, button_pin: str, relay_pin: st
     device.step_time(60)  # past debounce stable
     wait_for(lambda: device.get_gpio(relay_pin) is True)
 
-
 def test_custom_debounce_delay_is_applied_to_switches():
     proc = StubProc(device_config="X;Y;D100;SA0u;RB0;").start()
     try:

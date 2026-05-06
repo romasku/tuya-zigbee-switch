@@ -17,7 +17,7 @@
 set -e                                           # Exit on error.
 cd "$(dirname "$(dirname "$(realpath "$0")")")"  # Go to project root.
 
-DEVICE=BOARD__ZIGBEE_ZTU_2  # Change this to your device
+DEVICE=MODULE_IHSENO_TS0004  # Change this to your device
 
 # Check if device exists in database
 if ! yq -e ".${DEVICE}" device_db.yaml >/dev/null 2>&1; then
@@ -42,17 +42,17 @@ echo "Checking if files were created for board: $DEVICE ($TYPE)"
 ls -l bin/$TYPE/$DEVICE/ 2>/dev/null || echo "No router files found"
 
 # Build end_device version with debug enabled  
-echo "=== Building end_device version with debug ==="
-TYPE=end_device
-BOARD=$DEVICE DEVICE_TYPE=$TYPE DEBUG=1 make board/build-firmware
-echo "Checking if files were created for board: $DEVICE ($TYPE)"
-ls -l bin/$TYPE/${DEVICE}_END_DEVICE/ 2>/dev/null || echo "No end_device files found"
+# echo "=== Building end_device version with debug ==="
+# TYPE=end_device
+# BOARD=$DEVICE DEVICE_TYPE=$TYPE DEBUG=1 make board/build-firmware
+# echo "Checking if files were created for board: $DEVICE ($TYPE)"
+# ls -l bin/$TYPE/${DEVICE}_END_DEVICE/ 2>/dev/null || echo "No end_device files found"
 
-echo "=== Updating integration files ==="
-make tools/update_converters
-make tools/update_zha_quirk
-make tools/update_homed_extension
-make tools/update_supported_devices
+# echo "=== Updating integration files ==="
+# make tools/update_converters
+# make tools/update_zha_quirk
+# make tools/update_homed_extension
+# make tools/update_supported_devices
 
 echo "=== Build complete ==="
 echo "Debug firmware built for $DEVICE"

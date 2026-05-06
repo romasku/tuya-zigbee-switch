@@ -1,6 +1,7 @@
 {
 	"name": "tuya-zigbee-switch",
 	"image": "mcr.microsoft.com/devcontainers/cpp",
+	"runArgs": ["--platform=linux/amd64" ],
 	"postCreateCommand": "sudo apt update && sudo apt install -y default-jdk python3-venv uncrustify && ./make_scripts/make_install.sh",
 	"remoteEnv": {
 		"VIRTUAL_ENV": "/workspaces/tuya-zigbee-switch/.venv",
