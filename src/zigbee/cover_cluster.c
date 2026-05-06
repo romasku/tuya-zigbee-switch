@@ -164,6 +164,9 @@ void cover_cluster_on_write_attr(zigbee_cover_cluster *cluster, uint16_t attribu
 }
 
 void cover_cluster_callback_attr_write_trampoline(uint8_t endpoint, uint16_t attribute_id) {
+    if (cover_cluster_by_endpoint[endpoint] == NULL) {
+        return;
+    }
     cover_cluster_on_write_attr(cover_cluster_by_endpoint[endpoint], attribute_id);
 }
 

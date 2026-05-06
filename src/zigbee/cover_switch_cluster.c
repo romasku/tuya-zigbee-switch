@@ -324,6 +324,9 @@ void cover_switch_cluster_on_write_attr(zigbee_cover_switch_cluster *cluster,
 
 void cover_switch_cluster_callback_attr_write_trampoline(uint8_t endpoint,
                                                          uint16_t attribute_id) {
+    if (cover_switch_cluster_by_endpoint[endpoint] == NULL) {
+        return;
+    }
     cover_switch_cluster_on_write_attr(cover_switch_cluster_by_endpoint[endpoint],
                                        attribute_id);
 }
