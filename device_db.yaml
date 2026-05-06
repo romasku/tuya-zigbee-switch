@@ -1589,6 +1589,32 @@ MODULE_IHSENO_B_TS0001:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/pull/386
   store: null
+MODULE_LORATAP_TS130F_1GANG:
+  human_name: LoraTap 1-gang curtains
+  category: module
+  power: mains
+  neutral: required
+  output: relay
+  device_type: router
+  stock_model_name: SC500ZB-v4
+  stock_manufacturer_name: _TZ3000_5iixzdo7
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: SC500ZB-v4
+  override_z2m_device: SC500ZB-v4
+  tuya_module: ZT2S_real
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: 5iixzdo7;SC500ZB-v4;BD2u;LB7i;XC3C2f;CB5B4;
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
+  firmware_image_type: 43616
+  build: yes
+  status: in_progress
+  info: Curtains not implemented!
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/270
+  store: https://www.aliexpress.com/item/1005003864471089.html
 MODULE_LVGESS_PM_TSOOO1:
   human_name: LVGESS 1-gang PM
   category: module
