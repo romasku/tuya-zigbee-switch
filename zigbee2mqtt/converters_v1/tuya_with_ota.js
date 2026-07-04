@@ -28,6 +28,7 @@ const ota = require("zigbee-herdsman-converters/lib/ota");
 ********************************************************************/
 
 const tuyaModels = [
+    "ERS-10TZBVK-AA",
     "FZB-1",
     "IH-K663",
     "QS-Zigbee-SEC01-U",
