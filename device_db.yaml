@@ -6139,3 +6139,30 @@ SWITCH_ZEMISMART_TS0601_6GANG:
   info: Needs pinout. Secondary MCU. 6-gang!
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/209
   store: https://www.zemismart.com/products/tb26-6
+REMOTE_TUYA_SMART_KNOB:
+  human_name: Tuya Smart Knob 
+  category: remote
+  power: CR2032
+  neutral: without
+  output: nothing
+  device_type: end_device
+  stock_model_name: lumi.remote.b286acn01
+  stock_manufacturer_name: LUMI
+  stock_converter_manufacturer: Aqara
+  stock_converter_model: WXKG02LM_rev2
+  override_z2m_device: null
+  tuya_module: none
+  mcu_family: Silabs
+  mcu: EFR32MG21A020F768IM32
+  config_str: qja6nq5z;TS004F;LD0i;EB0uA0uA4u;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: null
+  stock_image_type: null
+  firmware_image_type: 54179
+  build: yes
+  status: in_progress
+  info: Encoder support in development 
+  threads: null
+  store: https://www.aliexpress.com/item/1005006690028688.html

@@ -7,7 +7,9 @@ const {
     binary,
     windowCovering,
     deviceAddCustomCluster,
+    setupConfigureForBinding,
 } = require("zigbee-herdsman-converters/lib/modernExtend");
+const {presets: e, access: ea} = require("zigbee-herdsman-converters/lib/exposes");
 const {assertString} = require("zigbee-herdsman-converters/lib/utils");
 const reporting = require("zigbee-herdsman-converters/lib/reporting");
 const constants = require("zigbee-herdsman-converters/lib/constants");
@@ -26,6 +28,11 @@ const ota = require("zigbee-herdsman-converters/lib/ota");
 
   Generate with: `make tools/update_converters`
 ********************************************************************/
+
+const genEncoderPayload = (endpoint, action, stepSize) => ({
+  [`${endpoint}_action`]: action,
+  [`${endpoint}_step_size`]: stepSize,
+})
 
 const romasku = {
     switchAction: (name, endpointName) =>
@@ -241,8 +248,10 @@ const romasku = {
                         ;
                     } else if(part[0] == 'i') {
                         ; // TODO: write validation
+                    } else if(part[0] == 'E') {
+                        ; // TODO: write validation
                     } else {
-                        throw new Error(`Invalid entry ${part}. Should start with one of B, BT, C, D, I, L, M, R, S, SLP, X, i`);
+                        throw new Error(`Invalid entry ${part}. Should start with one of B, BT, C, D, I, L, M, R, S, SLP, X, i, E`);
                     }
                 }
             },
@@ -358,6 +367,73 @@ const romasku = {
             description: "Reverse motor direction (swap OPEN/CLOSE relays)",
             entityCategory: "config",
         }),
+    encoderAction: (endpointName) =>{
+        const exposes = [];
+        exposes.push(e.enum(`${endpointName}_action`, ea.STATE, [])
+          .withDescription("Last triggered action")
+          .withCategory("diagnostic"))
+        exposes.push(e.numeric(`${endpointName}_step_size`, ea.STATE, [])
+          .withValueMin(0)
+          .withValueMax(5000)
+          .withDescription("Step size for last triggered action")
+          .withCategory("diagnostic"))
+
+        const fromZigbee = [
+        {
+            cluster: "genLevelCtrl",
+            type: ["commandStep"],
+            convert:
+                ((model, msg, publish, options, meta) => {
+                  publish(genEncoderPayload(endpointName, `brightness_${msg.data.stepmode === 0 ? 'up' : 'down'}`, msg.data.stepsize));
+                   
+                  setTimeout(() => {
+                    publish(genEncoderPayload(endpointName, '', 0));
+                  }, 20);
+
+                  return;
+                }),
+            // biome-ignore lint/suspicious/noExplicitAny: generic
+        },
+        {
+            cluster: "lightingColorCtrl",
+            type: ["commandStepColorTemp"],
+            convert:
+                ((model, msg, publish, options, meta) => {
+                    publish(genEncoderPayload(endpointName, `color_temp_${msg.data.stepmode === 1 ? 'up' : 'down'}`, msg.data.stepsize));
+
+                    setTimeout(() => {
+                      publish(genEncoderPayload(endpointName, '', 0));
+                    }, 20); 
+
+                    return;
+                }),
+            // biome-ignore lint/suspicious/noExplicitAny: generic
+        },
+        {
+            cluster: "genOnOff",
+            type: ["commandToggle"],
+            convert:
+                ((model, msg, publish, options, meta) => {
+                    publish(genEncoderPayload(endpointName, 'toggle_on_off', 0));
+
+                    setTimeout(() => {
+                      publish(genEncoderPayload(endpointName, '', 0));
+                    }, 20); 
+
+                    return;
+                }),
+            // biome-ignore lint/suspicious/noExplicitAny: generic
+        }
+      ];
+
+        const configure = [
+          setupConfigureForBinding("genLevelCtrl", "output", [endpointName]),
+          setupConfigureForBinding("lightingColorCtrl", "output", [endpointName]),
+          setupConfigureForBinding("genOnOff", "output", [endpointName]),
+        ]
+
+        return {exposes, fromZigbee, configure, isModernExtend: true};
+      },
 };
 
 const definitions = [
@@ -414,6 +490,9 @@ const definitions = [
                 {%- for coverName in device.coverNames -%}
                     "{{coverName}}": {{loop.index + (device.switchNames | length) + (device.relayNames | length) + (device.coverSwitchNames | length)}},{{" "}}
                 {%- endfor -%}
+                {%- for encoder in device.encoders -%}
+                    "{{encoder}}": {{loop.index + (device.switchNames | length) + (device.relayNames | length) + (device.coverSwitchNames | length) + (device.coverNames | length)}},{{" "}}
+                {%- endfor -%}
             } }),
             {% set first_endpoint = device.switchNames[0] if device.switchNames else (device.relayNames[0] if device.relayNames else (device.coverSwitchNames[0] if device.coverSwitchNames else device.coverNames[0])) %}
             romasku.deviceConfig("device_config", "{{first_endpoint}}"),
@@ -460,6 +539,9 @@ const definitions = [
             {% endif %}
             romasku.coverSwitchBindedMode("{{coverSwitchName}}_binded_mode", "{{coverSwitchName}}"),
             romasku.coverSwitchLongPressDuration("{{coverSwitchName}}_long_press_duration", "{{coverSwitchName}}"),
+            {% endfor %}
+            {% for encoder in device.encoders %}
+            romasku.encoderAction("{{encoder}}"),
             {% endfor %}
         ],
         meta: { multiEndpoint: true },
