@@ -68,19 +68,30 @@ static void setWriteEnableLatch(void) {
     spi_setCsInactive();
 }
 
-static StorageSpiflashDevice_t getDeviceType(void) {
-    uint8_t  mfgId;
-    uint16_t deviceId;
+// Raw JEDEC id (0x9F) of the last-probed device, cached by getDeviceType() so the
+// generic-fallback path in getDeviceInfo()/getDeviceSize() can derive the part size
+// from the density code without re-issuing the command.
+static uint8_t  spiflashLastMfgId;
+static uint16_t spiflashLastDeviceId;
 
-    // cannot check for busy in this API since it is used by
-    //  init.  Callers must verify not busy individually.
-    spi_setCsActive();
-    // following implementation takes smaller buffer (3) of efm into account
-    spi_writeByte(CMD_JEDEC_ID);
-    mfgId    = spi_readByte();
-    deviceId = spi_readHalfword();
-    spi_setCsInactive();
+#if defined(BTL_STORAGE_SPIFLASH_GENERIC_JEDEC) && (BTL_STORAGE_SPIFLASH_GENERIC_JEDEC == 1)
+// Reject a missing/floating flash (bus reads all-0x00 or all-0xFF) and out-of-range
+// density codes, so "no chip present" is never mistaken for a valid generic part.
+// The low byte of the JEDEC device id is the density code: size in bytes == 1 << code.
+static bool isPlausibleJedec(uint8_t mfgId, uint16_t deviceId) {
+    uint8_t densityCode = (uint8_t)(deviceId & 0xFF);
 
+    if ((mfgId == 0x00) || (mfgId == 0xFF)) {
+        return false;
+    }
+    // 0x11..0x19 -> 128 KiB .. 32 MiB, covering every realistic SPI-NOR on these modules
+    return (densityCode >= 0x11) && (densityCode <= 0x19);
+}
+#endif
+
+// Match a JEDEC (manufacturer, device) id against the table of explicitly-supported
+// parts. Returns UNKNOWN_DEVICE when the id is not in the table.
+static StorageSpiflashDevice_t matchDeviceType(uint8_t mfgId, uint16_t deviceId) {
     switch (mfgId) {
     case MFG_ID_TSINGTENG:
         switch (deviceId) {
@@ -229,6 +240,36 @@ static StorageSpiflashDevice_t getDeviceType(void) {
     }
 }
 
+static StorageSpiflashDevice_t getDeviceType(void) {
+    uint8_t  mfgId;
+    uint16_t deviceId;
+
+    // cannot check for busy in this API since it is used by
+    //  init.  Callers must verify not busy individually.
+    spi_setCsActive();
+    // following implementation takes smaller buffer (3) of efm into account
+    spi_writeByte(CMD_JEDEC_ID);
+    mfgId    = spi_readByte();
+    deviceId = spi_readHalfword();
+    spi_setCsInactive();
+
+    spiflashLastMfgId    = mfgId;
+    spiflashLastDeviceId = deviceId;
+
+    StorageSpiflashDevice_t deviceType = matchDeviceType(mfgId, deviceId);
+
+#if defined(BTL_STORAGE_SPIFLASH_GENERIC_JEDEC) && (BTL_STORAGE_SPIFLASH_GENERIC_JEDEC == 1)
+    // Any standard SPI-NOR not in the table but reporting a plausible JEDEC id is served
+    // by a generic profile instead of returning UNKNOWN_DEVICE (which storage_init()
+    // turns into BOOTLOADER_ERROR_INIT_STORAGE, leaving the module dead after flashing).
+    if ((deviceType == UNKNOWN_DEVICE) && isPlausibleJedec(mfgId, deviceId)) {
+        deviceType = GENERIC_JEDEC_DEVICE;
+    }
+#endif
+
+    return deviceType;
+}
+
 BootloaderStorageImplementationInformation_t getDeviceInfo(void) {
     waitUntilNotBusy();
     BootloaderStorageImplementationInformation_t unknownSPIFlash = { 0 };
@@ -340,6 +381,25 @@ BootloaderStorageImplementationInformation_t getDeviceInfo(void) {
     case ISSI_4M_DEVICE:
         return issi4MInfo;
 #endif
+#if defined(BTL_STORAGE_SPIFLASH_GENERIC_JEDEC) && (BTL_STORAGE_SPIFLASH_GENERIC_JEDEC == 1)
+    case GENERIC_JEDEC_DEVICE: {
+        // Built at runtime: standard SPI-NOR profile with the total size derived from
+        // the cached JEDEC density code (size in bytes == 1 << code).
+        BootloaderStorageImplementationInformation_t genericInfo = {
+            BOOTLOADER_STORAGE_IMPL_INFO_VERSION,
+            (BOOTLOADER_STORAGE_IMPL_CAPABILITY_ERASE_SUPPORTED
+             | BOOTLOADER_STORAGE_IMPL_CAPABILITY_PAGE_ERASE_REQUIRED),
+            TIMING_ERASE_4K_MAX_MS,
+            TIMING_ERASE_GENERIC_MAX_MS,
+            DEVICE_SECTOR_SIZE,
+            (uint32_t)(1UL << (spiflashLastDeviceId & 0xFF)),
+            NULL,
+            DEVICE_WORD_SIZE, // word size in bytes
+            BOOTLOADER_STORAGE_JEDEC
+        };
+        return genericInfo;
+    }
+#endif
     default:
         return unknownSPIFlash;
     }
@@ -400,6 +460,11 @@ static uint32_t getDeviceSize(StorageSpiflashDevice_t *pDeviceType) {
 
     case MACRONIX_64M_LP_DEVICE:
         return DEVICE_SIZE_64M;
+
+#if defined(BTL_STORAGE_SPIFLASH_GENERIC_JEDEC) && (BTL_STORAGE_SPIFLASH_GENERIC_JEDEC == 1)
+    case GENERIC_JEDEC_DEVICE:
+        return (uint32_t)(1UL << (spiflashLastDeviceId & 0xFF));
+#endif
 
     default:
         return 0;
