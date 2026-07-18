@@ -10,6 +10,12 @@ Please describe what you are working on, under ## Upcoming
 
 ## Upcoming
 
+### Devices
+
+- **Hommyn 2-gang L-only relay module** (`_TZ3000_0e6uvexf`, `MODULE_HOMMYN_TS0012`)
+  - Pinout: L1 `RB5`, L2 `RB4`, switches `SC2f`/`SC3f`
+  - Defaults to momentary switch mode (`M;` in config)
+
 ### Features
 
 - **Cover cluster** (window covering) for controlling the motor of curtains, blinds, and shutters.
