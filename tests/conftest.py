@@ -96,12 +96,17 @@ class RelayButtonPair:
     button_pin: str
     switch_endpoint: int
     relay_endpoint: int
+    long_press_endpoint: int
 
 
 @pytest.fixture()
 def relay_button_pairs(
-    button_pins: list[str], relay_pins: list[str]
+    button_pins: list[str], relay_pins: list[str], device_config: str
 ) -> list[RelayButtonPair]:
+    num_covers = sum(1 for p in device_config.split(";") if p.startswith("C"))
+    relay_offset = len(button_pins)
+    long_press_ep_offset = len(button_pins) + len(relay_pins) + num_covers
+
     pairs = []
     for i in range(min(len(button_pins), len(relay_pins))):
         pairs.append(
@@ -109,7 +114,8 @@ def relay_button_pairs(
                 relay_pin=relay_pins[i],
                 button_pin=button_pins[i],
                 switch_endpoint=i + 1,
-                relay_endpoint=len(button_pins) + i + 1,
+                relay_endpoint=relay_offset + i + 1,
+                long_press_endpoint=long_press_ep_offset + i + 1,
             )
         )
     return pairs

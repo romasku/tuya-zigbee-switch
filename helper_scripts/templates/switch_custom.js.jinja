@@ -107,6 +107,36 @@ const romasku = {
             valueMax: 255,
             entityCategory: "config",
         }),
+    longRelayMode: (name, endpointName) =>
+        enumLookup({
+            name,
+            endpointName,
+            lookup: { detached: 0, long_press: 2 },
+            cluster: "genOnOffSwitchCfg",
+            attribute: { ID: 0xff01, type: 0x30 }, // Enum8
+            description: "When to toggle the local relay on this long-press endpoint",
+            entityCategory: "config",
+        }),
+    moveCommand: (name, endpointName) =>
+        enumLookup({
+            name,
+            endpointName,
+            lookup: { move: 1, move_with_on_off: 5 },
+            cluster: "genOnOffSwitchCfg",
+            attribute: { ID: 0xff09, type: 0x30 }, // Enum8
+            description: "Which LevelControl command to emit while held: Move (0x01) or MoveWithOnOff (0x05)",
+            entityCategory: "config",
+        }),
+    levelMoveDirection: (name, endpointName) =>
+        enumLookup({
+            name,
+            endpointName,
+            lookup: { up: 0, down: 1, alternate: 0xff },
+            cluster: "genOnOffSwitchCfg",
+            attribute: { ID: 0xff08, type: 0x30 }, // Enum8
+            description: "Level move direction while held: up, down, or alternate (flips per long-press)",
+            entityCategory: "config",
+        }),
     pressAction: (name, endpointName) =>
         enumLookup({
             name,
@@ -414,6 +444,10 @@ const definitions = [
                 {%- for coverName in device.coverNames -%}
                     "{{coverName}}": {{loop.index + (device.switchNames | length) + (device.relayNames | length) + (device.coverSwitchNames | length)}},{{" "}}
                 {%- endfor -%}
+                {# Long-press companion endpoints, appended after everything to keep existing endpoint IDs stable. #}
+                {%- for switchName in device.switchNames -%}
+                    "{{switchName}}_long_press": {{loop.index + (device.switchNames | length) + (device.relayNames | length) + (device.coverSwitchNames | length) + (device.coverNames | length)}},{{" "}}
+                {%- endfor -%}
             } }),
             {% set first_endpoint = device.switchNames[0] if device.switchNames else (device.relayNames[0] if device.relayNames else (device.coverSwitchNames[0] if device.coverSwitchNames else device.coverNames[0])) %}
             romasku.deviceConfig("device_config", "{{first_endpoint}}"),
@@ -435,6 +469,14 @@ const definitions = [
             romasku.bindedMode("{{switchName}}_binded_mode", "{{switchName}}"),
             romasku.longPressDuration("{{switchName}}_long_press_duration", "{{switchName}}"),
             romasku.levelMoveRate("{{switchName}}_level_move_rate", "{{switchName}}"),
+            romasku.switchAction("{{switchName}}_long_press_action_mode", "{{switchName}}_long_press"),
+            romasku.longRelayMode("{{switchName}}_long_press_relay_mode", "{{switchName}}_long_press"),
+            {% if device.relayNames %}
+            romasku.relayIndex("{{switchName}}_long_press_relay_index", "{{switchName}}_long_press", {{device.relayNames | length}}),
+            {% endif %}
+            romasku.moveCommand("{{switchName}}_long_press_move_command", "{{switchName}}_long_press"),
+            romasku.levelMoveDirection("{{switchName}}_long_press_level_move_direction", "{{switchName}}_long_press"),
+            romasku.levelMoveRate("{{switchName}}_long_press_level_move_rate", "{{switchName}}_long_press"),
             {% endfor %}
             {% for relayName in device.relayIndicatorNames %}
             romasku.relayIndicatorMode("{{relayName}}_indicator_mode", "{{relayName}}"),

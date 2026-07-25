@@ -12,6 +12,15 @@ Please describe what you are working on, under ## Upcoming
 
 ### Features
 
+- **Long-press companion endpoints** — new endpoints `2N+1`..`3N` paired with
+  the existing switch endpoints `1..N`.
+  - One button can now drive two independent Zigbee bindings: short-press on
+    `1..N`, long-press on `2N+1`..`3N`.
+  - LevelControl emit on long-press is configurable: `Move` vs `MoveWithOnOff`,
+    direction `Up`/`Down`/`Alternate`.
+  - Safe defaults — nothing happens on long-press until you opt in. A mutex
+    protects against conflicting configurations between paired endpoints.
+  - See [endpoints.md](usage/endpoints.md#long-press-as-a-second-binding-target).
 - **Cover cluster** (window covering) for controlling the motor of curtains, blinds, and shutters.
   Supports open, close, and stop commands with motor safety delays.
 - **Cover switch cluster** for handling user input from window covering switches.
@@ -29,6 +38,11 @@ Please describe what you are working on, under ## Upcoming
 
 ### Changes
 
+- **Deprecate `binded_mode=LONG` and `relay_mode=LONG` on switch endpoints** —
+  use the new long-press companion endpoint instead. Legacy configurations keep
+  working unchanged; while a switch endpoint is in either deprecated long mode,
+  its paired long-press endpoint is muted to prevent double-toggles and
+  conflicting emissions.
 - Add `D<N>` config option to customize button debounce delay in milliseconds
 - **Bi-stable (latching) relays** have been reworked
   - They now use proper pulses instead of continuously driving the coil

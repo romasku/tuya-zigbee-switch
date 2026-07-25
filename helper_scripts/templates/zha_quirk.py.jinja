@@ -14,6 +14,11 @@ class RelayMode(t.enum8):
     LongPress = 0x02
     ShortPress = 0x03
 
+
+class LongPressRelayMode(t.enum8):
+    Detached = 0x00
+    LongPress = 0x02
+
 class BindedMode(t.enum8):
     PressStart = 0x01
     LongPress = 0x02
@@ -43,6 +48,17 @@ class CoverSwitchMode(t.enum8):
     ShortPress = 0x01
     LongPress = 0x02
     Hybrid = 0x03
+
+
+class LevelMoveCommand(t.enum8):
+    Move = 0x01
+    MoveWithOnOff = 0x05
+
+
+class LevelMoveDirection(t.enum8):
+    Up = 0x00
+    Down = 0x01
+    Alternate = 0xff
 
 
 class CustomOnOffConfigurationCluster(CustomCluster, OnOffConfiguration):
@@ -88,6 +104,20 @@ class CustomOnOffConfigurationCluster(CustomCluster, OnOffConfiguration):
         binded_mode = ZCLAttributeDef(
             id=0xff05,
             type=BindedMode,
+            access="rw",
+            is_manufacturer_specific=False,
+        )
+
+        level_move_direction = ZCLAttributeDef(
+            id=0xff08,
+            type=LevelMoveDirection,
+            access="rw",
+            is_manufacturer_specific=False,
+        )
+
+        move_command = ZCLAttributeDef(
+            id=0xff09,
+            type=LevelMoveCommand,
             access="rw",
             is_manufacturer_specific=False,
         )
@@ -502,4 +532,81 @@ for config in CONFIGS:
             )
         )
 
-    builder.add_to_registry()
+    long_press_start = switch_cnt + relay_cnt + cover_switch_cnt + cover_cnt + 1
+
+    if switch_cnt > 0:
+        legacy_builder = builder.clone(omit_man_model_data=False)
+        legacy_builder.filter(
+            lambda d, ep=long_press_start: ep not in d.endpoints
+        )
+        legacy_builder.add_to_registry()
+
+        for endpoint_id in range(long_press_start, long_press_start + switch_cnt):
+            builder = (
+                builder
+                .removes(OnOffConfiguration.cluster_id, cluster_type=ClusterType.Client, endpoint_id=endpoint_id)
+                .adds(CustomOnOffConfigurationCluster, endpoint_id=endpoint_id)
+                .enum(
+                    CustomOnOffConfigurationCluster.AttributeDefs.switch_actions.name,
+                    SwitchActions,
+                    CustomOnOffConfigurationCluster.cluster_id,
+                    translation_key="long_press_switch_actions_"+str(endpoint_id),
+                    fallback_name="Long press switch actions "+str(endpoint_id),
+                    endpoint_id=endpoint_id,
+                    entity_type=EntityType.CONFIG,
+                )
+                .enum(
+                    CustomOnOffConfigurationCluster.AttributeDefs.relay_mode.name,
+                    LongPressRelayMode,
+                    CustomOnOffConfigurationCluster.cluster_id,
+                    translation_key="long_press_relay_mode_"+str(endpoint_id),
+                    fallback_name="Long press relay mode "+str(endpoint_id),
+                    endpoint_id=endpoint_id,
+                    entity_type=EntityType.CONFIG,
+                )
+                .number(
+                    CustomOnOffConfigurationCluster.AttributeDefs.relay_index.name,
+                    CustomOnOffConfigurationCluster.cluster_id,
+                    translation_key="long_press_relay_index_"+str(endpoint_id),
+                    fallback_name="Long press relay index "+str(endpoint_id),
+                    min_value=1,
+                    max_value=relay_cnt,
+                    step=1,
+                    endpoint_id=endpoint_id,
+                    entity_type=EntityType.CONFIG,
+                )
+                .enum(
+                    CustomOnOffConfigurationCluster.AttributeDefs.move_command.name,
+                    LevelMoveCommand,
+                    CustomOnOffConfigurationCluster.cluster_id,
+                    translation_key="long_press_move_command_"+str(endpoint_id),
+                    fallback_name="Long press move command "+str(endpoint_id),
+                    endpoint_id=endpoint_id,
+                    entity_type=EntityType.CONFIG,
+                )
+                .enum(
+                    CustomOnOffConfigurationCluster.AttributeDefs.level_move_direction.name,
+                    LevelMoveDirection,
+                    CustomOnOffConfigurationCluster.cluster_id,
+                    translation_key="long_press_level_move_direction_"+str(endpoint_id),
+                    fallback_name="Long press level move direction "+str(endpoint_id),
+                    endpoint_id=endpoint_id,
+                    entity_type=EntityType.CONFIG,
+                )
+                .number(
+                    CustomOnOffConfigurationCluster.AttributeDefs.level_move_rate.name,
+                    CustomOnOffConfigurationCluster.cluster_id,
+                    translation_key="long_press_level_move_rate_"+str(endpoint_id),
+                    fallback_name="Long press level move rate "+str(endpoint_id),
+                    min_value=1,
+                    max_value=255,
+                    step=1,
+                    endpoint_id=endpoint_id,
+                    entity_type=EntityType.CONFIG,
+                )
+            )
+
+        builder.filter(lambda d, ep=long_press_start: ep in d.endpoints)
+        builder.add_to_registry()
+    else:
+        builder.add_to_registry()
