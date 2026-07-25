@@ -4769,6 +4769,33 @@ SWITCH_BSEED_TS0726_L_4GANG:
   - https://www.aliexpress.com/item/1005010747186290.html
   - https://www.aliexpress.com/item/1005010805195317.html
   - https://www.bseed.com/products/click-series-diy-part-customized-free-combinations-smart-zigbee-switch-socket-insert-white-color-crystal-glass-panel-copy?variant=47882814292123
+SWITCH_GIRIER_TS0014:
+  human_name: Girier 4-gang switch
+  category: switch
+  power: mains
+  neutral: optional
+  output: null
+  device_type: end_device
+  stock_model_name: TS0014
+  stock_manufacturer_name: _TZ3000_p1h4zuvh
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0014
+  override_z2m_device: null
+  tuya_module: ZS3L
+  mcu_family: Silabs
+  mcu: EFR32MG21A020F768IM32
+  config_str: p1h4zuvh;Girier-4-gang;SA0u;RC0;IC2;SA3u;RD1;IA6;SA4u;RB0;IA5;SB1u;RC1;ID0;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: null
+  stock_image_type: null
+  firmware_image_type: 43644
+  build: yes
+  status: fully_supported
+  info: Supported
+  threads: null
+  store: https://www.aliexpress.com/item/1005009121294755.html
 SWITCH_HOBEIAN_TS0011:
   human_name: HOBEIAN ZG-302Z1
   category: switch
