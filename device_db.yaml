@@ -5838,7 +5838,7 @@ SWITCH_RETLUX_RSH301:
   build: yes
   status: fully_supported
   info: Supported
-  threads: https://github.com/romasku/tuya-zigbee-switch/pull/TBD
+  threads: https://github.com/romasku/tuya-zigbee-switch/pull/475
   store: https://www.alza.sk/retlux-rsh-301-smart-jednotlacidlovy-podomietkovy-vypinac-d13119843.htm
 SWITCH_RETLUX_RSH302:
   human_name: Retlux RSH302 2-gang switch
@@ -5865,7 +5865,7 @@ SWITCH_RETLUX_RSH302:
   build: yes
   status: fully_supported
   info: Supported
-  threads: https://github.com/romasku/tuya-zigbee-switch/pull/TBD
+  threads: https://github.com/romasku/tuya-zigbee-switch/pull/475
   store: https://www.alza.sk/retlux-rsh-302-smart-dvojtlacidlovy-podomietkovy-vypinac-d13119841.htm
 SWITCH_TUYA_A_TS0001:
   human_name: Tuya 1-gang switch
