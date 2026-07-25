@@ -115,7 +115,8 @@ BOARD__MHCOZY_TS0004_3:
   old_zb_models: null
   stock_manufacturer_id: 4417
   stock_image_type: 513
-  firmware_image_type: 45631
+  firmware_image_type: 47133
+  migration_from_image_type: [45631]
   build: yes
   status: mostly_supported
   info: Needs pinout confirmation
@@ -142,7 +143,8 @@ BOARD__SCIMAGIC_TS0001:
   old_zb_models: null
   stock_manufacturer_id: 4417
   stock_image_type: 54179
-  firmware_image_type: 43623
+  firmware_image_type: 47124
+  migration_from_image_type: [43623]
   build: yes
   status: fully_supported
   info: Supported
@@ -250,7 +252,8 @@ DIN_RELAY_TUYA_TS011F_PM:
   old_zb_models: null
   stock_manufacturer_id: 4417
   stock_image_type: 54179
-  firmware_image_type: 45599
+  firmware_image_type: 47132
+  migration_from_image_type: [45599]
   build: yes
   status: in_progress
   info: Power monitoring not implemented
@@ -395,7 +398,8 @@ MODULE_AVATTO_A_TS0001:
   - TS0001-AV-CUS
   stock_manufacturer_id: 4417
   stock_image_type: 54179
-  firmware_image_type: 43527
+  firmware_image_type: 47117
+  migration_from_image_type: [43527]
   build: yes
   status: fully_supported
   info: Supported
@@ -722,7 +726,8 @@ MODULE_EKAZA_TS0002:
   old_zb_models: null
   stock_manufacturer_id: 4417
   stock_image_type: 54179
-  firmware_image_type: 43547
+  firmware_image_type: 47119
+  migration_from_image_type: [43547]
   build: yes
   status: fully_supported
   info: Supported
@@ -1324,7 +1329,8 @@ MODULE_GIRIER_ZTU_TS0001:
   old_zb_models: null
   stock_manufacturer_id: 4417
   stock_image_type: 54179
-  firmware_image_type: 45585
+  firmware_image_type: 47130
+  migration_from_image_type: [45585]
   build: yes
   status: fully_supported
   info: Supported
@@ -1908,7 +1914,8 @@ MODULE_NOUS_B1Z_TS0001:
   old_zb_models: null
   stock_manufacturer_id: 4417
   stock_image_type: 54179
-  firmware_image_type: 43633
+  firmware_image_type: 47125
+  migration_from_image_type: [43633]
   build: yes
   status: fully_supported
   info: Supported
@@ -2152,7 +2159,8 @@ MODULE_TUYA_COMMON_TS0004:
   old_zb_models: null
   stock_manufacturer_id: 4417
   stock_image_type: 54179
-  firmware_image_type: 47004
+  firmware_image_type: 47143
+  migration_from_image_type: [47004]
   build: yes
   status: fully_supported
   info: Supported
@@ -2179,7 +2187,8 @@ MODULE_TUYA_COMMON2_TS0003:
   old_zb_models: null
   stock_manufacturer_id: 4417
   stock_image_type: 54179
-  firmware_image_type: 47005
+  firmware_image_type: 47144
+  migration_from_image_type: [47005]
   build: yes
   status: fully_supported
   info: Supported
@@ -2467,7 +2476,8 @@ MODULE_TUYA_NOVATO_QS_S05_TS0001:
   old_zb_models: null
   stock_manufacturer_id: 4417
   stock_image_type: 54179
-  firmware_image_type: 45577
+  firmware_image_type: 47127
+  migration_from_image_type: [45577]
   build: yes
   status: fully_supported
   info: Supported
@@ -2494,7 +2504,8 @@ MODULE_TUYA_NOVATO_QS_S05_TS0011:
   old_zb_models: null
   stock_manufacturer_id: 4417
   stock_image_type: 54179
-  firmware_image_type: 45578
+  firmware_image_type: 47128
+  migration_from_image_type: [45578]
   build: yes
   status: fully_supported
   info: Supported
@@ -3132,7 +3143,8 @@ OUTLET_MAKEGOOD_PM_TS011F_2GANG:
   old_zb_models: null
   stock_manufacturer_id: 4417
   stock_image_type: 54179
-  firmware_image_type: 47009
+  firmware_image_type: 47147
+  migration_from_image_type: [47009]
   build: yes
   status: in_progress
   info: Power monitoring not implemented
@@ -3186,7 +3198,8 @@ OUTLET_TUYA_PM_TS011F:
   old_zb_models: null
   stock_manufacturer_id: 4417
   stock_image_type: 54179
-  firmware_image_type: 45681
+  firmware_image_type: 47139
+  migration_from_image_type: [45681]
   build: yes
   status: in_progress
   info: Power monitoring not implemented
@@ -3213,7 +3226,8 @@ PLUG___AUBESS_PM_TS011F:
   old_zb_models: null
   stock_manufacturer_id: 4417
   stock_image_type: 54179
-  firmware_image_type: 43556
+  firmware_image_type: 47120
+  migration_from_image_type: [43556]
   build: yes
   status: in_progress
   info: Power monitoring not implemented
@@ -3240,7 +3254,8 @@ PLUG___LELLKI_TS0001:
   old_zb_models: null
   stock_manufacturer_id: 4417
   stock_image_type: 54179
-  firmware_image_type: 47003
+  firmware_image_type: 47142
+  migration_from_image_type: [47003]
   build: yes
   status: fully_supported
   info: Supported
@@ -3348,7 +3363,8 @@ REMOTE_HOBEIAN_BUTTON_TS0001:
   old_zb_models: null
   stock_manufacturer_id: 4417
   stock_image_type: 54179
-  firmware_image_type: 47002
+  firmware_image_type: 47140
+  migration_from_image_type: [47002]
   build: yes
   status: in_progress
   info: 1MB variant working, 512KB not
@@ -3375,7 +3391,8 @@ REMOTE_IHSENO_BUTTON_TS0041:
   old_zb_models: null
   stock_manufacturer_id: 4417
   stock_image_type: 54179
-  firmware_image_type: 47002
+  firmware_image_type: 47141
+  migration_from_image_type: [47002]
   build: yes
   status: fully_supported
   info: Supported
@@ -3433,7 +3450,8 @@ REMOTE_IHSENO_TS0046:
   old_zb_models: null
   stock_manufacturer_id: 4417
   stock_image_type: 54179
-  firmware_image_type: 43563
+  firmware_image_type: 47121
+  migration_from_image_type: [43563]
   build: yes
   status: in_progress
   info: Max 4 buttons supported
@@ -3460,7 +3478,8 @@ REMOTE_LIDL_BUTTON_TS004F:
   old_zb_models: null
   stock_manufacturer_id: 4417
   stock_image_type: 54179
-  firmware_image_type: 45635
+  firmware_image_type: 47134
+  migration_from_image_type: [45635]
   build: yes
   status: mostly_supported
   info: Lower battery life
@@ -3630,7 +3649,8 @@ REMOTE_TUYA_BUTTON_TS0041:
   old_zb_models: null
   stock_manufacturer_id: 4417
   stock_image_type: 54179
-  firmware_image_type: 45636
+  firmware_image_type: 47135
+  migration_from_image_type: [45636]
   build: yes
   status: fully_supported
   info: Supported
@@ -3657,7 +3677,8 @@ REMOTE_TUYA_BUTTON_TS0041_2:
   old_zb_models: null
   stock_manufacturer_id: 4417
   stock_image_type: 54179
-  firmware_image_type: 45636
+  firmware_image_type: 47136
+  migration_from_image_type: [45636]
   build: yes
   status: in_progress
   info: Not working
@@ -3738,7 +3759,8 @@ REMOTE_TUYA_SWITCH_TS0043:
   old_zb_models: null
   stock_manufacturer_id: 4417
   stock_image_type: 54179
-  firmware_image_type: 45637
+  firmware_image_type: 47137
+  migration_from_image_type: [45637]
   build: yes
   status: mostly_supported
   info: Needs testing
@@ -3765,7 +3787,8 @@ REMOTE_TUYA_SWITCH_TS0043_1:
   old_zb_models: null
   stock_manufacturer_id: 4417
   stock_image_type: 54179
-  firmware_image_type: 45637
+  firmware_image_type: 47138
+  migration_from_image_type: [45637]
   build: yes
   status: fully_supported
   info: Supported
@@ -4354,7 +4377,8 @@ SWITCH_BSEED_TOUCH_TS0001_2:
   old_zb_models: null
   stock_manufacturer_id: 4417
   stock_image_type: 54179
-  firmware_image_type: 45575
+  firmware_image_type: 47126
+  migration_from_image_type: [45575]
   build: yes
   status: fully_supported
   info: Supported
@@ -4408,7 +4432,8 @@ SWITCH_BSEED_TOUCH_TS0002_2:
   old_zb_models: null
   stock_manufacturer_id: 4417
   stock_image_type: 54179
-  firmware_image_type: 45578
+  firmware_image_type: 47129
+  migration_from_image_type: [45578]
   build: yes
   status: in_progress
   info: Missing state indicators (specifc dimming implementation)?
@@ -4760,7 +4785,8 @@ SWITCH_BSEED_TS0726_L_3GANG_2:
   old_zb_models: null
   stock_manufacturer_id: 4417
   stock_image_type: 54179
-  firmware_image_type: 47007
+  firmware_image_type: 47146
+  migration_from_image_type: [47007]
   build: yes
   status: fully_supported
   info: Supported
@@ -5102,7 +5128,8 @@ SWITCH_LERLINK_TS0012:
   old_zb_models: null
   stock_manufacturer_id: 4417
   stock_image_type: 54179
-  firmware_image_type: 43510
+  firmware_image_type: 47116
+  migration_from_image_type: [43510]
   build: yes
   status: fully_supported
   info: Supported
@@ -5129,7 +5156,8 @@ SWITCH_LERLINK_TS0013:
   old_zb_models: null
   stock_manufacturer_id: 4417
   stock_image_type: 54179
-  firmware_image_type: 43533
+  firmware_image_type: 47118
+  migration_from_image_type: [43533]
   build: yes
   status: fully_supported
   info: Supported
@@ -5183,7 +5211,8 @@ SWITCH_LORATAP_TS130F:
   old_zb_models: null
   stock_manufacturer_id: 4417
   stock_image_type: 54179
-  firmware_image_type: 43616
+  firmware_image_type: 47123
+  migration_from_image_type: [43616]
   build: yes
   status: in_progress
   info: Stop button (D2) not implemented
@@ -5670,7 +5699,8 @@ SWITCH_NOVADIGITAL_TS0003:
   old_zb_models: null
   stock_manufacturer_id: 4417
   stock_image_type: 54179
-  firmware_image_type: 43614
+  firmware_image_type: 47122
+  migration_from_image_type: [43614]
   build: yes
   status: fully_supported
   info: Supported
@@ -5834,7 +5864,8 @@ SWITCH_TUYA_A_TS0001:
   old_zb_models: null
   stock_manufacturer_id: 4417
   stock_image_type: 54179
-  firmware_image_type: 47005
+  firmware_image_type: 47145
+  migration_from_image_type: [47005]
   build: yes
   status: in_progress
   info: Can't control relay from Z2M??
@@ -6187,7 +6218,8 @@ SWITCH_ZEMISMART_2_TS0011:
   old_zb_models: null
   stock_manufacturer_id: 4417
   stock_image_type: 54179
-  firmware_image_type: 45589
+  firmware_image_type: 47131
+  migration_from_image_type: [45589]
   build: yes
   status: fully_supported
   info: Supported
