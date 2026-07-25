@@ -4,15 +4,13 @@
 #include "hal/tasks.h"
 #include <stddef.h>
 
-#ifndef RELAY_PULSE_MS
-#define RELAY_PULSE_MS    100
-#endif
 
 #ifndef PULSE_WAIT_END_MS
 #define PULSE_WAIT_END_MS    50
 #endif
 
 extern uint8_t allow_simultaneous_latching_pulses;
+extern uint8_t relay_pulse_ms;
 
 static relay_t *pulse_relay = NULL;
 
@@ -36,11 +34,11 @@ static void relay_start_latching_pulse(relay_t *relay) {
         hal_gpio_write(pin, relay->on_high);
         pulse_relay = relay;
         relay->latching_task.handler = (task_handler_t)relay_end_latching_pulse;
-        hal_tasks_schedule(&relay->latching_task, RELAY_PULSE_MS);
+        hal_tasks_schedule(&relay->latching_task, relay_pulse_ms);
     } else {
         printf("relay_start_latching_pulse: another pulse is active\r\n");
         relay->latching_task.handler = (task_handler_t)relay_start_latching_pulse;
-        hal_tasks_schedule(&relay->latching_task, PULSE_WAIT_END_MS);
+        hal_tasks_schedule(&relay->latching_task, relay_pulse_ms);
     }
 }
 

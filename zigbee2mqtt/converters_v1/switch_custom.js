@@ -217,6 +217,10 @@ const romasku = {
                         if (!/^D\d+$/.test(part)) {
                             throw new Error(`Debounce option ${part} is invalid. Use D<N>, e.g. D100 or D0`);
                         }
+                    } else if (part.startsWith('LP')) {
+                        if (!/^LP\d+$/.test(part)) {
+                            throw new Error(`Latching pulse option ${part} is invalid. Use LP<N>, e.g. LP100 or LP50`);
+                        }
                     } else if (part.startsWith('BT')) {
                         validatePin(part.slice(2,4));
                     } else if (part[0] == 'B' || part[0] == 'S') {

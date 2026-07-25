@@ -111,6 +111,7 @@ Additional options:
 | **`M`**      | Momentary                    | • Defaults buttons to momentary mode (for devices with built-in switches)         |
 | **`BT<pin>`** | Battery mode                | • Enables battery-powered behavior <br> • Adds battery measurement/reporting using the selected ADC pin |
 | **`SLP`**    | Simultaneous Latching Pulses |  • Enable simultaneous pulses for latching relays (they are disallowed by default)|
+| **`LP<N>`**   | Latching pulses duration    | • Set Latching pulse duration in ms for latching relays <br> • Example: `D50` reduces latching pulse duration to 50ms (default 100ms) |
 
 ## Build and install
 
