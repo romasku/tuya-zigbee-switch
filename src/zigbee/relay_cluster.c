@@ -4,6 +4,10 @@
 #include "device_config/nvm_items.h"
 #include "hal/nvm.h"
 #include "hal/printf_selector.h"
+#include "basic_cluster.h"
+
+extern zigbee_basic_cluster basic_cluster;
+extern uint8_t relay_clusters_cnt;
 
 hal_zigbee_cmd_result_t relay_cluster_callback(zigbee_relay_cluster *cluster,
                                                uint8_t command_id,
@@ -57,6 +61,10 @@ void relay_cluster_add_to_endpoint(zigbee_relay_cluster *cluster,
     relay_cluster_by_endpoint[endpoint->endpoint] = cluster;
     cluster->endpoint = endpoint->endpoint;
     relay_cluster_load_attrs_from_nv(cluster);
+
+    cluster->delayed_on_task.arg = cluster;
+    hal_tasks_init(&cluster->delayed_on_task);
+    cluster->pending_on = 0;
 
     cluster->relay->callback_param = cluster;
     cluster->relay->on_change      = (relay_callback_t)relay_cluster_on_relay_change;
@@ -181,19 +189,65 @@ void sync_indicator_led(zigbee_relay_cluster *cluster) {
                                         ZCL_ATTR_ONOFF_INDICATOR_STATE);
 }
 
+static void relay_cluster_delayed_on_handler(zigbee_relay_cluster *cluster) {
+    cluster->pending_on = 0;
+    relay_on(cluster->relay);
+    sync_indicator_led(cluster);
+}
+
 void relay_cluster_on(zigbee_relay_cluster *cluster) {
+    if (cluster->pending_on) {
+        return;
+    }
+    hal_tasks_unschedule(&cluster->delayed_on_task);
+    cluster->pending_on = 0;
+
+    if (basic_cluster.interlock_mode && relay_clusters_cnt > 1) {
+        bool others_were_active = false;
+        for (int i = 0; i < 10; i++) {
+            if (relay_cluster_by_endpoint[i] != NULL && 
+                relay_cluster_by_endpoint[i] != cluster) {
+                
+                if (relay_cluster_by_endpoint[i]->relay->on || 
+                    relay_cluster_by_endpoint[i]->pending_on) {
+                    
+                    relay_cluster_off(relay_cluster_by_endpoint[i]);
+                    others_were_active = true;
+                }
+            }
+        }
+        
+        if (others_were_active && basic_cluster.interlock_delay_ms > 0) {
+            cluster->pending_on = 1;
+            cluster->delayed_on_task.handler = (task_handler_t)relay_cluster_delayed_on_handler;
+            hal_tasks_schedule(&cluster->delayed_on_task, basic_cluster.interlock_delay_ms);
+            return;
+        }
+    }
+
     relay_on(cluster->relay);
     sync_indicator_led(cluster);
 }
 
 void relay_cluster_off(zigbee_relay_cluster *cluster) {
+    hal_tasks_unschedule(&cluster->delayed_on_task);
+    if (cluster->pending_on) {
+        cluster->pending_on = 0;
+        uint8_t val = 0;
+        hal_zigbee_send_report_attr(cluster->endpoint, ZCL_CLUSTER_ON_OFF,
+                                    ZCL_ATTR_ONOFF, ZCL_DATA_TYPE_BOOLEAN,
+                                    &val, 1);
+    }
     relay_off(cluster->relay);
     sync_indicator_led(cluster);
 }
 
 void relay_cluster_toggle(zigbee_relay_cluster *cluster) {
-    relay_toggle(cluster->relay);
-    sync_indicator_led(cluster);
+    if (cluster->relay->on || cluster->pending_on) {
+        relay_cluster_off(cluster);
+    } else {
+        relay_cluster_on(cluster);
+    }
 }
 
 void relay_cluster_on_relay_change(zigbee_relay_cluster *cluster,

@@ -16,6 +16,8 @@ typedef struct {
     relay_t *            relay;
     led_t *              indicator_led;
     uint8_t              indicator_state;
+    hal_task_t           delayed_on_task;
+    uint8_t              pending_on;
 } zigbee_relay_cluster;
 
 void relay_cluster_add_to_endpoint(zigbee_relay_cluster *cluster,

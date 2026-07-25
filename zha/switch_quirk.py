@@ -121,6 +121,20 @@ class CustomBasicCluster(CustomCluster, Basic):
             is_manufacturer_specific=False,
         )
 
+        interlock_mode = ZCLAttributeDef(
+            id=0xff03,
+            type=t.Bool,
+            access="rw",
+            is_manufacturer_specific=False,
+        )
+
+        interlock_delay = ZCLAttributeDef(
+            id=0xff04,
+            type=t.uint16_t,
+            access="rw",
+            is_manufacturer_specific=False,
+        )
+
 
 class RelayIndicatorMode(t.enum8):
     Same = 0x00
@@ -239,10 +253,10 @@ CONFIGS = [
     "nuenzetq1;TS0002-SC;LC3i;SD7u;RD4;SC0u;RA0;M;",
     "TUYA;DEV-ZTU2;LD7;SA0u;RC1;IB6;M;",
     "vbfp8eyv;TS011F-TD;LC4i;SC1u;RD4;IB6i;M;",
-    "46t1rvdu;WHD02-Aubess;BC4u;LD2;SB4u;RB5;",
-    "46t1rvdu;WHD02-Aubess-ED;BC4u;LD2;SB4u;RB5;",
-    "WHD02-Aubess;WHD02-Aubess;BC4u;LD2;SB4u;RB5;",
-    "WHD02-Aubess;WHD02-Aubess-ED;BC4u;LD2;SB4u;RB5;",
+    "46t1rvdu;WHD02-Aubess;BC4u;LD2i;SB4u;RB5;",
+    "46t1rvdu;WHD02-Aubess-ED;BC4u;LD2i;SB4u;RB5;",
+    "WHD02-Aubess;WHD02-Aubess;BC4u;LD2i;SB4u;RB5;",
+    "WHD02-Aubess;WHD02-Aubess-ED;BC4u;LD2i;SB4u;RB5;",
     "lmlsduws;TS0002-AUB;BC4u;LB1;SC2u;RB7;SC3u;RB4;",
     "lvhy15ix;TS0003-AUB;BC4u;LB1;SC2u;RB7;SC3u;RB4;SD2u;RB5;",
     "mmkbptmx;TS0004-custom;BB6u;LB1;SC1u;RB7;SC2u;RB5;SC3u;RB4;SD2u;RC4;",
@@ -355,6 +369,8 @@ CONFIGS = [
     "c8wtsv3p;MS105-ZB-CUSTOM;BC2u;LD2i;SD3u;RD7;",
     "sonoff;ZBMINIL2-custom;BA0u;LC5i;SA6u;RA5A4;",
     "npzfdcof;TS0001-TLED;BD2u;LC3i;SB5u;RB4;",
+    "n1j44rth;TS0002-N1J44RTH;BB4u;LD2i;SC2u;RC4;SC3u;RB5;",
+    "uwhjgngj;TS0003-UWHJGNGJ;BB1u;LB7i;SC2u;RB4;SC3u;RB5;SD2u;RC4;",
     "rfexs4vs;TS0001-C;BA0u;LC0;SB4u;RC2;",
     "khmapq4n;TS0001-SB;BA0u;LC0;SB4u;RC2;",
     "zbfya6h0;TS0002-C;BA0u;LC0;SB4u;RC2;SB5u;RC3;",
@@ -802,6 +818,30 @@ for config in CONFIGS:
             entity_type=EntityType.CONFIG,
         )
     )
+
+    if relay_cnt > 1:
+        builder = (
+            builder
+            .switch(
+                CustomBasicCluster.AttributeDefs.interlock_mode.name,
+                CustomBasicCluster.cluster_id,
+                translation_key="interlock_mode",
+                fallback_name="Interlock mode",
+                endpoint_id=1,
+                entity_type=EntityType.CONFIG,
+            )
+            .number(
+                CustomBasicCluster.AttributeDefs.interlock_delay.name,
+                CustomBasicCluster.cluster_id,
+                translation_key="interlock_delay",
+                fallback_name="Interlock delay",
+                min_value=0,
+                max_value=5000,
+                step=1,
+                endpoint_id=1,
+                entity_type=EntityType.CONFIG,
+            )
+        )
 
     if has_dedicated_net_led:
         builder = (

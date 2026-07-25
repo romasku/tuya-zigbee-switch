@@ -101,6 +101,13 @@ if __name__ == "__main__":
             "multiPressResetCount": {"type": "number", "min": 0, "max": 255}
         }
 
+        if relay_cnt > 1:
+            basic_custom_attrs["interlockMode"] = {"type": "bool", "clusterId": 0x0000, "attributeId": 0xff03, "dataType": 0x10, "action": True}
+            basic_custom_attrs["interlockDelay"] = {"type": "value", "clusterId": 0x0000, "attributeId": 0xff04, "dataType": 0x21, "action": True}
+            basic_exposes.extend(["interlockMode", "interlockDelay"])
+            basic_options["interlockMode"] = {"type": "toggle"}
+            basic_options["interlockDelay"] = {"type": "number", "min": 0, "max": 5000}
+
         if has_dedicated_net_led:
             basic_custom_attrs["networkIndicator"] = {"type": "bool", "clusterId": 0x0000, "attributeId": 0xff01, "dataType": 0x10, "action": True}
             basic_exposes.append("networkIndicator")

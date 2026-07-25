@@ -121,6 +121,20 @@ class CustomBasicCluster(CustomCluster, Basic):
             is_manufacturer_specific=False,
         )
 
+        interlock_mode = ZCLAttributeDef(
+            id=0xff03,
+            type=t.Bool,
+            access="rw",
+            is_manufacturer_specific=False,
+        )
+
+        interlock_delay = ZCLAttributeDef(
+            id=0xff04,
+            type=t.uint16_t,
+            access="rw",
+            is_manufacturer_specific=False,
+        )
+
 
 class RelayIndicatorMode(t.enum8):
     Same = 0x00
@@ -488,6 +502,30 @@ for config in CONFIGS:
             entity_type=EntityType.CONFIG,
         )
     )
+
+    if relay_cnt > 1:
+        builder = (
+            builder
+            .switch(
+                CustomBasicCluster.AttributeDefs.interlock_mode.name,
+                CustomBasicCluster.cluster_id,
+                translation_key="interlock_mode",
+                fallback_name="Interlock mode",
+                endpoint_id=1,
+                entity_type=EntityType.CONFIG,
+            )
+            .number(
+                CustomBasicCluster.AttributeDefs.interlock_delay.name,
+                CustomBasicCluster.cluster_id,
+                translation_key="interlock_delay",
+                fallback_name="Interlock delay",
+                min_value=0,
+                max_value=5000,
+                step=1,
+                endpoint_id=1,
+                entity_type=EntityType.CONFIG,
+            )
+        )
 
     if has_dedicated_net_led:
         builder = (

@@ -186,6 +186,29 @@ const romasku = {
             valueMax: 255,
             entityCategory: "config",
         }),
+    interlockMode: (name, endpointName) =>
+        binary({
+            name,
+            endpointName,
+            valueOn: ["ON", 1],
+            valueOff: ["OFF", 0],
+            cluster: "genBasic",
+            attribute: {ID: 0xff03, type: 0x10},  // Boolean
+            description: "Enable interlock mode for relays",
+            access: "ALL",
+            entityCategory: "config",
+        }),
+    interlockDelay: (name, endpointName) =>
+        numeric({
+            name,
+            endpointNames: [endpointName],
+            cluster: "genBasic",
+            attribute: { ID: 0xff04, type: 0x21 }, // uint16
+            description: "Delay in milliseconds between turning off a relay and turning on the next in interlock mode",
+            valueMin: 0,
+            valueMax: 5000,
+            entityCategory: "config",
+        }),
     deviceConfig: (name, endpointName) =>
         text({
             name,
@@ -418,6 +441,10 @@ const definitions = [
             {% set first_endpoint = device.switchNames[0] if device.switchNames else (device.relayNames[0] if device.relayNames else (device.coverSwitchNames[0] if device.coverSwitchNames else device.coverNames[0])) %}
             romasku.deviceConfig("device_config", "{{first_endpoint}}"),
             romasku.multiPressResetCount("multi_press_reset_count", "{{first_endpoint}}"),
+            {% if device.relayNames and device.relayNames | length > 1 %}
+            romasku.interlockMode("interlock_mode", "{{first_endpoint}}"),
+            romasku.interlockDelay("interlock_delay", "{{first_endpoint}}"),
+            {% endif %}
             {% if device.has_dedicated_net_led %}
             romasku.networkIndicator("network_led", "{{first_endpoint}}"),
             {% endif%}
