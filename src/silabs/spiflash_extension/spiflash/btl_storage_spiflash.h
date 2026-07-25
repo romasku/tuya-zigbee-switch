@@ -91,6 +91,10 @@ typedef enum {
     ISSI_2M_DEVICE,
     ISSI_4M_DEVICE,
     TSINGTENG_8M_DEVICE,
+    // Generic fallback for any standard JEDEC SPI-NOR not matched above. Must remain
+    // last: it stays outside the ATMEL_*/NUMONYX_*/ISSI_* value ranges that
+    // storage_init() and storage_eraseRaw() test for part-specific handling.
+    GENERIC_JEDEC_DEVICE,
 } StorageSpiflashDevice_t;
 
 // -----------------------------------------------------------------------------

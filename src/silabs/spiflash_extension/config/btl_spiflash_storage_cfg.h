@@ -171,6 +171,18 @@
 // <i> Enable support for the Tsingteng TS25Q80UA SPI flash in the bootloader. Adding support for multiple SPI flashes in the bootloader requires more flash memory.
 #define BTL_STORAGE_SPIFLASH_TSINGTENG_TS25Q80UA    1
 
+/*****************************************************************************
+* Generic JEDEC fallback
+*
+*****************************************************************************/
+// <q BTL_STORAGE_SPIFLASH_GENERIC_JEDEC> Support any standard JEDEC SPI flash (generic fallback)
+// <i> Default: 1
+// <i> When a flash chip's JEDEC id (0x9F) is not in any of the tables above, serve it
+// <i> with a generic profile (standard SPI-NOR command set, size derived from the JEDEC
+// <i> density code) instead of failing storage init and leaving the module dead after
+// <i> flashing. Set to 0 to require an explicit table match.
+#define BTL_STORAGE_SPIFLASH_GENERIC_JEDEC    1
+
 // </h>
 // <<< end of configuration section >>>
 
