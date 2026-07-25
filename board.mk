@@ -65,6 +65,10 @@ CONFIG_STR := $(shell yq -r .$(BOARD).config_str $(DEVICE_DB_FILE))
 FROM_STOCK_MANUFACTURER_ID := $(shell yq -r .$(BOARD).stock_manufacturer_id $(DEVICE_DB_FILE))
 FROM_STOCK_IMAGE_TYPE := $(shell yq -r .$(BOARD).stock_image_type $(DEVICE_DB_FILE))
 FIRMWARE_IMAGE_TYPE := $(shell yq -r .$(BOARD).firmware_image_type $(DEVICE_DB_FILE))
+# Superseded image types this device was previously published under (renumbered
+# to fix a duplicate). One migration OTA is emitted per id so units still
+# reporting an old id get updated once and then report the new id.
+MIGRATION_FROM_IMAGE_TYPES := $(shell yq -r '.$(BOARD).migration_from_image_type // [] | .[]' $(DEVICE_DB_FILE))
 
 # ==============================================================================
 # Platform Configuration
@@ -128,7 +132,7 @@ drop-old-files:
 	rm -f $(BIN_PATH)/*.zigbee
 
 # Generate all three types of OTA files
-generate-ota-files: generate-normal-ota generate-tuya-ota generate-force-ota
+generate-ota-files: generate-normal-ota generate-tuya-ota generate-force-ota generate-migration-ota
 
 generate-normal-ota:
 	$(MAKE) $(PLATFORM_PREFIX)/ota \
@@ -154,6 +158,18 @@ generate-force-ota:
 		OTA_IMAGE_TYPE=$(FIRMWARE_IMAGE_TYPE) \
 		OTA_FILE=../../$(FORCE_OTA_FILE)
 
+# Migration OTA per superseded image type: current firmware wrapped in a header
+# carrying the old id, so units still reporting it update once (then they report
+# the new firmware_image_type). Version stays FILE_VERSION -> no re-verify loop.
+generate-migration-ota:
+	@for old_id in $(MIGRATION_FROM_IMAGE_TYPES); do \
+		$(MAKE) $(PLATFORM_PREFIX)/ota \
+			DEVICE_TYPE=$(DEVICE_TYPE) \
+			FILE_VERSION=$(FILE_VERSION) \
+			OTA_IMAGE_TYPE=$$old_id \
+			OTA_FILE=../../$(BIN_PATH)/$(PROJECT_NAME)-$(VERSION_STR)-migration-$$old_id.zigbee; \
+	done
+
 # Update Zigbee2MQTT index files
 update-indexes:
 	@python3 $(HELPERS_PATH)/make_z2m_ota_index.py --db_file $(DEVICE_DB_FILE) $(OTA_FILE) $(Z2M_INDEX_FILE) --board $(BOARD)
@@ -165,11 +181,16 @@ endif
 endif
 endif
 	@python3 $(HELPERS_PATH)/make_z2m_ota_index.py --db_file $(DEVICE_DB_FILE) $(FORCE_OTA_FILE) $(Z2M_FORCE_INDEX_FILE) --board $(BOARD)
+	@for old_id in $(MIGRATION_FROM_IMAGE_TYPES); do \
+		python3 $(HELPERS_PATH)/make_z2m_ota_index.py --db_file $(DEVICE_DB_FILE) \
+			$(BIN_PATH)/$(PROJECT_NAME)-$(VERSION_STR)-migration-$$old_id.zigbee \
+			$(Z2M_INDEX_FILE) --board $(BOARD); \
+	done
 
 
 flash_telink: build-firmware
 	@echo "Flashing $(BIN_FILE) to device via $(TLSRPGM_TTY)"
 	$(MAKE) telink/flasher ARGS="-t25 -a 20 --mrst we 0 ../../$(BIN_FILE)"
 
-.PHONY: help build build-firmware drop-old-files generate-ota-files generate-normal-ota generate-tuya-ota generate-force-ota update-indexes clean_z2m_index update_converters update_zha_quirk update_homed_extension update_supported_devices freeze_ota_links
+.PHONY: help build build-firmware drop-old-files generate-ota-files generate-normal-ota generate-tuya-ota generate-force-ota generate-migration-ota update-indexes clean_z2m_index update_converters update_zha_quirk update_homed_extension update_supported_devices freeze_ota_links
 

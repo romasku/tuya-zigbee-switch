@@ -35,6 +35,16 @@ Please describe what you are working on, under ## Upcoming
 
 ### Changes
 
+- **Made `firmware_image_type` unique per device** — 27 ids were each shared by
+  two or more devices, violating the intended one-id-per-device invariant. OTA
+  matchers (zigpy / Home Assistant ZHA and Zigbee2MQTT) normally tell such
+  devices apart by `manufacturerName`, so most collisions are masked — but where
+  two colliding devices also share a manufacturer name the match breaks, and any
+  entry left without a `manufacturerName` matches the wrong device. The
+  later-registered device in each collision was renumbered to a free id (a CI
+  check now keeps them unique). Each renumbered device ships a migration OTA so
+  already-deployed units update over the air once and then report the new id —
+  no manual re-flash.
 - Add `D<N>` config option to customize button debounce delay in milliseconds
 - **Bi-stable (latching) relays** have been reworked
   - They now use proper pulses instead of continuously driving the coil
