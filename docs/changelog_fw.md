@@ -40,6 +40,7 @@ Please describe what you are working on, under ## Upcoming
   - PowerCfg cluster for battery level monitoring
   - PollCtrl cluster to allow settings poll rate via ZCL
   - Add `BT<pin>` config option to enable battery mode
+  - Silabs end devices now reach EM2 while idle (the debug UART no longer holds an EM1 requirement to keep its receiver on)
 
 ### Bugs
 
