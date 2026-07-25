@@ -305,8 +305,11 @@ hal_zigbee_status_t hal_zigbee_send_cmd_to_bindings(const hal_zigbee_cmd *cmd) {
     fill_cmd(cmd);
 
     sl_zigbee_af_set_command_endpoints(cmd->endpoint, cmd->endpoint);
-    sl_status_t st = sl_zigbee_af_send_command_unicast_to_bindings();
-    return (st == SL_STATUS_OK) ? HAL_ZIGBEE_OK : HAL_ZIGBEE_ERR_SEND_FAILED;
+    sl_status_t st_unicast   = sl_zigbee_af_send_command_unicast_to_bindings();
+    sl_status_t st_multicast = sl_zigbee_af_send_command_multicast_to_bindings();
+
+    return (st_unicast == SL_STATUS_OK || st_multicast == SL_STATUS_OK)
+           ? HAL_ZIGBEE_OK : HAL_ZIGBEE_ERR_SEND_FAILED;
 }
 
 hal_zigbee_status_t

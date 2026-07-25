@@ -51,6 +51,7 @@ Please describe what you are working on, under ## Upcoming
   - Changing device type breaks Silabs NVM data
   - Reset needed 11 presses instead of 10
   - ZHA quirk silently failed to apply on relay-less devices with LED indicators (scene remotes), leaving firmware attributes unreachable from the UI
+  - Silabs: bindings to Zigbee groups ignored when emitting commands
 - **New**
   - SONOFF ZBMINIL2 version updates broken?
 
