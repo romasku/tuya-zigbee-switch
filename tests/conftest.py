@@ -18,8 +18,11 @@ from tests.zcl_consts import (
     ZCL_ATTR_ONOFF_CONFIGURATION_SWITCH_BINDING_MODE,
     ZCL_ATTR_ONOFF_CONFIGURATION_SWITCH_MODE,
     ZCL_ATTR_ONOFF_CONFIGURATION_SWITCH_RELAY_MODE,
+    ZCL_ATTR_WINDOW_COVERING_CLOSE_TIME,
+    ZCL_ATTR_WINDOW_COVERING_CURRENT_POSITION_LIFT_PERCENTAGE,
     ZCL_ATTR_WINDOW_COVERING_MOTOR_REVERSAL,
     ZCL_ATTR_WINDOW_COVERING_MOVING,
+    ZCL_ATTR_WINDOW_COVERING_OPEN_TIME,
     ZCL_CLUSTER_COVER_SWITCH_CONFIG,
     ZCL_CLUSTER_MULTISTATE_INPUT_BASIC,
     ZCL_CLUSTER_ON_OFF,
@@ -28,6 +31,7 @@ from tests.zcl_consts import (
     ZCL_CMD_ONOFF_OFF,
     ZCL_CMD_ONOFF_ON,
     ZCL_CMD_WINDOW_COVERING_DOWN_CLOSE,
+    ZCL_CMD_WINDOW_COVERING_GO_TO_LIFT_PERCENTAGE,
     ZCL_CMD_WINDOW_COVERING_STOP,
     ZCL_CMD_WINDOW_COVERING_UP_OPEN,
 )
@@ -495,6 +499,26 @@ class Device:
         self.call_zigbee_cmd(
             endpoint, ZCL_CLUSTER_WINDOW_COVERING, ZCL_CMD_WINDOW_COVERING_STOP
         )
+
+    def zcl_cover_get_position(self, endpoint: int) -> int:
+        return int(
+            self.read_zigbee_attr(
+                endpoint, ZCL_CLUSTER_WINDOW_COVERING,
+                ZCL_ATTR_WINDOW_COVERING_CURRENT_POSITION_LIFT_PERCENTAGE))
+
+    def zcl_cover_set_open_time(self, endpoint: int, ms: int) -> None:
+        self.write_zigbee_attr(endpoint, ZCL_CLUSTER_WINDOW_COVERING,
+                               ZCL_ATTR_WINDOW_COVERING_OPEN_TIME, ms)
+
+    def zcl_cover_set_close_time(self, endpoint: int, ms: int) -> None:
+        self.write_zigbee_attr(endpoint, ZCL_CLUSTER_WINDOW_COVERING,
+                               ZCL_ATTR_WINDOW_COVERING_CLOSE_TIME, ms)
+
+    def zcl_cover_go_to_lift_percentage(self, endpoint: int, position: int) -> None:
+        self.call_zigbee_cmd(
+            endpoint, ZCL_CLUSTER_WINDOW_COVERING,
+            ZCL_CMD_WINDOW_COVERING_GO_TO_LIFT_PERCENTAGE,
+            payload=bytes([position]))
 
 
 def wait_for(

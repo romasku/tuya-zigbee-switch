@@ -9,6 +9,7 @@
 
 #include "telink_size_t_hack.h"
 
+#include "hal/printf_selector.h"
 #include "hal/zigbee.h"
 #include "telink_zigbee_hal.h"
 #include "zigbee/battery_cluster.h"
@@ -56,7 +57,7 @@ static cluster_registerFunc_t get_register_func_by_cluster_id(u16 cluster_id) {
     if (cluster_id == ZCL_CLUSTER_CLOSURES_WINDOW_COVERING) {
         return zcl_windowCovering_register;
     }
-    if (cluster_id == 0xFC01) { // Cover Switch Config
+    if (cluster_id == ZCL_CLUSTER_COVER_SWITCH_CONFIG) {
         return zcl_cover_switch_config_register;
     }
     if (cluster_id == ZCL_CLUSTER_GEN_POLL_CONTROL) {
@@ -230,6 +231,17 @@ void telink_zigbee_hal_zcl_init(hal_zigbee_endpoint *endpoints,
                             af_rx_callback, NULL);
         u8 cluster_count = cluster_info_ptr - endpoint_first_cluster_ptr;
         zcl_register(endpoint->endpoint, cluster_count, endpoint_first_cluster_ptr);
+
+        printf("[zcl] ep=%d profile=0x%04x dev=0x%04x in_cnt=%d out_cnt=%d\r\n",
+               endpoint_desc_ptr->endpoint, endpoint_desc_ptr->app_profile_id,
+               endpoint_desc_ptr->app_dev_id, endpoint_desc_ptr->app_in_cluster_count,
+               endpoint_desc_ptr->app_out_cluster_count);
+        for (u8 i = 0; i < endpoint_desc_ptr->app_in_cluster_count; i++) {
+            printf("[zcl]   in[%d]=0x%04x\r\n", i, endpoint_desc_ptr->app_in_cluster_lst[i]);
+        }
+        for (u8 i = 0; i < endpoint_desc_ptr->app_out_cluster_count; i++) {
+            printf("[zcl]   out[%d]=0x%04x\r\n", i, endpoint_desc_ptr->app_out_cluster_lst[i]);
+        }
 
         endpoint_desc_ptr++;
     }

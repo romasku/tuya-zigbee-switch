@@ -93,6 +93,8 @@
 #define ZCL_ATTR_WINDOW_COVERING_CURRENT_POSITION_LIFT_PERCENTAGE    0x0008
 #define ZCL_ATTR_WINDOW_COVERING_MOVING                              0xff00
 #define ZCL_ATTR_WINDOW_COVERING_MOTOR_REVERSAL                      0xff01
+#define ZCL_ATTR_WINDOW_COVERING_OPEN_TIME                           0xff02
+#define ZCL_ATTR_WINDOW_COVERING_CLOSE_TIME                          0xff03
 
 // Cover Switch Configuration cluster
 #define ZCL_ATTR_COVER_SWITCH_CONFIG_SWITCH_TYPE                     0x0000
@@ -205,9 +207,10 @@
 
 // WindowCovering Cluster
 
-#define ZCL_CMD_WINDOW_COVERING_UP_OPEN       0x00
-#define ZCL_CMD_WINDOW_COVERING_DOWN_CLOSE    0x01
-#define ZCL_CMD_WINDOW_COVERING_STOP          0x02
+#define ZCL_CMD_WINDOW_COVERING_UP_OPEN                  0x00
+#define ZCL_CMD_WINDOW_COVERING_DOWN_CLOSE               0x01
+#define ZCL_CMD_WINDOW_COVERING_STOP                     0x02
+#define ZCL_CMD_WINDOW_COVERING_GO_TO_LIFT_PERCENTAGE    0x05
 
 // OTA Cluster
 
