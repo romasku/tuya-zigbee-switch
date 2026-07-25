@@ -1442,6 +1442,33 @@ MODULE_HOMMYN_TS0011:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/204
   store: https://www.rusklimat.ru/product/modul-rele-hommyn-zigbee-1-kanal-bez-neytrali-rlzbnn01
+MODULE_HOMMYN_TS0002:
+  human_name: Hommyn RLZBN02
+  category: module
+  power: mains
+  neutral: required
+  output: relay
+  device_type: router
+  stock_model_name: TS0002
+  stock_manufacturer_name: _TZ3000_5gey1ohx
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0002_limited
+  override_z2m_device: null
+  tuya_module: ZT3L
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: 5gey1ohx;Hommyn-RLZBN02;BA0u;LC0;SB4u;RC2;SB5u;RC3;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
+  firmware_image_type: 47115
+  build: yes
+  status: fully_supported
+  info: Verified on ZT3L L+N mechanical relay module; same pinout as MODULE_TUYA_COMMON_TS0002
+  threads: null
+  store: null
 MODULE_IHSENO_TS0001:
   human_name: iHseno 1-gang
   category: module
