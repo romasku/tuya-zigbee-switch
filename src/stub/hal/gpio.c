@@ -99,7 +99,7 @@ hal_gpio_pin_t hal_gpio_parse_pin(const char *s) {
     }
 
     hal_gpio_pin_t res = ((port - 'A') << 4) | pin;
-    io_log("GPIO", "Parsed GPIO pin '%s' as %d", s, res);
+    io_log("GPIO", "Parsed GPIO pin %c%d as %d", port, pin, res);
     return res;
 }
 
@@ -109,16 +109,16 @@ hal_gpio_pull_t hal_gpio_parse_pull(const char *pull_str) {
         return HAL_GPIO_PULL_INVALID;
     }
 
-    if (strcmp(pull_str, "") == 0)
+    if (pull_str[0] == 'N')
         return HAL_GPIO_PULL_NONE;
 
-    if (strcmp(pull_str, "u") == 0)
+    if (pull_str[0] == 'u')
         return HAL_GPIO_PULL_UP;
 
-    if (strcmp(pull_str, "d") == 0)
+    if (pull_str[0] == 'd')
         return HAL_GPIO_PULL_DOWN;
 
-    io_log("GPIO", "Error: Invalid GPIO pull string: '%s'", pull_str);
+    io_log("GPIO", "Error: Invalid GPIO pull string: '%s'", pull_str[0]);
     return HAL_GPIO_PULL_INVALID;
 }
 

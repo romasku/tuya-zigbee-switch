@@ -33,11 +33,13 @@ source:
 - {path: ../../base_components/led.c}
 - {path: ../../base_components/network_indicator.c}
 - {path: ../../base_components/relay.c}
+- {path: ../../base_components/encoder.c}
 - {path: ../../base_components/battery.h}
 - {path: ../../base_components/button.h}
 - {path: ../../base_components/led.h}
 - {path: ../../base_components/network_indicator.h}
 - {path: ../../base_components/relay.h}
+- {path: ../../base_components/encoder.h}
 - {path: ../../device_config/config_nv.c}
 - {path: ../../device_config/config_nv.h}
 - {path: ../../device_config/config_parser.c}
@@ -56,6 +58,8 @@ source:
 - {path: ../../zigbee/switch_cluster.c}
 - {path: ../../zigbee/cover_switch_cluster.c}
 - {path: ../../zigbee/cover_cluster.c}
+- {path: ../../zigbee/encoder_cluster.c}
+- {path: ../../zigbee/step_command_handler.c}
 - {path: ../../zigbee/battery_cluster.h}
 - {path: ../../zigbee/basic_cluster.h}
 - {path: ../../zigbee/cluster_common.h}
@@ -68,6 +72,8 @@ source:
 - {path: ../../zigbee/zigbee_commands.h}
 - {path: ../../zigbee/general_commands.h}
 - {path: ../../zigbee/group_cluster.h}
+- {path: ../../zigbee/encoder_cluster.h}
+- {path: ../../zigbee/step_command_handler.h}
 include:
 - {path: ../../.}
 sdk: {id: gecko_sdk, version: 4.4.6}

@@ -19,6 +19,7 @@
 #include "base_components/led.h"
 #include "base_components/network_indicator.h"
 #include "base_components/relay.h"
+#include "base_components/encoder.h"
 #include "device_config/config_nv.h"
 #include "device_config/config_parser.h"
 #include "hal/gpio.h"
@@ -29,6 +30,8 @@
 #include "zigbee/general_commands.h"
 #include "zigbee/relay_cluster.h"
 #include "zigbee/switch_cluster.h"
+#include "zigbee/step_command_handler.h"
+#include "zigbee/encoder_cluster.h"
 
 // TODO: make configurable via ZCL
 #define POLLING_INTERVAL_MS    100
