@@ -16,6 +16,7 @@
 #define ZCL_CLUSTER_OTA_BOOTLOAD              0x0019
 #define ZCL_CLUSTER_WINDOW_COVERING           0x0102
 #define ZCL_CLUSTER_COVER_SWITCH_CONFIG       0xFC01
+#define ZCL_CLUSTER_DIMMER_KEY_CONFIG         0xFC02
 
 
 // Attributes
@@ -101,6 +102,10 @@
 #define ZCL_ATTR_COVER_SWITCH_CONFIG_LOCAL_MODE                      0x0003
 #define ZCL_ATTR_COVER_SWITCH_CONFIG_BINDED_MODE                     0x0004
 #define ZCL_ATTR_COVER_SWITCH_CONFIG_LONG_PRESS_DUR                  0x0005
+
+// Dimmer Key Configuration cluster (manufacturer-specific)
+#define ZCL_ATTR_DIMMER_KEY_CONFIG_LONG_PRESS_DUR                    0x0000
+#define ZCL_ATTR_DIMMER_KEY_CONFIG_LEVEL_MOVE_RATE                   0x0001
 
 // Poll Control cluster
 #define ZCL_CLUSTER_POLL_CONTROL                                     0x0020

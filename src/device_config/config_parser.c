@@ -6,6 +6,7 @@
 #include "zigbee/consts.h"
 #include "zigbee/cover_cluster.h"
 #include "zigbee/cover_switch_cluster.h"
+#include "zigbee/dimmer_key_cluster.h"
 #include "zigbee/group_cluster.h"
 #include "zigbee/relay_cluster.h"
 #include "zigbee/poll_control_cluster.h"
@@ -61,6 +62,9 @@ uint8_t cover_switch_clusters_cnt = 0;
 
 zigbee_cover_cluster cover_clusters[3];
 uint8_t cover_clusters_cnt = 0;
+
+zigbee_dimmer_key_cluster dimmer_key_clusters[2];
+uint8_t dimmer_key_clusters_cnt = 0;
 
 hal_zigbee_cluster  clusters[32];
 hal_zigbee_endpoint endpoints[10];
@@ -259,6 +263,32 @@ void parse_config() {
             cover_switch_clusters[cover_switch_clusters_cnt].cover_switch_idx =
                 cover_switch_clusters_cnt;
             cover_switch_clusters_cnt++;
+        } else if (entry[0] == 'K') {
+            hal_gpio_pin_t  up_pin   = hal_gpio_parse_pin(entry + 1);
+            hal_gpio_pin_t  down_pin = hal_gpio_parse_pin(entry + 3);
+            hal_gpio_pull_t pull     = hal_gpio_parse_pull(entry + 5);
+
+            hal_gpio_init(up_pin, 1, pull);
+            hal_gpio_init(down_pin, 1, pull);
+
+            buttons[buttons_cnt].pin = up_pin;
+            buttons[buttons_cnt].long_press_duration_ms  = 800;
+            buttons[buttons_cnt].multi_press_duration_ms = 800;
+            buttons[buttons_cnt].debounce_delay_ms       = debounce_ms;
+            buttons[buttons_cnt].on_multi_press          = on_multi_press_reset;
+            button_t *up_button = &buttons[buttons_cnt++];
+
+            buttons[buttons_cnt].pin = down_pin;
+            buttons[buttons_cnt].long_press_duration_ms  = 800;
+            buttons[buttons_cnt].multi_press_duration_ms = 800;
+            buttons[buttons_cnt].debounce_delay_ms       = debounce_ms;
+            buttons[buttons_cnt].on_multi_press          = on_multi_press_reset;
+            button_t *down_button = &buttons[buttons_cnt++];
+
+            dimmer_key_clusters[dimmer_key_clusters_cnt].up_button      = up_button;
+            dimmer_key_clusters[dimmer_key_clusters_cnt].down_button    = down_button;
+            dimmer_key_clusters[dimmer_key_clusters_cnt].dimmer_key_idx = dimmer_key_clusters_cnt;
+            dimmer_key_clusters_cnt++;
         } else if (entry[0] == 'C') {
             hal_gpio_pin_t open_pin  = hal_gpio_parse_pin(entry + 1);
             hal_gpio_pin_t close_pin = hal_gpio_parse_pin(entry + 3);
@@ -294,12 +324,13 @@ void parse_config() {
     peripherals_init();
 
     printf("Initializing Zigbee with %d switches, %d relays, %d cover switches, "
-           "%d covers\r\n",
+           "%d covers, %d dimmer keys\r\n",
            switch_clusters_cnt, relay_clusters_cnt, cover_switch_clusters_cnt,
-           cover_clusters_cnt);
+           cover_clusters_cnt, dimmer_key_clusters_cnt);
 
     uint8_t total_endpoints = switch_clusters_cnt + relay_clusters_cnt +
-                              cover_switch_clusters_cnt + cover_clusters_cnt;
+                              cover_switch_clusters_cnt + cover_clusters_cnt +
+                              dimmer_key_clusters_cnt;
 
     hal_zigbee_cluster *cluster_ptr = clusters;
 
@@ -382,6 +413,17 @@ void parse_config() {
         }
         cover_cluster_add_to_endpoint(&cover_clusters[index],
                                       &endpoints[cover_base + index]);
+    }
+
+    int dimmer_key_base =
+        switch_clusters_cnt + relay_clusters_cnt + cover_switch_clusters_cnt + cover_clusters_cnt;
+    for (int index = 0; index < dimmer_key_clusters_cnt; index++) {
+        if (dimmer_key_base + index != 0) {
+            cluster_ptr += endpoints[dimmer_key_base + index - 1].cluster_count;
+            endpoints[dimmer_key_base + index].clusters = cluster_ptr;
+        }
+        dimmer_key_cluster_add_to_endpoint(&dimmer_key_clusters[index],
+                                           &endpoints[dimmer_key_base + index]);
     }
 
     hal_zigbee_init(endpoints, total_endpoints);
