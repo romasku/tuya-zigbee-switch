@@ -159,6 +159,10 @@
 #define TIMING_ERASE_ISSI_2M_MAX_MS            (2048)
 #define TIMING_ERASE_ISSI_4M_MAX_MS            (3072)
 #define TIMING_ERASE_TSINGTENG_8M_MAX_MS       (20480)
+// Conservative full-part erase-time ceiling for the generic JEDEC fallback. Only
+// reported through getDeviceInfo(); erase completion is driven by the busy-status
+// poll, so an over-estimate here is harmless.
+#define TIMING_ERASE_GENERIC_MAX_MS            (245760)
 
 /** @endcond */
 

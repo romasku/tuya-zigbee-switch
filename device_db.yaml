@@ -1442,6 +1442,60 @@ MODULE_HOMMYN_TS0011:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/204
   store: https://www.rusklimat.ru/product/modul-rele-hommyn-zigbee-1-kanal-bez-neytrali-rlzbnn01
+MODULE_HOMMYN_TS0002:
+  human_name: Hommyn RLZBN02
+  category: module
+  power: mains
+  neutral: required
+  output: relay
+  device_type: router
+  stock_model_name: TS0002
+  stock_manufacturer_name: _TZ3000_5gey1ohx
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0002_limited
+  override_z2m_device: null
+  tuya_module: ZT3L
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: 5gey1ohx;Hommyn-RLZBN02;BA0u;LC0;SB4u;RC2;SB5u;RC3;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
+  firmware_image_type: 47115
+  build: yes
+  status: fully_supported
+  info: Verified on ZT3L L+N mechanical relay module; same pinout as MODULE_TUYA_COMMON_TS0002
+  threads: null
+  store: null
+MODULE_HOMMYN_TS0012:
+  human_name: Hommyn 2-gang L-only relay module
+  category: module
+  power: mains
+  neutral: without
+  output: triac
+  device_type: end_device
+  stock_model_name: TS0012
+  stock_manufacturer_name: _TZ3000_0e6uvexf
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0012
+  override_z2m_device: null
+  tuya_module: ZT3L
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: 0e6uvexf;Hommyn-2;BA0f;LD7;SC2f;RB5;SC3f;RB4;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
+  firmware_image_type: 47114
+  build: yes
+  status: fully_supported
+  info: Verified on RSH L TDQ ZJB v1.1 ZIGBEE board
+  threads: null
+  store: null
 MODULE_IHSENO_TS0001:
   human_name: iHseno 1-gang
   category: module
@@ -4742,6 +4796,33 @@ SWITCH_BSEED_TS0726_L_4GANG:
   - https://www.aliexpress.com/item/1005010747186290.html
   - https://www.aliexpress.com/item/1005010805195317.html
   - https://www.bseed.com/products/click-series-diy-part-customized-free-combinations-smart-zigbee-switch-socket-insert-white-color-crystal-glass-panel-copy?variant=47882814292123
+SWITCH_GIRIER_TS0014:
+  human_name: Girier 4-gang switch
+  category: switch
+  power: mains
+  neutral: optional
+  output: null
+  device_type: end_device
+  stock_model_name: TS0014
+  stock_manufacturer_name: _TZ3000_p1h4zuvh
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0014
+  override_z2m_device: null
+  tuya_module: ZS3L
+  mcu_family: Silabs
+  mcu: EFR32MG21A020F768IM32
+  config_str: p1h4zuvh;Girier-4-gang;SA0u;RC0;IC2;SA3u;RD1;IA6;SA4u;RB0;IA5;SB1u;RC1;ID0;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: null
+  stock_image_type: null
+  firmware_image_type: 43644
+  build: yes
+  status: fully_supported
+  info: Supported
+  threads: null
+  store: https://www.aliexpress.com/item/1005009121294755.html
 SWITCH_HOBEIAN_TS0011:
   human_name: HOBEIAN ZG-302Z1
   category: switch
@@ -5054,6 +5135,33 @@ SWITCH_LERLINK_TS0013:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/333
   store: https://www.aliexpress.com/item/1005004761142268.html
+SWITCH_LERLINK_TS0014:
+  human_name: LerLink 4-gang switch
+  category: switch
+  power: mains
+  neutral: optional
+  output: null
+  device_type: end_device
+  stock_model_name: TS0014
+  stock_manufacturer_name: _TZ3000_sovlwiix
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0014
+  override_z2m_device: null
+  tuya_module: ZS3L
+  mcu_family: Silabs
+  mcu: EFR32MG21A020F768IM32
+  config_str: sovlwiix;LerLink-4-gang;SB0u;RC2;IA5;SA0u;RC1;IA6;SA4u;RB1;ID0;SA3u;RC0;ID1;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: null
+  stock_image_type: null
+  firmware_image_type: 43643
+  build: yes
+  status: fully_supported
+  info: Supported
+  threads: null
+  store: https://www.aliexpress.com/item/1005010502015839.html
 SWITCH_LORATAP_TS130F:
   human_name: LoraTap 1-gang curtains switch
   category: switch

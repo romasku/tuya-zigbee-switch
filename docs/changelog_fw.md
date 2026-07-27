@@ -10,6 +10,12 @@ Please describe what you are working on, under ## Upcoming
 
 ## Upcoming
 
+### Devices
+
+- **Hommyn 2-gang L-only relay module** (`_TZ3000_0e6uvexf`, `MODULE_HOMMYN_TS0012`)
+  - Pinout: L1 `RB5`, L2 `RB4`, switches `SC2f`/`SC3f`
+  - Defaults to momentary switch mode (`M;` in config)
+
 ### Features
 
 - **Cover cluster** (window covering) for controlling the motor of curtains, blinds, and shutters.
@@ -54,6 +60,8 @@ Please describe what you are working on, under ## Upcoming
   - Changing device type breaks Silabs NVM data
   - Reset needed 11 presses instead of 10
   - ZHA quirk silently failed to apply on relay-less devices with LED indicators (scene remotes), leaving firmware attributes unreachable from the UI
+  - Silabs device dead after flashing when its SPI flash chip's JEDEC id was not in the bootloader's table (e.g. a ZBMINIL2 hardware variant with a different flash). The spiflash bootloader now falls back to a generic profile for any standard JEDEC SPI-NOR flash instead of failing storage init, so unknown-but-standard chips no longer need a per-chip bootloader build ([#422](https://github.com/romasku/tuya-zigbee-switch/issues/422))
+  - Silabs: bindings to Zigbee groups ignored when emitting commands
 - **New**
   - SONOFF ZBMINIL2 version updates broken?
 
