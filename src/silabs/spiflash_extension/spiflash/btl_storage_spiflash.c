@@ -87,6 +87,7 @@ static bool isPlausibleJedec(uint8_t mfgId, uint16_t deviceId) {
     // 0x11..0x19 -> 128 KiB .. 32 MiB, covering every realistic SPI-NOR on these modules
     return (densityCode >= 0x11) && (densityCode <= 0x19);
 }
+
 #endif
 
 // Match a JEDEC (manufacturer, device) id against the table of explicitly-supported
