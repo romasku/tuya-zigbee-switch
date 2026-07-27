@@ -116,7 +116,7 @@ void hal_zigbee_init(hal_zigbee_endpoint *endpoints, uint8_t endpoints_cnt) {
             // buffers and corrupting whatever lives after them in .bss
             if (cluster_ptr - clusters_buffer >= MAX_CLUSTERS ||
                 attr_ptr - attributes_buffer + clusters[j].attribute_count >
-                  MAX_ATTRS) {
+                MAX_ATTRS) {
                 printf("hal_zigbee_init: cluster/attr buffer full, "
                        "truncating config at ep %d cluster %d\r\n",
                        endpoints[i].endpoint, clusters[j].cluster_id);
@@ -232,7 +232,7 @@ static bool network_steering_in_progress = false;
 // sl_zigbee_af_network_steering_complete_cb. Without a timeout the
 // in-progress flag wedges and the device blinks "joining" forever until
 // power cycle (issue #458).
-#define STEERING_TIMEOUT_MS         (240 * 1000)
+#define STEERING_TIMEOUT_MS    (240 * 1000)
 // After a parent is lost, the end-device-support plugin rejoins on its own
 // but gives up for good after SL_ZIGBEE_AF_REJOIN_ATTEMPTS_MAX attempts
 // (~40s outage). Keep re-kicking it with growing backoff so the device
@@ -299,13 +299,16 @@ hal_zigbee_network_status_t hal_zigbee_get_network_status() {
     case SL_ZIGBEE_JOINED_NETWORK_S2S_INITIATOR:
     case SL_ZIGBEE_JOINED_NETWORK_S2S_TARGET:
         return HAL_ZIGBEE_NETWORK_JOINED;
+
     case SL_ZIGBEE_JOINING_NETWORK:
         return HAL_ZIGBEE_NETWORK_JOINING;
+
     case SL_ZIGBEE_LEAVING_NETWORK:
         // Transient state (e.g. factory reset): report busy so app_task
         // does not start steering before the leave completes - steering
         // started here also loses its completion callback.
         return HAL_ZIGBEE_NETWORK_JOINING;
+
     case SL_ZIGBEE_NO_NETWORK:
     default:
         return network_steering_in_progress ? HAL_ZIGBEE_NETWORK_JOINING
