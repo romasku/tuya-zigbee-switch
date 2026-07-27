@@ -5,6 +5,7 @@
 #include "hal/nvm.h"
 #include "hal/printf_selector.h"
 #include "hal/system.h"
+#include "hal/timer.h"
 #include "hal/zigbee.h"
 #include "hal/zigbee_ota.h"
 #include "zigbee/battery_cluster.h"
@@ -55,19 +56,39 @@ void app_init(void) {
 
 static bool boot_announce_sent = false;
 
+// Retry steering with exponential backoff instead of on every main-loop
+// pass: back-to-back channel scans keep the radio busy ~100% of the time,
+// which no-neutral (parasitic) power supplies cannot sustain.
+#define STEERING_BACKOFF_MIN_MS    (5 * 1000)
+#define STEERING_BACKOFF_MAX_MS    (60 * 1000)
+
 void app_task() {
+    static uint32_t next_steering_attempt_ms = 0;
+    static uint32_t steering_backoff_ms      = STEERING_BACKOFF_MIN_MS;
+
 #ifdef END_DEVICE
     poll_control_cluster_update();
 #endif
 
-    // TODO: add jitter to avoid all devices trying to join at once
-    if (hal_zigbee_get_network_status() != HAL_ZIGBEE_NETWORK_JOINED &&
-        hal_zigbee_get_network_status() != HAL_ZIGBEE_NETWORK_JOINING) {
-        hal_zigbee_start_network_steering();
-    }
-    if (!boot_announce_sent &&
-        hal_zigbee_get_network_status() == HAL_ZIGBEE_NETWORK_JOINED) {
-        hal_zigbee_send_announce();
-        boot_announce_sent = true;
+    hal_zigbee_network_status_t net_status = hal_zigbee_get_network_status();
+
+    if (net_status == HAL_ZIGBEE_NETWORK_NOT_JOINED) {
+        uint32_t now = hal_millis();
+        if ((int32_t)(now - next_steering_attempt_ms) >= 0) {
+            hal_zigbee_start_network_steering();
+            next_steering_attempt_ms = now + steering_backoff_ms;
+            if (steering_backoff_ms < STEERING_BACKOFF_MAX_MS) {
+                steering_backoff_ms *= 2;
+            }
+        }
+    } else if (net_status == HAL_ZIGBEE_NETWORK_JOINED) {
+        next_steering_attempt_ms = 0;
+        steering_backoff_ms      = STEERING_BACKOFF_MIN_MS;
+        if (!boot_announce_sent) {
+            // Only mark as sent when the announce actually went out; the
+            // first send often races the freshly established parent link.
+            boot_announce_sent =
+                hal_zigbee_send_announce() == HAL_ZIGBEE_OK;
+        }
     }
 }

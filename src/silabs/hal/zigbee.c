@@ -2,6 +2,8 @@
 
 #include "app/framework/include/af.h"
 #include "app/framework/plugin/ota-client/ota-client.h"
+#include "hal/printf_selector.h"
+#include "hal/tasks.h"
 #include "network-steering.h"
 #include <stddef.h>
 #include <string.h>
@@ -110,6 +112,17 @@ void hal_zigbee_init(hal_zigbee_endpoint *endpoints, uint8_t endpoints_cnt) {
         hal_zigbee_cluster *clusters = endpoints[i].clusters;
 
         for (int j = 0; j < endpoints[i].cluster_count; j++) {
+            // Stop registering instead of silently overrunning the fixed
+            // buffers and corrupting whatever lives after them in .bss
+            if (cluster_ptr - clusters_buffer >= MAX_CLUSTERS ||
+                attr_ptr - attributes_buffer + clusters[j].attribute_count >
+                  MAX_ATTRS) {
+                printf("hal_zigbee_init: cluster/attr buffer full, "
+                       "truncating config at ep %d cluster %d\r\n",
+                       endpoints[i].endpoint, clusters[j].cluster_id);
+                endpoint_type_ptr->clusterCount = j;
+                break;
+            }
             cluster_ptr->clusterId      = clusters[j].cluster_id;
             cluster_ptr->clusterSize    = 0;
             cluster_ptr->attributeCount = clusters[j].attribute_count;
@@ -213,15 +226,90 @@ sl_zigbee_af_status_t sl_zigbee_af_external_attribute_write_cb(
 
 static bool network_steering_in_progress = false;
 
+// Safety net for network steering: several SDK failure paths (start called
+// while the stack is not in NO_NETWORK state, scan-dispatch queue full,
+// scan completion error) return without ever delivering
+// sl_zigbee_af_network_steering_complete_cb. Without a timeout the
+// in-progress flag wedges and the device blinks "joining" forever until
+// power cycle (issue #458).
+#define STEERING_TIMEOUT_MS         (240 * 1000)
+// After a parent is lost, the end-device-support plugin rejoins on its own
+// but gives up for good after SL_ZIGBEE_AF_REJOIN_ATTEMPTS_MAX attempts
+// (~40s outage). Keep re-kicking it with growing backoff so the device
+// eventually recovers from any outage while staying cheap on parasitic
+// (no-neutral) power supplies.
+#define REJOIN_KICK_MIN_DELAY_MS    (30 * 1000)
+#define REJOIN_KICK_MAX_DELAY_MS    (5 * 60 * 1000)
+
+static hal_task_t steering_timeout_task;
+static hal_task_t rejoin_kick_task;
+static uint32_t   rejoin_kick_delay_ms = REJOIN_KICK_MIN_DELAY_MS;
+
+static void steering_timeout_handler(void *arg) {
+    (void)arg;
+    if (network_steering_in_progress) {
+        printf("Network steering timed out, stopping it\r\n");
+        // Leads to cleanupAndStop() -> complete callback -> flag cleared;
+        // also recovers the plugin's own stranded state machine.
+        sl_zigbee_af_network_steering_stop();
+        network_steering_in_progress = false;
+    }
+}
+
+static void rejoin_kick_handler(void *arg) {
+    (void)arg;
+    if (sl_zigbee_af_network_state() == SL_ZIGBEE_JOINED_NETWORK_NO_PARENT) {
+        printf("Still orphaned, re-kicking rejoin\r\n");
+        sl_zigbee_af_start_move_cb(); // no-op if a move is already running
+        if (rejoin_kick_delay_ms < REJOIN_KICK_MAX_DELAY_MS) {
+            rejoin_kick_delay_ms *= 2;
+        }
+        hal_tasks_schedule(&rejoin_kick_task, rejoin_kick_delay_ms);
+    } else {
+        rejoin_kick_delay_ms = REJOIN_KICK_MIN_DELAY_MS;
+    }
+}
+
+static void ensure_network_tasks_initialized(void) {
+    static bool initialized = false;
+
+    if (!initialized) {
+        steering_timeout_task.handler = steering_timeout_handler;
+        steering_timeout_task.arg     = NULL;
+        hal_tasks_init(&steering_timeout_task);
+        rejoin_kick_task.handler = rejoin_kick_handler;
+        rejoin_kick_task.arg     = NULL;
+        hal_tasks_init(&rejoin_kick_task);
+        initialized = true;
+    }
+}
+
 hal_zigbee_network_status_t hal_zigbee_get_network_status() {
     sl_zigbee_network_status_t ns = sl_zigbee_af_network_state();
 
-    if (ns == SL_ZIGBEE_JOINED_NETWORK) {
+    switch (ns) {
+    case SL_ZIGBEE_JOINED_NETWORK:
+    // A sleepy end device that lost its parent is still joined: it keeps
+    // its credentials and the SDK's end-device-support plugin rejoins on
+    // its own (re-kicked by rejoin_kick_task above). Reporting NOT_JOINED
+    // here made app_task start network steering, which in this state never
+    // delivers its completion callback and wedged the device in a fake
+    // "joining" state forever (issue #458).
+    case SL_ZIGBEE_JOINED_NETWORK_NO_PARENT:
+    case SL_ZIGBEE_JOINED_NETWORK_S2S_INITIATOR:
+    case SL_ZIGBEE_JOINED_NETWORK_S2S_TARGET:
         return HAL_ZIGBEE_NETWORK_JOINED;
-    } else if (ns == SL_ZIGBEE_JOINING_NETWORK || network_steering_in_progress) {
+    case SL_ZIGBEE_JOINING_NETWORK:
         return HAL_ZIGBEE_NETWORK_JOINING;
-    } else {
-        return HAL_ZIGBEE_NETWORK_NOT_JOINED;
+    case SL_ZIGBEE_LEAVING_NETWORK:
+        // Transient state (e.g. factory reset): report busy so app_task
+        // does not start steering before the leave completes - steering
+        // started here also loses its completion callback.
+        return HAL_ZIGBEE_NETWORK_JOINING;
+    case SL_ZIGBEE_NO_NETWORK:
+    default:
+        return network_steering_in_progress ? HAL_ZIGBEE_NETWORK_JOINING
+                                            : HAL_ZIGBEE_NETWORK_NOT_JOINED;
     }
 }
 
@@ -240,7 +328,22 @@ void hal_register_on_network_status_change_callback(
 }
 
 void sl_zigbee_af_stack_status_cb(sl_status_t status) {
-    (void)status;
+    ensure_network_tasks_initialized();
+
+    if (status == SL_STATUS_NETWORK_UP) {
+        // Joined by any path (steering, rejoin, reboot with credentials):
+        // make sure a stale steering flag cannot wedge the state machine.
+        network_steering_in_progress = false;
+        hal_tasks_unschedule(&steering_timeout_task);
+        hal_tasks_unschedule(&rejoin_kick_task);
+        rejoin_kick_delay_ms = REJOIN_KICK_MIN_DELAY_MS;
+    } else if (sl_zigbee_af_network_state() ==
+               SL_ZIGBEE_JOINED_NETWORK_NO_PARENT) {
+        // Parent lost. end-device-support starts rejoining by itself but
+        // stops for good after a few attempts; schedule the re-kicker.
+        hal_tasks_schedule(&rejoin_kick_task, rejoin_kick_delay_ms);
+    }
+
     notify_network_status_change();
 }
 
@@ -250,8 +353,18 @@ void hal_zigbee_leave_network() {
 
 void hal_zigbee_start_network_steering() {
     if (!network_steering_in_progress) {
-        network_steering_in_progress = true;
-        sl_zigbee_af_network_steering_start();
+        ensure_network_tasks_initialized();
+        // Trust the flag only if steering actually started: several SDK
+        // failure paths return an error and never deliver the completion
+        // callback (issue #458).
+        sl_status_t status = sl_zigbee_af_network_steering_start();
+        network_steering_in_progress = (status == SL_STATUS_OK);
+        if (network_steering_in_progress) {
+            hal_tasks_schedule(&steering_timeout_task, STEERING_TIMEOUT_MS);
+        } else {
+            printf("Failed to start network steering, status: %d\r\n",
+                   (int)status);
+        }
     }
 }
 
@@ -260,11 +373,11 @@ void sl_zigbee_af_network_steering_complete_cb(sl_status_t status,
                                                uint8_t totalBeacons,
                                                uint8_t joinAttempts,
                                                uint8_t finalState) {
-    (void)status;
-    (void)totalBeacons;
-    (void)joinAttempts;
     (void)finalState;
+    printf("Network steering complete, status: %d beacons: %d attempts: %d\r\n",
+           (int)status, totalBeacons, joinAttempts);
     network_steering_in_progress = false;
+    hal_tasks_unschedule(&steering_timeout_task);
 
     notify_network_status_change();
 }
