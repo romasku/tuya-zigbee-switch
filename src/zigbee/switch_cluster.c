@@ -32,7 +32,7 @@ void switch_cluster_on_button_long_press(zigbee_switch_cluster *cluster);
 static bool switch_cluster_has_valid_relay(
     const zigbee_switch_cluster *cluster);
 
-zigbee_switch_cluster *switch_cluster_by_endpoint[10];
+zigbee_switch_cluster *switch_cluster_by_endpoint[11]; // endpoints are numbered 1..10
 
 static void sync_switch_indicator_led(zigbee_switch_cluster *cluster) {
     if (cluster->indicator_led == NULL) {

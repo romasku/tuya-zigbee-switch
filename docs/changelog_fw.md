@@ -50,6 +50,9 @@ Please describe what you are working on, under ## Upcoming
 ### Bugs
 
 - **Fixed**
+  - Silabs end devices wedging in an endless "joining" state (LED blinking forever, permit_join not helping, only a power cycle recovering) after losing their parent, a factory reset, or a failed steering start; orphaned devices also stopped rejoining for good after ~40s of outage. They now recover automatically, retrying with backoff ([#458](https://github.com/romasku/tuya-zigbee-switch/issues/458))
+  - Silabs hardware watchdog was never armed, so a hung device stayed hung until mains power cycle
+  - A zeroed poll-control record in NVM passed validation and left a sleepy end device with no wake schedule
   - Latching relays not working with off_pin A0
   - Silabs version updates not working
   - Telink End_device unreachable from Z2M after a while ([#217](https://github.com/romasku/tuya-zigbee-switch/issues/217))
