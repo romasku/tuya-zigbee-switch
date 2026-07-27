@@ -82,6 +82,9 @@ void switch_cluster_report_action(zigbee_switch_cluster *cluster);
 
 void switch_cluster_callback_attr_write_trampoline(uint8_t endpoint,
                                                    uint16_t attribute_id) {
+    if (switch_cluster_by_endpoint[endpoint] == NULL) {
+        return;
+    }
     switch_cluster_on_write_attr(switch_cluster_by_endpoint[endpoint],
                                  attribute_id);
 }
