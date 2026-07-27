@@ -63,7 +63,11 @@ static void poll_control_load_from_nv(zigbee_poll_control_cluster *cluster) {
     if (
         (nv_config_buffer.check_in_interval != 0 &&
          nv_config_buffer.check_in_interval < nv_config_buffer.long_poll_interval) ||
-        nv_config_buffer.long_poll_interval < nv_config_buffer.short_poll_interval)
+        nv_config_buffer.long_poll_interval < nv_config_buffer.short_poll_interval ||
+        // Zeroed/garbage record: poll interval 0 would leave a sleepy end
+        // device with no wake schedule at all
+        nv_config_buffer.long_poll_interval == 0 ||
+        nv_config_buffer.short_poll_interval == 0)
         return; // Invalid data in NVM, ignore
 
     cluster->check_in_interval   = nv_config_buffer.check_in_interval;
