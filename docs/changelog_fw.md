@@ -15,6 +15,14 @@ Please describe what you are working on, under ## Upcoming
 - **Hommyn 2-gang L-only relay module** (`_TZ3000_0e6uvexf`, `MODULE_HOMMYN_TS0012`)
   - Pinout: L1 `RB5`, L2 `RB4`, switches `SC2f`/`SC3f`
   - Defaults to momentary switch mode (`M;` in config)
+- **Tuya YNTDQ 1-gang relay module** (`_TZ3000_olo5jhjk`, `MODULE_YNTDQ_TS0001`)
+  - ZT2S module (TLSR8258), board YNTDQ_Ver1.0, relay board TDQXB_Ver1.0, L+N
+  - Pinout: button `BB4u`, network LED `LC4i`, switch `SB5u`, relay `RD2`
+  - The board button on `B4` is declared both as reset (`BB4u`) and as a second
+    switch (`SB4u`), reproducing stock behaviour: short press toggles the relay,
+    long press still resets. Verified on hardware — the two handlers coexist.
+  - `alt_config_str` keeps the plain variant where `B4` is reset only
+  - Each pin verified on hardware after OTA from stock firmware
 
 ### Features
 
