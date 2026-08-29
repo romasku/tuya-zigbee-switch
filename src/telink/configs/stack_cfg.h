@@ -27,8 +27,14 @@
  * ~44 cluster registrations total. */
 #define ZCL_CLUSTER_NUM_MAX        56
 
-/* ZCL: Maximum number of reporting table entries */
-#define ZCL_REPORTING_TABLE_NUM    12
+/* ZCL: Maximum number of reporting table entries. Global across the whole
+ * device, not per endpoint. Raised from 12 for full-bind 6-gang boards
+ * (sala): 6 switch endpoints (genMultistateInput.presentValue) + 6 relay
+ * endpoints (genOnOff.onOff) = 12 on their own, and a device upgrading
+ * from a 6-relay-only layout can carry that many stale entries forward
+ * from before the endpoints were switches, saturating the table before
+ * any of the 12 fresh ones land. */
+#define ZCL_REPORTING_TABLE_NUM    24
 
 /* ZCL: Maximum number of scene table entries */
 #define ZCL_SCENE_TABLE_NUM        8
