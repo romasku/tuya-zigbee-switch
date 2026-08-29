@@ -9,7 +9,14 @@
 #pragma pack(pop)
 
 // Shared constants
-#define MAX_ENDPOINTS         8
+// Raised from 8: telink_zigbee_hal_zcl_init() silently truncates
+// endpoints_cnt to this before registering with the stack, independent of
+// MAX_ACTIVE_EP_NUMBER (zb_af.h, already 16) and of endpoints[13] in
+// config_parser.c. A full-bind 6-gang board (6 ST + 6 RT = 12) was
+// registering only its first 8 endpoints on real hardware -- z2m's
+// Configure got as far as endpoint 8 and then found endpoints 9-12
+// simply did not exist. Matches endpoints[13], the app's own ceiling.
+#define MAX_ENDPOINTS         13
 #define MAX_IN_CLUSTERS       32
 #define MAX_OUT_CLUSTERS      32
 #define MAX_ATTRS             128
