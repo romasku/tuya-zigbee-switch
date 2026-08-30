@@ -19,8 +19,13 @@
  * Adjust these values according to application requirements
  */
 
-/* ZCL: Maximum number of clusters (in + out cluster count) */
-#define ZCL_CLUSTER_NUM_MAX        32
+/* ZCL: Maximum number of clusters (in + out cluster count). Global across
+ * the whole device (zcl_vars.clusterList[], a single flat array in the
+ * SDK), not per endpoint -- same class of ceiling as
+ * ZCL_REPORTING_TABLE_NUM below. Raised alongside MAX_IN_CLUSTERS in
+ * telink_zigbee_hal.h for the same reason: a full-bind 6-gang board needs
+ * ~44 cluster registrations total. */
+#define ZCL_CLUSTER_NUM_MAX        56
 
 /* ZCL: Maximum number of reporting table entries */
 #define ZCL_REPORTING_TABLE_NUM    12

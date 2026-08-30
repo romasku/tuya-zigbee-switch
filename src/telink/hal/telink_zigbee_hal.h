@@ -17,9 +17,21 @@
 // Configure got as far as endpoint 8 and then found endpoints 9-12
 // simply did not exist. Matches endpoints[13], the app's own ceiling.
 #define MAX_ENDPOINTS         13
-#define MAX_IN_CLUSTERS       32
+// Raised from 32: this is a flat, device-wide array (telink_zigbee_hal_zcl_init
+// appends to it once per server cluster across every endpoint, no per-endpoint
+// reset), separate from our own app-level clusters[64] pool in
+// config_parser.c. A full-bind 6-gang board registers ~44 server clusters
+// total (basic+ota+time+switch x6 on ep1..6, relay+group x6 on ep7..12) --
+// past 32 the write runs off the end of in_clusters[], and past
+// ZCL_CLUSTER_NUM_MAX (stack_cfg.h, raised alongside this) zcl_registerCluster
+// starts silently refusing clusters, which is what produced
+// UNSUPPORTED_ATTRIBUTE on the later relay endpoints.
+#define MAX_IN_CLUSTERS       56
 #define MAX_OUT_CLUSTERS      32
-#define MAX_ATTRS             128
+// Raised from 128: same device-wide-array reasoning as MAX_IN_CLUSTERS.
+// Rough count for the 6-switch/6-relay layout comes out close to 128 on
+// its own (~12 attrs/switch, ~6/relay, ~20 on the shared Basic cluster).
+#define MAX_ATTRS             192
 #define OTA_QUERY_INTERVAL    15 * 60 // 15 minutes
 
 // Network module functions (implemented in zigbee_network.c)
