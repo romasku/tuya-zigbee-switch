@@ -19,6 +19,7 @@
 #include "base_components/battery.h"
 #include "config_nv.h"
 #include "device_config/device_params_nv.h"
+#include "device_config/nvm_items.h"
 #include "device_config/reset.h"
 #include "hal/system.h"
 #include "hal/zigbee.h"
@@ -50,10 +51,15 @@ zigbee_basic_cluster basic_cluster = {
 
 zigbee_group_cluster group_cluster = {};
 
-zigbee_switch_cluster switch_clusters[4];
+// Sized from the constants they are bounded by (nvm_items.h) rather than a
+// separate literal: MAX_SWITCHES/MAX_RELAYS say what a config string is
+// allowed to declare, and NV item ids are laid out on that same assumption
+// (nvm_migrations.c), so a smaller literal here silently overflows on a
+// config the NVM layout considers legal.
+zigbee_switch_cluster switch_clusters[MAX_SWITCHES];
 uint8_t switch_clusters_cnt = 0;
 
-zigbee_relay_cluster relay_clusters[4];
+zigbee_relay_cluster relay_clusters[MAX_RELAYS];
 uint8_t relay_clusters_cnt = 0;
 
 zigbee_cover_switch_cluster cover_switch_clusters[3];
@@ -62,8 +68,19 @@ uint8_t cover_switch_clusters_cnt = 0;
 zigbee_cover_cluster cover_clusters[3];
 uint8_t cover_clusters_cnt = 0;
 
-hal_zigbee_cluster  clusters[32];
-hal_zigbee_endpoint endpoints[10];
+// Shared flat pool, sliced out per endpoint below -- not one array per
+// endpoint. Worst case at MAX_SWITCHES=6/MAX_RELAYS=6: endpoint 0 (basic +
+// ota + switch, since index 0 doubles as the first switch endpoint) = 6,
+// the other 5 switch endpoints = 4 each = 20, the 6 relay endpoints = 3
+// each (relay_cluster_add_to_endpoint's 2 + group_cluster_add_to_endpoint's
+// 1) = 18. 6 + 20 + 18 = 44; 48 leaves a little headroom.
+hal_zigbee_cluster  clusters[48];
+// 6 switch + 6 relay endpoints = 12, +1 headroom. Does not additionally
+// cover cover_switch/cover endpoints at their own max on the same device --
+// total_endpoints is the unclamped sum of all four *_clusters_cnt below, a
+// pre-existing characteristic of this array, not something this change
+// widens or narrows.
+hal_zigbee_endpoint endpoints[13];
 
 uint8_t allow_simultaneous_latching_pulses = 0;
 
