@@ -101,6 +101,7 @@ void stub_app_print_help(void) {
          "bytes)");
     puts("  freeze_time <0|1>                     - Freeze/unfreeze time");
     puts("  step_time <ms>                        - Advance time by ms");
+    puts("  set_counter <pin> <value>             - Set pulse counter value");
     puts("  q, quit                               - Exit");
 }
 
