@@ -4,6 +4,7 @@
 #include "device_config/nvm_items.h"
 #include "hal/nvm.h"
 #include "hal/printf_selector.h"
+#include "zigbee_commands.h"
 
 hal_zigbee_cmd_result_t relay_cluster_callback(zigbee_relay_cluster *cluster,
                                                uint8_t command_id,
@@ -200,10 +201,41 @@ void relay_cluster_on_relay_change(zigbee_relay_cluster *cluster,
                                    uint8_t state) {
     hal_zigbee_notify_attribute_changed(cluster->endpoint, ZCL_CLUSTER_ON_OFF,
                                         ZCL_ATTR_ONOFF);
+    relay_cluster_report(cluster);
     if (cluster->startup_mode == ZCL_START_UP_ONOFF_SET_ONOFF_TOGGLE ||
         cluster->startup_mode == ZCL_START_UP_ONOFF_SET_ONOFF_TO_PREVIOUS) {
         relay_cluster_store_attrs_to_nv(cluster);
     }
+}
+
+/* Pushes the relay's current state to whatever is bound to this endpoint's
+ * OnOff cluster, regardless of what caused the change -- a physical key, a
+ * remote ZCL command, an automation, or the echo of a report this function
+ * itself sent a moment ago. Always an explicit ON/OFF, never TOGGLE, since a
+ * toggle command has no idea what state it is supposed to converge to.
+ *
+ * relay_on()/relay_off() fire the on_change callback unconditionally, even
+ * when the relay was already in that state, so two relays bound to each
+ * other would otherwise echo forever: A reports ON, B applies it and
+ * reports back, A applies it and reports again, and so on. has_pushed /
+ * last_pushed_state remembers what THIS cluster last told its bindings, so
+ * a report matching it is recognised as an echo and dropped -- breaking the
+ * loop after exactly one round trip. */
+void relay_cluster_report(zigbee_relay_cluster *cluster) {
+    if (hal_zigbee_get_network_status() != HAL_ZIGBEE_NETWORK_JOINED) {
+        return;
+    }
+
+    uint8_t state = cluster->relay->on;
+    if (cluster->has_pushed && cluster->last_pushed_state == state) {
+        return;
+    }
+    cluster->has_pushed        = 1;
+    cluster->last_pushed_state = state;
+
+    uint8_t         cmd_id = state ? ZCL_CMD_ONOFF_ON : ZCL_CMD_ONOFF_OFF;
+    hal_zigbee_cmd  c      = build_onoff_cmd(cluster->endpoint, cmd_id);
+    hal_zigbee_send_cmd_to_bindings(&c);
 }
 
 void relay_cluster_on_write_attr(zigbee_relay_cluster *cluster,

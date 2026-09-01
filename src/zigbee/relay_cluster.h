@@ -16,6 +16,12 @@ typedef struct {
     relay_t *            relay;
     led_t *              indicator_led;
     uint8_t              indicator_state;
+    /* State last pushed to bindings by relay_cluster_report(), and whether
+     * it has pushed at all yet. Lets it tell "state changed" from "someone
+     * echoed back what I just sent", which is what keeps two relays bound
+     * to each other from looping ON/OFF forever. */
+    uint8_t              has_pushed;
+    uint8_t              last_pushed_state;
 } zigbee_relay_cluster;
 
 void relay_cluster_add_to_endpoint(zigbee_relay_cluster *cluster,

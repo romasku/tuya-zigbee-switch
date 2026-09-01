@@ -184,7 +184,14 @@ def test_momentary_mode_onoff_commands_rise_mode(
     momentary_device.clear_events()
     momentary_device.release_button(relay_button_pair.button_pin)
     momentary_device.step_time(100)  # Wait a bit to ensure no command is sent
-    assert len(momentary_device.zcl_list_cmds()) == 0
+    # Scoped to the switch endpoint: the release also flips the relay (its
+    # relay_mode stays the default SHORT), which now correctly reports that
+    # to its own bindings -- that is not what this asserts against, only
+    # that RISE mode does not re-fire the switch's own binding command.
+    assert (
+        len(momentary_device.zcl_list_cmds(endpoint=relay_button_pair.switch_endpoint))
+        == 0
+    )
 
 
 @pytest.mark.parametrize(
@@ -250,7 +257,14 @@ def test_momentary_mode_onoff_commands_long_mode(
     momentary_device.release_button(relay_button_pair.button_pin)
 
     momentary_device.step_time(100)
-    assert len(momentary_device.zcl_list_cmds()) == 0
+    # Scoped to the switch endpoint: the release also flips the relay (its
+    # relay_mode stays the default SHORT), which now correctly reports that
+    # to its own bindings -- that is not what this asserts against, only
+    # that LONG mode does not fire the switch's own binding command yet.
+    assert (
+        len(momentary_device.zcl_list_cmds(endpoint=relay_button_pair.switch_endpoint))
+        == 0
+    )
 
     momentary_device.long_click_button(relay_button_pair.button_pin)
 
