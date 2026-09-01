@@ -62,7 +62,15 @@ uint8_t cover_switch_clusters_cnt = 0;
 zigbee_cover_cluster cover_clusters[3];
 uint8_t cover_clusters_cnt = 0;
 
-hal_zigbee_cluster  clusters[32];
+// Shared flat pool, sliced out per endpoint below -- not one array per
+// endpoint. Raised from 32: relay_cluster.c now registers a 4th cluster per
+// relay endpoint (the genOnOff client role, so a relay can be a bind
+// source), and the stock test fixture's device_config (4 switches, 4
+// relays, 2 covers) already used the pool right up to its old limit with
+// zero headroom -- 32 used out of 32 available -- before that addition.
+// 48 restores real headroom rather than exactly matching the new worst
+// case computed for that one fixture.
+hal_zigbee_cluster  clusters[48];
 hal_zigbee_endpoint endpoints[10];
 
 uint8_t allow_simultaneous_latching_pulses = 0;

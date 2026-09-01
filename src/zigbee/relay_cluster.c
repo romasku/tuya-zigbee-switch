@@ -92,6 +92,22 @@ void relay_cluster_add_to_endpoint(zigbee_relay_cluster *cluster,
     endpoint->clusters[endpoint->cluster_count].cmd_callback    =
         relay_cluster_level_callback_trampoline;
     endpoint->cluster_count++;
+
+    /* Output ON/OFF too, so this relay's own endpoint can be a bind SOURCE,
+       not just a target -- same pattern switch_cluster.c uses for its own
+       endpoint ("Output ON OFF to bind to other devices"). Z2M validates a
+       bind request against the client/server roles declared here at
+       interview time, before anything reaches the radio: a server-only
+       endpoint gets flatly rejected ("Nothing to bind"). No cmd_callback: a
+       pure client registration has no incoming command to process -- the
+       server registration above still owns that. A device already in the
+       field needs a fresh Z2M interview before a relay-to-relay bind will
+       work; Z2M only picks up the new output cluster there. */
+    endpoint->clusters[endpoint->cluster_count].cluster_id      = ZCL_CLUSTER_ON_OFF;
+    endpoint->clusters[endpoint->cluster_count].attribute_count = 0;
+    endpoint->clusters[endpoint->cluster_count].attributes      = NULL;
+    endpoint->clusters[endpoint->cluster_count].is_server       = 0;
+    endpoint->cluster_count++;
 }
 
 hal_zigbee_cmd_result_t relay_cluster_callback_trampoline(uint8_t endpoint,
