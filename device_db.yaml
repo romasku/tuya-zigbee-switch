@@ -13,6 +13,20 @@
 # - Keep KEYs in (mostly) alphabetical order
 # - Keep attributes in the same order
 
+#
+# Example 2-gang dimmer config string syntax (Pxx uses two-hex-digit endpoint):
+#   DM2;P08O01L08S05M06X07;P09O02L09S08M0A X0B;U0C;
+#   - DM2 defines two dimmer endpoints
+#   - P08O01L08S05M06X07 sets endpoint 0x08: On/Off DPID=0x01, Level DPID=0x08,
+#       SwitchType DPID=0x05, MinLevel DPID=0x06, MaxLevel DPID=0x07
+#   - P09O02L09S08M0A X0B sets endpoint 0x09: On/Off DPID=0x02, Level DPID=0x09,
+#       SwitchType DPID=0x08, MinLevel DPID=0x0A, MaxLevel DPID=0x0B
+#   - U0C sets a shared power-on behavior DPID=0x0C for all dimmers
+#   - Tokens inside a Pxx block must use two hex characters for DPIDs (e.g. 07, 0A)
+#
+# Example full config_str:
+#   mydim;TS000X-DIM;LB1;SA1u;SA3u;DM2;P00O01L02S04M03X05;P01O07L08S0AM09X0B;U0E;M;
+#
 BOARD__MHCOZY_TS0004:
   human_name: MHCOZY TYWB 4ch-RF <br> ZG-005(-RF) 🅰
   category: board
@@ -473,6 +487,39 @@ MODULE_AVATTO_A_TS0003:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/56
   store: https://www.aliexpress.com/item/1005007247647375.html
+MODULE_AVATTO_ZDMS16_2:
+  human_name: AVATTO ZDMS16-2
+  category: module
+  power: mains
+  neutral: required
+  output: triac
+  device_type: router
+  stock_model_name: TS0601
+  stock_manufacturer_name: _TZE284_jtbgusdc
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0601_switch
+  override_z2m_device: ZDMS16-2
+  tuya_module: ZTU
+  mcu_family: Telink
+  mcu: TLSR8258
+  # Secondary MCU (Puya PY32F002A) communicates over UART (issue #387):
+  #   P token fields: O=onoff, L=level, S=switch_type, M=min, X=max (hex)
+  #   L1 (idx 0x00): onoff=0x01 level=0x02 switch_type=0x04 min=0x03 max=0x05
+  #   L2 (idx 0x01): onoff=0x07 level=0x08 switch_type=0x0A min=0x09 max=0x0B
+  #   U0E = shared power-on-behavior DPID. No GPIO LED/switch on this board:
+  #   all controls go via the secondary MCU UART, so there are no L/S tokens.
+  config_str: jtbgusdc;TS0601;DM2;P00O01L02S04M03X05;P01O07L08S0AM09X0B;U0E;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
+  firmware_image_type: 47120
+  build: yes
+  status: in_progress
+  info: Preliminary support, needs testing with real hardware (issue #387)
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/387
+  store: https://www.aliexpress.com/item/1005006832261783.html
 MODULE_AVATTO_A_TS0004:
   human_name: AVATTO ZWSM16-4 🅰
   category: module
@@ -6247,3 +6294,77 @@ SWITCH_ZEMISMART_TS0601_6GANG:
   info: Needs pinout. Secondary MCU. 6-gang!
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/209
   store: https://www.zemismart.com/products/tb26-6
+SWITCH_NOVADIGITAL_SALA_6G:
+  human_name: NovaDigital 6 gang TS0601 (secondary MCU)
+  category: switch
+  power: mains
+  neutral: required
+  output: relay
+  device_type: router
+  stock_model_name: TS0601
+  stock_manufacturer_name: _TZE204_tdhnhhiy
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0601_switch_8
+  override_z2m_device: null
+  tuya_module: ZTU
+  mcu_family: Telink
+  mcu: TLSR8258
+  # Six relays over the MCU, no ST tokens: that keeps it to six endpoints,
+  # under the SDK cap of eight, and keeps the string writable over the air
+  # (68 chars vs 92 with the keys declared). Touch still works -- the MCU
+  # actuates locally and reports -- what is given up is switch action modes
+  # and outgoing binds from the keys.
+  config_str: tdhnhhiy;TS0601-6G;WB1B7;Y9600;RT01;RT02;RT03;RT04;RT05;RT06;PT0E;M;
+  dp_attributes: null
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
+  firmware_image_type: 43501
+  build: yes
+  status: experimental
+  info: "DP 1-6 = state_l1..l6, DP 14 = power on behaviour, taken from the
+    owner's own z2m converter and confirmed working there. UART pins and baud
+    are NOT confirmed: B1/B7 @9600 is carried over from the TPZ-2 on the same
+    ZTU module and is a starting guess. stock_image_type is likewise the
+    TPZ-2's value, unverified for this board."
+
+SWITCH_NOVADIGITAL_TPZ2:
+  human_name: NovaDigital TPZ-2 / Moes SFL02-Z-2 (secondary MCU)
+  category: switch
+  power: mains
+  neutral: required
+  output: relay
+  device_type: router
+  stock_model_name: TS0601
+  stock_manufacturer_name: _TZE200_hktk6hze
+  stock_converter_manufacturer: Moes
+  stock_converter_model: SFL02-Z-2
+  override_z2m_device: null
+  tuya_module: ZTU
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: hktk6hze;TS0601-TPZ2;Y9600;ST18;ST19;RT181E;RT191F;PT26;M;
+  # Tuya datapoints with no standard ZCL equivalent. Compiled into the second
+  # config string (attribute 0xff11) and into the z2m exposes. dp and attr are
+  # hex, matching the rest of the config string syntax.
+  dp_attributes:
+    - {dp: "12", type: E, attr: "20", name: mode_l1, label: "Switch 1 mode", values: {switch_1: 0, scene_1: 1}}
+    - {dp: "13", type: E, attr: "21", name: mode_l2, label: "Switch 2 mode", values: {switch_2: 0, scene_2: 1}}
+    - {dp: "24", type: B, attr: "22", name: backlight_mode, label: "Backlight mode"}
+    - {dp: "25", type: E, attr: "23", name: indicator_status, label: "Indicator status", values: {"off": 0, relay: 1, invert: 2}}
+    - {dp: "67", type: B, attr: "24", name: induction_mode, label: "Induction mode"}
+    - {dp: "68", type: E, attr: "25", name: vibration_mode, label: "Vibration", values: {"Gear 0": 0, "Gear 1": 1, "Gear 2": 2, "Gear 3": 3}}
+    - {dp: "69", type: V, attr: "26", name: momentary_1, label: "Momentary switch timer 1", unit: s, min: 0, max: 3600}
+    - {dp: "6A", type: V, attr: "27", name: momentary_2, label: "Momentary switch timer 2", unit: s, min: 0, max: 3600}
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
+  firmware_image_type: 43500
+  build: yes
+  status: mostly_supported
+  info: "Relays behind Tuya secondary MCU over UART B1/B7 @9600. DP 0x18/0x19 = state_l1/state_l2."
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/369

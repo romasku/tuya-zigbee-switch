@@ -1,6 +1,7 @@
 #pragma pack(push, 1)
 #include "tl_common.h"
 #include "zb_api.h"
+#include "zcl_ballast_config.h"
 #include "zcl_cover_switch_config.h"
 #include "zcl_include.h"
 #include "zcl_multistate_input.h"
@@ -55,6 +56,9 @@ static cluster_registerFunc_t get_register_func_by_cluster_id(u16 cluster_id) {
     }
     if (cluster_id == ZCL_CLUSTER_CLOSURES_WINDOW_COVERING) {
         return zcl_windowCovering_register;
+    }
+    if (cluster_id == 0x0301) { // Lighting Ballast Config
+        return zcl_ballast_config_register;
     }
     if (cluster_id == 0xFC01) { // Cover Switch Config
         return zcl_cover_switch_config_register;
@@ -203,7 +207,8 @@ void telink_zigbee_hal_zcl_init(hal_zigbee_endpoint *endpoints,
                 continue;
             }
             cluster_info_ptr->clusterId           = cluster->cluster_id;
-            cluster_info_ptr->manuCode            = 0;
+            cluster_info_ptr->manuCode            =
+                (cluster->cluster_id >= 0xFC00) ? 0x125D : 0;
             cluster_info_ptr->attrTbl             = attr_table_ptr;
             cluster_info_ptr->attrNum             = 0;
             cluster_info_ptr->clusterRegisterFunc =

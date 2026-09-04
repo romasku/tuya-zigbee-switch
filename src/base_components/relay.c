@@ -16,6 +16,8 @@ extern uint8_t allow_simultaneous_latching_pulses;
 
 static relay_t *pulse_relay = NULL;
 
+relay_dp_send_fn_t relay_dp_send_hook = NULL;
+
 static void relay_start_latching_pulse(relay_t *relay);
 static void relay_end_latching_pulse(relay_t *relay);
 
@@ -48,6 +50,11 @@ void relay_init(relay_t *relay) {
     relay->latching_task.arg = relay;
     hal_tasks_init(&relay->latching_task);
 
+    if (relay->dp_id != 0) {
+        // DP-backed relay: no GPIO to drive, the secondary MCU owns the output
+        return;
+    }
+
     // Turn off all pins
     hal_gpio_write(relay->pin, !relay->on_high);
     if (relay->is_latching) {
@@ -62,7 +69,11 @@ void relay_on(relay_t *relay) {
     printf("relay_on\r\n");
 
     relay->on = 1;
-    if (!relay->is_latching) {
+    if (relay->dp_id != 0) {
+        if (relay_dp_send_hook != NULL) {
+            relay_dp_send_hook(relay->dp_id, 1);
+        }
+    } else if (!relay->is_latching) {
         // Normal relay: drive continuously
         hal_gpio_write(relay->pin, relay->on_high);
     } else {
@@ -84,7 +95,11 @@ void relay_off(relay_t *relay) {
     printf("relay_off\r\n");
 
     relay->on = 0;
-    if (!relay->is_latching) {
+    if (relay->dp_id != 0) {
+        if (relay_dp_send_hook != NULL) {
+            relay_dp_send_hook(relay->dp_id, 0);
+        }
+    } else if (!relay->is_latching) {
         // Normal relay:  drive continuously
         hal_gpio_write(relay->pin, !relay->on_high);
     } else {
@@ -109,5 +124,19 @@ void relay_toggle(relay_t *relay) {
         relay_off(relay);
     } else {
         relay_on(relay);
+    }
+}
+
+void relay_set_state_from_dp(relay_t *relay, uint8_t state) {
+    if (relay == NULL) {
+        return;
+    }
+    state = state ? 1 : 0;
+    if (relay->on == state) {
+        return;
+    }
+    relay->on = state;
+    if (relay->on_change != NULL) {
+        relay->on_change(relay->callback_param, state);
     }
 }

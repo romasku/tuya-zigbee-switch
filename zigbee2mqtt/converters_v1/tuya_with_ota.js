@@ -65,7 +65,9 @@ const tuyaModels = [
     "TS011F_din_smart_relay",
     "TS011F_plug_1",
     "TS011F_plug_2",
+    "TS0601_switch",
     "TS0601_switch_1_gang",
+    "TS0601_switch_8",
     "TS0726_1_gang_scene_switch",
     "TS0726_2_gang_scene_switch",
     "TS0726_3_gang",
@@ -90,6 +92,7 @@ for (let definition of tuyaDefinitions) {
 
 const moesModels = [
     "ERS-10TZBVB-AA",
+    "SFL02-Z-2",
     "SR-ZS",
     "ZG-101ZL",
     "ZS-EUB_1gang",

@@ -29,6 +29,7 @@ typedef struct {
     ev_button_callback_t             on_release;
     ev_button_multi_press_callback_t on_multi_press;
     void *                           callback_param;
+    uint8_t          dp_id;   // 0 = GPIO button; != 0 = fed by a Tuya DP report
 } button_t;
 
 void btn_init(button_t *button);

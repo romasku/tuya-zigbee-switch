@@ -18,6 +18,7 @@ source:
 - {path: ../../silabs/hal/system.c}
 - {path: ../../silabs/hal/adc.c}
 - {path: ../../silabs/hal/ota.c}
+- {path: ../../silabs/hal/uart.c}
 - {path: ../../silabs/hal/silabs_gpio_utils.h}
 - {path: ../../hal/adc.h}
 - {path: ../../hal/zigbee.h}
@@ -49,9 +50,14 @@ source:
 - {path: ../../device_config/reset.h}
 - {path: ../../device_config/nvm_migrations.c}
 - {path: ../../zigbee/basic_cluster.c}
+- {path: ../../zigbee/tuya_secondary_mcu.c}
+- {path: ../../zigbee/dimmer_cluster.c}
 - {path: ../../zigbee/battery_cluster.c}
 - {path: ../../zigbee/general_commands.c}
 - {path: ../../zigbee/group_cluster.c}
+- {path: ../../zigbee/time_cluster.c}
+- {path: ../../zigbee/tuya_dp_relay.c}
+- {path: ../../zigbee/dp_attr.c}
 - {path: ../../zigbee/relay_cluster.c}
 - {path: ../../zigbee/switch_cluster.c}
 - {path: ../../zigbee/cover_switch_cluster.c}
@@ -68,6 +74,9 @@ source:
 - {path: ../../zigbee/zigbee_commands.h}
 - {path: ../../zigbee/general_commands.h}
 - {path: ../../zigbee/group_cluster.h}
+- {path: ../../zigbee/time_cluster.h}
+- {path: ../../zigbee/tuya_dp_relay.h}
+- {path: ../../zigbee/dp_attr.h}
 include:
 - {path: ../../.}
 sdk: {id: gecko_sdk, version: 4.4.6}

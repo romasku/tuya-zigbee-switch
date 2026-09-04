@@ -11,6 +11,15 @@ void btn_update_debounced(button_t *button, uint8_t is_pressed,
                           uint32_t changed_at);
 
 void btn_init(button_t *button) {
+    if (button->dp_id != 0) {
+        // Fed by datapoint reports from a secondary MCU: there is no GPIO to
+        // read, and the press/release callbacks are invoked directly.
+        button->update_task.handler = _btn_update_callback;
+        button->update_task.arg     = button;
+        hal_tasks_init(&button->update_task);
+        return;
+    }
+
     // During device startup, button may be already pressed, but this should not
     // be detected as user press. So, to avoid such situation, special init is
     // required.
@@ -29,6 +38,7 @@ void btn_init(button_t *button) {
 
 void _btn_gpio_callback(hal_gpio_pin_t pin, void *arg) {
     button_t *button    = (button_t *)arg;
+    if (button->dp_id != 0) { return; }
     uint8_t   new_state = hal_gpio_read(button->pin);
 
     if (new_state == button->debounce_last_state) {

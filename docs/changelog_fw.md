@@ -16,6 +16,10 @@ Please describe what you are working on, under ## Upcoming
   - Pinout: L1 `RB5`, L2 `RB4`, switches `SC2f`/`SC3f`
   - Defaults to momentary switch mode (`M;` in config)
 
+- **Avatto ZDMS16-2 2-gang dimmer module** (`TS0601`, `_TZE284_jtbgusdc`)
+  - No pinouts as this board uses a secondary MCU
+  - Implemented full UART communication protocol
+
 ### Features
 
 - **Cover cluster** (window covering) for controlling the motor of curtains, blinds, and shutters.

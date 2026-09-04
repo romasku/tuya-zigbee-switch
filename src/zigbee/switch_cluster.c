@@ -92,6 +92,15 @@ void switch_cluster_add_to_endpoint(zigbee_switch_cluster *cluster,
     cluster->endpoint = endpoint->endpoint;
     switch_cluster_load_attrs_from_nv(cluster);
 
+    /* A switch fed by a datapoint report is driven by a secondary MCU that has
+       *already* actuated the relay - the report is the confirmation. Driving it
+       again from here would toggle it twice on every press, so the relay mode
+       is forced and not user-configurable for these. */
+    if (cluster->button != NULL && cluster->button->dp_id != 0)
+    {
+        cluster->relay_mode = ZCL_ONOFF_CONFIGURATION_RELAY_MODE_DETACHED;
+    }
+
     cluster->button->on_press =
         (ev_button_callback_t)switch_cluster_on_button_press;
     cluster->button->on_release =
@@ -456,6 +465,14 @@ void synchronize_multistate_state(zigbee_switch_cluster *cluster) {
 
 void switch_cluster_on_write_attr(zigbee_switch_cluster *cluster,
                                   uint16_t attribute_id) {
+    if (cluster != NULL && cluster->button != NULL &&
+        cluster->button->dp_id != 0 &&
+        attribute_id == ZCL_ATTR_ONOFF_CONFIGURATION_SWITCH_RELAY_MODE)
+    {
+        // See switch_cluster_add_to_endpoint(): forced for DP-backed switches.
+        cluster->relay_mode = ZCL_ONOFF_CONFIGURATION_RELAY_MODE_DETACHED;
+    }
+
     printf("Index at write attr: %d\r\n", cluster->switch_idx);
     if (attribute_id == ZCL_ATTR_ONOFF_CONFIGURATION_SWITCH_RELAY_INDEX) {
         if (relay_clusters_cnt == 0) {

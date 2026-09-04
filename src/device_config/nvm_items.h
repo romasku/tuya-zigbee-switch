@@ -1,7 +1,7 @@
 #ifndef DEVICE_CONFIG_NVM_ITEMS_H_
 #define DEVICE_CONFIG_NVM_ITEMS_H_
 
-#define MAX_RELAYS                       5
+#define MAX_RELAYS                       6
 #define MAX_SWITCHES                     5
 #define MAX_COVER_SWITCHES               3
 #define MAX_COVERS                       3
@@ -27,5 +27,7 @@
 
 #define NV_ITEM_MULTI_PRESS_RESET_COUNT    33
 #define NV_ITEM_POLL_CONTROL_CONFIG        34
+#define NV_ITEM_DP_CONFIG                  35
+#define NV_ITEM_DEVICE_CONFIG_EXT          36
 
 #endif /* DEVICE_CONFIG_NVM_ITEMS_H_ */

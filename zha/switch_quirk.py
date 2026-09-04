@@ -5,6 +5,7 @@ from zigpy.quirks.v2 import QuirkBuilder, ReportingConfig, SensorDeviceClass, En
 from zigpy.zcl import ClusterType, foundation
 from zigpy.zcl.clusters.general import OnOffConfiguration, SwitchType, MultistateInput, OnOff, Basic
 from zigpy.zcl.clusters.closures import WindowCovering
+from zigpy.zcl.clusters.lighting import Ballast
 from zigpy.zcl.foundation import ZCLAttributeDef
 import zigpy.types as t
 
@@ -218,6 +219,31 @@ class CustomWindowCoveringCluster(CustomCluster, WindowCovering):
             is_manufacturer_specific=False,
         )
 
+
+class CustomBallastCfgCluster(CustomCluster, Ballast):
+
+    class AttributeDefs(Ballast.AttributeDefs):
+        # min_level/max_level are already writable in zigpy's Ballast cluster;
+        # re-declare them for clarity (our firmware exposes them as config
+        # numbers in raw ZCL units 1-254).
+        min_level: Final = ZCLAttributeDef(
+            id=0x0010, type=t.uint8_t, access="rw", is_manufacturer_specific=False
+        )
+        max_level: Final = ZCLAttributeDef(
+            id=0x0011, type=t.uint8_t, access="rw", is_manufacturer_specific=False
+        )
+
+
+class CustomOnOffSwitchCfgCluster(CustomCluster, OnOffConfiguration):
+
+    class AttributeDefs(OnOffConfiguration.AttributeDefs):
+        # Standard ZCL defines switch_type as read-only; our firmware makes it
+        # writable so the physical dimmer type can be configured.
+        switch_type: Final = ZCLAttributeDef(
+            id=0x0000, type=SwitchType, access="rw", is_manufacturer_specific=False
+        )
+
+
 '''``````````````````````````````````````````````````````````````````
   This file (`zha_quirk.py`) is generated. 
   
@@ -283,6 +309,7 @@ CONFIGS = [
     "TS0003-AVB;TS0003-AVB;BC2u;LD2i;SD3u;RC0;SD7u;RD4;SB6u;RC1;",
     "TS0003-AVB;TS0003-Avatto-custom;BC2u;LD2i;SD3u;RC0;SD7u;RD4;SB6u;RC1;",
     "TS0003-AVB;TS0003-AV-CUS;BC2u;LD2i;SD3u;RC0;SD7u;RD4;SB6u;RC1;",
+    "jtbgusdc;TS0601;DM2;P00O01L02S04M03X05;P01O07L08S0AM09X0B;U0E;M;",
     "5ajpkyq6;TS0004-AVB;BC2u;LD2i;SD3u;RC0;SD7u;RD4;SB6u;RC1;SA0u;RC4;",
     "5ajpkyq6;TS0004-Avatto-custom;BC2u;LD2i;SD3u;RC0;SD7u;RD4;SB6u;RC1;SA0u;RC4;",
     "5ajpkyq6;TS0004-AV-CUS;BC2u;LD2i;SD3u;RC0;SD7u;RD4;SB6u;RC1;SA0u;RC4;",
@@ -332,6 +359,8 @@ CONFIGS = [
     "q6a3tepg;TS0001-HOB1;BB1u;LD4i;SB6u;RA1;",
     "ZG-301Z;TS0001-HOB;BB1u;LD4i;SB6u;RA1;",
     "tw4ztbp4;TS0011-HOMMYN;BA0u;LD7;SC2u;RB5;",
+    "5gey1ohx;Hommyn-RLZBN02;BA0u;LC0;SB4u;RC2;SB5u;RC3;",
+    "0e6uvexf;Hommyn-2;BA0f;LD7;SC2f;RB5;SC3f;RB4;M;",
     "pgq7ormg;TS0001-IHS;BC3u;LC2i;SB5u;RD2;",
     "mhhxxjrs;TS0003-IHS;BC3u;LC2i;SD7u;RD2;SB4u;RD3;SB5u;RC0;",
     "mhhxxjrs;TS0003-3CH-cus;BC3u;LC2i;SD7u;RD2;SB4u;RD3;SB5u;RC0;",
@@ -355,6 +384,8 @@ CONFIGS = [
     "c8wtsv3p;MS105-ZB-CUSTOM;BC2u;LD2i;SD3u;RD7;",
     "sonoff;ZBMINIL2-custom;BA0u;LC5i;SA6u;RA5A4;",
     "npzfdcof;TS0001-TLED;BD2u;LC3i;SB5u;RB4;",
+    "n1j44rth;TS0002-N1J44RTH;BB4u;LD2i;SC2u;RC4;SC3u;RB5;",
+    "uwhjgngj;TS0003-UWHJGNGJ;BB1u;LB7i;SC2u;RB4;SC3u;RB5;SD2u;RC4;",
     "rfexs4vs;TS0001-C;BA0u;LC0;SB4u;RC2;",
     "khmapq4n;TS0001-SB;BA0u;LC0;SB4u;RC2;",
     "zbfya6h0;TS0002-C;BA0u;LC0;SB4u;RC2;SB5u;RC3;",
@@ -489,6 +520,7 @@ CONFIGS = [
     "xkxgfxsg;TS0726-1-BSL;LC3;SB5u;RC1;ID2;M;",
     "tlsvxhxc;TS0726-2-BSL;LB4;SC2u;RC0;ID2;SC3u;RB6;IA1;M;",
     "r2fgo9ks;TS0726-3-BS;LD4;SA1u;RB4;IC1;SC2u;RD2;IB5;SA0u;RC3;IB6;M;",
+    "p1h4zuvh;Girier-4-gang;SA0u;RC0;IC2;SA3u;RD1;IA6;SA4u;RB0;IA5;SB1u;RC1;ID0;M;",
     "ZG-302Z1;TS0001-HBS;IC1i;SC2u;RB5B4;M;",
     "bmqxalil;TS0001-HMT;LC2i;SA0u;RD2;M;",
     "in5qxhtt;TS0002-HMT;LC2i;SB4u;RD7;SD4u;RC3;M;",
@@ -498,6 +530,7 @@ CONFIGS = [
     "ju82pu2b;TS0003-IHS-T;LC4i;SC0u;RC2;SB4u;RC3;SB5u;RD2;M;",
     "dlp6yvs8;LerLink-2-gang;SA0u;RB4;ID7;SB7u;RB5;ID2;M;",
     "qp7x8u3a;LerLink-3-gang;SA0u;RB4;ID7;SC2u;RC3;IB1;SB7u;RB5;ID2;M;",
+    "sovlwiix;LerLink-4-gang;SB0u;RC2;IA5;SA0u;RC1;IA6;SA4u;RB1;ID0;SA3u;RC0;ID1;M;",
     "qa8s8vca;TS130F-LT;BD2u;LA0;XB5C3f;CC0C2;M;",
     "kea5qgnd;TS0011-MH;SC4u;RB4A0;ID2;M;",
     "toaaawnr;TS0012-MH;SC4u;RB4A0;ID2;SD7u;RD4B5;IC3;M;",
@@ -557,6 +590,7 @@ for config in CONFIGS:
     indicators_cnt = 0
     cover_switch_cnt = 0
     cover_cnt = 0
+    dimmer_cnt = 0
     has_dedicated_net_led = False
     for peripheral in peripherals:
         if peripheral == "SLP":
@@ -571,6 +605,8 @@ for config in CONFIGS:
             cover_cnt += 1
         if peripheral[0] == 'I':
             indicators_cnt += 1
+        if peripheral[:2] == "DM":
+            dimmer_cnt = max(dimmer_cnt, int(peripheral[2:]))
         if peripheral[0] == 'L':
             has_dedicated_net_led = True
 
@@ -781,6 +817,46 @@ for config in CONFIGS:
                 CustomWindowCoveringCluster.cluster_id,
                 translation_key="cover_motor_reversal_"+str(endpoint_id),
                 fallback_name="Cover motor reversal "+str(endpoint_id),
+                endpoint_id=endpoint_id,
+                entity_type=EntityType.CONFIG,
+            )
+        )
+
+    for endpoint_id in range(switch_cnt + relay_cnt + cover_switch_cnt + cover_cnt + 1, switch_cnt + relay_cnt + cover_switch_cnt + cover_cnt + dimmer_cnt + 1):
+        builder = (
+            builder
+            .removes(Ballast.cluster_id, cluster_type=ClusterType.Client, endpoint_id=endpoint_id)
+            .adds(CustomBallastCfgCluster, endpoint_id=endpoint_id)
+            .removes(OnOffConfiguration.cluster_id, cluster_type=ClusterType.Client, endpoint_id=endpoint_id)
+            .adds(CustomOnOffSwitchCfgCluster, endpoint_id=endpoint_id)
+            .number(
+                CustomBallastCfgCluster.AttributeDefs.min_level.name,
+                CustomBallastCfgCluster.cluster_id,
+                translation_key="dimmer_min_level_"+str(endpoint_id),
+                fallback_name="Dimmer min level "+str(endpoint_id),
+                min_value=1,
+                max_value=254,
+                step=1,
+                endpoint_id=endpoint_id,
+                entity_type=EntityType.CONFIG,
+            )
+            .number(
+                CustomBallastCfgCluster.AttributeDefs.max_level.name,
+                CustomBallastCfgCluster.cluster_id,
+                translation_key="dimmer_max_level_"+str(endpoint_id),
+                fallback_name="Dimmer max level "+str(endpoint_id),
+                min_value=1,
+                max_value=254,
+                step=1,
+                endpoint_id=endpoint_id,
+                entity_type=EntityType.CONFIG,
+            )
+            .enum(
+                CustomOnOffSwitchCfgCluster.AttributeDefs.switch_type.name,
+                SwitchType,
+                CustomOnOffSwitchCfgCluster.cluster_id,
+                translation_key="dimmer_switch_type_"+str(endpoint_id),
+                fallback_name="Dimmer switch type "+str(endpoint_id),
                 endpoint_id=endpoint_id,
                 entity_type=EntityType.CONFIG,
             )

@@ -236,6 +236,49 @@ static int cmd_read_pin(int argc, char **argv) {
     return 0;
 }
 
+static int cmd_uart_rx(int argc, char **argv) {
+    if (argc != 2) {
+        fprintf(stderr, "Usage: uart_rx <hexbytes>\n");
+        io_res_err("usage");
+        return -1;
+    }
+    const char *hex = argv[1];
+    size_t      n   = strlen(hex);
+    if (n == 0 || n % 2) {
+        io_res_err("bad_hex");
+        return -1;
+    }
+    uint8_t buf[128];
+    uint16_t len = 0;
+    for (size_t i = 0; i < n && len < sizeof(buf); i += 2) {
+        char     pair[3] = { hex[i], hex[i + 1], 0 };
+        char *   e       = NULL;
+        long     v       = strtol(pair, &e, 16);
+        if (*e) {
+            io_res_err("bad_hex");
+            return -1;
+        }
+        buf[len++] = (uint8_t)v;
+    }
+    stub_uart_inject_rx(buf, len);
+    io_res_ok("injected=%u", len);
+    return 0;
+}
+
+static int cmd_uart_tx(int argc, char **argv) {
+    (void)argc;
+    (void)argv;
+    uint8_t  buf[256];
+    uint16_t len = stub_uart_take_tx(buf, sizeof(buf));
+    char     hex[2 * sizeof(buf) + 1];
+    for (uint16_t i = 0; i < len; i++) {
+        snprintf(hex + 2 * i, 3, "%02X", buf[i]);
+    }
+    hex[2 * len] = '\0';
+    io_res_ok("tx=%s", hex);
+    return 0;
+}
+
 static int cmd_zcl_cmd_impl(int argc, char **argv, bool trigger_activity) {
     if (argc < 4) {
         fprintf(stderr, "Usage: zcl_cmd <ep:dec> <cluster:hex> <cmd:hex> "
@@ -386,6 +429,8 @@ static const SimpleReplCommand kCmds[] = {
     { "net",                 cmd_net                 },
     { "set_pin",             cmd_pin                 },
     { "read_pin",            cmd_read_pin            },
+    { "uart_rx",             cmd_uart_rx             },
+    { "uart_tx",             cmd_uart_tx             },
     { "zcl_read",            cmd_zcl_read            },
     { "zcl_write",           cmd_zcl_write           },
     { "zcl_list_attrs",      cmd_zcl_list_attrs      },

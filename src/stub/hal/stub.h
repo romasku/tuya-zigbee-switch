@@ -48,4 +48,8 @@ void stub_millis_freeze();
 void stub_millis_unfreeze();
 void stub_millis_step(uint64_t step);
 
+/* UART test hooks, see src/stub/hal/uart.c */
+void     stub_uart_inject_rx(const uint8_t *data, uint16_t len);
+uint16_t stub_uart_take_tx(uint8_t *out, uint16_t max);
+
 #endif // _HAL_STUB_H_

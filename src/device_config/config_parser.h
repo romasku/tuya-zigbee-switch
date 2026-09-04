@@ -15,6 +15,10 @@ extern uint8_t allow_simultaneous_latching_pulses;
 
 extern battery_t battery;
 
+/** Number of dimmer clusters parsed from the config string (>=1 means the
+ * device has a secondary MCU driving dimmers over UART). */
+extern uint8_t dimmer_clusters_cnt;
+
 void parse_config();
 void init_reporting();
 void handle_version_changes();

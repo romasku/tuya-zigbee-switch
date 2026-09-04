@@ -16,7 +16,22 @@ typedef struct {
     hal_task_t       latching_task;  // Task to clear pulse for latching relays
     relay_callback_t on_change;      // Optional callback for state change
     void *           callback_param; // Parameter passed to callback
+    uint8_t          dp_id;           // 0 = GPIO relay; != 0 = driven over Tuya DP
+    uint8_t          countdown_dp_id; // Tuya DP carrying the countdown, 0 = none          // 0 = GPIO relay; != 0 = driven over Tuya DP
 } relay_t;
+
+/*
+ * Hook used to actuate DP-backed relays. Installed by the Zigbee layer so that
+ * base_components does not depend on the Tuya secondary-MCU transport.
+ */
+typedef void (*relay_dp_send_fn_t)(uint8_t dp_id, uint8_t state);
+extern relay_dp_send_fn_t relay_dp_send_hook;
+
+/*
+ * Apply a state reported BY the secondary MCU (physical press or echo).
+ * Updates internal state and notifies listeners WITHOUT sending a DP back.
+ */
+void relay_set_state_from_dp(relay_t *relay, uint8_t state);
 
 /**
  * @brief      Initialize relay (set initial state)

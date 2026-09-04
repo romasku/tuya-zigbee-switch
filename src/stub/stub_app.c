@@ -35,7 +35,8 @@ static device_config_str_t g_stub_config = {
     .size = 0, .data = "Stub;Stub;SA0u;SA1u;SA2u;SA3u;RB0;RB1;RC0;RC1;"
 };
 
-void stub_app_init(const char *device_conf, bool joined) {
+void stub_app_init(const char *device_conf, const char *dp_conf,
+                   const char *device_conf_ext, bool joined) {
     puts("[STUB] Starting Smart Home Device Stub");
 
     bool nvm_has_config = false;
@@ -54,6 +55,24 @@ void stub_app_init(const char *device_conf, bool joined) {
                                                sizeof(g_stub_config.data));
         hal_nvm_write(NV_ITEM_DEVICE_CONFIG, sizeof(device_config_str_t),
                       (uint8_t *)&g_stub_config);
+    }
+
+    if (dp_conf) {
+        device_config_str_t dp = {0};
+        snprintf((char *)dp.data, sizeof(dp.data), "%s", dp_conf);
+        dp.size = (uint16_t)strnlen((const char *)dp.data, sizeof(dp.data));
+        printf("[STUB] Using dp configuration: %s\n", dp.data);
+        hal_nvm_write(NV_ITEM_DP_CONFIG, sizeof(device_config_str_t),
+                      (uint8_t *)&dp);
+    }
+
+    if (device_conf_ext) {
+        device_config_str_t ext = {0};
+        snprintf((char *)ext.data, sizeof(ext.data), "%s", device_conf_ext);
+        ext.size = (uint16_t)strnlen((const char *)ext.data, sizeof(ext.data));
+        printf("[STUB] Using device configuration ext: %s\n", ext.data);
+        hal_nvm_write(NV_ITEM_DEVICE_CONFIG_EXT, sizeof(device_config_str_t),
+                      (uint8_t *)&ext);
     }
 
     puts("[STUB] Initializing stub application");
@@ -253,6 +272,9 @@ int stub_app_string_to_attribute_value(hal_zigbee_attribute *attr,
 
         break;
     }
+    /* UTCTime is a uint32 on the wire; the real stacks treat it that way
+       and without this the stub silently mangles a Time write. */
+    case ZCL_DATA_TYPE_UTC:
     case ZCL_DATA_TYPE_UINT32: {
         unsigned long v = 0;
         if (sscanf(str, "%lu", &v) != 1)

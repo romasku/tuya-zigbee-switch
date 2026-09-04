@@ -87,6 +87,7 @@ DEVICE_DEFS := \
 	-DFILE_VERSION=$(FILE_VERSION) \
 	-DNVM_MIGRATIONS_VERSION=$(NVM_MIGRATIONS_VERSION) \
 	-DDEFAULT_CONFIG="$(CONFIG_STR)" \
+	-DDEFAULT_DP_CONFIG="$(DP_CONFIG_STR)" \
 	-DIMAGE_TYPE=$(IMAGE_TYPE) \
 	-DHAL_TELINK \
 	$(TEL_CHIP) 
@@ -131,6 +132,7 @@ TELINK_SOURCES := \
 	hal/gpio.c \
 	hal/gpio_interrupts.c \
 	hal/nvm.c \
+	hal/uart.c \
 	hal/zigbee.c \
 	hal/zigbee_network.c \
 	hal/zigbee_zcl.c \
@@ -140,6 +142,7 @@ TELINK_SOURCES := \
 	custom_zcl/zcl_multistate_input.c \
 	custom_zcl/zcl_onoff_configuration.c \
 	custom_zcl/zcl_cover_switch_config.c \
+	custom_zcl/zcl_ballast_config.c \
 	patch_sdk/drv_nv.c
 
 # Common source files (shared with Silicon Labs build)
@@ -157,8 +160,13 @@ COMMON_SOURCES := \
 	$(SRC_DIR)/device_config/config_parser.c \
 	$(SRC_DIR)/device_config/nvm_migrations.c \
 	$(SRC_DIR)/zigbee/basic_cluster.c \
+	$(SRC_DIR)/zigbee/tuya_secondary_mcu.c \
+	$(SRC_DIR)/zigbee/dimmer_cluster.c \
 	$(SRC_DIR)/zigbee/general_commands.c \
 	$(SRC_DIR)/zigbee/group_cluster.c \
+	$(SRC_DIR)/zigbee/time_cluster.c \
+	$(SRC_DIR)/zigbee/tuya_dp_relay.c \
+	$(SRC_DIR)/zigbee/dp_attr.c \
 	$(SRC_DIR)/zigbee/relay_cluster.c \
 	$(SRC_DIR)/zigbee/switch_cluster.c \
 	$(SRC_DIR)/zigbee/cover_switch_cluster.c \

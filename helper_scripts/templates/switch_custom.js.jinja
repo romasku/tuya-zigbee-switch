@@ -3,6 +3,7 @@ const {
     enumLookup,
     deviceEndpoints,
     onOff,
+    light,
     text,
     binary,
     windowCovering,
@@ -186,6 +187,41 @@ const romasku = {
             valueMax: 255,
             entityCategory: "config",
         }),
+    dpConfig: (name, endpointName) =>
+        text({
+            name,
+            endpointName,
+            access: "ALL",
+            cluster: "genBasic",
+            attribute:  { ID: 0xff11, type: 0x44 }, // long str
+            description: "Tuya datapoint to attribute map. Separate from device_config because a single ZCL write caps at ~74 characters.",
+            zigbeeCommandOptions: {timeout: 30_000},
+            validate: (value) => {
+                assertString(value);
+                if (value.length > 256) throw new Error("Length of dp config is greater than 256");
+                if (value.length && !value.endsWith(";")) throw new Error("Should end with ;");
+                for (const part of value.split(";").filter((p) => p.length)) {
+                    if (!/^[0-9A-Fa-f]{2}[BEV][0-9A-Fa-f]{2}$/.test(part)) {
+                        throw new Error(`Datapoint entry ${part} is invalid. Use <dp:2hex><B|E|V><attr:2hex>, e.g. 24B22`);
+                    }
+                }
+            },
+        }),
+    deviceConfigExt: (name, endpointName) =>
+        text({
+            name,
+            endpointName,
+            access: "ALL",
+            cluster: "genBasic",
+            attribute:  { ID: 0xff16, type: 0x44 }, // long str
+            description: "Overflow for device_config: a single ZCL write caps at ~74 characters, so a config string longer than that has to be split, with the remainder written here. Appended onto device_config in RAM before it is parsed, so the result is identical to one long string -- only the over-the-air write needs to happen in two parts.",
+            zigbeeCommandOptions: {timeout: 30_000},
+            validate: (value) => {
+                assertString(value);
+                if (value.length > 256) throw new Error("Length of device_config_ext is greater than 256");
+                if (value.length && !value.endsWith(";")) throw new Error("Should end with ;");
+            },
+        }),
     deviceConfig: (name, endpointName) =>
         text({
             name,
@@ -215,12 +251,45 @@ const romasku = {
                 for (const part of parts.slice(2)) {
                     if (part == 'SLP') {
                         continue;   
+                    } else if (part.startsWith('DM')) {
+                        if (!/^DM\d+$/.test(part)) {
+                            throw new Error(`Dimmer count option ${part} is invalid. Use DM<N>, e.g. DM2`);
+                        }
                     } else if (part[0] == 'D') {
                         if (!/^D\d+$/.test(part)) {
                             throw new Error(`Debounce option ${part} is invalid. Use D<N>, e.g. D100 or D0`);
                         }
                     } else if (part.startsWith('BT')) {
                         validatePin(part.slice(2,4));
+                    } else if (part.startsWith('ST')) {
+                        if (!/^ST[0-9A-Fa-f]{2}$/.test(part)) {
+                            throw new Error(`Datapoint ${part} is invalid. Use ST<hh>, e.g. ST01`);
+                        }
+                    } else if (part.startsWith('IT')) {
+                        if (!/^IT[0-9A-Fa-f]{2}[124]([0-9A-Fa-f]{2}|[0-9A-Fa-f]{8})$/.test(part)) {
+                            throw new Error(`Datapoint init ${part} is invalid. Use IT<hh><t><v>, e.g. IT67101`);
+                        }
+                    } else if (part.startsWith('RT')) {
+                        // relay driven through the Tuya secondary MCU: RT<hh> (hex DP id)
+                        if (!/^RT[0-9A-Fa-f]{2}([0-9A-Fa-f]{2})?$/.test(part)) {
+                            throw new Error(`Datapoint ${part} is invalid. Use RT<hh> or RT<hh><countdown hh>, e.g. RT18 or RT181E`);
+                        }
+                    } else if (part.startsWith('PT')) {
+                        // device-wide power-on-behaviour datapoint: PT<hh>
+                        // Must come before the P branch below, which is the
+                        // dimmer map and would otherwise swallow it.
+                        if (!/^PT[0-9A-Fa-f]{2}$/.test(part)) {
+                            throw new Error(`Power-on datapoint ${part} is invalid. Use PT<hh>, e.g. PT26`);
+                        }
+                    } else if (part[0] == 'W') {
+                        // UART pins towards the secondary MCU: W<tx><rx>
+                        validatePin(part.slice(1,3));
+                        validatePin(part.slice(3,5));
+                    } else if (part[0] == 'Y') {
+                        // baudrate of that UART
+                        if (!/^Y\d+$/.test(part)) {
+                            throw new Error(`Baudrate ${part} is invalid. Use Y<n>, e.g. Y9600`);
+                        }
                     } else if (part[0] == 'B' || part[0] == 'S') {
                         validatePin(part.slice(1,3));
                         if (!["u", "U", "d", "f"].includes(part[3])) {
@@ -239,10 +308,20 @@ const romasku = {
                         validatePin(part.slice(1,3));
                     } else if(part[0] == 'M') {
                         ;
+                    } else if(part[0] == 'U') {
+                        if (!/^U[0-9A-Fa-f]{2}$/.test(part)) {
+                            throw new Error(`Universal power-on DPID ${part} is invalid. Use U<hh> (hex), e.g. U0E`);
+                        }
                     } else if(part[0] == 'i') {
                         ; // TODO: write validation
+                    } else if (part[0] == 'P') {
+                        // Pxx... per-dimmer DPID mapping; only the 0-based dimmer
+                        // sequence index (2 hex digits) is validated here.
+                        if (!/^P[0-9A-Fa-f]{2}[OLSMX][0-9A-Fa-f]{2}/.test(part)) {
+                            throw new Error(`Dimmer DPID map ${part} is invalid. Use P<idx>O<oo>L<ll>S<ss>M<mm>X<xx> (hex), e.g. P08O01L08`);
+                        }
                     } else {
-                        throw new Error(`Invalid entry ${part}. Should start with one of B, BT, C, D, I, L, M, R, S, SLP, X, i`);
+                        throw new Error(`Invalid entry ${part}. Should start with one of B, BT, C, D, DM, I, IT, L, M, P, PT, R, RT, S, SLP, ST, W, X, Y, Z, i`);
                     }
                 }
             },
@@ -358,6 +437,46 @@ const romasku = {
             description: "Reverse motor direction (swap OPEN/CLOSE relays)",
             entityCategory: "config",
         }),
+    dimmerMinLevel: (name, endpointName) =>
+        numeric({
+            name,
+            endpointName,
+            cluster: "lightingBallastCfg",
+            attribute: "minLevel",
+            valueMin: 1,
+            valueMax: 254,
+            entityCategory: "config",
+        }),
+    dimmerMaxLevel: (name, endpointName) =>
+        numeric({
+            name,
+            endpointName,
+            cluster: "lightingBallastCfg",
+            attribute: "maxLevel",
+            valueMin: 1,
+            valueMax: 254,
+            entityCategory: "config",
+        }),
+    dimmerSwitchType: (name, endpointName) =>
+        enumLookup({
+            name,
+            endpointName,
+            lookup: { toggle: 0, state: 1, momentary: 2 },
+            cluster: "genOnOffSwitchCfg",
+            attribute: "switchType",
+            description: "Type of physical dimmer/switch",
+            entityCategory: "config",
+        }),
+    dimmerPowerOnBehavior: (name, endpointName) =>
+        enumLookup({
+            name,
+            ...(endpointName ? {endpointName} : {}),
+            lookup: { off: 0, on: 1, previous: 255 },
+            cluster: "genOnOff",
+            attribute: "startUpOnOff",
+            description: "Behavior when power is restored (previous = memory)",
+            entityCategory: "config",
+        }),
 };
 
 const definitions = [
@@ -371,7 +490,7 @@ const definitions = [
         model: "{{device.model}}",
         vendor: "Tuya-custom",
         description: "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
-        {% set first_endpoint = device.switchNames[0] if device.switchNames else (device.relayNames[0] if device.relayNames else device.coverNames[0]) %}
+        {% set first_endpoint = device.switchNames[0] if device.switchNames else (device.relayNames[0] if device.relayNames else (device.coverNames[0] if device.coverNames else device.dimmerNames[0])) %}
         extend: [
             {% if device.has_battery_cluster %}
             romasku.batteryPercentage(),
@@ -414,9 +533,51 @@ const definitions = [
                 {%- for coverName in device.coverNames -%}
                     "{{coverName}}": {{loop.index + (device.switchNames | length) + (device.relayNames | length) + (device.coverSwitchNames | length)}},{{" "}}
                 {%- endfor -%}
+                {%- for dimmerName in device.dimmerNames -%}
+                    "{{dimmerName}}": {{loop.index + (device.switchNames | length) + (device.relayNames | length) + (device.coverSwitchNames | length) + (device.coverNames | length)}},{{" "}}
+                {%- endfor -%}
             } }),
-            {% set first_endpoint = device.switchNames[0] if device.switchNames else (device.relayNames[0] if device.relayNames else (device.coverSwitchNames[0] if device.coverSwitchNames else device.coverNames[0])) %}
+            {% set first_endpoint = device.switchNames[0] if device.switchNames else (device.relayNames[0] if device.relayNames else (device.coverSwitchNames[0] if device.coverSwitchNames else (device.coverNames[0] if device.coverNames else device.dimmerNames[0]))) %}
             romasku.deviceConfig("device_config", "{{first_endpoint}}"),
+            romasku.deviceConfigExt("device_config_ext", "{{first_endpoint}}"),
+{% if device.dp_relay_cnt > 0 %}            romasku.dpConfig("dp_config", "{{first_endpoint}}"),
+{% endif %}
+{% for dp in device.dp_attributes %}
+{% if dp.type == "B" %}
+            binary({
+                name: "{{dp.name}}",
+                endpointName: "{{first_endpoint}}",
+                cluster: "genBasic",
+                attribute: { ID: 0x{{("ff" ~ dp.attr)|lower}}, type: 0x10 }, // boolean
+                valueOn: ["ON", 1],
+                valueOff: ["OFF", 0],
+                description: "{{dp.label}}",
+                entityCategory: "config",
+            }),
+{% elif dp.type == "E" %}
+            enumLookup({
+                name: "{{dp.name}}",
+                endpointName: "{{first_endpoint}}",
+                lookup: { {% for k, v in dp["values"].items() %}"{{k}}": {{v}}{{ ", " if not loop.last }}{% endfor %} },
+                cluster: "genBasic",
+                attribute: { ID: 0x{{("ff" ~ dp.attr)|lower}}, type: 0x30 }, // enum8
+                description: "{{dp.label}}",
+                entityCategory: "config",
+            }),
+{% elif dp.type == "V" %}
+            numeric({
+                name: "{{dp.name}}",
+                endpointNames: ["{{first_endpoint}}"],
+                cluster: "genBasic",
+                attribute: { ID: 0x{{("ff" ~ dp.attr)|lower}}, type: 0x23 }, // uint32
+                description: "{{dp.label}}",
+                valueMin: {{dp.min}},
+                valueMax: {{dp.max}},
+{% if dp.unit %}                unit: "{{dp.unit}}",
+{% endif %}                entityCategory: "config",
+            }),
+{% endif %}
+{% endfor %}
             romasku.multiPressResetCount("multi_press_reset_count", "{{first_endpoint}}"),
             {% if device.has_dedicated_net_led %}
             romasku.networkIndicator("network_led", "{{first_endpoint}}"),
@@ -450,17 +611,40 @@ const definitions = [
             romasku.coverMoving("{{coverName}}_moving", "{{coverName}}"),
             romasku.coverMotorReversal("{{coverName}}_motor_reversal", "{{coverName}}"),
             {% endfor %}
-            {% for coverSwitchName in device.coverSwitchNames %}
-            romasku.coverSwitchPressAction("{{coverSwitchName}}_press_action", "{{coverSwitchName}}"),
-            romasku.coverSwitchType("{{coverSwitchName}}_type", "{{coverSwitchName}}"),
-            romasku.coverSwitchInvert("{{coverSwitchName}}_invert", "{{coverSwitchName}}"),
+            {% for coverSwitch in device.coverSwitchNames %}
+            romasku.coverSwitchPressAction("{{coverSwitch}}_press_action", "{{coverSwitch}}"),
+            romasku.coverSwitchType("{{coverSwitch}}_type", "{{coverSwitch}}"),
+            romasku.coverSwitchInvert("{{coverSwitch}}_invert", "{{coverSwitch}}"),
             {% if device.coverNames %}
-            romasku.coverSwitchCoverIndex("{{coverSwitchName}}_cover_index", "{{coverSwitchName}}", {{device.coverNames | length}}),
-            romasku.coverSwitchLocalMode("{{coverSwitchName}}_local_mode", "{{coverSwitchName}}"),
+            romasku.coverSwitchCoverIndex("{{coverSwitch}}_cover_index", "{{coverSwitch}}", {{device.coverNames | length}}),
+            romasku.coverSwitchLocalMode("{{coverSwitch}}_local_mode", "{{coverSwitch}}"),
             {% endif %}
-            romasku.coverSwitchBindedMode("{{coverSwitchName}}_binded_mode", "{{coverSwitchName}}"),
-            romasku.coverSwitchLongPressDuration("{{coverSwitchName}}_long_press_duration", "{{coverSwitchName}}"),
+            romasku.coverSwitchBindedMode("{{coverSwitch}}_binded_mode", "{{coverSwitch}}"),
+            romasku.coverSwitchLongPressDuration("{{coverSwitch}}_long_press_duration", "{{coverSwitch}}"),
             {% endfor %}
+            {% if device.dimmerNames %}
+            // genOnOffSwitchCfg.switchType is read-only per ZCL spec; override it
+            // as writable so Z2M accepts writing the dimmer switch type
+            // (same pattern as Slacky-DIY / custom_devices_diy.ts).
+            deviceAddCustomCluster("genOnOffSwitchCfg", {
+                ID: 0x0007,
+                attributes: {
+                    switchType: {ID: 0x0000, type: Zcl.DataType.ENUM8, write: true},
+                },
+                commands: {},
+                commandsResponse: {},
+            }),
+            {% endif %}
+            {% for dimmerName in device.dimmerNames %}
+            light({ endpointNames: ["{{dimmerName}}"], effect: false, powerOnBehavior: false }),
+            romasku.dimmerMinLevel("{{dimmerName}}_min_level", "{{dimmerName}}"),
+            romasku.dimmerMaxLevel("{{dimmerName}}_max_level", "{{dimmerName}}"),
+            romasku.dimmerSwitchType("{{dimmerName}}_switch_type", "{{dimmerName}}"),
+            {% endfor %}
+            {% if device.dimmerNames %}
+            // Universal power-on behavior (shared DP, e.g. U0E) - one expose only.
+            romasku.dimmerPowerOnBehavior("power_on_behavior"),
+            {% endif %}
         ],
         meta: { multiEndpoint: true },
         configure: async (device, coordinatorEndpoint, logger) => {
@@ -530,6 +714,24 @@ const definitions = [
             await cover{{loop.index}}.configureReporting("closuresWindowCovering", [
                 {
                     attribute: "moving",
+                    minimumReportInterval: 0,
+                    maximumReportInterval: constants.repInterval.MAX,
+                    reportableChange: 1,
+                },
+            ]);
+            {% endfor %}
+            {% for dimmerName in device.dimmerNames %}
+            const dimmer{{loop.index}}Dp = {{loop.index + (device.switchNames | length) + (device.relayNames | length) + (device.coverSwitchNames | length) + (device.coverNames | length)}};
+            const dimmer{{loop.index}} = device.getEndpoint(dimmer{{loop.index}}Dp);
+            await reporting.bind(dimmer{{loop.index}}, coordinatorEndpoint, ["genOnOff", "genLevelCtrl"]);
+            await reporting.onOff(dimmer{{loop.index}}, {
+                min: 0,
+                max: constants.repInterval.MAX,
+                change: 1,
+            });
+            await dimmer{{loop.index}}.configureReporting("genLevelCtrl", [
+                {
+                    attribute: "currentLevel",
                     minimumReportInterval: 0,
                     maximumReportInterval: constants.repInterval.MAX,
                     reportableChange: 1,
