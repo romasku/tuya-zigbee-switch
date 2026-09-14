@@ -15,7 +15,30 @@
 #define ZCL_CLUSTER_GROUPS                    0x0004
 #define ZCL_CLUSTER_OTA_BOOTLOAD              0x0019
 #define ZCL_CLUSTER_WINDOW_COVERING           0x0102
+#define ZCL_CLUSTER_METERING                  0x0702
+#define ZCL_CLUSTER_ELECTRICAL_MEASUREMENT    0x0B04
 #define ZCL_CLUSTER_COVER_SWITCH_CONFIG       0xFC01
+
+// Electrical Measurement (0x0B04) attributes
+#define ZCL_ATTR_EM_MEASUREMENT_TYPE          0x0000
+#define ZCL_ATTR_EM_RMS_VOLTAGE               0x0505
+#define ZCL_ATTR_EM_RMS_CURRENT               0x0508
+#define ZCL_ATTR_EM_ACTIVE_POWER              0x050B
+#define ZCL_ATTR_EM_AC_VOLTAGE_MULT           0x0600
+#define ZCL_ATTR_EM_AC_VOLTAGE_DIV            0x0601
+#define ZCL_ATTR_EM_AC_CURRENT_MULT           0x0602
+#define ZCL_ATTR_EM_AC_CURRENT_DIV            0x0603
+#define ZCL_ATTR_EM_AC_POWER_MULT             0x0604
+#define ZCL_ATTR_EM_AC_POWER_DIV              0x0605
+
+// Metering (0x0702) attributes
+#define ZCL_ATTR_METERING_CURR_SUMM_DELIVERED 0x0000
+#define ZCL_ATTR_METERING_STATUS              0x0200
+#define ZCL_ATTR_METERING_UNIT_OF_MEASURE     0x0300
+#define ZCL_ATTR_METERING_MULTIPLIER          0x0301
+#define ZCL_ATTR_METERING_DIVISOR             0x0302
+#define ZCL_ATTR_METERING_SUMM_FORMATTING     0x0303
+#define ZCL_ATTR_METERING_DEVICE_TYPE         0x0306
 
 
 // Attributes

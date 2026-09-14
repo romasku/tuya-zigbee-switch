@@ -49,6 +49,7 @@ SOURCES := \
 	$(SRC_DIR)/stub/machine_io.c \
 	$(SRC_DIR)/base_components/led.c \
 	$(SRC_DIR)/base_components/relay.c \
+	$(SRC_DIR)/base_components/metering_bl0937.c \
 	$(SRC_DIR)/base_components/button.c \
 	$(SRC_DIR)/base_components/battery.c \
 	$(SRC_DIR)/base_components/network_indicator.c \
@@ -59,6 +60,7 @@ SOURCES := \
 	$(SRC_DIR)/device_config/nvm_migrations.c \
 	$(SRC_DIR)/zigbee/basic_cluster.c \
 	$(SRC_DIR)/zigbee/relay_cluster.c \
+	$(SRC_DIR)/zigbee/metering_cluster.c \
 	$(SRC_DIR)/zigbee/switch_cluster.c \
 	$(SRC_DIR)/zigbee/group_cluster.c \
 	$(SRC_DIR)/zigbee/general_commands.c \

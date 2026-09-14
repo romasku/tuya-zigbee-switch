@@ -27,6 +27,29 @@ static uint8_t hal_endpoints_cnt          = 0;
 static hal_attribute_change_callback_t attribute_change_callback = NULL;
 static hal_zcl_activity_callback_t     zcl_activity_callback     = NULL;
 
+// The Telink SDK compiles zcl_electrical_measurement.c and zcl_metering.c, so
+// their attribute machinery is available, but the SDK's own *_register()
+// prototypes are gated behind ZCL_ELECTRICAL_MEASUREMENT / ZCL_METERING (not
+// defined in app_cfg.h, to keep the SE/measurement command handling out).
+// Register both clusters through the generic zcl_registerCluster() instead --
+// the same mechanism the custom cluster wrappers (zcl_multistate_input,
+// zcl_cover_switch_config) already use. These are attribute-only servers, so no
+// cluster-specific command handler and no app callback are needed (both NULL).
+static status_t electrical_measurement_register(u8 endpoint, u16 manuCode,
+                                                u8 attrNum,
+                                                const zclAttrInfo_t attrTbl[],
+                                                cluster_forAppCb_t cb) {
+    return zcl_registerCluster(endpoint, ZCL_CLUSTER_ELECTRICAL_MEASUREMENT,
+                               manuCode, attrNum, attrTbl, NULL, NULL);
+}
+
+static status_t metering_register(u8 endpoint, u16 manuCode, u8 attrNum,
+                                  const zclAttrInfo_t attrTbl[],
+                                  cluster_forAppCb_t cb) {
+    return zcl_registerCluster(endpoint, ZCL_CLUSTER_METERING, manuCode, attrNum,
+                               attrTbl, NULL, NULL);
+}
+
 static cluster_registerFunc_t get_register_func_by_cluster_id(u16 cluster_id) {
     if (cluster_id == ZCL_CLUSTER_GEN_BASIC) {
         return zcl_basic_register;
@@ -61,6 +84,12 @@ static cluster_registerFunc_t get_register_func_by_cluster_id(u16 cluster_id) {
     }
     if (cluster_id == ZCL_CLUSTER_GEN_POLL_CONTROL) {
         return zcl_pollCtrl_register;
+    }
+    if (cluster_id == ZCL_CLUSTER_ELECTRICAL_MEASUREMENT) {
+        return electrical_measurement_register;
+    }
+    if (cluster_id == ZCL_CLUSTER_METERING) {
+        return metering_register;
     }
     return NULL;
 }

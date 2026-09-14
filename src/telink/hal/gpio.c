@@ -34,7 +34,7 @@ static gpio_config_t *find_gpio_config(hal_gpio_pin_t pin) {
 }
 
 // Convert HAL pull type to Telink pull type
-static GPIO_PullTypeDef hal_to_telink_pull(hal_gpio_pull_t pull) {
+GPIO_PullTypeDef hal_to_telink_pull(hal_gpio_pull_t pull) {
     switch (pull) {
     case HAL_GPIO_PULL_NONE:
         return PM_PIN_UP_DOWN_FLOAT;

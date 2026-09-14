@@ -358,6 +358,31 @@ static int cmd_step_time(int argc, char **argv) {
     return 0;
 }
 
+static int cmd_set_counter(int argc, char **argv) {
+  if (argc != 3) {
+    fprintf(stderr, "Usage: set_counter <pin> <value>\n");
+    io_res_err("usage");
+    return -1;
+  }
+  char *e = NULL;
+  long pin = strtol(argv[1], &e, 10);
+  if (*argv[1] == '\0' || *e) {
+    fprintf(stderr, "Bad pin\n");
+    io_res_err("bad_pin=%s", argv[1]);
+    return -1;
+  }
+  long value = strtol(argv[2], &e, 10);
+  if (*argv[2] == '\0' || *e || value < 0) {
+    fprintf(stderr, "Bad counter value\n");
+    io_res_err("bad_value=%s", argv[2]);
+    return -1;
+  }
+  stub_set_pulse_counter((int)pin, (uint32_t)value);
+  printf("Set pulse counter on pin %ld to %ld\n", pin, value);
+  io_res_ok("pin=%ld value=%ld", pin, value);
+  return 0;
+}
+
 static int cmd_set_battery_voltage(int argc, char **argv) {
     if (argc != 2) {
         fprintf(stderr, "Usage: set_battery_voltage <millivolts>\n");
@@ -379,6 +404,22 @@ static int cmd_set_battery_voltage(int argc, char **argv) {
 
 /* Command table */
 static const SimpleReplCommand kCmds[] = {
+    { "machine",        cmd_machine        },
+    { "help",           cmd_help           },
+    { "s",              cmd_status         },
+    { "status",         cmd_status         },
+    { "net",            cmd_net            },
+    { "set_pin",        cmd_pin            },
+    { "read_pin",       cmd_read_pin       },
+    { "zcl_read",       cmd_zcl_read       },
+    { "zcl_write",      cmd_zcl_write      },
+    { "zcl_list_attrs", cmd_zcl_list_attrs },
+    { "zcl_cmd",        cmd_zcl_cmd        },
+    { "freeze_time",    cmd_freeze_time    },
+    { "step_time",      cmd_step_time      },
+    { "set_counter",    cmd_set_counter    },
+    { "q",              cmd_quit           },
+    { "quit",           cmd_quit           },
     { "machine",             cmd_machine             },
     { "help",                cmd_help                },
     { "s",                   cmd_status              },

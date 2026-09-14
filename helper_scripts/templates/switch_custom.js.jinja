@@ -6,6 +6,7 @@ const {
     text,
     binary,
     windowCovering,
+    electricityMeter,
     deviceAddCustomCluster,
 } = require("zigbee-herdsman-converters/lib/modernExtend");
 const {assertString} = require("zigbee-herdsman-converters/lib/utils");
@@ -237,12 +238,19 @@ const romasku = {
                         validatePin(part.slice(3,5));
                     } else if (part[0] == 'L' || part[0] == 'R' || part[0] == 'I') {
                         validatePin(part.slice(1,3));
+                    } else if (part[0] == 'E') {
+                        validatePin(part.slice(1,3));  // CF
+                        validatePin(part.slice(3,5));  // CF1
+                        validatePin(part.slice(5,7));  // SEL
+                        if (part.length > 7 && part[7] != 'i') {
+                            throw new Error(`SEL invert flag ${part[7]} is invalid. Use 'i' or omit`);
+                        }
                     } else if(part[0] == 'M') {
                         ;
                     } else if(part[0] == 'i') {
                         ; // TODO: write validation
                     } else {
-                        throw new Error(`Invalid entry ${part}. Should start with one of B, BT, C, D, I, L, M, R, S, SLP, X, i`);
+                        throw new Error(`Invalid entry ${part}. Should start with one of B, BT, C, D, E, I, L, M, R, S, SLP, X, i`);
                     }
                 }
             },
@@ -418,6 +426,9 @@ const definitions = [
             {% set first_endpoint = device.switchNames[0] if device.switchNames else (device.relayNames[0] if device.relayNames else (device.coverSwitchNames[0] if device.coverSwitchNames else device.coverNames[0])) %}
             romasku.deviceConfig("device_config", "{{first_endpoint}}"),
             romasku.multiPressResetCount("multi_press_reset_count", "{{first_endpoint}}"),
+            {% if device.has_metering %}
+            electricityMeter({ endpointNames: ["{{first_endpoint}}"] }),
+            {% endif %}
             {% if device.has_dedicated_net_led %}
             romasku.networkIndicator("network_led", "{{first_endpoint}}"),
             {% endif%}
