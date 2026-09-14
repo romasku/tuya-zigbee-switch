@@ -4,6 +4,7 @@
 #include "zcl_cover_switch_config.h"
 #include "zcl_include.h"
 #include "zcl_multistate_input.h"
+#include "zcl_window_covering_custom.h"
 #include "zcl_onoff_configuration.h"
 #pragma pack(pop)
 
@@ -54,9 +55,9 @@ static cluster_registerFunc_t get_register_func_by_cluster_id(u16 cluster_id) {
         return zcl_multistate_input_register;
     }
     if (cluster_id == ZCL_CLUSTER_CLOSURES_WINDOW_COVERING) {
-        return zcl_windowCovering_register;
+        return zcl_windowCovering_custom_register;
     }
-    if (cluster_id == 0xFC01) { // Cover Switch Config
+    if (cluster_id == ZCL_CLUSTER_COVER_SWITCH_CONFIG) {
         return zcl_cover_switch_config_register;
     }
     if (cluster_id == ZCL_CLUSTER_GEN_POLL_CONTROL) {
@@ -106,8 +107,8 @@ static status_t cmd_callback_window_covering(zclIncomingAddrInfo_t *pAddrInfo,
                                              u8 cmdId, void *cmdPayload) {
     zclIncoming_t *pInMsg = cmd_incoming_from_addr_info(pAddrInfo);
 
-    return cmd_callback(pAddrInfo->dstEp, ZCL_CLUSTER_CLOSURES_WINDOW_COVERING,
-                        cmdId, pInMsg->pData, pInMsg->dataLen);
+    return cmd_callback(pAddrInfo->dstEp, ZCL_CLUSTER_CLOSURES_WINDOW_COVERING, cmdId,
+                        pInMsg->pData, pInMsg->dataLen);
 }
 
 static status_t cmd_callback_level_control(zclIncomingAddrInfo_t *pAddrInfo,
