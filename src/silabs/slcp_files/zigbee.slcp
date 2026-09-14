@@ -113,6 +113,9 @@ config_file:
 - path: ../../silabs/config/silabs_config.h
 configuration:
 - {name: SL_BOARD_ENABLE_VCOM, value: '1'}
+# Arm the hardware watchdog (SDK default leaves it disabled); the zigbee
+# stack/app-framework ticks already call halResetWatchdog().
+- {name: SL_LEGACY_HAL_DISABLE_WATCHDOG, value: '0'}
 - condition: [iostream_usart]
   name: SL_IOSTREAM_USART_VCOM_FLOW_CONTROL_TYPE
   value: usartHwFlowControlCtsAndRts

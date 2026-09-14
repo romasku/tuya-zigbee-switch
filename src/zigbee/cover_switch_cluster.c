@@ -25,7 +25,7 @@
 extern zigbee_cover_cluster cover_clusters[];
 extern uint8_t cover_clusters_cnt;
 
-static zigbee_cover_switch_cluster *      cover_switch_cluster_by_endpoint[10];
+static zigbee_cover_switch_cluster *      cover_switch_cluster_by_endpoint[11]; // endpoints are numbered 1..10
 static zigbee_cover_switch_cluster_config nv_config_buffer;
 
 static const uint8_t  multistate_out_of_service = 0;

@@ -18,7 +18,7 @@
 // shock to motor/gears when reversing direction.
 #define RELAY_MIN_SWITCH_TIME_MS    200
 
-static zigbee_cover_cluster *      cover_cluster_by_endpoint[10];
+static zigbee_cover_cluster *      cover_cluster_by_endpoint[11]; // endpoints are numbered 1..10
 static zigbee_cover_cluster_config nv_config_buffer;
 
 // Window covering type attribute - required by ZCL spec but not actively used.
