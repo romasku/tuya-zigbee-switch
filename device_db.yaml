@@ -375,7 +375,7 @@ MODULE_AVATTO_A_TS0001:
   power: mains
   neutral: required
   output: relay
-  device_type: router
+  device_type: end_device
   stock_model_name: TS0001
   stock_manufacturer_name: _TZ3000_4rbqgcuv
   stock_converter_manufacturer: Tuya
@@ -411,7 +411,7 @@ MODULE_AVATTO_A_TS0002:
   power: mains
   neutral: required
   output: relay
-  device_type: router
+  device_type: end_device
   stock_model_name: TS0002
   stock_manufacturer_name: _TZ3000_mtnpt6ws
   stock_converter_manufacturer: Tuya
