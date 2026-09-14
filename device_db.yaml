@@ -1359,6 +1359,60 @@ MODULE_HOBEIAN_MINI_TS0001:
   store: 
   - https://www.aliexpress.com/item/1005011618936071.html
   - https://www.aliexpress.com/item/1005011567311112.html
+MODULE_HOBEIAN_MINI_TS0002:
+  human_name: HOBEIAN ZG-301ZB mini 2CH
+  category: module
+  power: mains
+  neutral: required
+  output: relay
+  device_type: router
+  stock_model_name: ZG-301Z-2CH
+  stock_manufacturer_name: HOBEIAN
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0002_basic
+  override_z2m_device: ZG-301Z-2CH
+  tuya_module: none
+  mcu_family: Telink
+  mcu: TLSR8253F512AT32
+  config_str: ZG-301Z-2;TS0002-HOBM;BD3u;LD4i;SB4u;RA0;SB5u;RD7;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: null
+  firmware_image_type: 45580
+  build: yes
+  status: fully_supported
+  info: Supported
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/506
+  store: null
+MODULE_HOBEIAN_MINI_TS0003:
+  human_name: HOBEIAN ZG-301ZB mini 3CH
+  category: module
+  power: mains
+  neutral: required
+  output: relay
+  device_type: router
+  stock_model_name: ZG-301Z-3CH
+  stock_manufacturer_name: HOBEIAN
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0003_switch_module_3
+  override_z2m_device: ZG-301Z-3CH
+  tuya_module: none
+  mcu_family: Telink
+  mcu: TLSR8253F512AT32
+  config_str: ZG-301Z-3;TS0003-HOBM;BD3u;LD4i;SB4u;RA0;SB5u;RD7;SB6u;RA1;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: null
+  firmware_image_type: 45581
+  build: yes
+  status: mostly_supported
+  info: Needs pinout confirmation
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/506
+  store: null
 MODULE_HOBEIAN_TS0001_1:
   human_name: HOBEIAN ZG-301Z V1.3
   category: module
