@@ -27,6 +27,7 @@ Please describe what you are working on, under ## Upcoming
   - New device: Moes 4-gang scene switch (`REMOTE_MOES_SWITCH_TS0044`)
 - **Battery measurement & reporting** (Zigbee `genPowerCfg` cluster) for Telink devices
 - **Deep retention sleep** for Telink end devices
+- **Configurable pulse duration** for latching relays
 
 ### Changes
 
