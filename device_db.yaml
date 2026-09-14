@@ -4821,7 +4821,7 @@ SWITCH_GIRIER_TS0014:
   build: yes
   status: fully_supported
   info: Supported
-  threads: null
+  threads: https://github.com/romasku/tuya-zigbee-switch/pull/462
   store: https://www.aliexpress.com/item/1005009121294755.html
 SWITCH_HOBEIAN_TS0011:
   human_name: HOBEIAN ZG-302Z1
