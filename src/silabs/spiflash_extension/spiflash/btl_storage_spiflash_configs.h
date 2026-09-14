@@ -162,7 +162,7 @@
 // Conservative full-part erase-time ceiling for the generic JEDEC fallback. Only
 // reported through getDeviceInfo(); erase completion is driven by the busy-status
 // poll, so an over-estimate here is harmless.
-#define TIMING_ERASE_GENERIC_MAX_MS            (245760)
+#define TIMING_ERASE_GENERIC_MAX_MS    (245760)
 
 /** @endcond */
 
