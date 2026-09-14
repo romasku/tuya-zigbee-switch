@@ -6,8 +6,10 @@
 
 ### Bugs
 
-- Switch randomly toggles on TLSR8253 512KB devices ([#289](https://github.com/romasku/tuya-zigbee-switch/issues/289))
-  (HOBEIAN and Zbeacon)
+- TLSR8253 512KB devices (HOBEIAN, Zbeacon) have severe issues, not recommended currently!
+  - Switch randomly toggles ([#289](https://github.com/romasku/tuya-zigbee-switch/issues/289))
+  - Bad router: causes other devices to disconnect ([#501](https://github.com/romasku/tuya-zigbee-switch/issues/501))
+  - Not working at all ([#403](https://github.com/romasku/tuya-zigbee-switch/issues/403))
 - *Power-on behavior* doesn't fully work on some devices
 - Press event missing on very short single presses ([#438](https://github.com/romasku/tuya-zigbee-switch/issues/438))
 - Telink Router sometimes unavailable? ([#255](https://github.com/romasku/tuya-zigbee-switch/issues/255))
