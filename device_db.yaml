@@ -1466,11 +1466,11 @@ MODULE_HOMMYN_TS0002:
   firmware_image_type: 47115
   build: yes
   status: fully_supported
-  info: Verified on ZT3L L+N mechanical relay module; same pinout as MODULE_TUYA_COMMON_TS0002
-  threads: null
+  info: Supported
+  threads: https://github.com/romasku/tuya-zigbee-switch/pull/472
   store: null
 MODULE_HOMMYN_TS0012:
-  human_name: Hommyn 2-gang L-only relay module
+  human_name: Hommyn 2-gang L-only
   category: module
   power: mains
   neutral: without
@@ -1493,8 +1493,8 @@ MODULE_HOMMYN_TS0012:
   firmware_image_type: 47114
   build: yes
   status: fully_supported
-  info: Verified on RSH L TDQ ZJB v1.1 ZIGBEE board
-  threads: null
+  info: Supported
+  threads: https://github.com/romasku/tuya-zigbee-switch/pull/468
   store: null
 MODULE_IHSENO_TS0001:
   human_name: iHseno 1-gang
@@ -5160,7 +5160,7 @@ SWITCH_LERLINK_TS0014:
   build: yes
   status: fully_supported
   info: Supported
-  threads: null
+  threads: https://github.com/romasku/tuya-zigbee-switch/pull/461
   store: https://www.aliexpress.com/item/1005010502015839.html
 SWITCH_LORATAP_TS130F:
   human_name: LoraTap 1-gang curtains switch
