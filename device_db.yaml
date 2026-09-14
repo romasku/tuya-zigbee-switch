@@ -3693,7 +3693,7 @@ REMOTE_MOES_SWITCH_A_TS0044:
   - https://github.com/romasku/tuya-zigbee-switch/issues/382
   store: null
 REMOTE_MOES_SWITCH_TS0044:
-  human_name: Moes 4-gang scene switch
+  human_name: Moes 4-gang scene switch <br> Nous C1 <br> ANCLLO
   category: remote
   power: CR2430
   neutral: without
@@ -3717,7 +3717,9 @@ REMOTE_MOES_SWITCH_TS0044:
   build: yes
   status: fully_supported
   info: Supported
-  threads: https://github.com/romasku/tuya-zigbee-switch/issues/342
+  threads:
+  - https://github.com/romasku/tuya-zigbee-switch/issues/342
+  - https://github.com/romasku/tuya-zigbee-switch/issues/488
   store: https://moeshouse.com/products/zigbee-wireless-scene-switch-battery-powered?variant=43700045283643
 REMOTE_TUYA_BUTTON_TS0041:
   human_name: Tuya button 🅰
