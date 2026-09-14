@@ -1587,24 +1587,26 @@ MODULE_IHSENO_TS0002:
   output: relay
   device_type: router
   stock_model_name: TS0002
-  stock_manufacturer_name: null
+  stock_manufacturer_name: _TZ3000_eei0ubpy
   stock_converter_manufacturer: Tuya
-  stock_converter_model: null
+  stock_converter_model: TS0002_basic
   override_z2m_device: null
   tuya_module: ZTU
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: null____;TS0002-IHS;BC3u;LC2i;SB5u;RD2;SB4u;RD3;
+  config_str: eei0ubpy;TS0002-IHS;BC3u;LC2i;SB5u;RD2;SB4u;RD3;
   alt_config_str: null
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
   stock_image_type: 54179
   firmware_image_type: 45572
-  build: no
-  status: in_progress
-  info: Needs ID, pinout confirmation
-  threads: https://github.com/romasku/tuya-zigbee-switch/issues/105
+  build: yes
+  status: fully_supported
+  info: Supported
+  threads: 
+  - https://github.com/romasku/tuya-zigbee-switch/issues/105
+  - https://github.com/romasku/tuya-zigbee-switch/issues/500
   store: 
     - https://www.aliexpress.com/item/1005008107698143.html
     - https://www.aliexpress.com/item/1005010559698949.html
