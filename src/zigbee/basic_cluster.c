@@ -27,6 +27,7 @@ uint8_t powerSource = POWER_SOURCE_MAINS_1_PHASE; // 0x01 default
 const uint16_t cluster_revision = 0x01;
 DEF_STR(STRINGIFY_VALUE(VERSION_STR), swBuildId);
 extern network_indicator_t network_indicator;
+extern zigbee_basic_cluster basic_cluster;
 
 void basic_cluster_store_attrs_to_nv();
 void basic_cluster_load_attrs_from_nv();
@@ -86,14 +87,18 @@ void basic_cluster_add_to_endpoint(zigbee_basic_cluster *cluster,
                ATTR_WRITABLE, device_config_str);
     SETUP_ATTR(12, ZCL_ATTR_BASIC_MULTI_PRESS_RESET_COUNT, ZCL_DATA_TYPE_UINT8,
                ATTR_WRITABLE, g_multi_press_reset_count);
+    SETUP_ATTR(13, ZCL_ATTR_BASIC_INTERLOCK_MODE, ZCL_DATA_TYPE_BOOLEAN,
+               ATTR_WRITABLE, cluster->interlock_mode);
+    SETUP_ATTR(14, ZCL_ATTR_BASIC_INTERLOCK_DELAY, ZCL_DATA_TYPE_UINT16,
+               ATTR_WRITABLE, cluster->interlock_delay_ms);
     if (network_indicator.has_dedicated_led) {
-        SETUP_ATTR(13, ZCL_ATTR_BASIC_STATUS_LED_STATE, ZCL_DATA_TYPE_BOOLEAN,
+        SETUP_ATTR(15, ZCL_ATTR_BASIC_STATUS_LED_STATE, ZCL_DATA_TYPE_BOOLEAN,
                    ATTR_WRITABLE, network_indicator.manual_state_when_connected);
     }
 
     endpoint->clusters[endpoint->cluster_count].cluster_id      = ZCL_CLUSTER_BASIC;
     endpoint->clusters[endpoint->cluster_count].attribute_count =
-        network_indicator.has_dedicated_led ? 14 : 13;
+        network_indicator.has_dedicated_led ? 16 : 15;
     endpoint->clusters[endpoint->cluster_count].attributes = cluster->attr_infos;
     endpoint->clusters[endpoint->cluster_count].is_server  = 1;
     endpoint->cluster_count++;
@@ -108,6 +113,8 @@ void basic_cluster_add_to_endpoint(zigbee_basic_cluster *cluster,
 
 typedef struct {
     uint8_t network_led_on;
+    uint8_t interlock_mode;
+    uint16_t interlock_delay_ms;
 } zigbee_basic_cluster_config;
 
 static zigbee_basic_cluster_config nv_config_buffer;
@@ -115,6 +122,8 @@ static zigbee_basic_cluster_config nv_config_buffer;
 void basic_cluster_store_attrs_to_nv() {
     nv_config_buffer.network_led_on =
         network_indicator.manual_state_when_connected;
+    nv_config_buffer.interlock_mode = basic_cluster.interlock_mode;
+    nv_config_buffer.interlock_delay_ms = basic_cluster.interlock_delay_ms;
 
     hal_nvm_write(NV_ITEM_BASIC_CLUSTER_DATA, sizeof(zigbee_basic_cluster_config),
                   (uint8_t *)&nv_config_buffer);
@@ -126,8 +135,18 @@ void basic_cluster_load_attrs_from_nv() {
                                        (uint8_t *)&nv_config_buffer);
 
     if (st != HAL_NVM_SUCCESS) {
+        basic_cluster.interlock_mode = 0;
+        basic_cluster.interlock_delay_ms = 100;
         return;
     }
     network_indicator.manual_state_when_connected =
         nv_config_buffer.network_led_on;
+    basic_cluster.interlock_mode = nv_config_buffer.interlock_mode;
+    basic_cluster.interlock_delay_ms = nv_config_buffer.interlock_delay_ms;
+    
+    // In case NVM was blank (0xFF)
+    if (basic_cluster.interlock_delay_ms == 0xFFFF) {
+        basic_cluster.interlock_mode = 0;
+        basic_cluster.interlock_delay_ms = 100;
+    }
 }
