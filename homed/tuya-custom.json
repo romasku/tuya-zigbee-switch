@@ -9742,6 +9742,479 @@
       ]
     }
   ],
+  "ZG-301Z-2": [
+    {
+      "description": "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
+      "modelNames": [
+        "TS0002-HOBM"
+      ],
+      "options": {
+        "endpointName": {
+          "1": "switch_left",
+          "2": "switch_right",
+          "3": "relay_left",
+          "4": "relay_right"
+        }
+      }
+    },
+    {
+      "modelNames": [
+        "TS0002-HOBM"
+      ],
+      "exposes": [
+        "multiPressResetCount",
+        "networkIndicator"
+      ],
+      "options": {
+        "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
+          "networkIndicator": {
+            "type": "bool",
+            "clusterId": 0,
+            "attributeId": 65281,
+            "dataType": 16,
+            "action": true
+          }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
+        },
+        "networkIndicator": {
+          "type": "toggle"
+        }
+      },
+      "endpointId": 1
+    },
+    {
+      "modelNames": [
+        "TS0002-HOBM"
+      ],
+      "properties": [
+        "status",
+        "powerOnStatus"
+      ],
+      "actions": [
+        "status",
+        "powerOnStatus"
+      ],
+      "bindings": [
+        "status"
+      ],
+      "reportings": [
+        "status"
+      ],
+      "exposes": [
+        "switch",
+        "powerOnStatus"
+      ],
+      "options": {
+        "powerOnStatus": {
+          "enum": [
+            "off",
+            "on",
+            "toggle",
+            "previous"
+          ]
+        }
+      },
+      "endpointId": [
+        3,
+        4
+      ]
+    },
+    {
+      "modelNames": [
+        "TS0002-HOBM"
+      ],
+      "exposes": [
+        "pressAction",
+        "switchMode",
+        "switchAction",
+        "relayMode",
+        "relayIndex",
+        "bindedMode",
+        "longPressDuration",
+        "levelMoveRate"
+      ],
+      "options": {
+        "customAttributes": {
+          "switchAction": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 16,
+            "dataType": 48,
+            "action": true
+          },
+          "switchMode": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65280,
+            "dataType": 48,
+            "action": true
+          },
+          "relayMode": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65281,
+            "dataType": 48,
+            "action": true
+          },
+          "relayIndex": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
+          "longPressDuration": {
+            "type": "value",
+            "clusterId": 7,
+            "attributeId": 65283,
+            "dataType": 33,
+            "action": true
+          },
+          "levelMoveRate": {
+            "type": "value",
+            "clusterId": 7,
+            "attributeId": 65284,
+            "dataType": 32,
+            "action": true
+          },
+          "bindedMode": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65285,
+            "dataType": 48,
+            "action": true
+          },
+          "pressAction": {
+            "type": "enum",
+            "clusterId": 18,
+            "attributeId": 85,
+            "dataType": 33,
+            "binding": true,
+            "reporting": {
+              "minInterval": 0,
+              "maxInterval": 255,
+              "valueChange": 1
+            }
+          }
+        },
+        "switchAction": {
+          "type": "select",
+          "enum": [
+            "on_off",
+            "off_on",
+            "toggle_simple",
+            "toggle_smart_sync",
+            "toggle_smart_opposite"
+          ]
+        },
+        "switchMode": {
+          "type": "select",
+          "enum": [
+            "toggle",
+            "momentary",
+            "momentary_nc"
+          ]
+        },
+        "relayMode": {
+          "type": "select",
+          "enum": [
+            "detached",
+            "press_start",
+            "long_press",
+            "short_press"
+          ]
+        },
+        "relayIndex": {
+          "type": "select",
+          "enum": {
+            "1": "relay_1",
+            "2": "relay_2"
+          }
+        },
+        "longPressDuration": {
+          "type": "number",
+          "min": 0,
+          "max": 5000
+        },
+        "levelMoveRate": {
+          "type": "number",
+          "min": 1,
+          "max": 255
+        },
+        "bindedMode": {
+          "type": "select",
+          "enum": {
+            "1": "press_start",
+            "2": "long_press",
+            "3": "short_press"
+          }
+        },
+        "pressAction": {
+          "enum": [
+            "released",
+            "press",
+            "long_press",
+            "position_on",
+            "position_off"
+          ]
+        }
+      },
+      "endpointId": [
+        1,
+        2
+      ]
+    }
+  ],
+  "ZG-301Z-3": [
+    {
+      "description": "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
+      "modelNames": [
+        "TS0003-HOBM"
+      ],
+      "options": {
+        "endpointName": {
+          "1": "switch_left",
+          "2": "switch_middle",
+          "3": "switch_right",
+          "4": "relay_left",
+          "5": "relay_middle",
+          "6": "relay_right"
+        }
+      }
+    },
+    {
+      "modelNames": [
+        "TS0003-HOBM"
+      ],
+      "exposes": [
+        "multiPressResetCount",
+        "networkIndicator"
+      ],
+      "options": {
+        "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
+          "networkIndicator": {
+            "type": "bool",
+            "clusterId": 0,
+            "attributeId": 65281,
+            "dataType": 16,
+            "action": true
+          }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
+        },
+        "networkIndicator": {
+          "type": "toggle"
+        }
+      },
+      "endpointId": 1
+    },
+    {
+      "modelNames": [
+        "TS0003-HOBM"
+      ],
+      "properties": [
+        "status",
+        "powerOnStatus"
+      ],
+      "actions": [
+        "status",
+        "powerOnStatus"
+      ],
+      "bindings": [
+        "status"
+      ],
+      "reportings": [
+        "status"
+      ],
+      "exposes": [
+        "switch",
+        "powerOnStatus"
+      ],
+      "options": {
+        "powerOnStatus": {
+          "enum": [
+            "off",
+            "on",
+            "toggle",
+            "previous"
+          ]
+        }
+      },
+      "endpointId": [
+        4,
+        5,
+        6
+      ]
+    },
+    {
+      "modelNames": [
+        "TS0003-HOBM"
+      ],
+      "exposes": [
+        "pressAction",
+        "switchMode",
+        "switchAction",
+        "relayMode",
+        "relayIndex",
+        "bindedMode",
+        "longPressDuration",
+        "levelMoveRate"
+      ],
+      "options": {
+        "customAttributes": {
+          "switchAction": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 16,
+            "dataType": 48,
+            "action": true
+          },
+          "switchMode": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65280,
+            "dataType": 48,
+            "action": true
+          },
+          "relayMode": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65281,
+            "dataType": 48,
+            "action": true
+          },
+          "relayIndex": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
+          "longPressDuration": {
+            "type": "value",
+            "clusterId": 7,
+            "attributeId": 65283,
+            "dataType": 33,
+            "action": true
+          },
+          "levelMoveRate": {
+            "type": "value",
+            "clusterId": 7,
+            "attributeId": 65284,
+            "dataType": 32,
+            "action": true
+          },
+          "bindedMode": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65285,
+            "dataType": 48,
+            "action": true
+          },
+          "pressAction": {
+            "type": "enum",
+            "clusterId": 18,
+            "attributeId": 85,
+            "dataType": 33,
+            "binding": true,
+            "reporting": {
+              "minInterval": 0,
+              "maxInterval": 255,
+              "valueChange": 1
+            }
+          }
+        },
+        "switchAction": {
+          "type": "select",
+          "enum": [
+            "on_off",
+            "off_on",
+            "toggle_simple",
+            "toggle_smart_sync",
+            "toggle_smart_opposite"
+          ]
+        },
+        "switchMode": {
+          "type": "select",
+          "enum": [
+            "toggle",
+            "momentary",
+            "momentary_nc"
+          ]
+        },
+        "relayMode": {
+          "type": "select",
+          "enum": [
+            "detached",
+            "press_start",
+            "long_press",
+            "short_press"
+          ]
+        },
+        "relayIndex": {
+          "type": "select",
+          "enum": {
+            "1": "relay_1",
+            "2": "relay_2",
+            "3": "relay_3"
+          }
+        },
+        "longPressDuration": {
+          "type": "number",
+          "min": 0,
+          "max": 5000
+        },
+        "levelMoveRate": {
+          "type": "number",
+          "min": 1,
+          "max": 255
+        },
+        "bindedMode": {
+          "type": "select",
+          "enum": {
+            "1": "press_start",
+            "2": "long_press",
+            "3": "short_press"
+          }
+        },
+        "pressAction": {
+          "enum": [
+            "released",
+            "press",
+            "long_press",
+            "position_on",
+            "position_off"
+          ]
+        }
+      },
+      "endpointId": [
+        1,
+        2,
+        3
+      ]
+    }
+  ],
   "q6a3tepg": [
     {
       "description": "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
@@ -9968,6 +10441,240 @@
       },
       "endpointId": [
         1
+      ]
+    }
+  ],
+  "5gey1ohx": [
+    {
+      "description": "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
+      "modelNames": [
+        "Hommyn-RLZBN02"
+      ],
+      "options": {
+        "endpointName": {
+          "1": "switch_left",
+          "2": "switch_right",
+          "3": "relay_left",
+          "4": "relay_right"
+        }
+      }
+    },
+    {
+      "modelNames": [
+        "Hommyn-RLZBN02"
+      ],
+      "exposes": [
+        "multiPressResetCount",
+        "networkIndicator"
+      ],
+      "options": {
+        "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
+          "networkIndicator": {
+            "type": "bool",
+            "clusterId": 0,
+            "attributeId": 65281,
+            "dataType": 16,
+            "action": true
+          }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
+        },
+        "networkIndicator": {
+          "type": "toggle"
+        }
+      },
+      "endpointId": 1
+    },
+    {
+      "modelNames": [
+        "Hommyn-RLZBN02"
+      ],
+      "properties": [
+        "status",
+        "powerOnStatus"
+      ],
+      "actions": [
+        "status",
+        "powerOnStatus"
+      ],
+      "bindings": [
+        "status"
+      ],
+      "reportings": [
+        "status"
+      ],
+      "exposes": [
+        "switch",
+        "powerOnStatus"
+      ],
+      "options": {
+        "powerOnStatus": {
+          "enum": [
+            "off",
+            "on",
+            "toggle",
+            "previous"
+          ]
+        }
+      },
+      "endpointId": [
+        3,
+        4
+      ]
+    },
+    {
+      "modelNames": [
+        "Hommyn-RLZBN02"
+      ],
+      "exposes": [
+        "pressAction",
+        "switchMode",
+        "switchAction",
+        "relayMode",
+        "relayIndex",
+        "bindedMode",
+        "longPressDuration",
+        "levelMoveRate"
+      ],
+      "options": {
+        "customAttributes": {
+          "switchAction": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 16,
+            "dataType": 48,
+            "action": true
+          },
+          "switchMode": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65280,
+            "dataType": 48,
+            "action": true
+          },
+          "relayMode": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65281,
+            "dataType": 48,
+            "action": true
+          },
+          "relayIndex": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
+          "longPressDuration": {
+            "type": "value",
+            "clusterId": 7,
+            "attributeId": 65283,
+            "dataType": 33,
+            "action": true
+          },
+          "levelMoveRate": {
+            "type": "value",
+            "clusterId": 7,
+            "attributeId": 65284,
+            "dataType": 32,
+            "action": true
+          },
+          "bindedMode": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65285,
+            "dataType": 48,
+            "action": true
+          },
+          "pressAction": {
+            "type": "enum",
+            "clusterId": 18,
+            "attributeId": 85,
+            "dataType": 33,
+            "binding": true,
+            "reporting": {
+              "minInterval": 0,
+              "maxInterval": 255,
+              "valueChange": 1
+            }
+          }
+        },
+        "switchAction": {
+          "type": "select",
+          "enum": [
+            "on_off",
+            "off_on",
+            "toggle_simple",
+            "toggle_smart_sync",
+            "toggle_smart_opposite"
+          ]
+        },
+        "switchMode": {
+          "type": "select",
+          "enum": [
+            "toggle",
+            "momentary",
+            "momentary_nc"
+          ]
+        },
+        "relayMode": {
+          "type": "select",
+          "enum": [
+            "detached",
+            "press_start",
+            "long_press",
+            "short_press"
+          ]
+        },
+        "relayIndex": {
+          "type": "select",
+          "enum": {
+            "1": "relay_1",
+            "2": "relay_2"
+          }
+        },
+        "longPressDuration": {
+          "type": "number",
+          "min": 0,
+          "max": 5000
+        },
+        "levelMoveRate": {
+          "type": "number",
+          "min": 1,
+          "max": 255
+        },
+        "bindedMode": {
+          "type": "select",
+          "enum": {
+            "1": "press_start",
+            "2": "long_press",
+            "3": "short_press"
+          }
+        },
+        "pressAction": {
+          "enum": [
+            "released",
+            "press",
+            "long_press",
+            "position_on",
+            "position_off"
+          ]
+        }
+      },
+      "endpointId": [
+        1,
+        2
       ]
     }
   ],
@@ -10200,6 +10907,240 @@
       ]
     }
   ],
+  "0e6uvexf": [
+    {
+      "description": "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
+      "modelNames": [
+        "Hommyn-2"
+      ],
+      "options": {
+        "endpointName": {
+          "1": "switch_left",
+          "2": "switch_right",
+          "3": "relay_left",
+          "4": "relay_right"
+        }
+      }
+    },
+    {
+      "modelNames": [
+        "Hommyn-2"
+      ],
+      "exposes": [
+        "multiPressResetCount",
+        "networkIndicator"
+      ],
+      "options": {
+        "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
+          "networkIndicator": {
+            "type": "bool",
+            "clusterId": 0,
+            "attributeId": 65281,
+            "dataType": 16,
+            "action": true
+          }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
+        },
+        "networkIndicator": {
+          "type": "toggle"
+        }
+      },
+      "endpointId": 1
+    },
+    {
+      "modelNames": [
+        "Hommyn-2"
+      ],
+      "properties": [
+        "status",
+        "powerOnStatus"
+      ],
+      "actions": [
+        "status",
+        "powerOnStatus"
+      ],
+      "bindings": [
+        "status"
+      ],
+      "reportings": [
+        "status"
+      ],
+      "exposes": [
+        "switch",
+        "powerOnStatus"
+      ],
+      "options": {
+        "powerOnStatus": {
+          "enum": [
+            "off",
+            "on",
+            "toggle",
+            "previous"
+          ]
+        }
+      },
+      "endpointId": [
+        3,
+        4
+      ]
+    },
+    {
+      "modelNames": [
+        "Hommyn-2"
+      ],
+      "exposes": [
+        "pressAction",
+        "switchMode",
+        "switchAction",
+        "relayMode",
+        "relayIndex",
+        "bindedMode",
+        "longPressDuration",
+        "levelMoveRate"
+      ],
+      "options": {
+        "customAttributes": {
+          "switchAction": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 16,
+            "dataType": 48,
+            "action": true
+          },
+          "switchMode": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65280,
+            "dataType": 48,
+            "action": true
+          },
+          "relayMode": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65281,
+            "dataType": 48,
+            "action": true
+          },
+          "relayIndex": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
+          "longPressDuration": {
+            "type": "value",
+            "clusterId": 7,
+            "attributeId": 65283,
+            "dataType": 33,
+            "action": true
+          },
+          "levelMoveRate": {
+            "type": "value",
+            "clusterId": 7,
+            "attributeId": 65284,
+            "dataType": 32,
+            "action": true
+          },
+          "bindedMode": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65285,
+            "dataType": 48,
+            "action": true
+          },
+          "pressAction": {
+            "type": "enum",
+            "clusterId": 18,
+            "attributeId": 85,
+            "dataType": 33,
+            "binding": true,
+            "reporting": {
+              "minInterval": 0,
+              "maxInterval": 255,
+              "valueChange": 1
+            }
+          }
+        },
+        "switchAction": {
+          "type": "select",
+          "enum": [
+            "on_off",
+            "off_on",
+            "toggle_simple",
+            "toggle_smart_sync",
+            "toggle_smart_opposite"
+          ]
+        },
+        "switchMode": {
+          "type": "select",
+          "enum": [
+            "toggle",
+            "momentary",
+            "momentary_nc"
+          ]
+        },
+        "relayMode": {
+          "type": "select",
+          "enum": [
+            "detached",
+            "press_start",
+            "long_press",
+            "short_press"
+          ]
+        },
+        "relayIndex": {
+          "type": "select",
+          "enum": {
+            "1": "relay_1",
+            "2": "relay_2"
+          }
+        },
+        "longPressDuration": {
+          "type": "number",
+          "min": 0,
+          "max": 5000
+        },
+        "levelMoveRate": {
+          "type": "number",
+          "min": 1,
+          "max": 255
+        },
+        "bindedMode": {
+          "type": "select",
+          "enum": {
+            "1": "press_start",
+            "2": "long_press",
+            "3": "short_press"
+          }
+        },
+        "pressAction": {
+          "enum": [
+            "released",
+            "press",
+            "long_press",
+            "position_on",
+            "position_off"
+          ]
+        }
+      },
+      "endpointId": [
+        1,
+        2
+      ]
+    }
+  ],
   "pgq7ormg": [
     {
       "description": "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
@@ -10426,6 +11367,240 @@
       },
       "endpointId": [
         1
+      ]
+    }
+  ],
+  "eei0ubpy": [
+    {
+      "description": "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
+      "modelNames": [
+        "TS0002-IHS"
+      ],
+      "options": {
+        "endpointName": {
+          "1": "switch_left",
+          "2": "switch_right",
+          "3": "relay_left",
+          "4": "relay_right"
+        }
+      }
+    },
+    {
+      "modelNames": [
+        "TS0002-IHS"
+      ],
+      "exposes": [
+        "multiPressResetCount",
+        "networkIndicator"
+      ],
+      "options": {
+        "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
+          "networkIndicator": {
+            "type": "bool",
+            "clusterId": 0,
+            "attributeId": 65281,
+            "dataType": 16,
+            "action": true
+          }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
+        },
+        "networkIndicator": {
+          "type": "toggle"
+        }
+      },
+      "endpointId": 1
+    },
+    {
+      "modelNames": [
+        "TS0002-IHS"
+      ],
+      "properties": [
+        "status",
+        "powerOnStatus"
+      ],
+      "actions": [
+        "status",
+        "powerOnStatus"
+      ],
+      "bindings": [
+        "status"
+      ],
+      "reportings": [
+        "status"
+      ],
+      "exposes": [
+        "switch",
+        "powerOnStatus"
+      ],
+      "options": {
+        "powerOnStatus": {
+          "enum": [
+            "off",
+            "on",
+            "toggle",
+            "previous"
+          ]
+        }
+      },
+      "endpointId": [
+        3,
+        4
+      ]
+    },
+    {
+      "modelNames": [
+        "TS0002-IHS"
+      ],
+      "exposes": [
+        "pressAction",
+        "switchMode",
+        "switchAction",
+        "relayMode",
+        "relayIndex",
+        "bindedMode",
+        "longPressDuration",
+        "levelMoveRate"
+      ],
+      "options": {
+        "customAttributes": {
+          "switchAction": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 16,
+            "dataType": 48,
+            "action": true
+          },
+          "switchMode": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65280,
+            "dataType": 48,
+            "action": true
+          },
+          "relayMode": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65281,
+            "dataType": 48,
+            "action": true
+          },
+          "relayIndex": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
+          "longPressDuration": {
+            "type": "value",
+            "clusterId": 7,
+            "attributeId": 65283,
+            "dataType": 33,
+            "action": true
+          },
+          "levelMoveRate": {
+            "type": "value",
+            "clusterId": 7,
+            "attributeId": 65284,
+            "dataType": 32,
+            "action": true
+          },
+          "bindedMode": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65285,
+            "dataType": 48,
+            "action": true
+          },
+          "pressAction": {
+            "type": "enum",
+            "clusterId": 18,
+            "attributeId": 85,
+            "dataType": 33,
+            "binding": true,
+            "reporting": {
+              "minInterval": 0,
+              "maxInterval": 255,
+              "valueChange": 1
+            }
+          }
+        },
+        "switchAction": {
+          "type": "select",
+          "enum": [
+            "on_off",
+            "off_on",
+            "toggle_simple",
+            "toggle_smart_sync",
+            "toggle_smart_opposite"
+          ]
+        },
+        "switchMode": {
+          "type": "select",
+          "enum": [
+            "toggle",
+            "momentary",
+            "momentary_nc"
+          ]
+        },
+        "relayMode": {
+          "type": "select",
+          "enum": [
+            "detached",
+            "press_start",
+            "long_press",
+            "short_press"
+          ]
+        },
+        "relayIndex": {
+          "type": "select",
+          "enum": {
+            "1": "relay_1",
+            "2": "relay_2"
+          }
+        },
+        "longPressDuration": {
+          "type": "number",
+          "min": 0,
+          "max": 5000
+        },
+        "levelMoveRate": {
+          "type": "number",
+          "min": 1,
+          "max": 255
+        },
+        "bindedMode": {
+          "type": "select",
+          "enum": {
+            "1": "press_start",
+            "2": "long_press",
+            "3": "short_press"
+          }
+        },
+        "pressAction": {
+          "enum": [
+            "released",
+            "press",
+            "long_press",
+            "position_on",
+            "position_off"
+          ]
+        }
+      },
+      "endpointId": [
+        1,
+        2
       ]
     }
   ],
@@ -13924,6 +15099,723 @@
       },
       "endpointId": [
         1
+      ]
+    }
+  ],
+  "n1j44rth": [
+    {
+      "description": "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
+      "modelNames": [
+        "TS0002-N1J44RTH"
+      ],
+      "options": {
+        "endpointName": {
+          "1": "switch_left",
+          "2": "switch_right",
+          "3": "relay_left",
+          "4": "relay_right"
+        }
+      }
+    },
+    {
+      "modelNames": [
+        "TS0002-N1J44RTH"
+      ],
+      "exposes": [
+        "multiPressResetCount",
+        "networkIndicator"
+      ],
+      "options": {
+        "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
+          "networkIndicator": {
+            "type": "bool",
+            "clusterId": 0,
+            "attributeId": 65281,
+            "dataType": 16,
+            "action": true
+          }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
+        },
+        "networkIndicator": {
+          "type": "toggle"
+        }
+      },
+      "endpointId": 1
+    },
+    {
+      "modelNames": [
+        "TS0002-N1J44RTH"
+      ],
+      "properties": [
+        "status",
+        "powerOnStatus"
+      ],
+      "actions": [
+        "status",
+        "powerOnStatus"
+      ],
+      "bindings": [
+        "status"
+      ],
+      "reportings": [
+        "status"
+      ],
+      "exposes": [
+        "switch",
+        "powerOnStatus"
+      ],
+      "options": {
+        "powerOnStatus": {
+          "enum": [
+            "off",
+            "on",
+            "toggle",
+            "previous"
+          ]
+        }
+      },
+      "endpointId": [
+        3,
+        4
+      ]
+    },
+    {
+      "modelNames": [
+        "TS0002-N1J44RTH"
+      ],
+      "exposes": [
+        "pressAction",
+        "switchMode",
+        "switchAction",
+        "relayMode",
+        "relayIndex",
+        "bindedMode",
+        "longPressDuration",
+        "levelMoveRate"
+      ],
+      "options": {
+        "customAttributes": {
+          "switchAction": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 16,
+            "dataType": 48,
+            "action": true
+          },
+          "switchMode": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65280,
+            "dataType": 48,
+            "action": true
+          },
+          "relayMode": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65281,
+            "dataType": 48,
+            "action": true
+          },
+          "relayIndex": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
+          "longPressDuration": {
+            "type": "value",
+            "clusterId": 7,
+            "attributeId": 65283,
+            "dataType": 33,
+            "action": true
+          },
+          "levelMoveRate": {
+            "type": "value",
+            "clusterId": 7,
+            "attributeId": 65284,
+            "dataType": 32,
+            "action": true
+          },
+          "bindedMode": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65285,
+            "dataType": 48,
+            "action": true
+          },
+          "pressAction": {
+            "type": "enum",
+            "clusterId": 18,
+            "attributeId": 85,
+            "dataType": 33,
+            "binding": true,
+            "reporting": {
+              "minInterval": 0,
+              "maxInterval": 255,
+              "valueChange": 1
+            }
+          }
+        },
+        "switchAction": {
+          "type": "select",
+          "enum": [
+            "on_off",
+            "off_on",
+            "toggle_simple",
+            "toggle_smart_sync",
+            "toggle_smart_opposite"
+          ]
+        },
+        "switchMode": {
+          "type": "select",
+          "enum": [
+            "toggle",
+            "momentary",
+            "momentary_nc"
+          ]
+        },
+        "relayMode": {
+          "type": "select",
+          "enum": [
+            "detached",
+            "press_start",
+            "long_press",
+            "short_press"
+          ]
+        },
+        "relayIndex": {
+          "type": "select",
+          "enum": {
+            "1": "relay_1",
+            "2": "relay_2"
+          }
+        },
+        "longPressDuration": {
+          "type": "number",
+          "min": 0,
+          "max": 5000
+        },
+        "levelMoveRate": {
+          "type": "number",
+          "min": 1,
+          "max": 255
+        },
+        "bindedMode": {
+          "type": "select",
+          "enum": {
+            "1": "press_start",
+            "2": "long_press",
+            "3": "short_press"
+          }
+        },
+        "pressAction": {
+          "enum": [
+            "released",
+            "press",
+            "long_press",
+            "position_on",
+            "position_off"
+          ]
+        }
+      },
+      "endpointId": [
+        1,
+        2
+      ]
+    }
+  ],
+  "uwhjgngj": [
+    {
+      "description": "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
+      "modelNames": [
+        "TS0003-UWHJGNGJ"
+      ],
+      "options": {
+        "endpointName": {
+          "1": "switch_left",
+          "2": "switch_middle",
+          "3": "switch_right",
+          "4": "relay_left",
+          "5": "relay_middle",
+          "6": "relay_right"
+        }
+      }
+    },
+    {
+      "modelNames": [
+        "TS0003-UWHJGNGJ"
+      ],
+      "exposes": [
+        "multiPressResetCount",
+        "networkIndicator"
+      ],
+      "options": {
+        "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
+          "networkIndicator": {
+            "type": "bool",
+            "clusterId": 0,
+            "attributeId": 65281,
+            "dataType": 16,
+            "action": true
+          }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
+        },
+        "networkIndicator": {
+          "type": "toggle"
+        }
+      },
+      "endpointId": 1
+    },
+    {
+      "modelNames": [
+        "TS0003-UWHJGNGJ"
+      ],
+      "properties": [
+        "status",
+        "powerOnStatus"
+      ],
+      "actions": [
+        "status",
+        "powerOnStatus"
+      ],
+      "bindings": [
+        "status"
+      ],
+      "reportings": [
+        "status"
+      ],
+      "exposes": [
+        "switch",
+        "powerOnStatus"
+      ],
+      "options": {
+        "powerOnStatus": {
+          "enum": [
+            "off",
+            "on",
+            "toggle",
+            "previous"
+          ]
+        }
+      },
+      "endpointId": [
+        4,
+        5,
+        6
+      ]
+    },
+    {
+      "modelNames": [
+        "TS0003-UWHJGNGJ"
+      ],
+      "exposes": [
+        "pressAction",
+        "switchMode",
+        "switchAction",
+        "relayMode",
+        "relayIndex",
+        "bindedMode",
+        "longPressDuration",
+        "levelMoveRate"
+      ],
+      "options": {
+        "customAttributes": {
+          "switchAction": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 16,
+            "dataType": 48,
+            "action": true
+          },
+          "switchMode": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65280,
+            "dataType": 48,
+            "action": true
+          },
+          "relayMode": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65281,
+            "dataType": 48,
+            "action": true
+          },
+          "relayIndex": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
+          "longPressDuration": {
+            "type": "value",
+            "clusterId": 7,
+            "attributeId": 65283,
+            "dataType": 33,
+            "action": true
+          },
+          "levelMoveRate": {
+            "type": "value",
+            "clusterId": 7,
+            "attributeId": 65284,
+            "dataType": 32,
+            "action": true
+          },
+          "bindedMode": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65285,
+            "dataType": 48,
+            "action": true
+          },
+          "pressAction": {
+            "type": "enum",
+            "clusterId": 18,
+            "attributeId": 85,
+            "dataType": 33,
+            "binding": true,
+            "reporting": {
+              "minInterval": 0,
+              "maxInterval": 255,
+              "valueChange": 1
+            }
+          }
+        },
+        "switchAction": {
+          "type": "select",
+          "enum": [
+            "on_off",
+            "off_on",
+            "toggle_simple",
+            "toggle_smart_sync",
+            "toggle_smart_opposite"
+          ]
+        },
+        "switchMode": {
+          "type": "select",
+          "enum": [
+            "toggle",
+            "momentary",
+            "momentary_nc"
+          ]
+        },
+        "relayMode": {
+          "type": "select",
+          "enum": [
+            "detached",
+            "press_start",
+            "long_press",
+            "short_press"
+          ]
+        },
+        "relayIndex": {
+          "type": "select",
+          "enum": {
+            "1": "relay_1",
+            "2": "relay_2",
+            "3": "relay_3"
+          }
+        },
+        "longPressDuration": {
+          "type": "number",
+          "min": 0,
+          "max": 5000
+        },
+        "levelMoveRate": {
+          "type": "number",
+          "min": 1,
+          "max": 255
+        },
+        "bindedMode": {
+          "type": "select",
+          "enum": {
+            "1": "press_start",
+            "2": "long_press",
+            "3": "short_press"
+          }
+        },
+        "pressAction": {
+          "enum": [
+            "released",
+            "press",
+            "long_press",
+            "position_on",
+            "position_off"
+          ]
+        }
+      },
+      "endpointId": [
+        1,
+        2,
+        3
+      ]
+    }
+  ],
+  "2wp3tnwa": [
+    {
+      "description": "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
+      "modelNames": [
+        "TS0004-B"
+      ],
+      "options": {
+        "endpointName": {
+          "1": "switch_1",
+          "2": "switch_2",
+          "3": "switch_3",
+          "4": "switch_4",
+          "5": "relay_1",
+          "6": "relay_2",
+          "7": "relay_3",
+          "8": "relay_4"
+        }
+      }
+    },
+    {
+      "modelNames": [
+        "TS0004-B"
+      ],
+      "exposes": [
+        "multiPressResetCount",
+        "networkIndicator"
+      ],
+      "options": {
+        "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
+          "networkIndicator": {
+            "type": "bool",
+            "clusterId": 0,
+            "attributeId": 65281,
+            "dataType": 16,
+            "action": true
+          }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
+        },
+        "networkIndicator": {
+          "type": "toggle"
+        }
+      },
+      "endpointId": 1
+    },
+    {
+      "modelNames": [
+        "TS0004-B"
+      ],
+      "properties": [
+        "status",
+        "powerOnStatus"
+      ],
+      "actions": [
+        "status",
+        "powerOnStatus"
+      ],
+      "bindings": [
+        "status"
+      ],
+      "reportings": [
+        "status"
+      ],
+      "exposes": [
+        "switch",
+        "powerOnStatus"
+      ],
+      "options": {
+        "powerOnStatus": {
+          "enum": [
+            "off",
+            "on",
+            "toggle",
+            "previous"
+          ]
+        }
+      },
+      "endpointId": [
+        5,
+        6,
+        7,
+        8
+      ]
+    },
+    {
+      "modelNames": [
+        "TS0004-B"
+      ],
+      "exposes": [
+        "pressAction",
+        "switchMode",
+        "switchAction",
+        "relayMode",
+        "relayIndex",
+        "bindedMode",
+        "longPressDuration",
+        "levelMoveRate"
+      ],
+      "options": {
+        "customAttributes": {
+          "switchAction": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 16,
+            "dataType": 48,
+            "action": true
+          },
+          "switchMode": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65280,
+            "dataType": 48,
+            "action": true
+          },
+          "relayMode": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65281,
+            "dataType": 48,
+            "action": true
+          },
+          "relayIndex": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
+          "longPressDuration": {
+            "type": "value",
+            "clusterId": 7,
+            "attributeId": 65283,
+            "dataType": 33,
+            "action": true
+          },
+          "levelMoveRate": {
+            "type": "value",
+            "clusterId": 7,
+            "attributeId": 65284,
+            "dataType": 32,
+            "action": true
+          },
+          "bindedMode": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65285,
+            "dataType": 48,
+            "action": true
+          },
+          "pressAction": {
+            "type": "enum",
+            "clusterId": 18,
+            "attributeId": 85,
+            "dataType": 33,
+            "binding": true,
+            "reporting": {
+              "minInterval": 0,
+              "maxInterval": 255,
+              "valueChange": 1
+            }
+          }
+        },
+        "switchAction": {
+          "type": "select",
+          "enum": [
+            "on_off",
+            "off_on",
+            "toggle_simple",
+            "toggle_smart_sync",
+            "toggle_smart_opposite"
+          ]
+        },
+        "switchMode": {
+          "type": "select",
+          "enum": [
+            "toggle",
+            "momentary",
+            "momentary_nc"
+          ]
+        },
+        "relayMode": {
+          "type": "select",
+          "enum": [
+            "detached",
+            "press_start",
+            "long_press",
+            "short_press"
+          ]
+        },
+        "relayIndex": {
+          "type": "select",
+          "enum": {
+            "1": "relay_1",
+            "2": "relay_2",
+            "3": "relay_3",
+            "4": "relay_4"
+          }
+        },
+        "longPressDuration": {
+          "type": "number",
+          "min": 0,
+          "max": 5000
+        },
+        "levelMoveRate": {
+          "type": "number",
+          "min": 1,
+          "max": 255
+        },
+        "bindedMode": {
+          "type": "select",
+          "enum": {
+            "1": "press_start",
+            "2": "long_press",
+            "3": "short_press"
+          }
+        },
+        "pressAction": {
+          "enum": [
+            "released",
+            "press",
+            "long_press",
+            "position_on",
+            "position_off"
+          ]
+        }
+      },
+      "endpointId": [
+        1,
+        2,
+        3,
+        4
       ]
     }
   ],
@@ -20789,6 +22681,235 @@
         2,
         3,
         4
+      ]
+    }
+  ],
+  "olo5jhjk": [
+    {
+      "description": "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
+      "modelNames": [
+        "TS0001-YNTDQ"
+      ],
+      "options": {
+        "endpointName": {
+          "1": "switch",
+          "2": "relay"
+        }
+      }
+    },
+    {
+      "modelNames": [
+        "TS0001-YNTDQ"
+      ],
+      "exposes": [
+        "multiPressResetCount",
+        "networkIndicator"
+      ],
+      "options": {
+        "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
+          "networkIndicator": {
+            "type": "bool",
+            "clusterId": 0,
+            "attributeId": 65281,
+            "dataType": 16,
+            "action": true
+          }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
+        },
+        "networkIndicator": {
+          "type": "toggle"
+        }
+      },
+      "endpointId": 1
+    },
+    {
+      "modelNames": [
+        "TS0001-YNTDQ"
+      ],
+      "properties": [
+        "status",
+        "powerOnStatus"
+      ],
+      "actions": [
+        "status",
+        "powerOnStatus"
+      ],
+      "bindings": [
+        "status"
+      ],
+      "reportings": [
+        "status"
+      ],
+      "exposes": [
+        "switch",
+        "powerOnStatus"
+      ],
+      "options": {
+        "powerOnStatus": {
+          "enum": [
+            "off",
+            "on",
+            "toggle",
+            "previous"
+          ]
+        }
+      },
+      "endpointId": [
+        2
+      ]
+    },
+    {
+      "modelNames": [
+        "TS0001-YNTDQ"
+      ],
+      "exposes": [
+        "pressAction",
+        "switchMode",
+        "switchAction",
+        "relayMode",
+        "relayIndex",
+        "bindedMode",
+        "longPressDuration",
+        "levelMoveRate"
+      ],
+      "options": {
+        "customAttributes": {
+          "switchAction": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 16,
+            "dataType": 48,
+            "action": true
+          },
+          "switchMode": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65280,
+            "dataType": 48,
+            "action": true
+          },
+          "relayMode": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65281,
+            "dataType": 48,
+            "action": true
+          },
+          "relayIndex": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
+          "longPressDuration": {
+            "type": "value",
+            "clusterId": 7,
+            "attributeId": 65283,
+            "dataType": 33,
+            "action": true
+          },
+          "levelMoveRate": {
+            "type": "value",
+            "clusterId": 7,
+            "attributeId": 65284,
+            "dataType": 32,
+            "action": true
+          },
+          "bindedMode": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65285,
+            "dataType": 48,
+            "action": true
+          },
+          "pressAction": {
+            "type": "enum",
+            "clusterId": 18,
+            "attributeId": 85,
+            "dataType": 33,
+            "binding": true,
+            "reporting": {
+              "minInterval": 0,
+              "maxInterval": 255,
+              "valueChange": 1
+            }
+          }
+        },
+        "switchAction": {
+          "type": "select",
+          "enum": [
+            "on_off",
+            "off_on",
+            "toggle_simple",
+            "toggle_smart_sync",
+            "toggle_smart_opposite"
+          ]
+        },
+        "switchMode": {
+          "type": "select",
+          "enum": [
+            "toggle",
+            "momentary",
+            "momentary_nc"
+          ]
+        },
+        "relayMode": {
+          "type": "select",
+          "enum": [
+            "detached",
+            "press_start",
+            "long_press",
+            "short_press"
+          ]
+        },
+        "relayIndex": {
+          "type": "select",
+          "enum": {
+            "1": "relay_1"
+          }
+        },
+        "longPressDuration": {
+          "type": "number",
+          "min": 0,
+          "max": 5000
+        },
+        "levelMoveRate": {
+          "type": "number",
+          "min": 1,
+          "max": 255
+        },
+        "bindedMode": {
+          "type": "select",
+          "enum": {
+            "1": "press_start",
+            "2": "long_press",
+            "3": "short_press"
+          }
+        },
+        "pressAction": {
+          "enum": [
+            "released",
+            "press",
+            "long_press",
+            "position_on",
+            "position_off"
+          ]
+        }
+      },
+      "endpointId": [
+        1
       ]
     }
   ],
@@ -34931,6 +37052,288 @@
       ]
     }
   ],
+  "p1h4zuvh": [
+    {
+      "description": "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
+      "modelNames": [
+        "Girier-4-gang"
+      ],
+      "options": {
+        "endpointName": {
+          "1": "switch_1",
+          "2": "switch_2",
+          "3": "switch_3",
+          "4": "switch_4",
+          "5": "relay_1",
+          "6": "relay_2",
+          "7": "relay_3",
+          "8": "relay_4"
+        }
+      }
+    },
+    {
+      "modelNames": [
+        "Girier-4-gang"
+      ],
+      "exposes": [
+        "multiPressResetCount"
+      ],
+      "options": {
+        "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
+        }
+      },
+      "endpointId": 1
+    },
+    {
+      "modelNames": [
+        "Girier-4-gang"
+      ],
+      "properties": [
+        "status",
+        "powerOnStatus"
+      ],
+      "actions": [
+        "status",
+        "powerOnStatus"
+      ],
+      "bindings": [
+        "status"
+      ],
+      "reportings": [
+        "status"
+      ],
+      "exposes": [
+        "switch",
+        "powerOnStatus"
+      ],
+      "options": {
+        "powerOnStatus": {
+          "enum": [
+            "off",
+            "on",
+            "toggle",
+            "previous"
+          ]
+        }
+      },
+      "endpointId": [
+        5,
+        6,
+        7,
+        8
+      ]
+    },
+    {
+      "modelNames": [
+        "Girier-4-gang"
+      ],
+      "exposes": [
+        "pressAction",
+        "switchMode",
+        "switchAction",
+        "relayMode",
+        "relayIndex",
+        "bindedMode",
+        "longPressDuration",
+        "levelMoveRate"
+      ],
+      "options": {
+        "customAttributes": {
+          "switchAction": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 16,
+            "dataType": 48,
+            "action": true
+          },
+          "switchMode": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65280,
+            "dataType": 48,
+            "action": true
+          },
+          "relayMode": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65281,
+            "dataType": 48,
+            "action": true
+          },
+          "relayIndex": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
+          "longPressDuration": {
+            "type": "value",
+            "clusterId": 7,
+            "attributeId": 65283,
+            "dataType": 33,
+            "action": true
+          },
+          "levelMoveRate": {
+            "type": "value",
+            "clusterId": 7,
+            "attributeId": 65284,
+            "dataType": 32,
+            "action": true
+          },
+          "bindedMode": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65285,
+            "dataType": 48,
+            "action": true
+          },
+          "pressAction": {
+            "type": "enum",
+            "clusterId": 18,
+            "attributeId": 85,
+            "dataType": 33,
+            "binding": true,
+            "reporting": {
+              "minInterval": 0,
+              "maxInterval": 255,
+              "valueChange": 1
+            }
+          }
+        },
+        "switchAction": {
+          "type": "select",
+          "enum": [
+            "on_off",
+            "off_on",
+            "toggle_simple",
+            "toggle_smart_sync",
+            "toggle_smart_opposite"
+          ]
+        },
+        "switchMode": {
+          "type": "select",
+          "enum": [
+            "toggle",
+            "momentary",
+            "momentary_nc"
+          ]
+        },
+        "relayMode": {
+          "type": "select",
+          "enum": [
+            "detached",
+            "press_start",
+            "long_press",
+            "short_press"
+          ]
+        },
+        "relayIndex": {
+          "type": "select",
+          "enum": {
+            "1": "relay_1",
+            "2": "relay_2",
+            "3": "relay_3",
+            "4": "relay_4"
+          }
+        },
+        "longPressDuration": {
+          "type": "number",
+          "min": 0,
+          "max": 5000
+        },
+        "levelMoveRate": {
+          "type": "number",
+          "min": 1,
+          "max": 255
+        },
+        "bindedMode": {
+          "type": "select",
+          "enum": {
+            "1": "press_start",
+            "2": "long_press",
+            "3": "short_press"
+          }
+        },
+        "pressAction": {
+          "enum": [
+            "released",
+            "press",
+            "long_press",
+            "position_on",
+            "position_off"
+          ]
+        }
+      },
+      "endpointId": [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "modelNames": [
+        "Girier-4-gang"
+      ],
+      "exposes": [
+        "relayIndicatorMode",
+        "relayIndicator"
+      ],
+      "options": {
+        "customAttributes": {
+          "relayIndicatorMode": {
+            "type": "enum",
+            "clusterId": 6,
+            "attributeId": 65281,
+            "dataType": 48,
+            "action": true
+          },
+          "relayIndicator": {
+            "type": "bool",
+            "clusterId": 6,
+            "attributeId": 65282,
+            "dataType": 16,
+            "action": true,
+            "reporting": {
+              "minInterval": 0,
+              "maxInterval": 255,
+              "valueChange": 1
+            }
+          }
+        },
+        "relayIndicatorMode": {
+          "type": "select",
+          "enum": [
+            "same",
+            "opposite",
+            "manual"
+          ]
+        },
+        "relayIndicator": {
+          "type": "toggle"
+        }
+      },
+      "endpointId": [
+        5,
+        6,
+        7,
+        8
+      ]
+    }
+  ],
   "ZG-302Z1": [
     {
       "description": "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
@@ -37145,6 +39548,288 @@
       ]
     }
   ],
+  "sovlwiix": [
+    {
+      "description": "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
+      "modelNames": [
+        "LerLink-4-gang"
+      ],
+      "options": {
+        "endpointName": {
+          "1": "switch_1",
+          "2": "switch_2",
+          "3": "switch_3",
+          "4": "switch_4",
+          "5": "relay_1",
+          "6": "relay_2",
+          "7": "relay_3",
+          "8": "relay_4"
+        }
+      }
+    },
+    {
+      "modelNames": [
+        "LerLink-4-gang"
+      ],
+      "exposes": [
+        "multiPressResetCount"
+      ],
+      "options": {
+        "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
+        }
+      },
+      "endpointId": 1
+    },
+    {
+      "modelNames": [
+        "LerLink-4-gang"
+      ],
+      "properties": [
+        "status",
+        "powerOnStatus"
+      ],
+      "actions": [
+        "status",
+        "powerOnStatus"
+      ],
+      "bindings": [
+        "status"
+      ],
+      "reportings": [
+        "status"
+      ],
+      "exposes": [
+        "switch",
+        "powerOnStatus"
+      ],
+      "options": {
+        "powerOnStatus": {
+          "enum": [
+            "off",
+            "on",
+            "toggle",
+            "previous"
+          ]
+        }
+      },
+      "endpointId": [
+        5,
+        6,
+        7,
+        8
+      ]
+    },
+    {
+      "modelNames": [
+        "LerLink-4-gang"
+      ],
+      "exposes": [
+        "pressAction",
+        "switchMode",
+        "switchAction",
+        "relayMode",
+        "relayIndex",
+        "bindedMode",
+        "longPressDuration",
+        "levelMoveRate"
+      ],
+      "options": {
+        "customAttributes": {
+          "switchAction": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 16,
+            "dataType": 48,
+            "action": true
+          },
+          "switchMode": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65280,
+            "dataType": 48,
+            "action": true
+          },
+          "relayMode": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65281,
+            "dataType": 48,
+            "action": true
+          },
+          "relayIndex": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
+          "longPressDuration": {
+            "type": "value",
+            "clusterId": 7,
+            "attributeId": 65283,
+            "dataType": 33,
+            "action": true
+          },
+          "levelMoveRate": {
+            "type": "value",
+            "clusterId": 7,
+            "attributeId": 65284,
+            "dataType": 32,
+            "action": true
+          },
+          "bindedMode": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65285,
+            "dataType": 48,
+            "action": true
+          },
+          "pressAction": {
+            "type": "enum",
+            "clusterId": 18,
+            "attributeId": 85,
+            "dataType": 33,
+            "binding": true,
+            "reporting": {
+              "minInterval": 0,
+              "maxInterval": 255,
+              "valueChange": 1
+            }
+          }
+        },
+        "switchAction": {
+          "type": "select",
+          "enum": [
+            "on_off",
+            "off_on",
+            "toggle_simple",
+            "toggle_smart_sync",
+            "toggle_smart_opposite"
+          ]
+        },
+        "switchMode": {
+          "type": "select",
+          "enum": [
+            "toggle",
+            "momentary",
+            "momentary_nc"
+          ]
+        },
+        "relayMode": {
+          "type": "select",
+          "enum": [
+            "detached",
+            "press_start",
+            "long_press",
+            "short_press"
+          ]
+        },
+        "relayIndex": {
+          "type": "select",
+          "enum": {
+            "1": "relay_1",
+            "2": "relay_2",
+            "3": "relay_3",
+            "4": "relay_4"
+          }
+        },
+        "longPressDuration": {
+          "type": "number",
+          "min": 0,
+          "max": 5000
+        },
+        "levelMoveRate": {
+          "type": "number",
+          "min": 1,
+          "max": 255
+        },
+        "bindedMode": {
+          "type": "select",
+          "enum": {
+            "1": "press_start",
+            "2": "long_press",
+            "3": "short_press"
+          }
+        },
+        "pressAction": {
+          "enum": [
+            "released",
+            "press",
+            "long_press",
+            "position_on",
+            "position_off"
+          ]
+        }
+      },
+      "endpointId": [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "modelNames": [
+        "LerLink-4-gang"
+      ],
+      "exposes": [
+        "relayIndicatorMode",
+        "relayIndicator"
+      ],
+      "options": {
+        "customAttributes": {
+          "relayIndicatorMode": {
+            "type": "enum",
+            "clusterId": 6,
+            "attributeId": 65281,
+            "dataType": 48,
+            "action": true
+          },
+          "relayIndicator": {
+            "type": "bool",
+            "clusterId": 6,
+            "attributeId": 65282,
+            "dataType": 16,
+            "action": true,
+            "reporting": {
+              "minInterval": 0,
+              "maxInterval": 255,
+              "valueChange": 1
+            }
+          }
+        },
+        "relayIndicatorMode": {
+          "type": "select",
+          "enum": [
+            "same",
+            "opposite",
+            "manual"
+          ]
+        },
+        "relayIndicator": {
+          "type": "toggle"
+        }
+      },
+      "endpointId": [
+        5,
+        6,
+        7,
+        8
+      ]
+    }
+  ],
   "qa8s8vca": [
     {
       "description": "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
@@ -37251,7 +39936,8 @@
       "endpointId": [
         1,
         2,
-        3
+        3,
+        4
       ]
     }
   ],
@@ -43368,6 +46054,540 @@
       ]
     }
   ],
+  "ns91oqaa": [
+    {
+      "description": "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
+      "modelNames": [
+        "TS0011-RSH"
+      ],
+      "options": {
+        "endpointName": {
+          "1": "switch",
+          "2": "relay"
+        }
+      }
+    },
+    {
+      "modelNames": [
+        "TS0011-RSH"
+      ],
+      "exposes": [
+        "multiPressResetCount"
+      ],
+      "options": {
+        "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
+        }
+      },
+      "endpointId": 1
+    },
+    {
+      "modelNames": [
+        "TS0011-RSH"
+      ],
+      "properties": [
+        "status",
+        "powerOnStatus"
+      ],
+      "actions": [
+        "status",
+        "powerOnStatus"
+      ],
+      "bindings": [
+        "status"
+      ],
+      "reportings": [
+        "status"
+      ],
+      "exposes": [
+        "switch",
+        "powerOnStatus"
+      ],
+      "options": {
+        "powerOnStatus": {
+          "enum": [
+            "off",
+            "on",
+            "toggle",
+            "previous"
+          ]
+        }
+      },
+      "endpointId": [
+        2
+      ]
+    },
+    {
+      "modelNames": [
+        "TS0011-RSH"
+      ],
+      "exposes": [
+        "pressAction",
+        "switchMode",
+        "switchAction",
+        "relayMode",
+        "relayIndex",
+        "bindedMode",
+        "longPressDuration",
+        "levelMoveRate"
+      ],
+      "options": {
+        "customAttributes": {
+          "switchAction": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 16,
+            "dataType": 48,
+            "action": true
+          },
+          "switchMode": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65280,
+            "dataType": 48,
+            "action": true
+          },
+          "relayMode": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65281,
+            "dataType": 48,
+            "action": true
+          },
+          "relayIndex": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
+          "longPressDuration": {
+            "type": "value",
+            "clusterId": 7,
+            "attributeId": 65283,
+            "dataType": 33,
+            "action": true
+          },
+          "levelMoveRate": {
+            "type": "value",
+            "clusterId": 7,
+            "attributeId": 65284,
+            "dataType": 32,
+            "action": true
+          },
+          "bindedMode": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65285,
+            "dataType": 48,
+            "action": true
+          },
+          "pressAction": {
+            "type": "enum",
+            "clusterId": 18,
+            "attributeId": 85,
+            "dataType": 33,
+            "binding": true,
+            "reporting": {
+              "minInterval": 0,
+              "maxInterval": 255,
+              "valueChange": 1
+            }
+          }
+        },
+        "switchAction": {
+          "type": "select",
+          "enum": [
+            "on_off",
+            "off_on",
+            "toggle_simple",
+            "toggle_smart_sync",
+            "toggle_smart_opposite"
+          ]
+        },
+        "switchMode": {
+          "type": "select",
+          "enum": [
+            "toggle",
+            "momentary",
+            "momentary_nc"
+          ]
+        },
+        "relayMode": {
+          "type": "select",
+          "enum": [
+            "detached",
+            "press_start",
+            "long_press",
+            "short_press"
+          ]
+        },
+        "relayIndex": {
+          "type": "select",
+          "enum": {
+            "1": "relay_1"
+          }
+        },
+        "longPressDuration": {
+          "type": "number",
+          "min": 0,
+          "max": 5000
+        },
+        "levelMoveRate": {
+          "type": "number",
+          "min": 1,
+          "max": 255
+        },
+        "bindedMode": {
+          "type": "select",
+          "enum": {
+            "1": "press_start",
+            "2": "long_press",
+            "3": "short_press"
+          }
+        },
+        "pressAction": {
+          "enum": [
+            "released",
+            "press",
+            "long_press",
+            "position_on",
+            "position_off"
+          ]
+        }
+      },
+      "endpointId": [
+        1
+      ]
+    },
+    {
+      "modelNames": [
+        "TS0011-RSH"
+      ],
+      "exposes": [
+        "relayIndicatorMode",
+        "relayIndicator"
+      ],
+      "options": {
+        "customAttributes": {
+          "relayIndicatorMode": {
+            "type": "enum",
+            "clusterId": 6,
+            "attributeId": 65281,
+            "dataType": 48,
+            "action": true
+          },
+          "relayIndicator": {
+            "type": "bool",
+            "clusterId": 6,
+            "attributeId": 65282,
+            "dataType": 16,
+            "action": true,
+            "reporting": {
+              "minInterval": 0,
+              "maxInterval": 255,
+              "valueChange": 1
+            }
+          }
+        },
+        "relayIndicatorMode": {
+          "type": "select",
+          "enum": [
+            "same",
+            "opposite",
+            "manual"
+          ]
+        },
+        "relayIndicator": {
+          "type": "toggle"
+        }
+      },
+      "endpointId": [
+        2
+      ]
+    }
+  ],
+  "uprzndgg": [
+    {
+      "description": "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
+      "modelNames": [
+        "TS0012-RSH"
+      ],
+      "options": {
+        "endpointName": {
+          "1": "switch_left",
+          "2": "switch_right",
+          "3": "relay_left",
+          "4": "relay_right"
+        }
+      }
+    },
+    {
+      "modelNames": [
+        "TS0012-RSH"
+      ],
+      "exposes": [
+        "multiPressResetCount"
+      ],
+      "options": {
+        "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
+        }
+      },
+      "endpointId": 1
+    },
+    {
+      "modelNames": [
+        "TS0012-RSH"
+      ],
+      "properties": [
+        "status",
+        "powerOnStatus"
+      ],
+      "actions": [
+        "status",
+        "powerOnStatus"
+      ],
+      "bindings": [
+        "status"
+      ],
+      "reportings": [
+        "status"
+      ],
+      "exposes": [
+        "switch",
+        "powerOnStatus"
+      ],
+      "options": {
+        "powerOnStatus": {
+          "enum": [
+            "off",
+            "on",
+            "toggle",
+            "previous"
+          ]
+        }
+      },
+      "endpointId": [
+        3,
+        4
+      ]
+    },
+    {
+      "modelNames": [
+        "TS0012-RSH"
+      ],
+      "exposes": [
+        "pressAction",
+        "switchMode",
+        "switchAction",
+        "relayMode",
+        "relayIndex",
+        "bindedMode",
+        "longPressDuration",
+        "levelMoveRate"
+      ],
+      "options": {
+        "customAttributes": {
+          "switchAction": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 16,
+            "dataType": 48,
+            "action": true
+          },
+          "switchMode": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65280,
+            "dataType": 48,
+            "action": true
+          },
+          "relayMode": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65281,
+            "dataType": 48,
+            "action": true
+          },
+          "relayIndex": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
+          "longPressDuration": {
+            "type": "value",
+            "clusterId": 7,
+            "attributeId": 65283,
+            "dataType": 33,
+            "action": true
+          },
+          "levelMoveRate": {
+            "type": "value",
+            "clusterId": 7,
+            "attributeId": 65284,
+            "dataType": 32,
+            "action": true
+          },
+          "bindedMode": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65285,
+            "dataType": 48,
+            "action": true
+          },
+          "pressAction": {
+            "type": "enum",
+            "clusterId": 18,
+            "attributeId": 85,
+            "dataType": 33,
+            "binding": true,
+            "reporting": {
+              "minInterval": 0,
+              "maxInterval": 255,
+              "valueChange": 1
+            }
+          }
+        },
+        "switchAction": {
+          "type": "select",
+          "enum": [
+            "on_off",
+            "off_on",
+            "toggle_simple",
+            "toggle_smart_sync",
+            "toggle_smart_opposite"
+          ]
+        },
+        "switchMode": {
+          "type": "select",
+          "enum": [
+            "toggle",
+            "momentary",
+            "momentary_nc"
+          ]
+        },
+        "relayMode": {
+          "type": "select",
+          "enum": [
+            "detached",
+            "press_start",
+            "long_press",
+            "short_press"
+          ]
+        },
+        "relayIndex": {
+          "type": "select",
+          "enum": {
+            "1": "relay_1",
+            "2": "relay_2"
+          }
+        },
+        "longPressDuration": {
+          "type": "number",
+          "min": 0,
+          "max": 5000
+        },
+        "levelMoveRate": {
+          "type": "number",
+          "min": 1,
+          "max": 255
+        },
+        "bindedMode": {
+          "type": "select",
+          "enum": {
+            "1": "press_start",
+            "2": "long_press",
+            "3": "short_press"
+          }
+        },
+        "pressAction": {
+          "enum": [
+            "released",
+            "press",
+            "long_press",
+            "position_on",
+            "position_off"
+          ]
+        }
+      },
+      "endpointId": [
+        1,
+        2
+      ]
+    },
+    {
+      "modelNames": [
+        "TS0012-RSH"
+      ],
+      "exposes": [
+        "relayIndicatorMode",
+        "relayIndicator"
+      ],
+      "options": {
+        "customAttributes": {
+          "relayIndicatorMode": {
+            "type": "enum",
+            "clusterId": 6,
+            "attributeId": 65281,
+            "dataType": 48,
+            "action": true
+          },
+          "relayIndicator": {
+            "type": "bool",
+            "clusterId": 6,
+            "attributeId": 65282,
+            "dataType": 16,
+            "action": true,
+            "reporting": {
+              "minInterval": 0,
+              "maxInterval": 255,
+              "valueChange": 1
+            }
+          }
+        },
+        "relayIndicatorMode": {
+          "type": "select",
+          "enum": [
+            "same",
+            "opposite",
+            "manual"
+          ]
+        },
+        "relayIndicator": {
+          "type": "toggle"
+        }
+      },
+      "endpointId": [
+        3,
+        4
+      ]
+    }
+  ],
   "b7s7xsow": [
     {
       "description": "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
@@ -43636,268 +46856,7 @@
     {
       "description": "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
       "modelNames": [
-        "TS0001-TA1"
-      ],
-      "options": {
-        "endpointName": {
-          "1": "switch",
-          "2": "relay"
-        }
-      }
-    },
-    {
-      "modelNames": [
-        "TS0001-TA1"
-      ],
-      "exposes": [
-        "multiPressResetCount"
-      ],
-      "options": {
-        "customAttributes": {
-          "multiPressResetCount": {
-            "type": "value",
-            "clusterId": 0,
-            "attributeId": 65282,
-            "dataType": 32,
-            "action": true
-          }
-        },
-        "multiPressResetCount": {
-          "type": "number",
-          "min": 0,
-          "max": 255
-        }
-      },
-      "endpointId": 1
-    },
-    {
-      "modelNames": [
-        "TS0001-TA1"
-      ],
-      "properties": [
-        "status",
-        "powerOnStatus"
-      ],
-      "actions": [
-        "status",
-        "powerOnStatus"
-      ],
-      "bindings": [
-        "status"
-      ],
-      "reportings": [
-        "status"
-      ],
-      "exposes": [
-        "switch",
-        "powerOnStatus"
-      ],
-      "options": {
-        "powerOnStatus": {
-          "enum": [
-            "off",
-            "on",
-            "toggle",
-            "previous"
-          ]
-        }
-      },
-      "endpointId": [
-        2
-      ]
-    },
-    {
-      "modelNames": [
-        "TS0001-TA1"
-      ],
-      "exposes": [
-        "pressAction",
-        "switchMode",
-        "switchAction",
-        "relayMode",
-        "relayIndex",
-        "bindedMode",
-        "longPressDuration",
-        "levelMoveRate"
-      ],
-      "options": {
-        "customAttributes": {
-          "switchAction": {
-            "type": "enum",
-            "clusterId": 7,
-            "attributeId": 16,
-            "dataType": 48,
-            "action": true
-          },
-          "switchMode": {
-            "type": "enum",
-            "clusterId": 7,
-            "attributeId": 65280,
-            "dataType": 48,
-            "action": true
-          },
-          "relayMode": {
-            "type": "enum",
-            "clusterId": 7,
-            "attributeId": 65281,
-            "dataType": 48,
-            "action": true
-          },
-          "relayIndex": {
-            "type": "enum",
-            "clusterId": 7,
-            "attributeId": 65282,
-            "dataType": 32,
-            "action": true
-          },
-          "longPressDuration": {
-            "type": "value",
-            "clusterId": 7,
-            "attributeId": 65283,
-            "dataType": 33,
-            "action": true
-          },
-          "levelMoveRate": {
-            "type": "value",
-            "clusterId": 7,
-            "attributeId": 65284,
-            "dataType": 32,
-            "action": true
-          },
-          "bindedMode": {
-            "type": "enum",
-            "clusterId": 7,
-            "attributeId": 65285,
-            "dataType": 48,
-            "action": true
-          },
-          "pressAction": {
-            "type": "enum",
-            "clusterId": 18,
-            "attributeId": 85,
-            "dataType": 33,
-            "binding": true,
-            "reporting": {
-              "minInterval": 0,
-              "maxInterval": 255,
-              "valueChange": 1
-            }
-          }
-        },
-        "switchAction": {
-          "type": "select",
-          "enum": [
-            "on_off",
-            "off_on",
-            "toggle_simple",
-            "toggle_smart_sync",
-            "toggle_smart_opposite"
-          ]
-        },
-        "switchMode": {
-          "type": "select",
-          "enum": [
-            "toggle",
-            "momentary",
-            "momentary_nc"
-          ]
-        },
-        "relayMode": {
-          "type": "select",
-          "enum": [
-            "detached",
-            "press_start",
-            "long_press",
-            "short_press"
-          ]
-        },
-        "relayIndex": {
-          "type": "select",
-          "enum": {
-            "1": "relay_1"
-          }
-        },
-        "longPressDuration": {
-          "type": "number",
-          "min": 0,
-          "max": 5000
-        },
-        "levelMoveRate": {
-          "type": "number",
-          "min": 1,
-          "max": 255
-        },
-        "bindedMode": {
-          "type": "select",
-          "enum": {
-            "1": "press_start",
-            "2": "long_press",
-            "3": "short_press"
-          }
-        },
-        "pressAction": {
-          "enum": [
-            "released",
-            "press",
-            "long_press",
-            "position_on",
-            "position_off"
-          ]
-        }
-      },
-      "endpointId": [
-        1
-      ]
-    },
-    {
-      "modelNames": [
-        "TS0001-TA1"
-      ],
-      "exposes": [
-        "relayIndicatorMode",
-        "relayIndicator"
-      ],
-      "options": {
-        "customAttributes": {
-          "relayIndicatorMode": {
-            "type": "enum",
-            "clusterId": 6,
-            "attributeId": 65281,
-            "dataType": 48,
-            "action": true
-          },
-          "relayIndicator": {
-            "type": "bool",
-            "clusterId": 6,
-            "attributeId": 65282,
-            "dataType": 16,
-            "action": true,
-            "reporting": {
-              "minInterval": 0,
-              "maxInterval": 255,
-              "valueChange": 1
-            }
-          }
-        },
-        "relayIndicatorMode": {
-          "type": "select",
-          "enum": [
-            "same",
-            "opposite",
-            "manual"
-          ]
-        },
-        "relayIndicator": {
-          "type": "toggle"
-        }
-      },
-      "endpointId": [
-        2
-      ]
-    },
-    {
-      "description": "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
-      "modelNames": [
+        "TS0001-TA1",
         "TS0001-LS"
       ],
       "options": {
@@ -43909,6 +46868,7 @@
     },
     {
       "modelNames": [
+        "TS0001-TA1",
         "TS0001-LS"
       ],
       "exposes": [
@@ -43934,6 +46894,7 @@
     },
     {
       "modelNames": [
+        "TS0001-TA1",
         "TS0001-LS"
       ],
       "properties": [
@@ -43970,6 +46931,7 @@
     },
     {
       "modelNames": [
+        "TS0001-TA1",
         "TS0001-LS"
       ],
       "exposes": [
@@ -44113,6 +47075,7 @@
     },
     {
       "modelNames": [
+        "TS0001-TA1",
         "TS0001-LS"
       ],
       "exposes": [
@@ -45262,6 +48225,276 @@
       ]
     }
   ],
+  "jjdkhueq": [
+    {
+      "description": "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
+      "modelNames": [
+        "TS0002-TB"
+      ],
+      "options": {
+        "endpointName": {
+          "1": "switch_left",
+          "2": "switch_right",
+          "3": "relay_left",
+          "4": "relay_right"
+        }
+      }
+    },
+    {
+      "modelNames": [
+        "TS0002-TB"
+      ],
+      "exposes": [
+        "multiPressResetCount"
+      ],
+      "options": {
+        "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
+        }
+      },
+      "endpointId": 1
+    },
+    {
+      "modelNames": [
+        "TS0002-TB"
+      ],
+      "properties": [
+        "status",
+        "powerOnStatus"
+      ],
+      "actions": [
+        "status",
+        "powerOnStatus"
+      ],
+      "bindings": [
+        "status"
+      ],
+      "reportings": [
+        "status"
+      ],
+      "exposes": [
+        "switch",
+        "powerOnStatus"
+      ],
+      "options": {
+        "powerOnStatus": {
+          "enum": [
+            "off",
+            "on",
+            "toggle",
+            "previous"
+          ]
+        }
+      },
+      "endpointId": [
+        3,
+        4
+      ]
+    },
+    {
+      "modelNames": [
+        "TS0002-TB"
+      ],
+      "exposes": [
+        "pressAction",
+        "switchMode",
+        "switchAction",
+        "relayMode",
+        "relayIndex",
+        "bindedMode",
+        "longPressDuration",
+        "levelMoveRate"
+      ],
+      "options": {
+        "customAttributes": {
+          "switchAction": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 16,
+            "dataType": 48,
+            "action": true
+          },
+          "switchMode": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65280,
+            "dataType": 48,
+            "action": true
+          },
+          "relayMode": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65281,
+            "dataType": 48,
+            "action": true
+          },
+          "relayIndex": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
+          "longPressDuration": {
+            "type": "value",
+            "clusterId": 7,
+            "attributeId": 65283,
+            "dataType": 33,
+            "action": true
+          },
+          "levelMoveRate": {
+            "type": "value",
+            "clusterId": 7,
+            "attributeId": 65284,
+            "dataType": 32,
+            "action": true
+          },
+          "bindedMode": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65285,
+            "dataType": 48,
+            "action": true
+          },
+          "pressAction": {
+            "type": "enum",
+            "clusterId": 18,
+            "attributeId": 85,
+            "dataType": 33,
+            "binding": true,
+            "reporting": {
+              "minInterval": 0,
+              "maxInterval": 255,
+              "valueChange": 1
+            }
+          }
+        },
+        "switchAction": {
+          "type": "select",
+          "enum": [
+            "on_off",
+            "off_on",
+            "toggle_simple",
+            "toggle_smart_sync",
+            "toggle_smart_opposite"
+          ]
+        },
+        "switchMode": {
+          "type": "select",
+          "enum": [
+            "toggle",
+            "momentary",
+            "momentary_nc"
+          ]
+        },
+        "relayMode": {
+          "type": "select",
+          "enum": [
+            "detached",
+            "press_start",
+            "long_press",
+            "short_press"
+          ]
+        },
+        "relayIndex": {
+          "type": "select",
+          "enum": {
+            "1": "relay_1",
+            "2": "relay_2"
+          }
+        },
+        "longPressDuration": {
+          "type": "number",
+          "min": 0,
+          "max": 5000
+        },
+        "levelMoveRate": {
+          "type": "number",
+          "min": 1,
+          "max": 255
+        },
+        "bindedMode": {
+          "type": "select",
+          "enum": {
+            "1": "press_start",
+            "2": "long_press",
+            "3": "short_press"
+          }
+        },
+        "pressAction": {
+          "enum": [
+            "released",
+            "press",
+            "long_press",
+            "position_on",
+            "position_off"
+          ]
+        }
+      },
+      "endpointId": [
+        1,
+        2
+      ]
+    },
+    {
+      "modelNames": [
+        "TS0002-TB"
+      ],
+      "exposes": [
+        "relayIndicatorMode",
+        "relayIndicator"
+      ],
+      "options": {
+        "customAttributes": {
+          "relayIndicatorMode": {
+            "type": "enum",
+            "clusterId": 6,
+            "attributeId": 65281,
+            "dataType": 48,
+            "action": true
+          },
+          "relayIndicator": {
+            "type": "bool",
+            "clusterId": 6,
+            "attributeId": 65282,
+            "dataType": 16,
+            "action": true,
+            "reporting": {
+              "minInterval": 0,
+              "maxInterval": 255,
+              "valueChange": 1
+            }
+          }
+        },
+        "relayIndicatorMode": {
+          "type": "select",
+          "enum": [
+            "same",
+            "opposite",
+            "manual"
+          ]
+        },
+        "relayIndicator": {
+          "type": "toggle"
+        }
+      },
+      "endpointId": [
+        3,
+        4
+      ]
+    }
+  ],
   "u6ocpapf": [
     {
       "description": "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
@@ -45735,6 +48968,245 @@
       ]
     }
   ],
+  "nrdwow8a": [
+    {
+      "description": "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
+      "modelNames": [
+        "TS0003-TB"
+      ],
+      "options": {
+        "endpointName": {
+          "1": "switch_left",
+          "2": "switch_middle",
+          "3": "switch_right",
+          "4": "relay_left",
+          "5": "relay_middle",
+          "6": "relay_right"
+        }
+      }
+    },
+    {
+      "modelNames": [
+        "TS0003-TB"
+      ],
+      "exposes": [
+        "multiPressResetCount",
+        "networkIndicator"
+      ],
+      "options": {
+        "customAttributes": {
+          "multiPressResetCount": {
+            "type": "value",
+            "clusterId": 0,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
+          "networkIndicator": {
+            "type": "bool",
+            "clusterId": 0,
+            "attributeId": 65281,
+            "dataType": 16,
+            "action": true
+          }
+        },
+        "multiPressResetCount": {
+          "type": "number",
+          "min": 0,
+          "max": 255
+        },
+        "networkIndicator": {
+          "type": "toggle"
+        }
+      },
+      "endpointId": 1
+    },
+    {
+      "modelNames": [
+        "TS0003-TB"
+      ],
+      "properties": [
+        "status",
+        "powerOnStatus"
+      ],
+      "actions": [
+        "status",
+        "powerOnStatus"
+      ],
+      "bindings": [
+        "status"
+      ],
+      "reportings": [
+        "status"
+      ],
+      "exposes": [
+        "switch",
+        "powerOnStatus"
+      ],
+      "options": {
+        "powerOnStatus": {
+          "enum": [
+            "off",
+            "on",
+            "toggle",
+            "previous"
+          ]
+        }
+      },
+      "endpointId": [
+        4,
+        5,
+        6
+      ]
+    },
+    {
+      "modelNames": [
+        "TS0003-TB"
+      ],
+      "exposes": [
+        "pressAction",
+        "switchMode",
+        "switchAction",
+        "relayMode",
+        "relayIndex",
+        "bindedMode",
+        "longPressDuration",
+        "levelMoveRate"
+      ],
+      "options": {
+        "customAttributes": {
+          "switchAction": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 16,
+            "dataType": 48,
+            "action": true
+          },
+          "switchMode": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65280,
+            "dataType": 48,
+            "action": true
+          },
+          "relayMode": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65281,
+            "dataType": 48,
+            "action": true
+          },
+          "relayIndex": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65282,
+            "dataType": 32,
+            "action": true
+          },
+          "longPressDuration": {
+            "type": "value",
+            "clusterId": 7,
+            "attributeId": 65283,
+            "dataType": 33,
+            "action": true
+          },
+          "levelMoveRate": {
+            "type": "value",
+            "clusterId": 7,
+            "attributeId": 65284,
+            "dataType": 32,
+            "action": true
+          },
+          "bindedMode": {
+            "type": "enum",
+            "clusterId": 7,
+            "attributeId": 65285,
+            "dataType": 48,
+            "action": true
+          },
+          "pressAction": {
+            "type": "enum",
+            "clusterId": 18,
+            "attributeId": 85,
+            "dataType": 33,
+            "binding": true,
+            "reporting": {
+              "minInterval": 0,
+              "maxInterval": 255,
+              "valueChange": 1
+            }
+          }
+        },
+        "switchAction": {
+          "type": "select",
+          "enum": [
+            "on_off",
+            "off_on",
+            "toggle_simple",
+            "toggle_smart_sync",
+            "toggle_smart_opposite"
+          ]
+        },
+        "switchMode": {
+          "type": "select",
+          "enum": [
+            "toggle",
+            "momentary",
+            "momentary_nc"
+          ]
+        },
+        "relayMode": {
+          "type": "select",
+          "enum": [
+            "detached",
+            "press_start",
+            "long_press",
+            "short_press"
+          ]
+        },
+        "relayIndex": {
+          "type": "select",
+          "enum": {
+            "1": "relay_1",
+            "2": "relay_2",
+            "3": "relay_3"
+          }
+        },
+        "longPressDuration": {
+          "type": "number",
+          "min": 0,
+          "max": 5000
+        },
+        "levelMoveRate": {
+          "type": "number",
+          "min": 1,
+          "max": 255
+        },
+        "bindedMode": {
+          "type": "select",
+          "enum": {
+            "1": "press_start",
+            "2": "long_press",
+            "3": "short_press"
+          }
+        },
+        "pressAction": {
+          "enum": [
+            "released",
+            "press",
+            "long_press",
+            "position_on",
+            "position_off"
+          ]
+        }
+      },
+      "endpointId": [
+        1,
+        2,
+        3
+      ]
+    }
+  ],
   "zmlunnhy": [
     {
       "description": "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
@@ -45757,7 +49229,8 @@
         "Zemi-2-gang-ED"
       ],
       "exposes": [
-        "multiPressResetCount"
+        "multiPressResetCount",
+        "networkIndicator"
       ],
       "options": {
         "customAttributes": {
@@ -45767,12 +49240,22 @@
             "attributeId": 65282,
             "dataType": 32,
             "action": true
+          },
+          "networkIndicator": {
+            "type": "bool",
+            "clusterId": 0,
+            "attributeId": 65281,
+            "dataType": 16,
+            "action": true
           }
         },
         "multiPressResetCount": {
           "type": "number",
           "min": 0,
           "max": 255
+        },
+        "networkIndicator": {
+          "type": "toggle"
         }
       },
       "endpointId": 1

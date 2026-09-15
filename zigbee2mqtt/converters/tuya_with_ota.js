@@ -139,6 +139,7 @@ for (let definition of girierDefinitions) {
 }
 
 const lonsonhoModels = [
+    "QS-Zigbee-C03",
     "TS0001",
     "TS130F_dual",
 ];
