@@ -7,6 +7,7 @@ from zcl_consts import (
     ZCL_ATTR_COVER_SWITCH_SWITCH_TYPE,
     ZCL_ATTR_MULTISTATE_INPUT_PRESENT_VALUE,
     ZCL_ATTR_ONOFF,
+    ZCL_ATTR_ONOFF_CONFIGURATION_SWITCH_BINDING_MODE,
     ZCL_ATTR_ONOFF_CONFIGURATION_SWITCH_MODE,
     ZCL_ATTR_WINDOW_COVERING_MOVING,
     ZCL_CLUSTER_BASIC,
@@ -15,6 +16,7 @@ from zcl_consts import (
     ZCL_CLUSTER_ON_OFF,
     ZCL_CLUSTER_ON_OFF_SWITCH_CONFIG,
     ZCL_CLUSTER_WINDOW_COVERING,
+    ZCL_ONOFF_CONFIGURATION_BINDED_MODE_LONG,
 )
 
 
@@ -81,6 +83,21 @@ def test_endpoints_layout_matches_config(device: Device, device_config: str):
             ZCL_CLUSTER_WINDOW_COVERING,
             ZCL_ATTR_WINDOW_COVERING_MOVING,
         ) in ("0", "1", "2")
+
+    # For each switch, a long-press companion endpoint is appended after
+    # all relay / cover_switch / cover endpoints. Identifying probe: the RO
+    # `binded_mode` marker hard-coded to LONG (0x02) on every long_press_ep.
+    long_start = cover_start + num_covers
+    for ep in range(long_start, long_start + num_switches):
+        assert int(
+            device.read_zigbee_attr(
+                ep,
+                ZCL_CLUSTER_ON_OFF_SWITCH_CONFIG,
+                ZCL_ATTR_ONOFF_CONFIGURATION_SWITCH_BINDING_MODE,
+            )
+        ) == ZCL_ONOFF_CONFIGURATION_BINDED_MODE_LONG, (
+            f"ep{ep} expected to be a long_press_ep with binded_mode=LONG (0x02)"
+        )
 
 
 @pytest.mark.parametrize(

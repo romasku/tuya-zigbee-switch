@@ -95,6 +95,17 @@ $(TOOLS_DIR)/sdk: | $(DOWNLOAD_DIR)
 	fi
 	@rm -rf $(TOOLS_DIR)/sdk_temp
 
+	@# Wrap MAX_ACTIVE_EP_NUMBER in an #ifndef guard so the value can be
+	@# overridden via -DMAX_ACTIVE_EP_NUMBER=... from CFLAGS (the override
+	@# itself lives in DEVICE_DEFS in src/telink/Makefile).
+	@# TODO: drop this patch once upstream merges
+	@# https://github.com/telink-semi/telink_zigbee_sdk/pull/8
+	@if grep -q '^#ifndef MAX_ACTIVE_EP_NUMBER$$' $(TOOLS_DIR)/sdk/zigbee/af/zb_af.h; then \
+		echo "MAX_ACTIVE_EP_NUMBER #ifndef guard already present, skipping patch"; \
+	else \
+		patch -d $(TOOLS_DIR)/sdk -p1 < zb_af-ifndef-max-active-ep.patch; \
+	fi
+
 # TC32 GCC Toolchain
 toolchain: $(TOOLS_DIR)/toolchain
 	@echo "TC32 GCC toolchain installed successfully"

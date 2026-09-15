@@ -24,7 +24,8 @@ static inline hal_zigbee_cmd build_onoff_cmd(uint8_t endpoint,
 }
 
 static inline hal_zigbee_cmd
-build_level_move_onoff_cmd(uint8_t endpoint, uint8_t dir, uint8_t rate) {
+build_level_move_cmd(uint8_t endpoint, uint8_t cmd_id, uint8_t dir,
+                     uint8_t rate) {
     static uint8_t buf[2];
 
     buf[0] = dir;
@@ -34,7 +35,7 @@ build_level_move_onoff_cmd(uint8_t endpoint, uint8_t dir, uint8_t rate) {
         .endpoint            = endpoint,
         .profile_id          = ZCL_HA_PROFILE,
         .cluster_id          = ZCL_CLUSTER_LEVEL_CONTROL,
-        .command_id          = ZCL_CMD_LEVEL_MOVE_WITH_ON_OFF,
+        .command_id          = cmd_id,
         .cluster_specific    =                               1,
         .direction           = HAL_ZIGBEE_DIR_CLIENT_TO_SERVER,
         .disable_default_rsp =                               1,
@@ -45,12 +46,13 @@ build_level_move_onoff_cmd(uint8_t endpoint, uint8_t dir, uint8_t rate) {
     return c;
 }
 
-static inline hal_zigbee_cmd build_level_stop_onoff_cmd(uint8_t endpoint) {
+static inline hal_zigbee_cmd build_level_stop_cmd(uint8_t endpoint,
+                                                  uint8_t cmd_id) {
     hal_zigbee_cmd c = {
         .endpoint            = endpoint,
         .profile_id          = ZCL_HA_PROFILE,
         .cluster_id          = ZCL_CLUSTER_LEVEL_CONTROL,
-        .command_id          = ZCL_CMD_LEVEL_STOP_WITH_ON_OFF,
+        .command_id          = cmd_id,
         .cluster_specific    =                               1,
         .direction           = HAL_ZIGBEE_DIR_CLIENT_TO_SERVER,
         .disable_default_rsp =                               1,
