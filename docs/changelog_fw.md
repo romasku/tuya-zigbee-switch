@@ -8,7 +8,7 @@ Please describe what you are working on, under ## Upcoming
 
 ------------------------------------------------------->
 
-## Upcoming
+## 1.1.3
 
 ### Features
 
