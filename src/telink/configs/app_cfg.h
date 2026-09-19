@@ -53,6 +53,8 @@
 #define ZCL_GROUP_SUPPORT              1 /* Groups cluster */
 #define ZCL_OTA_SUPPORT                1 /* OTA upgrade cluster */
 #define ZCL_WINDOW_COVERING_SUPPORT    1 /* Window covering cluster */
+#define ZCL_ELECTRICAL_MEASUREMENT_SUPPORT    1
+#define ZCL_METERING_SUPPORT                  1
 
 /* Zigbee Features */
 #define TOUCHLINK_SUPPORT              0 /* TouchLink commissioning */

@@ -115,6 +115,47 @@
 #define ZCL_ATTR_POLL_CTRL_SHORT_POLL_INTERVAL                       0x0002
 #define ZCL_ATTR_POLL_CTRL_FAST_POLL_TIMEOUT                         0x0003
 
+// Electrical Measurement cluster (0x0B04)
+#define ZCL_CLUSTER_ELECTRICAL_MEASUREMENT                           0x0B04
+#define ZCL_ATTR_ELEC_MEAS_MEASUREMENT_TYPE                          0x0000
+#define ZCL_ATTR_ELEC_MEAS_RMS_VOLTAGE                               0x0505
+#define ZCL_ATTR_ELEC_MEAS_RMS_CURRENT                               0x0508
+#define ZCL_ATTR_ELEC_MEAS_ACTIVE_POWER                              0x050B
+#define ZCL_ATTR_ELEC_MEAS_REACTIVE_POWER                            0x050E
+#define ZCL_ATTR_ELEC_MEAS_APPARENT_POWER                            0x050F
+#define ZCL_ATTR_ELEC_MEAS_POWER_FACTOR                              0x0510
+#define ZCL_ATTR_ELEC_MEAS_AC_VOLTAGE_MULTIPLIER                     0x0600
+#define ZCL_ATTR_ELEC_MEAS_AC_VOLTAGE_DIVISOR                        0x0601
+#define ZCL_ATTR_ELEC_MEAS_AC_CURRENT_MULTIPLIER                     0x0602
+#define ZCL_ATTR_ELEC_MEAS_AC_CURRENT_DIVISOR                        0x0603
+#define ZCL_ATTR_ELEC_MEAS_AC_POWER_MULTIPLIER                       0x0604
+#define ZCL_ATTR_ELEC_MEAS_AC_POWER_DIVISOR                          0x0605
+#define ZCL_ATTR_ELEC_MEAS_CUST_FREQUENCY_CF                         0xFF00
+#define ZCL_ATTR_ELEC_MEAS_CUST_FREQUENCY_CF1                        0xFF01
+#define ZCL_ATTR_ELEC_MEAS_CUST_FREQUENCY_SEL_STATE                  0xFF02
+#define ZCL_ATTR_ELEC_MEAS_CUST_CALIBRATE_VOLTAGE                    0xFF10
+#define ZCL_ATTR_ELEC_MEAS_CUST_CALIBRATE_CURRENT                    0xFF11
+#define ZCL_ATTR_ELEC_MEAS_CUST_CALIBRATE_POWER                      0xFF12
+#define ZCL_ATTR_ELEC_MEAS_CUST_CALIBRATION_VALUES                   0xFF20
+#define ZCL_ATTR_ELEC_MEAS_CUST_OVERLOAD_POWER_LIMIT                 0xFF30
+#define ZCL_ATTR_ELEC_MEAS_CUST_OVERLOAD_CURRENT_LIMIT               0xFF31
+#define ZCL_ATTR_ELEC_MEAS_CUST_OVERLOAD_TRIP_DELAY                  0xFF32
+#define ZCL_ATTR_ELEC_MEAS_CUST_OVERVOLTAGE_WARN                     0xFF33
+#define ZCL_ATTR_ELEC_MEAS_CUST_UNDERVOLTAGE_WARN                    0xFF34
+#define ZCL_ATTR_ELEC_MEAS_CUST_OVERLOAD_RECONNECT_DELAY             0xFF35
+#define ZCL_ATTR_ELEC_MEAS_CUST_OVERLOAD_ALARM                       0xFF36
+
+// Smart Energy Metering cluster (0x0702)
+#define ZCL_CLUSTER_METERING                                         0x0702
+#define ZCL_ATTR_METERING_CURRENT_SUMMATION_DELIVERED                0x0000
+#define ZCL_ATTR_METERING_STATUS                                     0x0200
+#define ZCL_ATTR_METERING_UNIT_OF_MEASURE                            0x0300
+#define ZCL_ATTR_METERING_MULTIPLIER                                 0x0301
+#define ZCL_ATTR_METERING_DIVISOR                                    0x0302
+#define ZCL_ATTR_METERING_SUMMATION_FORMATTING                       0x0303
+#define ZCL_ATTR_METERING_METERING_DEVICE_TYPE                       0x0306
+#define ZCL_ATTR_METERING_CUST_RESET_ENERGY                          0xF000
+
 // OTA cluster
 
 #define ZCL_ATTR_OTA_UPGRADE_SERVER_ID                  0x0000

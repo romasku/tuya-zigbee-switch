@@ -28,4 +28,8 @@
 #define NV_ITEM_MULTI_PRESS_RESET_COUNT    33
 #define NV_ITEM_POLL_CONTROL_CONFIG        34
 
+#define NV_ITEM_ENERGY_ACCUMULATION(endpoint)    (40 + (endpoint) - 1)
+#define NV_ITEM_ENERGY_CALIBRATION         44
+#define NV_ITEM_OVERLOAD_CONFIG            51
+
 #endif /* DEVICE_CONFIG_NVM_ITEMS_H_ */

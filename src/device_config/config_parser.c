@@ -10,6 +10,9 @@
 #include "zigbee/relay_cluster.h"
 #include "zigbee/poll_control_cluster.h"
 #include "zigbee/switch_cluster.h"
+#include "base_components/energy_measurement/hlw8012.h"
+#include "zigbee/electrical_measurement_cluster.h"
+#include "zigbee/metering_cluster.h"
 
 #include <stdint.h>
 #include <string.h>
@@ -77,6 +80,12 @@ battery_t battery = {
 uint32_t parse_int(const char *s);
 char *seek_until(char *cursor, char needle);
 char *extract_next_entry(char **cursor);
+
+static hlw8012_t       hlw8012_device;
+static energy_meter_t *energy_meter = NULL;
+static electrical_measurement_cluster_t elec_meas_cluster;
+static metering_cluster_t metering_cluster_inst;
+static uint8_t            energy_monitoring_enabled = 0;
 
 void on_reset_clicked(void *_) {
     hal_factory_reset();
@@ -284,6 +293,38 @@ void parse_config() {
             cover_clusters[cover_clusters_cnt].close_relay = close_relay;
             cover_clusters[cover_clusters_cnt].cover_idx   = cover_clusters_cnt;
             cover_clusters_cnt++;
+        } else if (entry[0] == 'E' && entry[1] == 'P') {
+            // EP<CF><CF1><SEL>[I][V...][A...][W...]
+            hal_gpio_pin_t cf_pin  = hal_gpio_parse_pin(entry + 2);
+            hal_gpio_pin_t cf1_pin = hal_gpio_parse_pin(entry + 4);
+            hal_gpio_pin_t sel_pin = hal_gpio_parse_pin(entry + 6);
+            if (cf_pin != HAL_INVALID_PIN && cf1_pin != HAL_INVALID_PIN &&
+                sel_pin != HAL_INVALID_PIN &&
+                hlw8012_init(&hlw8012_device, cf_pin, cf1_pin, sel_pin) == 0) {
+                const char *cal = entry + 8;
+                const char *v   = seek_until((char *)cal, 'V');
+                const char *a   = seek_until((char *)cal, 'A');
+                const char *w   = seek_until((char *)cal, 'W');
+                hlw8012_set_sel_inverted(
+                    &hlw8012_device, *seek_until((char *)cal, 'I') == 'I');
+                hlw8012_set_calibration(
+                    &hlw8012_device, (*v == 'V') ? parse_int(v + 1) : 0,
+                    (*a == 'A') ? parse_int(a + 1) : 0,
+                    (*w == 'W') ? parse_int(w + 1) : 0);
+                energy_meter = hlw8012_as_energy_meter(&hlw8012_device);
+                electrical_measurement_cluster_init(&elec_meas_cluster,
+                                                    energy_meter);
+                metering_cluster_init(&metering_cluster_inst, energy_meter);
+                energy_monitoring_enabled = 1;
+            }
+        } else if (entry[0] == 'O' && entry[1] == 'L' &&
+                   energy_monitoring_enabled) {
+            const char *c = seek_until(entry + 2, 'C');
+            const char *p = seek_until(entry + 2, 'P');
+            overload_protection_set_current_limits(
+                &elec_meas_cluster.overload,
+                (*c == 'C') ? (uint16_t)parse_int(c + 1) : 0,
+                (*p == 'P') ? (uint16_t)parse_int(p + 1) : 0);
         } else if (entry[0] == 'i') {
             uint32_t image_type = parse_int(entry + 1);
             hal_zigbee_set_image_type(image_type);
@@ -292,6 +333,23 @@ void parse_config() {
                 switch_clusters[index].mode =
                     ZCL_ONOFF_CONFIGURATION_SWITCH_TYPE_MOMENTARY;
             }
+        }
+    }
+
+    // Converted BSEED devices retain this exact legacy config in NVM. Enable
+    // the physically verified BL0937 mapping without mutating device_config.
+    if (!energy_monitoring_enabled && strcmp(zb_manufacturer, "b28wrpvx") == 0 &&
+        strcmp(zb_model, "TS011F-BS-PM") == 0) {
+        hal_gpio_pin_t cf_pin  = hal_gpio_parse_pin("A1");
+        hal_gpio_pin_t cf1_pin = hal_gpio_parse_pin("C2");
+        hal_gpio_pin_t sel_pin = hal_gpio_parse_pin("B1");
+        if (hlw8012_init(&hlw8012_device, cf_pin, cf1_pin, sel_pin) == 0) {
+            hlw8012_set_sel_inverted(&hlw8012_device, 0);
+            energy_meter = hlw8012_as_energy_meter(&hlw8012_device);
+            electrical_measurement_cluster_init(&elec_meas_cluster,
+                                                energy_meter);
+            metering_cluster_init(&metering_cluster_inst, energy_meter);
+            energy_monitoring_enabled = 1;
         }
     }
 
@@ -348,6 +406,12 @@ void parse_config() {
                                          battery.pin != HAL_INVALID_PIN);
 #endif
 
+    if (energy_monitoring_enabled) {
+        electrical_measurement_cluster_add_to_endpoint(&elec_meas_cluster,
+                                                       &endpoints[0]);
+        metering_cluster_add_to_endpoint(&metering_cluster_inst, &endpoints[0]);
+    }
+
     for (int index = 0; index < switch_clusters_cnt; index++) {
         if (index != 0) {
             cluster_ptr += endpoints[index - 1].cluster_count;
@@ -365,6 +429,11 @@ void parse_config() {
         // Group cluster is stateless, safe to add to multiple endpoints
         group_cluster_add_to_endpoint(&group_cluster,
                                       &endpoints[switch_clusters_cnt + index]);
+    }
+
+    if (energy_monitoring_enabled && relay_clusters_cnt > 0) {
+        electrical_measurement_cluster_set_protected_relay(
+            &elec_meas_cluster, &relay_clusters[0]);
     }
 
     int cover_switch_base = switch_clusters_cnt + relay_clusters_cnt;
@@ -463,4 +532,22 @@ uint32_t parse_int(const char *s) {
         s++;
     }
     return n;
+}
+
+void init_energy_reporting(void) {
+    if (!energy_monitoring_enabled)
+        return;
+
+    electrical_measurement_cluster_update(&elec_meas_cluster);
+    electrical_measurement_cluster_report(&elec_meas_cluster);
+    metering_cluster_update(&metering_cluster_inst);
+    metering_cluster_report(&metering_cluster_inst);
+}
+
+void energy_monitoring_tick(void) {
+    if (!energy_monitoring_enabled)
+        return;
+
+    hlw8012_tick(&hlw8012_device);
+    electrical_measurement_cluster_update(&elec_meas_cluster);
 }
