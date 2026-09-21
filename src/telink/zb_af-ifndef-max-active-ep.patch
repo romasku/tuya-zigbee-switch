@@ -1,0 +1,14 @@
+diff --git a/zigbee/af/zb_af.h b/zigbee/af/zb_af.h
+index 8bc7dfe..11e8d95 100644
+--- a/zigbee/af/zb_af.h
++++ b/zigbee/af/zb_af.h
+@@ -35,7 +35,9 @@
+ #define	ZDO_EP                                  0
+ #define	AF_BROADCAST_EP                         0xFF
+ 
++#ifndef MAX_ACTIVE_EP_NUMBER
+ #define	MAX_ACTIVE_EP_NUMBER                    8
++#endif
+ 
+ #define	INVALID_CMP_RESULT                      0xFF
+ 
