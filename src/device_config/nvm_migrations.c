@@ -54,4 +54,9 @@ void handle_version_changes() {
     // if (oldVersion < XX) {
     //   migrate_to_vXX();
     // }
+
+    // Must run after every migration above: leaving this out means a device
+    // that takes the migration path never converges to currentVersion, and
+    // re-runs every migration above again on its next boot.
+    write_version_to_nv(currentVersion);
 }
