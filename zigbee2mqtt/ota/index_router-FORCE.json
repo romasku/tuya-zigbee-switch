@@ -2976,5 +2976,19 @@
       "_TZ3000_rbl8c85w",
       "rbl8c85w"
     ]
+  },
+  {
+    "fileName": "tlc_switch-1.1.3-49678fce-forced.zigbee",
+    "fileVersion": 4294967295,
+    "fileSize": 182226,
+    "url": "https://github.com/rafasiqueira/tuya-zigbee-switch/raw/refs/heads/ekaza-t3093z/bin/router/MODULE_EKAZA_TS0003/tlc_switch-1.1.3-49678fce-forced.zigbee",
+    "imageType": 47119,
+    "manufacturerCode": 4417,
+    "sha512": "65cfcbdc6dfb06569f3a74489c7a4955f4a714c68bef179bea49a10faef1b4893e2db5f5bd3814d1c876ddd221b16a23f54628b4ad2cb25b1ea81bb8a4a38487",
+    "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
+    "manufacturerName": [
+      "_TZ3000_f6pgzqob",
+      "f6pgzqob"
+    ]
   }
 ]

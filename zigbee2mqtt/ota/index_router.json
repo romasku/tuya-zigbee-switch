@@ -5508,5 +5508,33 @@
       "_TZ3000_rbl8c85w",
       "rbl8c85w"
     ]
+  },
+  {
+    "fileName": "tlc_switch-1.1.3-49678fce.zigbee",
+    "fileVersion": 285421568,
+    "fileSize": 182226,
+    "url": "https://github.com/rafasiqueira/tuya-zigbee-switch/raw/refs/heads/ekaza-t3093z/bin/router/MODULE_EKAZA_TS0003/tlc_switch-1.1.3-49678fce.zigbee",
+    "imageType": 47119,
+    "manufacturerCode": 4417,
+    "sha512": "bada817e46b42174dccae5382a7a74841a7831a95e5807ca12a73ddd4521ab22af8228f3fb69c67cdfa7c790b0346992c5b5184eb8aba9cebb00359d9216d4a4",
+    "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
+    "manufacturerName": [
+      "_TZ3000_f6pgzqob",
+      "f6pgzqob"
+    ]
+  },
+  {
+    "fileName": "tlc_switch-1.1.3-49678fce-from_tuya.zigbee",
+    "fileVersion": 4294967295,
+    "fileSize": 182226,
+    "url": "https://github.com/rafasiqueira/tuya-zigbee-switch/raw/refs/heads/ekaza-t3093z/bin/router/MODULE_EKAZA_TS0003/tlc_switch-1.1.3-49678fce-from_tuya.zigbee",
+    "imageType": 54179,
+    "manufacturerCode": 4417,
+    "sha512": "60b1772d6efefda849656a25aeb56d4f9c59ce1f212589b294f9f793ca6d37e06cbd743306782fa12cac9165331feb232737e6bbda20d4ba744ef3eb648a84bc",
+    "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
+    "manufacturerName": [
+      "_TZ3000_f6pgzqob",
+      "f6pgzqob"
+    ]
   }
 ]
