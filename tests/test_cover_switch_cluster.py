@@ -444,3 +444,16 @@ def test_stop_buttons_with_max_config():
         d = Device(p)
         d.press_button("C2")
         assert d.zcl_switch_get_multistate_value(7) == STOP
+
+
+def test_stop_button_with_floating_open_close():
+    with StubProc(device_config="Mfr;Model;XA0A1fA2u;CB0B1;") as p:
+        d = Device(p)
+        d.step_time(MINIMUM_SWITCH_TIME_MS)
+
+        d.click_button("A0")
+        assert d.zcl_cover_get_moving(2) == ZCL_WINDOW_COVERING_MOVING_OPENING
+        d.step_time(MINIMUM_SWITCH_TIME_MS)
+
+        d.press_button("A2")
+        assert d.zcl_cover_get_moving(2) == ZCL_WINDOW_COVERING_MOVING_STOPPED
