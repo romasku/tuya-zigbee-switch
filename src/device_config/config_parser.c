@@ -38,7 +38,7 @@ network_indicator_t network_indicator = {
 led_t   leds[5];
 uint8_t leds_cnt = 0;
 
-button_t buttons[11];
+button_t buttons[14]; // 4 switches + 3 cover switches (open, close, stop) + reset
 uint8_t  buttons_cnt = 0;
 
 relay_t relays[10]; // 4 relay endpoints + 3 cover endpoints
@@ -266,6 +266,7 @@ void parse_config() {
                 hal_gpio_init(stop_pin, 1, stop_pull);
 
                 buttons[buttons_cnt].pin = stop_pin;
+                buttons[buttons_cnt].pressed_when_high       = stop_pull == HAL_GPIO_PULL_DOWN;
                 buttons[buttons_cnt].long_press_duration_ms  = 800;
                 buttons[buttons_cnt].multi_press_duration_ms = 800;
                 buttons[buttons_cnt].debounce_delay_ms       = debounce_ms;

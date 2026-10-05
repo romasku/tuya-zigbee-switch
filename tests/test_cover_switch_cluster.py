@@ -407,3 +407,40 @@ def test_stop_button_inherits_pull():
         d = Device(p)
         d.press_button("A2")
         assert d.zcl_switch_get_multistate_value(1) == STOP
+
+
+def test_toggle_stop_button_stops_cover(stop_button_device: Device):
+    stop_button_device.zcl_cover_switch_set_switch_type(1, ZCL_COVER_SWITCH_TYPE_TOGGLE)
+
+    # Started from Zigbee, so the switch is still in its idle STOP state
+    stop_button_device.zcl_cover_open(2)
+    assert stop_button_device.zcl_cover_get_moving(2) == ZCL_WINDOW_COVERING_MOVING_OPENING
+    stop_button_device.step_time(MINIMUM_SWITCH_TIME_MS)
+
+    stop_button_device.press_button("A2")
+    assert stop_button_device.zcl_cover_get_moving(2) == ZCL_WINDOW_COVERING_MOVING_STOPPED
+    stop_button_device.wait_for_cmd_send(1, ZCL_CLUSTER_WINDOW_COVERING, ZCL_CMD_WINDOW_COVERING_STOP)
+
+
+def test_stop_button_pull_down():
+    with StubProc(device_config="Mfr;Model;XA0A1uA2d;CB0B1;") as p:
+        d = Device(p)
+        d.step_time(MINIMUM_SWITCH_TIME_MS)
+
+        d.click_button("A0")
+        assert d.zcl_cover_get_moving(2) == ZCL_WINDOW_COVERING_MOVING_OPENING
+        d.step_time(MINIMUM_SWITCH_TIME_MS)
+
+        d.set_gpio("A2", 1)  # High is pressed with pull-down
+        d.step_time(DEBOUNCE_MS + 10)
+        assert d.zcl_switch_get_multistate_value(1) == STOP
+        assert d.zcl_cover_get_moving(2) == ZCL_WINDOW_COVERING_MOVING_STOPPED
+
+
+def test_stop_buttons_with_max_config():
+    # 4 switches + 3 cover switches with stop + reset = 14 buttons
+    cfg = "Mfr;Model;BD0u;SA0u;SA1u;SA2u;SA3u;XB0B1uB2u;XB3B4uB5u;XC0C1uC2u;"
+    with StubProc(device_config=cfg) as p:
+        d = Device(p)
+        d.press_button("C2")
+        assert d.zcl_switch_get_multistate_value(7) == STOP

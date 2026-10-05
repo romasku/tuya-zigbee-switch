@@ -208,6 +208,19 @@ void cover_switch_cluster_on_button_press(zigbee_cover_switch_cluster *cluster) 
     }
 }
 
+void cover_switch_cluster_on_stop_button_press(zigbee_cover_switch_cluster *cluster) {
+    if (cluster->present_value != MULTISTATE_STOP) {
+        cover_switch_cluster_update_present_value(cluster, MULTISTATE_STOP);
+        return;
+    }
+
+    // Toggle switches idle in STOP, so send Stop even though the state does not change
+    if (cluster->cover_index != 0 && cluster->cover_index <= cover_clusters_cnt) {
+        cover_switch_trigger_local_cmd(cluster, ZCL_CMD_WINDOW_COVERING_STOP);
+    }
+    cover_switch_trigger_binding_cmd(cluster, ZCL_CMD_WINDOW_COVERING_STOP);
+}
+
 void cover_switch_cluster_on_button_long_press(zigbee_cover_switch_cluster *cluster) {
     if (cluster->switch_type == ZCL_COVER_SWITCH_TYPE_TOGGLE) {
         // Toggle does not support long press
@@ -379,7 +392,7 @@ void cover_switch_cluster_add_to_endpoint(zigbee_cover_switch_cluster *cluster,
 
     if (cluster->stop_button != NULL) {
         cluster->stop_button->on_press =
-            (ev_button_callback_t)cover_switch_cluster_on_button_press;
+            (ev_button_callback_t)cover_switch_cluster_on_stop_button_press;
         cluster->stop_button->on_release =
             (ev_button_callback_t)cover_switch_cluster_on_button_release;
         cluster->stop_button->callback_param = cluster;
