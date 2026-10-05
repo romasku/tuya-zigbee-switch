@@ -109,17 +109,21 @@ hal_gpio_pull_t hal_gpio_parse_pull(const char *pull_str) {
         return HAL_GPIO_PULL_INVALID;
     }
 
-    if (strcmp(pull_str, "") == 0)
+    // Only the first char is the pull (a pin may follow), like on Telink/Silabs
+    switch (pull_str[0]) {
+    case '\0':
         return HAL_GPIO_PULL_NONE;
 
-    if (strcmp(pull_str, "u") == 0)
+    case 'u':
         return HAL_GPIO_PULL_UP;
 
-    if (strcmp(pull_str, "d") == 0)
+    case 'd':
         return HAL_GPIO_PULL_DOWN;
 
-    io_log("GPIO", "Error: Invalid GPIO pull string: '%s'", pull_str);
-    return HAL_GPIO_PULL_INVALID;
+    default:
+        io_log("GPIO", "Error: Invalid GPIO pull string: '%s'", pull_str);
+        return HAL_GPIO_PULL_INVALID;
+    }
 }
 
 // Stub-specific functions for testing

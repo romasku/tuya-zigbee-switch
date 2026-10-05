@@ -231,6 +231,13 @@ const romasku = {
                         if (!["u", "U", "d", "f"].includes(part[5])) {
                             throw new Error(`Pull up down ${part[5]} is invalid. Valid options are u, U, d, f`);
                         }
+                        // Optional stop button: X<open><close><pull>[<stop>[<stop pull>]]
+                        if (part.length > 6) {
+                            validatePin(part.slice(6,8));
+                        }
+                        if (part.length > 8 && !["u", "U", "d", "f"].includes(part[8])) {
+                            throw new Error(`Pull up down ${part[8]} is invalid. Valid options are u, U, d, f`);
+                        }
                     } else if (part[0] == 'C') {
                         validatePin(part.slice(1,3));
                         validatePin(part.slice(3,5));
