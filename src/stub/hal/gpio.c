@@ -27,10 +27,11 @@ void hal_gpio_init(hal_gpio_pin_t gpio_pin, uint8_t is_input,
     if (gpio_pin >= MAX_GPIO_PINS)
         return;
 
+    // Inputs idle high unless pulled down: floating ones rely on external pull-ups
     gpio_pins[gpio_pin].initialized  = 1;
     gpio_pins[gpio_pin].is_input     = is_input;
     gpio_pins[gpio_pin].pull         = pull;
-    gpio_pins[gpio_pin].value        = (pull == HAL_GPIO_PULL_UP) ? 1 : 0;
+    gpio_pins[gpio_pin].value        = (is_input && pull != HAL_GPIO_PULL_DOWN) ? 1 : 0;
     gpio_pins[gpio_pin].callback     = NULL;
     gpio_pins[gpio_pin].callback_arg = NULL;
 
@@ -109,17 +110,25 @@ hal_gpio_pull_t hal_gpio_parse_pull(const char *pull_str) {
         return HAL_GPIO_PULL_INVALID;
     }
 
-    if (strcmp(pull_str, "") == 0)
+    // Only the first char is the pull (a pin may follow), like on Telink/Silabs
+    switch (pull_str[0]) {
+    case '\0':
+    case 'f':
         return HAL_GPIO_PULL_NONE;
 
-    if (strcmp(pull_str, "u") == 0)
+    case 'u':
         return HAL_GPIO_PULL_UP;
 
-    if (strcmp(pull_str, "d") == 0)
+    case 'U':
+        return HAL_GPIO_PULL_UP_1M;
+
+    case 'd':
         return HAL_GPIO_PULL_DOWN;
 
-    io_log("GPIO", "Error: Invalid GPIO pull string: '%s'", pull_str);
-    return HAL_GPIO_PULL_INVALID;
+    default:
+        io_log("GPIO", "Error: Invalid GPIO pull string: '%s'", pull_str);
+        return HAL_GPIO_PULL_INVALID;
+    }
 }
 
 // Stub-specific functions for testing
