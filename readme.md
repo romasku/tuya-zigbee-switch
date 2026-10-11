@@ -34,15 +34,15 @@ Users also consider this _the missing piece of a reliable smart home,_ because i
 - **Power-on behavior** (on, off, previous, toggle)
 - **Wireless flashing and updating** (OTA from original fw, further OTA updates)
 - Multiple **reset options** (configurable multi-press count, on-board button)
+- **Wireless switches** (battery-powered remotes)
+- **Curtain modules**
 
 ### Work in progress
-- **Wireless switches (battery-powered remotes)** - [almost done](https://github.com/romasku/tuya-zigbee-switch/pull/389)
 - FW-level multi-press (double or triple click) - [progress](https://github.com/romasku/tuya-zigbee-switch/pull/380)
 - Countdown timers (on_with_timed_off)
 - Inching (pulse relay output)
 - Scenes (send and receive)
 - Power monitoring - [progress](https://github.com/romasku/tuya-zigbee-switch/pull/314)
-- **Curtain modules** - [almost done](https://github.com/romasku/tuya-zigbee-switch/pull/408)
 - Touchlink
 - Integrate converters with Z2M
 - Integrate updates with Z2M
