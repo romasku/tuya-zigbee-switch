@@ -6443,3 +6443,29 @@ SWITCH_ZEMISMART_TS0601_6GANG:
   info: Needs pinout. Secondary MCU. 6-gang!
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/209
   store: https://www.zemismart.com/products/tb26-6
+MODULE_NOUS_L12Z:
+  human_name: Nous L12Z
+  category: module
+  power: mains
+  neutral: required
+  output: relay
+  device_type: router
+  stock_model_name: TS130F
+  stock_manufacturer_name: _TZ3000_jwv3cwak
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS130F
+  override_z2m_device: L12Z
+  tuya_module: ZT2S_fake_no_shield
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: jwv3cwak;TS130F-NOUS;BD2u;LD3i;XA0D7u;CB5B4; 
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 524
+  firmware_image_type: 47119
+  build: yes
+  status: fully_supported
+  info: Supported
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/521
+  store: https://nous.technology/product/l12z.html
