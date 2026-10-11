@@ -52,8 +52,8 @@ Finally, attach the wires to your J-Link programmer.
 Connect:
 - L-in to ground
 - 3.3v device pin to 3.3v source
-- TCK to SWCLK
-- TMS to SWIO 
+- TCK (device) to RTCK (pin 11 J-Link)
+- TMS (device) to TDO  (pin 13 J-Link)
 
 
 ### Step 3: Flash the Firmware
