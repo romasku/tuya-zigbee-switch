@@ -8,6 +8,13 @@ Please describe what you are working on, under ## Upcoming
 
 ------------------------------------------------------->
 
+## Upcoming
+
+### Changes
+
+- **Telink: attribute reports are sent with an APS ack**, so the stack retransmits a lost report
+  instead of leaving the coordinator with a stale value (e.g. a cover position). Silicon Labs builds already do this.
+
 ## 1.1.3
 
 ### Features
