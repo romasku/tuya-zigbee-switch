@@ -9,7 +9,7 @@
 #pragma pack(pop)
 
 // Shared constants
-#define MAX_ENDPOINTS         8
+#define MAX_ENDPOINTS         16
 #define MAX_IN_CLUSTERS       32
 #define MAX_OUT_CLUSTERS      32
 #define MAX_ATTRS             128

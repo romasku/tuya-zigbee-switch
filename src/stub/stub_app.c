@@ -222,7 +222,8 @@ int stub_app_string_to_attribute_value(hal_zigbee_attribute *attr,
         return -1;
 
     if (attr->flag == ATTR_READONLY) {
-        io_log("ZIGBEE", "Warning: Writing to read-only attribute\n");
+        io_log("ZIGBEE", "Writing to read-only attribute rejected\n");
+        return -4;
     }
 
     switch (attr->data_type_id) {

@@ -41,4 +41,28 @@ void switch_cluster_callback_attr_write_trampoline(uint8_t endpoint,
 
 void update_switch_clusters(void);
 
+typedef struct {
+    uint8_t action;
+    uint8_t relay_mode;
+    uint8_t relay_index;
+    uint8_t move_command;
+    uint8_t level_move_direction;
+    uint8_t level_move_rate;
+} zigbee_switch_long_cluster_config;
+
+typedef struct {
+    uint8_t              switch_idx;
+    uint8_t              endpoint;
+    uint8_t              action;
+    uint8_t              relay_mode;
+    uint8_t              relay_index;
+    uint8_t              move_command;
+    uint8_t              level_move_direction;
+    uint8_t              level_move_rate;
+    hal_zigbee_attribute attr_infos[8];
+} zigbee_switch_long_cluster;
+
+void switch_long_cluster_add_to_endpoint(zigbee_switch_long_cluster *cluster,
+                                         hal_zigbee_endpoint *endpoint);
+
 #endif
