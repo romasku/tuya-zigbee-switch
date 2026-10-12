@@ -386,6 +386,10 @@ void parse_config() {
         }
         cover_cluster_add_to_endpoint(&cover_clusters[index],
                                       &endpoints[cover_base + index]);
+
+        // Group cluster is stateless, safe to add to multiple endpoints
+        group_cluster_add_to_endpoint(&group_cluster,
+                                      &endpoints[cover_base + index]);
     }
 
     hal_zigbee_init(endpoints, total_endpoints);
