@@ -5166,6 +5166,33 @@ SWITCH_IHSENO_TS0003:
   - https://www.aliexpress.com/item/1005007532195287.html
   - https://aliexpress.com/item/1005009932915725.html
   - https://www.aliexpress.com/item/1005008253013778.html
+SWITCH_INDUAL_TOUCH_TS0002:
+  human_name: Indual MT-2G-Z 2-gang touch switch
+  category: switch
+  power: mains
+  neutral: required
+  output: relay
+  device_type: router
+  stock_model_name: TS0002
+  stock_manufacturer_name: _TZ3000_ptjcjise
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0002
+  override_z2m_device: null
+  tuya_module: ZT3L
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: ptjcjise;TS0002-IND-T;LD4i;SC3u;RC2;SB7u;RB4;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
+  firmware_image_type: 47149
+  build: yes
+  status: fully_supported
+  info: Supported
+  threads: null
+  store: null
 SWITCH_LERLINK_TS0011:
   human_name: LerLink 1-gang switch
   category: switch
