@@ -66,6 +66,7 @@ Some quick links:
 - 📝 [changelog_fw.md](./docs/changelog_fw.md)
 - 🛠️ [contribute/](./docs/contribute/)
 - ⚙️ [usage/](./docs/usage/)
+  - [BSEED TS011F power monitoring](./docs/usage/bseed_pm.md)
   - [endpoints.md](./docs/usage/endpoints.md) 
   - [change_device_type.md](./docs/usage/change_device_type.md)
 

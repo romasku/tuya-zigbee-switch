@@ -52,6 +52,8 @@ SOURCES := \
 	$(SRC_DIR)/base_components/button.c \
 	$(SRC_DIR)/base_components/battery.c \
 	$(SRC_DIR)/base_components/network_indicator.c \
+	$(SRC_DIR)/base_components/energy_measurement/hlw8012.c \
+	$(SRC_DIR)/base_components/overload_protection.c \
 	$(SRC_DIR)/device_config/config_parser.c \
 	$(SRC_DIR)/device_config/config_nv.c \
 	$(SRC_DIR)/device_config/device_params_nv.c \
@@ -64,7 +66,9 @@ SOURCES := \
 	$(SRC_DIR)/zigbee/general_commands.c \
 	$(SRC_DIR)/zigbee/cover_switch_cluster.c \
 	$(SRC_DIR)/zigbee/cover_cluster.c \
-	$(SRC_DIR)/zigbee/battery_cluster.c
+	$(SRC_DIR)/zigbee/battery_cluster.c \
+	$(SRC_DIR)/zigbee/electrical_measurement_cluster.c \
+	$(SRC_DIR)/zigbee/metering_cluster.c
 
 INCLUDES := \
 	-I$(SRC_DIR) \
