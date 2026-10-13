@@ -90,6 +90,7 @@ def test_endpoints_layout_matches_config(device: Device, device_config: str):
         "X;Y;SA0u;LB1;RB2;",  # dedicated status LED + one switch/relay
         "X;Y;SA0u;IB0;RB1;",  # indicator LED for relays
         "X;Y;XA0A1u;CB0B1;",  # cover switch + cover
+        "X;Y;XA0A1uA2u;CB0B1;",  # cover switch with stop button + cover
     ],
 )
 def test_various_configs_boot(cfg: str):

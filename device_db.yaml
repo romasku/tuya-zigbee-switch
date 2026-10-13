@@ -5289,7 +5289,7 @@ SWITCH_LORATAP_TS130F:
   tuya_module: ZT3L
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: qa8s8vca;TS130F-LT;BD2u;LA0;XB5C3f;CC0C2;M;
+  config_str: qa8s8vca;TS130F-LT;LA0;XB5C3fD2u;CC0C2;M;
   alt_config_str: null
   old_manufacturer_names: null
   old_zb_models: null
@@ -5297,8 +5297,8 @@ SWITCH_LORATAP_TS130F:
   stock_image_type: 54179
   firmware_image_type: 43616
   build: yes
-  status: in_progress
-  info: Stop button (D2) not implemented
+  status: fully_supported
+  info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/421
   store: null
 SWITCH_MANHOT_A_TS0011:

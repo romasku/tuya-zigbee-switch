@@ -63,6 +63,18 @@ def toggle_cover_switch(cover_switch_device: Device) -> Device:
     return cover_switch_device
 
 
+@pytest.fixture
+def stop_button_device() -> Device:
+    # Cover switch on ep1 (open A0, close A1, stop A2), cover on ep2
+    p = StubProc(device_config="Mfr;Model;XA0A1uA2u;CB0B1;").start()
+    try:
+        d = Device(p)
+        d.step_time(MINIMUM_SWITCH_TIME_MS)
+        yield d
+    finally:
+        p.stop()
+
+
 # ============================================================================
 # Tests for toggle mode multistate value
 # ============================================================================
@@ -327,3 +339,121 @@ def test_binded_reverse(cover_switch_device: Device):
     cover_switch_device.press_button("A1")
     cover_switch_device.release_button("A1")
     cover_switch_device.wait_for_cmd_send(1, ZCL_CLUSTER_WINDOW_COVERING, ZCL_CMD_WINDOW_COVERING_DOWN_CLOSE)
+
+
+# ============================================================================
+# Tests for dedicated stop button
+# ============================================================================
+
+
+def test_stop_button_press(stop_button_device: Device):
+    assert stop_button_device.zcl_switch_get_multistate_value(1) == RELEASED
+    stop_button_device.press_button("A2")
+    assert stop_button_device.zcl_switch_get_multistate_value(1) == STOP
+    stop_button_device.step_time(LONG_PRESS_TIME_MS)
+    assert stop_button_device.zcl_switch_get_multistate_value(1) == STOP
+    stop_button_device.release_button("A2")
+    assert stop_button_device.zcl_switch_get_multistate_value(1) == RELEASED
+
+
+@pytest.mark.parametrize("button,direction", [("A0", ZCL_WINDOW_COVERING_MOVING_OPENING), ("A1", ZCL_WINDOW_COVERING_MOVING_CLOSING)])
+def test_stop_button_stops_cover(stop_button_device: Device, button: str, direction: str):
+    stop_button_device.click_button(button)
+    assert stop_button_device.zcl_cover_get_moving(2) == direction
+    stop_button_device.step_time(MINIMUM_SWITCH_TIME_MS)
+
+    stop_button_device.press_button("A2")
+    assert stop_button_device.zcl_cover_get_moving(2) == ZCL_WINDOW_COVERING_MOVING_STOPPED
+
+    # Releasing the stop button must not restart the cover
+    stop_button_device.release_button("A2")
+    stop_button_device.step_time(MINIMUM_SWITCH_TIME_MS)
+    assert stop_button_device.zcl_cover_get_moving(2) == ZCL_WINDOW_COVERING_MOVING_STOPPED
+
+
+@pytest.mark.parametrize(
+    "switch_type,idle_state",
+    [(ZCL_COVER_SWITCH_TYPE_MOMENTARY, RELEASED), (ZCL_COVER_SWITCH_TYPE_TOGGLE, STOP)],
+)
+def test_stop_button_has_priority(stop_button_device: Device, switch_type: int, idle_state: str):
+    stop_button_device.zcl_cover_switch_set_switch_type(1, switch_type)
+
+    stop_button_device.press_button("A2")
+    stop_button_device.press_button("A0")
+    assert stop_button_device.zcl_switch_get_multistate_value(1) == STOP
+    stop_button_device.press_button("A1")
+    stop_button_device.release_button("A1")
+    assert stop_button_device.zcl_switch_get_multistate_value(1) == STOP
+    stop_button_device.release_button("A0")
+    assert stop_button_device.zcl_switch_get_multistate_value(1) == STOP
+    stop_button_device.release_button("A2")
+    assert stop_button_device.zcl_switch_get_multistate_value(1) == idle_state
+    assert stop_button_device.zcl_cover_get_moving(2) == ZCL_WINDOW_COVERING_MOVING_STOPPED
+
+
+def test_stop_button_binded(stop_button_device: Device):
+    # Disable local control
+    stop_button_device.zcl_cover_switch_set_cover_index(1, 0)
+
+    stop_button_device.click_button("A0")
+    stop_button_device.wait_for_cmd_send(1, ZCL_CLUSTER_WINDOW_COVERING, ZCL_CMD_WINDOW_COVERING_UP_OPEN)
+
+    stop_button_device.press_button("A2")
+    stop_button_device.wait_for_cmd_send(1, ZCL_CLUSTER_WINDOW_COVERING, ZCL_CMD_WINDOW_COVERING_STOP)
+
+
+def test_stop_button_inherits_pull():
+    with StubProc(device_config="Mfr;Model;XA0A1uA2;CB0B1;") as p:
+        d = Device(p)
+        d.press_button("A2")
+        assert d.zcl_switch_get_multistate_value(1) == STOP
+
+
+def test_toggle_stop_button_stops_cover(stop_button_device: Device):
+    stop_button_device.zcl_cover_switch_set_switch_type(1, ZCL_COVER_SWITCH_TYPE_TOGGLE)
+
+    # Started from Zigbee, so the switch is still in its idle STOP state
+    stop_button_device.zcl_cover_open(2)
+    assert stop_button_device.zcl_cover_get_moving(2) == ZCL_WINDOW_COVERING_MOVING_OPENING
+    stop_button_device.step_time(MINIMUM_SWITCH_TIME_MS)
+
+    stop_button_device.press_button("A2")
+    assert stop_button_device.zcl_cover_get_moving(2) == ZCL_WINDOW_COVERING_MOVING_STOPPED
+    stop_button_device.wait_for_cmd_send(1, ZCL_CLUSTER_WINDOW_COVERING, ZCL_CMD_WINDOW_COVERING_STOP)
+
+
+def test_stop_button_pull_down():
+    with StubProc(device_config="Mfr;Model;XA0A1uA2d;CB0B1;") as p:
+        d = Device(p)
+        d.step_time(MINIMUM_SWITCH_TIME_MS)
+
+        d.click_button("A0")
+        assert d.zcl_cover_get_moving(2) == ZCL_WINDOW_COVERING_MOVING_OPENING
+        d.step_time(MINIMUM_SWITCH_TIME_MS)
+
+        d.set_gpio("A2", 1)  # High is pressed with pull-down
+        d.step_time(DEBOUNCE_MS + 10)
+        assert d.zcl_switch_get_multistate_value(1) == STOP
+        assert d.zcl_cover_get_moving(2) == ZCL_WINDOW_COVERING_MOVING_STOPPED
+
+
+def test_stop_buttons_with_max_config():
+    # 4 switches + 3 cover switches with stop + reset = 14 buttons
+    cfg = "Mfr;Model;BD0u;SA0u;SA1u;SA2u;SA3u;XB0B1uB2u;XB3B4uB5u;XC0C1uC2u;"
+    with StubProc(device_config=cfg) as p:
+        d = Device(p)
+        d.press_button("C2")
+        assert d.zcl_switch_get_multistate_value(7) == STOP
+
+
+def test_stop_button_with_floating_open_close():
+    with StubProc(device_config="Mfr;Model;XA0A1fA2u;CB0B1;") as p:
+        d = Device(p)
+        d.step_time(MINIMUM_SWITCH_TIME_MS)
+
+        d.click_button("A0")
+        assert d.zcl_cover_get_moving(2) == ZCL_WINDOW_COVERING_MOVING_OPENING
+        d.step_time(MINIMUM_SWITCH_TIME_MS)
+
+        d.press_button("A2")
+        assert d.zcl_cover_get_moving(2) == ZCL_WINDOW_COVERING_MOVING_STOPPED

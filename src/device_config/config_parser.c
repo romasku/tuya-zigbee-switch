@@ -38,7 +38,7 @@ network_indicator_t network_indicator = {
 led_t   leds[5];
 uint8_t leds_cnt = 0;
 
-button_t buttons[11];
+button_t buttons[14]; // 4 switches + 3 cover switches (open, close, stop) + reset
 uint8_t  buttons_cnt = 0;
 
 relay_t relays[10]; // 4 relay endpoints + 3 cover endpoints
@@ -256,10 +256,30 @@ void parse_config() {
             buttons[buttons_cnt].on_multi_press          = on_multi_press_reset;
             button_t *close_button = &buttons[buttons_cnt++];
 
+            // Optional stop button: X<open><close><pull>[<stop>[<stop pull>]]
+            button_t *stop_button = NULL;
+            if (strlen(entry) >= 8) {
+                hal_gpio_pin_t  stop_pin  = hal_gpio_parse_pin(entry + 6);
+                hal_gpio_pull_t stop_pull =
+                    entry[8] != '\0' ? hal_gpio_parse_pull(entry + 8) : pull;
+
+                hal_gpio_init(stop_pin, 1, stop_pull);
+
+                buttons[buttons_cnt].pin = stop_pin;
+                buttons[buttons_cnt].pressed_when_high       = stop_pull == HAL_GPIO_PULL_DOWN;
+                buttons[buttons_cnt].long_press_duration_ms  = 800;
+                buttons[buttons_cnt].multi_press_duration_ms = 800;
+                buttons[buttons_cnt].debounce_delay_ms       = debounce_ms;
+                buttons[buttons_cnt].on_multi_press          = on_multi_press_reset;
+                stop_button = &buttons[buttons_cnt++];
+            }
+
             cover_switch_clusters[cover_switch_clusters_cnt].open_button =
                 open_button;
             cover_switch_clusters[cover_switch_clusters_cnt].close_button =
                 close_button;
+            cover_switch_clusters[cover_switch_clusters_cnt].stop_button =
+                stop_button;
             cover_switch_clusters[cover_switch_clusters_cnt].cover_switch_idx =
                 cover_switch_clusters_cnt;
             cover_switch_clusters_cnt++;

@@ -19,6 +19,7 @@ typedef struct {
     uint8_t              endpoint;
     button_t *           open_button;
     button_t *           close_button;
+    button_t *           stop_button; // Optional, NULL if not configured
 
     // Attributes
     uint8_t              switch_type;
