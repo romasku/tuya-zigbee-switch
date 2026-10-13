@@ -5761,6 +5761,33 @@ SWITCH_MOES_SCENE_TS0726_3GANG_3SCENE:
   info: Only 4 buttons supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/332
   store: null
+SWITCH_MOES_STAR_RING_3WAY_TS0001:
+  human_name: Moes Star Ring 3-Way switch (ZS-SR-US-T)
+  category: switch
+  power: mains
+  neutral: required
+  output: relay
+  device_type: router
+  stock_model_name: TS0001
+  stock_manufacturer_name: _TZ3000_afhrm3tu
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0001_switch_1_gang
+  override_z2m_device: ZS-SR-US-T
+  tuya_module: ZTU
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: afhrm3tu;TS0001-MSR;IB5i;SD3u;RC2;M;
+  alt_config_str: afhrm3tu;TS0001-MSR;IB5i;SD3u;RC2;SD4u;M;
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
+  firmware_image_type: 47119
+  build: yes
+  status: mostly_supported
+  info: Single-way operation verified. Physical 3-way traveler input on D4 untested (optional switch 2 in alt_config).
+  threads: null
+  store: https://moeshouse.com/collections/star-ring-series/products/star-ring-smart-switch-zigbee-matter-us
 SWITCH_NOVADIGITAL_TS0003:
   human_name: NovaDigital ZTS-3W
   category: switch
