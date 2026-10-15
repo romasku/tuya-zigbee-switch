@@ -64,7 +64,8 @@ SOURCES := \
 	$(SRC_DIR)/zigbee/general_commands.c \
 	$(SRC_DIR)/zigbee/cover_switch_cluster.c \
 	$(SRC_DIR)/zigbee/cover_cluster.c \
-	$(SRC_DIR)/zigbee/battery_cluster.c
+	$(SRC_DIR)/zigbee/battery_cluster.c \
+	$(SRC_DIR)/zigbee/dimmer_key_cluster.c
 
 INCLUDES := \
 	-I$(SRC_DIR) \
