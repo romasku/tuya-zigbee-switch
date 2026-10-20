@@ -8,6 +8,7 @@
 
 #include "stub/stub_app.h"
 #include "zigbee/consts.h"
+#include "zigbee/relay_cluster.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -348,13 +349,21 @@ static int cmd_step_time(int argc, char **argv) {
     }
     char *e    = NULL;
     long  step = strtol(argv[1], &e, 10);
-    if (*argv[1] == '\0' || *e || step < 0) {
+    if (*argv[1] == '\0' || e == NULL || *e || step < 0) {
         fprintf(stderr, "Bad step value: %s\n", argv[1]);
         io_res_err("bad_step=%s", argv[1]);
         return -1;
     }
     stub_millis_step((uint64_t)step);
     io_res_ok("stepped_ms=%ld", step);
+    // Re-evaluate relay auto-OFF timers against the new time.
+    //
+    // Deliberately NOT stub_app_poll(): that runs app_task(), whose
+    // network-steering branch would restart joining right after a
+    // test triggered hal_zigbee_leave_network(). It also runs
+    // stub_tasks_poll(), which can fire a pending reboot/factory-reset
+    // task and exit(0) before the caller ever sees the reply above.
+    relay_cluster_task();
     return 0;
 }
 
