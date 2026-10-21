@@ -8,6 +8,20 @@ Please describe what you are working on, under ## Upcoming
 
 ------------------------------------------------------->
 
+## Upcoming
+
+### Features
+
+- **Countdown timers** (`on_with_timed_off`) for relay endpoints. The ZCL command was already
+  accepted by the stack but ignored by the cluster callback, so the relay stayed on indefinitely.
+  `on_time` and `off_wait_time` are now honoured, so a controller can schedule an auto-off
+  without holding a wall-clock timer of its own.
+  Any local change cancels a pending countdown: a button press leaves the relay where the user
+  put it. A repeated `on_with_timed_off` re-arms the countdown rather than cancelling it.
+  See [PR #540](https://github.com/romasku/tuya-zigbee-switch/pull/540) for implementation notes,
+  including the two bugs that had to be fixed to make the deadline survive `hal_millis()`
+  wraparound.
+
 ## 1.1.3
 
 ### Features
