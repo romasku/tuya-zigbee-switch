@@ -1,8 +1,15 @@
 #ifndef DEVICE_CONFIG_NVM_ITEMS_H_
 #define DEVICE_CONFIG_NVM_ITEMS_H_
 
-#define MAX_RELAYS                       5
-#define MAX_SWITCHES                     5
+// MAX_RELAYS and MAX_SWITCHES both raised 5 -> 6, for boards that need six
+// of each (a full-bind 6-gang board: one switch endpoint per relay
+// endpoint). Every NV item below that is offset by either constant moves as
+// a result: relay items by MAX_SWITCHES alone (+1), cover-switch/cover items
+// by both (+2) -- see nvm_migrations.c::migrate_v1_to_v2_max_6 for the
+// migration this requires on any device already in the field
+// (NVM_MIGRATIONS_VERSION 1 -> 2).
+#define MAX_RELAYS                       6
+#define MAX_SWITCHES                     6
 #define MAX_COVER_SWITCHES               3
 #define MAX_COVERS                       3
 
@@ -21,7 +28,7 @@
         (NV_ITEM_BASIC_CLUSTER_DATA + MAX_SWITCHES + MAX_RELAYS + MAX_COVER_SWITCHES + 1 + \
          cover_idx)
 
-// 3 + 5 (switches) + 5 (relays) + 3 (cover switches) + 3 (covers) = 19
+// 3 + 6 (switches) + 6 (relays) + 3 (cover switches) + 3 (covers) = 21
 // Adding room for future items, so starting from 32
 #define NV_ITEM_DEVICE_TYPE                32
 
