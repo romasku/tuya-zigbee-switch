@@ -6443,3 +6443,31 @@ SWITCH_ZEMISMART_TS0601_6GANG:
   info: Needs pinout. Secondary MCU. 6-gang!
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/209
   store: https://www.zemismart.com/products/tb26-6
+MODULE_TUYA_OXT_TS130F_2GANG:
+  human_name: Tuya/OXT 2-gang curtains switch
+  category: module
+  power: mains
+  neutral: required
+  output: relay
+  device_type: router
+  stock_model_name: TS130F
+  stock_manufacturer_name: _TZ3000_eg7awg6a
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS130F_dual
+  override_z2m_device: TS130F_OXT_DUAL
+  tuya_module: ZTU
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: eg7awg6a;TS130F-OXT-DUAL;BD2u;LC0;CC2C3;XB4B5u;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
+  firmware_image_type: 45597
+  build: yes
+  status: fully_supported
+  info: Reset button on pin D2
+  threads: null
+  store: https://psmart.pl/pl/p/Modul-OXT-Mini-Sterownik-do-Rolet-ZigBee-TUYA-Home-Assistant/1544
+  
