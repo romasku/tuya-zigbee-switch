@@ -6444,7 +6444,7 @@ SWITCH_ZEMISMART_TS0601_6GANG:
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/209
   store: https://www.zemismart.com/products/tb26-6
 MODULE_TUYA_OXT_TS130F_2GANG:
-  human_name: Tuya/OXT 2-gang curtains switch
+  human_name: Tuya/OXT curtains switch
   category: module
   power: mains
   neutral: required
@@ -6454,11 +6454,11 @@ MODULE_TUYA_OXT_TS130F_2GANG:
   stock_manufacturer_name: _TZ3000_eg7awg6a
   stock_converter_manufacturer: Tuya
   stock_converter_model: TS130F_dual
-  override_z2m_device: TS130F_OXT_DUAL
+  override_z2m_device: TS130F_OXT_curtains
   tuya_module: ZTU
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: eg7awg6a;TS130F-OXT-DUAL;BD2u;LC0;CC2C3;XB4B5u;
+  config_str: eg7awg6a;TS130F-OXT;BD2u;LC0;CC2C3;XB4B5u;
   alt_config_str: null
   old_manufacturer_names: null
   old_zb_models: null
