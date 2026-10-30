@@ -3883,6 +3883,33 @@ REMOTE_TUYA_SWITCH_TS0043_1:
   info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/293
   store: https://www.aliexpress.com/item/1005006468926708.html
+REMOTE_TUYA_SWITCH_TS0043_2:
+  human_name: Tuya 3-gang scene switch 🅲
+  category: remote
+  power: CR2430
+  neutral: without
+  output: nothing
+  device_type: end_device
+  stock_model_name: TS0043
+  stock_manufacturer_name: _TZ3000_w8jwkczz
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0043
+  override_z2m_device: null
+  tuya_module: ZS3L
+  mcu_family: Silabs
+  mcu: EFR32MG21A020F768IM32
+  config_str: w8jwkczz;TS0043-W8;SA4d;IC0i;SB0d;ID1i;SA3d;IC2i;BTA0;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
+  firmware_image_type: 45633
+  build: yes
+  status: in_progress
+  info: Pinout from stock config, needs testing
+  threads: null
+  store: null
 REMOTE_TUYA_TS0041:
   human_name: Tuya/Moes 1-button wireless switch
   category: remote
