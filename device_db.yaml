@@ -3906,8 +3906,8 @@ REMOTE_TUYA_TS0041:
   stock_image_type: null
   firmware_image_type: 43579
   build: yes
-  status: in_progress
-  info: Needs pinout
+  status: fully_supported
+  info: Supported
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/171
   store: null
 REMOTE_TUYA_TS0044:
