@@ -3898,14 +3898,14 @@ REMOTE_TUYA_TS0041:
   tuya_module: ZS3L
   mcu_family: Silabs
   mcu: EFR32MG21A020F768IM32
-  config_str: 4upl1fcj;TS0041-TUYA; null; M;
+  config_str: 4upl1fcj;TS0041-TUYA;SA4d;IC0i;BTA0;M;
   alt_config_str: null
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: null
   stock_image_type: null
   firmware_image_type: 43579
-  build: no
+  build: yes
   status: in_progress
   info: Needs pinout
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/171
