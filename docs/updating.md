@@ -57,11 +57,11 @@ This page describes **converting** and **updating** supported devices **wireless
 8. **Start** the update (red download button) 
 9. **Re-download** the custom [# Quirks / Converters / Extensions](#quirks--converters--extensions) and restart ZHA / Z2M
 10. **Interview** the device **`i`**  
-⤷ option missing from ZHA, remove and re-pair if needed  
-(updates endpoints, clusters and identifiers)
-11.  **Reconfigure** the device **`🗘`**  
-(resets reporting and stuff?, keeps user binds and settings)
-12.   Re-do user settings if needed
+  ⤷ option missing from ZHA, remove and re-pair if needed  
+  (updates endpoints, clusters and identifiers)
+11. **Reconfigure** the device **`🗘`**  
+  (resets reporting intervals, keeps user binds and settings)
+12. Re-do user settings if needed
 
 > *If your device is several versions behind, it will update directly to the latest version.*
 
@@ -120,7 +120,7 @@ zha:
 > - e.g. 10W dumb bulb is safe 
 > - estimated values: >4W for EndDevice, >8W for Router  
 > - **not recommended: no-Neutral switch + smart bulb ( <1W when brightness=0 )**  
->   ⤷ dummy load (capactior) may be required
+>   ⤷ dummy load (capacitor) may be required
 
 <details>
 <summary> <b> Index link format </b> </summary>  
