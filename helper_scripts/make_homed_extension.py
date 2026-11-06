@@ -34,9 +34,12 @@ if __name__ == "__main__":
         cover_cnt = 0
         indicators_cnt = 0
         has_dedicated_net_led = False
+        has_onewire = False
         for peripheral in peripherals:
             if peripheral == "SLP":
                 continue
+            if peripheral[0] == "W":
+                has_onewire = True
             if peripheral[0] == "R":
                 relay_cnt += 1
             if peripheral[0] == 'S':
@@ -75,7 +78,8 @@ if __name__ == "__main__":
         else:
             cover_names = [f"cover_{index + 1}" for index in range(cover_cnt)]
 
-        endpoint_names = switch_names + relay_names + cover_names
+        temp_names = [f"temperature_{index + 1}" for index in range(8)] if has_onewire else []
+        endpoint_names = switch_names + relay_names + cover_names + temp_names
         if not endpoint_names:
             continue
         model_names = [zb_model] + (device.get("old_zb_models") or [])

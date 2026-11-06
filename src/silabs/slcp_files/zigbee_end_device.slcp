@@ -30,6 +30,8 @@ source:
 - {path: ../../hal/common/zigbee.h}
 - {path: ../../base_components/button.c}
 - {path: ../../base_components/battery.c}
+- {path: ../../base_components/ds18b20.c}
+- {path: ../../base_components/ds18b20.h}
 - {path: ../../base_components/led.c}
 - {path: ../../base_components/network_indicator.c}
 - {path: ../../base_components/relay.c}
@@ -50,6 +52,10 @@ source:
 - {path: ../../device_config/nvm_migrations.c}
 - {path: ../../zigbee/basic_cluster.c}
 - {path: ../../zigbee/battery_cluster.c}
+- {path: ../../zigbee/temperature_cluster.c}
+- {path: ../../zigbee/temperature_cluster.h}
+- {path: ../../zigbee/humidity_cluster.c}
+- {path: ../../zigbee/humidity_cluster.h}
 - {path: ../../zigbee/general_commands.c}
 - {path: ../../zigbee/group_cluster.c}
 - {path: ../../zigbee/relay_cluster.c}

@@ -6,6 +6,8 @@
 #include "zcl_multistate_input.h"
 #include "zcl_window_covering_custom.h"
 #include "zcl_onoff_configuration.h"
+#include "zcl_relative_humidity.h"
+#include "zcl_temperature_measurement.h"
 #pragma pack(pop)
 
 #include "telink_size_t_hack.h"
@@ -62,6 +64,12 @@ static cluster_registerFunc_t get_register_func_by_cluster_id(u16 cluster_id) {
     }
     if (cluster_id == ZCL_CLUSTER_GEN_POLL_CONTROL) {
         return zcl_pollCtrl_register;
+    }
+    if (cluster_id == ZCL_CLUSTER_TEMPERATURE_MEASUREMENT) {
+        return zcl_temperature_measurement_register;
+    }
+    if (cluster_id == ZCL_CLUSTER_RELATIVE_HUMIDITY) {
+        return zcl_relative_humidity_register;
     }
     return NULL;
 }

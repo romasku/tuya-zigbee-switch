@@ -27,5 +27,6 @@
 
 #define NV_ITEM_MULTI_PRESS_RESET_COUNT    33
 #define NV_ITEM_POLL_CONTROL_CONFIG        34
+#define NV_ITEM_DS18B20_SLOTS              35
 
 #endif /* DEVICE_CONFIG_NVM_ITEMS_H_ */

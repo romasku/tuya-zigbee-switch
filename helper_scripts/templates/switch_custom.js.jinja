@@ -405,6 +405,26 @@ const romasku = {
             unit: "%",
             entityCategory: "config",
         }),
+    temperatureSensor: (endpointName) =>
+        numeric({
+            name: endpointName,
+            endpointName,
+            cluster: "msTemperatureMeasurement",
+            attribute: "measuredValue",
+            description: "Measured temperature",
+            unit: "°C",
+            scale: 100,
+        }),
+    humiditySensor: (endpointName) =>
+        numeric({
+            name: endpointName,
+            endpointName,
+            cluster: "msRelativeHumidity",
+            attribute: "measuredValue",
+            description: "Measured relative humidity",
+            unit: "%",
+            scale: 100,
+        }),
     coverClosedDeadzone: (name, endpointName) =>
         numeric({
             name,
@@ -432,7 +452,7 @@ const definitions = [
         model: "{{device.model}}",
         vendor: "Tuya-custom",
         description: "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
-        {% set first_endpoint = device.switchNames[0] if device.switchNames else (device.relayNames[0] if device.relayNames else device.coverNames[0]) %}
+        {% set first_endpoint = device.switchNames[0] if device.switchNames else (device.relayNames[0] if device.relayNames else (device.coverNames[0] if device.coverNames else device.tempNames[0])) %}
         extend: [
             {% if device.has_battery_cluster %}
             romasku.batteryPercentage(),
@@ -450,8 +470,14 @@ const definitions = [
                 {%- for coverName in device.coverNames -%}
                     "{{coverName}}": {{loop.index + (device.switchNames | length) + (device.relayNames | length) + (device.coverSwitchNames | length)}},{{" "}}
                 {%- endfor -%}
+                {%- for tempName in device.tempNames -%}
+                    "{{tempName}}": {{loop.index + (device.switchNames | length) + (device.relayNames | length) + (device.coverSwitchNames | length) + (device.coverNames | length)}},{{" "}}
+                {%- endfor -%}
+                {%- for humidityName in device.humidityNames -%}
+                    "{{humidityName}}": {{loop.index + (device.switchNames | length) + (device.relayNames | length) + (device.coverSwitchNames | length) + (device.coverNames | length)}},{{" "}}
+                {%- endfor -%}
             } }),
-            {% set first_endpoint = device.switchNames[0] if device.switchNames else (device.relayNames[0] if device.relayNames else (device.coverSwitchNames[0] if device.coverSwitchNames else device.coverNames[0])) %}
+            {% set first_endpoint = device.switchNames[0] if device.switchNames else (device.relayNames[0] if device.relayNames else (device.coverSwitchNames[0] if device.coverSwitchNames else (device.coverNames[0] if device.coverNames else device.tempNames[0]))) %}
             romasku.deviceConfig("device_config", "{{first_endpoint}}"),
             romasku.multiPressResetCount("multi_press_reset_count", "{{first_endpoint}}"),
             {% if device.has_dedicated_net_led %}
@@ -501,6 +527,16 @@ const definitions = [
             romasku.coverSwitchBindedMode("{{coverSwitchName}}_binded_mode", "{{coverSwitchName}}"),
             romasku.coverSwitchLongPressDuration("{{coverSwitchName}}_long_press_duration", "{{coverSwitchName}}"),
             {% endfor %}
+            {% if device.tempNames %}
+            {% for tempName in device.tempNames %}
+            romasku.temperatureSensor("{{tempName}}"),
+            {% endfor %}
+            {% endif %}
+            {% if device.humidityNames %}
+            {% for humidityName in device.humidityNames %}
+            romasku.humiditySensor("{{humidityName}}"),
+            {% endfor %}
+            {% endif %}
         ],
         meta: { multiEndpoint: true },
         configure: async (device, coordinatorEndpoint, logger) => {
@@ -563,6 +599,34 @@ const definitions = [
                 },
             ]);
             {% endfor %}
+            {% if device.tempNames %}
+            {% for tempName in device.tempNames %}
+            const tempEndpoint{{loop.index}} = device.getEndpoint({{loop.index + (device.switchNames | length) + (device.relayNames | length) + (device.coverSwitchNames | length) + (device.coverNames | length)}});
+            await reporting.bind(tempEndpoint{{loop.index}}, coordinatorEndpoint, ["msTemperatureMeasurement"]);
+            await tempEndpoint{{loop.index}}.configureReporting("msTemperatureMeasurement", [
+                {
+                    attribute: "measuredValue",
+                    minimumReportInterval: 10,
+                    maximumReportInterval: constants.repInterval.MAX,
+                    reportableChange: 50,
+                },
+            ]);
+            {% endfor %}
+            {% endif %}
+            {% if device.humidityNames %}
+            {% for humidityName in device.humidityNames %}
+            const humidityEndpoint{{loop.index}} = device.getEndpoint({{loop.index + (device.switchNames | length) + (device.relayNames | length) + (device.coverSwitchNames | length) + (device.coverNames | length)}});
+            await reporting.bind(humidityEndpoint{{loop.index}}, coordinatorEndpoint, ["msRelativeHumidity"]);
+            await humidityEndpoint{{loop.index}}.configureReporting("msRelativeHumidity", [
+                {
+                    attribute: "measuredValue",
+                    minimumReportInterval: 10,
+                    maximumReportInterval: constants.repInterval.MAX,
+                    reportableChange: 50,
+                },
+            ]);
+            {% endfor %}
+            {% endif %}
 
             {% for coverName in device.coverNames %}
             const cover{{loop.index}} = device.getEndpoint({{loop.index + (device.switchNames | length) + (device.relayNames | length) + (device.coverSwitchNames | length)}});

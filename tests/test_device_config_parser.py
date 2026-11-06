@@ -82,6 +82,26 @@ def test_endpoints_layout_matches_config(device: Device, device_config: str):
             ZCL_ATTR_WINDOW_COVERING_MOVING,
         ) in ("0", "1", "2")
 
+    # WB5 creates eight 1-Wire endpoints. Each has temperature and humidity.
+    num_sensors = 8 if any(p.startswith("W") for p in parts[2:]) else 0
+    sensor_start = cover_start + num_covers
+    for ep in range(sensor_start, sensor_start + num_sensors):
+        assert device.read_zigbee_attr(ep, 0x0402, 0x0000) == "00 80"
+        assert device.read_zigbee_attr(ep, 0x0405, 0x0000) == "65535"
+
+
+def test_ds18b20_endpoints_follow_the_relays():
+    cfg = "ya5d6wth;TS000F-TH4;LB7i;SD4u;RC2;SC0u;RC3;SA0u;RD7;SC4u;RD2;M;WB5;"
+    proc = StubProc(device_config=cfg).start()
+    try:
+        device = Device(proc)
+        for ep in range(9, 17):
+            assert device.read_zigbee_attr(ep, 0x0402, 0x0000) == "00 80"
+            assert device.read_zigbee_attr(ep, 0x0405, 0x0000) == "65535"
+        assert device.read_zigbee_attr(8, 0x0006, ZCL_ATTR_ONOFF) in ("0", "1")
+    finally:
+        proc.stop()
+
 
 @pytest.mark.parametrize(
     "cfg",
@@ -90,6 +110,7 @@ def test_endpoints_layout_matches_config(device: Device, device_config: str):
         "X;Y;SA0u;LB1;RB2;",  # dedicated status LED + one switch/relay
         "X;Y;SA0u;IB0;RB1;",  # indicator LED for relays
         "X;Y;XA0A1u;CB0B1;",  # cover switch + cover
+        "X;Y;WB5;",  # eight 1-Wire endpoints, sharing endpoint 1 with Basic
     ],
 )
 def test_various_configs_boot(cfg: str):

@@ -403,6 +403,26 @@ const romasku = {
             unit: "%",
             entityCategory: "config",
         }),
+    temperatureSensor: (endpointName) =>
+        numeric({
+            name: endpointName,
+            endpointName,
+            cluster: "msTemperatureMeasurement",
+            attribute: "measuredValue",
+            description: "Measured temperature",
+            unit: "°C",
+            scale: 100,
+        }),
+    humiditySensor: (endpointName) =>
+        numeric({
+            name: endpointName,
+            endpointName,
+            cluster: "msRelativeHumidity",
+            attribute: "measuredValue",
+            description: "Measured relative humidity",
+            unit: "%",
+            scale: 100,
+        }),
     coverClosedDeadzone: (name, endpointName) =>
         numeric({
             name,
@@ -1152,6 +1172,304 @@ const definitions = [
                 },
             ]);
 
+
+        },
+        ota: ota.zigbeeOTA,
+    },
+    {
+        zigbeeModel: [
+            "TS000F-TH4",
+        ],
+        model: "TYZGTH4CH-D1RF",
+        vendor: "Tuya-custom",
+        description: "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
+        extend: [
+            deviceEndpoints({ endpoints: {"switch_0": 1, "switch_1": 2, "switch_2": 3, "switch_3": 4, "relay_0": 5, "relay_1": 6, "relay_2": 7, "relay_3": 8, "temperature_1": 9, "temperature_2": 10, "temperature_3": 11, "temperature_4": 12, "temperature_5": 13, "temperature_6": 14, "temperature_7": 15, "temperature_8": 16, "humidity_1": 9, "humidity_2": 10, "humidity_3": 11, "humidity_4": 12, "humidity_5": 13, "humidity_6": 14, "humidity_7": 15, "humidity_8": 16, } }),
+            romasku.deviceConfig("device_config", "switch_0"),
+            romasku.multiPressResetCount("multi_press_reset_count", "switch_0"),
+            romasku.networkIndicator("network_led", "switch_0"),
+            onOff({ endpointNames: ["relay_0", "relay_1", "relay_2", "relay_3"] }),
+            romasku.pressAction("switch_0_press_action", "switch_0"),
+            romasku.switchMode("switch_0_mode", "switch_0"),
+            romasku.switchAction("switch_0_action_mode", "switch_0"),
+            romasku.relayMode("switch_0_relay_mode", "switch_0"),
+            romasku.relayIndex("switch_0_relay_index", "switch_0", 4),
+            romasku.bindedMode("switch_0_binded_mode", "switch_0"),
+            romasku.longPressDuration("switch_0_long_press_duration", "switch_0"),
+            romasku.levelMoveRate("switch_0_level_move_rate", "switch_0"),
+            romasku.pressAction("switch_1_press_action", "switch_1"),
+            romasku.switchMode("switch_1_mode", "switch_1"),
+            romasku.switchAction("switch_1_action_mode", "switch_1"),
+            romasku.relayMode("switch_1_relay_mode", "switch_1"),
+            romasku.relayIndex("switch_1_relay_index", "switch_1", 4),
+            romasku.bindedMode("switch_1_binded_mode", "switch_1"),
+            romasku.longPressDuration("switch_1_long_press_duration", "switch_1"),
+            romasku.levelMoveRate("switch_1_level_move_rate", "switch_1"),
+            romasku.pressAction("switch_2_press_action", "switch_2"),
+            romasku.switchMode("switch_2_mode", "switch_2"),
+            romasku.switchAction("switch_2_action_mode", "switch_2"),
+            romasku.relayMode("switch_2_relay_mode", "switch_2"),
+            romasku.relayIndex("switch_2_relay_index", "switch_2", 4),
+            romasku.bindedMode("switch_2_binded_mode", "switch_2"),
+            romasku.longPressDuration("switch_2_long_press_duration", "switch_2"),
+            romasku.levelMoveRate("switch_2_level_move_rate", "switch_2"),
+            romasku.pressAction("switch_3_press_action", "switch_3"),
+            romasku.switchMode("switch_3_mode", "switch_3"),
+            romasku.switchAction("switch_3_action_mode", "switch_3"),
+            romasku.relayMode("switch_3_relay_mode", "switch_3"),
+            romasku.relayIndex("switch_3_relay_index", "switch_3", 4),
+            romasku.bindedMode("switch_3_binded_mode", "switch_3"),
+            romasku.longPressDuration("switch_3_long_press_duration", "switch_3"),
+            romasku.levelMoveRate("switch_3_level_move_rate", "switch_3"),
+            romasku.temperatureSensor("temperature_1"),
+            romasku.temperatureSensor("temperature_2"),
+            romasku.temperatureSensor("temperature_3"),
+            romasku.temperatureSensor("temperature_4"),
+            romasku.temperatureSensor("temperature_5"),
+            romasku.temperatureSensor("temperature_6"),
+            romasku.temperatureSensor("temperature_7"),
+            romasku.temperatureSensor("temperature_8"),
+            romasku.humiditySensor("humidity_1"),
+            romasku.humiditySensor("humidity_2"),
+            romasku.humiditySensor("humidity_3"),
+            romasku.humiditySensor("humidity_4"),
+            romasku.humiditySensor("humidity_5"),
+            romasku.humiditySensor("humidity_6"),
+            romasku.humiditySensor("humidity_7"),
+            romasku.humiditySensor("humidity_8"),
+        ],
+        meta: { multiEndpoint: true },
+        configure: async (device, coordinatorEndpoint, logger) => {
+            const endpoint1 = device.getEndpoint(1);
+            await reporting.bind(endpoint1, coordinatorEndpoint, ["genMultistateInput"]);
+            // switch action:
+            await endpoint1.configureReporting("genMultistateInput", [
+                {
+                    attribute: {ID: 0x0055 /* presentValue */, type: 0x21}, // uint16
+                    minimumReportInterval: 0,
+                    maximumReportInterval: constants.repInterval.MAX,
+                    reportableChange: 1,
+                },
+            ]);
+            const endpoint2 = device.getEndpoint(2);
+            await reporting.bind(endpoint2, coordinatorEndpoint, ["genMultistateInput"]);
+            // switch action:
+            await endpoint2.configureReporting("genMultistateInput", [
+                {
+                    attribute: {ID: 0x0055 /* presentValue */, type: 0x21}, // uint16
+                    minimumReportInterval: 0,
+                    maximumReportInterval: constants.repInterval.MAX,
+                    reportableChange: 1,
+                },
+            ]);
+            const endpoint3 = device.getEndpoint(3);
+            await reporting.bind(endpoint3, coordinatorEndpoint, ["genMultistateInput"]);
+            // switch action:
+            await endpoint3.configureReporting("genMultistateInput", [
+                {
+                    attribute: {ID: 0x0055 /* presentValue */, type: 0x21}, // uint16
+                    minimumReportInterval: 0,
+                    maximumReportInterval: constants.repInterval.MAX,
+                    reportableChange: 1,
+                },
+            ]);
+            const endpoint4 = device.getEndpoint(4);
+            await reporting.bind(endpoint4, coordinatorEndpoint, ["genMultistateInput"]);
+            // switch action:
+            await endpoint4.configureReporting("genMultistateInput", [
+                {
+                    attribute: {ID: 0x0055 /* presentValue */, type: 0x21}, // uint16
+                    minimumReportInterval: 0,
+                    maximumReportInterval: constants.repInterval.MAX,
+                    reportableChange: 1,
+                },
+            ]);
+            const endpoint5 = device.getEndpoint(5);
+            await reporting.onOff(endpoint5, {
+                min: 0,
+                max: constants.repInterval.MAX,
+                change: 1,
+            });
+            const endpoint6 = device.getEndpoint(6);
+            await reporting.onOff(endpoint6, {
+                min: 0,
+                max: constants.repInterval.MAX,
+                change: 1,
+            });
+            const endpoint7 = device.getEndpoint(7);
+            await reporting.onOff(endpoint7, {
+                min: 0,
+                max: constants.repInterval.MAX,
+                change: 1,
+            });
+            const endpoint8 = device.getEndpoint(8);
+            await reporting.onOff(endpoint8, {
+                min: 0,
+                max: constants.repInterval.MAX,
+                change: 1,
+            });
+
+
+            const tempEndpoint1 = device.getEndpoint(9);
+            await reporting.bind(tempEndpoint1, coordinatorEndpoint, ["msTemperatureMeasurement"]);
+            await tempEndpoint1.configureReporting("msTemperatureMeasurement", [
+                {
+                    attribute: "measuredValue",
+                    minimumReportInterval: 10,
+                    maximumReportInterval: constants.repInterval.MAX,
+                    reportableChange: 50,
+                },
+            ]);
+            const tempEndpoint2 = device.getEndpoint(10);
+            await reporting.bind(tempEndpoint2, coordinatorEndpoint, ["msTemperatureMeasurement"]);
+            await tempEndpoint2.configureReporting("msTemperatureMeasurement", [
+                {
+                    attribute: "measuredValue",
+                    minimumReportInterval: 10,
+                    maximumReportInterval: constants.repInterval.MAX,
+                    reportableChange: 50,
+                },
+            ]);
+            const tempEndpoint3 = device.getEndpoint(11);
+            await reporting.bind(tempEndpoint3, coordinatorEndpoint, ["msTemperatureMeasurement"]);
+            await tempEndpoint3.configureReporting("msTemperatureMeasurement", [
+                {
+                    attribute: "measuredValue",
+                    minimumReportInterval: 10,
+                    maximumReportInterval: constants.repInterval.MAX,
+                    reportableChange: 50,
+                },
+            ]);
+            const tempEndpoint4 = device.getEndpoint(12);
+            await reporting.bind(tempEndpoint4, coordinatorEndpoint, ["msTemperatureMeasurement"]);
+            await tempEndpoint4.configureReporting("msTemperatureMeasurement", [
+                {
+                    attribute: "measuredValue",
+                    minimumReportInterval: 10,
+                    maximumReportInterval: constants.repInterval.MAX,
+                    reportableChange: 50,
+                },
+            ]);
+            const tempEndpoint5 = device.getEndpoint(13);
+            await reporting.bind(tempEndpoint5, coordinatorEndpoint, ["msTemperatureMeasurement"]);
+            await tempEndpoint5.configureReporting("msTemperatureMeasurement", [
+                {
+                    attribute: "measuredValue",
+                    minimumReportInterval: 10,
+                    maximumReportInterval: constants.repInterval.MAX,
+                    reportableChange: 50,
+                },
+            ]);
+            const tempEndpoint6 = device.getEndpoint(14);
+            await reporting.bind(tempEndpoint6, coordinatorEndpoint, ["msTemperatureMeasurement"]);
+            await tempEndpoint6.configureReporting("msTemperatureMeasurement", [
+                {
+                    attribute: "measuredValue",
+                    minimumReportInterval: 10,
+                    maximumReportInterval: constants.repInterval.MAX,
+                    reportableChange: 50,
+                },
+            ]);
+            const tempEndpoint7 = device.getEndpoint(15);
+            await reporting.bind(tempEndpoint7, coordinatorEndpoint, ["msTemperatureMeasurement"]);
+            await tempEndpoint7.configureReporting("msTemperatureMeasurement", [
+                {
+                    attribute: "measuredValue",
+                    minimumReportInterval: 10,
+                    maximumReportInterval: constants.repInterval.MAX,
+                    reportableChange: 50,
+                },
+            ]);
+            const tempEndpoint8 = device.getEndpoint(16);
+            await reporting.bind(tempEndpoint8, coordinatorEndpoint, ["msTemperatureMeasurement"]);
+            await tempEndpoint8.configureReporting("msTemperatureMeasurement", [
+                {
+                    attribute: "measuredValue",
+                    minimumReportInterval: 10,
+                    maximumReportInterval: constants.repInterval.MAX,
+                    reportableChange: 50,
+                },
+            ]);
+            const humidityEndpoint1 = device.getEndpoint(9);
+            await reporting.bind(humidityEndpoint1, coordinatorEndpoint, ["msRelativeHumidity"]);
+            await humidityEndpoint1.configureReporting("msRelativeHumidity", [
+                {
+                    attribute: "measuredValue",
+                    minimumReportInterval: 10,
+                    maximumReportInterval: constants.repInterval.MAX,
+                    reportableChange: 50,
+                },
+            ]);
+            const humidityEndpoint2 = device.getEndpoint(10);
+            await reporting.bind(humidityEndpoint2, coordinatorEndpoint, ["msRelativeHumidity"]);
+            await humidityEndpoint2.configureReporting("msRelativeHumidity", [
+                {
+                    attribute: "measuredValue",
+                    minimumReportInterval: 10,
+                    maximumReportInterval: constants.repInterval.MAX,
+                    reportableChange: 50,
+                },
+            ]);
+            const humidityEndpoint3 = device.getEndpoint(11);
+            await reporting.bind(humidityEndpoint3, coordinatorEndpoint, ["msRelativeHumidity"]);
+            await humidityEndpoint3.configureReporting("msRelativeHumidity", [
+                {
+                    attribute: "measuredValue",
+                    minimumReportInterval: 10,
+                    maximumReportInterval: constants.repInterval.MAX,
+                    reportableChange: 50,
+                },
+            ]);
+            const humidityEndpoint4 = device.getEndpoint(12);
+            await reporting.bind(humidityEndpoint4, coordinatorEndpoint, ["msRelativeHumidity"]);
+            await humidityEndpoint4.configureReporting("msRelativeHumidity", [
+                {
+                    attribute: "measuredValue",
+                    minimumReportInterval: 10,
+                    maximumReportInterval: constants.repInterval.MAX,
+                    reportableChange: 50,
+                },
+            ]);
+            const humidityEndpoint5 = device.getEndpoint(13);
+            await reporting.bind(humidityEndpoint5, coordinatorEndpoint, ["msRelativeHumidity"]);
+            await humidityEndpoint5.configureReporting("msRelativeHumidity", [
+                {
+                    attribute: "measuredValue",
+                    minimumReportInterval: 10,
+                    maximumReportInterval: constants.repInterval.MAX,
+                    reportableChange: 50,
+                },
+            ]);
+            const humidityEndpoint6 = device.getEndpoint(14);
+            await reporting.bind(humidityEndpoint6, coordinatorEndpoint, ["msRelativeHumidity"]);
+            await humidityEndpoint6.configureReporting("msRelativeHumidity", [
+                {
+                    attribute: "measuredValue",
+                    minimumReportInterval: 10,
+                    maximumReportInterval: constants.repInterval.MAX,
+                    reportableChange: 50,
+                },
+            ]);
+            const humidityEndpoint7 = device.getEndpoint(15);
+            await reporting.bind(humidityEndpoint7, coordinatorEndpoint, ["msRelativeHumidity"]);
+            await humidityEndpoint7.configureReporting("msRelativeHumidity", [
+                {
+                    attribute: "measuredValue",
+                    minimumReportInterval: 10,
+                    maximumReportInterval: constants.repInterval.MAX,
+                    reportableChange: 50,
+                },
+            ]);
+            const humidityEndpoint8 = device.getEndpoint(16);
+            await reporting.bind(humidityEndpoint8, coordinatorEndpoint, ["msRelativeHumidity"]);
+            await humidityEndpoint8.configureReporting("msRelativeHumidity", [
+                {
+                    attribute: "measuredValue",
+                    minimumReportInterval: 10,
+                    maximumReportInterval: constants.repInterval.MAX,
+                    reportableChange: 50,
+                },
+            ]);
 
         },
         ota: ota.zigbeeOTA,

@@ -1,3 +1,4 @@
+#include "config_parser.h"
 #include "hal/gpio.h"
 #include "hal/printf_selector.h"
 #include "hal/zigbee.h"
@@ -10,6 +11,8 @@
 #include "zigbee/relay_cluster.h"
 #include "zigbee/poll_control_cluster.h"
 #include "zigbee/switch_cluster.h"
+#include "zigbee/humidity_cluster.h"
+#include "zigbee/temperature_cluster.h"
 
 #include <stdint.h>
 #include <string.h>
@@ -17,6 +20,7 @@
 #include "base_components/led.h"
 #include "base_components/network_indicator.h"
 #include "base_components/battery.h"
+#include "base_components/ds18b20.h"
 #include "config_nv.h"
 #include "device_config/device_params_nv.h"
 #include "device_config/reset.h"
@@ -62,8 +66,10 @@ uint8_t cover_switch_clusters_cnt = 0;
 zigbee_cover_cluster cover_clusters[3];
 uint8_t cover_clusters_cnt = 0;
 
-hal_zigbee_cluster  clusters[32];
-hal_zigbee_endpoint endpoints[10];
+#define APP_CLUSTER_LIMIT    64
+
+hal_zigbee_cluster  clusters[APP_CLUSTER_LIMIT];
+hal_zigbee_endpoint endpoints[APP_ENDPOINT_LIMIT];
 
 uint8_t allow_simultaneous_latching_pulses = 0;
 uint8_t relay_pulse_ms = 100;
@@ -284,6 +290,16 @@ void parse_config() {
             cover_clusters[cover_clusters_cnt].close_relay = close_relay;
             cover_clusters[cover_clusters_cnt].cover_idx   = cover_clusters_cnt;
             cover_clusters_cnt++;
+        } else if (entry[0] == 'W') {
+            // W<pin> is the DS18B20 1-Wire bus, for example WB5.
+            if (temperature_clusters_cnt == 0) {
+                hal_gpio_pin_t pin = hal_gpio_parse_pin(entry + 1);
+                if (pin != HAL_INVALID_PIN) {
+                    ds18b20_init(pin);
+                    temperature_clusters_cnt = DS18B20_MAX_SENSORS;
+                    humidity_clusters_cnt    = DS18B20_MAX_SENSORS;
+                }
+            }
         } else if (entry[0] == 'i') {
             uint32_t image_type = parse_int(entry + 1);
             hal_zigbee_set_image_type(image_type);
@@ -297,13 +313,26 @@ void parse_config() {
 
     peripherals_init();
 
-    printf("Initializing Zigbee with %d switches, %d relays, %d cover switches, "
-           "%d covers\r\n",
-           switch_clusters_cnt, relay_clusters_cnt, cover_switch_clusters_cnt,
-           cover_clusters_cnt);
-
-    uint8_t total_endpoints = switch_clusters_cnt + relay_clusters_cnt +
+    uint8_t other_endpoints = switch_clusters_cnt + relay_clusters_cnt +
                               cover_switch_clusters_cnt + cover_clusters_cnt;
+    /* Temperature and humidity share one endpoint per 1-Wire slot. */
+    uint8_t sensor_endpoints = temperature_clusters_cnt;
+    if (other_endpoints >= APP_ENDPOINT_LIMIT) {
+        temperature_clusters_cnt = 0;
+        humidity_clusters_cnt    = 0;
+    } else if (other_endpoints + sensor_endpoints > APP_ENDPOINT_LIMIT) {
+        uint8_t room = APP_ENDPOINT_LIMIT - other_endpoints;
+        printf("1-Wire endpoints reduced to %d\r\n", room);
+        temperature_clusters_cnt = room;
+        humidity_clusters_cnt    = room;
+    }
+
+    printf("Initializing Zigbee with %d switches, %d relays, %d cover switches, "
+           "%d covers, %d 1-Wire sensors\r\n",
+           switch_clusters_cnt, relay_clusters_cnt, cover_switch_clusters_cnt,
+           cover_clusters_cnt, temperature_clusters_cnt);
+
+    uint8_t total_endpoints = other_endpoints + temperature_clusters_cnt;
 
     hal_zigbee_cluster *cluster_ptr = clusters;
 
@@ -388,7 +417,23 @@ void parse_config() {
                                       &endpoints[cover_base + index]);
     }
 
+    int temperature_base = switch_clusters_cnt + relay_clusters_cnt +
+                           cover_switch_clusters_cnt + cover_clusters_cnt;
+    for (int index = 0; index < temperature_clusters_cnt; index++) {
+        if (temperature_base + index != 0) {
+            cluster_ptr += endpoints[temperature_base + index - 1].cluster_count;
+            endpoints[temperature_base + index].clusters = cluster_ptr;
+        }
+        temperature_cluster_add_to_endpoint(&temperature_clusters[index],
+                                            &endpoints[temperature_base + index]);
+        if (index < humidity_clusters_cnt) {
+            humidity_cluster_add_to_endpoint(&humidity_clusters[index],
+                                             &endpoints[temperature_base + index]);
+        }
+    }
+
     hal_zigbee_init(endpoints, total_endpoints);
+    temperature_clusters_start();
     while (cursor != (char *)device_config_str.data) {
         cursor--;
         if (*cursor == '\0') {

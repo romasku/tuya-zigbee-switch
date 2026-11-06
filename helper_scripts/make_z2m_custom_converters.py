@@ -45,6 +45,7 @@ if __name__ == "__main__":
         indicators_cnt = 0
         has_dedicated_net_led = False
         has_battery_cluster = False
+        has_onewire = False
         for peripheral in peripherals:
             if peripheral == "SLP" or peripheral == "M":
                 continue
@@ -62,6 +63,8 @@ if __name__ == "__main__":
                 has_dedicated_net_led = True
             if peripheral[:2] == "BT":
                 has_battery_cluster = True
+            if peripheral[0] == "W":
+                has_onewire = True
 
         if switch_cnt == 1:
             switch_names = ["switch"]
@@ -117,6 +120,12 @@ if __name__ == "__main__":
                 "coverNames": cover_names,
                 "has_dedicated_net_led": has_dedicated_net_led,
                 "has_battery_cluster": has_battery_cluster,
+                "tempNames": [f"temperature_{index + 1}" for index in range(8)]
+                if has_onewire
+                else [],
+                "humidityNames": [f"humidity_{index + 1}" for index in range(8)]
+                if has_onewire
+                else [],
             }
         )
 

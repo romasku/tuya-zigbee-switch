@@ -9,7 +9,9 @@
 
 extern network_indicator_t network_indicator;
 
-extern hal_zigbee_endpoint endpoints[10];
+#define APP_ENDPOINT_LIMIT    16
+
+extern hal_zigbee_endpoint endpoints[APP_ENDPOINT_LIMIT];
 
 extern uint8_t allow_simultaneous_latching_pulses;
 

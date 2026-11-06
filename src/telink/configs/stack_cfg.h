@@ -20,10 +20,10 @@
  */
 
 /* ZCL: Maximum number of clusters (in + out cluster count) */
-#define ZCL_CLUSTER_NUM_MAX        32
+#define ZCL_CLUSTER_NUM_MAX        64
 
 /* ZCL: Maximum number of reporting table entries */
-#define ZCL_REPORTING_TABLE_NUM    12
+#define ZCL_REPORTING_TABLE_NUM    32
 
 /* ZCL: Maximum number of scene table entries */
 #define ZCL_SCENE_TABLE_NUM        8

@@ -229,6 +229,33 @@ BOARD__ZIGBEE_ZTU_2:
   info: Supported
   threads: null
   store: https://www.aliexpress.com/item/1005007599675462.html
+BOARD__MUMUBIZ_TYZGTH4CH_D1RF:
+  human_name: Mumubiz TYZGTH4CH-D1RF
+  category: board
+  power: mains
+  neutral: required
+  output: relay
+  device_type: router
+  stock_model_name: TS000F
+  stock_manufacturer_name: _TZ3218_ya5d6wth
+  stock_converter_manufacturer: Mumubiz
+  stock_converter_model: TYZGTH4CH-D1RF
+  override_z2m_device: TYZGTH4CH-D1RF
+  tuya_module: ZT3L
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: ya5d6wth;TS000F-TH4;LB7i;SD4u;RC2;SC0u;RC3;SA0u;RD7;SC4u;RD2;M;WB5;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: null
+  stock_image_type: null
+  firmware_image_type: 47119
+  build: yes
+  status: mostly_supported
+  info: Up to 8 DS18B20 or DS2438 sensors on B5, any mix. 433 MHz receiver is not supported
+  threads: null
+  store: https://www.amazon.com/Temperature-Monitoring-Contact-Control-Waterproof/dp/B0DHG5FGZY
 DIN_RELAY_TUYA_TS011F_PM:
   human_name: Tuya DIN circuit breaker PM
   category: din_relay
