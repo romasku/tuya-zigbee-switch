@@ -8,6 +8,12 @@ Please describe what you are working on, under ## Upcoming
 
 ------------------------------------------------------->
 
+## Upcoming
+
+### New devices
+
+- AVATTO ZTS02RD-US-W4 ZT3L (`_TZ3000_c6fzuhdc`, `SWITCH_AVATTO_TOUCH_TS0004_C6FZUHDC`). Newer 4-gang touch revision on a ZT3L module. Same stock OTA manufacturer code and image type as `_TZ3000_eeswvvtm`, different pinout. Backlight is C0, active low.
+
 ## 1.1.3
 
 ### Features

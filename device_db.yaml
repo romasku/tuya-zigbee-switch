@@ -4128,6 +4128,33 @@ SWITCH_AVATTO_TOUCH_TS0004:
   info: Backlight on C4
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/41
   store: https://www.aliexpress.com/item/1005007097427150.html
+SWITCH_AVATTO_TOUCH_TS0004_C6FZUHDC:
+  human_name: AVATTO ZTS02RD-US-W4 ZT3L
+  category: switch
+  power: mains
+  neutral: required
+  output: null
+  device_type: router
+  stock_model_name: TS0004
+  stock_manufacturer_name: _TZ3000_c6fzuhdc
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS0004
+  override_z2m_device: null
+  tuya_module: ZT3L
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: c6fzuhdc;TS0004-AVT2;LC0i;SD4u;RC3;SB7u;RC4;SA0u;RD2;SB4u;RD7;M;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
+  firmware_image_type: 47119
+  build: yes
+  status: fully_supported
+  info: Backlight on C0i. Buttons right, bottom, left, top.
+  threads: null
+  store: https://www.aliexpress.com/item/1005007097427150.html
 SWITCH_BSEED_TOUCH_BACKLIGHT_TS0001:
   human_name: BSEED dim-backlight 1-gang touch switch
   category: switch
