@@ -4143,7 +4143,7 @@ SWITCH_AVATTO_TOUCH_TS0004_C6FZUHDC:
   tuya_module: ZT3L
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: c6fzuhdc;TS0004-AVT2;LC0i;SD4u;RC3;SB7u;RC4;SA0u;RD2;SB4u;RD7;M;
+  config_str: c6fzuhdc;TS0004-AVT2;LC0i;SB4u;RD7;SA0u;RD2;SD4u;RC3;SB7u;RC4;M;
   alt_config_str: null
   old_manufacturer_names: null
   old_zb_models: null
@@ -4152,7 +4152,7 @@ SWITCH_AVATTO_TOUCH_TS0004_C6FZUHDC:
   firmware_image_type: 47119
   build: yes
   status: fully_supported
-  info: Backlight on C0i. Buttons right, bottom, left, top.
+  info: Backlight on C0i. Buttons top, left, right, bottom (L1-L4).
   threads: null
   store: https://www.aliexpress.com/item/1005007097427150.html
 SWITCH_BSEED_TOUCH_BACKLIGHT_TS0001:
