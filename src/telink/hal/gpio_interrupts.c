@@ -45,9 +45,9 @@ static void enable_all_gpio_irqs() {
     }
 }
 
-static void ensure_valid_edges() {
+// Read the current level of all pins that have a callback registered
+static uint32_t read_used_pins_state() {
     uint32_t current_state = 0;
-    uint32_t prev_state    = 0;
     uint32_t used_pin_mask = 0;
 
     for (gpio_callback_info_t *info = gpio_callbacks;
@@ -57,8 +57,16 @@ static void ensure_valid_edges() {
         }
     }
     drv_gpio_read_all((uint8_t *)&current_state);
-    current_state &= used_pin_mask;
-    uint8_t tries = 0;
+    return current_state & used_pin_mask;
+}
+
+// Arm the IRQ edge of every pin to fire on its next level change.
+// Returns the pin state the edges were armed for.
+static uint32_t ensure_valid_edges() {
+    uint32_t current_state = read_used_pins_state();
+    uint32_t prev_state    = 0;
+    uint8_t  tries         = 0;
+
     do {
         prev_state = current_state;
         for (gpio_callback_info_t *info = gpio_callbacks;
@@ -71,15 +79,39 @@ static void ensure_valid_edges() {
                            ? GPIO_FALLING_EDGE
                            : GPIO_RISING_EDGE);
         }
-        drv_gpio_read_all((uint8_t *)&current_state);
-        current_state &= used_pin_mask;
+        current_state = read_used_pins_state();
         tries++;
     } while (current_state != prev_state && tries < MAX_REARM_TRIES);
+
+    return prev_state;
+}
+
+static u8 pause = 3;
+
+static uint8_t next_pause() {
+    uint8_t p = pause;
+
+    pause = (pause * 3) % 7; // Avoid constant delay to reduce chance of
+                             // repeated collisions if bounces are periodic
+                             // e.g. AC mains hum
+    return p;
 }
 
 static void gpio_dispatch_handler(void *arg) {
-    ensure_valid_edges();
+    uint32_t armed_state = ensure_valid_edges();
+
     enable_all_gpio_irqs();
+
+    // A pin that changed between arming its edge and enabling the IRQ (easy
+    // to hit while the contact bounces) is now armed for an edge that has
+    // already happened, so its next change would never raise an interrupt.
+    // The callbacks below still see the new level, but the one after that
+    // would be lost, e.g. a release right after a press, which the button
+    // code would turn into a long press. Re-run the dispatch to re-arm.
+    if (read_used_pins_state() != armed_state) {
+        disable_all_gpio_irqs();
+        hal_tasks_schedule(&gpio_dispatch_task, next_pause());
+    }
 
     for (gpio_callback_info_t *info = gpio_callbacks;
          info < gpio_callbacks + MAX_GPIO_CALLBACKS; info++) {
@@ -90,15 +122,10 @@ static void gpio_dispatch_handler(void *arg) {
     }
 }
 
-static u8 pause = 3;
-
 static void gpio_isr_callback(void) {
     // Schedule with small delay, and disable further IRQs until dispatched
     // So that constantly bouncing pins don't flood the system with interrupts
-    hal_tasks_schedule(&gpio_dispatch_task, pause);
-    pause = (pause * 3) % 7; // Avoid constant delay to reduce chance of
-                             // repeated collisions if bounces are periodic
-                             // e.g. AC mains hum
+    hal_tasks_schedule(&gpio_dispatch_task, next_pause());
     disable_all_gpio_irqs();
 }
 

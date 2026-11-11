@@ -124,6 +124,18 @@ hal_gpio_pull_t hal_gpio_parse_pull(const char *pull_str) {
 
 // Stub-specific functions for testing
 
+// Change an input pin without invoking its callback, like a level change
+// whose edge interrupt was missed on real hardware
+void stub_gpio_simulate_input_silent(hal_gpio_pin_t gpio_pin, uint8_t value) {
+    if (gpio_pin >= MAX_GPIO_PINS) {
+        io_log("GPIO", "Error: Invalid input pin %d for simulation", gpio_pin);
+        return;
+    }
+
+    gpio_pins[gpio_pin].value = value;
+    io_log("GPIO", "Silently simulated input pin %d = %d", gpio_pin, value);
+}
+
 void stub_gpio_simulate_input(hal_gpio_pin_t gpio_pin, uint8_t value) {
     if (gpio_pin >= MAX_GPIO_PINS) {
         io_log("GPIO", "Error: Invalid input pin %d for simulation", gpio_pin);

@@ -8,6 +8,7 @@
 // GPIO stub functions
 void stub_gpio_enable_debug(int enable);
 void stub_gpio_simulate_input(hal_gpio_pin_t gpio_pin, uint8_t value);
+void stub_gpio_simulate_input_silent(hal_gpio_pin_t gpio_pin, uint8_t value);
 uint8_t stub_gpio_get_output(hal_gpio_pin_t gpio_pin);
 
 // Tasks stub functions

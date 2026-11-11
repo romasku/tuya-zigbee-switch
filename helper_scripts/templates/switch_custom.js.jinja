@@ -8,6 +8,7 @@ const {
     windowCovering,
 } = require("zigbee-herdsman-converters/lib/modernExtend");
 const {assertString} = require("zigbee-herdsman-converters/lib/utils");
+const exposes = require("zigbee-herdsman-converters/lib/exposes");
 const reporting = require("zigbee-herdsman-converters/lib/reporting");
 const constants = require("zigbee-herdsman-converters/lib/constants");
 const Zcl = require('zigbee-herdsman').Zcl;
@@ -117,6 +118,44 @@ const romasku = {
             description: "Action of the switch: 'released' or 'press' or 'long_press'",
             entityCategory: "diagnostic",
         }),
+    // Button events of all switches of the device as the standard `action`
+    // property. Unlike `<switch>_press_action` (the current state of the
+    // switch, which Z2M keeps in the device state and repeats in every
+    // message), `action` is an event: Z2M republishes it to the
+    // `<device>/action` MQTT topic and creates Home Assistant device triggers
+    // for it. Values (per switch endpoint): press, release, long_press,
+    // long_release, position_on, position_off.
+    switchActions: (endpointNames) => {
+        const lookup = { release: 0, press: 1, long_press: 2, position_on: 3, position_off: 4 };
+        const longRelease = "long_release";
+        const actions = [...Object.keys(lookup), longRelease]
+            .flatMap((action) => endpointNames.map((endpointName) => `${action}_${endpointName}`));
+        const lastValue = new Map();
+        return {
+            isModernExtend: true,
+            exposes: [exposes.presets.action(actions)],
+            fromZigbee: [
+                {
+                    cluster: "genMultistateInput",
+                    type: ["attributeReport"],
+                    convert: (model, msg, publish, options, meta) => {
+                        if (msg.data.presentValue === undefined) return;
+                        const endpoints = model.endpoint ? model.endpoint(meta.device) : {};
+                        const endpointName = Object.keys(endpoints).find((name) => endpoints[name] === msg.endpoint.ID);
+                        if (!endpointNames.includes(endpointName)) return;
+                        const value = msg.data.presentValue;
+                        const key = `${meta.device.ieeeAddr}/${msg.endpoint.ID}`;
+                        const previous = lastValue.get(key);
+                        lastValue.set(key, value);
+                        let action = Object.keys(lookup).find((name) => lookup[name] === value);
+                        if (action === undefined) return;
+                        if (value === lookup.release && previous === lookup.long_press) action = longRelease;
+                        return { action: `${action}_${endpointName}` };
+                    },
+                },
+            ],
+        };
+    },
     relayIndicatorMode: (name, endpointName) =>
         enumLookup({
             name,
@@ -459,6 +498,9 @@ const definitions = [
             {% endif%}
             {% if device.relayNames %}
             onOff({ endpointNames: {{device.relayNames | tojson }} }),
+            {% endif %}
+            {% if device.switchNames %}
+            romasku.switchActions({{device.switchNames | tojson }}),
             {% endif %}
             {% for switchName in device.switchNames %}
             romasku.pressAction("{{switchName}}_press_action", "{{switchName}}"),

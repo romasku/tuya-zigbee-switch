@@ -117,9 +117,9 @@ static int cmd_net(int argc, char **argv) {
     return 0;
 }
 
-static int cmd_pin(int argc, char **argv) {
+static int cmd_pin_impl(int argc, char **argv, bool silent) {
     if (argc != 3) {
-        fprintf(stderr, "Usage: p <pin> <0|1>\n");
+        fprintf(stderr, "Usage: %s <pin> <0|1>\n", argv[0]);
         io_res_err("usage");
         return -1;
     }
@@ -136,10 +136,24 @@ static int cmd_pin(int argc, char **argv) {
         io_res_err("bad_value=%s", argv[2]);
         return -1;
     }
-    stub_gpio_simulate_input((int)pin, (int)val);
+    if (silent) {
+        stub_gpio_simulate_input_silent((int)pin, (int)val);
+    } else {
+        stub_gpio_simulate_input((int)pin, (int)val);
+    }
     printf("Pin %ld <= %ld\n", pin, val);
     io_res_ok("pin=%ld value=%ld", pin, val);
     return 0;
+}
+
+static int cmd_pin(int argc, char **argv) {
+    return cmd_pin_impl(argc, argv, false);
+}
+
+// Change a pin without triggering its GPIO callback (simulates a missed edge
+// interrupt)
+static int cmd_pin_silent(int argc, char **argv) {
+    return cmd_pin_impl(argc, argv, true);
 }
 
 static int cmd_zcl_list_attrs(int argc, char **argv) {
@@ -385,6 +399,7 @@ static const SimpleReplCommand kCmds[] = {
     { "status",              cmd_status              },
     { "net",                 cmd_net                 },
     { "set_pin",             cmd_pin                 },
+    { "set_pin_silent",      cmd_pin_silent          },
     { "read_pin",            cmd_read_pin            },
     { "zcl_read",            cmd_zcl_read            },
     { "zcl_write",           cmd_zcl_write           },

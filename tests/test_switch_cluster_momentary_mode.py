@@ -1,6 +1,6 @@
 import pytest
 
-from tests.conftest import Device, RelayButtonPair
+from tests.conftest import DEBOUNCE_MS, Device, RelayButtonPair
 from tests.zcl_consts import (
     ZCL_ATTR_ONOFF_CONFIGURATION_SWITCH_LEVEL_MOVE_RATE,
     ZCL_ATTR_ONOFF_CONFIGURATION_SWITCH_LONG_PRESS_DUR,
@@ -536,6 +536,119 @@ def test_momentary_mode_multistate_value(
 
     momentary_device.release_button(relay_button_pair.button_pin)
 
+    assert (
+        momentary_device.zcl_switch_get_multistate_value(
+            relay_button_pair.switch_endpoint
+        )
+        == "0"
+    )
+
+
+def test_momentary_mode_missed_release_edge_before_long_press(
+    momentary_device: Device, relay_button_pair: RelayButtonPair
+):
+    """A release whose GPIO edge interrupt got lost must be picked up by
+    re-reading the pin, instead of turning the short press into a long press."""
+    momentary_device.zcl_switch_relay_mode_set(
+        relay_button_pair.switch_endpoint, ZCL_ONOFF_CONFIGURATION_RELAY_MODE_SHORT
+    )
+    momentary_device.freeze_time()
+    momentary_device.press_button(relay_button_pair.button_pin)
+    assert (
+        momentary_device.zcl_switch_get_multistate_value(
+            relay_button_pair.switch_endpoint
+        )
+        == "1"
+    )
+
+    # Release without a GPIO callback, like an edge lost on real hardware
+    momentary_device.set_gpio_silent(relay_button_pair.button_pin, 1)
+    momentary_device.step_time(50)  # held-button poll notices the new level
+    momentary_device.step_time(DEBOUNCE_MS + 10)  # ... and debounces it
+
+    assert (
+        momentary_device.zcl_switch_get_multistate_value(
+            relay_button_pair.switch_endpoint
+        )
+        == "0"
+    )
+    # Short press action was performed on the recovered release
+    assert momentary_device.get_gpio(relay_button_pair.relay_pin) == 1
+
+    # No long press afterwards
+    momentary_device.step_time(2_000)
+    assert (
+        momentary_device.zcl_switch_get_multistate_value(
+            relay_button_pair.switch_endpoint
+        )
+        == "0"
+    )
+
+    # Next press is handled normally
+    momentary_device.press_button(relay_button_pair.button_pin)
+    assert (
+        momentary_device.zcl_switch_get_multistate_value(
+            relay_button_pair.switch_endpoint
+        )
+        == "1"
+    )
+    momentary_device.release_button(relay_button_pair.button_pin)
+    assert (
+        momentary_device.zcl_switch_get_multistate_value(
+            relay_button_pair.switch_endpoint
+        )
+        == "0"
+    )
+    assert momentary_device.get_gpio(relay_button_pair.relay_pin) == 0
+
+
+def test_momentary_mode_missed_release_edge_after_long_press(
+    momentary_device: Device, relay_button_pair: RelayButtonPair
+):
+    """A release lost after a long press must still end the long press."""
+    momentary_device.freeze_time()
+    momentary_device.press_button(relay_button_pair.button_pin)
+    momentary_device.step_time(2_000)  # Long press
+    assert (
+        momentary_device.zcl_switch_get_multistate_value(
+            relay_button_pair.switch_endpoint
+        )
+        == "2"
+    )
+
+    momentary_device.set_gpio_silent(relay_button_pair.button_pin, 1)
+    momentary_device.step_time(250)  # slow held-button poll
+    momentary_device.step_time(DEBOUNCE_MS + 10)
+
+    assert (
+        momentary_device.zcl_switch_get_multistate_value(
+            relay_button_pair.switch_endpoint
+        )
+        == "0"
+    )
+
+
+def test_momentary_mode_long_press_timing_is_kept(
+    momentary_device: Device, relay_button_pair: RelayButtonPair
+):
+    """Polling while held must not change when the long press fires."""
+    momentary_device.freeze_time()
+    momentary_device.press_button(relay_button_pair.button_pin)  # 60 ms in
+    momentary_device.step_time(800 - 60 - 10)
+    assert (
+        momentary_device.zcl_switch_get_multistate_value(
+            relay_button_pair.switch_endpoint
+        )
+        == "1"
+    )
+    momentary_device.step_time(10)
+    assert (
+        momentary_device.zcl_switch_get_multistate_value(
+            relay_button_pair.switch_endpoint
+        )
+        == "2"
+    )
+    momentary_device.release_button(relay_button_pair.button_pin)
     assert (
         momentary_device.zcl_switch_get_multistate_value(
             relay_button_pair.switch_endpoint
