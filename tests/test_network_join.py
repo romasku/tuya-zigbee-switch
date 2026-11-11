@@ -83,8 +83,9 @@ def test_led_blinks_after_kicked() -> None:
         ("A;B;SA0u;RB1;", "A0"),
         ("A;B;XA0A1u;CB0B1;", "A0"),
         ("A;B;XA0A1u;CB0B1;", "A1"),
+        ("A;B;XA0A1uA2u;CB0B1;", "A2"),
     ],
-    ids=["switch", "cover_switch_open", "cover_switch_close"],
+    ids=["switch", "cover_switch_open", "cover_switch_close", "cover_switch_stop"],
 )
 def test_leaves_on_multipress(device_config: str, button: str) -> None:
     with StubProc(device_config=device_config) as proc:
