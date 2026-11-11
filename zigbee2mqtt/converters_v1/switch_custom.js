@@ -160,6 +160,53 @@ const romasku = {
         };
         return result;
     },
+    scaledMeasurement: ({name, cluster, attribute, unit, divisor, precision, endpointName, access = "STATE"}) => {
+        const result = numeric({name, cluster, attribute, unit, precision, access, endpointName});
+        const origConvert = result.fromZigbee[0].convert;
+        result.fromZigbee[0].convert = (model, msg, publish, options, meta) => {
+            const response = origConvert(model, msg, publish, options, meta);
+            if (response?.[name] !== undefined && response?.[name] !== null)
+                response[name] = response[name] / divisor;
+            return response;
+        };
+        return result;
+    },
+    calibrate: ({name, attribute, unit, multiplier, valueMax, valueStep, description, endpointName}) => {
+        const result = numeric({name, cluster: "haElectricalMeasurement", attribute, unit, description, access: "ALL", valueMin: 0, valueMax, valueStep, entityCategory: "config", endpointName});
+        const origConvertSet = result.toZigbee[0].convertSet;
+        result.toZigbee[0].convertSet = async (entity, key, value, meta) => {
+            const response = await origConvertSet(entity, key, Math.round(Number(value) * multiplier), meta);
+            if (response?.state?.[name] !== undefined) response.state[name] = 0;
+            return response;
+        };
+        const origConvert = result.fromZigbee[0].convert;
+        result.fromZigbee[0].convert = (model, msg, publish, options, meta) => {
+            const response = origConvert(model, msg, publish, options, meta);
+            if (response?.[name] !== undefined && response?.[name] !== null) {
+                const raw = Number(response[name]);
+                response[name] = raw === 0 ? 0 : raw / multiplier;
+            }
+            return response;
+        };
+        return result;
+    },
+    calibrationValues: (name, endpointName) =>
+        text({name, endpointName, access: "ALL", cluster: "haElectricalMeasurement", attribute: {ID: 0xFF20, type: 0x42}, entityCategory: "config"}),
+    overloadSetting: ({name, attribute, unit, scale, valueMin, valueMax, valueStep, description, endpointName}) => {
+        const result = numeric({name, cluster: "haElectricalMeasurement", attribute, unit, description, access: "ALL", valueMin, valueMax, valueStep, entityCategory: "config", endpointName});
+        if (scale !== 1) {
+            const origSet = result.toZigbee[0].convertSet;
+            result.toZigbee[0].convertSet = async (entity, key, value, meta) => await origSet(entity, key, Math.round(Number(value) * scale), meta);
+            const origConvert = result.fromZigbee[0].convert;
+            result.fromZigbee[0].convert = (model, msg, publish, options, meta) => {
+                const response = origConvert(model, msg, publish, options, meta);
+                if (response?.[name] !== undefined && response?.[name] !== null) response[name] = response[name] / scale;
+                return response;
+            };
+        }
+        return result;
+    },
+    overloadAlarm: (name, endpointName) => enumLookup({name, endpointName, cluster: "haElectricalMeasurement", attribute: {ID: 0xFF36, type: 0x30}, access: "STATE_GET", lookup: {none: 0, power: 1, current: 2, peak: 3, voltage_high: 4, voltage_low: 5, locked_out: 6}, entityCategory: "diagnostic"}),
     networkIndicator: (name, endpointName) =>
         binary({
             name,
@@ -218,6 +265,12 @@ const romasku = {
                         }
                     } else if (part.startsWith('BT')) {
                         validatePin(part.slice(2,4));
+                    } else if (part.startsWith('EP')) {
+                        validatePin(part.slice(2,4));
+                        validatePin(part.slice(4,6));
+                        validatePin(part.slice(6,8));
+                    } else if (part.startsWith('OL')) {
+                        if (!/^OL(C\d+)?(P\d+)?$/.test(part)) throw new Error(`Invalid overload option ${part}`);
                     } else if (part[0] == 'B' || part[0] == 'S') {
                         validatePin(part.slice(1,3));
                         if (!["u", "U", "d", "f"].includes(part[3])) {
@@ -239,7 +292,7 @@ const romasku = {
                     } else if(part[0] == 'i') {
                         ; // TODO: write validation
                     } else {
-                        throw new Error(`Invalid entry ${part}. Should start with one of B, BT, C, D, I, L, M, R, S, SLP, X, i`);
+                        throw new Error(`Invalid entry ${part}. Should start with one of B, BT, C, D, EP, I, L, M, OL, R, S, SLP, X, i`);
                     }
                 }
             },
@@ -7597,6 +7650,25 @@ const definitions = [
             romasku.multiPressResetCount("multi_press_reset_count", "switch"),
             romasku.networkIndicator("network_led", "switch"),
             onOff({ endpointNames: ["relay"] }),
+            romasku.scaledMeasurement({name: "voltage", cluster: "haElectricalMeasurement", attribute: "rmsVoltage", unit: "V", divisor: 100, precision: 2, access: "STATE_GET", endpointName: "switch"}),
+            romasku.scaledMeasurement({name: "current", cluster: "haElectricalMeasurement", attribute: "rmsCurrent", unit: "A", divisor: 1000, precision: 3, access: "STATE_GET", endpointName: "switch"}),
+            numeric({name: "power", cluster: "haElectricalMeasurement", attribute: "activePower", unit: "W", access: "STATE_GET", endpointName: "switch"}),
+            numeric({name: "apparent_power", cluster: "haElectricalMeasurement", attribute: "apparentPower", unit: "VA", access: "STATE_GET", endpointName: "switch"}),
+            numeric({name: "reactive_power", cluster: "haElectricalMeasurement", attribute: "reactivePower", unit: "var", access: "STATE_GET", endpointName: "switch"}),
+            numeric({name: "power_factor", cluster: "haElectricalMeasurement", attribute: "powerFactor", unit: "%", access: "STATE_GET", endpointName: "switch"}),
+            romasku.scaledMeasurement({name: "energy", cluster: "seMetering", attribute: "currentSummDelivered", unit: "kWh", divisor: 1000, precision: 3, access: "STATE_GET", endpointName: "switch"}),
+            binary({name: "reset_energy", cluster: "seMetering", attribute: {ID: 0xF000, type: 0x20}, valueOn: ["RESET", 1], valueOff: ["OFF", 0], access: "ALL", entityCategory: "config", endpointName: "switch"}),
+            romasku.calibrate({name: "calibrate_voltage", attribute: {ID: 0xFF10, type: 0x21}, unit: "V", multiplier: 100, valueMax: 655, valueStep: 0.01, endpointName: "switch"}),
+            romasku.calibrate({name: "calibrate_current", attribute: {ID: 0xFF11, type: 0x21}, unit: "A", multiplier: 1000, valueMax: 65, valueStep: 0.001, endpointName: "switch"}),
+            romasku.calibrate({name: "calibrate_power", attribute: {ID: 0xFF12, type: 0x21}, unit: "W", multiplier: 1, valueMax: 65535, valueStep: 1, endpointName: "switch"}),
+            romasku.calibrationValues("calibration_values", "switch"),
+            romasku.overloadSetting({name: "overload_power_limit", attribute: {ID: 0xFF30, type: 0x21}, unit: "W", scale: 1, valueMin: 100, valueMax: 3680, valueStep: 10, endpointName: "switch"}),
+            romasku.overloadSetting({name: "overload_current_limit", attribute: {ID: 0xFF31, type: 0x21}, unit: "A", scale: 1000, valueMin: 1, valueMax: 16, valueStep: 0.5, endpointName: "switch"}),
+            romasku.overloadSetting({name: "overload_trip_delay", attribute: {ID: 0xFF32, type: 0x21}, unit: "s", scale: 1, valueMin: 0, valueMax: 3600, valueStep: 1, endpointName: "switch"}),
+            romasku.overloadSetting({name: "overvoltage_warn", attribute: {ID: 0xFF33, type: 0x21}, unit: "V", scale: 100, valueMin: 230, valueMax: 280, valueStep: 1, endpointName: "switch"}),
+            romasku.overloadSetting({name: "undervoltage_warn", attribute: {ID: 0xFF34, type: 0x21}, unit: "V", scale: 100, valueMin: 150, valueMax: 240, valueStep: 1, endpointName: "switch"}),
+            romasku.overloadSetting({name: "overload_reconnect_delay", attribute: {ID: 0xFF35, type: 0x21}, unit: "s", scale: 1, valueMin: 5, valueMax: 3600, valueStep: 1, endpointName: "switch"}),
+            romasku.overloadAlarm("overload_alarm", "switch"),
             romasku.pressAction("switch_press_action", "switch"),
             romasku.switchMode("switch_mode", "switch"),
             romasku.switchAction("switch_action_mode", "switch"),
@@ -7635,6 +7707,22 @@ const definitions = [
                     maximumReportInterval: constants.repInterval.MAX,
                     reportableChange: 1,
                 },
+            ]);
+
+            const emEndpoint = device.getEndpoint(1);
+            await reporting.bind(emEndpoint, coordinatorEndpoint, ["haElectricalMeasurement", "seMetering"]);
+            await emEndpoint.configureReporting("haElectricalMeasurement", [
+                {attribute: "rmsVoltage", minimumReportInterval: 10, maximumReportInterval: 36000, reportableChange: 500},
+                {attribute: "rmsCurrent", minimumReportInterval: 5, maximumReportInterval: 36000, reportableChange: 50},
+                {attribute: "activePower", minimumReportInterval: 5, maximumReportInterval: 36000, reportableChange: 5},
+                {attribute: "apparentPower", minimumReportInterval: 5, maximumReportInterval: 36000, reportableChange: 5},
+                {attribute: "reactivePower", minimumReportInterval: 5, maximumReportInterval: 36000, reportableChange: 5},
+                {attribute: "powerFactor", minimumReportInterval: 10, maximumReportInterval: 36000, reportableChange: 5},
+                {attribute: {ID: 0xFF36, type: 0x30}, minimumReportInterval: 0, maximumReportInterval: 3600, reportableChange: 0},
+            ]);
+            await emEndpoint.read("haElectricalMeasurement", [0xFF36]);
+            await emEndpoint.configureReporting("seMetering", [
+                {attribute: "currentSummDelivered", minimumReportInterval: 0, maximumReportInterval: 36000, reportableChange: 10},
             ]);
 
 

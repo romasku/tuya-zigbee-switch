@@ -173,6 +173,18 @@
           "type": "integer",
           "description": "Firmware image type identifier"
         },
+        "hlw8012_voltage_multiplier": {
+          "type": "integer",
+          "description": "Default HLW8012/BL0937 voltage multiplier"
+        },
+        "hlw8012_current_multiplier": {
+          "type": "integer",
+          "description": "Default HLW8012/BL0937 current multiplier"
+        },
+        "hlw8012_power_multiplier": {
+          "type": "integer",
+          "description": "Default HLW8012/BL0937 power multiplier"
+        },
         "build": {
           "type": "string",
           "enum": ["yes", "no"],

@@ -22,6 +22,10 @@ OTA_VERSION ?=
 OTA_MANUFACTURER_ID ?= ${MANUFACTURER_ID}
 OTA_IMAGE_TYPE ?= ${IMAGE_TYPE}
 
+HLW8012_VOLTAGE_MULTIPLIER ?=
+HLW8012_CURRENT_MULTIPLIER ?=
+HLW8012_POWER_MULTIPLIER ?=
+
 # Toolchain paths
 SDK_PATH := $(TELINK_TOOLS_DIR)/sdk
 TOOLCHAIN_PATH := $(TELINK_TOOLS_DIR)/toolchain/tc32
@@ -89,7 +93,10 @@ DEVICE_DEFS := \
 	-DDEFAULT_CONFIG="$(CONFIG_STR)" \
 	-DIMAGE_TYPE=$(IMAGE_TYPE) \
 	-DHAL_TELINK \
-	$(TEL_CHIP) 
+	$(TEL_CHIP) \
+	$(if $(HLW8012_VOLTAGE_MULTIPLIER),-DHLW8012_VOLTAGE_MULTIPLIER=$(HLW8012_VOLTAGE_MULTIPLIER)) \
+	$(if $(HLW8012_CURRENT_MULTIPLIER),-DHLW8012_CURRENT_MULTIPLIER=$(HLW8012_CURRENT_MULTIPLIER)) \
+	$(if $(HLW8012_POWER_MULTIPLIER),-DHLW8012_POWER_MULTIPLIER=$(HLW8012_POWER_MULTIPLIER))
 
 ifeq ($(DEBUG), 1)
 	DEVICE_DEFS := $(DEVICE_DEFS) -DUART_PRINTF_MODE=1
@@ -129,6 +136,7 @@ TELINK_SOURCES := \
 	hal/timer.c \
 	hal/tasks.c \
 	hal/gpio.c \
+	hal/gpio_counter.c \
 	hal/gpio_interrupts.c \
 	hal/nvm.c \
 	hal/zigbee.c \
@@ -152,6 +160,8 @@ COMMON_SOURCES := \
 	$(SRC_DIR)/base_components/network_indicator.c \
 	$(SRC_DIR)/base_components/relay.c \
 	$(SRC_DIR)/base_components/battery.c \
+	$(SRC_DIR)/base_components/energy_measurement/hlw8012.c \
+	$(SRC_DIR)/base_components/overload_protection.c \
 	$(SRC_DIR)/device_config/config_nv.c \
 	$(SRC_DIR)/device_config/device_params_nv.c \
 	$(SRC_DIR)/device_config/reset.c \
@@ -164,7 +174,9 @@ COMMON_SOURCES := \
 	$(SRC_DIR)/zigbee/switch_cluster.c \
 	$(SRC_DIR)/zigbee/cover_switch_cluster.c \
 	$(SRC_DIR)/zigbee/cover_cluster.c \
-	$(SRC_DIR)/zigbee/battery_cluster.c 
+	$(SRC_DIR)/zigbee/battery_cluster.c \
+	$(SRC_DIR)/zigbee/electrical_measurement_cluster.c \
+	$(SRC_DIR)/zigbee/metering_cluster.c
 
 # All application sources
 ALL_TELINK_SOURCES := $(TELINK_SOURCES) $(COMMON_SOURCES)

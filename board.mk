@@ -65,6 +65,9 @@ CONFIG_STR := $(shell yq -r .$(BOARD).config_str $(DEVICE_DB_FILE))
 FROM_STOCK_MANUFACTURER_ID := $(shell yq -r .$(BOARD).stock_manufacturer_id $(DEVICE_DB_FILE))
 FROM_STOCK_IMAGE_TYPE := $(shell yq -r .$(BOARD).stock_image_type $(DEVICE_DB_FILE))
 FIRMWARE_IMAGE_TYPE := $(shell yq -r .$(BOARD).firmware_image_type $(DEVICE_DB_FILE))
+HLW8012_VOLTAGE_MULTIPLIER := $(filter-out null,$(shell yq -r .$(BOARD).hlw8012_voltage_multiplier $(DEVICE_DB_FILE)))
+HLW8012_CURRENT_MULTIPLIER := $(filter-out null,$(shell yq -r .$(BOARD).hlw8012_current_multiplier $(DEVICE_DB_FILE)))
+HLW8012_POWER_MULTIPLIER := $(filter-out null,$(shell yq -r .$(BOARD).hlw8012_power_multiplier $(DEVICE_DB_FILE)))
 
 # ==============================================================================
 # Platform Configuration
@@ -106,6 +109,9 @@ ifeq ($(PLATFORM_PREFIX),silabs)
 		DEVICE_TYPE=$(DEVICE_TYPE) \
 		CONFIG_STR="$(CONFIG_STR)" \
 		IMAGE_TYPE=$(FIRMWARE_IMAGE_TYPE) \
+		HLW8012_VOLTAGE_MULTIPLIER=$(HLW8012_VOLTAGE_MULTIPLIER) \
+		HLW8012_CURRENT_MULTIPLIER=$(HLW8012_CURRENT_MULTIPLIER) \
+		HLW8012_POWER_MULTIPLIER=$(HLW8012_POWER_MULTIPLIER) \
 		BIN_FILE=../../$(BIN_FILE) \
 		MCU=$(MCU) 
 endif
@@ -119,6 +125,9 @@ endif
 		DEVICE_TYPE=$(DEVICE_TYPE) \
 		CONFIG_STR="$(CONFIG_STR)" \
 		IMAGE_TYPE=$(FIRMWARE_IMAGE_TYPE) \
+		HLW8012_VOLTAGE_MULTIPLIER=$(HLW8012_VOLTAGE_MULTIPLIER) \
+		HLW8012_CURRENT_MULTIPLIER=$(HLW8012_CURRENT_MULTIPLIER) \
+		HLW8012_POWER_MULTIPLIER=$(HLW8012_POWER_MULTIPLIER) \
 		BIN_FILE=../../$(BIN_FILE) \
 		 -j32
 

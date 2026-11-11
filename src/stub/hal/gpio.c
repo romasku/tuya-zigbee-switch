@@ -178,3 +178,70 @@ void ensure_valid_output_pin(hal_gpio_pin_t gpio_pin) {
         exit(1);
     }
 }
+
+#define MAX_GPIO_COUNTERS    2
+
+typedef struct {
+    uint8_t        initialized;
+    uint32_t       value;
+    hal_gpio_pin_t gpio_pin;
+} stub_gpio_counter_t;
+
+static stub_gpio_counter_t gpio_counters[MAX_GPIO_COUNTERS];
+
+hal_gpio_counter_t hal_gpio_counter_init(hal_gpio_pin_t gpio_pin,
+                                         hal_gpio_counter_edge_t edge,
+                                         hal_gpio_pull_t pull) {
+    (void)edge;
+    (void)pull;
+    for (int i = 0; i < MAX_GPIO_COUNTERS; i++) {
+        if (!gpio_counters[i].initialized) {
+            gpio_counters[i].initialized = 1;
+            gpio_counters[i].value       = 0;
+            gpio_counters[i].gpio_pin    = gpio_pin;
+            return (hal_gpio_counter_t)i;
+        }
+    }
+    return HAL_GPIO_COUNTER_INVALID;
+}
+
+void hal_gpio_counter_deinit(hal_gpio_counter_t counter) {
+    if (counter < 0 || counter >= MAX_GPIO_COUNTERS)
+        return;
+
+    gpio_counters[counter].initialized = 0;
+    gpio_counters[counter].value       = 0;
+    gpio_counters[counter].gpio_pin    = HAL_INVALID_PIN;
+}
+
+uint32_t hal_gpio_counter_read(hal_gpio_counter_t counter) {
+    if (counter < 0 || counter >= MAX_GPIO_COUNTERS ||
+        !gpio_counters[counter].initialized)
+        return 0;
+
+    return gpio_counters[counter].value;
+}
+
+void hal_gpio_counter_reset(hal_gpio_counter_t counter) {
+    if (counter >= 0 && counter < MAX_GPIO_COUNTERS &&
+        gpio_counters[counter].initialized)
+        gpio_counters[counter].value = 0;
+}
+
+void hal_gpio_counter_start(hal_gpio_counter_t counter) {
+    (void)counter;
+}
+
+void hal_gpio_counter_stop(hal_gpio_counter_t counter) {
+    (void)counter;
+}
+
+void stub_set_pulse_counter(hal_gpio_pin_t gpio_pin, uint32_t value) {
+    for (int i = 0; i < MAX_GPIO_COUNTERS; i++) {
+        if (gpio_counters[i].initialized &&
+            gpio_counters[i].gpio_pin == gpio_pin) {
+            gpio_counters[i].value = value;
+            return;
+        }
+    }
+}

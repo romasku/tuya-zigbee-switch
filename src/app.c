@@ -56,6 +56,8 @@ void app_init(void) {
 static bool boot_announce_sent = false;
 
 void app_task() {
+    energy_monitoring_tick();
+
 #ifdef END_DEVICE
     poll_control_cluster_update();
 #endif
@@ -69,5 +71,8 @@ void app_task() {
         hal_zigbee_get_network_status() == HAL_ZIGBEE_NETWORK_JOINED) {
         hal_zigbee_send_announce();
         boot_announce_sent = true;
+    }
+    if (hal_zigbee_get_network_status() == HAL_ZIGBEE_NETWORK_JOINED) {
+        init_energy_reporting();
     }
 }

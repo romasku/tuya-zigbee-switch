@@ -1,4 +1,5 @@
 import argparse
+import re
 from pathlib import Path
 
 import yaml
@@ -45,6 +46,16 @@ if __name__ == "__main__":
         indicators_cnt = 0
         has_dedicated_net_led = False
         has_battery_cluster = False
+        has_energy_meter = all(
+            device.get(key)
+            for key in (
+                "hlw8012_voltage_multiplier",
+                "hlw8012_current_multiplier",
+                "hlw8012_power_multiplier",
+            )
+        )
+        overload_max_current = 16
+        overload_max_power = 3680
         for peripheral in peripherals:
             if peripheral == "SLP" or peripheral == "M":
                 continue
@@ -62,6 +73,14 @@ if __name__ == "__main__":
                 has_dedicated_net_led = True
             if peripheral[:2] == "BT":
                 has_battery_cluster = True
+            if peripheral[:2] in ("EP", "EB"):
+                has_energy_meter = True
+            if peripheral[:2] == "OL":
+                for marker, value in re.findall(r"([CP])(\d+)", peripheral[2:]):
+                    if marker == "P":
+                        peak_ma = int(value)
+                        overload_max_current = round(peak_ma / 1000)
+                        overload_max_power = round(peak_ma * 230 / 1000)
 
         if switch_cnt == 1:
             switch_names = ["switch"]
@@ -117,6 +136,9 @@ if __name__ == "__main__":
                 "coverNames": cover_names,
                 "has_dedicated_net_led": has_dedicated_net_led,
                 "has_battery_cluster": has_battery_cluster,
+                "has_energy_meter": has_energy_meter,
+                "overload_max_current": overload_max_current,
+                "overload_max_power": overload_max_power,
             }
         )
 
