@@ -227,8 +227,11 @@ Custom quirks / converters / extensions:
 _The path differs depending on version/installation method. The parent folder must already exist._  
 The new folder should be at the same level with coordinator_backup.json.  
 3. (Re)place them in `external_converters/`
-4. Restart Z2M to apply
-5. Interview + reconfigure device (does not remove user settings or binds)
+4. Make sure `enable_external_js` is true in Z2M Advanced Settings (or `configuration.yaml`)
+5. Restart Z2M to apply
+6. Interview + reconfigure device (does not remove user settings or binds)
+
+Read more about external converters in the [Z2M documentation](https://www.zigbee2mqtt.io/advanced/more/external_converters.html)
 
 </details>
 
