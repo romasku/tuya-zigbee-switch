@@ -23,3 +23,31 @@ jobs:
           sudo apt-get install -y make python3 python3-pytest
       - name: Run tests
         run: make tests
+
+  image-types-changed:
+    # On PRs, check only entries changed vs the target branch, so pre-existing
+    # duplicates don't turn this permanently red. Re-fetches the base at run
+    # time, so re-running the PR validates against current main.
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install -y make python3 && pip install pyyaml
+      - name: Check changed firmware_image_type entries
+        run: |
+          git fetch origin ${{ github.base_ref }}
+          make tools/check_image_types_changed BASE_REF=origin/${{ github.base_ref }}
+
+  image-types-all:
+    # On main the db is deduplicated, so assert the whole db stays collision-free.
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get install -y make python3 && pip install pyyaml
+      - name: Check all firmware_image_type entries
+        run: make tools/check_image_types_all
