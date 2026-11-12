@@ -13,8 +13,20 @@ SIMPLICITY_SDK_ARCHIVE := simplicity-sdk-$(SIMPLICITY_SDK_VERSION).zip
 SIMPLICITY_SDK_URL := $(SIMPLICITY_SDK_REPO)/releases/download/v$(SIMPLICITY_SDK_VERSION)/simplicity-sdk.zip
 
 # Silicon Labs download URLs
-COMMANDER_URL := https://www.silabs.com/documents/public/software/SimplicityCommander-Linux.zip
+COMMANDER_URL := https://www.silabs.com/documents/login/software/SimplicityCommander-Linux.zip
 SLC_CLI_URL := https://www.silabs.com/documents/public/software/slc_cli_linux.zip
+
+# silabs.com is behind Akamai bot protection, which rejects (403) requests that
+# don't look like a browser navigation. Each of the headers below is required;
+# User-Agent must be passed with -H (not -A) so it isn't in curl's usual position.
+SILABS_USER_AGENT ?= Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36
+SILABS_CURL_HEADERS := \
+	-H 'Accept-Language: en-US,en;q=0.9' \
+	-H 'Sec-Fetch-Dest: document' \
+	-H 'Sec-Fetch-Mode: navigate' \
+	-H 'Sec-Fetch-Site: none' \
+	-H 'Sec-Fetch-User: ?1' \
+	-H 'User-Agent: $(SILABS_USER_AGENT)'
 
 # ZAP tool configuration
 ZAP_VERSION := 2025.10.23
@@ -102,7 +114,7 @@ $(TOOLS_DIR)/commander: | $(DOWNLOAD_DIR)
 	@echo "Downloading Simplicity Commander..."
 	@if [ ! -f "$(DOWNLOAD_DIR)/SimplicityCommander-Linux.zip" ]; then \
 		echo "Attempting to download from: $(COMMANDER_URL)"; \
-		if ! curl -L "$(COMMANDER_URL)" \
+		if ! curl -L $(SILABS_CURL_HEADERS) "$(COMMANDER_URL)" \
 			-o "$(DOWNLOAD_DIR)/SimplicityCommander-Linux.zip" \
 			--fail --show-error --connect-timeout 30; then \
 			echo "Download failed. Please manually download SimplicityCommander-Linux.zip"; \
@@ -146,7 +158,7 @@ $(TOOLS_DIR)/slc-cli: | $(DOWNLOAD_DIR)
 	@echo "Downloading SLC CLI..."
 	@if [ ! -f "$(DOWNLOAD_DIR)/slc_cli_linux.zip" ]; then \
 		echo "Attempting to download from: $(SLC_CLI_URL)"; \
-		if ! curl -L "$(SLC_CLI_URL)" \
+		if ! curl -L $(SILABS_CURL_HEADERS) "$(SLC_CLI_URL)" \
 			-o "$(DOWNLOAD_DIR)/slc_cli_linux.zip" \
 			--fail --show-error --connect-timeout 30; then \
 			echo "Download failed. Please manually download slc_cli_linux.zip"; \
