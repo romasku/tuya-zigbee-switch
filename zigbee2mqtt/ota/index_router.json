@@ -5508,5 +5508,33 @@
       "_TZ3000_rbl8c85w",
       "rbl8c85w"
     ]
+  },
+  {
+    "fileName": "tlc_switch-1.1.3-4ca68fa2-from_tuya.zigbee",
+    "fileVersion": 4294967295,
+    "fileSize": 182210,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/main/bin/router/SWITCH_MOES_STAR_RING_3WAY_TS0001/tlc_switch-1.1.3-4ca68fa2-from_tuya.zigbee",
+    "imageType": 54179,
+    "manufacturerCode": 4417,
+    "sha512": "5fe3bc5e9a726b61dc57d1673682a49c5c85edd22907f0ef4c754b77661b9215af1dcf512bda5b14d2733b61c6a8b51c43ee52509dd94d178d4ad3a3fff81e4a",
+    "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
+    "manufacturerName": [
+      "_TZ3000_afhrm3tu",
+      "afhrm3tu"
+    ]
+  },
+  {
+    "fileName": "tlc_switch-1.1.3-4ca68fa2.zigbee",
+    "fileVersion": 285421568,
+    "fileSize": 182210,
+    "url": "https://github.com/romasku/tuya-zigbee-switch/raw/refs/heads/main/bin/router/SWITCH_MOES_STAR_RING_3WAY_TS0001/tlc_switch-1.1.3-4ca68fa2.zigbee",
+    "imageType": 47119,
+    "manufacturerCode": 4417,
+    "sha512": "529c6efd67595336678794cc30a10d0818807d7d6104a4c2b05be04b8cf88fa794c3abade2ea1ecbd4d2d8d6da1e75b97f5cc6fd252c4e970a238b44a59964dc",
+    "otaHeaderString": "Telink OTA Image\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000",
+    "manufacturerName": [
+      "_TZ3000_afhrm3tu",
+      "afhrm3tu"
+    ]
   }
 ]
