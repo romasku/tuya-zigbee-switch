@@ -33,6 +33,11 @@
 // walks away without stopping the motor.
 #define MANUAL_MODE_TIMEOUT_MS    300000
 
+// Packed into the NVM motor_reversal byte so older layouts (0/1) stay readable.
+// Bit 7 set = position_trusted. Old NVM loads as untrusted and re-homes once.
+#define NV_MOTOR_REVERSAL_MASK       0x01
+#define NV_POSITION_TRUSTED_FLAG     0x80
+
 static zigbee_cover_cluster *      cover_cluster_by_endpoint[10];
 static zigbee_cover_cluster_config nv_config_buffer;
 
@@ -102,6 +107,32 @@ uint16_t cover_to_motor_position(zigbee_cover_cluster *cluster, uint8_t cover_po
     uint32_t closed_deadzone_bp = (uint32_t)cluster->closed_deadzone * 100;
     uint32_t effective_bp       = 10000 - open_deadzone_bp - closed_deadzone_bp;
     return closed_deadzone_bp + (cover_pos * effective_bp) / 100;
+}
+
+/**
+ * True when the action targets a physical end stop (fully open or fully closed).
+ */
+static bool cover_is_end_target(cover_action_t action) {
+    return action == 0 || action == MAX_MOTOR_POSITION;
+}
+
+void cover_cluster_store_attrs_to_nv(zigbee_cover_cluster *cluster);
+
+/**
+ * Persists position. trusted_for_nv=0 marks the saved state as untrusted without
+ * changing the in-RAM flag — used when a movement starts so a mid-move power
+ * loss forces a re-home on the next boot.
+ */
+static void cover_save_state_trusted(zigbee_cover_cluster *cluster, uint8_t trusted_for_nv) {
+    uint8_t saved_trusted = cluster->position_trusted;
+
+    cluster->position_trusted = trusted_for_nv;
+    cover_cluster_store_attrs_to_nv(cluster);
+    cluster->position_trusted = saved_trusted;
+}
+
+static void cover_save_state(zigbee_cover_cluster *cluster) {
+    cover_cluster_store_attrs_to_nv(cluster);
 }
 
 void cover_update_position(zigbee_cover_cluster *cluster) {
@@ -201,8 +232,13 @@ void cover_execute_action(zigbee_cover_cluster *cluster, cover_action_t action) 
         return;
     }
 
+    bool end_target = cover_is_end_target(action);
+    // After an unclean shutdown the tracker may be stale: an end-target move
+    // must re-home (full travel run) even if the tracker already says we are there.
+    bool rehome = end_target && !cluster->position_trusted;
+
     // If we're already at the target position, there's no need to move or update attributes.
-    if (action == cluster->motor_position) {
+    if (action == cluster->motor_position && !rehome) {
         return;
     }
 
@@ -224,16 +260,25 @@ void cover_execute_action(zigbee_cover_cluster *cluster, cover_action_t action) 
         relay_off(cluster->open_relay);
         cluster->last_switch_time = hal_millis();
         cluster->moving           = ZCL_ATTR_WINDOW_COVERING_MOVING_STOPPED;
+        cover_save_state(cluster);
         hal_zigbee_notify_attribute_changed(cluster->endpoint,
                                             ZCL_CLUSTER_WINDOW_COVERING,
                                             ZCL_ATTR_WINDOW_COVERING_MOVING);
         return;
     }
 
-    // Update relays if necessary.
-    uint8_t direction = (action > cluster->motor_position)
-        ? ZCL_ATTR_WINDOW_COVERING_MOVING_OPENING
-        : ZCL_ATTR_WINDOW_COVERING_MOVING_CLOSING;
+    // End targets pick direction from the action itself: when re-homing,
+    // action == motor_position would otherwise pick the wrong direction.
+    uint8_t direction;
+    if (action == MAX_MOTOR_POSITION) {
+        direction = ZCL_ATTR_WINDOW_COVERING_MOVING_OPENING;
+    } else if (action == 0) {
+        direction = ZCL_ATTR_WINDOW_COVERING_MOVING_CLOSING;
+    } else {
+        direction = (action > cluster->motor_position)
+            ? ZCL_ATTR_WINDOW_COVERING_MOVING_OPENING
+            : ZCL_ATTR_WINDOW_COVERING_MOVING_CLOSING;
+    }
     if (direction != cluster->moving) {
         relay_t *open_relay  = cluster->motor_reversal ? cluster->close_relay : cluster->open_relay;
         relay_t *close_relay = cluster->motor_reversal ? cluster->open_relay : cluster->close_relay;
@@ -250,6 +295,8 @@ void cover_execute_action(zigbee_cover_cluster *cluster, cover_action_t action) 
 
         cluster->last_switch_time = hal_millis();
         cluster->moving           = direction;
+        // Persist as untrusted while in motion so a mid-move power loss re-homes.
+        cover_save_state_trusted(cluster, 0);
         hal_zigbee_notify_attribute_changed(cluster->endpoint,
                                             ZCL_CLUSTER_WINDOW_COVERING,
                                             ZCL_ATTR_WINDOW_COVERING_MOVING);
@@ -271,7 +318,8 @@ void cover_execute_action(zigbee_cover_cluster *cluster, cover_action_t action) 
     }
 
     // Schedule the stop task for the travel duration plus OVERRUN_DURATION_MS when the target
-    // is a physical end position.
+    // is a physical end position. When re-homing, always run the full travel time so the
+    // cover reaches the physical end regardless of the stale tracker value.
     cluster->start_motor_position = cluster->motor_position;
     cluster->movement_start_time  = hal_millis();
     uint32_t position_delta;
@@ -282,10 +330,14 @@ void cover_execute_action(zigbee_cover_cluster *cluster, cover_action_t action) 
     }
 
     uint32_t travel_time_ms = cover_travel_time(cluster, direction);
-    uint32_t duration_ms    = (position_delta * travel_time_ms) / MAX_MOTOR_POSITION;
-    if (cluster->target_motor_position == 0 ||
-        cluster->target_motor_position == MAX_MOTOR_POSITION) {
-        duration_ms += OVERRUN_DURATION_MS;
+    uint32_t duration_ms;
+    if (rehome) {
+        duration_ms = travel_time_ms + OVERRUN_DURATION_MS;
+    } else {
+        duration_ms = (position_delta * travel_time_ms) / MAX_MOTOR_POSITION;
+        if (end_target) {
+            duration_ms += OVERRUN_DURATION_MS;
+        }
     }
 
     hal_tasks_schedule(&cluster->stop_task, duration_ms);
@@ -299,6 +351,11 @@ void cover_auto_stop_handler(void *arg) {
 
     // Snap exactly to target
     cluster->motor_position = cluster->target_motor_position;
+    // Arriving at a physical end re-synchronises the tracker.
+    if (cover_is_end_target(cluster->target_motor_position)) {
+        cluster->position_trusted = 1;
+    }
+    cover_save_state(cluster);
 
     uint8_t new_cover_pos = motor_to_cover_position(cluster);
     if (new_cover_pos != cluster->position) {
@@ -401,7 +458,8 @@ void cover_delay_handler(void *arg) {
 // ============================================================================
 
 void cover_cluster_store_attrs_to_nv(zigbee_cover_cluster *cluster) {
-    nv_config_buffer.motor_reversal  = cluster->motor_reversal;
+    nv_config_buffer.motor_reversal  = (cluster->motor_reversal & NV_MOTOR_REVERSAL_MASK) |
+                                       (cluster->position_trusted ? NV_POSITION_TRUSTED_FLAG : 0);
     nv_config_buffer.open_time       = cluster->open_time;
     nv_config_buffer.close_time      = cluster->close_time;
     nv_config_buffer.open_deadzone   = cluster->open_deadzone;
@@ -422,12 +480,13 @@ void cover_cluster_load_attrs_from_nv(zigbee_cover_cluster *cluster) {
         return;
     }
 
-    cluster->motor_reversal  = nv_config_buffer.motor_reversal;
-    cluster->open_time       = nv_config_buffer.open_time;
-    cluster->close_time      = nv_config_buffer.close_time;
-    cluster->open_deadzone   = nv_config_buffer.open_deadzone;
-    cluster->closed_deadzone = nv_config_buffer.closed_deadzone;
-    cluster->motor_position  = nv_config_buffer.motor_position;
+    cluster->position_trusted = (nv_config_buffer.motor_reversal & NV_POSITION_TRUSTED_FLAG) != 0;
+    cluster->motor_reversal   = nv_config_buffer.motor_reversal & NV_MOTOR_REVERSAL_MASK;
+    cluster->open_time        = nv_config_buffer.open_time;
+    cluster->close_time       = nv_config_buffer.close_time;
+    cluster->open_deadzone    = nv_config_buffer.open_deadzone;
+    cluster->closed_deadzone  = nv_config_buffer.closed_deadzone;
+    cluster->motor_position   = nv_config_buffer.motor_position;
 
     cluster->position = motor_to_cover_position(cluster);
 }
@@ -469,6 +528,10 @@ hal_zigbee_cmd_result_t cover_cluster_callback(zigbee_cover_cluster *cluster,
         break;
     case ZCL_CMD_WINDOW_COVERING_GO_TO_LIFT_PERCENTAGE:
         if (cover_is_manual_mode(cluster)) {
+            break;
+        }
+        // Ignore while the tracker is untrusted — a full open/close must re-home first.
+        if (!cluster->position_trusted) {
             break;
         }
         if (cmd_payload == NULL || cmd_payload_len < 1) {
@@ -520,6 +583,10 @@ void cover_cluster_init(zigbee_cover_cluster *cluster) {
     cluster->movement_start_time   = 0;
     cluster->start_motor_position  = 0;
     cluster->target_motor_position = 0;
+    // Default (no NVM) is trusted at the initial 50% — same as the historical
+    // behaviour. NVM load overrides this; a mid-move power loss saves trusted=0
+    // so the next boot re-homes.
+    cluster->position_trusted      = 1;
 
     hal_tasks_init(&cluster->delay_task);
     cluster->delay_task.handler = cover_delay_handler;

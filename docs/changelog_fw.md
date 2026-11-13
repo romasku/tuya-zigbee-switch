@@ -55,6 +55,11 @@ Please describe what you are working on, under ## Upcoming
   - ZHA quirk silently failed to apply on relay-less devices with LED indicators (scene remotes), leaving firmware attributes unreachable from the UI
   - Silabs device dead after flashing when its SPI flash chip's JEDEC id was not in the bootloader's table (e.g. a ZBMINIL2 hardware variant with a different flash). The spiflash bootloader now falls back to a generic profile for any standard JEDEC SPI-NOR flash instead of failing storage init, so unknown-but-standard chips no longer need a per-chip bootloader build ([#422](https://github.com/romasku/tuya-zigbee-switch/issues/422))
   - Silabs: bindings to Zigbee groups ignored when emitting commands
+  - **Cover position lost after power outage**: `motor_position` was only saved when a
+    Zigbee attribute was written, so after a reboot the tracker reverted to a stale value
+    (often 50%) and open/close no longer reached the physical end stops. Position is now
+    persisted on every stop, and a mid-move power loss marks the tracker untrusted so the
+    next open/close re-homes with a full travel-time run.
 - **New**
   - SONOFF ZBMINIL2 version updates broken?
 
