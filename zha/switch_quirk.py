@@ -458,6 +458,7 @@ CONFIGS = [
     "Avatto-3-touch;TS0003-AVT;LB5;SD3u;RC2;SD7u;RC3;SD4u;RD2;M;",
     "Avatto-3-touch;Avatto-3-touch;LB5;SD3u;RC2;SD7u;RC3;SD4u;RD2;M;",
     "eeswvvtm;TS0004-AVT;LB5;SD3u;RC2;SD7u;RC3;SD4u;RD2;SC1u;RB4;M;",
+    "c6fzuhdc;TS0004-AVT2;LC0i;SB4u;RD7;SA0u;RD2;SD4u;RC3;SB7u;RC4;M;",
     "blhvsaqf;TS0001-BSDB;LC4;SC1u;RC3;IC2;M;",
     "blhvsaqf;TS0001-BS-T;LC4;SC1u;RC3;IC2;M;",
     "l9brjwau;TS0002-BSDB;LD4i;SB5u;RC3;IC1;SD3u;RC2;ID7;M;",
