@@ -160,6 +160,30 @@ if __name__ == "__main__":
                 "endpointId": switch_endpoints
             })
 
+            long_press_endpoints = list(range(switch_cnt + relay_cnt + cover_cnt + 1,
+                                              switch_cnt + relay_cnt + cover_cnt + 1 + switch_cnt))
+            data[zb_manufacturer].append({
+                "modelNames": model_names,
+                "exposes": ["switchAction", "longRelayMode", "relayIndex", "moveCommand", "levelMoveDirection", "levelMoveRate"],
+                "options": {
+                    "customAttributes": {
+                        "switchAction": {"type": "enum", "clusterId": 0x0007, "attributeId": 0x0010, "dataType": 0x30, "action": True},
+                        "longRelayMode": {"type": "enum", "clusterId": 0x0007, "attributeId": 0xff01, "dataType": 0x30, "action": True},
+                        "relayIndex": {"type": "enum", "clusterId": 0x0007, "attributeId": 0xff02, "dataType": 0x20, "action": True},
+                        "levelMoveRate": {"type": "value", "clusterId": 0x0007, "attributeId": 0xff04, "dataType": 0x20, "action": True},
+                        "levelMoveDirection": {"type": "enum", "clusterId": 0x0007, "attributeId": 0xff08, "dataType": 0x30, "action": True},
+                        "moveCommand": {"type": "enum", "clusterId": 0x0007, "attributeId": 0xff09, "dataType": 0x30, "action": True},
+                    },
+                    "switchAction": {"type": "select", "enum": ["on_off", "off_on", "toggle_simple", "toggle_smart_sync", "toggle_smart_opposite"]},
+                    "longRelayMode": {"type": "select", "enum": {"0": "detached", "2": "long_press"}},
+                    "relayIndex": {"type": "select", "enum": {str(i + 1): f"relay_{i + 1}" for i in range(relay_cnt)}} if relay_cnt else {"type": "value"},
+                    "levelMoveRate": {"type": "number", "min": 1, "max": 255},
+                    "levelMoveDirection": {"type": "select", "enum": {"0": "up", "1": "down", "255": "alternate"}},
+                    "moveCommand": {"type": "select", "enum": {"1": "move", "5": "move_with_on_off"}},
+                },
+                "endpointId": long_press_endpoints
+            })
+
         if indicators_cnt:
             relay_indicator_endpoints = list(range(switch_cnt + 1, switch_cnt + 1 + indicators_cnt))
             data[zb_manufacturer].append({

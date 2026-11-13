@@ -37,6 +37,10 @@ def momentary_device(device: Device, relay_button_pair: RelayButtonPair) -> Devi
     device.zcl_switch_mode_set(
         relay_button_pair.switch_endpoint, ZCL_ONOFF_CONFIGURATION_SWITCH_TYPE_MOMENTARY
     )
+    device.zcl_switch_relay_mode_set(
+        relay_button_pair.long_press_endpoint,
+        ZCL_ONOFF_CONFIGURATION_RELAY_MODE_DETACHED,
+    )
     return device
 
 
@@ -106,9 +110,11 @@ def test_toggle_mode_short_press_mode_relay_control(
     assert momentary_device.get_gpio(relay_button_pair.relay_pin) == 0
 
 
-def test_toggle_mode_long_press_mode_relay_control(
+def test_toggle_mode_long_press_mode_relay_control_deprecated(
     momentary_device: Device, relay_button_pair: RelayButtonPair
 ):
+    """DEPRECATED: `relay_mode=LONG` on switch_ep — long-press handling lives
+    on the dedicated long-press endpoint."""
     momentary_device.zcl_switch_relay_mode_set(
         relay_button_pair.switch_endpoint, ZCL_ONOFF_CONFIGURATION_RELAY_MODE_LONG
     )
@@ -229,12 +235,14 @@ def test_momentary_mode_onoff_commands_short_mode(
     ],
     ids=["toggle", "on_off", "off_on"],
 )
-def test_momentary_mode_onoff_commands_long_mode(
+def test_momentary_mode_onoff_commands_long_mode_deprecated(
     momentary_device: Device,
     relay_button_pair: RelayButtonPair,
     actions: int,
     expected_cmd: int,
 ):
+    """DEPRECATED: `binded_mode=LONG` on switch_ep — long-press binding lives
+    on the dedicated long-press endpoint."""
     momentary_device.zcl_switch_binding_mode_set(
         relay_button_pair.switch_endpoint, ZCL_ONOFF_CONFIGURATION_BINDED_MODE_LONG
     )
@@ -428,11 +436,13 @@ def test_momentary_mode_no_level_control_in_short_press(
     "long_press_duration_ms",
     [500, 1000, 2000, 3000],  # Test different long press durations
 )
-def test_momentary_mode_long_press_duration_configuration(
+def test_momentary_mode_long_press_duration_configuration_deprecated(
     momentary_device: Device,
     relay_button_pair: RelayButtonPair,
     long_press_duration_ms: int,
 ):
+    """DEPRECATED: observes long-press timer via switch_ep `relay_mode=LONG`;
+    long-press handling lives on the dedicated long-press endpoint."""
     momentary_device.zcl_switch_relay_mode_set(
         relay_button_pair.switch_endpoint, ZCL_ONOFF_CONFIGURATION_RELAY_MODE_LONG
     )
@@ -503,6 +513,15 @@ def test_momentary_mode_relay_index_invalid_values(
     momentary_device.click_button(relay_button_pair.button_pin)
 
     momentary_device.step_time(100)
+
+    # Out-of-range writes clamp to a valid relay_index (>= 1, <= relay_clusters_cnt).
+    clamped = int(momentary_device.read_zigbee_attr(
+        relay_button_pair.switch_endpoint,
+        ZCL_CLUSTER_ON_OFF_SWITCH_CONFIG,
+        ZCL_ATTR_ONOFF_CONFIGURATION_SWITCH_RELAY_INDEX,
+    ))
+    assert clamped != invalid_relay_index
+    assert 1 <= clamped
 
 
 # Test multistate state
@@ -609,9 +628,11 @@ def test_momentary_mode_multistate_action_reporting(
     )
 
 
-def test_long_press_duration_zero_doesnt_freeze_device(
+def test_long_press_duration_zero_doesnt_freeze_device_deprecated(
     momentary_device: Device, relay_button_pair: RelayButtonPair
 ):
+    """DEPRECATED: observes long-press via switch_ep `relay_mode=LONG`;
+    long-press handling lives on the dedicated long-press endpoint."""
     momentary_device.zcl_switch_relay_mode_set(
         relay_button_pair.switch_endpoint, ZCL_ONOFF_CONFIGURATION_RELAY_MODE_LONG
     )
