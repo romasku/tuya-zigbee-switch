@@ -72,11 +72,14 @@
 // <i> Default: 0
 #define SL_IOSTREAM_USART_INST_CONVERT_BY_DEFAULT_LF_TO_CRLF    0
 
-// <q SL_IOSTREAM_USART_INST_RESTRICT_ENERGY_MODE_TO_ALLOW_RECEPTION> Restrict
-// the energy mode to allow the reception. <i> Default: 1 <i> Limits the lowest
-// energy mode the system can sleep to in order to keep the reception on. May
-// cause higher power consumption.
-#define SL_IOSTREAM_USART_INST_RESTRICT_ENERGY_MODE_TO_ALLOW_RECEPTION    1
+// <q SL_IOSTREAM_USART_INST_RESTRICT_ENERGY_MODE_TO_ALLOW_RECEPTION> Hold an
+// EM1 requirement so the debug serial UART can receive console input.
+// <i> Default: 1
+// <i> Keeping the UART receiver on blocks EM2, so a sleepy battery device
+// <i> never really sleeps (~1mA vs ~1.5uA). Set to 0 here: battery end devices
+// <i> reach EM2 and lose only debug-serial input while idle. The Zigbee radio
+// <i> is unaffected -- it still wakes to poll and receive.
+#define SL_IOSTREAM_USART_INST_RESTRICT_ENERGY_MODE_TO_ALLOW_RECEPTION    0
 
 // </h>
 
