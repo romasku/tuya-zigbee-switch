@@ -2855,6 +2855,33 @@ MODULE_TUYA_OXT_TS0002:
   info: Reset button on pin D2 (old) or A0 (new)
   threads: https://github.com/romasku/tuya-zigbee-switch/issues/49
   store: null
+MODULE_TUYA_OXT_TS130F:
+  human_name: Tuya/OXT curtain module
+  category: module
+  power: mains
+  neutral: required
+  output: relay
+  device_type: router
+  stock_model_name: TS130F
+  stock_manufacturer_name: _TZ3000_4uuaja4a
+  stock_converter_manufacturer: Tuya
+  stock_converter_model: TS130F
+  override_z2m_device: null
+  tuya_module: null
+  mcu_family: Telink
+  mcu: TLSR8258
+  config_str: 4uuaja4a;TS130F-OXT;BD2u;XB4B5f;CC2C3;
+  alt_config_str: null
+  old_manufacturer_names: null
+  old_zb_models: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
+  firmware_image_type: 47148
+  build: yes
+  status: fully_supported
+  info: Supported
+  threads: null
+  store: null
 MODULE_TUYA_TS0002:
   human_name: Tuya 2-gang
   category: module
