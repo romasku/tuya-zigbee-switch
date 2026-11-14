@@ -45,9 +45,12 @@ if __name__ == "__main__":
         indicators_cnt = 0
         has_dedicated_net_led = False
         has_battery_cluster = False
+        has_metering = False
         for peripheral in peripherals:
             if peripheral == "SLP" or peripheral == "M":
                 continue
+            if peripheral[0] == "E":
+                has_metering = True
             if peripheral[0] == "R":
                 relay_cnt += 1
             if peripheral[0] == "S":
@@ -117,6 +120,7 @@ if __name__ == "__main__":
                 "coverNames": cover_names,
                 "has_dedicated_net_led": has_dedicated_net_led,
                 "has_battery_cluster": has_battery_cluster,
+                "has_metering": has_metering,
             }
         )
 

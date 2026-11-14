@@ -12,12 +12,14 @@ source:
 - {path: ../../silabs/main.c}
 - {path: ../../silabs/hal/zigbee.c}
 - {path: ../../silabs/hal/gpio.c}
+- {path: ../../silabs/hal/gpio_counter.c}
 - {path: ../../silabs/hal/nvm.c}
 - {path: ../../silabs/hal/tasks.c}
 - {path: ../../silabs/hal/timer.c}
 - {path: ../../silabs/hal/system.c}
 - {path: ../../silabs/hal/adc.c}
 - {path: ../../silabs/hal/ota.c}
+- {path: ../../silabs/hal/flash.c}
 - {path: ../../silabs/hal/silabs_gpio_utils.h}
 - {path: ../../hal/adc.h}
 - {path: ../../hal/zigbee.h}
@@ -33,6 +35,8 @@ source:
 - {path: ../../base_components/led.c}
 - {path: ../../base_components/network_indicator.c}
 - {path: ../../base_components/relay.c}
+- {path: ../../base_components/metering_bl0937.c}
+- {path: ../../base_components/oem_scanner.c}
 - {path: ../../base_components/battery.h}
 - {path: ../../base_components/button.h}
 - {path: ../../base_components/led.h}
@@ -53,6 +57,7 @@ source:
 - {path: ../../zigbee/general_commands.c}
 - {path: ../../zigbee/group_cluster.c}
 - {path: ../../zigbee/relay_cluster.c}
+- {path: ../../zigbee/metering_cluster.c}
 - {path: ../../zigbee/switch_cluster.c}
 - {path: ../../zigbee/cover_switch_cluster.c}
 - {path: ../../zigbee/cover_cluster.c}
