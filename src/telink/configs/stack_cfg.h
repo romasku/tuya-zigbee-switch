@@ -19,11 +19,22 @@
  * Adjust these values according to application requirements
  */
 
-/* ZCL: Maximum number of clusters (in + out cluster count) */
-#define ZCL_CLUSTER_NUM_MAX        32
+/* ZCL: Maximum number of clusters (in + out cluster count). Global across
+ * the whole device (zcl_vars.clusterList[], a single flat array in the
+ * SDK), not per endpoint -- same class of ceiling as
+ * ZCL_REPORTING_TABLE_NUM below. Raised alongside MAX_IN_CLUSTERS in
+ * telink_zigbee_hal.h for the same reason: a full-bind 6-gang board needs
+ * ~44 cluster registrations total. */
+#define ZCL_CLUSTER_NUM_MAX        56
 
-/* ZCL: Maximum number of reporting table entries */
-#define ZCL_REPORTING_TABLE_NUM    12
+/* ZCL: Maximum number of reporting table entries. Global across the whole
+ * device, not per endpoint. Raised from 12 for full-bind 6-gang boards
+ * (sala): 6 switch endpoints (genMultistateInput.presentValue) + 6 relay
+ * endpoints (genOnOff.onOff) = 12 on their own, and a device upgrading
+ * from a 6-relay-only layout can carry that many stale entries forward
+ * from before the endpoints were switches, saturating the table before
+ * any of the 12 fresh ones land. */
+#define ZCL_REPORTING_TABLE_NUM    24
 
 /* ZCL: Maximum number of scene table entries */
 #define ZCL_SCENE_TABLE_NUM        8
