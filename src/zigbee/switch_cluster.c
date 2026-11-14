@@ -117,11 +117,13 @@ void switch_cluster_add_to_endpoint(zigbee_switch_cluster *cluster,
                ZCL_DATA_TYPE_UINT8, ATTR_WRITABLE, cluster->level_move_rate);
     SETUP_ATTR(7, ZCL_ATTR_ONOFF_CONFIGURATION_SWITCH_BINDING_MODE,
                ZCL_DATA_TYPE_ENUM8, ATTR_WRITABLE, cluster->binded_mode);
+    SETUP_ATTR(8, ZCL_ATTR_ONOFF_CONFIGURATION_SWITCH_LEVEL_MOVE_MODE,
+               ZCL_DATA_TYPE_ENUM8, ATTR_WRITABLE, cluster->level_move_mode);
 
     // Configuration
     endpoint->clusters[endpoint->cluster_count].cluster_id =
         ZCL_CLUSTER_ON_OFF_SWITCH_CONFIG;
-    endpoint->clusters[endpoint->cluster_count].attribute_count = 8;
+    endpoint->clusters[endpoint->cluster_count].attribute_count = 9;
     endpoint->clusters[endpoint->cluster_count].attributes      = cluster->attr_infos;
     endpoint->clusters[endpoint->cluster_count].is_server       = 1;
     endpoint->cluster_count++;
@@ -334,10 +336,12 @@ void switch_cluster_level_control(zigbee_switch_cluster *cluster) {
                                                   cluster->level_move_rate);
     hal_zigbee_send_cmd_to_bindings(&c);
 
-    if (cluster->level_move_direction == ZCL_LEVEL_MOVE_DOWN) {
-        cluster->level_move_direction = ZCL_LEVEL_MOVE_UP;
-    } else {
-        cluster->level_move_direction = ZCL_LEVEL_MOVE_DOWN;
+    if (cluster->level_move_mode == ZCL_LEVEL_MOVE_MODE_ALTERNATE) {
+        if (cluster->level_move_direction == ZCL_LEVEL_MOVE_DOWN) {
+            cluster->level_move_direction = ZCL_LEVEL_MOVE_UP;
+        } else {
+            cluster->level_move_direction = ZCL_LEVEL_MOVE_DOWN;
+        }
     }
 }
 
@@ -454,6 +458,18 @@ void synchronize_multistate_state(zigbee_switch_cluster *cluster) {
                                         ZCL_ATTR_MULTISTATE_INPUT_PRESENT_VALUE);
 }
 
+static void switch_cluster_validate_level_move_direction(zigbee_switch_cluster *cluster) {
+    if (cluster->level_move_mode > ZCL_LEVEL_MOVE_MODE_ALTERNATE) {
+        cluster->level_move_mode = ZCL_LEVEL_MOVE_MODE_ALTERNATE;
+    }
+
+    if (cluster->level_move_mode == ZCL_LEVEL_MOVE_MODE_ONLY_DOWN) {
+        cluster->level_move_direction = ZCL_LEVEL_MOVE_DOWN;
+    } else {
+        cluster->level_move_direction = ZCL_LEVEL_MOVE_UP;
+    }
+}
+
 void switch_cluster_on_write_attr(zigbee_switch_cluster *cluster,
                                   uint16_t attribute_id) {
     printf("Index at write attr: %d\r\n", cluster->switch_idx);
@@ -472,6 +488,9 @@ void switch_cluster_on_write_attr(zigbee_switch_cluster *cluster,
             cluster->button->pressed_when_high = 0;
         }
     }
+    if (attribute_id == ZCL_ATTR_ONOFF_CONFIGURATION_SWITCH_LEVEL_MOVE_MODE) {
+        switch_cluster_validate_level_move_direction(cluster);
+    }
     switch_cluster_store_attrs_to_nv(cluster);
 }
 
@@ -486,6 +505,7 @@ void switch_cluster_store_attrs_to_nv(zigbee_switch_cluster *cluster) {
         cluster->button->long_press_duration_ms;
     nv_config_buffer.level_move_rate = cluster->level_move_rate;
     nv_config_buffer.binded_mode     = cluster->binded_mode;
+    nv_config_buffer.level_move_mode = cluster->level_move_mode;
     hal_nvm_write(NV_ITEM_SWITCH_CLUSTER_DATA(cluster->switch_idx),
                   sizeof(zigbee_switch_cluster_config),
                   (uint8_t *)&nv_config_buffer);
@@ -508,6 +528,10 @@ void switch_cluster_load_attrs_from_nv(zigbee_switch_cluster *cluster) {
         nv_config_buffer.button_long_press_duration;
     cluster->level_move_rate = nv_config_buffer.level_move_rate;
     cluster->binded_mode     = nv_config_buffer.binded_mode;
+    cluster->level_move_mode = nv_config_buffer.level_move_mode;
+
+    // Validate the level move mode configuration
+    switch_cluster_validate_level_move_direction(cluster);
 
     // Validate relay_index to prevent out-of-bounds access
     if (relay_clusters_cnt == 0) {
