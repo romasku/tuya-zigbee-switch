@@ -163,6 +163,8 @@ sdk-clean:
 
 # Special compiler flags for specific SDK files
 $(BUILD_DIR)/sdk/proj/drivers/drv_nv.o: GCC_FLAGS += -Dnv_resetToFactoryNew=nv_resetToFactoryNew__sdk
+# see patch_sdk/flash_zbit.c
+$(BUILD_DIR)/sdk/platform/chip_8258/flash.o: GCC_FLAGS += -Dadc_get_result_with_fluct=zbit_supply_mv
 
 $(SDK_OBJS): GCC_FLAGS += -fpack-struct
 

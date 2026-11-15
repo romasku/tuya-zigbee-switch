@@ -14,6 +14,8 @@ static _attribute_custom_data_ bool adc_initialized = false;
 void hal_adc_init(hal_adc_input_t input, hal_gpio_pin_t pin) {
     drv_adc_init();
     if (input == HAL_ADC_INPUT_VBAT) {
+        extern unsigned char g_zbit_voltage_gate; // patch_sdk/flash_zbit.c
+        g_zbit_voltage_gate = 1;
         drv_adc_mode_pin_set(DRV_ADC_VBAT_MODE, (GPIO_PinTypeDef)pin);
     } else {
         drv_adc_mode_pin_set(DRV_ADC_BASE_MODE, (GPIO_PinTypeDef)pin);
