@@ -10,11 +10,40 @@ void _btn_update_callback(void *arg);
 void btn_update_debounced(button_t *button, uint8_t is_pressed,
                           uint32_t changed_at);
 
+// First read of an input. Right after the pull resistor is switched on (start, restart) the line
+// may not have reached its level yet; a wrong first value shows up as a change a moment later, and
+// in toggle mode every change switches the relay. Wait until the level holds for
+// BTN_INIT_STABLE_MS, at most BTN_INIT_MAX_MS.
+#define BTN_INIT_STABLE_MS    3
+#define BTN_INIT_MAX_MS       30
+
+static uint8_t btn_read_settled(hal_gpio_pin_t pin) {
+#ifdef HAL_STUB
+    return hal_gpio_read(pin); // simulated inputs have no settling time
+#else
+    uint32_t start        = hal_millis();
+    uint32_t stable_since = start;
+    uint8_t  state        = hal_gpio_read(pin);
+
+    uint32_t rounds       = 0; // safety net, should the clock not advance
+
+    while (hal_millis() - stable_since < BTN_INIT_STABLE_MS &&
+           hal_millis() - start < BTN_INIT_MAX_MS && ++rounds < 200000) {
+        uint8_t now = hal_gpio_read(pin);
+        if (now != state) {
+            state        = now;
+            stable_since = hal_millis();
+        }
+    }
+    return state;
+#endif
+}
+
 void btn_init(button_t *button) {
     // During device startup, button may be already pressed, but this should not
     // be detected as user press. So, to avoid such situation, special init is
     // required.
-    uint8_t state = hal_gpio_read(button->pin);
+    uint8_t state = btn_read_settled(button->pin);
 
     if (state == button->pressed_when_high) {
         button->pressed      = true;

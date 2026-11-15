@@ -168,6 +168,12 @@ void hal_zigbee_leave_network(void) {
 }
 
 void hal_zigbee_start_network_steering(void) {
+    if (!zb_isDeviceFactoryNew()) {
+        // Already part of a network and only out of reach for now: the stack rejoins by itself.
+        // For such a device BDB steering does not join anything, it broadcasts
+        // Mgmt_Permit_Joining_req and opens the whole network for 180 seconds.
+        return;
+    }
     printf("Starting network steering\r\n");
     u8 res = bdb_networkSteerStart();
     if (res == 0) {

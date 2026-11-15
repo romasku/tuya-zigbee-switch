@@ -25,8 +25,8 @@ void device_config_write_to_nv() {
     printf("Writing config to nv: %s\r\n", device_config_str.data);
     hal_nvm_status_t st = 0;
 
-    printf("Size: %d\r\n", (int)sizeof(device_config_str));
-    st = hal_nvm_write(NV_ITEM_DEVICE_CONFIG, sizeof(device_config_str),
+    printf("Size: %d\r\n", (int)DEVICE_CONFIG_NV_SIZE);
+    st = hal_nvm_write(NV_ITEM_DEVICE_CONFIG, DEVICE_CONFIG_NV_SIZE,
                        (uint8_t *)&device_config_str);
 
     if (st != HAL_NVM_SUCCESS) {
@@ -41,7 +41,7 @@ void device_config_write_to_nv() {
 void device_config_read_from_nv() {
     hal_nvm_status_t st = 0;
 
-    st = hal_nvm_read(NV_ITEM_DEVICE_CONFIG, sizeof(device_config_str),
+    st = hal_nvm_read(NV_ITEM_DEVICE_CONFIG, DEVICE_CONFIG_NV_SIZE,
                       (uint8_t *)&device_config_str);
 
     if (st != HAL_NVM_SUCCESS) {
