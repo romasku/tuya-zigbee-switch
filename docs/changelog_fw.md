@@ -8,6 +8,12 @@ Please describe what you are working on, under ## Upcoming
 
 ------------------------------------------------------->
 
+## Upcoming
+
+### Features
+
+- New device: EKAZA EKAC-T3093Z 3-gang module (`_TZ3000_f6pgzqob`), same pinout as Girier 🅰 3-gang
+
 ## 1.1.3
 
 ### Features
