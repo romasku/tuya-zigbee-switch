@@ -8,6 +8,19 @@ Please describe what you are working on, under ## Upcoming
 
 ------------------------------------------------------->
 
+## Upcoming
+
+### Features
+
+- **Countdown timers** (`on_with_timed_off`) for relay endpoints. The ZCL command was already
+  accepted by the stack but ignored by the cluster callback, so the relay stayed on indefinitely.
+  `on_time` and `off_wait_time` are now honoured. Any local change cancels a pending countdown,
+  and a repeated `on_with_timed_off` re-arms it instead of cancelling it.
+  The longest countdown is 6553 s, the maximum the ZCL command can carry.
+  Implemented for Telink router builds; end device builds sleep between polls and the
+  system clock stops while they do, so the deadline could not be reached on time there.
+  The Silabs platform is not covered by this change.
+
 ## 1.1.3
 
 ### Features

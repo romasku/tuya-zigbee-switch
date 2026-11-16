@@ -9,6 +9,7 @@
 #include "hal/zigbee_ota.h"
 #include "zigbee/battery_cluster.h"
 #include "zigbee/general_commands.h"
+#include "zigbee/relay_cluster.h"
 #ifdef END_DEVICE
 #include "zigbee/poll_control_cluster.h"
 #endif
@@ -56,6 +57,10 @@ void app_init(void) {
 static bool boot_announce_sent = false;
 
 void app_task() {
+#ifdef HAL_HAS_TIMER_64
+    relay_cluster_task();
+#endif
+
 #ifdef END_DEVICE
     poll_control_cluster_update();
 #endif
