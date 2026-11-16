@@ -163,6 +163,7 @@ sdk-clean:
 
 # Special compiler flags for specific SDK files
 $(BUILD_DIR)/sdk/proj/drivers/drv_nv.o: GCC_FLAGS += -Dnv_resetToFactoryNew=nv_resetToFactoryNew__sdk
+$(BUILD_DIR)/sdk/zigbee/zcl/zcl_reporting.o: GCC_FLAGS += -Dzcl_reportAttrs=zcl_reportAttrs__acked
 
 $(SDK_OBJS): GCC_FLAGS += -fpack-struct
 

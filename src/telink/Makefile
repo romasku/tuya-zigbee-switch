@@ -141,7 +141,8 @@ TELINK_SOURCES := \
 	custom_zcl/zcl_onoff_configuration.c \
 	custom_zcl/zcl_cover_switch_config.c \
 	custom_zcl/zcl_window_covering_custom.c \
-	patch_sdk/drv_nv.c
+	patch_sdk/drv_nv.c \
+	patch_sdk/zcl_reporting.c
 
 # Common source files (shared with Silicon Labs build)
 COMMON_SOURCES := \
