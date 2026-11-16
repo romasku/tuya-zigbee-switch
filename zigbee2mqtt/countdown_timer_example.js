@@ -5,11 +5,15 @@
 // "on_time" payload into that command, but the generated converters do
 // not expose the field, so it cannot be set from the UI.
 //
-// This file is an example for the two models the implementation was
-// tested on:
+// This file is an example for the four models the implementation covers:
 //
 //   _TZ3000_ljhbw1c9  LZWSM16-2  TS0012-avatto
 //   _TZ3000_kpatq5pq  LZWSM16-2  TS0012-AVB1
+//   _TZ3000_mtnpt6ws  ZWSM16-2   TS0002-AVB
+//   _TZ3000_4rbqgcuv  ZWSM16-1   TS0001-AVB
+//
+// The timer was tested on the first two models; the other two build and
+// are covered by the same code, but were not verified on hardware.
 //
 // Install it as an external converter and drop the built-in entry for
 // the same model, so the two definitions do not overlap.
@@ -20,6 +24,10 @@
 //   TS0012-avatto  ljhbw1c9;TS0012-avatto;BB4u;LB5;SC0u;RC2;SC3u;RC4;
 //   TS0012-AVB1    kpatq5pq;TS0012-AVB1;BB4u;LB5;SC0u;RC2;SC3u;RC4;
 //     switch 1,2   relay 3,4
+//   TS0002-AVB     mtnpt6ws;TS0002-AVB;BC2u;LD2i;SD3u;RC0;SD7u;RD4;
+//     switch 1,2   relay 3,4
+//   TS0001-AVB     4rbqgcuv;TS0001-AVB;BC2u;LD2i;SD3u;RC0;
+//     switch 1     relay 2
 
 const {
     deviceEndpoints,
@@ -245,10 +253,6 @@ const makeDefinition = ({zigbeeModel, model, description, icon, switchNames, rel
             romasku.multiPressResetCount("multi_press_reset_count", switchNames[0]),
             romasku.networkIndicator("network_led", switchNames[0]),
 
-            romasku.deviceConfig("device_config", switchNames[0]),
-            romasku.multiPressResetCount("multi_press_reset_count", switchNames[0]),
-            romasku.networkIndicator("network_led", switchNames[0]),
-
             // Configuration of each physical switch
             ...switchNames.flatMap((sw) => [
                 romasku.pressAction(`${sw}_press_action`, sw),
@@ -292,6 +296,7 @@ const makeDefinition = ({zigbeeModel, model, description, icon, switchNames, rel
 // ====== definitions ======
 
 const twoRelayEndpoints = {switch_left: 1, switch_right: 2, relay_left: 3, relay_right: 4};
+const oneRelayEndpoints = {switch: 1, relay: 2};
 
 module.exports = [
     makeDefinition({
@@ -315,5 +320,27 @@ module.exports = [
         switchNames: ["switch_left", "switch_right"],
         relayNames: ["relay_left", "relay_right"],
         endpoints: twoRelayEndpoints,
+    }),
+    makeDefinition({
+        zigbeeModel: ["TS0002-AVB"],
+        model: "ZWSM16-2",
+        description:
+            "AVATTO ZWSM16-2 / TS0002 2-gang switch module, " +
+            "romasku/tuya-zigbee-switch firmware with countdown timer support.",
+        icon: "https://www.zigbee2mqtt.io/images/devices/ZWSM16-2.png",
+        switchNames: ["switch_left", "switch_right"],
+        relayNames: ["relay_left", "relay_right"],
+        endpoints: twoRelayEndpoints,
+    }),
+    makeDefinition({
+        zigbeeModel: ["TS0001-AVB"],
+        model: "ZWSM16-1",
+        description:
+            "AVATTO ZWSM16-1 / TS0001 1-gang switch module, " +
+            "romasku/tuya-zigbee-switch firmware with countdown timer support.",
+        icon: "https://www.zigbee2mqtt.io/images/devices/ZWSM16-1.png",
+        switchNames: ["switch"],
+        relayNames: ["relay"],
+        endpoints: oneRelayEndpoints,
     }),
 ];
