@@ -364,9 +364,9 @@ def test_every_endpoint_timers_fire_at_their_own_deadline(relay_ep: int) -> None
 
 @pytest.mark.parametrize("on_time_units", [10, 100, 1000, 6000, 65534])
 def test_timer_lengths_across_the_tick_wrap(on_time_units: int) -> None:
-    """Timers of 1 s .. 6553.4 s all fire at their own deadline.
+    """Timers of 1 s .. 6553 s all fire at their own deadline.
 
-    6553.4 s is the ZCL maximum and is longer than the 268.435456 s
+    6553 s is the ZCL maximum and is longer than the 268 s
     hardware tick wrap, which is exactly the case the old counter got
     wrong.
     """

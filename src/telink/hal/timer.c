@@ -18,6 +18,6 @@ uint32_t hal_millis() {
 
 uint64_t hal_millis_64(void) {
     // Monotonic across the hardware tick wrap. Deadlines of any length
-    // compare correctly (the ZCL On With Timed Off maximum is 6553.4 s).
+    // compare correctly (the ZCL On With Timed Off maximum is 6553 s).
     return hal_tick64_millis(&s_tick_state, clock_time());
 }

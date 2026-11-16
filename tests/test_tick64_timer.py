@@ -307,12 +307,12 @@ def test_short_timer_is_unaffected_by_the_fix(tick64_harness):
 
 
 def test_zcl_maximum_timer_is_reachable(tick64_harness):
-    """The ZCL On With Timed Off maximum (6553.4 s) must also work.
+    """The ZCL On With Timed Off maximum (6553 s) must also work.
 
-    6553.4 s is the largest value the command can carry: onTime is a
-    uint16 in tenths of a second with 0xffff reserved, so 65534 * 0.1 s.
-    That is 24.4 hardware wraps, which the old code could not survive
-    at all.
+    6553 s is the largest value the command can carry: onTime is a
+    uint16 in tenths of a second, so it tops out just below an hour
+    and a half. That is 24 hardware wraps, which the old code could
+    not survive at all.
     """
     arm_at_ms = 1_000
     elapsed = list(range(arm_at_ms, arm_at_ms + ZCL_MAX_TIMER_MS + 10_000, 1_000))

@@ -23,6 +23,9 @@
  *
  * Only 32-bit division is used: the tc32 toolchain has no __udivdi3.
  *
+ * Deadlines of any length compare correctly, up to the ZCL On With Timed
+ * Off maximum of 6553 s.
+ *
  * The header is dependency-free so the firmware and the regression test
  * compile the same code.
  */

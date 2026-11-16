@@ -32,7 +32,8 @@ uint32_t hal_millis();
  *
  * The counter is derived from the raw hardware tick, so it advances by
  * exactly one millisecond per millisecond of real time across the
- * hardware counter's ~268 s wrap.
+ * hardware counter's ~268 s wrap. Deadlines of any length (up to the
+ * ZCL On With Timed Off maximum of 6553 s) compare correctly.
  */
 uint64_t hal_millis_64(void);
 
