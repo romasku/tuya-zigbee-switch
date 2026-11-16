@@ -62,3 +62,21 @@ uint32_t hal_millis() {
 
     return result;
 }
+
+uint64_t hal_millis_64(void) {
+    // Monotonic 64-bit counter, never truncated like hal_millis().
+    if (!initialized) {
+        stub_millis_init();
+    }
+    if (time_frozen) {
+        return frozen_millis;
+    }
+    struct timeval current_time;
+    if (gettimeofday(&current_time, NULL) != 0) {
+        io_log("TIMER", "Error: Failed to get current time");
+        exit(1);
+    }
+    uint64_t current_ms =
+        (uint64_t)current_time.tv_sec * 1000 + current_time.tv_usec / 1000;
+    return current_ms - start_ms;
+}
