@@ -90,9 +90,9 @@ The pinout is stored in the **device config string**.
 | **`B`** | Reset button  | • Puts device in pairing                                                                                          |
 | **`L`** | Network led   | • Blinks while pairing <br> • Is the backlight sometimes                                                          |
 | **`S`** | Switch        | • User input <br> • Tactile/touch button or external switch <br> • Spam to put in pairing mode                    |
-| **`R`** | Relay / Triac | • Output <br> • Non-latching: `RC1` - 1 pin: on when high <br> • Latching: `RC2C3` - 2 pins: pulse on, pulse off  |
+| **`R`** | Relay / Triac | • Output <br> • Non-latching: `RC1` - 1 pin: on when high <br> • Latching: `RC2C3` - 2 pins: pulse on, pulse off <br> • Add `i` to invert (active-low): `RC1i`  |
 | **`X`** | Cover Switch  | • User input for cover control <br> • Format: `XA2B3u` - 2 pins + pull resistor: open button, close button        |
-| **`C`** | Cover         | • Motor control for curtains/blinds/shades <br> • Format: `CA2B3` - 2 pins: open relay, close relay               |
+| **`C`** | Cover         | • Motor control for curtains/blinds/shades <br> • Format: `CA2B3` - 2 pins: open relay, close relay <br> • Add `i` to invert both relays (active-low): `CA2B3i` |
 | **`I`** | Indicator LED | • 1 per relay, follows state <br> • Briefly flashes on button press (binding confirmation) <br> • Blinks while pairing if there is no network led |
 
 For buttons (`B`), switches (`S`), and cover switches (`X`), the next character chooses the internal pull-up/down resistor:  
@@ -101,7 +101,7 @@ For buttons (`B`), switches (`S`), and cover switches (`X`), the next character 
 Usually, pressing the button bridges the GPIO pin to Ground (active low).  
 ⤷ So we need a pull-up resistor `u`: to hold it at VCC (high) while not-pressed.
 
-For LEDs, add `i` to invert the state.
+For LEDs (`L`, `I`), relays (`R`), and cover relays (`C`), add `i` to invert the output (active-low).
 
 Additional options: 
 | Format       | Option                       | Function                                                                          |
