@@ -106,6 +106,19 @@ const romasku = {
             valueMax: 255,
             entityCategory: "config",
         }),
+    levelMoveMode: (name, endpointName) =>
+        enumLookup({
+            name,
+            endpointName,
+            lookup: { only_up: 0, only_down: 1, alternate: 3},
+            cluster: "genOnOffSwitchCfg",
+            attribute: { ID: 0xff06, type: 0x30 }, // Enum8
+            description: `Level (dim) move mode:
+            - only_up: only moves the light level UP
+            - only_down: only moves the light level DOWN
+            - alternate: alternates between UP and DOWN on each long press (default)`,
+            entityCategory: "config",
+        }),
     pressAction: (name, endpointName) =>
         enumLookup({
             name,
@@ -471,6 +484,7 @@ const definitions = [
             romasku.bindedMode("{{switchName}}_binded_mode", "{{switchName}}"),
             romasku.longPressDuration("{{switchName}}_long_press_duration", "{{switchName}}"),
             romasku.levelMoveRate("{{switchName}}_level_move_rate", "{{switchName}}"),
+            romasku.levelMoveMode("{{switchName}}_level_move_mode", "{{switchName}}"),
             {% endfor %}
             {% for relayName in device.relayIndicatorNames %}
             romasku.relayIndicatorMode("{{relayName}}_indicator_mode", "{{relayName}}"),
