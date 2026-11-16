@@ -19,6 +19,7 @@
 #include "base_components/battery.h"
 #include "config_nv.h"
 #include "device_config/device_params_nv.h"
+#include "device_config/nvm_items.h"
 #include "device_config/reset.h"
 #include "hal/system.h"
 #include "hal/zigbee.h"
@@ -50,19 +51,30 @@ zigbee_basic_cluster basic_cluster = {
 
 zigbee_group_cluster group_cluster = {};
 
-zigbee_switch_cluster switch_clusters[4];
+// Sized from the constants they are bounded by (nvm_items.h) rather than a
+// separate literal: MAX_SWITCHES/MAX_RELAYS say what a config string is
+// allowed to declare, and the NV item layout is laid out on that same
+// assumption, so a smaller literal here silently overflows on a config the
+// NV layout already considers legal.
+zigbee_switch_cluster switch_clusters[MAX_SWITCHES];
 uint8_t switch_clusters_cnt = 0;
 
-zigbee_relay_cluster relay_clusters[4];
+zigbee_relay_cluster relay_clusters[MAX_RELAYS];
 uint8_t relay_clusters_cnt = 0;
 
-zigbee_cover_switch_cluster cover_switch_clusters[3];
+zigbee_cover_switch_cluster cover_switch_clusters[MAX_COVER_SWITCHES];
 uint8_t cover_switch_clusters_cnt = 0;
 
-zigbee_cover_cluster cover_clusters[3];
+zigbee_cover_cluster cover_clusters[MAX_COVERS];
 uint8_t cover_clusters_cnt = 0;
 
-hal_zigbee_cluster  clusters[32];
+// Shared flat pool, sliced out per endpoint below -- not one array per
+// endpoint. Worst case within the 10-endpoint cap: endpoint 0 (basic + ota,
+// +4 more if it doubles as the first switch endpoint) = 6, four more switch
+// endpoints at 4 each = 16, five more endpoints at up to 3 each (relay:
+// relay_cluster_add_to_endpoint's 2 + group_cluster_add_to_endpoint's 1, or
+// cover_switch's 3) = 15. 6 + 16 + 15 = 37; 48 leaves headroom.
+hal_zigbee_cluster  clusters[48];
 hal_zigbee_endpoint endpoints[10];
 
 uint8_t allow_simultaneous_latching_pulses = 0;
@@ -88,6 +100,23 @@ void on_multi_press_reset(void *_, uint8_t press_count) {
         hal_factory_reset();
     }
 }
+
+/* The config string arrives over the air, and is hand-written during
+ * bring-up, so it cannot be trusted to fit. Every counter that indexes a
+ * fixed array is checked before use below: overflowing one corrupts
+ * whatever follows it in .bss, and the symptom then shows up somewhere
+ * unrelated to the token that caused it. Offending tokens are dropped, not
+ * clamped, so a too-long string still yields a usable (if incomplete)
+ * device rather than a silently wrong one. */
+#define NO_ROOM(cnt, arr)    ((cnt) >= (sizeof(arr) / sizeof((arr)[0])))
+
+/* clusters[] is one pool shared by every endpoint, handed out below by
+   advancing a cursor through it. Each endpoint takes a handful of slots, so
+   a config that fits every individual *_cnt limit above can still exhaust
+   the shared pool once endpoints are actually being assigned their
+   clusters. */
+#define POOL_EXHAUSTED(ptr)  \
+        ((ptr) >= clusters + (sizeof(clusters) / sizeof(clusters[0])))
 
 void parse_config() {
     device_config_read_from_nv();
@@ -134,6 +163,10 @@ void parse_config() {
             battery.pin = pin;
             battery_init(&battery);
         } else if (entry[0] == 'B') {
+            if (NO_ROOM(buttons_cnt, buttons)) {
+                printf("Too many buttons, ignoring %s\r\n", entry);
+                continue;
+            }
             hal_gpio_pin_t  pin  = hal_gpio_parse_pin(entry + 1);
             hal_gpio_pull_t pull = hal_gpio_parse_pull(entry + 3);
             hal_gpio_init(pin, 1, pull);
@@ -145,6 +178,10 @@ void parse_config() {
             buttons[buttons_cnt].on_long_press           = on_reset_clicked;
             buttons_cnt++;
         } else if (entry[0] == 'L') {
+            if (NO_ROOM(leds_cnt, leds)) {
+                printf("Too many leds, ignoring %s\r\n", entry);
+                continue;
+            }
             hal_gpio_pin_t pin = hal_gpio_parse_pin(entry + 1);
             hal_gpio_init(pin, 0, HAL_GPIO_PULL_NONE);
             leds[leds_cnt].pin     = pin;
@@ -159,20 +196,24 @@ void parse_config() {
             has_dedicated_status_led = true;
             leds_cnt++;
         } else if (entry[0] == 'I') {
+            if (NO_ROOM(leds_cnt, leds)) {
+                printf("Too many indicators, ignoring %s\r\n", entry);
+                continue;
+            }
             hal_gpio_pin_t pin = hal_gpio_parse_pin(entry + 1);
             hal_gpio_init(pin, 0, HAL_GPIO_PULL_NONE);
             leds[leds_cnt].pin     = pin;
             leds[leds_cnt].on_high = entry[3] != 'i';
             led_init(&leds[leds_cnt]);
 
-            for (int index = 0; index < 4; index++) {
+            for (int index = 0; index < MAX_RELAYS; index++) {
                 if (relay_clusters[index].indicator_led == NULL) {
                     relay_clusters[index].indicator_led = &leds[leds_cnt];
                     break;
                 }
             }
 
-            for (int index = 0; index < 4; index++) {
+            for (int index = 0; index < MAX_SWITCHES; index++) {
                 if (switch_clusters[index].indicator_led == NULL) {
                     switch_clusters[index].indicator_led = &leds[leds_cnt];
                     break;
@@ -189,6 +230,11 @@ void parse_config() {
             }
             leds_cnt++;
         } else if (entry[0] == 'S') {
+            if (NO_ROOM(buttons_cnt, buttons) ||
+                NO_ROOM(switch_clusters_cnt, switch_clusters)) {
+                printf("Too many switches, ignoring %s\r\n", entry);
+                continue;
+            }
             hal_gpio_pin_t  pin  = hal_gpio_parse_pin(entry + 1);
             hal_gpio_pull_t pull = hal_gpio_parse_pull(entry + 3);
             hal_gpio_init(pin, 1, pull);
@@ -216,6 +262,11 @@ void parse_config() {
             buttons_cnt++;
             switch_clusters_cnt++;
         } else if (entry[0] == 'R') {
+            if (NO_ROOM(relays_cnt, relays) ||
+                NO_ROOM(relay_clusters_cnt, relay_clusters)) {
+                printf("Too many relays, ignoring %s\r\n", entry);
+                continue;
+            }
             hal_gpio_pin_t pin = hal_gpio_parse_pin(entry + 1);
             hal_gpio_init(pin, 0, HAL_GPIO_PULL_NONE);
 
@@ -235,6 +286,13 @@ void parse_config() {
             relays_cnt++;
             relay_clusters_cnt++;
         } else if (entry[0] == 'X') {
+            // Consumes two buttons (open + close) per cover switch, so the
+            // room check is against buttons_cnt + 1, not buttons_cnt.
+            if (NO_ROOM(buttons_cnt + 1, buttons) ||
+                NO_ROOM(cover_switch_clusters_cnt, cover_switch_clusters)) {
+                printf("Too many cover switches, ignoring %s\r\n", entry);
+                continue;
+            }
             hal_gpio_pin_t  open_pin  = hal_gpio_parse_pin(entry + 1);
             hal_gpio_pin_t  close_pin = hal_gpio_parse_pin(entry + 3);
             hal_gpio_pull_t pull      = hal_gpio_parse_pull(entry + 5);
@@ -264,6 +322,13 @@ void parse_config() {
                 cover_switch_clusters_cnt;
             cover_switch_clusters_cnt++;
         } else if (entry[0] == 'C') {
+            // Consumes two relays (open + close) per cover, so the room
+            // check is against relays_cnt + 1, not relays_cnt.
+            if (NO_ROOM(relays_cnt + 1, relays) ||
+                NO_ROOM(cover_clusters_cnt, cover_clusters)) {
+                printf("Too many covers, ignoring %s\r\n", entry);
+                continue;
+            }
             hal_gpio_pin_t open_pin  = hal_gpio_parse_pin(entry + 1);
             hal_gpio_pin_t close_pin = hal_gpio_parse_pin(entry + 3);
 
@@ -323,6 +388,15 @@ void parse_config() {
     if (total_endpoints == 0)
         total_endpoints = 1;
 
+    // Each *_cnt above is bounded individually, but their sum still has to
+    // fit the endpoint table -- a config with many switches AND many
+    // relays can pass every individual check above and still overflow
+    // endpoints[] here.
+    if (total_endpoints > (sizeof(endpoints) / sizeof(endpoints[0]))) {
+        printf("Too many endpoints (%d), truncating\r\n", total_endpoints);
+        total_endpoints = (uint8_t)(sizeof(endpoints) / sizeof(endpoints[0]));
+    }
+
     for (int index = 0; index < total_endpoints; index++) {
         endpoints[index].endpoint   = index + 1;
         endpoints[index].profile_id = 0x0104;
@@ -348,16 +422,28 @@ void parse_config() {
                                          battery.pin != HAL_INVALID_PIN);
 #endif
 
+    // Every loop below stops (does not just skip) at the first endpoint
+    // index that would land at or past total_endpoints -- already clamped
+    // to fit endpoints[] above, but each *_cnt here is bounded separately
+    // from that clamp, so their running offset (switch_clusters_cnt +
+    // relay_clusters_cnt + ...) can still reach past it before a given
+    // loop finishes. The POOL_EXHAUSTED check alongside it covers the
+    // separate, shared clusters[] pool, which can run out before the
+    // endpoint table does.
     for (int index = 0; index < switch_clusters_cnt; index++) {
+        if (index >= total_endpoints) { break; }
         if (index != 0) {
             cluster_ptr += endpoints[index - 1].cluster_count;
+            if (POOL_EXHAUSTED(cluster_ptr)) { break; }
             endpoints[index].clusters = cluster_ptr;
         }
         switch_cluster_add_to_endpoint(&switch_clusters[index], &endpoints[index]);
     }
     for (int index = 0; index < relay_clusters_cnt; index++) {
+        if (switch_clusters_cnt + index >= total_endpoints) { break; }
         if (switch_clusters_cnt + index != 0) {
             cluster_ptr += endpoints[switch_clusters_cnt + index - 1].cluster_count;
+            if (POOL_EXHAUSTED(cluster_ptr)) { break; }
             endpoints[switch_clusters_cnt + index].clusters = cluster_ptr;
         }
         relay_cluster_add_to_endpoint(&relay_clusters[index],
@@ -369,8 +455,10 @@ void parse_config() {
 
     int cover_switch_base = switch_clusters_cnt + relay_clusters_cnt;
     for (int index = 0; index < cover_switch_clusters_cnt; index++) {
+        if (cover_switch_base + index >= total_endpoints) { break; }
         if (cover_switch_base + index != 0) {
             cluster_ptr += endpoints[cover_switch_base + index - 1].cluster_count;
+            if (POOL_EXHAUSTED(cluster_ptr)) { break; }
             endpoints[cover_switch_base + index].clusters = cluster_ptr;
         }
         cover_switch_cluster_add_to_endpoint(&cover_switch_clusters[index],
@@ -380,8 +468,10 @@ void parse_config() {
     int cover_base =
         switch_clusters_cnt + relay_clusters_cnt + cover_switch_clusters_cnt;
     for (int index = 0; index < cover_clusters_cnt; index++) {
+        if (cover_base + index >= total_endpoints) { break; }
         if (cover_base + index != 0) {
             cluster_ptr += endpoints[cover_base + index - 1].cluster_count;
+            if (POOL_EXHAUSTED(cluster_ptr)) { break; }
             endpoints[cover_base + index].clusters = cluster_ptr;
         }
         cover_cluster_add_to_endpoint(&cover_clusters[index],
