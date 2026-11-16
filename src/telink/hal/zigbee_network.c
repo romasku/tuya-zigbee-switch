@@ -194,8 +194,30 @@ uint32_t hal_zigbee_get_poll_rate_ms(void) {
 
 // Internal interface functions
 
+// A device updated from the stock Tuya firmware starts its outgoing NWK frame
+// counter again from zero, but the routers around it still remember the much
+// higher counter the stock firmware had reached. NWK security is checked hop by
+// hop, and routers running stock Tuya firmware acknowledge such frames at the
+// MAC level and then drop them as replays instead of forwarding them. The
+// device then loses the coordinator for minutes at a time whenever its route
+// runs through one of those routers, while frames sent straight to the
+// coordinator still get through (romasku/tuya-zigbee-switch#255).
+// Start far above anything a stock firmware can have reached. This happens
+// once: the counter lives in flash and only grows from then on.
+#define NWK_FRAME_COUNTER_FLOOR    0x10000000u
+
+static void nwk_frame_counter_apply_floor(void) {
+    if (ss_ib.outgoingFrameCounter < NWK_FRAME_COUNTER_FLOOR) {
+        ss_ib.outgoingFrameCounter = NWK_FRAME_COUNTER_FLOOR;
+        nv_nwkFrameCountSaveToFlash(ss_ib.outgoingFrameCounter);
+    }
+}
+
 void telink_zigbee_hal_network_init(void) {
     zb_init();
+    // zb_init() restores the counter from flash; raise it before anything is
+    // sent.
+    nwk_frame_counter_apply_floor();
     zb_zdoCbRegister(&zdo_callbacks);
     af_powerDescPowerModeUpdate(POWER_MODE_RECEIVER_COMES_PERIODICALLY);
 }
