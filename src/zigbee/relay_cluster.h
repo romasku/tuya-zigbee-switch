@@ -12,10 +12,11 @@ typedef struct {
     uint8_t              endpoint;
     uint8_t              startup_mode;
     uint8_t              indicator_led_mode;
-    hal_zigbee_attribute attr_infos[4];
+    hal_zigbee_attribute attr_infos[6];
     relay_t *            relay;
     led_t *              indicator_led;
     uint8_t              indicator_state;
+    uint16_t             on_time;   // ZCL OnTime, 1/10 s - mirrored to a Tuya DP
 } zigbee_relay_cluster;
 
 void relay_cluster_add_to_endpoint(zigbee_relay_cluster *cluster,

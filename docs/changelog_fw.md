@@ -8,6 +8,19 @@ Please describe what you are working on, under ## Upcoming
 
 ------------------------------------------------------->
 
+## Upcoming
+
+- **Secondary MCU** (Tuya MCU protocol over UART) for boards where a second microcontroller
+  does the switching or dimming: relays, touch keys, dimmers, power-on behaviour, datapoints
+  written at boot. Config tokens are listed in [porting.md](contribute/porting.md#secondary-mcu)
+  - MCU firmware version shown in Z2M (`mcu_version`)
+- **AVATTO ZDMS16-2 2-gang dimmer module** (`TS0601`, `_TZE284_jtbgusdc`, `_TZE204_jtbgusdc`)
+  - Level Control (on, off, move, step, move to level, OnLevel), levels scaled to the MCU's
+    min/max brightness, wall switch type and power-on behaviour
+  - The module button resets the device
+- **NovaDigital 6 gang** (`_TZE204_tdhnhhiy`) and **TPZ-2 / Moes SFL02-Z-2** (`_TZE200_hktk6hze`)
+  touch switches with a secondary MCU
+
 ## 1.1.3
 
 ### Features

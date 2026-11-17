@@ -35,33 +35,52 @@ if __name__ == "__main__":
         if not device.get("build", True):
             continue
 
+        # YAML 1.1 turns bare off/on/yes/no into booleans, so an enum label
+        # like "off" silently becomes False and reaches z2m as "False".
+        for dp in device.get("dp_attributes") or []:
+            for key in dp.get("values") or {}:
+                if not isinstance(key, str):
+                    raise SystemExit(
+                        f"{dp['name']}: enum label {key!r} is not a string. "
+                        "Quote it in device_db.yaml."
+                    )
+
         config = device["config_str"]
         zb_manufacturer, zb_model, *peripherals = config.rstrip(";").split(";")
 
         relay_cnt = 0
         switch_cnt = 0
+        dimmer_cnt = 0
         cover_switch_cnt = 0
         cover_cnt = 0
         indicators_cnt = 0
+        dp_relay_cnt = 0
         has_dedicated_net_led = False
         has_battery_cluster = False
+        has_secondary_mcu = bool(device.get("dp_attributes"))
         for peripheral in peripherals:
             if peripheral == "SLP" or peripheral == "M":
                 continue
             if peripheral[0] == "R":
                 relay_cnt += 1
+            if peripheral[:2] == "RT":
+                dp_relay_cnt += 1
             if peripheral[0] == "S":
                 switch_cnt += 1
+            if peripheral[:2] == "DM":
+                dimmer_cnt = max(dimmer_cnt, int(peripheral[2:]))
             if peripheral[0] == "X":
                 cover_switch_cnt += 1
             if peripheral[0] == "C":
                 cover_cnt += 1
-            if peripheral[0] == "I":
+            if peripheral[0] == "I" and peripheral[:2] != "IT":
                 indicators_cnt += 1
             if peripheral[0] == "L":
                 has_dedicated_net_led = True
             if peripheral[:2] == "BT":
                 has_battery_cluster = True
+            if peripheral[:2] in ("RT", "ST", "DM", "IT"):
+                has_secondary_mcu = True
 
         if switch_cnt == 1:
             switch_names = ["switch"]
@@ -105,6 +124,15 @@ if __name__ == "__main__":
         else:
             cover_names = [f"cover_{index}" for index in range(cover_cnt)]
 
+        # Channels l1, l2, ... as the boards mark their outputs (L1, L2) and as
+        # zigbee-herdsman-converters' own stock definitions name them (ZDMS16-2:
+        # state_l1, switch_type_l1): a module moved from the stock firmware keeps
+        # the light's and the switch type's entities in Home Assistant.
+        if dimmer_cnt == 1:
+            dimmer_names = ["dimmer"]
+        else:
+            dimmer_names = [f"l{index + 1}" for index in range(dimmer_cnt)]
+
         devices.append(
             {
                 "zb_models": [zb_model] + (device.get("old_zb_models") or []),
@@ -113,10 +141,16 @@ if __name__ == "__main__":
                 "switchNames": switch_names,
                 "relayNames": relay_names,
                 "relayIndicatorNames": relay_names[:indicators_cnt],
+                "dp_relay_cnt": dp_relay_cnt,
+                # Datapoint metadata drives both the compiled dp config
+                # string and the exposes below. Single source of truth.
+                "dp_attributes": device.get("dp_attributes") or [],
                 "coverSwitchNames": cover_switch_names,
                 "coverNames": cover_names,
+                "dimmerNames": dimmer_names,
                 "has_dedicated_net_led": has_dedicated_net_led,
                 "has_battery_cluster": has_battery_cluster,
+                "has_secondary_mcu": has_secondary_mcu,
             }
         )
 

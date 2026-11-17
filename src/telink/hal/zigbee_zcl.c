@@ -1,6 +1,7 @@
 #pragma pack(push, 1)
 #include "tl_common.h"
 #include "zb_api.h"
+#include "zcl_ballast_config.h"
 #include "zcl_cover_switch_config.h"
 #include "zcl_include.h"
 #include "zcl_multistate_input.h"
@@ -56,6 +57,9 @@ static cluster_registerFunc_t get_register_func_by_cluster_id(u16 cluster_id) {
     }
     if (cluster_id == ZCL_CLUSTER_CLOSURES_WINDOW_COVERING) {
         return zcl_windowCovering_custom_register;
+    }
+    if (cluster_id == 0x0301) { // Lighting Ballast Config
+        return zcl_ballast_config_register;
     }
     if (cluster_id == ZCL_CLUSTER_COVER_SWITCH_CONFIG) {
         return zcl_cover_switch_config_register;

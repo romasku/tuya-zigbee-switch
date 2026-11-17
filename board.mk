@@ -62,6 +62,9 @@ DEVICE_TYPE ?= $(shell yq -r .$(BOARD).device_type $(DEVICE_DB_FILE))
 MCU ?= $(shell yq -r .$(BOARD).mcu $(DEVICE_DB_FILE))
 MCU_FAMILY := $(shell yq -r .$(BOARD).mcu_family $(DEVICE_DB_FILE))
 CONFIG_STR := $(shell yq -r .$(BOARD).config_str $(DEVICE_DB_FILE))
+# Datapoint map, derived from the structured dp_attributes list. Kept in a
+# separate string because a single ZCL write caps at ~74 characters.
+DP_CONFIG_STR := $(shell yq -r '.$(BOARD).dp_attributes // [] | map(.dp + .type + .attr + ";") | join("")' $(DEVICE_DB_FILE))
 FROM_STOCK_MANUFACTURER_ID := $(shell yq -r .$(BOARD).stock_manufacturer_id $(DEVICE_DB_FILE))
 FROM_STOCK_IMAGE_TYPE := $(shell yq -r .$(BOARD).stock_image_type $(DEVICE_DB_FILE))
 FIRMWARE_IMAGE_TYPE := $(shell yq -r .$(BOARD).firmware_image_type $(DEVICE_DB_FILE))
@@ -105,6 +108,7 @@ ifeq ($(PLATFORM_PREFIX),silabs)
 		FILE_VERSION=$(FILE_VERSION) \
 		DEVICE_TYPE=$(DEVICE_TYPE) \
 		CONFIG_STR="$(CONFIG_STR)" \
+		DP_CONFIG_STR="$(DP_CONFIG_STR)" \
 		IMAGE_TYPE=$(FIRMWARE_IMAGE_TYPE) \
 		BIN_FILE=../../$(BIN_FILE) \
 		MCU=$(MCU) 
@@ -118,6 +122,7 @@ endif
 		FILE_VERSION=$(FILE_VERSION) \
 		DEVICE_TYPE=$(DEVICE_TYPE) \
 		CONFIG_STR="$(CONFIG_STR)" \
+		DP_CONFIG_STR="$(DP_CONFIG_STR)" \
 		IMAGE_TYPE=$(FIRMWARE_IMAGE_TYPE) \
 		BIN_FILE=../../$(BIN_FILE) \
 		 -j32

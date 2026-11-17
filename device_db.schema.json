@@ -178,6 +178,31 @@
           "enum": ["yes", "no"],
           "description": "Whether the device should be built"
         },
+        "dp_attributes": {
+          "oneOf": [
+            {"type": "null"},
+            {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "dp": {"type": "string", "pattern": "^[0-9A-Fa-f]{2}$", "description": "Tuya DP id, hex"},
+                  "type": {"type": "string", "enum": ["B", "E", "V"], "description": "B bool, E enum, V value"},
+                  "attr": {"type": "string", "pattern": "^[0-9A-Fa-f]{2}$", "description": "Low byte of the Basic attribute 0xffXX, hex"},
+                  "name": {"type": "string", "description": "Z2M expose name"},
+                  "label": {"type": "string", "description": "Z2M expose label"},
+                  "values": {"type": "object", "additionalProperties": {"type": "integer"}, "description": "Enum label -> value (quote labels such as \"off\")"},
+                  "unit": {"type": "string"},
+                  "min": {"type": "number"},
+                  "max": {"type": "number"}
+                },
+                "required": ["dp", "type", "attr", "name"],
+                "additionalProperties": false
+              }
+            }
+          ],
+          "description": "Secondary-MCU DPs exposed as Basic attributes (written into the DP config string, attribute 0xff11)"
+        },
         "status": {
           "type": "string",
           "enum": ["fully_supported", "mostly_supported", "in_progress", "unsupported"],

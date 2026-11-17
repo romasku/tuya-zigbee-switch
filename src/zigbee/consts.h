@@ -6,16 +6,17 @@
 
 // Clusters
 
-#define ZCL_CLUSTER_BASIC                     0
-#define ZCL_CLUSTER_POWER_CFG                 1
-#define ZCL_CLUSTER_ON_OFF                    6
-#define ZCL_CLUSTER_ON_OFF_SWITCH_CONFIG      7
-#define ZCL_CLUSTER_MULTISTATE_INPUT_BASIC    0x0012
-#define ZCL_CLUSTER_LEVEL_CONTROL             0x0008
-#define ZCL_CLUSTER_GROUPS                    0x0004
-#define ZCL_CLUSTER_OTA_BOOTLOAD              0x0019
-#define ZCL_CLUSTER_WINDOW_COVERING           0x0102
-#define ZCL_CLUSTER_COVER_SWITCH_CONFIG       0xFC01
+#define ZCL_CLUSTER_BASIC                      0
+#define ZCL_CLUSTER_POWER_CFG                  1
+#define ZCL_CLUSTER_ON_OFF                     6
+#define ZCL_CLUSTER_ON_OFF_SWITCH_CONFIG       7
+#define ZCL_CLUSTER_MULTISTATE_INPUT_BASIC     0x0012
+#define ZCL_CLUSTER_LEVEL_CONTROL              0x0008
+#define ZCL_CLUSTER_GROUPS                     0x0004
+#define ZCL_CLUSTER_OTA_BOOTLOAD               0x0019
+#define ZCL_CLUSTER_WINDOW_COVERING            0x0102
+#define ZCL_CLUSTER_COVER_SWITCH_CONFIG        0xFC01
+#define ZCL_CLUSTER_LIGHTING_BALLAST_CONFIG    0x0301
 
 
 // Attributes
@@ -26,22 +27,27 @@
 
 // Basic cluster
 
-#define ZCL_ATTR_BASIC_ZCL_VER                    0x0000
-#define ZCL_ATTR_BASIC_APP_VER                    0x0001
-#define ZCL_ATTR_BASIC_STACK_VER                  0x0002
-#define ZCL_ATTR_BASIC_HW_VER                     0x0003
-#define ZCL_ATTR_BASIC_MFR_NAME                   0x0004
-#define ZCL_ATTR_BASIC_MODEL_ID                   0x0005
-#define ZCL_ATTR_BASIC_DATE_CODE                  0x0006
-#define ZCL_ATTR_BASIC_POWER_SOURCE               0x0007
-#define ZCL_ATTR_BASIC_LOC_DESC                   0x0010
-#define ZCL_ATTR_BASIC_PHY_ENV                    0x0011
-#define ZCL_ATTR_BASIC_DEV_ENABLED                0x0012
-#define ZCL_ATTR_BASIC_ALARM_MASK                 0x0013
-#define ZCL_ATTR_BASIC_DISABLE_LOCAL_CFG          0x0014
-#define ZCL_ATTR_BASIC_SW_BUILD_ID                0x4000
+#define ZCL_ATTR_BASIC_ZCL_VER              0x0000
+#define ZCL_ATTR_BASIC_APP_VER              0x0001
+#define ZCL_ATTR_BASIC_STACK_VER            0x0002
+#define ZCL_ATTR_BASIC_HW_VER               0x0003
+#define ZCL_ATTR_BASIC_MFR_NAME             0x0004
+#define ZCL_ATTR_BASIC_MODEL_ID             0x0005
+#define ZCL_ATTR_BASIC_DATE_CODE            0x0006
+#define ZCL_ATTR_BASIC_POWER_SOURCE         0x0007
+#define ZCL_ATTR_BASIC_LOC_DESC             0x0010
+#define ZCL_ATTR_BASIC_PHY_ENV              0x0011
+#define ZCL_ATTR_BASIC_DEV_ENABLED          0x0012
+#define ZCL_ATTR_BASIC_ALARM_MASK           0x0013
+#define ZCL_ATTR_BASIC_DISABLE_LOCAL_CFG    0x0014
+#define ZCL_ATTR_BASIC_SW_BUILD_ID          0x4000
+
+/* genTime, so the coordinator can give the device a real clock. */
 
 #define ZCL_ATTR_BASIC_DEVICE_CONFIG              0xff00
+#define ZCL_ATTR_BASIC_DP_CONFIG                  0xff11
+#define ZCL_ATTR_BASIC_MCU_VERSION                0xff12
+#define ZCL_ATTR_BASIC_DEVICE_CONFIG_EXT          0xff16
 #define ZCL_ATTR_BASIC_STATUS_LED_STATE           0xff01
 #define ZCL_ATTR_BASIC_MULTI_PRESS_RESET_COUNT    0xff02
 
@@ -59,6 +65,7 @@
 // OnOff cluster
 
 #define ZCL_ATTR_ONOFF                    0x0000
+#define ZCL_ATTR_ONOFF_ON_TIME            0x4001
 #define ZCL_ATTR_START_UP_ONOFF           0x4003
 
 #define ZCL_ATTR_ONOFF_INDICATOR_MODE     0xff01
@@ -88,6 +95,10 @@
 
 #define ZCL_ATTR_GROUP_NAME_SUPPORT                                  0x0000
 
+// Level Control cluster
+#define ZCL_ATTR_LEVEL_CURRENT_LEVEL                                 0x0000
+#define ZCL_ATTR_LEVEL_ON_LEVEL                                      0x0011
+
 // WindowCovering cluster
 #define ZCL_ATTR_WINDOW_COVERING_TYPE                                0x0000
 #define ZCL_ATTR_WINDOW_COVERING_CURRENT_POSITION_LIFT_PERCENTAGE    0x0008
@@ -105,6 +116,10 @@
 #define ZCL_ATTR_COVER_SWITCH_CONFIG_LOCAL_MODE                      0x0003
 #define ZCL_ATTR_COVER_SWITCH_CONFIG_BINDED_MODE                     0x0004
 #define ZCL_ATTR_COVER_SWITCH_CONFIG_LONG_PRESS_DUR                  0x0005
+
+// Lighting ballast configuration cluster (standard, 0x0301)
+#define ZCL_ATTR_BALLAST_MIN_LEVEL                                   0x0010
+#define ZCL_ATTR_BALLAST_MAX_LEVEL                                   0x0011
 
 // Poll Control cluster
 #define ZCL_CLUSTER_POLL_CONTROL                                     0x0020

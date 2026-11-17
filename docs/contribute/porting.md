@@ -113,6 +113,30 @@ Additional options:
 | **`SLP`**    | Simultaneous Latching Pulses |  • Enable simultaneous pulses for latching relays (they are disallowed by default)|
 | **`LP<N>`**   | Latching pulses duration    | • Set Latching pulse duration in ms for latching relays <br> • Example: `LP50` reduces latching pulse duration to 50ms (default 100ms) |
 
+### Secondary MCU
+
+On many `TS0601` boards a second microcontroller drives the outputs and reads the
+inputs, and the Zigbee module only talks to it over UART (Tuya MCU protocol). Its
+outputs have no pins to map: the config string names Tuya datapoints instead.
+Datapoint ids are hex (`RT18` = DP 24).
+
+| Format                              | Function                                                                                                    |
+|------------------------------------:|-------------------------------------------------------------------------------------------------------------|
+| **`W<tx><rx>`**                     | • UART pins towards the MCU <br> • Default on Telink: `B1` / `B7` (ZT modules)                               |
+| **`Y<n>`**                          | • UART baud rate <br> • Default 115200 <br> • Example: `Y9600`                                              |
+| **`RT<dp>[<dp>]`**                  | • Relay switched by a datapoint, optional countdown datapoint <br> • Example: `RT01`, `RT181E`              |
+| **`ST<dp>`**                        | • Switch input (touch key, scene key) reported as a datapoint <br> • Example: `ST18`                        |
+| **`PT<dp>`**                        | • Power-on behaviour datapoint of the relays                                                                |
+| **`DM<n>`**                         | • `n` dimmers <br> • Standard Tuya dimmer datapoints: dimmer 1 = DP 1 on, 2 level, 3 min, 4 switch type, 5 max; dimmer 2 = DP 7–11 |
+| **`P<i>O<dp>L<dp>S<dp>M<dp>X<dp>`** | • Other datapoints for dimmer `i` (0-based, 2 hex digits): on, level, switch type, min, max; each field optional <br> • Example: `P00O01L02` |
+| **`U<dp>`**                         | • Power-on behaviour datapoint of the dimmers <br> • Default `0E`                                           |
+| **`DR`**                            | • Zigbee level written to the MCU as is <br> • Default: levels are scaled to the MCU's min/max brightness   |
+| **`IT<dp><t><v>`**                  | • Datapoint written once at boot <br> • `t`: `1` bool, `4` enum (1 byte `v`), `2` value (4 bytes `v`) <br> • Example: `IT0F101` |
+
+Settings datapoints without a ZCL equivalent (backlight, indicator, ...) are listed under
+`dp_attributes` in `device_db.yaml`; they become manufacturer specific attributes of the
+Basic cluster.
+
 ## Build and install
 
 [`device_db.yaml`]: /device_db.yaml

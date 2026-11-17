@@ -41,6 +41,7 @@ SOURCES := \
 	$(SRC_DIR)/stub/hal/tasks.c \
 	$(SRC_DIR)/stub/hal/nvm.c \
 	$(SRC_DIR)/stub/hal/adc.c \
+	$(SRC_DIR)/stub/hal/uart.c \
 	$(SRC_DIR)/stub/hal/zigbee.c \
 	$(SRC_DIR)/stub/hal/ota.c \
 	$(SRC_DIR)/stub/simple_repl.c \
@@ -58,6 +59,11 @@ SOURCES := \
 	$(SRC_DIR)/device_config/reset.c \
 	$(SRC_DIR)/device_config/nvm_migrations.c \
 	$(SRC_DIR)/zigbee/basic_cluster.c \
+	$(SRC_DIR)/zigbee/tuya_secondary_mcu.c \
+	$(SRC_DIR)/zigbee/tuya_mcu_app.c \
+	$(SRC_DIR)/zigbee/dimmer_cluster.c \
+	$(SRC_DIR)/zigbee/tuya_dp_relay.c \
+	$(SRC_DIR)/zigbee/dp_attr.c \
 	$(SRC_DIR)/zigbee/relay_cluster.c \
 	$(SRC_DIR)/zigbee/switch_cluster.c \
 	$(SRC_DIR)/zigbee/group_cluster.c \

@@ -7,8 +7,10 @@
 #include "hal/system.h"
 #include "hal/zigbee.h"
 #include "hal/zigbee_ota.h"
+#include "hal/timer.h"
 #include "zigbee/battery_cluster.h"
 #include "zigbee/general_commands.h"
+#include "zigbee/tuya_mcu_app.h"
 #ifdef END_DEVICE
 #include "zigbee/poll_control_cluster.h"
 #endif
@@ -45,8 +47,9 @@ void process_device_type_change() {
 
 void app_init(void) {
     handle_version_changes();
-    parse_config(); // Does most of the setup, including all callbacks
-                    // registration
+    parse_config();      // Does most of the setup, including all callbacks
+                         // registration
+    tuya_mcu_app_init(); // secondary MCU devices only
     hal_zigbee_init_ota();
     init_global_attr_write_callback();
 
@@ -59,6 +62,7 @@ void app_task() {
 #ifdef END_DEVICE
     poll_control_cluster_update();
 #endif
+    tuya_mcu_app_task();
 
     // TODO: add jitter to avoid all devices trying to join at once
     if (hal_zigbee_get_network_status() != HAL_ZIGBEE_NETWORK_JOINED &&
