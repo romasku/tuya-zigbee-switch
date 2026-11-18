@@ -17,6 +17,11 @@ hal_zigbee_endpoint *hal_endpoints;
 uint8_t hal_endpoints_cnt;
 static hal_zcl_activity_callback_t zcl_activity_callback = NULL;
 
+static sl_zigbee_af_endpoint_type_t *     silabs_endpoint_type_ptr;
+static sl_zigbee_af_cluster_t *           silabs_cluster_ptr;
+static sl_zigbee_af_attribute_metadata_t *silabs_attr_ptr;
+static uint8_t                            silabs_fixed_endpoint_index;
+
 static void notify_zcl_activity(void) {
     if (zcl_activity_callback != NULL) {
         zcl_activity_callback();
@@ -78,6 +83,69 @@ bool sl_zigbee_af_pre_command_received_cb(sl_zigbee_af_cluster_command_t *cmd) {
     return false;
 }
 
+static uint8_t silabs_register_hal_endpoint(hal_zigbee_endpoint *endpoint) {
+    if (silabs_fixed_endpoint_index >= ZCL_FIXED_ENDPOINT_COUNT) {
+        return 0;
+    }
+    uint8_t attr_n = 0;
+    for (uint8_t i = 0; i < endpoint->cluster_count; i++) {
+        attr_n = (uint8_t)(attr_n + endpoint->clusters[i].attribute_count);
+    }
+    if (silabs_endpoint_type_ptr >= endpoint_type_buffer + ZCL_FIXED_ENDPOINT_COUNT ||
+        silabs_cluster_ptr + endpoint->cluster_count >
+            clusters_buffer + MAX_CLUSTERS ||
+        silabs_attr_ptr + attr_n > attributes_buffer + MAX_ATTRS) {
+        return 0;
+    }
+
+    uint8_t index = silabs_fixed_endpoint_index;
+    sli_zigbee_af_endpoints[index].endpoint      = endpoint->endpoint;
+    sli_zigbee_af_endpoints[index].profileId     = endpoint->profile_id;
+    sli_zigbee_af_endpoints[index].deviceId      = endpoint->device_id;
+    sli_zigbee_af_endpoints[index].deviceVersion = endpoint->device_version;
+    sli_zigbee_af_endpoints[index].endpointType  = silabs_endpoint_type_ptr;
+
+    silabs_endpoint_type_ptr->clusterCount = endpoint->cluster_count;
+    silabs_endpoint_type_ptr->cluster      = silabs_cluster_ptr;
+    silabs_endpoint_type_ptr->endpointSize = 0;
+
+    for (uint8_t j = 0; j < endpoint->cluster_count; j++) {
+        hal_zigbee_cluster *cluster = &endpoint->clusters[j];
+        silabs_cluster_ptr->clusterId      = cluster->cluster_id;
+        silabs_cluster_ptr->clusterSize    = 0;
+        silabs_cluster_ptr->attributeCount = cluster->attribute_count;
+        silabs_cluster_ptr->mask           =
+            cluster->is_server ? CLUSTER_MASK_SERVER : CLUSTER_MASK_CLIENT;
+        silabs_cluster_ptr->attributes = silabs_attr_ptr;
+
+        for (uint8_t l = 0; l < cluster->attribute_count; l++) {
+            silabs_attr_ptr->attributeId   = cluster->attributes[l].attribute_id;
+            silabs_attr_ptr->attributeType = cluster->attributes[l].data_type_id;
+            silabs_attr_ptr->size          = cluster->attributes[l].size;
+            silabs_attr_ptr->mask          = ATTRIBUTE_MASK_EXTERNAL_STORAGE;
+            if (cluster->attributes[l].flag == ATTR_WRITABLE) {
+                silabs_attr_ptr->mask |= ATTRIBUTE_MASK_WRITABLE;
+            }
+            silabs_attr_ptr++;
+        }
+
+        if (cluster->cmd_callback) {
+            sl_zigbee_subscribe_to_zcl_commands(
+                cluster->cluster_id, 0xFFFF,
+                cluster->is_server ? ZCL_DIRECTION_CLIENT_TO_SERVER
+                                   : ZCL_DIRECTION_SERVER_TO_CLIENT,
+                on_command_callback);
+        }
+        silabs_cluster_ptr++;
+    }
+
+    sl_zigbee_af_endpoint_enable_disable(sli_zigbee_af_endpoints[index].endpoint,
+                                         true);
+    silabs_endpoint_type_ptr++;
+    silabs_fixed_endpoint_index++;
+    return 1;
+}
+
 void hal_zigbee_init(hal_zigbee_endpoint *endpoints, uint8_t endpoints_cnt) {
     hal_endpoints     = endpoints;
     hal_endpoints_cnt = endpoints_cnt;
@@ -91,59 +159,29 @@ void hal_zigbee_init(hal_zigbee_endpoint *endpoints, uint8_t endpoints_cnt) {
     endpoints_cnt = endpoints_cnt <= ZCL_FIXED_ENDPOINT_COUNT
                       ? endpoints_cnt
                       : ZCL_FIXED_ENDPOINT_COUNT;
+    hal_endpoints_cnt = endpoints_cnt;
 
-    sl_zigbee_af_endpoint_type_t *     endpoint_type_ptr = endpoint_type_buffer;
-    sl_zigbee_af_cluster_t *           cluster_ptr       = clusters_buffer;
-    sl_zigbee_af_attribute_metadata_t *attr_ptr          = attributes_buffer;
+    silabs_endpoint_type_ptr    = endpoint_type_buffer;
+    silabs_cluster_ptr          = clusters_buffer;
+    silabs_attr_ptr             = attributes_buffer;
+    silabs_fixed_endpoint_index = 0;
 
     for (int i = 0; i < endpoints_cnt; i++) {
-        sli_zigbee_af_endpoints[i].endpoint      = endpoints[i].endpoint;
-        sli_zigbee_af_endpoints[i].profileId     = endpoints[i].profile_id;
-        sli_zigbee_af_endpoints[i].deviceId      = endpoints[i].device_id;
-        sli_zigbee_af_endpoints[i].deviceVersion = endpoints[i].device_version;
-        sli_zigbee_af_endpoints[i].endpointType  = endpoint_type_ptr;
-
-        endpoint_type_ptr->clusterCount = endpoints[i].cluster_count;
-        endpoint_type_ptr->cluster      = cluster_ptr;
-        endpoint_type_ptr->endpointSize = 0;
-
-        hal_zigbee_cluster *clusters = endpoints[i].clusters;
-
-        for (int j = 0; j < endpoints[i].cluster_count; j++) {
-            cluster_ptr->clusterId      = clusters[j].cluster_id;
-            cluster_ptr->clusterSize    = 0;
-            cluster_ptr->attributeCount = clusters[j].attribute_count;
-            cluster_ptr->mask           =
-                clusters[j].is_server ? CLUSTER_MASK_SERVER : CLUSTER_MASK_CLIENT;
-            cluster_ptr->attributes = attr_ptr;
-
-            hal_zigbee_attribute *attributes = clusters[j].attributes;
-
-            for (int l = 0; l < clusters[j].attribute_count; l++) {
-                attr_ptr->attributeId   = attributes[l].attribute_id;
-                attr_ptr->attributeType = attributes[l].data_type_id;
-                attr_ptr->size          = attributes[l].size;
-                attr_ptr->mask          = ATTRIBUTE_MASK_EXTERNAL_STORAGE;
-                if (attributes[l].flag == ATTR_WRITABLE) {
-                    attr_ptr->mask |= ATTRIBUTE_MASK_WRITABLE;
-                }
-                attr_ptr++;
-            }
-
-            if (clusters[j].cmd_callback) {
-                sl_zigbee_subscribe_to_zcl_commands(
-                    clusters[j].cluster_id, 0xFFFF,
-                    clusters[j].is_server ? ZCL_DIRECTION_CLIENT_TO_SERVER
-                                  : ZCL_DIRECTION_SERVER_TO_CLIENT,
-                    on_command_callback);
-            }
-            cluster_ptr++;
-        }
-
-        sl_zigbee_af_endpoint_enable_disable(sli_zigbee_af_endpoints[i].endpoint,
-                                             true);
-        endpoint_type_ptr++;
+        silabs_register_hal_endpoint(&endpoints[i]);
     }
+}
+
+uint8_t hal_zigbee_add_endpoint(hal_zigbee_endpoint *endpoint) {
+    if (hal_endpoints == NULL || endpoint == NULL ||
+        endpoint != &hal_endpoints[hal_endpoints_cnt] ||
+        hal_endpoints_cnt >= ZCL_FIXED_ENDPOINT_COUNT) {
+        return 0;
+    }
+    if (!silabs_register_hal_endpoint(endpoint)) {
+        return 0;
+    }
+    hal_endpoints_cnt++;
+    return 1;
 }
 
 void hal_zigbee_notify_attribute_changed(uint8_t endpoint, uint16_t cluster_id,

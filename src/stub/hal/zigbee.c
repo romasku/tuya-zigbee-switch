@@ -91,6 +91,25 @@ void hal_zigbee_init(hal_zigbee_endpoint *ep_list, uint8_t ep_count) {
     }
 }
 
+uint8_t hal_zigbee_add_endpoint(hal_zigbee_endpoint *endpoint) {
+    if (endpoints == NULL || endpoint == NULL ||
+        endpoint != &endpoints[endpoints_count] ||
+        endpoints_count >= MAX_ENDPOINTS) {
+        io_log("ZIGBEE", "Error: rejected extra endpoint");
+        return 0;
+    }
+    if (endpoint->cluster_count > 0 && !endpoint->clusters) {
+        io_log("ZIGBEE", "Error: added endpoint %d has NULL clusters",
+               endpoint->endpoint);
+        exit(1);
+    }
+    io_log("ZIGBEE", "Endpoint %d: profile=0x%04x, device=0x%04x, clusters=%d",
+           endpoint->endpoint, endpoint->profile_id, endpoint->device_id,
+           endpoint->cluster_count);
+    endpoints_count++;
+    return 1;
+}
+
 hal_zigbee_network_status_t hal_zigbee_get_network_status(void) {
     return network_status;
 }

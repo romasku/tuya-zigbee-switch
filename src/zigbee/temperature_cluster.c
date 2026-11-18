@@ -2,6 +2,7 @@
 
 #include "cluster_common.h"
 #include "consts.h"
+#include "device_config/config_parser.h"
 #include "hal/printf_selector.h"
 #include "hal/zigbee.h"
 #include "humidity_cluster.h"
@@ -11,18 +12,34 @@ static int16_t  temperature_max_value = 12500;
 static uint16_t temperature_cluster_revision = 0x0001;
 
 #define TEMPERATURE_CONVERT_MS    800
-#define TEMPERATURE_PERIOD_MS     10000
+/* Time from one published sample to the next, including Convert. */
+#define TEMPERATURE_PERIOD_MS     5000
+/*
+ * One sensor read, then return. The main loop clears the 1000 ms watchdog
+ * around this task, so a step has to stay well under that. The boot search
+ * itself runs inline in dallas1wire_clusters_start, before the watchdog.
+ */
+#define ONEWIRE_STEP_MS           20
 
-zigbee_temperature_cluster temperature_clusters[DS18B20_MAX_SENSORS];
+zigbee_temperature_cluster temperature_clusters[OW_MAX_SENSORS];
 uint8_t temperature_clusters_cnt = 0;
 
 static hal_task_t temperature_task;
-static uint8_t    waiting_for_conversion;
+static int16_t    read_temps[OW_MAX_SENSORS];
+static uint16_t   read_humidity[OW_MAX_SENSORS];
+static uint8_t    powerup_waits;
 
-static void publish_temperatures(const int16_t temps[DS18B20_MAX_SENSORS]) {
-    for (uint8_t i = 0; i < temperature_clusters_cnt && i < DS18B20_MAX_SENSORS;
-         i++) {
-        if (temperature_clusters[i].measured_value == temps[i]) {
+enum {
+    ONEWIRE_READ = 0,
+    ONEWIRE_MEASURE,
+};
+
+static uint8_t onewire_phase;
+
+static void publish_temperatures(const int16_t temps[OW_MAX_SENSORS]) {
+    for (uint8_t i = 0; i < OW_MAX_SENSORS; i++) {
+        if (temperature_clusters[i].endpoint == 0 ||
+            temperature_clusters[i].measured_value == temps[i]) {
             continue;
         }
         temperature_clusters[i].measured_value = temps[i];
@@ -33,25 +50,97 @@ static void publish_temperatures(const int16_t temps[DS18B20_MAX_SENSORS]) {
     }
 }
 
-static void temperature_task_handler(void *arg) {
-    (void)arg;
-    if (!waiting_for_conversion) {
-        ds18b20_start_conversion();
-        waiting_for_conversion = 1;
+static void begin_read(void) {
+    ow_read_begin(read_temps, read_humidity);
+    onewire_phase = ONEWIRE_READ;
+    hal_tasks_schedule(&temperature_task, ONEWIRE_STEP_MS);
+}
+
+static uint8_t reading_is_powerup(void) {
+    for (uint8_t i = 0; i < OW_MAX_SENSORS; i++) {
+        /* 85.00°C is the DS18B20 scratchpad value before Convert. */
+        if (read_temps[i] == 8500) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+static void start_measurement(void) {
+    if (!ow_sensors_seen()) {
+        return;
+    }
+    /*
+     * Convert, then read. This ATtiny leaves 85.00°C in the scratchpad
+     * until Convert finishes, and that is the sample the log shows.
+     */
+    if (ow_convert_start()) {
+        ow_read_begin(read_temps, read_humidity);
+        onewire_phase = ONEWIRE_READ;
         hal_tasks_schedule(&temperature_task, TEMPERATURE_CONVERT_MS);
         return;
     }
+    begin_read();
+}
 
-    int16_t temps[DS18B20_MAX_SENSORS];
-    ds18b20_read_temperatures(temps);
-    publish_temperatures(temps);
+static void schedule_measurements(void) {
+    onewire_phase = ONEWIRE_MEASURE;
+    /* Convert runs at the start of the next sample, so it counts toward the 5 s. */
+    hal_tasks_schedule(&temperature_task,
+                       TEMPERATURE_PERIOD_MS - TEMPERATURE_CONVERT_MS);
+}
 
-    uint16_t humidity[DS18B20_MAX_SENSORS];
-    ds18b20_read_humidities(humidity);
-    humidity_cluster_publish(humidity);
+static uint8_t seen_count(void) {
+    uint8_t seen  = ow_seen_mask();
+    uint8_t count = 0;
+    for (uint8_t slot = 0; slot < OW_MAX_SENSORS; slot++) {
+        if (seen & (1u << slot)) {
+            count++;
+        }
+    }
+    return count;
+}
 
-    waiting_for_conversion = 0;
-    hal_tasks_schedule(&temperature_task, TEMPERATURE_PERIOD_MS);
+static void log_seen_slots(void) {
+    uint8_t seen = ow_seen_mask();
+    for (uint8_t slot = 0; slot < OW_MAX_SENSORS; slot++) {
+        if (seen & (1u << slot)) {
+            ow_log_slot(slot, temperature_clusters[slot].endpoint);
+        }
+    }
+}
+
+static void attach_seen_slots(void) {
+    uint8_t seen = ow_seen_mask();
+    for (uint8_t slot = 0; slot < OW_MAX_SENSORS; slot++) {
+        if (seen & (1u << slot)) {
+            config_attach_onewire_sensor(slot, ow_slot_family(slot));
+        }
+    }
+}
+
+static void temperature_task_handler(void *arg) {
+    (void)arg;
+
+    if (onewire_phase == ONEWIRE_MEASURE) {
+        start_measurement();
+        return;
+    }
+
+    if (ow_read_step(read_temps, read_humidity)) {
+        hal_tasks_schedule(&temperature_task, ONEWIRE_STEP_MS);
+        return;
+    }
+    if (reading_is_powerup() && powerup_waits < 2) {
+        powerup_waits++;
+        start_measurement();
+        return;
+    }
+    powerup_waits = 0;
+    publish_temperatures(read_temps);
+    humidity_cluster_publish(read_humidity);
+    log_seen_slots();
+    schedule_measurements();
 }
 
 void temperature_cluster_add_to_endpoint(zigbee_temperature_cluster *cluster,
@@ -78,16 +167,23 @@ void temperature_cluster_add_to_endpoint(zigbee_temperature_cluster *cluster,
     endpoint->cluster_count++;
 }
 
-void temperature_clusters_start(void) {
-    if (!ds18b20_is_configured() ||
-        (temperature_clusters_cnt == 0 && humidity_clusters_cnt == 0)) {
+void dallas1wire_clusters_start(void) {
+    if (!ow_is_configured()) {
         return;
     }
-    waiting_for_conversion        = 0;
-    temperature_task.handler      = temperature_task_handler;
-    temperature_task.arg          = NULL;
+    temperature_task.handler = temperature_task_handler;
+    temperature_task.arg     = NULL;
     hal_tasks_init(&temperature_task);
-    hal_tasks_schedule(&temperature_task, 1000);
-    printf("1-Wire bus started, %d sensor endpoints\r\n",
-           temperature_clusters_cnt);
+
+    printf("1-Wire bus initialized, searching once\r\n");
+    ow_search_begin();
+    while (ow_search_step()) {
+    }
+    ow_search_alternate_resets();
+    printf("1-Wire search done, %d sensor(s)\r\n", seen_count());
+    if (!ow_sensors_seen()) {
+        return;
+    }
+    attach_seen_slots();
+    start_measurement();
 }

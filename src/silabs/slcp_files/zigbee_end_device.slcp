@@ -30,8 +30,13 @@ source:
 - {path: ../../hal/common/zigbee.h}
 - {path: ../../base_components/button.c}
 - {path: ../../base_components/battery.c}
+- {path: ../../base_components/onewire.c}
+- {path: ../../base_components/onewire.h}
+- {path: ../../base_components/onewire_bus.h}
 - {path: ../../base_components/ds18b20.c}
 - {path: ../../base_components/ds18b20.h}
+- {path: ../../base_components/ds2438.c}
+- {path: ../../base_components/ds2438.h}
 - {path: ../../base_components/led.c}
 - {path: ../../base_components/network_indicator.c}
 - {path: ../../base_components/relay.c}

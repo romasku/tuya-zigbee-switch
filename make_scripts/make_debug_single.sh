@@ -17,7 +17,16 @@
 set -e                                           # Exit on error.
 cd "$(dirname "$(dirname "$(realpath "$0")")")"  # Go to project root.
 
-DEVICE=BOARD__ZIGBEE_ZTU_2  # Change this to your device
+# Device: $1, else BUILD_FOR_DEVICE, else this default.
+DEFAULT_DEVICE=BOARD__ZIGBEE_ZTU_2
+
+if [[ -n "${1:-}" ]]; then
+    DEVICE="$1"
+elif [[ -n "${BUILD_FOR_DEVICE:-}" ]]; then
+    DEVICE="$BUILD_FOR_DEVICE"
+else
+    DEVICE="$DEFAULT_DEVICE"
+fi
 
 # Check if device exists in database
 if ! yq -e ".${DEVICE}" device_db.yaml >/dev/null 2>&1; then

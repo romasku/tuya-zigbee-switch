@@ -20,7 +20,7 @@
 #include "base_components/led.h"
 #include "base_components/network_indicator.h"
 #include "base_components/battery.h"
-#include "base_components/ds18b20.h"
+#include "base_components/onewire.h"
 #include "config_nv.h"
 #include "device_config/device_params_nv.h"
 #include "device_config/reset.h"
@@ -70,6 +70,12 @@ uint8_t cover_clusters_cnt = 0;
 
 hal_zigbee_cluster  clusters[APP_CLUSTER_LIMIT];
 hal_zigbee_endpoint endpoints[APP_ENDPOINT_LIMIT];
+
+static uint16_t clusters_used;
+static uint8_t  sensor_endpoint_base;
+static uint8_t  onewire_attach_limit;
+static uint8_t  onewire_attached;
+static uint8_t  onewire_registered[OW_MAX_SENSORS];
 
 uint8_t allow_simultaneous_latching_pulses = 0;
 uint8_t relay_pulse_ms = 100;
@@ -291,13 +297,11 @@ void parse_config() {
             cover_clusters[cover_clusters_cnt].cover_idx   = cover_clusters_cnt;
             cover_clusters_cnt++;
         } else if (entry[0] == 'W') {
-            // W<pin> is the DS18B20 1-Wire bus, for example WB5.
-            if (temperature_clusters_cnt == 0) {
+            // W<pin> only prepares the bus. The search runs later, after the NV reads.
+            if (!ow_is_configured()) {
                 hal_gpio_pin_t pin = hal_gpio_parse_pin(entry + 1);
                 if (pin != HAL_INVALID_PIN) {
-                    ds18b20_init(pin);
-                    temperature_clusters_cnt = DS18B20_MAX_SENSORS;
-                    humidity_clusters_cnt    = DS18B20_MAX_SENSORS;
+                    ow_init(pin);
                 }
             }
         } else if (entry[0] == 'i') {
@@ -315,24 +319,13 @@ void parse_config() {
 
     uint8_t other_endpoints = switch_clusters_cnt + relay_clusters_cnt +
                               cover_switch_clusters_cnt + cover_clusters_cnt;
-    /* Temperature and humidity share one endpoint per 1-Wire slot. */
-    uint8_t sensor_endpoints = temperature_clusters_cnt;
-    if (other_endpoints >= APP_ENDPOINT_LIMIT) {
-        temperature_clusters_cnt = 0;
-        humidity_clusters_cnt    = 0;
-    } else if (other_endpoints + sensor_endpoints > APP_ENDPOINT_LIMIT) {
-        uint8_t room = APP_ENDPOINT_LIMIT - other_endpoints;
-        printf("1-Wire endpoints reduced to %d\r\n", room);
-        temperature_clusters_cnt = room;
-        humidity_clusters_cnt    = room;
-    }
 
     printf("Initializing Zigbee with %d switches, %d relays, %d cover switches, "
            "%d covers, %d 1-Wire sensors\r\n",
            switch_clusters_cnt, relay_clusters_cnt, cover_switch_clusters_cnt,
            cover_clusters_cnt, temperature_clusters_cnt);
 
-    uint8_t total_endpoints = other_endpoints + temperature_clusters_cnt;
+    uint8_t total_endpoints = other_endpoints;
 
     hal_zigbee_cluster *cluster_ptr = clusters;
 
@@ -417,23 +410,22 @@ void parse_config() {
                                       &endpoints[cover_base + index]);
     }
 
-    int temperature_base = switch_clusters_cnt + relay_clusters_cnt +
-                           cover_switch_clusters_cnt + cover_clusters_cnt;
-    for (int index = 0; index < temperature_clusters_cnt; index++) {
-        if (temperature_base + index != 0) {
-            cluster_ptr += endpoints[temperature_base + index - 1].cluster_count;
-            endpoints[temperature_base + index].clusters = cluster_ptr;
-        }
-        temperature_cluster_add_to_endpoint(&temperature_clusters[index],
-                                            &endpoints[temperature_base + index]);
-        if (index < humidity_clusters_cnt) {
-            humidity_cluster_add_to_endpoint(&humidity_clusters[index],
-                                             &endpoints[temperature_base + index]);
-        }
+    sensor_endpoint_base = total_endpoints;
+    onewire_attach_limit = 0;
+    onewire_attached     = 0;
+    memset(onewire_registered, 0, sizeof(onewire_registered));
+    if (ow_is_configured() && sensor_endpoint_base < APP_ENDPOINT_LIMIT) {
+        uint8_t room = (uint8_t)(APP_ENDPOINT_LIMIT - sensor_endpoint_base);
+        onewire_attach_limit =
+            room < OW_MAX_SENSORS ? room : OW_MAX_SENSORS;
+    }
+    {
+        hal_zigbee_endpoint *last = &endpoints[total_endpoints - 1];
+        clusters_used =
+            (uint16_t)(last->clusters - clusters) + last->cluster_count;
     }
 
     hal_zigbee_init(endpoints, total_endpoints);
-    temperature_clusters_start();
     while (cursor != (char *)device_config_str.data) {
         cursor--;
         if (*cursor == '\0') {
@@ -442,6 +434,49 @@ void parse_config() {
     }
 
     printf("Config parsed successfully\r\n");
+}
+
+uint8_t config_attach_onewire_sensor(uint8_t slot, uint8_t family) {
+    if (!ow_is_configured() || slot >= OW_MAX_SENSORS) {
+        return 0;
+    }
+    if (onewire_registered[slot]) {
+        return 1;
+    }
+    if (onewire_attached >= onewire_attach_limit) {
+        printf("1-Wire slot %d left off the network, endpoint limit\r\n", slot);
+        return 0;
+    }
+    if ((uint16_t)(clusters_used + 2) > APP_CLUSTER_LIMIT) {
+        printf("1-Wire slot %d left off the network, cluster limit\r\n", slot);
+        return 0;
+    }
+
+    uint8_t idx = (uint8_t)(sensor_endpoint_base + onewire_attached);
+    hal_zigbee_endpoint *ep = &endpoints[idx];
+    memset(ep, 0, sizeof(*ep));
+    ep->endpoint   = (uint8_t)(sensor_endpoint_base + slot + 1);
+    ep->profile_id = 0x0104;
+    ep->device_id  = 0xffff;
+    ep->clusters   = &clusters[clusters_used];
+
+    temperature_cluster_add_to_endpoint(&temperature_clusters[slot], ep);
+    humidity_cluster_add_to_endpoint(&humidity_clusters[slot], ep);
+
+    if (!hal_zigbee_add_endpoint(ep)) {
+        temperature_clusters[slot].endpoint = 0;
+        humidity_clusters[slot].endpoint    = 0;
+        printf("1-Wire slot %d endpoint register failed\r\n", slot);
+        return 0;
+    }
+
+    clusters_used = (uint16_t)(clusters_used + ep->cluster_count);
+    onewire_registered[slot] = 1;
+    onewire_attached++;
+    temperature_clusters_cnt = onewire_attached;
+    humidity_clusters_cnt    = onewire_attached;
+    (void)family;
+    return 1;
 }
 
 void network_indicator_on_network_status_change(

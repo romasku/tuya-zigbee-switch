@@ -7,7 +7,7 @@ static uint16_t humidity_min_value         = 0;
 static uint16_t humidity_max_value         = 10000;
 static uint16_t humidity_cluster_revision  = 0x0001;
 
-zigbee_humidity_cluster humidity_clusters[DS18B20_MAX_SENSORS];
+zigbee_humidity_cluster humidity_clusters[OW_MAX_SENSORS];
 uint8_t humidity_clusters_cnt = 0;
 
 void humidity_cluster_add_to_endpoint(zigbee_humidity_cluster *cluster,
@@ -34,9 +34,10 @@ void humidity_cluster_add_to_endpoint(zigbee_humidity_cluster *cluster,
     endpoint->cluster_count++;
 }
 
-void humidity_cluster_publish(const uint16_t rh_percent_x100[DS18B20_MAX_SENSORS]) {
-    for (uint8_t i = 0; i < humidity_clusters_cnt && i < DS18B20_MAX_SENSORS; i++) {
-        if (humidity_clusters[i].measured_value == rh_percent_x100[i]) {
+void humidity_cluster_publish(const uint16_t rh_percent_x100[OW_MAX_SENSORS]) {
+    for (uint8_t i = 0; i < OW_MAX_SENSORS; i++) {
+        if (humidity_clusters[i].endpoint == 0 ||
+            humidity_clusters[i].measured_value == rh_percent_x100[i]) {
             continue;
         }
         humidity_clusters[i].measured_value = rh_percent_x100[i];

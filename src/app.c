@@ -9,6 +9,7 @@
 #include "hal/zigbee_ota.h"
 #include "zigbee/battery_cluster.h"
 #include "zigbee/general_commands.h"
+#include "zigbee/temperature_cluster.h"
 #ifdef END_DEVICE
 #include "zigbee/poll_control_cluster.h"
 #endif
@@ -51,6 +52,8 @@ void app_init(void) {
     init_global_attr_write_callback();
 
     process_device_type_change();
+    /* NV item 32 is read above. Search before the main loop starts steering. */
+    dallas1wire_clusters_start();
 }
 
 static bool boot_announce_sent = false;
