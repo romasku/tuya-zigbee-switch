@@ -96,6 +96,13 @@ class CustomOnOffConfigurationCluster(CustomCluster, OnOffConfiguration):
             is_manufacturer_specific=False,
         )
 
+        level_move_keep_on = ZCLAttributeDef(
+            id=0xff07,
+            type=t.Bool,
+            access="rw",
+            is_manufacturer_specific=False,
+        )
+
         binded_mode = ZCLAttributeDef(
             id=0xff05,
             type=BindedMode,
@@ -351,6 +358,13 @@ for config in CONFIGS:
                 CustomOnOffConfigurationCluster.cluster_id,
                 translation_key="level_move_mode_"+str(endpoint_id),
                 fallback_name="Level move mode "+str(endpoint_id),
+                endpoint_id=endpoint_id,
+            )
+            .switch(
+                CustomOnOffConfigurationCluster.AttributeDefs.level_move_keep_on.name,
+                CustomOnOffConfigurationCluster.cluster_id,
+                translation_key="level_move_keep_on_"+str(endpoint_id),
+                fallback_name="Level move keep on"+str(endpoint_id),
                 endpoint_id=endpoint_id,
             )
             .sensor(

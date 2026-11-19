@@ -119,6 +119,17 @@ const romasku = {
             - alternate: alternates between UP and DOWN on each long press (default)`,
             entityCategory: "config",
         }),
+    levelMoveKeepOn: (name, endpointName) =>
+        binary({
+            name,
+            endpointName,
+            valueOn: ["ON", 1],
+            valueOff: ["OFF", 0],
+            cluster: "genOnOffSwitchCfg",
+            attribute: { ID: 0xff07, type: 0x10 }, // Boolean
+            description: "When the light reaches the minimum brightness, it will stay ON instead of turning OFF",
+            entityCategory: "config",
+        }),
     pressAction: (name, endpointName) =>
         enumLookup({
             name,
@@ -485,6 +496,7 @@ const definitions = [
             romasku.longPressDuration("{{switchName}}_long_press_duration", "{{switchName}}"),
             romasku.levelMoveRate("{{switchName}}_level_move_rate", "{{switchName}}"),
             romasku.levelMoveMode("{{switchName}}_level_move_mode", "{{switchName}}"),
+            romasku.levelMoveKeepOn("{{switchName}}_level_move_keep_on", "{{switchName}}"),
             {% endfor %}
             {% for relayName in device.relayIndicatorNames %}
             romasku.relayIndicatorMode("{{relayName}}_indicator_mode", "{{relayName}}"),

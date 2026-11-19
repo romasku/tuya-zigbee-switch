@@ -119,11 +119,13 @@ void switch_cluster_add_to_endpoint(zigbee_switch_cluster *cluster,
                ZCL_DATA_TYPE_ENUM8, ATTR_WRITABLE, cluster->binded_mode);
     SETUP_ATTR(8, ZCL_ATTR_ONOFF_CONFIGURATION_SWITCH_LEVEL_MOVE_MODE,
                ZCL_DATA_TYPE_ENUM8, ATTR_WRITABLE, cluster->level_move_mode);
+    SETUP_ATTR(9, ZCL_ATTR_ONOFF_CONFIGURATION_SWITCH_LEVEL_MOVE_KEEP_ON,
+               ZCL_DATA_TYPE_BOOLEAN, ATTR_WRITABLE, cluster->level_move_keep_on);
 
     // Configuration
     endpoint->clusters[endpoint->cluster_count].cluster_id =
         ZCL_CLUSTER_ON_OFF_SWITCH_CONFIG;
-    endpoint->clusters[endpoint->cluster_count].attribute_count = 9;
+    endpoint->clusters[endpoint->cluster_count].attribute_count = 10;
     endpoint->clusters[endpoint->cluster_count].attributes      = cluster->attr_infos;
     endpoint->clusters[endpoint->cluster_count].is_server       = 1;
     endpoint->cluster_count++;
@@ -322,7 +324,7 @@ void switch_cluster_level_stop(zigbee_switch_cluster *cluster) {
         return;
     }
 
-    hal_zigbee_cmd c = build_level_stop_onoff_cmd(cluster->endpoint);
+    hal_zigbee_cmd c = build_level_stop_cmd(cluster->endpoint, cluster->level_move_keep_on);
     hal_zigbee_send_cmd_to_bindings(&c);
 }
 
@@ -331,9 +333,11 @@ void switch_cluster_level_control(zigbee_switch_cluster *cluster) {
         return;
     }
 
-    hal_zigbee_cmd c = build_level_move_onoff_cmd(cluster->endpoint,
-                                                  cluster->level_move_direction,
-                                                  cluster->level_move_rate);
+    hal_zigbee_cmd c = build_level_move_cmd(cluster->endpoint,
+                                 cluster->level_move_direction,
+                                 cluster->level_move_rate,
+                                 cluster->level_move_keep_on);
+    
     hal_zigbee_send_cmd_to_bindings(&c);
 
     if (cluster->level_move_mode == ZCL_LEVEL_MOVE_MODE_ALTERNATE) {
@@ -503,9 +507,10 @@ void switch_cluster_store_attrs_to_nv(zigbee_switch_cluster *cluster) {
     nv_config_buffer.relay_mode  = cluster->relay_mode;
     nv_config_buffer.button_long_press_duration =
         cluster->button->long_press_duration_ms;
-    nv_config_buffer.level_move_rate = cluster->level_move_rate;
-    nv_config_buffer.binded_mode     = cluster->binded_mode;
-    nv_config_buffer.level_move_mode = cluster->level_move_mode;
+    nv_config_buffer.level_move_rate    = cluster->level_move_rate;
+    nv_config_buffer.binded_mode        = cluster->binded_mode;
+    nv_config_buffer.level_move_mode    = cluster->level_move_mode;
+    nv_config_buffer.level_move_keep_on = cluster->level_move_keep_on;
     hal_nvm_write(NV_ITEM_SWITCH_CLUSTER_DATA(cluster->switch_idx),
                   sizeof(zigbee_switch_cluster_config),
                   (uint8_t *)&nv_config_buffer);
@@ -526,9 +531,10 @@ void switch_cluster_load_attrs_from_nv(zigbee_switch_cluster *cluster) {
     cluster->relay_mode  = nv_config_buffer.relay_mode;
     cluster->button->long_press_duration_ms =
         nv_config_buffer.button_long_press_duration;
-    cluster->level_move_rate = nv_config_buffer.level_move_rate;
-    cluster->binded_mode     = nv_config_buffer.binded_mode;
-    cluster->level_move_mode = nv_config_buffer.level_move_mode;
+    cluster->level_move_rate    = nv_config_buffer.level_move_rate;
+    cluster->binded_mode        = nv_config_buffer.binded_mode;
+    cluster->level_move_mode    = nv_config_buffer.level_move_mode;
+    cluster->level_move_keep_on = nv_config_buffer.level_move_keep_on;
 
     // Validate the level move mode configuration
     switch_cluster_validate_level_move_direction(cluster);

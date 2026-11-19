@@ -61,7 +61,8 @@ void migrate_to_v2() {
             new_config.button_long_press_duration = old_config.button_long_press_duration;
             new_config.level_move_rate = old_config.level_move_rate;
             new_config.binded_mode = old_config.binded_mode;
-            new_config.level_move_mode = ZCL_LEVEL_MOVE_MODE_ALTERNATE; // Default value
+            new_config.level_move_mode = ZCL_LEVEL_MOVE_MODE_ALTERNATE;
+            new_config.level_move_keep_on = 0;
             
             // Write the updated configuration
             st = hal_nvm_write(NV_ITEM_SWITCH_CLUSTER_DATA(i),
