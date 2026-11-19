@@ -32,6 +32,10 @@ class SwitchType(t.enum8):
     Momentary = 0x01
     Momentary_NC = 0x02
 
+class LevelMoveMode(t.enum8):
+    OnlyUp = 0x00
+    OnlyDown = 0x01
+    Alternate = 0x02
 
 class CoverSwitchType(t.enum8):
     Toggle = 0x00
@@ -81,6 +85,20 @@ class CustomOnOffConfigurationCluster(CustomCluster, OnOffConfiguration):
         level_move_rate = ZCLAttributeDef(
             id=0xff04,
             type=t.uint8_t,
+            access="rw",
+            is_manufacturer_specific=False,
+        )
+
+        level_move_mode = ZCLAttributeDef(
+            id=0xff06,
+            type=LevelMoveMode,
+            access="rw",
+            is_manufacturer_specific=False,
+        )
+
+        level_move_keep_on = ZCLAttributeDef(
+            id=0xff07,
+            type=t.Bool,
             access="rw",
             is_manufacturer_specific=False,
         )
@@ -332,6 +350,21 @@ for config in CONFIGS:
                 min_value=1,
                 max_value=255,
                 step=1,
+                endpoint_id=endpoint_id,
+            )
+            .enum(
+                CustomOnOffConfigurationCluster.AttributeDefs.level_move_mode.name,
+                BindedMode,
+                CustomOnOffConfigurationCluster.cluster_id,
+                translation_key="level_move_mode_"+str(endpoint_id),
+                fallback_name="Level move mode "+str(endpoint_id),
+                endpoint_id=endpoint_id,
+            )
+            .switch(
+                CustomOnOffConfigurationCluster.AttributeDefs.level_move_keep_on.name,
+                CustomOnOffConfigurationCluster.cluster_id,
+                translation_key="level_move_keep_on_"+str(endpoint_id),
+                fallback_name="Level move keep on"+str(endpoint_id),
                 endpoint_id=endpoint_id,
             )
             .sensor(
