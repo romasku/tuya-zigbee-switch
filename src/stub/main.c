@@ -24,7 +24,8 @@ static void poll_wrapper(void *u) {
 }
 
 static void print_usage(const char *prog) {
-    printf("Usage: %s [--device-config <string>] [--help]\n", prog);
+    printf("Usage: %s [--device-config <string>] [--dp-config <string>] "
+           "[--device-config-ext <string>] [--help]\n", prog);
 }
 
 int main(int argc, char **argv) {
@@ -32,23 +33,35 @@ int main(int argc, char **argv) {
     signal(SIGINT, on_sigint);
 
     const struct option long_opts[] = {
-        { "device-config", required_argument, 0, 'd' },
-        { "not-joined",    no_argument,       0, 'j' },
-        { "freeze-time",   no_argument,       0, 'f' },
-        { "help",          no_argument,       0, 'h' },
-        {               0,                 0, 0,   0 }
+        { "device-config",     required_argument, 0, 'd' },
+        { "dp-config",         required_argument, 0, 'p' },
+        { "device-config-ext", required_argument, 0, 'e' },
+        { "not-joined",        no_argument,       0, 'j' },
+        { "freeze-time",       no_argument,       0, 'f' },
+        { "help",              no_argument,       0, 'h' },
+        {                   0,                 0, 0,   0 }
     };
 
     char device_conf_buf[APP_DEVICE_CONF_MAX];
     device_conf_buf[0] = '\0';
+    char dp_conf_buf[APP_DEVICE_CONF_MAX];
+    dp_conf_buf[0] = '\0';
+    char device_conf_ext_buf[APP_DEVICE_CONF_MAX];
+    device_conf_ext_buf[0] = '\0';
     bool joined = true;
     for (;;) {
-        int opt = getopt_long(argc, argv, "d:j:f:h", long_opts, NULL);
+        int opt = getopt_long(argc, argv, "d:p:e:j:f:h", long_opts, NULL);
         if (opt == -1)
             break;
         switch (opt) {
         case 'd':
             snprintf(device_conf_buf, sizeof(device_conf_buf), "%s", optarg);
+            break;
+        case 'p':
+            snprintf(dp_conf_buf, sizeof(dp_conf_buf), "%s", optarg);
+            break;
+        case 'e':
+            snprintf(device_conf_ext_buf, sizeof(device_conf_ext_buf), "%s", optarg);
             break;
         case 'j':
             joined = false;
@@ -63,7 +76,9 @@ int main(int argc, char **argv) {
         }
     }
 
-    stub_app_init(device_conf_buf[0] ? device_conf_buf : NULL, joined);
+    stub_app_init(device_conf_buf[0] ? device_conf_buf : NULL,
+                  dp_conf_buf[0] ? dp_conf_buf : NULL,
+                  device_conf_ext_buf[0] ? device_conf_ext_buf : NULL, joined);
 
     puts("[STUB] Entering interactive mode. Type 'h' for help.");
     commands_print_help(); // auto-generated from table

@@ -27,13 +27,18 @@ void stub_tasks_poll(void) {
         tasks_executed = 0;
         for (int i = 0; i < MAX_TASKS; i++) {
             if (tasks[i].active && current_time >= tasks[i].scheduled_time) {
-                if (tasks[i].task && tasks[i].task->handler) {
+                hal_task_t *task = tasks[i].task;
+                // Free the slot before running the handler, like Telink does
+                // (it clears the timer handle first): a handler that
+                // unschedules and reschedules itself may get this very slot
+                // back, and clearing it afterwards would silently drop that.
+                tasks[i].active = 0;
+                if (task && task->handler) {
                     io_log("TASKS", "Executing task %p from slot %d",
-                           (void *)tasks[i].task, i);
-                    tasks[i].task->handler(tasks[i].task->arg);
+                           (void *)task, i);
+                    task->handler(task->arg);
                     tasks_executed++;
                 }
-                tasks[i].active = 0;
                 io_log("TASKS", "Task completed and removed from slot %d", i);
             }
         }

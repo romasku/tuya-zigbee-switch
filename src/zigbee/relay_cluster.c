@@ -1,4 +1,6 @@
 #include "relay_cluster.h"
+#include "zigbee/tuya_mcu_app.h"
+#include "zigbee/tuya_secondary_mcu.h"
 #include "cluster_common.h"
 #include "consts.h"
 #include "device_config/nvm_items.h"
@@ -38,6 +40,8 @@ void sync_indicator_led(zigbee_relay_cluster *cluster);
 
 zigbee_relay_cluster *relay_cluster_by_endpoint[10];
 
+extern uint8_t g_power_on_dp_id;
+
 void relay_cluster_callback_attr_write_trampoline(uint8_t endpoint,
                                                   uint16_t attribute_id) {
     relay_cluster_on_write_attr(relay_cluster_by_endpoint[endpoint],
@@ -75,12 +79,18 @@ void relay_cluster_add_to_endpoint(zigbee_relay_cluster *cluster,
                    ATTR_WRITABLE, cluster->indicator_state);
     }
 
+    uint8_t attr_n = cluster->indicator_led != NULL ? 4 : 2;
+    if (cluster->relay != NULL && cluster->relay->countdown_dp_id != 0) {
+        SETUP_ATTR(attr_n, ZCL_ATTR_ONOFF_ON_TIME, ZCL_DATA_TYPE_UINT16,
+                   ATTR_WRITABLE, cluster->on_time);
+        attr_n++;
+    }
+
     endpoint->clusters[endpoint->cluster_count].cluster_id      = ZCL_CLUSTER_ON_OFF;
-    endpoint->clusters[endpoint->cluster_count].attribute_count =
-        cluster->indicator_led != NULL ? 4 : 2;
-    endpoint->clusters[endpoint->cluster_count].attributes   = cluster->attr_infos;
-    endpoint->clusters[endpoint->cluster_count].is_server    = 1;
-    endpoint->clusters[endpoint->cluster_count].cmd_callback =
+    endpoint->clusters[endpoint->cluster_count].attribute_count = attr_n;
+    endpoint->clusters[endpoint->cluster_count].attributes      = cluster->attr_infos;
+    endpoint->clusters[endpoint->cluster_count].is_server       = 1;
+    endpoint->clusters[endpoint->cluster_count].cmd_callback    =
         relay_cluster_callback_trampoline;
     endpoint->cluster_count++;
 
@@ -175,7 +185,7 @@ void sync_indicator_led(zigbee_relay_cluster *cluster) {
     }
 
     cluster->indicator_state ? led_on(cluster->indicator_led)
-                           : led_off(cluster->indicator_led);
+                             : led_off(cluster->indicator_led);
 
     hal_zigbee_notify_attribute_changed(cluster->endpoint, ZCL_CLUSTER_ON_OFF,
                                         ZCL_ATTR_ONOFF_INDICATOR_STATE);
@@ -208,8 +218,32 @@ void relay_cluster_on_relay_change(zigbee_relay_cluster *cluster,
 
 void relay_cluster_on_write_attr(zigbee_relay_cluster *cluster,
                                  uint16_t attribute_id) {
+    // Guard against ZCL_CLUSTER_ON_OFF writes on endpoints that host a
+    // different cluster type (e.g. a dimmer) sharing this same cluster id.
+    if (cluster == NULL)
+        return;
+
     if (attribute_id == ZCL_ATTR_ONOFF_INDICATOR_STATE) {
         sync_indicator_led(cluster);
+    }
+
+    /* Mirror the standard ZCL attributes onto the datapoints the secondary
+     * MCU understands, so the stock features keep working on DP-backed
+     * relays without inventing custom attributes for them. */
+    if (cluster->relay != NULL && cluster->relay->dp_id != 0) {
+        if (attribute_id == ZCL_ATTR_START_UP_ONOFF && g_power_on_dp_id != 0) {
+            uint8_t v = tuya_mcu_power_on_from_startup(cluster->startup_mode);
+            tuya_secondary_mcu_write_dp(g_power_on_dp_id, TUYA_DP_TYPE_ENUM,
+                                        &v, 1);
+        }
+        if (attribute_id == ZCL_ATTR_ONOFF_ON_TIME &&
+            cluster->relay->countdown_dp_id != 0) {
+            uint32_t secs  = cluster->on_time / 10;  /* ZCL OnTime is 1/10 s */
+            uint8_t  be[4] = { (uint8_t)(secs >> 24), (uint8_t)(secs >> 16),
+                               (uint8_t)(secs >> 8),   (uint8_t)secs };
+            tuya_secondary_mcu_write_dp(cluster->relay->countdown_dp_id,
+                                        TUYA_DP_TYPE_VALUE, be, sizeof(be));
+        }
     }
     if (cluster->indicator_led_mode != ZCL_ONOFF_INDICATOR_MODE_MANUAL) {
         sync_indicator_led(cluster);

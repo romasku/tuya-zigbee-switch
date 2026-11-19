@@ -5,6 +5,7 @@ from zigpy.quirks.v2 import QuirkBuilder, ReportingConfig, SensorDeviceClass, En
 from zigpy.zcl import ClusterType, foundation
 from zigpy.zcl.clusters.general import OnOffConfiguration, SwitchType, MultistateInput, OnOff, Basic
 from zigpy.zcl.clusters.closures import WindowCovering
+from zigpy.zcl.clusters.lighting import Ballast
 from zigpy.zcl.foundation import ZCLAttributeDef
 import zigpy.types as t
 
@@ -218,6 +219,31 @@ class CustomWindowCoveringCluster(CustomCluster, WindowCovering):
             is_manufacturer_specific=False,
         )
 
+
+class CustomBallastCfgCluster(CustomCluster, Ballast):
+
+    class AttributeDefs(Ballast.AttributeDefs):
+        # min_level/max_level are already writable in zigpy's Ballast cluster;
+        # re-declare them for clarity (our firmware exposes them as config
+        # numbers in raw ZCL units 1-254).
+        min_level: Final = ZCLAttributeDef(
+            id=0x0010, type=t.uint8_t, access="rw", is_manufacturer_specific=False
+        )
+        max_level: Final = ZCLAttributeDef(
+            id=0x0011, type=t.uint8_t, access="rw", is_manufacturer_specific=False
+        )
+
+
+class CustomOnOffSwitchCfgCluster(CustomCluster, OnOffConfiguration):
+
+    class AttributeDefs(OnOffConfiguration.AttributeDefs):
+        # Standard ZCL defines switch_type as read-only; our firmware makes it
+        # writable so the physical dimmer type can be configured.
+        switch_type: Final = ZCLAttributeDef(
+            id=0x0000, type=SwitchType, access="rw", is_manufacturer_specific=False
+        )
+
+
 '''``````````````````````````````````````````````````````````````````
   This file (`zha_quirk.py`) is generated. 
   
@@ -243,6 +269,7 @@ for config in CONFIGS:
     indicators_cnt = 0
     cover_switch_cnt = 0
     cover_cnt = 0
+    dimmer_cnt = 0
     has_dedicated_net_led = False
     for peripheral in peripherals:
         if peripheral == "SLP":
@@ -257,6 +284,8 @@ for config in CONFIGS:
             cover_cnt += 1
         if peripheral[0] == 'I':
             indicators_cnt += 1
+        if peripheral[:2] == "DM":
+            dimmer_cnt = max(dimmer_cnt, int(peripheral[2:]))
         if peripheral[0] == 'L':
             has_dedicated_net_led = True
 
@@ -467,6 +496,46 @@ for config in CONFIGS:
                 CustomWindowCoveringCluster.cluster_id,
                 translation_key="cover_motor_reversal_"+str(endpoint_id),
                 fallback_name="Cover motor reversal "+str(endpoint_id),
+                endpoint_id=endpoint_id,
+                entity_type=EntityType.CONFIG,
+            )
+        )
+
+    for endpoint_id in range(switch_cnt + relay_cnt + cover_switch_cnt + cover_cnt + 1, switch_cnt + relay_cnt + cover_switch_cnt + cover_cnt + dimmer_cnt + 1):
+        builder = (
+            builder
+            .removes(Ballast.cluster_id, cluster_type=ClusterType.Client, endpoint_id=endpoint_id)
+            .adds(CustomBallastCfgCluster, endpoint_id=endpoint_id)
+            .removes(OnOffConfiguration.cluster_id, cluster_type=ClusterType.Client, endpoint_id=endpoint_id)
+            .adds(CustomOnOffSwitchCfgCluster, endpoint_id=endpoint_id)
+            .number(
+                CustomBallastCfgCluster.AttributeDefs.min_level.name,
+                CustomBallastCfgCluster.cluster_id,
+                translation_key="dimmer_min_level_"+str(endpoint_id),
+                fallback_name="Dimmer min level "+str(endpoint_id),
+                min_value=1,
+                max_value=254,
+                step=1,
+                endpoint_id=endpoint_id,
+                entity_type=EntityType.CONFIG,
+            )
+            .number(
+                CustomBallastCfgCluster.AttributeDefs.max_level.name,
+                CustomBallastCfgCluster.cluster_id,
+                translation_key="dimmer_max_level_"+str(endpoint_id),
+                fallback_name="Dimmer max level "+str(endpoint_id),
+                min_value=1,
+                max_value=254,
+                step=1,
+                endpoint_id=endpoint_id,
+                entity_type=EntityType.CONFIG,
+            )
+            .enum(
+                CustomOnOffSwitchCfgCluster.AttributeDefs.switch_type.name,
+                SwitchType,
+                CustomOnOffSwitchCfgCluster.cluster_id,
+                translation_key="dimmer_switch_type_"+str(endpoint_id),
+                fallback_name="Dimmer switch type "+str(endpoint_id),
                 endpoint_id=endpoint_id,
                 entity_type=EntityType.CONFIG,
             )
