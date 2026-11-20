@@ -1,24 +1,24 @@
-SWITCH_LONSONHO_TS0011_6GANG:
-  human_name: Lonsonho QS-Zigbee-S05-L
+SWITCH_LONSONHO_TS0011_1GANG:
+  human_name: Lonsonho X711A (1-gang)
   category: switch
   power: mains
-  neutral: null
-  output: null
-  device_type: null
+  neutral: no
+  output: relay
+  device_type: end_device
   stock_model_name: TS0011
   stock_manufacturer_name: _TZ3000_zjlw8dfl
   stock_converter_manufacturer: Lonsonho
-  stock_converter_model: null
+  stock_converter_model: X711A
   override_z2m_device: null
   tuya_module: ZT11
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: zjlw8dfl;Lonsonho-QS-Zigbee-S05-L;LB1;SC2;RC3;
+  config_str: zjlw8dfl;Lonsonho-X711A;LB1;SC2;RC3;
   alt_config_str: null
   old_manufacturer_names: null
   old_zb_models: null
-  stock_manufacturer_id: null
-  stock_image_type: null
+  stock_manufacturer_id: 4417
+  stock_image_type: 54179
   firmware_image_type: null
   build: yes
   status: in_progress
