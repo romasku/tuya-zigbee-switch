@@ -2022,7 +2022,7 @@ MODULE_RNABAU_DRY_TS0002:
   build: yes
   status: fully_supported
   info: Supported
-  threads: null
+  threads: https://github.com/romasku/tuya-zigbee-switch/pull/563
   store: https://www.aliexpress.com/item/1005008746658838.html
 MODULE_SONOFF_ZBMINIL2:
   human_name: SONOFF ZBMINIL2
