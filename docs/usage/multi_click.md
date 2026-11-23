@@ -14,9 +14,11 @@ Configure action sets these up). Use the `action` event, not the diagnostic
 - `switch_single_hold` / `switch_single_release`, and equivalent double/triple
   variants when the last press of a sequence is held
 
-The converter ignores transient press edges for `action`. Older firmware does
-not emit confirmed click events; its existing diagnostic values still decode.
-The converter publishes no action on an attribute read response.
+The converter only publishes `action` from explicit reports of attribute
+`0xff00` in `genMultistateInput` (readback is always zero). Periodic
+`presentValue` reports and read responses do not generate action events.
+Use firmware and converter from the same revision; older builds still expose
+their diagnostic state but do not emit events on the new attribute.
 
 Set `max_press_count_switch` to **2** for double clicks or **3** to include
 triple clicks. The firmware default is **1**, which reports a single click on
@@ -27,6 +29,10 @@ is **200 ms**. It measures debounced events, not the physical edge times. A
 hold uses the existing long-press threshold. The native configuration attributes
 in `genOnOffSwitchCfg` are `0xff07` (uint8, 1–3) and `0xff08` (uint16, 1–2000 ms).
 Writing zero restores the default for that setting.
+Unchanged settings do not write flash. When a save fails, readback returns the
+previous settings; a successful ZCL write response alone does not prove
+persistence. If the Telink timer reserve would be used, the pending gesture
+is dropped without changing local relay or binding behavior.
 
 **Binding behavior is unchanged.** In `short_press` binding mode an On/Off
 command still goes out on **each** short release, even if the gesture is later
@@ -46,5 +52,13 @@ remain independent of gesture reporting. This build has no Scenes client.
 
 These checks do not validate radio delivery, missed GPIO interrupts, or rollback
 on an installed module. A controlled OTA test requires a separate decision.
+The Router and End Device releases for this AVATTO model share OTA identifiers.
+Do not install an End Device test index globally. Verify the intended module's
+IEEE address and `type: EndDevice` in Zigbee2MQTT (or in `bridge/devices`) and
+use only an explicitly targeted check with the test index. An OTA match does
+not prove the role. A Router-to-End-Device flash clears network settings.
+`helper_scripts/check_avatto_end_device.py` accepts a current `bridge/devices`
+JSON export and the target IEEE address, and prints only the payload for
+`bridge/request/device/ota_update/check`; it does not connect to MQTT.
 Zigbee2MQTT 1.42.0 is not covered: its converters library lacks the `text`
 modern extend that the upstream legacy converter already required.
