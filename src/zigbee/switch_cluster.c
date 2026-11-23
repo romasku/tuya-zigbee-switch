@@ -11,15 +11,25 @@
 #include "relay_cluster.h"
 #include "zigbee_commands.h"
 
-const uint8_t  multistate_out_of_service = 0;
-const uint8_t  multistate_flags          = 0;
-const uint16_t multistate_num_of_states  = 3;
+const uint8_t multistate_out_of_service = 0;
+const uint8_t multistate_flags          = 0;
 
 #define MULTISTATE_NOT_PRESSED     0
 #define MULTISTATE_PRESS           1
 #define MULTISTATE_LONG_PRESS      2
 #define MULTISTATE_POSITION_ON     3
 #define MULTISTATE_POSITION_OFF    4
+
+// Match the #380 gesture event codes without changing the legacy edge codes.
+static const uint16_t gesture_press[]          = { 5, 7, 10 };
+static const uint16_t gesture_hold[]           = { MULTISTATE_LONG_PRESS, 8, 11 };
+static const uint16_t gesture_release[]        = { 6, 9, 12 };
+const uint16_t        multistate_num_of_states = 13;
+
+#define MAX_GESTURE_PRESSES           3
+#define DEFAULT_MAX_PRESS_COUNT       1
+#define DEFAULT_CONFIRM_RELEASE_MS    200
+#define MAX_CONFIRM_RELEASE_MS        2000
 
 extern zigbee_relay_cluster relay_clusters[];
 extern uint8_t relay_clusters_cnt;
@@ -33,6 +43,69 @@ static bool switch_cluster_has_valid_relay(
     const zigbee_switch_cluster *cluster);
 
 zigbee_switch_cluster *switch_cluster_by_endpoint[10];
+
+static void normalize_gesture_config(zigbee_switch_cluster *cluster) {
+    if (cluster->max_press_count == 0) {
+        cluster->max_press_count = DEFAULT_MAX_PRESS_COUNT;
+    } else if (cluster->max_press_count > MAX_GESTURE_PRESSES) {
+        cluster->max_press_count = MAX_GESTURE_PRESSES;
+    }
+    if (cluster->confirm_release_ms == 0) {
+        cluster->confirm_release_ms = DEFAULT_CONFIRM_RELEASE_MS;
+    } else if (cluster->confirm_release_ms > MAX_CONFIRM_RELEASE_MS) {
+        cluster->confirm_release_ms = MAX_CONFIRM_RELEASE_MS;
+    }
+}
+
+static void load_gesture_config(zigbee_switch_cluster *cluster) {
+    uint8_t data[3];
+
+    if (hal_nvm_read(NV_ITEM_SWITCH_GESTURE_CONFIG(cluster->switch_idx),
+                     sizeof(data), data) == HAL_NVM_SUCCESS) {
+        cluster->confirm_release_ms = (uint16_t)data[0] | ((uint16_t)data[1] << 8);
+        cluster->max_press_count    = data[2];
+    }
+    normalize_gesture_config(cluster);
+}
+
+static void store_gesture_config(zigbee_switch_cluster *cluster) {
+    uint8_t data[] = {
+        (uint8_t)cluster->confirm_release_ms,
+        (uint8_t)(cluster->confirm_release_ms >> 8),
+        cluster->max_press_count,
+    };
+
+    hal_nvm_write(NV_ITEM_SWITCH_GESTURE_CONFIG(cluster->switch_idx),
+                  sizeof(data), data);
+}
+
+static void report_gesture(zigbee_switch_cluster *cluster, uint16_t value) {
+    // Telink reads the registered attribute when serializing a direct report.
+    // Do not leave the event as the live state: legacy reads still see the edge
+    // state, and a later periodic report must not replay the gesture.
+    uint16_t state = cluster->multistate_state;
+
+    cluster->multistate_state = value;
+    hal_zigbee_send_report_attr(cluster->endpoint, ZCL_CLUSTER_MULTISTATE_INPUT_BASIC,
+                                ZCL_ATTR_MULTISTATE_INPUT_PRESENT_VALUE,
+                                ZCL_DATA_TYPE_UINT16, &cluster->multistate_state,
+                                sizeof(cluster->multistate_state));
+    cluster->multistate_state = state;
+}
+
+static void confirm_press(void *arg) {
+    zigbee_switch_cluster *cluster = arg;
+
+    if (cluster->press_count != 0) {
+        report_gesture(cluster, gesture_press[cluster->press_count - 1]);
+        cluster->press_count = 0;
+    }
+}
+
+static void cancel_press_sequence(zigbee_switch_cluster *cluster) {
+    hal_tasks_unschedule(&cluster->confirm_press_task);
+    cluster->press_count = 0;
+}
 
 static void sync_switch_indicator_led(zigbee_switch_cluster *cluster) {
     if (cluster->indicator_led == NULL) {
@@ -91,6 +164,10 @@ void switch_cluster_add_to_endpoint(zigbee_switch_cluster *cluster,
     switch_cluster_by_endpoint[endpoint->endpoint] = cluster;
     cluster->endpoint = endpoint->endpoint;
     switch_cluster_load_attrs_from_nv(cluster);
+    load_gesture_config(cluster);
+    cluster->confirm_press_task.handler = confirm_press;
+    cluster->confirm_press_task.arg     = cluster;
+    hal_tasks_init(&cluster->confirm_press_task);
 
     cluster->button->on_press =
         (ev_button_callback_t)switch_cluster_on_button_press;
@@ -117,11 +194,15 @@ void switch_cluster_add_to_endpoint(zigbee_switch_cluster *cluster,
                ZCL_DATA_TYPE_UINT8, ATTR_WRITABLE, cluster->level_move_rate);
     SETUP_ATTR(7, ZCL_ATTR_ONOFF_CONFIGURATION_SWITCH_BINDING_MODE,
                ZCL_DATA_TYPE_ENUM8, ATTR_WRITABLE, cluster->binded_mode);
+    SETUP_ATTR(8, ZCL_ATTR_ONOFF_CONFIGURATION_SWITCH_MAX_PRESS_COUNT,
+               ZCL_DATA_TYPE_UINT8, ATTR_WRITABLE, cluster->max_press_count);
+    SETUP_ATTR(9, ZCL_ATTR_ONOFF_CONFIGURATION_SWITCH_CONFIRM_RELEASE_MS,
+               ZCL_DATA_TYPE_UINT16, ATTR_WRITABLE, cluster->confirm_release_ms);
 
     // Configuration
     endpoint->clusters[endpoint->cluster_count].cluster_id =
         ZCL_CLUSTER_ON_OFF_SWITCH_CONFIG;
-    endpoint->clusters[endpoint->cluster_count].attribute_count = 8;
+    endpoint->clusters[endpoint->cluster_count].attribute_count = 10;
     endpoint->clusters[endpoint->cluster_count].attributes      = cluster->attr_infos;
     endpoint->clusters[endpoint->cluster_count].is_server       = 1;
     endpoint->cluster_count++;
@@ -357,6 +438,11 @@ void switch_cluster_on_button_press(zigbee_switch_cluster *cluster) {
         return;
     }
 
+    hal_tasks_unschedule(&cluster->confirm_press_task);
+    if (cluster->press_count < cluster->max_press_count) {
+        cluster->press_count++;
+    }
+
     if (cluster->relay_mode == ZCL_ONOFF_CONFIGURATION_RELAY_MODE_RISE) {
         switch_cluster_relay_action_on(cluster);
     }
@@ -391,7 +477,12 @@ void switch_cluster_on_button_release(zigbee_switch_cluster *cluster) {
         return;
     }
 
-    if (cluster->multistate_state != MULTISTATE_LONG_PRESS) {
+    unsigned hold_idx = 0;
+    while (hold_idx < MAX_GESTURE_PRESSES &&
+           gesture_hold[hold_idx] != cluster->multistate_state) {
+        hold_idx++;
+    }
+    if (hold_idx == MAX_GESTURE_PRESSES) {
         if (cluster->relay_mode == ZCL_ONOFF_CONFIGURATION_RELAY_MODE_SHORT) {
             switch_cluster_relay_action_on(cluster);
         }
@@ -401,12 +492,25 @@ void switch_cluster_on_button_release(zigbee_switch_cluster *cluster) {
     } else {
         // This is end of long press, send zcl_level stop
         switch_cluster_level_stop(cluster);
+        report_gesture(cluster, gesture_release[hold_idx]);
+        cluster->press_count = 0;
     }
 
     cluster->multistate_state = MULTISTATE_NOT_PRESSED;
     hal_zigbee_notify_attribute_changed(cluster->endpoint,
                                         ZCL_CLUSTER_MULTISTATE_INPUT_BASIC,
                                         ZCL_ATTR_MULTISTATE_INPUT_PRESENT_VALUE);
+
+    if (cluster->press_count > cluster->max_press_count) {
+        cluster->press_count = cluster->max_press_count;
+    }
+    if (cluster->press_count != 0) {
+        if (cluster->max_press_count == 1) {
+            confirm_press(cluster);
+        } else {
+            hal_tasks_schedule(&cluster->confirm_press_task, cluster->confirm_release_ms);
+        }
+    }
 }
 
 void switch_cluster_on_button_long_press(zigbee_switch_cluster *cluster) {
@@ -427,7 +531,11 @@ void switch_cluster_on_button_long_press(zigbee_switch_cluster *cluster) {
 
     switch_cluster_level_control(cluster);
 
-    cluster->multistate_state = MULTISTATE_LONG_PRESS;
+    uint8_t count = cluster->press_count;
+    if (count > cluster->max_press_count) {
+        count = cluster->max_press_count;
+    }
+    cluster->multistate_state = gesture_hold[count != 0 ? count - 1 : 0];
     hal_zigbee_notify_attribute_changed(cluster->endpoint,
                                         ZCL_CLUSTER_MULTISTATE_INPUT_BASIC,
                                         ZCL_ATTR_MULTISTATE_INPUT_PRESENT_VALUE);
@@ -456,6 +564,15 @@ void synchronize_multistate_state(zigbee_switch_cluster *cluster) {
 
 void switch_cluster_on_write_attr(zigbee_switch_cluster *cluster,
                                   uint16_t attribute_id) {
+    if (attribute_id == ZCL_ATTR_ONOFF_CONFIGURATION_SWITCH_MAX_PRESS_COUNT ||
+        attribute_id == ZCL_ATTR_ONOFF_CONFIGURATION_SWITCH_CONFIRM_RELEASE_MS) {
+        normalize_gesture_config(cluster);
+        if (!cluster->button->pressed) {
+            cancel_press_sequence(cluster);
+        }
+        store_gesture_config(cluster);
+        return;
+    }
     printf("Index at write attr: %d\r\n", cluster->switch_idx);
     if (attribute_id == ZCL_ATTR_ONOFF_CONFIGURATION_SWITCH_RELAY_INDEX) {
         if (relay_clusters_cnt == 0) {
@@ -465,6 +582,7 @@ void switch_cluster_on_write_attr(zigbee_switch_cluster *cluster,
         }
     }
     if (attribute_id == ZCL_ATTR_ONOFF_CONFIGURATION_SWITCH_MODE) {
+        cancel_press_sequence(cluster);
         synchronize_multistate_state(cluster);
         if (cluster->mode == ZCL_ONOFF_CONFIGURATION_SWITCH_TYPE_MOMENTARY_NC) {
             cluster->button->pressed_when_high = 1;

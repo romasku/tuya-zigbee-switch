@@ -78,7 +78,7 @@ ATTR_TEST_CASES = [
         name="Multistate Number of States",
         cluster=ZCL_CLUSTER_MULTISTATE_INPUT_BASIC,
         attr=ZCL_ATTR_MULTISTATE_INPUT_NUMBER_OF_STATES,
-        expected="3",
+        expected="13",  # Includes the complete gesture vocabulary (0..12).
     ),
     AttrValueTestCase(
         name="Multistate Present Value",
