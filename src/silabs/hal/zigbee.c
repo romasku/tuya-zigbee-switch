@@ -2,7 +2,9 @@
 
 #include "app/framework/include/af.h"
 #include "app/framework/plugin/ota-client/ota-client.h"
+#include "network-formation.h"
 #include "network-steering.h"
+#include "sl_component_catalog.h"
 #include <stddef.h>
 #include <string.h>
 
@@ -251,6 +253,127 @@ sl_zigbee_af_status_t sl_zigbee_af_external_attribute_write_cb(
 
 static bool network_steering_in_progress = false;
 
+#if defined(SL_CATALOG_IOSTREAM_USART_PRESENT)
+static bool     discovered_parents_printed = false;
+static uint32_t discovered_parents_sig     = 0;
+
+static void print_ext_pan(const uint8_t *id) {
+    int8_t i;
+
+    for (i = EXTENDED_PAN_ID_SIZE - 1; i >= 0; i--) {
+        printf("%02x", id[i]);
+    }
+}
+
+static const char *beacon_role(const sl_zigbee_beacon_data_t *beacon) {
+    if (beacon->sender == 0x0000 || beacon->depth == 0) {
+        return "Coordinator";
+    }
+    return "Router";
+}
+
+static bool beacon_is_open(const sl_zigbee_beacon_data_t *beacon) {
+    return beacon->permitJoin && beacon->hasCapacity;
+}
+
+static uint32_t discovered_parent_signature(uint8_t count) {
+    sl_zigbee_beacon_data_t beacon;
+    uint32_t                sig = count;
+
+    if (sl_zigbee_get_stored_beacon(0, &beacon) == SL_STATUS_OK) {
+        sig ^= ((uint32_t)beacon.panId << 8);
+        sig ^= ((uint32_t)beacon.channel << 24);
+        sig ^= ((uint32_t)(uint8_t)beacon.rssi << 16);
+        sig ^= beacon.lqi;
+        sig ^= ((uint32_t)beacon.sender << 1);
+    }
+    if (count > 1 &&
+        sl_zigbee_get_stored_beacon((uint8_t)(count - 1), &beacon) == SL_STATUS_OK) {
+        sig ^= ((uint32_t)beacon.panId << 4);
+        sig ^= ((uint32_t)beacon.lqi << 12);
+        sig ^= beacon.sender;
+    }
+    return sig ^ 0xA5A5u;
+}
+
+static void print_discovered_parents(void) {
+    uint8_t                 count = sl_zigbee_get_num_stored_beacons();
+    uint8_t                 i;
+    int                     first = -1;
+    sl_zigbee_beacon_data_t first_beacon;
+    uint32_t                sig;
+
+    if (count == 0) {
+        return;
+    }
+    sig = discovered_parent_signature(count);
+    if (discovered_parents_printed && sig == discovered_parents_sig) {
+        return;
+    }
+    discovered_parents_printed = true;
+    discovered_parents_sig     = sig;
+
+    if (sli_zigbee_af_current_zigbee_pro_network != NULL &&
+        (sli_zigbee_af_current_zigbee_pro_network->nodeType == SL_ZIGBEE_ROUTER ||
+         sli_zigbee_af_current_zigbee_pro_network->nodeType ==
+             SL_ZIGBEE_COORDINATOR)) {
+        printf("Router scan keeps parents that are open and have capacity\r\n");
+    }
+
+    for (i = 0; i < count; i++) {
+        sl_zigbee_beacon_data_t beacon;
+        if (sl_zigbee_get_stored_beacon(i, &beacon) != SL_STATUS_OK) {
+            count = i;
+            break;
+        }
+        if (beacon_is_open(&beacon)) {
+            first        = i;
+            first_beacon = beacon;
+            break;
+        }
+    }
+
+    printf("Found %d parent%s\r\n", count, count == 1 ? "" : "s");
+    for (i = 0; i < count; i++) {
+        sl_zigbee_beacon_data_t beacon;
+        int                     any = 0;
+
+        if (sl_zigbee_get_stored_beacon(i, &beacon) != SL_STATUS_OK) {
+            break;
+        }
+        printf("%s addr 0x%04x pan 0x%04x ch %u LQI %u RSSI %d dBm extPan ",
+               beacon_role(&beacon), beacon.sender, beacon.panId, beacon.channel,
+               beacon.lqi, beacon.rssi);
+        print_ext_pan(beacon.extendedPanId);
+        printf("\r\n");
+
+        if (i == (uint8_t)first) {
+            printf("  associating\r\n");
+            continue;
+        }
+        if (beacon_is_open(&beacon) && first >= 0) {
+            printf("  not first, tried after 0x%04x LQI %u RSSI %d dBm\r\n",
+                   first_beacon.sender, first_beacon.lqi, first_beacon.rssi);
+            continue;
+        }
+
+        printf("  not associating:");
+        if (!beacon.permitJoin) {
+            printf(" joining closed");
+            any = 1;
+        }
+        if (!beacon.hasCapacity) {
+            printf(" no capacity");
+            any = 1;
+        }
+        if (!any) {
+            printf(" not selected");
+        }
+        printf("\r\n");
+    }
+}
+#endif
+
 hal_zigbee_network_status_t hal_zigbee_get_network_status() {
     sl_zigbee_network_status_t ns = sl_zigbee_af_network_state();
 
@@ -278,7 +401,17 @@ void hal_register_on_network_status_change_callback(
 }
 
 void sl_zigbee_af_stack_status_cb(sl_status_t status) {
+#if defined(SL_CATALOG_IOSTREAM_USART_PRESENT)
+    if (network_steering_in_progress && discovered_parents_printed) {
+        if (status == SL_STATUS_NETWORK_UP) {
+            printf("Associated\r\n");
+        } else {
+            printf("Association failed, status 0x%08lx\r\n", (unsigned long)status);
+        }
+    }
+#else
     (void)status;
+#endif
     notify_network_status_change();
 }
 
@@ -289,19 +422,48 @@ void hal_zigbee_leave_network() {
 void hal_zigbee_start_network_steering() {
     if (!network_steering_in_progress) {
         network_steering_in_progress = true;
+#if defined(SL_CATALOG_IOSTREAM_USART_PRESENT)
+        discovered_parents_printed = false;
+        sl_zigbee_clear_stored_beacons();
+#endif
         sl_zigbee_af_network_steering_start();
     }
 }
+
+#if defined(SL_CATALOG_IOSTREAM_USART_PRESENT)
+sl_zigbee_node_type_t sl_zigbee_af_network_steering_get_node_type_cb(
+    sl_zigbee_af_plugin_network_steering_joining_state_t state) {
+    (void)state;
+    /* Steering asks for the node type once the beacon cache is ready and
+     * again before the scan, while the cache is still empty. */
+    print_discovered_parents();
+    return ((sli_zigbee_af_current_zigbee_pro_network->nodeType ==
+             SL_ZIGBEE_COORDINATOR)
+                ? SL_ZIGBEE_ROUTER
+                : sli_zigbee_af_current_zigbee_pro_network->nodeType);
+}
+#endif
 
 // Network steering complete callback
 void sl_zigbee_af_network_steering_complete_cb(sl_status_t status,
                                                uint8_t totalBeacons,
                                                uint8_t joinAttempts,
                                                uint8_t finalState) {
+#if defined(SL_CATALOG_IOSTREAM_USART_PRESENT)
+    if (status != SL_STATUS_OK && !discovered_parents_printed) {
+        printf("No coordinators or routers heard\r\n");
+    }
+    if (status != SL_STATUS_OK) {
+        printf("Network steering failed, status 0x%08lx, beacons %u, "
+               "join attempts %u, state %u\r\n",
+               (unsigned long)status, totalBeacons, joinAttempts, finalState);
+    }
+#else
     (void)status;
     (void)totalBeacons;
     (void)joinAttempts;
     (void)finalState;
+#endif
     network_steering_in_progress = false;
 
     notify_network_status_change();

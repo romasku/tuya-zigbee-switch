@@ -323,20 +323,24 @@ hal_zigbee_status_t
 hal_zigbee_send_report_attr(uint8_t endpoint, uint16_t cluster_id,
                             uint16_t attr_id, uint8_t zcl_type_id,
                             const void *value, uint8_t value_len) {
-    if (zb_isDeviceJoinedNwk()) {
-        epInfo_t dstEpInfo;
-        TL_SETSTRUCTCONTENT(dstEpInfo, 0);
-
-        dstEpInfo.profileId   = HA_PROFILE_ID;
-        dstEpInfo.dstAddrMode = APS_DSTADDR_EP_NOTPRESETNT;
-
-        zclAttrInfo_t *pAttrEntry;
-        pAttrEntry = zcl_findAttribute(endpoint, cluster_id, attr_id);
-        zcl_sendReportCmd(endpoint, &dstEpInfo, TRUE, ZCL_FRAME_SERVER_CLIENT_DIR,
-                          cluster_id, pAttrEntry->id, pAttrEntry->type,
-                          pAttrEntry->data);
+    if (!zb_isDeviceJoinedNwk()) {
+        return HAL_ZIGBEE_ERR_NOT_JOINED;
     }
-    return HAL_ZIGBEE_OK;
+
+    epInfo_t dstEpInfo;
+    TL_SETSTRUCTCONTENT(dstEpInfo, 0);
+
+    dstEpInfo.profileId   = HA_PROFILE_ID;
+    dstEpInfo.dstAddrMode = APS_DSTADDR_EP_NOTPRESETNT;
+
+    zclAttrInfo_t *pAttrEntry = zcl_findAttribute(endpoint, cluster_id, attr_id);
+    if (pAttrEntry == NULL || pAttrEntry->data == NULL) {
+        return HAL_ZIGBEE_ERR_BAD_ARG;
+    }
+    status_t status = zcl_sendReportCmd(
+        endpoint, &dstEpInfo, TRUE, ZCL_FRAME_SERVER_CLIENT_DIR, cluster_id,
+        pAttrEntry->id, pAttrEntry->type, pAttrEntry->data);
+    return status == ZCL_STA_SUCCESS ? HAL_ZIGBEE_OK : HAL_ZIGBEE_ERR_SEND_FAILED;
 }
 
 void hal_zigbee_register_on_attribute_change_callback(

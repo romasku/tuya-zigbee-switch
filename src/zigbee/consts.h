@@ -34,6 +34,8 @@
 #define ZCL_ATTR_TEMPERATURE_MEASURED_VALUE        0x0000
 #define ZCL_ATTR_TEMPERATURE_MIN_MEASURED_VALUE    0x0001
 #define ZCL_ATTR_TEMPERATURE_MAX_MEASURED_VALUE    0x0002
+/* 1-Wire ROM of the sensor currently connected to this endpoint. Empty if none. */
+#define ZCL_ATTR_TEMPERATURE_SENSOR_ID             0xff00
 #define ZCL_TEMPERATURE_INVALID                    ((int16_t)0x8000)
 
 // Relative Humidity cluster (values are 0.01 %RH)

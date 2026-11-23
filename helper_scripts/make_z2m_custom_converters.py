@@ -120,10 +120,10 @@ if __name__ == "__main__":
                 "coverNames": cover_names,
                 "has_dedicated_net_led": has_dedicated_net_led,
                 "has_battery_cluster": has_battery_cluster,
-                "tempNames": [f"temperature_{index + 1}" for index in range(8)]
-                if has_onewire
-                else [],
-                "humidityNames": [f"humidity_{index + 1}" for index in range(8)]
+                # Zigbee2MQTT appends this name to the expose name. "ow_temp" on
+                # endpoint "1" is published as ow_temp_1. Temperature, humidity,
+                # and the sensor id share that endpoint.
+                "sensorSlots": [str(index + 1) for index in range(8)]
                 if has_onewire
                 else [],
             }

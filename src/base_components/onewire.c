@@ -761,6 +761,15 @@ uint8_t ow_slot_family(uint8_t slot) {
     return slots.rom[slot][0];
 }
 
+uint8_t ow_slot_id(uint8_t slot, char out[24]) {
+    if (out == NULL || slot >= OW_MAX_SENSORS ||
+        (seen_mask & (1u << slot)) == 0) {
+        return 0;
+    }
+    ow_rom_to_text(slots.rom[slot], out);
+    return 1;
+}
+
 uint8_t ow_sensors_seen(void) {
     return seen_mask != 0;
 }

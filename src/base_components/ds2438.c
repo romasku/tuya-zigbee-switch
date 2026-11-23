@@ -187,7 +187,9 @@ void ds2438_read(const uint8_t rom[8], ow_reading_t *reading,
     int16_t temp_c_x100 = 0;
     int16_t raw_t       = (int16_t)(page_a[1] | (page_a[2] << 8));
     if (raw_t != 0) {
-        temp_c_x100 = (int16_t)((int32_t)raw_t * 100 / 256);
+        temp_c_x100            = (int16_t)((int32_t)raw_t * 100 / 256);
+        reading->temp_c_x100   = temp_c_x100;
+        reading->have_temp     = 1;
     }
     reading->vad_mv      = (uint16_t)(vad * 10);
     reading->vdd_mv      = (uint16_t)(vdd * 10);

@@ -16,6 +16,8 @@ extern uint8_t humidity_clusters_cnt;
 
 void humidity_cluster_add_to_endpoint(zigbee_humidity_cluster *cluster,
                                      hal_zigbee_endpoint *endpoint);
-void humidity_cluster_publish(const uint16_t rh_percent_x100[OW_MAX_SENSORS]);
+/* force reports every endpoint, including one whose value did not change. */
+void humidity_cluster_publish(const uint16_t rh_percent_x100[OW_MAX_SENSORS],
+                              uint8_t force);
 
 #endif

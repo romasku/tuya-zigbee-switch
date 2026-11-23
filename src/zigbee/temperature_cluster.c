@@ -2,10 +2,11 @@
 
 #include "cluster_common.h"
 #include "consts.h"
-#include "device_config/config_parser.h"
 #include "hal/printf_selector.h"
 #include "hal/zigbee.h"
 #include "humidity_cluster.h"
+
+#include <string.h>
 
 static int16_t  temperature_min_value = -5500;
 static int16_t  temperature_max_value = 12500;
@@ -32,22 +33,183 @@ static uint8_t    powerup_waits;
 enum {
     ONEWIRE_READ = 0,
     ONEWIRE_MEASURE,
+    /* Drain temperature, humidity, and id reports one packet at a time. */
+    ONEWIRE_REPORT,
 };
 
 static uint8_t onewire_phase;
+/* A full report pass has completed, so later passes send only changes. */
+static uint8_t snapshot_sent;
+static uint8_t slot_limit_logged;
 
-static void publish_temperatures(const int16_t temps[OW_MAX_SENSORS]) {
-    for (uint8_t i = 0; i < OW_MAX_SENSORS; i++) {
-        if (temperature_clusters[i].endpoint == 0 ||
-            temperature_clusters[i].measured_value == temps[i]) {
+/* The outgoing cache is 16 packets. A boot snapshot is 24 reports, so humidity
+ * was queued after every temperature and then dropped. One report per step. */
+#define REPORT_PACE_MS            50
+
+enum {
+    REPORT_TEMPERATURE = 0,
+    REPORT_HUMIDITY,
+    REPORT_ID,
+};
+
+static uint8_t report_slot;
+static uint8_t report_part;
+static uint8_t report_open;
+static int16_t sent_temp[OW_MAX_SENSORS];
+static uint16_t sent_humidity[OW_MAX_SENSORS];
+static uint8_t sent_id_len[OW_MAX_SENSORS];
+static uint8_t sent_id_text[OW_MAX_SENSORS][23];
+static uint8_t sent_temp_ok[OW_MAX_SENSORS];
+static uint8_t sent_humidity_ok[OW_MAX_SENSORS];
+static uint8_t sent_id_ok[OW_MAX_SENSORS];
+
+static uint8_t report_needs_retry(hal_zigbee_status_t status) {
+    return status == HAL_ZIGBEE_ERR_NOT_JOINED ||
+           status == HAL_ZIGBEE_ERR_SEND_FAILED;
+}
+
+static void note_endpoint_limit(uint8_t slot) {
+    uint8_t seen = ow_seen_mask();
+    if ((seen & (1u << slot)) && (slot_limit_logged & (1u << slot)) == 0 &&
+        temperature_clusters[slot].endpoint == 0) {
+        slot_limit_logged |= (uint8_t)(1u << slot);
+        printf("1-Wire slot %d left off the network, endpoint limit\r\n", slot);
+    }
+}
+
+/* 0: try this item again. 1: one report was handed to the stack, or there
+ * was nothing to send. 2: the pass is finished. */
+static uint8_t report_step(void) {
+    for (;;) {
+        if (report_slot >= OW_MAX_SENSORS) {
+            return 2;
+        }
+        uint8_t slot = report_slot;
+        note_endpoint_limit(slot);
+        if (temperature_clusters[slot].endpoint == 0 &&
+            humidity_clusters[slot].endpoint == 0) {
+            report_slot++;
+            report_part = REPORT_TEMPERATURE;
             continue;
         }
-        temperature_clusters[i].measured_value = temps[i];
-        hal_zigbee_notify_attribute_changed(
-            temperature_clusters[i].endpoint,
-            ZCL_CLUSTER_TEMPERATURE_MEASUREMENT,
-            ZCL_ATTR_TEMPERATURE_MEASURED_VALUE);
+
+        if (report_part == REPORT_TEMPERATURE) {
+            if (temperature_clusters[slot].endpoint == 0) {
+                report_part = REPORT_HUMIDITY;
+                continue;
+            }
+            if (snapshot_sent && sent_temp_ok[slot] &&
+                sent_temp[slot] == read_temps[slot]) {
+                report_part = REPORT_HUMIDITY;
+                continue;
+            }
+            temperature_clusters[slot].measured_value = read_temps[slot];
+            hal_zigbee_status_t status = hal_zigbee_send_report_attr(
+                temperature_clusters[slot].endpoint,
+                ZCL_CLUSTER_TEMPERATURE_MEASUREMENT,
+                ZCL_ATTR_TEMPERATURE_MEASURED_VALUE, ZCL_DATA_TYPE_INT16,
+                &temperature_clusters[slot].measured_value,
+                sizeof(temperature_clusters[slot].measured_value));
+            if (report_needs_retry(status)) {
+                return 0;
+            }
+            if (status == HAL_ZIGBEE_OK) {
+                sent_temp[slot]    = read_temps[slot];
+                sent_temp_ok[slot] = 1;
+            }
+            report_part = REPORT_HUMIDITY;
+            return 1;
+        }
+
+        if (report_part == REPORT_HUMIDITY) {
+            if (humidity_clusters[slot].endpoint == 0) {
+                report_part = REPORT_ID;
+                continue;
+            }
+            if (snapshot_sent && sent_humidity_ok[slot] &&
+                sent_humidity[slot] == read_humidity[slot]) {
+                report_part = REPORT_ID;
+                continue;
+            }
+            humidity_clusters[slot].measured_value = read_humidity[slot];
+            hal_zigbee_status_t status = hal_zigbee_send_report_attr(
+                humidity_clusters[slot].endpoint, ZCL_CLUSTER_RELATIVE_HUMIDITY,
+                ZCL_ATTR_HUMIDITY_MEASURED_VALUE, ZCL_DATA_TYPE_UINT16,
+                &humidity_clusters[slot].measured_value,
+                sizeof(humidity_clusters[slot].measured_value));
+            if (report_needs_retry(status)) {
+                return 0;
+            }
+            if (status == HAL_ZIGBEE_OK) {
+                sent_humidity[slot]    = read_humidity[slot];
+                sent_humidity_ok[slot] = 1;
+            }
+            report_part = REPORT_ID;
+            return 1;
+        }
+
+        if (temperature_clusters[slot].endpoint == 0) {
+            report_slot++;
+            report_part = REPORT_TEMPERATURE;
+            continue;
+        }
+        char    text[24];
+        uint8_t connected = ow_slot_id(slot, text);
+        uint8_t len       = 0;
+        if (connected) {
+            len = (uint8_t)strlen(text);
+            if (len > 23) {
+                len = 23;
+            }
+        }
+        uint8_t same = sent_id_ok[slot] && sent_id_len[slot] == len &&
+                       (len == 0 || memcmp(sent_id_text[slot], text, len) == 0);
+        if (snapshot_sent && same) {
+            report_slot++;
+            report_part = REPORT_TEMPERATURE;
+            continue;
+        }
+        /* An empty id is sent on the boot pass so a retained id is cleared.
+         * Later, it is sent only when a previously reported id goes away. */
+        if (snapshot_sent && len == 0 && !sent_id_ok[slot]) {
+            report_slot++;
+            report_part = REPORT_TEMPERATURE;
+            continue;
+        }
+        zigbee_temperature_cluster *cluster = &temperature_clusters[slot];
+        cluster->sensor_id[0] = len;
+        if (len != 0) {
+            memcpy(&cluster->sensor_id[1], text, len);
+        }
+        hal_zigbee_status_t status = hal_zigbee_send_report_attr(
+            cluster->endpoint, ZCL_CLUSTER_TEMPERATURE_MEASUREMENT,
+            ZCL_ATTR_TEMPERATURE_SENSOR_ID, ZCL_DATA_TYPE_CHAR_STR,
+            cluster->sensor_id, (uint8_t)(cluster->sensor_id[0] + 1));
+        if (report_needs_retry(status)) {
+            return 0;
+        }
+        if (status == HAL_ZIGBEE_OK) {
+            sent_id_len[slot] = len;
+            if (len != 0) {
+                memcpy(sent_id_text[slot], text, len);
+            }
+            sent_id_ok[slot] = 1;
+        }
+        report_slot++;
+        report_part = REPORT_TEMPERATURE;
+        return 1;
     }
+}
+
+static void start_report_pass(void) {
+    if (report_open) {
+        return;
+    }
+    report_slot = 0;
+    report_part = REPORT_TEMPERATURE;
+    report_open = 1;
+    onewire_phase = ONEWIRE_REPORT;
+    hal_tasks_schedule(&temperature_task, REPORT_PACE_MS);
 }
 
 static void begin_read(void) {
@@ -110,17 +272,22 @@ static void log_seen_slots(void) {
     }
 }
 
-static void attach_seen_slots(void) {
-    uint8_t seen = ow_seen_mask();
-    for (uint8_t slot = 0; slot < OW_MAX_SENSORS; slot++) {
-        if (seen & (1u << slot)) {
-            config_attach_onewire_sensor(slot, ow_slot_family(slot));
-        }
-    }
-}
-
 static void temperature_task_handler(void *arg) {
     (void)arg;
+
+    if (onewire_phase == ONEWIRE_REPORT) {
+        uint8_t step = report_step();
+        if (step == 2) {
+            report_open    = 0;
+            snapshot_sent  = 1;
+            if (ow_sensors_seen()) {
+                schedule_measurements();
+            }
+            return;
+        }
+        hal_tasks_schedule(&temperature_task, REPORT_PACE_MS);
+        return;
+    }
 
     if (onewire_phase == ONEWIRE_MEASURE) {
         start_measurement();
@@ -137,17 +304,16 @@ static void temperature_task_handler(void *arg) {
         return;
     }
     powerup_waits = 0;
-    publish_temperatures(read_temps);
-    humidity_cluster_publish(read_humidity);
     log_seen_slots();
-    schedule_measurements();
+    start_report_pass();
 }
 
 void temperature_cluster_add_to_endpoint(zigbee_temperature_cluster *cluster,
                                         hal_zigbee_endpoint *endpoint) {
-    cluster->endpoint        = endpoint->endpoint;
-    cluster->measured_value  = ZCL_TEMPERATURE_INVALID;
-    endpoint->device_id      = ZCL_HA_DEVICEID_TEMPERATURE_SENSOR;
+    cluster->endpoint         = endpoint->endpoint;
+    cluster->measured_value   = ZCL_TEMPERATURE_INVALID;
+    cluster->sensor_id[0]     = 0;
+    endpoint->device_id       = ZCL_HA_DEVICEID_TEMPERATURE_SENSOR;
 
     SETUP_ATTR(0, ZCL_ATTR_TEMPERATURE_MEASURED_VALUE, ZCL_DATA_TYPE_INT16,
                ATTR_READONLY, cluster->measured_value);
@@ -157,10 +323,12 @@ void temperature_cluster_add_to_endpoint(zigbee_temperature_cluster *cluster,
                ATTR_READONLY, temperature_max_value);
     SETUP_ATTR(3, ZCL_ATTR_GLOBAL_CLUSTER_REVISION, ZCL_DATA_TYPE_UINT16,
                ATTR_READONLY, temperature_cluster_revision);
+    SETUP_ATTR(4, ZCL_ATTR_TEMPERATURE_SENSOR_ID, ZCL_DATA_TYPE_CHAR_STR,
+               ATTR_READONLY, cluster->sensor_id);
 
     endpoint->clusters[endpoint->cluster_count].cluster_id =
         ZCL_CLUSTER_TEMPERATURE_MEASUREMENT;
-    endpoint->clusters[endpoint->cluster_count].attribute_count = 4;
+    endpoint->clusters[endpoint->cluster_count].attribute_count = 5;
     endpoint->clusters[endpoint->cluster_count].attributes      = cluster->attr_infos;
     endpoint->clusters[endpoint->cluster_count].is_server       = 1;
     endpoint->clusters[endpoint->cluster_count].cmd_callback    = NULL;
@@ -182,8 +350,12 @@ void dallas1wire_clusters_start(void) {
     ow_search_alternate_resets();
     printf("1-Wire search done, %d sensor(s)\r\n", seen_count());
     if (!ow_sensors_seen()) {
+        for (uint8_t i = 0; i < OW_MAX_SENSORS; i++) {
+            read_temps[i]    = ZCL_TEMPERATURE_INVALID;
+            read_humidity[i] = ZCL_HUMIDITY_INVALID;
+        }
+        start_report_pass();
         return;
     }
-    attach_seen_slots();
     start_measurement();
 }

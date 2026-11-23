@@ -405,25 +405,63 @@ const romasku = {
             unit: "%",
             entityCategory: "config",
         }),
-    temperatureSensor: (endpointName) =>
-        numeric({
-            name: endpointName,
-            endpointName,
+    temperatureSensor: (name, endpointName) => {
+        const result = numeric({
+            name,
+            endpointNames: [endpointName],
             cluster: "msTemperatureMeasurement",
             attribute: "measuredValue",
-            description: "Measured temperature",
+            description: "Measured temperature. N/A when no sensor is connected or the sensor cannot be read.",
             unit: "°C",
             scale: 100,
-        }),
-    humiditySensor: (endpointName) =>
-        numeric({
-            name: endpointName,
-            endpointName,
+        });
+        const convert = result.fromZigbee[0].convert;
+        result.fromZigbee[0].convert = (model, msg, publish, options, meta) => {
+            const value = convert(model, msg, publish, options, meta);
+            const raw = msg.data?.measuredValue;
+            // ZCL invalid measured value, 0x8000.
+            if (value && (raw === -32768 || raw === 32768)) {
+                for (const key of Object.keys(value)) {
+                    value[key] = "N/A";
+                }
+            }
+            return value;
+        };
+        return result;
+    },
+    humiditySensor: (name, endpointName) => {
+        const result = numeric({
+            name,
+            endpointNames: [endpointName],
             cluster: "msRelativeHumidity",
             attribute: "measuredValue",
-            description: "Measured relative humidity",
+            description: "Measured relative humidity. N/A when no sensor is connected or the sensor cannot be read.",
             unit: "%",
             scale: 100,
+        });
+        const convert = result.fromZigbee[0].convert;
+        result.fromZigbee[0].convert = (model, msg, publish, options, meta) => {
+            const value = convert(model, msg, publish, options, meta);
+            const raw = msg.data?.measuredValue;
+            // ZCL invalid measured value, 0xFFFF.
+            if (value && (raw === 65535 || raw === 0xffff)) {
+                for (const key of Object.keys(value)) {
+                    value[key] = "N/A";
+                }
+            }
+            return value;
+        };
+        return result;
+    },
+    sensorId: (name, endpointName) =>
+        text({
+            name,
+            endpointName,
+            access: "STATE_GET",
+            cluster: "msTemperatureMeasurement",
+            attribute: {ID: 0xff00, type: Zcl.DataType.CHAR_STR},
+            description: "1-Wire id of the sensor currently connected on this endpoint. Empty when no sensor is connected.",
+            entityCategory: "diagnostic",
         }),
     coverClosedDeadzone: (name, endpointName) =>
         numeric({
@@ -452,7 +490,7 @@ const definitions = [
         model: "{{device.model}}",
         vendor: "Tuya-custom",
         description: "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
-        {% set first_endpoint = device.switchNames[0] if device.switchNames else (device.relayNames[0] if device.relayNames else (device.coverNames[0] if device.coverNames else device.tempNames[0])) %}
+        {% set first_endpoint = device.switchNames[0] if device.switchNames else (device.relayNames[0] if device.relayNames else (device.coverNames[0] if device.coverNames else device.sensorSlots[0])) %}
         extend: [
             {% if device.has_battery_cluster %}
             romasku.batteryPercentage(),
@@ -470,14 +508,11 @@ const definitions = [
                 {%- for coverName in device.coverNames -%}
                     "{{coverName}}": {{loop.index + (device.switchNames | length) + (device.relayNames | length) + (device.coverSwitchNames | length)}},{{" "}}
                 {%- endfor -%}
-                {%- for tempName in device.tempNames -%}
-                    "{{tempName}}": {{loop.index + (device.switchNames | length) + (device.relayNames | length) + (device.coverSwitchNames | length) + (device.coverNames | length)}},{{" "}}
-                {%- endfor -%}
-                {%- for humidityName in device.humidityNames -%}
-                    "{{humidityName}}": {{loop.index + (device.switchNames | length) + (device.relayNames | length) + (device.coverSwitchNames | length) + (device.coverNames | length)}},{{" "}}
+                {%- for slot in device.sensorSlots -%}
+                    "{{slot}}": {{loop.index + (device.switchNames | length) + (device.relayNames | length) + (device.coverSwitchNames | length) + (device.coverNames | length)}},{{" "}}
                 {%- endfor -%}
             } }),
-            {% set first_endpoint = device.switchNames[0] if device.switchNames else (device.relayNames[0] if device.relayNames else (device.coverSwitchNames[0] if device.coverSwitchNames else (device.coverNames[0] if device.coverNames else device.tempNames[0]))) %}
+            {% set first_endpoint = device.switchNames[0] if device.switchNames else (device.relayNames[0] if device.relayNames else (device.coverSwitchNames[0] if device.coverSwitchNames else (device.coverNames[0] if device.coverNames else device.sensorSlots[0]))) %}
             romasku.deviceConfig("device_config", "{{first_endpoint}}"),
             romasku.multiPressResetCount("multi_press_reset_count", "{{first_endpoint}}"),
             {% if device.has_dedicated_net_led %}
@@ -527,14 +562,11 @@ const definitions = [
             romasku.coverSwitchBindedMode("{{coverSwitchName}}_binded_mode", "{{coverSwitchName}}"),
             romasku.coverSwitchLongPressDuration("{{coverSwitchName}}_long_press_duration", "{{coverSwitchName}}"),
             {% endfor %}
-            {% if device.tempNames %}
-            {% for tempName in device.tempNames %}
-            romasku.temperatureSensor("{{tempName}}"),
-            {% endfor %}
-            {% endif %}
-            {% if device.humidityNames %}
-            {% for humidityName in device.humidityNames %}
-            romasku.humiditySensor("{{humidityName}}"),
+            {% if device.sensorSlots %}
+            {% for slot in device.sensorSlots %}
+            romasku.temperatureSensor("ow_temp", "{{slot}}"),
+            romasku.humiditySensor("ow_humi", "{{slot}}"),
+            romasku.sensorId("ow_sensor_id", "{{slot}}"),
             {% endfor %}
             {% endif %}
         ],
@@ -599,32 +631,34 @@ const definitions = [
                 },
             ]);
             {% endfor %}
-            {% if device.tempNames %}
-            {% for tempName in device.tempNames %}
+            {% if device.sensorSlots %}
+            {% for slot in device.sensorSlots %}
             const tempEndpoint{{loop.index}} = device.getEndpoint({{loop.index + (device.switchNames | length) + (device.relayNames | length) + (device.coverSwitchNames | length) + (device.coverNames | length)}});
-            await reporting.bind(tempEndpoint{{loop.index}}, coordinatorEndpoint, ["msTemperatureMeasurement"]);
-            await tempEndpoint{{loop.index}}.configureReporting("msTemperatureMeasurement", [
-                {
-                    attribute: "measuredValue",
-                    minimumReportInterval: 10,
-                    maximumReportInterval: constants.repInterval.MAX,
-                    reportableChange: 50,
-                },
-            ]);
-            {% endfor %}
-            {% endif %}
-            {% if device.humidityNames %}
-            {% for humidityName in device.humidityNames %}
-            const humidityEndpoint{{loop.index}} = device.getEndpoint({{loop.index + (device.switchNames | length) + (device.relayNames | length) + (device.coverSwitchNames | length) + (device.coverNames | length)}});
-            await reporting.bind(humidityEndpoint{{loop.index}}, coordinatorEndpoint, ["msRelativeHumidity"]);
-            await humidityEndpoint{{loop.index}}.configureReporting("msRelativeHumidity", [
-                {
-                    attribute: "measuredValue",
-                    minimumReportInterval: 10,
-                    maximumReportInterval: constants.repInterval.MAX,
-                    reportableChange: 50,
-                },
-            ]);
+            if (tempEndpoint{{loop.index}}) {
+                await reporting.bind(tempEndpoint{{loop.index}}, coordinatorEndpoint, ["msTemperatureMeasurement"]);
+                await tempEndpoint{{loop.index}}.configureReporting("msTemperatureMeasurement", [
+                    {
+                        attribute: "measuredValue",
+                        minimumReportInterval: 10,
+                        maximumReportInterval: constants.repInterval.MAX,
+                        reportableChange: 50,
+                    },
+                ]);
+                await tempEndpoint{{loop.index}}.read("msTemperatureMeasurement", [
+                    "measuredValue",
+                    {ID: 0xff00, type: Zcl.DataType.CHAR_STR},
+                ]);
+                await reporting.bind(tempEndpoint{{loop.index}}, coordinatorEndpoint, ["msRelativeHumidity"]);
+                await tempEndpoint{{loop.index}}.configureReporting("msRelativeHumidity", [
+                    {
+                        attribute: "measuredValue",
+                        minimumReportInterval: 10,
+                        maximumReportInterval: constants.repInterval.MAX,
+                        reportableChange: 50,
+                    },
+                ]);
+                await tempEndpoint{{loop.index}}.read("msRelativeHumidity", ["measuredValue"]);
+            }
             {% endfor %}
             {% endif %}
 

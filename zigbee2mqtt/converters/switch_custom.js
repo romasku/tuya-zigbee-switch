@@ -402,25 +402,63 @@ const romasku = {
             unit: "%",
             entityCategory: "config",
         }),
-    temperatureSensor: (endpointName) =>
-        numeric({
-            name: endpointName,
-            endpointName,
+    temperatureSensor: (name, endpointName) => {
+        const result = numeric({
+            name,
+            endpointNames: [endpointName],
             cluster: "msTemperatureMeasurement",
             attribute: "measuredValue",
-            description: "Measured temperature",
+            description: "Measured temperature. N/A when no sensor is connected or the sensor cannot be read.",
             unit: "°C",
             scale: 100,
-        }),
-    humiditySensor: (endpointName) =>
-        numeric({
-            name: endpointName,
-            endpointName,
+        });
+        const convert = result.fromZigbee[0].convert;
+        result.fromZigbee[0].convert = (model, msg, publish, options, meta) => {
+            const value = convert(model, msg, publish, options, meta);
+            const raw = msg.data?.measuredValue;
+            // ZCL invalid measured value, 0x8000.
+            if (value && (raw === -32768 || raw === 32768)) {
+                for (const key of Object.keys(value)) {
+                    value[key] = "N/A";
+                }
+            }
+            return value;
+        };
+        return result;
+    },
+    humiditySensor: (name, endpointName) => {
+        const result = numeric({
+            name,
+            endpointNames: [endpointName],
             cluster: "msRelativeHumidity",
             attribute: "measuredValue",
-            description: "Measured relative humidity",
+            description: "Measured relative humidity. N/A when no sensor is connected or the sensor cannot be read.",
             unit: "%",
             scale: 100,
+        });
+        const convert = result.fromZigbee[0].convert;
+        result.fromZigbee[0].convert = (model, msg, publish, options, meta) => {
+            const value = convert(model, msg, publish, options, meta);
+            const raw = msg.data?.measuredValue;
+            // ZCL invalid measured value, 0xFFFF.
+            if (value && (raw === 65535 || raw === 0xffff)) {
+                for (const key of Object.keys(value)) {
+                    value[key] = "N/A";
+                }
+            }
+            return value;
+        };
+        return result;
+    },
+    sensorId: (name, endpointName) =>
+        text({
+            name,
+            endpointName,
+            access: "STATE_GET",
+            cluster: "msTemperatureMeasurement",
+            attribute: {ID: 0xff00, type: Zcl.DataType.CHAR_STR},
+            description: "1-Wire id of the sensor currently connected on this endpoint. Empty when no sensor is connected.",
+            entityCategory: "diagnostic",
         }),
     coverClosedDeadzone: (name, endpointName) =>
         numeric({
@@ -1183,7 +1221,7 @@ const definitions = [
         vendor: "Tuya-custom",
         description: "Custom switch (https://github.com/romasku/tuya-zigbee-switch)",
         extend: [
-            deviceEndpoints({ endpoints: {"switch_0": 1, "switch_1": 2, "switch_2": 3, "switch_3": 4, "relay_0": 5, "relay_1": 6, "relay_2": 7, "relay_3": 8, "temperature_1": 9, "temperature_2": 10, "temperature_3": 11, "temperature_4": 12, "temperature_5": 13, "temperature_6": 14, "temperature_7": 15, "temperature_8": 16, "humidity_1": 9, "humidity_2": 10, "humidity_3": 11, "humidity_4": 12, "humidity_5": 13, "humidity_6": 14, "humidity_7": 15, "humidity_8": 16, } }),
+            deviceEndpoints({ endpoints: {"switch_0": 1, "switch_1": 2, "switch_2": 3, "switch_3": 4, "relay_0": 5, "relay_1": 6, "relay_2": 7, "relay_3": 8, "1": 9, "2": 10, "3": 11, "4": 12, "5": 13, "6": 14, "7": 15, "8": 16, } }),
             romasku.deviceConfig("device_config", "switch_0"),
             romasku.multiPressResetCount("multi_press_reset_count", "switch_0"),
             romasku.networkIndicator("network_led", "switch_0"),
@@ -1220,22 +1258,30 @@ const definitions = [
             romasku.bindedMode("switch_3_binded_mode", "switch_3"),
             romasku.longPressDuration("switch_3_long_press_duration", "switch_3"),
             romasku.levelMoveRate("switch_3_level_move_rate", "switch_3"),
-            romasku.temperatureSensor("temperature_1"),
-            romasku.temperatureSensor("temperature_2"),
-            romasku.temperatureSensor("temperature_3"),
-            romasku.temperatureSensor("temperature_4"),
-            romasku.temperatureSensor("temperature_5"),
-            romasku.temperatureSensor("temperature_6"),
-            romasku.temperatureSensor("temperature_7"),
-            romasku.temperatureSensor("temperature_8"),
-            romasku.humiditySensor("humidity_1"),
-            romasku.humiditySensor("humidity_2"),
-            romasku.humiditySensor("humidity_3"),
-            romasku.humiditySensor("humidity_4"),
-            romasku.humiditySensor("humidity_5"),
-            romasku.humiditySensor("humidity_6"),
-            romasku.humiditySensor("humidity_7"),
-            romasku.humiditySensor("humidity_8"),
+            romasku.temperatureSensor("ow_temp", "1"),
+            romasku.humiditySensor("ow_humi", "1"),
+            romasku.sensorId("ow_sensor_id", "1"),
+            romasku.temperatureSensor("ow_temp", "2"),
+            romasku.humiditySensor("ow_humi", "2"),
+            romasku.sensorId("ow_sensor_id", "2"),
+            romasku.temperatureSensor("ow_temp", "3"),
+            romasku.humiditySensor("ow_humi", "3"),
+            romasku.sensorId("ow_sensor_id", "3"),
+            romasku.temperatureSensor("ow_temp", "4"),
+            romasku.humiditySensor("ow_humi", "4"),
+            romasku.sensorId("ow_sensor_id", "4"),
+            romasku.temperatureSensor("ow_temp", "5"),
+            romasku.humiditySensor("ow_humi", "5"),
+            romasku.sensorId("ow_sensor_id", "5"),
+            romasku.temperatureSensor("ow_temp", "6"),
+            romasku.humiditySensor("ow_humi", "6"),
+            romasku.sensorId("ow_sensor_id", "6"),
+            romasku.temperatureSensor("ow_temp", "7"),
+            romasku.humiditySensor("ow_humi", "7"),
+            romasku.sensorId("ow_sensor_id", "7"),
+            romasku.temperatureSensor("ow_temp", "8"),
+            romasku.humiditySensor("ow_humi", "8"),
+            romasku.sensorId("ow_sensor_id", "8"),
         ],
         meta: { multiEndpoint: true },
         configure: async (device, coordinatorEndpoint, logger) => {
@@ -1310,165 +1356,213 @@ const definitions = [
 
 
             const tempEndpoint1 = device.getEndpoint(9);
-            await reporting.bind(tempEndpoint1, coordinatorEndpoint, ["msTemperatureMeasurement"]);
-            await tempEndpoint1.configureReporting("msTemperatureMeasurement", [
-                {
-                    attribute: "measuredValue",
-                    minimumReportInterval: 10,
-                    maximumReportInterval: constants.repInterval.MAX,
-                    reportableChange: 50,
-                },
-            ]);
+            if (tempEndpoint1) {
+                await reporting.bind(tempEndpoint1, coordinatorEndpoint, ["msTemperatureMeasurement"]);
+                await tempEndpoint1.configureReporting("msTemperatureMeasurement", [
+                    {
+                        attribute: "measuredValue",
+                        minimumReportInterval: 10,
+                        maximumReportInterval: constants.repInterval.MAX,
+                        reportableChange: 50,
+                    },
+                ]);
+                await tempEndpoint1.read("msTemperatureMeasurement", [
+                    "measuredValue",
+                    {ID: 0xff00, type: Zcl.DataType.CHAR_STR},
+                ]);
+                await reporting.bind(tempEndpoint1, coordinatorEndpoint, ["msRelativeHumidity"]);
+                await tempEndpoint1.configureReporting("msRelativeHumidity", [
+                    {
+                        attribute: "measuredValue",
+                        minimumReportInterval: 10,
+                        maximumReportInterval: constants.repInterval.MAX,
+                        reportableChange: 50,
+                    },
+                ]);
+                await tempEndpoint1.read("msRelativeHumidity", ["measuredValue"]);
+            }
             const tempEndpoint2 = device.getEndpoint(10);
-            await reporting.bind(tempEndpoint2, coordinatorEndpoint, ["msTemperatureMeasurement"]);
-            await tempEndpoint2.configureReporting("msTemperatureMeasurement", [
-                {
-                    attribute: "measuredValue",
-                    minimumReportInterval: 10,
-                    maximumReportInterval: constants.repInterval.MAX,
-                    reportableChange: 50,
-                },
-            ]);
+            if (tempEndpoint2) {
+                await reporting.bind(tempEndpoint2, coordinatorEndpoint, ["msTemperatureMeasurement"]);
+                await tempEndpoint2.configureReporting("msTemperatureMeasurement", [
+                    {
+                        attribute: "measuredValue",
+                        minimumReportInterval: 10,
+                        maximumReportInterval: constants.repInterval.MAX,
+                        reportableChange: 50,
+                    },
+                ]);
+                await tempEndpoint2.read("msTemperatureMeasurement", [
+                    "measuredValue",
+                    {ID: 0xff00, type: Zcl.DataType.CHAR_STR},
+                ]);
+                await reporting.bind(tempEndpoint2, coordinatorEndpoint, ["msRelativeHumidity"]);
+                await tempEndpoint2.configureReporting("msRelativeHumidity", [
+                    {
+                        attribute: "measuredValue",
+                        minimumReportInterval: 10,
+                        maximumReportInterval: constants.repInterval.MAX,
+                        reportableChange: 50,
+                    },
+                ]);
+                await tempEndpoint2.read("msRelativeHumidity", ["measuredValue"]);
+            }
             const tempEndpoint3 = device.getEndpoint(11);
-            await reporting.bind(tempEndpoint3, coordinatorEndpoint, ["msTemperatureMeasurement"]);
-            await tempEndpoint3.configureReporting("msTemperatureMeasurement", [
-                {
-                    attribute: "measuredValue",
-                    minimumReportInterval: 10,
-                    maximumReportInterval: constants.repInterval.MAX,
-                    reportableChange: 50,
-                },
-            ]);
+            if (tempEndpoint3) {
+                await reporting.bind(tempEndpoint3, coordinatorEndpoint, ["msTemperatureMeasurement"]);
+                await tempEndpoint3.configureReporting("msTemperatureMeasurement", [
+                    {
+                        attribute: "measuredValue",
+                        minimumReportInterval: 10,
+                        maximumReportInterval: constants.repInterval.MAX,
+                        reportableChange: 50,
+                    },
+                ]);
+                await tempEndpoint3.read("msTemperatureMeasurement", [
+                    "measuredValue",
+                    {ID: 0xff00, type: Zcl.DataType.CHAR_STR},
+                ]);
+                await reporting.bind(tempEndpoint3, coordinatorEndpoint, ["msRelativeHumidity"]);
+                await tempEndpoint3.configureReporting("msRelativeHumidity", [
+                    {
+                        attribute: "measuredValue",
+                        minimumReportInterval: 10,
+                        maximumReportInterval: constants.repInterval.MAX,
+                        reportableChange: 50,
+                    },
+                ]);
+                await tempEndpoint3.read("msRelativeHumidity", ["measuredValue"]);
+            }
             const tempEndpoint4 = device.getEndpoint(12);
-            await reporting.bind(tempEndpoint4, coordinatorEndpoint, ["msTemperatureMeasurement"]);
-            await tempEndpoint4.configureReporting("msTemperatureMeasurement", [
-                {
-                    attribute: "measuredValue",
-                    minimumReportInterval: 10,
-                    maximumReportInterval: constants.repInterval.MAX,
-                    reportableChange: 50,
-                },
-            ]);
+            if (tempEndpoint4) {
+                await reporting.bind(tempEndpoint4, coordinatorEndpoint, ["msTemperatureMeasurement"]);
+                await tempEndpoint4.configureReporting("msTemperatureMeasurement", [
+                    {
+                        attribute: "measuredValue",
+                        minimumReportInterval: 10,
+                        maximumReportInterval: constants.repInterval.MAX,
+                        reportableChange: 50,
+                    },
+                ]);
+                await tempEndpoint4.read("msTemperatureMeasurement", [
+                    "measuredValue",
+                    {ID: 0xff00, type: Zcl.DataType.CHAR_STR},
+                ]);
+                await reporting.bind(tempEndpoint4, coordinatorEndpoint, ["msRelativeHumidity"]);
+                await tempEndpoint4.configureReporting("msRelativeHumidity", [
+                    {
+                        attribute: "measuredValue",
+                        minimumReportInterval: 10,
+                        maximumReportInterval: constants.repInterval.MAX,
+                        reportableChange: 50,
+                    },
+                ]);
+                await tempEndpoint4.read("msRelativeHumidity", ["measuredValue"]);
+            }
             const tempEndpoint5 = device.getEndpoint(13);
-            await reporting.bind(tempEndpoint5, coordinatorEndpoint, ["msTemperatureMeasurement"]);
-            await tempEndpoint5.configureReporting("msTemperatureMeasurement", [
-                {
-                    attribute: "measuredValue",
-                    minimumReportInterval: 10,
-                    maximumReportInterval: constants.repInterval.MAX,
-                    reportableChange: 50,
-                },
-            ]);
+            if (tempEndpoint5) {
+                await reporting.bind(tempEndpoint5, coordinatorEndpoint, ["msTemperatureMeasurement"]);
+                await tempEndpoint5.configureReporting("msTemperatureMeasurement", [
+                    {
+                        attribute: "measuredValue",
+                        minimumReportInterval: 10,
+                        maximumReportInterval: constants.repInterval.MAX,
+                        reportableChange: 50,
+                    },
+                ]);
+                await tempEndpoint5.read("msTemperatureMeasurement", [
+                    "measuredValue",
+                    {ID: 0xff00, type: Zcl.DataType.CHAR_STR},
+                ]);
+                await reporting.bind(tempEndpoint5, coordinatorEndpoint, ["msRelativeHumidity"]);
+                await tempEndpoint5.configureReporting("msRelativeHumidity", [
+                    {
+                        attribute: "measuredValue",
+                        minimumReportInterval: 10,
+                        maximumReportInterval: constants.repInterval.MAX,
+                        reportableChange: 50,
+                    },
+                ]);
+                await tempEndpoint5.read("msRelativeHumidity", ["measuredValue"]);
+            }
             const tempEndpoint6 = device.getEndpoint(14);
-            await reporting.bind(tempEndpoint6, coordinatorEndpoint, ["msTemperatureMeasurement"]);
-            await tempEndpoint6.configureReporting("msTemperatureMeasurement", [
-                {
-                    attribute: "measuredValue",
-                    minimumReportInterval: 10,
-                    maximumReportInterval: constants.repInterval.MAX,
-                    reportableChange: 50,
-                },
-            ]);
+            if (tempEndpoint6) {
+                await reporting.bind(tempEndpoint6, coordinatorEndpoint, ["msTemperatureMeasurement"]);
+                await tempEndpoint6.configureReporting("msTemperatureMeasurement", [
+                    {
+                        attribute: "measuredValue",
+                        minimumReportInterval: 10,
+                        maximumReportInterval: constants.repInterval.MAX,
+                        reportableChange: 50,
+                    },
+                ]);
+                await tempEndpoint6.read("msTemperatureMeasurement", [
+                    "measuredValue",
+                    {ID: 0xff00, type: Zcl.DataType.CHAR_STR},
+                ]);
+                await reporting.bind(tempEndpoint6, coordinatorEndpoint, ["msRelativeHumidity"]);
+                await tempEndpoint6.configureReporting("msRelativeHumidity", [
+                    {
+                        attribute: "measuredValue",
+                        minimumReportInterval: 10,
+                        maximumReportInterval: constants.repInterval.MAX,
+                        reportableChange: 50,
+                    },
+                ]);
+                await tempEndpoint6.read("msRelativeHumidity", ["measuredValue"]);
+            }
             const tempEndpoint7 = device.getEndpoint(15);
-            await reporting.bind(tempEndpoint7, coordinatorEndpoint, ["msTemperatureMeasurement"]);
-            await tempEndpoint7.configureReporting("msTemperatureMeasurement", [
-                {
-                    attribute: "measuredValue",
-                    minimumReportInterval: 10,
-                    maximumReportInterval: constants.repInterval.MAX,
-                    reportableChange: 50,
-                },
-            ]);
+            if (tempEndpoint7) {
+                await reporting.bind(tempEndpoint7, coordinatorEndpoint, ["msTemperatureMeasurement"]);
+                await tempEndpoint7.configureReporting("msTemperatureMeasurement", [
+                    {
+                        attribute: "measuredValue",
+                        minimumReportInterval: 10,
+                        maximumReportInterval: constants.repInterval.MAX,
+                        reportableChange: 50,
+                    },
+                ]);
+                await tempEndpoint7.read("msTemperatureMeasurement", [
+                    "measuredValue",
+                    {ID: 0xff00, type: Zcl.DataType.CHAR_STR},
+                ]);
+                await reporting.bind(tempEndpoint7, coordinatorEndpoint, ["msRelativeHumidity"]);
+                await tempEndpoint7.configureReporting("msRelativeHumidity", [
+                    {
+                        attribute: "measuredValue",
+                        minimumReportInterval: 10,
+                        maximumReportInterval: constants.repInterval.MAX,
+                        reportableChange: 50,
+                    },
+                ]);
+                await tempEndpoint7.read("msRelativeHumidity", ["measuredValue"]);
+            }
             const tempEndpoint8 = device.getEndpoint(16);
-            await reporting.bind(tempEndpoint8, coordinatorEndpoint, ["msTemperatureMeasurement"]);
-            await tempEndpoint8.configureReporting("msTemperatureMeasurement", [
-                {
-                    attribute: "measuredValue",
-                    minimumReportInterval: 10,
-                    maximumReportInterval: constants.repInterval.MAX,
-                    reportableChange: 50,
-                },
-            ]);
-            const humidityEndpoint1 = device.getEndpoint(9);
-            await reporting.bind(humidityEndpoint1, coordinatorEndpoint, ["msRelativeHumidity"]);
-            await humidityEndpoint1.configureReporting("msRelativeHumidity", [
-                {
-                    attribute: "measuredValue",
-                    minimumReportInterval: 10,
-                    maximumReportInterval: constants.repInterval.MAX,
-                    reportableChange: 50,
-                },
-            ]);
-            const humidityEndpoint2 = device.getEndpoint(10);
-            await reporting.bind(humidityEndpoint2, coordinatorEndpoint, ["msRelativeHumidity"]);
-            await humidityEndpoint2.configureReporting("msRelativeHumidity", [
-                {
-                    attribute: "measuredValue",
-                    minimumReportInterval: 10,
-                    maximumReportInterval: constants.repInterval.MAX,
-                    reportableChange: 50,
-                },
-            ]);
-            const humidityEndpoint3 = device.getEndpoint(11);
-            await reporting.bind(humidityEndpoint3, coordinatorEndpoint, ["msRelativeHumidity"]);
-            await humidityEndpoint3.configureReporting("msRelativeHumidity", [
-                {
-                    attribute: "measuredValue",
-                    minimumReportInterval: 10,
-                    maximumReportInterval: constants.repInterval.MAX,
-                    reportableChange: 50,
-                },
-            ]);
-            const humidityEndpoint4 = device.getEndpoint(12);
-            await reporting.bind(humidityEndpoint4, coordinatorEndpoint, ["msRelativeHumidity"]);
-            await humidityEndpoint4.configureReporting("msRelativeHumidity", [
-                {
-                    attribute: "measuredValue",
-                    minimumReportInterval: 10,
-                    maximumReportInterval: constants.repInterval.MAX,
-                    reportableChange: 50,
-                },
-            ]);
-            const humidityEndpoint5 = device.getEndpoint(13);
-            await reporting.bind(humidityEndpoint5, coordinatorEndpoint, ["msRelativeHumidity"]);
-            await humidityEndpoint5.configureReporting("msRelativeHumidity", [
-                {
-                    attribute: "measuredValue",
-                    minimumReportInterval: 10,
-                    maximumReportInterval: constants.repInterval.MAX,
-                    reportableChange: 50,
-                },
-            ]);
-            const humidityEndpoint6 = device.getEndpoint(14);
-            await reporting.bind(humidityEndpoint6, coordinatorEndpoint, ["msRelativeHumidity"]);
-            await humidityEndpoint6.configureReporting("msRelativeHumidity", [
-                {
-                    attribute: "measuredValue",
-                    minimumReportInterval: 10,
-                    maximumReportInterval: constants.repInterval.MAX,
-                    reportableChange: 50,
-                },
-            ]);
-            const humidityEndpoint7 = device.getEndpoint(15);
-            await reporting.bind(humidityEndpoint7, coordinatorEndpoint, ["msRelativeHumidity"]);
-            await humidityEndpoint7.configureReporting("msRelativeHumidity", [
-                {
-                    attribute: "measuredValue",
-                    minimumReportInterval: 10,
-                    maximumReportInterval: constants.repInterval.MAX,
-                    reportableChange: 50,
-                },
-            ]);
-            const humidityEndpoint8 = device.getEndpoint(16);
-            await reporting.bind(humidityEndpoint8, coordinatorEndpoint, ["msRelativeHumidity"]);
-            await humidityEndpoint8.configureReporting("msRelativeHumidity", [
-                {
-                    attribute: "measuredValue",
-                    minimumReportInterval: 10,
-                    maximumReportInterval: constants.repInterval.MAX,
-                    reportableChange: 50,
-                },
-            ]);
+            if (tempEndpoint8) {
+                await reporting.bind(tempEndpoint8, coordinatorEndpoint, ["msTemperatureMeasurement"]);
+                await tempEndpoint8.configureReporting("msTemperatureMeasurement", [
+                    {
+                        attribute: "measuredValue",
+                        minimumReportInterval: 10,
+                        maximumReportInterval: constants.repInterval.MAX,
+                        reportableChange: 50,
+                    },
+                ]);
+                await tempEndpoint8.read("msTemperatureMeasurement", [
+                    "measuredValue",
+                    {ID: 0xff00, type: Zcl.DataType.CHAR_STR},
+                ]);
+                await reporting.bind(tempEndpoint8, coordinatorEndpoint, ["msRelativeHumidity"]);
+                await tempEndpoint8.configureReporting("msRelativeHumidity", [
+                    {
+                        attribute: "measuredValue",
+                        minimumReportInterval: 10,
+                        maximumReportInterval: constants.repInterval.MAX,
+                        reportableChange: 50,
+                    },
+                ]);
+                await tempEndpoint8.read("msRelativeHumidity", ["measuredValue"]);
+            }
 
         },
         ota: true,

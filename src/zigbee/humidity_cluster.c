@@ -2,6 +2,7 @@
 
 #include "cluster_common.h"
 #include "consts.h"
+#include "hal/zigbee.h"
 
 static uint16_t humidity_min_value         = 0;
 static uint16_t humidity_max_value         = 10000;
@@ -34,9 +35,13 @@ void humidity_cluster_add_to_endpoint(zigbee_humidity_cluster *cluster,
     endpoint->cluster_count++;
 }
 
-void humidity_cluster_publish(const uint16_t rh_percent_x100[OW_MAX_SENSORS]) {
+void humidity_cluster_publish(const uint16_t rh_percent_x100[OW_MAX_SENSORS],
+                              uint8_t force) {
     for (uint8_t i = 0; i < OW_MAX_SENSORS; i++) {
-        if (humidity_clusters[i].endpoint == 0 ||
+        if (humidity_clusters[i].endpoint == 0) {
+            continue;
+        }
+        if (!force &&
             humidity_clusters[i].measured_value == rh_percent_x100[i]) {
             continue;
         }
@@ -44,5 +49,11 @@ void humidity_cluster_publish(const uint16_t rh_percent_x100[OW_MAX_SENSORS]) {
         hal_zigbee_notify_attribute_changed(humidity_clusters[i].endpoint,
                                             ZCL_CLUSTER_RELATIVE_HUMIDITY,
                                             ZCL_ATTR_HUMIDITY_MEASURED_VALUE);
+        hal_zigbee_send_report_attr(humidity_clusters[i].endpoint,
+                                    ZCL_CLUSTER_RELATIVE_HUMIDITY,
+                                    ZCL_ATTR_HUMIDITY_MEASURED_VALUE,
+                                    ZCL_DATA_TYPE_UINT16,
+                                    &humidity_clusters[i].measured_value,
+                                    sizeof(humidity_clusters[i].measured_value));
     }
 }

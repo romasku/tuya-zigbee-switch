@@ -21,10 +21,4 @@ void parse_config();
 void init_reporting();
 void handle_version_changes();
 
-/**
- * Expose one 1-Wire slot that a scan actually found.
- * Slot endpoints are not created at boot. Returns 1 when the endpoint is live.
- */
-uint8_t config_attach_onewire_sensor(uint8_t slot, uint8_t family);
-
 #endif

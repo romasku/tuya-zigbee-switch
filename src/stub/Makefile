@@ -52,6 +52,8 @@ SOURCES := \
 	$(SRC_DIR)/base_components/button.c \
 	$(SRC_DIR)/base_components/battery.c \
 	$(SRC_DIR)/base_components/ds18b20.c \
+	$(SRC_DIR)/base_components/ds2438.c \
+	$(SRC_DIR)/base_components/onewire.c \
 	$(SRC_DIR)/base_components/network_indicator.c \
 	$(SRC_DIR)/device_config/config_parser.c \
 	$(SRC_DIR)/device_config/config_nv.c \

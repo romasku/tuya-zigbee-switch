@@ -104,6 +104,17 @@ class CustomMultistateInputCluster(CustomCluster, MultistateInput):
         reporting_status: Final = foundation.ZCL_REPORTING_STATUS_ATTR
 
 
+class CustomTemperatureMeasurementCluster(CustomCluster, TemperatureMeasurement):
+
+    class AttributeDefs(TemperatureMeasurement.AttributeDefs):
+        sensor_id = ZCLAttributeDef(
+            id=0xff00,
+            type=t.CharacterString,
+            access="r",
+            is_manufacturer_specific=False,
+        )
+
+
 class CustomBasicCluster(CustomCluster, Basic):
 
     class AttributeDefs(foundation.BaseAttributeDefs):
@@ -809,7 +820,15 @@ for config in CONFIGS:
     if has_onewire:
         temp_base = switch_cnt + relay_cnt + cover_switch_cnt + cover_cnt
         for endpoint_id in range(temp_base + 1, temp_base + 9):
-            builder = builder.adds(TemperatureMeasurement, endpoint_id=endpoint_id)
+            builder = builder.adds(CustomTemperatureMeasurementCluster, endpoint_id=endpoint_id)
+            builder = builder.sensor(
+                CustomTemperatureMeasurementCluster.AttributeDefs.sensor_id.name,
+                CustomTemperatureMeasurementCluster.cluster_id,
+                translation_key="sensor_id_"+str(endpoint_id),
+                fallback_name="Sensor id "+str(endpoint_id),
+                endpoint_id=endpoint_id,
+                entity_type=EntityType.DIAGNOSTIC,
+            )
             builder = builder.adds(RelativeHumidity, endpoint_id=endpoint_id)
 
     builder = (

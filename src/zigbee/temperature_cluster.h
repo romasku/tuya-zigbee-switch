@@ -8,7 +8,9 @@
 typedef struct {
     int16_t              measured_value;
     uint8_t              endpoint;
-    hal_zigbee_attribute attr_infos[4];
+    /* ZCL char string: length byte, then up to 23 id characters. */
+    uint8_t              sensor_id[24];
+    hal_zigbee_attribute attr_infos[5];
 } zigbee_temperature_cluster;
 
 extern zigbee_temperature_cluster temperature_clusters[OW_MAX_SENSORS];

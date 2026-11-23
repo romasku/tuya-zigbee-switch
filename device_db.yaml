@@ -253,7 +253,7 @@ BOARD__MUMUBIZ_TYZGTH4CH_D1RF:
   firmware_image_type: 47119
   build: yes
   status: mostly_supported
-  info: Up to 8 DS18B20 or DS2438 sensors on B5, any mix. The bus is searched once per boot. A known ROM keeps its slot. A new ROM reuses a slot whose saved sensor is absent. None attached is fine. Reset button on B4 (ZT3L pin 13), pull-up, active low. 433 MHz receiver is not supported
+  info: Up to 8 DS18B20 or DS2438 sensors on B5, any mix. All 8 sensor endpoints are always present and report N/A when the slot is empty or the sensor cannot be read. A connected sensor publishes its 1-Wire id. The bus is searched once per boot. A known ROM keeps its slot. A new ROM reuses a slot whose saved sensor is absent. None attached is fine. Reset button on B4 (ZT3L pin 13), pull-up, active low. 433 MHz receiver is not supported
   threads: null
   store: https://www.amazon.com/Temperature-Monitoring-Contact-Control-Waterproof/dp/B0DHG5FGZY
 DIN_RELAY_TUYA_TS011F_PM:
