@@ -16,6 +16,11 @@ typedef struct {
 } stub_task_entry_t;
 
 static stub_task_entry_t tasks[MAX_TASKS];
+static bool reject_optional_tasks;
+
+void stub_tasks_reject_optional(bool reject) {
+    reject_optional_tasks = reject;
+}
 
 void stub_tasks_poll(void) {
     uint32_t current_time   = hal_millis();
@@ -95,4 +100,18 @@ void hal_tasks_unschedule(hal_task_t *task) {
             break;
         }
     }
+}
+
+bool hal_tasks_try_schedule(hal_task_t *task, uint32_t delay_ms) {
+    hal_tasks_unschedule(task);
+    if (reject_optional_tasks) {
+        return false;
+    }
+    for (int i = 0; i < MAX_TASKS; i++) {
+        if (!tasks[i].active) {
+            hal_tasks_schedule(task, delay_ms);
+            return true;
+        }
+    }
+    return false;
 }

@@ -6,7 +6,6 @@ from client import Event, StubProc
 
 from tests.conftest import Device
 from tests.zcl_consts import (
-    ZCL_ATTR_MULTISTATE_INPUT_PRESENT_VALUE,
     ZCL_ATTR_ONOFF_CONFIGURATION_SWITCH_CONFIRM_RELEASE_MS as CONFIRM,
     ZCL_ATTR_ONOFF_CONFIGURATION_SWITCH_MAX_PRESS_COUNT as MAX_COUNT,
     ZCL_ATTR_ONOFF_CONFIGURATION_SWITCH_MODE as MODE,
@@ -25,6 +24,8 @@ from tests.zcl_consts import (
     ZCL_ONOFF_CONFIGURATION_SWITCH_TYPE_TOGGLE,
 )
 
+GESTURE_ATTR = 0xFF00
+
 
 def collect_reports(proc: StubProc) -> list[tuple[int, int]]:
     reports = []
@@ -35,7 +36,7 @@ def collect_reports(proc: StubProc) -> list[tuple[int, int]]:
         data = event.payload
         if (
             int(data["cluster"], 16) == ZCL_CLUSTER_MULTISTATE_INPUT_BASIC
-            and int(data["attr"], 16) == ZCL_ATTR_MULTISTATE_INPUT_PRESENT_VALUE
+            and int(data["attr"], 16) == GESTURE_ATTR
         ):
             assert int(data["type"], 16) == 0x21
             (value,) = struct.unpack("<H", bytes.fromhex(data["data_hex"]))
@@ -63,6 +64,7 @@ def test_finalized_click_report(device, button_pin, clicks, limit, code):
     device.step_time(1)
     assert device.zcl_switch_get_multistate_value(1) == "0"
     assert reports == [(1, code)]
+    assert device.read_zigbee_attr(1, ZCL_CLUSTER_MULTISTATE_INPUT_BASIC, GESTURE_ATTR) == "0"
     device.step_time(500)
     assert device.zcl_switch_get_multistate_value(1) == "0"
     assert reports == [(1, code)]
@@ -99,11 +101,13 @@ def test_hold_uses_existing_move_stop(device, button_pin, taps, hold, release):
     device.press_button(button_pin)
     device.step_time(900)
     assert device.zcl_switch_get_multistate_value(1) == str(hold)
-    assert reports == []  # No premature click when the final press becomes a hold.
+    assert reports == [(1, hold)]  # No premature click when the last press becomes a hold.
+    # Debounced release only 60 ms after the hold callback (within Telink's
+    # 100 ms deferred reporting window). Both direct reports must survive.
     device.release_button(button_pin)
     device.step_time(400)
     assert device.zcl_switch_get_multistate_value(1) == "0"
-    assert reports == [(1, release)]
+    assert reports == [(1, hold), (1, release)]
     assert [cmd.cmd for cmd in device.zcl_list_cmds(1, ZCL_CLUSTER_LEVEL_CONTROL)] == [
         ZCL_CMD_LEVEL_MOVE_WITH_ON_OFF, ZCL_CMD_LEVEL_STOP_WITH_ON_OFF,
     ]
@@ -160,7 +164,44 @@ def test_config_writes_cancel_pending_confirmation(device, button_pin):
     assert device.zcl_switch_get_multistate_value(1) == "4"
     device.click_button(button_pin)
     assert device.zcl_switch_get_multistate_value(1) == "4"
+    assert reports == [(1, 5), (1, 3), (1, 4)]
+
+
+def test_optional_timer_failure_discards_sequence(device, button_pin):
+    setup_button(device, 1, 2)
+    reports = collect_reports(device.p)
+    assert device.p.exec("task_reject 1").ok
+    device.click_button(button_pin)
+    assert device.zcl_switch_get_multistate_value(1) == "0"
+    assert reports == []
+    assert device.p.exec("task_reject 0").ok
+    device.click_button(button_pin)
+    device.step_time(200)
+    assert device.zcl_switch_get_multistate_value(1) == "0"
     assert reports == [(1, 5)]
+
+
+def test_unchanged_gesture_config_does_not_write_or_cancel(device, button_pin):
+    setup_button(device, 1, 2)
+    reports = collect_reports(device.p)
+    record = Path("stub_nvm_data/item_23.bin")
+    before = record.stat().st_mtime_ns
+    device.click_button(button_pin)
+    device.write_zigbee_attr(1, SWITCH_CFG, MAX_COUNT, 2)
+    device.step_time(200)
+    assert device.zcl_switch_get_multistate_value(1) == "0"
+    assert reports == [(1, 5)]
+    assert record.stat().st_mtime_ns == before
+
+
+def test_failed_gesture_save_keeps_previous_config(device):
+    record = Path("stub_nvm_data/item_23.bin")
+    record.mkdir(parents=True)  # Opening this path as a stub NVM file fails.
+    device.write_zigbee_attr(1, SWITCH_CFG, MAX_COUNT, 3)
+    assert device.read_zigbee_attr(1, SWITCH_CFG, MAX_COUNT) == "1"
+    record.rmdir()
+    device.write_zigbee_attr(1, SWITCH_CFG, MAX_COUNT, 3)
+    assert device.read_zigbee_attr(1, SWITCH_CFG, MAX_COUNT) == "3"
 
 
 def test_legacy_nv_record_and_gesture_persistence(device_config):

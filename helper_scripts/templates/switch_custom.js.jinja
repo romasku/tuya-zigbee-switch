@@ -123,9 +123,9 @@ const romasku = {
             type: ["attributeReport"],
             convert: (model, msg) => {
                 const name = switchNames[msg.endpoint.ID - 1];
-                // Value 1 is a raw press edge, not a confirmed single click.
-                // Don't guess based on a cached capability after OTA.
-                const suffix = switchActionSuffix[msg.data.presentValue];
+                // Never publish an action from the periodically reported live state.
+                const value = msg.data[0xff00];
+                const suffix = Number.isInteger(value) ? switchActionSuffix[value] : undefined;
                 if (name && suffix) return {action: `${name}_${suffix}`};
             },
         }],
@@ -162,13 +162,11 @@ const romasku = {
             access: "STATE_GET",
             lookup: {
                 released: 0, press: 1, long_press: 2, position_on: 3, position_off: 4,
-                single_press: 5, single_release: 6,
-                double_press: 7, double_hold: 8, double_release: 9,
-                triple_press: 10, triple_hold: 11, triple_release: 12,
+                double_hold: 8, triple_hold: 11,
             },
             cluster: "genMultistateInput",
             attribute: "presentValue",
-            description: "Raw switch state or gesture code (use action for automations)",
+            description: "Raw switch state (use action for gesture automations)",
             entityCategory: "diagnostic",
         }),
     relayIndicatorMode: (name, endpointName) =>

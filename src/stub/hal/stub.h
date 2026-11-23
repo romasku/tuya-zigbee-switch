@@ -12,6 +12,7 @@ uint8_t stub_gpio_get_output(hal_gpio_pin_t gpio_pin);
 
 // Tasks stub functions
 void stub_tasks_poll(void);
+void stub_tasks_reject_optional(bool reject);
 
 // NVM stub functions
 void stub_nvm_enable_debug(int enable);
