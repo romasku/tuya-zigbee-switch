@@ -13,6 +13,8 @@
 #define DS2438_VOLT_WAIT_US    8000
 #define DS2438_COPY_WAIT_US    10000
 
+#if HAS_ONEWIRE
+
 #if defined(HAL_TELINK) || defined(HAL_SILABS)
 
 static uint8_t ds2438_blank(const uint8_t page[9]) {
@@ -209,3 +211,5 @@ void ds2438_read(const uint8_t rom[8], ow_reading_t *reading,
     (void)rh_percent_x100;
 #endif
 }
+
+#endif

@@ -15,6 +15,8 @@
 #pragma pack(pop)
 #endif
 
+#if HAS_ONEWIRE
+
 typedef struct {
     uint8_t magic;
     uint8_t occupied;
@@ -470,7 +472,7 @@ static void save_slots(void) {
     hal_nvm_status_t status =
         hal_nvm_write(NV_ITEM_DS18B20_SLOTS, sizeof(slots), (uint8_t *)&slots);
     if (status != HAL_NVM_SUCCESS) {
-        printf("1-Wire slot save failed: %d\r\n", status);
+        printf("1-Wire slot save failed: %lu\r\n", (unsigned long)status);
     }
 }
 
@@ -929,3 +931,5 @@ void ow_log_slot(uint8_t slot, uint8_t endpoint) {
     }
     printf("\r\n");
 }
+
+#endif

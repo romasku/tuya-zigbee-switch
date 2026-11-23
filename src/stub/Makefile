@@ -78,6 +78,7 @@ INCLUDES := \
 CFLAGS := -Wall -Wno-unused-parameter -Wno-unused-variable -g -O0 \
     -DHAL_STUB -DSTACK_BUILD=1001 -D_DEFAULT_SOURCE -DVERSION_STR="0.0.0" \
 	-DNVM_MIGRATIONS_VERSION=1 \
+	-DHAS_ONEWIRE=1 \
 	-std=c99
 
 LDFLAGS := -lpthread

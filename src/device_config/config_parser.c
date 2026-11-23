@@ -293,6 +293,7 @@ void parse_config() {
             cover_clusters[cover_clusters_cnt].cover_idx   = cover_clusters_cnt;
             cover_clusters_cnt++;
         } else if (entry[0] == 'W') {
+#if HAS_ONEWIRE
             // W<pin> only prepares the bus. The search runs later, after the NV reads.
             if (!ow_is_configured()) {
                 hal_gpio_pin_t pin = hal_gpio_parse_pin(entry + 1);
@@ -300,6 +301,7 @@ void parse_config() {
                     ow_init(pin);
                 }
             }
+#endif
         } else if (entry[0] == 'i') {
             uint32_t image_type = parse_int(entry + 1);
             hal_zigbee_set_image_type(image_type);
@@ -406,6 +408,7 @@ void parse_config() {
                                       &endpoints[cover_base + index]);
     }
 
+#if HAS_ONEWIRE
     uint8_t sensor_endpoint_base = total_endpoints;
     uint8_t onewire_attach_limit = 0;
     if (ow_is_configured() && sensor_endpoint_base < APP_ENDPOINT_LIMIT) {
@@ -446,6 +449,9 @@ void parse_config() {
 
     hal_zigbee_init(endpoints,
                     (uint8_t)(sensor_endpoint_base + onewire_attach_limit));
+#else
+    hal_zigbee_init(endpoints, total_endpoints);
+#endif
     while (cursor != (char *)device_config_str.data) {
         cursor--;
         if (*cursor == '\0') {

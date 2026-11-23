@@ -4,6 +4,8 @@
 #include "consts.h"
 #include "hal/zigbee.h"
 
+#if HAS_ONEWIRE
+
 static uint16_t humidity_min_value        = 0;
 static uint16_t humidity_max_value        = 10000;
 static uint16_t humidity_cluster_revision = 0x0001;
@@ -57,3 +59,5 @@ void humidity_cluster_publish(const uint16_t rh_percent_x100[OW_MAX_SENSORS],
                                     sizeof(humidity_clusters[i].measured_value));
     }
 }
+
+#endif

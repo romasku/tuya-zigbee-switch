@@ -15,6 +15,8 @@ FIRMWARE_BASENAME ?= tlc_switch
 DEVICE_TYPE ?= router
 DEBUG ?= 0
 CONFIG_STR ?= ja5osu5g;TS004F-Loginovo;IC4i;SC2u;BTB5;M;
+
+include ../onewire_config.mk
 # CONFIG_STR ?= jl7qyupf;TS0012-custom;BA0f;LD7;SC2f;RC0;SC3f;RB4;
 MANUFACTURER_ID ?= 4417
 IMAGE_TYPE ?= 43521
@@ -89,6 +91,7 @@ DEVICE_DEFS := \
 	-DDEFAULT_CONFIG="$(CONFIG_STR)" \
 	-DIMAGE_TYPE=$(IMAGE_TYPE) \
 	-DHAL_TELINK \
+	-DHAS_ONEWIRE=$(HAS_ONEWIRE) \
 	$(TEL_CHIP) 
 
 ifeq ($(DEBUG), 1)

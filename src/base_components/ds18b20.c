@@ -2,6 +2,8 @@
 
 #include <string.h>
 
+#if HAS_ONEWIRE
+
 #if defined(HAL_TELINK) || defined(HAL_SILABS)
 
 /* 0: no presence. 1: bytes received, CRC mismatch. 2: CRC ok. */
@@ -108,3 +110,5 @@ void ds18b20_read(const uint8_t rom[8], ow_reading_t *reading,
     (void)temp_c_x100;
 #endif
 }
+
+#endif

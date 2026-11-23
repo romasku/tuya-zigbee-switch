@@ -8,6 +8,8 @@
 
 #include <string.h>
 
+#if HAS_ONEWIRE
+
 static int16_t  temperature_min_value        = -5500;
 static int16_t  temperature_max_value        = 12500;
 static uint16_t temperature_cluster_revision = 0x0001;
@@ -365,3 +367,5 @@ void dallas1wire_clusters_start(void) {
     }
     start_measurement();
 }
+
+#endif

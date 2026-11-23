@@ -53,7 +53,9 @@ void app_init(void) {
 
     process_device_type_change();
     /* NV item 32 is read above. Search before the main loop starts steering. */
+#if HAS_ONEWIRE
     dallas1wire_clusters_start();
+#endif
 }
 
 static bool boot_announce_sent = false;

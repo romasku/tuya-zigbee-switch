@@ -2,6 +2,7 @@
 #define _ONEWIRE_H_
 
 #include "hal/gpio.h"
+#include "onewire_build.h"
 #include <stdint.h>
 
 #define OW_MAX_SENSORS    8
