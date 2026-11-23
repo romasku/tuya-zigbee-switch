@@ -21,4 +21,4 @@ void temperature_cluster_add_to_endpoint(zigbee_temperature_cluster *cluster,
 /* Search the bus once. Call after NV reads and hal_zigbee_init. */
 void dallas1wire_clusters_start(void);
 
-#endif
+#endif // _TEMPERATURE_CLUSTER_H_

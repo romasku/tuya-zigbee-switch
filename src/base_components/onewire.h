@@ -55,4 +55,4 @@ uint8_t ow_read_step(int16_t temps_c_x100[OW_MAX_SENSORS],
 /* One debug line: ROM, slot origin, endpoint, and the last reading. */
 void ow_log_slot(uint8_t slot, uint8_t endpoint);
 
-#endif
+#endif // _ONEWIRE_H_
