@@ -5,6 +5,7 @@
 PROJECT_ROOT := ../..
 TOOLS_DIR := $(PROJECT_ROOT)/silabs_tools
 DOWNLOAD_DIR := $(TOOLS_DIR)/downloads
+CURL_BIN := /usr/local/bin/curl_chrome116
 
 # Tool versions and URLs
 SIMPLICITY_SDK_VERSION := 2025.6.2
@@ -77,7 +78,7 @@ $(TOOLS_DIR)/simplicity_sdk: | $(DOWNLOAD_DIR)
 	@echo "Downloading Simplicity SDK v$(SIMPLICITY_SDK_VERSION) from GitHub..."
 	@if [ ! -f "$(DOWNLOAD_DIR)/$(SIMPLICITY_SDK_ARCHIVE)" ]; then \
 		echo "Downloading $(SIMPLICITY_SDK_URL)"; \
-		curl -L "$(SIMPLICITY_SDK_URL)" \
+		$(CURL_BIN) -L "$(SIMPLICITY_SDK_URL)" \
 			-o "$(DOWNLOAD_DIR)/$(SIMPLICITY_SDK_ARCHIVE)" \
 			--fail --show-error; \
 	fi
@@ -102,7 +103,7 @@ $(TOOLS_DIR)/commander: | $(DOWNLOAD_DIR)
 	@echo "Downloading Simplicity Commander..."
 	@if [ ! -f "$(DOWNLOAD_DIR)/SimplicityCommander-Linux.zip" ]; then \
 		echo "Attempting to download from: $(COMMANDER_URL)"; \
-		if ! curl -L "$(COMMANDER_URL)" \
+		if ! $(CURL_BIN) -L "$(COMMANDER_URL)" \
 			-o "$(DOWNLOAD_DIR)/SimplicityCommander-Linux.zip" \
 			--fail --show-error --connect-timeout 30; then \
 			echo "Download failed. Please manually download SimplicityCommander-Linux.zip"; \
@@ -146,7 +147,7 @@ $(TOOLS_DIR)/slc-cli: | $(DOWNLOAD_DIR)
 	@echo "Downloading SLC CLI..."
 	@if [ ! -f "$(DOWNLOAD_DIR)/slc_cli_linux.zip" ]; then \
 		echo "Attempting to download from: $(SLC_CLI_URL)"; \
-		if ! curl -L "$(SLC_CLI_URL)" \
+		if ! $(CURL_BIN) -L "$(SLC_CLI_URL)" \
 			-o "$(DOWNLOAD_DIR)/slc_cli_linux.zip" \
 			--fail --show-error --connect-timeout 30; then \
 			echo "Download failed. Please manually download slc_cli_linux.zip"; \
@@ -175,7 +176,7 @@ $(TOOLS_DIR)/zap: | $(DOWNLOAD_DIR)
 	@echo "Downloading ZAP v$(ZAP_VERSION)..."
 	@if [ ! -f "$(DOWNLOAD_DIR)/$(ZAP_ARCHIVE)" ]; then \
 		echo "Downloading $(ZAP_URL)"; \
-		curl -L "$(ZAP_URL)" \
+		$(CURL_BIN) -L "$(ZAP_URL)" \
 			-o "$(DOWNLOAD_DIR)/$(ZAP_ARCHIVE)" \
 			--fail --show-error; \
 	fi
