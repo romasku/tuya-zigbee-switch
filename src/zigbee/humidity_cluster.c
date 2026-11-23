@@ -4,15 +4,15 @@
 #include "consts.h"
 #include "hal/zigbee.h"
 
-static uint16_t humidity_min_value         = 0;
-static uint16_t humidity_max_value         = 10000;
-static uint16_t humidity_cluster_revision  = 0x0001;
+static uint16_t humidity_min_value        = 0;
+static uint16_t humidity_max_value        = 10000;
+static uint16_t humidity_cluster_revision = 0x0001;
 
 zigbee_humidity_cluster humidity_clusters[OW_MAX_SENSORS];
 uint8_t humidity_clusters_cnt = 0;
 
 void humidity_cluster_add_to_endpoint(zigbee_humidity_cluster *cluster,
-                                     hal_zigbee_endpoint *endpoint) {
+                                      hal_zigbee_endpoint *endpoint) {
     cluster->endpoint       = endpoint->endpoint;
     cluster->measured_value = ZCL_HUMIDITY_INVALID;
     endpoint->device_id     = ZCL_HA_DEVICEID_TEMPERATURE_SENSOR;

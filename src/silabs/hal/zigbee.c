@@ -22,7 +22,7 @@ static hal_zcl_activity_callback_t zcl_activity_callback = NULL;
 static sl_zigbee_af_endpoint_type_t *     silabs_endpoint_type_ptr;
 static sl_zigbee_af_cluster_t *           silabs_cluster_ptr;
 static sl_zigbee_af_attribute_metadata_t *silabs_attr_ptr;
-static uint8_t                            silabs_fixed_endpoint_index;
+static uint8_t silabs_fixed_endpoint_index;
 
 static void notify_zcl_activity(void) {
     if (zcl_activity_callback != NULL) {
@@ -95,7 +95,7 @@ static uint8_t silabs_register_hal_endpoint(hal_zigbee_endpoint *endpoint) {
     }
     if (silabs_endpoint_type_ptr >= endpoint_type_buffer + ZCL_FIXED_ENDPOINT_COUNT ||
         silabs_cluster_ptr + endpoint->cluster_count >
-            clusters_buffer + MAX_CLUSTERS ||
+        clusters_buffer + MAX_CLUSTERS ||
         silabs_attr_ptr + attr_n > attributes_buffer + MAX_ATTRS) {
         return 0;
     }
@@ -278,7 +278,7 @@ static bool beacon_is_open(const sl_zigbee_beacon_data_t *beacon) {
 
 static uint32_t discovered_parent_signature(uint8_t count) {
     sl_zigbee_beacon_data_t beacon;
-    uint32_t                sig = count;
+    uint32_t sig = count;
 
     if (sl_zigbee_get_stored_beacon(0, &beacon) == SL_STATUS_OK) {
         sig ^= ((uint32_t)beacon.panId << 8);
@@ -297,11 +297,11 @@ static uint32_t discovered_parent_signature(uint8_t count) {
 }
 
 static void print_discovered_parents(void) {
-    uint8_t                 count = sl_zigbee_get_num_stored_beacons();
-    uint8_t                 i;
-    int                     first = -1;
+    uint8_t count = sl_zigbee_get_num_stored_beacons();
+    uint8_t i;
+    int     first = -1;
     sl_zigbee_beacon_data_t first_beacon;
-    uint32_t                sig;
+    uint32_t sig;
 
     if (count == 0) {
         return;
@@ -316,7 +316,7 @@ static void print_discovered_parents(void) {
     if (sli_zigbee_af_current_zigbee_pro_network != NULL &&
         (sli_zigbee_af_current_zigbee_pro_network->nodeType == SL_ZIGBEE_ROUTER ||
          sli_zigbee_af_current_zigbee_pro_network->nodeType ==
-             SL_ZIGBEE_COORDINATOR)) {
+         SL_ZIGBEE_COORDINATOR)) {
         printf("Router scan keeps parents that are open and have capacity\r\n");
     }
 
@@ -336,7 +336,7 @@ static void print_discovered_parents(void) {
     printf("Found %d parent%s\r\n", count, count == 1 ? "" : "s");
     for (i = 0; i < count; i++) {
         sl_zigbee_beacon_data_t beacon;
-        int                     any = 0;
+        int any = 0;
 
         if (sl_zigbee_get_stored_beacon(i, &beacon) != SL_STATUS_OK) {
             break;
@@ -372,6 +372,7 @@ static void print_discovered_parents(void) {
         printf("\r\n");
     }
 }
+
 #endif
 
 hal_zigbee_network_status_t hal_zigbee_get_network_status() {
@@ -434,14 +435,16 @@ void hal_zigbee_start_network_steering() {
 sl_zigbee_node_type_t sl_zigbee_af_network_steering_get_node_type_cb(
     sl_zigbee_af_plugin_network_steering_joining_state_t state) {
     (void)state;
+
     /* Steering asks for the node type once the beacon cache is ready and
      * again before the scan, while the cache is still empty. */
     print_discovered_parents();
-    return ((sli_zigbee_af_current_zigbee_pro_network->nodeType ==
-             SL_ZIGBEE_COORDINATOR)
+    return((sli_zigbee_af_current_zigbee_pro_network->nodeType ==
+            SL_ZIGBEE_COORDINATOR)
                 ? SL_ZIGBEE_ROUTER
                 : sli_zigbee_af_current_zigbee_pro_network->nodeType);
 }
+
 #endif
 
 // Network steering complete callback

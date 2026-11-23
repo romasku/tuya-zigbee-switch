@@ -32,10 +32,10 @@ static hal_attribute_change_callback_t attribute_change_callback = NULL;
 static hal_zcl_activity_callback_t     zcl_activity_callback     = NULL;
 
 static af_simple_descriptor_t *zcl_endpoint_desc_ptr;
-static u16 *                   zcl_in_cluster_ptr;
-static u16 *                   zcl_out_cluster_ptr;
-static zcl_specClusterInfo_t * zcl_cluster_info_ptr;
-static zclAttrInfo_t *         zcl_attr_table_ptr;
+static u16 *zcl_in_cluster_ptr;
+static u16 *zcl_out_cluster_ptr;
+static zcl_specClusterInfo_t *zcl_cluster_info_ptr;
+static zclAttrInfo_t *        zcl_attr_table_ptr;
 
 static cluster_registerFunc_t get_register_func_by_cluster_id(u16 cluster_id) {
     if (cluster_id == ZCL_CLUSTER_GEN_BASIC) {
@@ -202,7 +202,7 @@ static uint8_t zcl_register_hal_endpoint(hal_zigbee_endpoint *endpoint) {
     if (zcl_in_cluster_ptr + in_n > in_clusters + MAX_IN_CLUSTERS ||
         zcl_out_cluster_ptr + out_n > out_clusters + MAX_OUT_CLUSTERS ||
         zcl_cluster_info_ptr + info_n >
-            cluster_infos + (MAX_IN_CLUSTERS + MAX_OUT_CLUSTERS) ||
+        cluster_infos + (MAX_IN_CLUSTERS + MAX_OUT_CLUSTERS) ||
         zcl_attr_table_ptr + attr_n > attr_tables + MAX_ATTRS) {
         return 0;
     }

@@ -8,13 +8,14 @@
 
 #include <string.h>
 
-static int16_t  temperature_min_value = -5500;
-static int16_t  temperature_max_value = 12500;
+static int16_t  temperature_min_value        = -5500;
+static int16_t  temperature_max_value        = 12500;
 static uint16_t temperature_cluster_revision = 0x0001;
 
 #define TEMPERATURE_CONVERT_MS    800
 /* Time from one published sample to the next, including Convert. */
 #define TEMPERATURE_PERIOD_MS     5000
+
 /*
  * One sensor read, then return. The main loop clears the 1000 ms watchdog
  * around this task, so a step has to stay well under that. The boot search
@@ -44,7 +45,7 @@ static uint8_t slot_limit_logged;
 
 /* The outgoing cache is 16 packets. A boot snapshot is 24 reports, so humidity
  * was queued after every temperature and then dropped. One report per step. */
-#define REPORT_PACE_MS            50
+#define REPORT_PACE_MS    50
 
 enum {
     REPORT_TEMPERATURE = 0,
@@ -52,16 +53,16 @@ enum {
     REPORT_ID,
 };
 
-static uint8_t report_slot;
-static uint8_t report_part;
-static uint8_t report_open;
-static int16_t sent_temp[OW_MAX_SENSORS];
+static uint8_t  report_slot;
+static uint8_t  report_part;
+static uint8_t  report_open;
+static int16_t  sent_temp[OW_MAX_SENSORS];
 static uint16_t sent_humidity[OW_MAX_SENSORS];
-static uint8_t sent_id_len[OW_MAX_SENSORS];
-static uint8_t sent_id_text[OW_MAX_SENSORS][23];
-static uint8_t sent_temp_ok[OW_MAX_SENSORS];
-static uint8_t sent_humidity_ok[OW_MAX_SENSORS];
-static uint8_t sent_id_ok[OW_MAX_SENSORS];
+static uint8_t  sent_id_len[OW_MAX_SENSORS];
+static uint8_t  sent_id_text[OW_MAX_SENSORS][23];
+static uint8_t  sent_temp_ok[OW_MAX_SENSORS];
+static uint8_t  sent_humidity_ok[OW_MAX_SENSORS];
+static uint8_t  sent_id_ok[OW_MAX_SENSORS];
 
 static uint8_t report_needs_retry(hal_zigbee_status_t status) {
     return status == HAL_ZIGBEE_ERR_NOT_JOINED ||
@@ -70,6 +71,7 @@ static uint8_t report_needs_retry(hal_zigbee_status_t status) {
 
 static void note_endpoint_limit(uint8_t slot) {
     uint8_t seen = ow_seen_mask();
+
     if ((seen & (1u << slot)) && (slot_limit_logged & (1u << slot)) == 0 &&
         temperature_clusters[slot].endpoint == 0) {
         slot_limit_logged |= (uint8_t)(1u << slot);
@@ -169,8 +171,9 @@ static uint8_t report_step(void) {
             report_part = REPORT_TEMPERATURE;
             continue;
         }
+
         /* An empty id is sent on the boot pass so a retained id is cleared.
-         * Later, it is sent only when a previously reported id goes away. */
+        * Later, it is sent only when a previously reported id goes away. */
         if (snapshot_sent && len == 0 && !sent_id_ok[slot]) {
             report_slot++;
             report_part = REPORT_TEMPERATURE;
@@ -205,9 +208,9 @@ static void start_report_pass(void) {
     if (report_open) {
         return;
     }
-    report_slot = 0;
-    report_part = REPORT_TEMPERATURE;
-    report_open = 1;
+    report_slot   = 0;
+    report_part   = REPORT_TEMPERATURE;
+    report_open   = 1;
     onewire_phase = ONEWIRE_REPORT;
     hal_tasks_schedule(&temperature_task, REPORT_PACE_MS);
 }
@@ -232,6 +235,7 @@ static void start_measurement(void) {
     if (!ow_sensors_seen()) {
         return;
     }
+
     /*
      * Convert, then read. This ATtiny leaves 85.00°C in the scratchpad
      * until Convert finishes, and that is the sample the log shows.
@@ -255,6 +259,7 @@ static void schedule_measurements(void) {
 static uint8_t seen_count(void) {
     uint8_t seen  = ow_seen_mask();
     uint8_t count = 0;
+
     for (uint8_t slot = 0; slot < OW_MAX_SENSORS; slot++) {
         if (seen & (1u << slot)) {
             count++;
@@ -265,6 +270,7 @@ static uint8_t seen_count(void) {
 
 static void log_seen_slots(void) {
     uint8_t seen = ow_seen_mask();
+
     for (uint8_t slot = 0; slot < OW_MAX_SENSORS; slot++) {
         if (seen & (1u << slot)) {
             ow_log_slot(slot, temperature_clusters[slot].endpoint);
@@ -278,8 +284,8 @@ static void temperature_task_handler(void *arg) {
     if (onewire_phase == ONEWIRE_REPORT) {
         uint8_t step = report_step();
         if (step == 2) {
-            report_open    = 0;
-            snapshot_sent  = 1;
+            report_open   = 0;
+            snapshot_sent = 1;
             if (ow_sensors_seen()) {
                 schedule_measurements();
             }
@@ -309,11 +315,11 @@ static void temperature_task_handler(void *arg) {
 }
 
 void temperature_cluster_add_to_endpoint(zigbee_temperature_cluster *cluster,
-                                        hal_zigbee_endpoint *endpoint) {
-    cluster->endpoint         = endpoint->endpoint;
-    cluster->measured_value   = ZCL_TEMPERATURE_INVALID;
-    cluster->sensor_id[0]     = 0;
-    endpoint->device_id       = ZCL_HA_DEVICEID_TEMPERATURE_SENSOR;
+                                         hal_zigbee_endpoint *endpoint) {
+    cluster->endpoint       = endpoint->endpoint;
+    cluster->measured_value = ZCL_TEMPERATURE_INVALID;
+    cluster->sensor_id[0]   = 0;
+    endpoint->device_id     = ZCL_HA_DEVICEID_TEMPERATURE_SENSOR;
 
     SETUP_ATTR(0, ZCL_ATTR_TEMPERATURE_MEASURED_VALUE, ZCL_DATA_TYPE_INT16,
                ATTR_READONLY, cluster->measured_value);

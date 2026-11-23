@@ -24,13 +24,16 @@ uint8_t ow_is_configured(void);
  */
 void ow_search_begin(void);
 uint8_t ow_search_step(void);
+
 /* Second boot pass for a slave that ignores the 600 µs reset. */
 void ow_search_alternate_resets(void);
 
 /* Bit i is set when slot i answered the search that just finished. */
 uint8_t ow_seen_mask(void);
+
 /* ROM family of a seen slot, or 0. 0x28 is DS18B20, 0x26 is DS2438. */
 uint8_t ow_slot_family(uint8_t slot);
+
 /* 23-char id "28-ff-.." of a sensor that answered the last search.
  * Returns 1 when that slot is connected now, 0 when it is not. */
 uint8_t ow_slot_id(uint8_t slot, char out[24]);

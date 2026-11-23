@@ -17,7 +17,8 @@ extern zigbee_temperature_cluster temperature_clusters[OW_MAX_SENSORS];
 extern uint8_t temperature_clusters_cnt;
 
 void temperature_cluster_add_to_endpoint(zigbee_temperature_cluster *cluster,
-                                        hal_zigbee_endpoint *endpoint);
+                                         hal_zigbee_endpoint *endpoint);
+
 /* Search the bus once. Call after NV reads and hal_zigbee_init. */
 void dallas1wire_clusters_start(void);
 

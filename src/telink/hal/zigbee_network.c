@@ -96,36 +96,51 @@ static const char *bdb_commission_status_text(u8 status) {
     switch (status) {
     case BDB_COMMISSION_STA_SUCCESS:
         return "success";
+
     case BDB_COMMISSION_STA_IN_PROGRESS:
         return "in progress";
+
     case BDB_COMMISSION_STA_NOT_AA_CAPABLE:
         return "not address-assignment capable";
+
     case BDB_COMMISSION_STA_NO_NETWORK:
         return "no network to associate with";
+
     case BDB_COMMISSION_STA_TARGET_FAILURE:
         return "target failure";
+
     case BDB_COMMISSION_STA_FORMATION_FAILURE:
         return "formation failure";
+
     case BDB_COMMISSION_STA_NO_IDENTIFY_QUERY_RESPONSE:
         return "no identify query response";
+
     case BDB_COMMISSION_STA_BINDING_TABLE_FULL:
         return "binding table full";
+
     case BDB_COMMISSION_STA_NO_SCAN_RESPONSE:
         return "no scan response";
+
     case BDB_COMMISSION_STA_NOT_PERMITTED:
         return "not permitted";
+
     case BDB_COMMISSION_STA_TCLK_EX_FAILURE:
         return "trust center link key exchange failed";
+
     case BDB_COMMISSION_STA_PARENT_LOST:
         return "parent lost";
+
     case BDB_COMMISSION_STA_REJOIN_FAILURE:
         return "rejoin failed";
+
     case BDB_COMMISSION_STA_FORMATION_DONE:
         return "formation done";
+
     default:
         return "unknown";
     }
 }
+
 #endif
 
 void bdb_commissioning_callback(u8 status, void *arg) {
@@ -237,6 +252,7 @@ uint32_t hal_zigbee_get_poll_rate_ms(void) {
 // Internal interface functions
 
 #if UART_PRINTF_MODE
+
 /* Called from bdb.c in debug builds, after network discovery and before
  * zb_assocJoinReq(). The addition neighbor table holds every parent the
  * scan kept. */
@@ -259,10 +275,10 @@ static const char *discovered_parent_kind(u8 device_type, u16 short_addr) {
 }
 
 static void print_discovered_parents(void) {
-    u8 count = g_zb_neighborTbl.additionNeighborNum;
-    u8 i;
-    int best = -1;
-    u8 best_lqi = 0;
+    u8  count = g_zb_neighborTbl.additionNeighborNum;
+    u8  i;
+    int best     = -1;
+    u8  best_lqi = 0;
 
     if (count > TL_ZB_ADDITION_NEIGHBOR_TABLE_SIZE) {
         count = TL_ZB_ADDITION_NEIGHBOR_TABLE_SIZE;
@@ -354,6 +370,7 @@ u8 zb_assocJoinReq_after_discovery(void) {
     }
     return status;
 }
+
 #endif
 
 void telink_zigbee_hal_network_init(void) {

@@ -4,12 +4,12 @@
 #include "onewire.h"
 #include <stdint.h>
 
-#define OW_CMD_SEARCH        0xF0
-#define OW_CMD_MATCH         0x55
-#define OW_CMD_CONVERT       0x44
-#define OW_CMD_READ_SCRATCH  0xBE
+#define OW_CMD_SEARCH          0xF0
+#define OW_CMD_MATCH           0x55
+#define OW_CMD_CONVERT         0x44
+#define OW_CMD_READ_SCRATCH    0xBE
 
-#define OW_NV_MAGIC          0xB6
+#define OW_NV_MAGIC            0xB6
 
 typedef struct {
     int16_t  temp_c_x100;

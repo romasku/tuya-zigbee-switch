@@ -420,7 +420,7 @@ void parse_config() {
     }
     while (onewire_attach_limit > 0 &&
            (uint16_t)(clusters_used + (uint16_t)onewire_attach_limit * 2) >
-               APP_CLUSTER_LIMIT) {
+           APP_CLUSTER_LIMIT) {
         onewire_attach_limit--;
     }
 

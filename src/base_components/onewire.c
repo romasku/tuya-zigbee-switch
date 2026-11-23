@@ -25,6 +25,7 @@ static hal_gpio_pin_t bus_pin = HAL_INVALID_PIN;
 static ow_nv_t        slots;
 static uint8_t        seen_mask;
 static uint8_t        new_mask;
+
 /* Reset low time that found each slot. A DS18B20 answers 600 µs. The
  * ATtiny answers a different length and ignores the other one. */
 static uint16_t slot_low_us[OW_MAX_SENSORS];
@@ -38,7 +39,8 @@ static ow_reading_t details[OW_MAX_SENSORS];
 
 static void ow_rom_to_text(const uint8_t rom[8], char out[24]) {
     static const char hex[] = "0123456789abcdef";
-    uint8_t n = 0;
+    uint8_t           n     = 0;
+
     for (uint8_t i = 0; i < 8; i++) {
         if (i != 0) {
             out[n++] = '-';
@@ -59,6 +61,7 @@ static void printf_centi(int32_t value) {
 
 uint8_t ow_crc8(const uint8_t *data, uint8_t len) {
     uint8_t crc = 0;
+
     for (uint8_t i = 0; i < len; i++) {
         uint8_t inbyte = data[i];
         for (uint8_t bit = 0; bit < 8; bit++) {
@@ -80,7 +83,8 @@ void ow_delay_us(uint32_t us) {
     sleep_us(us);
 #else
     volatile uint32_t count = us * 8;
-    while (count--) {}
+    while (count--) {
+    }
 #endif
 }
 
@@ -103,6 +107,7 @@ void ow_irq_restore(uint32_t state) {
 static void ow_drive_low(void) {
 #if defined(HAL_TELINK)
     GPIO_PinTypeDef pin = (GPIO_PinTypeDef)bus_pin;
+
     /*
      * Output enable is a single register write. Input enable on port B is
      * an analog transaction and would swallow a short slot, so it stays on
@@ -139,6 +144,7 @@ static uint8_t ow_presence(uint16_t low_us) {
      * The watch runs to 1.5 ms. The next slot waits until the pulse ends.
      */
     uint32_t state = ow_irq_save();
+
     ow_drive_low();
     ow_delay_us(low_us);
     ow_release();
@@ -189,7 +195,8 @@ uint8_t ow_reset(void) {
      * different time. Other lengths are sent only while the line stays
      * high, then the one that worked is reused.
      */
-    static const uint16_t lows[] = {600, 480, 360, 900, 1400, 2200, 4000, 7000};
+    static const uint16_t lows[] = { 600, 480, 360, 900, 1400, 2200, 4000, 7000 };
+
     if (ow_use_low_us != 0) {
         ow_active_low = ow_use_low_us;
         return ow_presence(ow_use_low_us);
@@ -218,6 +225,7 @@ static void ow_write_bit(uint8_t bit) {
      * the DS18B20 stop answering. A write-1 is low for 6 µs, which that
      * sensor accepts, then high for the rest of the slot. */
     uint32_t state = ow_irq_save();
+
     ow_drive_low();
     if (bit) {
         ow_delay_us(6);
@@ -238,6 +246,7 @@ static uint8_t ow_read_bit(void) {
      * The spin after that catches an ATtiny that pulls later. The slot
      * is still 70 µs. */
     uint32_t state = ow_irq_save();
+
     ow_drive_low();
     ow_delay_us(6);
     ow_release();
@@ -267,6 +276,7 @@ void ow_write_byte(uint8_t value) {
 
 uint8_t ow_read_byte(void) {
     uint8_t value = 0;
+
     for (uint8_t bit = 0; bit < 8; bit++) {
         if (ow_read_bit()) {
             value |= (uint8_t)(1u << bit);
@@ -285,13 +295,13 @@ static uint8_t ow_search_command(uint8_t rom[8], uint8_t *last_discrepancy,
                                  uint8_t *last_device) {
     ow_write_byte(OW_CMD_SEARCH);
 
-    uint8_t last_zero   = 0;
-    uint8_t rom_byte    = 0;
-    uint8_t rom_mask    = 1;
-    uint8_t bit_number  = 1;
+    uint8_t last_zero  = 0;
+    uint8_t rom_byte   = 0;
+    uint8_t rom_mask   = 1;
+    uint8_t bit_number = 1;
 
     for (uint8_t i = 0; i < 64; i++) {
-        uint8_t bit     = ow_read_bit();
+        uint8_t bit        = ow_read_bit();
         uint8_t complement = ow_read_bit();
         uint8_t direction;
 
@@ -324,7 +334,7 @@ static uint8_t ow_search_command(uint8_t rom[8], uint8_t *last_discrepancy,
         if (direction) {
             rom[rom_byte] |= rom_mask;
         } else {
-            rom[rom_byte] &= (uint8_t)~rom_mask;
+            rom[rom_byte] &= (uint8_t) ~rom_mask;
         }
         ow_write_bit(direction);
 
@@ -345,7 +355,8 @@ static uint8_t ow_search_command(uint8_t rom[8], uint8_t *last_discrepancy,
 
 static uint8_t ow_search_next(uint8_t rom[8], uint8_t *last_discrepancy,
                               uint8_t *last_device) {
-    static const uint16_t lows[] = {600, 480, 360, 900, 1400, 2200, 4000, 7000};
+    static const uint16_t lows[] = { 600, 480, 360, 900, 1400, 2200, 4000, 7000 };
+
     if (*last_device) {
         return 0;
     }
@@ -381,7 +392,7 @@ static uint8_t ow_search_next(uint8_t rom[8], uint8_t *last_discrepancy,
     }
 
     uint16_t try_us[8];
-    uint8_t ntry = 0;
+    uint8_t  ntry = 0;
     if (ow_learned_us != 0) {
         try_us[ntry++] = ow_learned_us;
     }
@@ -476,7 +487,7 @@ static void load_slots(void) {
 }
 
 /* ROMs found on this search that do not yet have a slot. Assigned after the
- * search, so a reservation is reused only when its sensor never answered. */
+* search, so a reservation is reused only when its sensor never answered. */
 static uint8_t pending_roms[OW_MAX_SENSORS][8];
 static uint8_t pending_count;
 
@@ -491,7 +502,8 @@ static int first_absent_slot(void) {
 
 static void note_found(const uint8_t rom[8]) {
     uint16_t low_us = ow_active_low != 0 ? ow_active_low : 600;
-    int slot = ow_rom_slot(rom);
+    int      slot   = ow_rom_slot(rom);
+
     if (slot >= 0) {
         seen_mask |= (uint8_t)(1u << slot);
         if (slot_low_us[slot] == 0) {
@@ -522,12 +534,13 @@ static void note_found(const uint8_t rom[8]) {
 
 static void assign_pending(void) {
     uint8_t changed = 0;
+
     for (uint8_t n = 0; n < pending_count; n++) {
-        int slot = first_free_slot();
+        int     slot     = first_free_slot();
         uint8_t replaced = 0;
-        char old_id[24];
+        char    old_id[24];
         if (slot < 0) {
-            slot = first_absent_slot();
+            slot     = first_absent_slot();
             replaced = slot >= 0;
         }
         if (slot < 0) {
@@ -541,10 +554,10 @@ static void assign_pending(void) {
         }
         memcpy(slots.rom[slot], pending_roms[n], 8);
         slot_low_us[slot] = pending_low_us[n];
-        slots.occupied |= (uint8_t)(1u << slot);
-        new_mask |= (uint8_t)(1u << slot);
-        seen_mask |= (uint8_t)(1u << slot);
-        changed = 1;
+        slots.occupied   |= (uint8_t)(1u << slot);
+        new_mask         |= (uint8_t)(1u << slot);
+        seen_mask        |= (uint8_t)(1u << slot);
+        changed           = 1;
         if (replaced) {
             char id[24];
             ow_rom_to_text(pending_roms[n], id);
@@ -560,8 +573,9 @@ static void assign_pending(void) {
 #if defined(HAL_TELINK) || defined(HAL_SILABS)
 
 uint8_t ow_reset_for(const uint8_t rom[8]) {
-    int slot = ow_rom_slot(rom);
+    int      slot = ow_rom_slot(rom);
     uint16_t prev = ow_use_low_us;
+
     if (slot >= 0 && slot_low_us[slot] != 0) {
         ow_use_low_us = slot_low_us[slot];
         if (ow_reset()) {
@@ -582,6 +596,7 @@ uint8_t ow_reset_for(const uint8_t rom[8]) {
 uint8_t ow_scratch_empty(const uint8_t scratch[9]) {
     uint8_t zeros = 1;
     uint8_t ones  = 1;
+
     for (uint8_t i = 0; i < 9; i++) {
         if (scratch[i] != 0x00) {
             zeros = 0;
@@ -601,7 +616,8 @@ uint8_t ow_scratch_crc_ok(const uint8_t scratch[9]) {
 
 uint8_t ow_match_cmd(const uint8_t rom[8], uint8_t cmd) {
     uint32_t state = ow_irq_save();
-    uint8_t ok     = ow_reset_for(rom);
+    uint8_t  ok    = ow_reset_for(rom);
+
     if (ok) {
         ow_write_byte(OW_CMD_MATCH);
         for (uint8_t i = 0; i < 8; i++) {
@@ -666,9 +682,9 @@ void ow_search_begin(void) {
     scan_last_device      = 0;
     scan_steps            = 0;
 #if defined(HAL_TELINK) || defined(HAL_SILABS)
-    pending_count         = 0;
+    pending_count = 0;
 #endif
-    scan_active           = ow_is_configured();
+    scan_active = ow_is_configured();
     memset(scan_rom, 0, sizeof(scan_rom));
     memset(slot_low_us, 0, sizeof(slot_low_us));
     ow_learned_us = 0;
@@ -727,7 +743,7 @@ void ow_search_alternate_resets(void) {
     if (!ow_is_configured() || seen_mask == 0 || ow_learned_us == 0) {
         return;
     }
-    static const uint16_t alts[] = {600, 480, 360, 900, 1400, 2200, 4000, 7000};
+    static const uint16_t alts[] = { 600, 480, 360, 900, 1400, 2200, 4000, 7000 };
     uint16_t kept = ow_learned_us;
     printf("1-Wire trying other reset lengths, kept %d us\r\n", (int)kept);
     ow_log_errors = 0;
@@ -790,6 +806,7 @@ uint8_t ow_convert_start(void) {
             slots.rom[i][0] != DS2438_FAMILY) {
             continue;
         }
+
         /* Convert V on the humidity ROM, before this read, made the
          * temperature scratchpad come back as 0xFF. Convert T only. */
         if (ow_match_cmd(slots.rom[i], OW_CMD_CONVERT)) {
