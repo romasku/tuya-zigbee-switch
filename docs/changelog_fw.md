@@ -8,6 +8,11 @@ Please describe what you are working on, under ## Upcoming
 
 ------------------------------------------------------->
 
+## Upcoming
+
+- Add opt-in single-, double-, and triple-click detection for momentary switches,
+  with per-switch timing settings and Zigbee2MQTT action events.
+
 ## 1.1.3
 
 ### Features
