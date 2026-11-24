@@ -27,7 +27,8 @@ void write_version_to_nv(uint16_t version) {
                                          sizeof(version), (uint8_t *)&version);
 
     if (res != HAL_NVM_SUCCESS) {
-        printf("Failed to write lastSeenVersion to NV, st: %d\r\n", res);
+        printf("Failed to write lastSeenVersion to NV, st: %lu\r\n",
+               (unsigned long)res);
     }
 }
 

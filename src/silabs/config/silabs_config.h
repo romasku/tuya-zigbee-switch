@@ -6,3 +6,6 @@
 
 // <o DEFAULT_CONFIG>
 #define DEFAULT_CONFIG            "device;device;"
+
+// <o HAS_ONEWIRE>
+#define HAS_ONEWIRE               0

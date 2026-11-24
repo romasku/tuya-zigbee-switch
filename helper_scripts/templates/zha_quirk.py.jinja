@@ -4,6 +4,7 @@ from zhaquirks import CustomCluster
 from zigpy.quirks.v2 import QuirkBuilder, ReportingConfig, SensorDeviceClass, EntityType
 from zigpy.zcl import ClusterType, foundation
 from zigpy.zcl.clusters.general import OnOffConfiguration, SwitchType, MultistateInput, OnOff, Basic
+from zigpy.zcl.clusters.measurement import RelativeHumidity, TemperatureMeasurement
 from zigpy.zcl.clusters.closures import WindowCovering
 from zigpy.zcl.foundation import ZCLAttributeDef
 import zigpy.types as t
@@ -244,9 +245,12 @@ for config in CONFIGS:
     cover_switch_cnt = 0
     cover_cnt = 0
     has_dedicated_net_led = False
+    has_onewire = False
     for peripheral in peripherals:
         if peripheral == "SLP":
             continue
+        if peripheral[0] == "W":
+            has_onewire = True
         if peripheral[0] == "R":
             relay_cnt += 1
         if peripheral[0] == 'S':
@@ -471,6 +475,12 @@ for config in CONFIGS:
                 entity_type=EntityType.CONFIG,
             )
         )
+
+    if has_onewire:
+        temp_base = switch_cnt + relay_cnt + cover_switch_cnt + cover_cnt
+        for endpoint_id in range(temp_base + 1, temp_base + 9):
+            builder = builder.adds(TemperatureMeasurement, endpoint_id=endpoint_id)
+            builder = builder.adds(RelativeHumidity, endpoint_id=endpoint_id)
 
     builder = (
         builder

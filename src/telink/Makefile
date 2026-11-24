@@ -15,6 +15,8 @@ FIRMWARE_BASENAME ?= tlc_switch
 DEVICE_TYPE ?= router
 DEBUG ?= 0
 CONFIG_STR ?= ja5osu5g;TS004F-Loginovo;IC4i;SC2u;BTB5;M;
+
+include ../onewire_config.mk
 # CONFIG_STR ?= jl7qyupf;TS0012-custom;BA0f;LD7;SC2f;RC0;SC3f;RB4;
 MANUFACTURER_ID ?= 4417
 IMAGE_TYPE ?= 43521
@@ -89,6 +91,7 @@ DEVICE_DEFS := \
 	-DDEFAULT_CONFIG="$(CONFIG_STR)" \
 	-DIMAGE_TYPE=$(IMAGE_TYPE) \
 	-DHAL_TELINK \
+	-DHAS_ONEWIRE=$(HAS_ONEWIRE) \
 	$(TEL_CHIP) 
 
 ifeq ($(DEBUG), 1)
@@ -141,6 +144,8 @@ TELINK_SOURCES := \
 	custom_zcl/zcl_onoff_configuration.c \
 	custom_zcl/zcl_cover_switch_config.c \
 	custom_zcl/zcl_window_covering_custom.c \
+	custom_zcl/zcl_temperature_measurement.c \
+	custom_zcl/zcl_relative_humidity.c \
 	patch_sdk/drv_nv.c
 
 # Common source files (shared with Silicon Labs build)
@@ -152,6 +157,9 @@ COMMON_SOURCES := \
 	$(SRC_DIR)/base_components/network_indicator.c \
 	$(SRC_DIR)/base_components/relay.c \
 	$(SRC_DIR)/base_components/battery.c \
+	$(SRC_DIR)/base_components/onewire.c \
+	$(SRC_DIR)/base_components/ds18b20.c \
+	$(SRC_DIR)/base_components/ds2438.c \
 	$(SRC_DIR)/device_config/config_nv.c \
 	$(SRC_DIR)/device_config/device_params_nv.c \
 	$(SRC_DIR)/device_config/reset.c \
@@ -164,7 +172,9 @@ COMMON_SOURCES := \
 	$(SRC_DIR)/zigbee/switch_cluster.c \
 	$(SRC_DIR)/zigbee/cover_switch_cluster.c \
 	$(SRC_DIR)/zigbee/cover_cluster.c \
-	$(SRC_DIR)/zigbee/battery_cluster.c 
+	$(SRC_DIR)/zigbee/battery_cluster.c \
+	$(SRC_DIR)/zigbee/temperature_cluster.c \
+	$(SRC_DIR)/zigbee/humidity_cluster.c
 
 # All application sources
 ALL_TELINK_SOURCES := $(TELINK_SOURCES) $(COMMON_SOURCES)

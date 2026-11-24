@@ -1,21 +1,26 @@
 #ifndef ZIGBEE_CONSTS_H_
 #define ZIGBEE_CONSTS_H_
 
+#include <stdint.h>
 
 #define ZCL_HA_PROFILE    0x0104
 
 // Clusters
 
-#define ZCL_CLUSTER_BASIC                     0
-#define ZCL_CLUSTER_POWER_CFG                 1
-#define ZCL_CLUSTER_ON_OFF                    6
-#define ZCL_CLUSTER_ON_OFF_SWITCH_CONFIG      7
-#define ZCL_CLUSTER_MULTISTATE_INPUT_BASIC    0x0012
-#define ZCL_CLUSTER_LEVEL_CONTROL             0x0008
-#define ZCL_CLUSTER_GROUPS                    0x0004
-#define ZCL_CLUSTER_OTA_BOOTLOAD              0x0019
-#define ZCL_CLUSTER_WINDOW_COVERING           0x0102
-#define ZCL_CLUSTER_COVER_SWITCH_CONFIG       0xFC01
+#define ZCL_CLUSTER_BASIC                      0
+#define ZCL_CLUSTER_POWER_CFG                  1
+#define ZCL_CLUSTER_ON_OFF                     6
+#define ZCL_CLUSTER_ON_OFF_SWITCH_CONFIG       7
+#define ZCL_CLUSTER_MULTISTATE_INPUT_BASIC     0x0012
+#define ZCL_CLUSTER_LEVEL_CONTROL              0x0008
+#define ZCL_CLUSTER_GROUPS                     0x0004
+#define ZCL_CLUSTER_OTA_BOOTLOAD               0x0019
+#define ZCL_CLUSTER_WINDOW_COVERING            0x0102
+#define ZCL_CLUSTER_TEMPERATURE_MEASUREMENT    0x0402
+#define ZCL_CLUSTER_RELATIVE_HUMIDITY          0x0405
+#define ZCL_CLUSTER_COVER_SWITCH_CONFIG        0xFC01
+
+#define ZCL_HA_DEVICEID_TEMPERATURE_SENSOR     0x0302
 
 
 // Attributes
@@ -23,6 +28,22 @@
 // Global
 
 #define ZCL_ATTR_GLOBAL_CLUSTER_REVISION    0xFFFD
+
+// Temperature Measurement cluster (values are 0.01 °C)
+
+#define ZCL_ATTR_TEMPERATURE_MEASURED_VALUE        0x0000
+#define ZCL_ATTR_TEMPERATURE_MIN_MEASURED_VALUE    0x0001
+#define ZCL_ATTR_TEMPERATURE_MAX_MEASURED_VALUE    0x0002
+/* 1-Wire ROM of the sensor currently connected to this endpoint. Empty if none. */
+#define ZCL_ATTR_TEMPERATURE_SENSOR_ID             0xff00
+#define ZCL_TEMPERATURE_INVALID                    ((int16_t)0x8000)
+
+// Relative Humidity cluster (values are 0.01 %RH)
+
+#define ZCL_ATTR_HUMIDITY_MEASURED_VALUE        0x0000
+#define ZCL_ATTR_HUMIDITY_MIN_MEASURED_VALUE    0x0001
+#define ZCL_ATTR_HUMIDITY_MAX_MEASURED_VALUE    0x0002
+#define ZCL_HUMIDITY_INVALID                    ((uint16_t)0xFFFF)
 
 // Basic cluster
 

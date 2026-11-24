@@ -82,6 +82,28 @@ def test_endpoints_layout_matches_config(device: Device, device_config: str):
             ZCL_ATTR_WINDOW_COVERING_MOVING,
         ) in ("0", "1", "2")
 
+    # A 1-Wire bus keeps its sensor endpoints even when the boot scan finds nothing.
+
+
+def test_onewire_endpoints_report_unavailable_without_a_sensor():
+    cfg = "ya5d6wth;TS000F-TH4;BB4u;LB7i;SD4u;RC2;SC0u;RC3;SA0u;RD7;SC4u;RD2;M;WB5;"
+    proc = StubProc(device_config=cfg).start()
+    try:
+        device = Device(proc)
+        for ep in range(9, 17):
+            # 0x8000, the ZCL invalid temperature. The reply parser splits on
+            # spaces, so the two little-endian bytes arrive as separate tokens.
+            temp = proc.exec(f"zcl_read {ep} 0x0402 0x0000")
+            assert temp.ok
+            assert temp.payload["value"] == "00"
+            assert temp.payload["80"] == ""
+            assert device.read_zigbee_attr(ep, 0x0405, 0x0000) == "65535"
+            assert device.read_zigbee_attr(ep, 0x0402, 0xFF00) == ""
+        assert device.read_zigbee_attr(8, 0x0006, ZCL_ATTR_ONOFF) in ("0", "1")
+        assert device.read_zigbee_attr(1, ZCL_CLUSTER_BASIC, ZCL_ATTR_BASIC_MFR_NAME)
+    finally:
+        proc.stop()
+
 
 @pytest.mark.parametrize(
     "cfg",
@@ -90,6 +112,7 @@ def test_endpoints_layout_matches_config(device: Device, device_config: str):
         "X;Y;SA0u;LB1;RB2;",  # dedicated status LED + one switch/relay
         "X;Y;SA0u;IB0;RB1;",  # indicator LED for relays
         "X;Y;XA0A1u;CB0B1;",  # cover switch + cover
+        "X;Y;WB5;",  # 1-Wire bus only; sensor endpoints exist and read as N/A
     ],
 )
 def test_various_configs_boot(cfg: str):

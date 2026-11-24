@@ -91,8 +91,65 @@ void bdb_init_callback(u8 status, u8 joinedNetwork) {
     notify_about_network_status_change();
 }
 
+#if UART_PRINTF_MODE
+static const char *bdb_commission_status_text(u8 status) {
+    switch (status) {
+    case BDB_COMMISSION_STA_SUCCESS:
+        return "success";
+
+    case BDB_COMMISSION_STA_IN_PROGRESS:
+        return "in progress";
+
+    case BDB_COMMISSION_STA_NOT_AA_CAPABLE:
+        return "not address-assignment capable";
+
+    case BDB_COMMISSION_STA_NO_NETWORK:
+        return "no network to associate with";
+
+    case BDB_COMMISSION_STA_TARGET_FAILURE:
+        return "target failure";
+
+    case BDB_COMMISSION_STA_FORMATION_FAILURE:
+        return "formation failure";
+
+    case BDB_COMMISSION_STA_NO_IDENTIFY_QUERY_RESPONSE:
+        return "no identify query response";
+
+    case BDB_COMMISSION_STA_BINDING_TABLE_FULL:
+        return "binding table full";
+
+    case BDB_COMMISSION_STA_NO_SCAN_RESPONSE:
+        return "no scan response";
+
+    case BDB_COMMISSION_STA_NOT_PERMITTED:
+        return "not permitted";
+
+    case BDB_COMMISSION_STA_TCLK_EX_FAILURE:
+        return "trust center link key exchange failed";
+
+    case BDB_COMMISSION_STA_PARENT_LOST:
+        return "parent lost";
+
+    case BDB_COMMISSION_STA_REJOIN_FAILURE:
+        return "rejoin failed";
+
+    case BDB_COMMISSION_STA_FORMATION_DONE:
+        return "formation done";
+
+    default:
+        return "unknown";
+    }
+}
+
+#endif
+
 void bdb_commissioning_callback(u8 status, void *arg) {
+#if UART_PRINTF_MODE
+    printf("BDB commissioning callback, status: %d (%s)\r\n", status,
+           bdb_commission_status_text(status));
+#else
     printf("BDB commissioning callback, status: %d\r\n", status);
+#endif
     switch (status) {
     case BDB_COMMISSION_STA_SUCCESS:
         ota_queryStart(OTA_QUERY_INTERVAL);
@@ -193,6 +250,128 @@ uint32_t hal_zigbee_get_poll_rate_ms(void) {
 }
 
 // Internal interface functions
+
+#if UART_PRINTF_MODE
+
+/* Called from bdb.c in debug builds, after network discovery and before
+ * zb_assocJoinReq(). The addition neighbor table holds every parent the
+ * scan kept. */
+static void print_ext_id(const u8 *id) {
+    s8 i;
+
+    for (i = 7; i >= 0; i--) {
+        printf("%02x", id[i]);
+    }
+}
+
+static const char *discovered_parent_kind(u8 device_type, u16 short_addr) {
+    if (device_type == NWK_DEVICE_TYPE_COORDINATOR || short_addr == 0) {
+        return "Coordinator";
+    }
+    if (device_type == NWK_DEVICE_TYPE_ROUTER) {
+        return "Router";
+    }
+    return "End device";
+}
+
+static void print_discovered_parents(void) {
+    u8  count = g_zb_neighborTbl.additionNeighborNum;
+    u8  i;
+    int best     = -1;
+    u8  best_lqi = 0;
+
+    if (count > TL_ZB_ADDITION_NEIGHBOR_TABLE_SIZE) {
+        count = TL_ZB_ADDITION_NEIGHBOR_TABLE_SIZE;
+    }
+    if (count == 0) {
+        printf("No coordinators or routers heard\r\n");
+        return;
+    }
+
+    for (i = 0; i < count; i++) {
+        tl_zb_addition_neighbor_entry_t *entry =
+            &g_zb_neighborTbl.additionNeighborTbl[i];
+        if (entry->potentialParent && (best < 0 || entry->lqi > best_lqi)) {
+            best     = i;
+            best_lqi = entry->lqi;
+        }
+    }
+
+    printf("Found %d parent%s\r\n", count, count == 1 ? "" : "s");
+    for (i = 0; i < count; i++) {
+        tl_zb_addition_neighbor_entry_t *entry =
+            &g_zb_neighborTbl.additionNeighborTbl[i];
+        int any = 0;
+
+        printf("%s addr 0x%04x pan 0x%04x ch %d LQI %d extPan ",
+               discovered_parent_kind(entry->deviceType, entry->shortAddr),
+               entry->shortAddr, entry->panId, entry->logicChannel, entry->lqi);
+        print_ext_id(entry->extPanId);
+        printf("\r\n");
+
+        if (i == (u8)best) {
+            printf("  associating\r\n");
+            continue;
+        }
+
+        printf("  not associating:");
+        if (!entry->permitJoining) {
+            printf(" joining closed");
+            any = 1;
+        }
+#if ZB_ROUTER_ROLE
+        if (!entry->routerCapacity) {
+            printf(" no router capacity");
+            any = 1;
+        }
+#else
+        if (!entry->edCapacity) {
+            printf(" no end-device capacity");
+            any = 1;
+        }
+#endif
+        if (entry->lqi < NWK_NEIGHBORTBL_ADD_LQITHRESHOLD) {
+            printf(" LQI below %d", NWK_NEIGHBORTBL_ADD_LQITHRESHOLD);
+            any = 1;
+        }
+        if (entry->deviceType == NWK_DEVICE_TYPE_ED) {
+            printf(" end device");
+            any = 1;
+        }
+        if (entry->stackProfile != ZB_STACK_PROFILE) {
+            printf(" stack profile %d", entry->stackProfile);
+            any = 1;
+        }
+        if (entry->depth >= NWK_MAX_DEPTH) {
+            printf(" depth %d", entry->depth);
+            any = 1;
+        }
+        if (entry->potentialParent && best >= 0) {
+            tl_zb_addition_neighbor_entry_t *stronger =
+                &g_zb_neighborTbl.additionNeighborTbl[best];
+            printf(" weaker than 0x%04x LQI %d", stronger->shortAddr,
+                   stronger->lqi);
+            any = 1;
+        }
+        if (!any) {
+            printf(" not marked as a potential parent");
+        }
+        printf("\r\n");
+    }
+}
+
+u8 zb_assocJoinReq_after_discovery(void) {
+    u8 status;
+
+    print_discovered_parents();
+    status = zb_assocJoinReq();
+    if (status != ZDO_SUCCESS) {
+        printf("Association request status %d\r\n", status);
+    }
+    return status;
+}
+
+#endif
 
 void telink_zigbee_hal_network_init(void) {
     zb_init();

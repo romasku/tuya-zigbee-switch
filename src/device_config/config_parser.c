@@ -1,3 +1,4 @@
+#include "config_parser.h"
 #include "hal/gpio.h"
 #include "hal/printf_selector.h"
 #include "hal/zigbee.h"
@@ -10,6 +11,8 @@
 #include "zigbee/relay_cluster.h"
 #include "zigbee/poll_control_cluster.h"
 #include "zigbee/switch_cluster.h"
+#include "zigbee/humidity_cluster.h"
+#include "zigbee/temperature_cluster.h"
 
 #include <stdint.h>
 #include <string.h>
@@ -17,6 +20,7 @@
 #include "base_components/led.h"
 #include "base_components/network_indicator.h"
 #include "base_components/battery.h"
+#include "base_components/onewire.h"
 #include "config_nv.h"
 #include "device_config/device_params_nv.h"
 #include "device_config/reset.h"
@@ -62,8 +66,12 @@ uint8_t cover_switch_clusters_cnt = 0;
 zigbee_cover_cluster cover_clusters[3];
 uint8_t cover_clusters_cnt = 0;
 
-hal_zigbee_cluster  clusters[32];
-hal_zigbee_endpoint endpoints[10];
+#define APP_CLUSTER_LIMIT    64
+
+hal_zigbee_cluster  clusters[APP_CLUSTER_LIMIT];
+hal_zigbee_endpoint endpoints[APP_ENDPOINT_LIMIT];
+
+static uint16_t clusters_used;
 
 uint8_t allow_simultaneous_latching_pulses = 0;
 uint8_t relay_pulse_ms = 100;
@@ -284,6 +292,16 @@ void parse_config() {
             cover_clusters[cover_clusters_cnt].close_relay = close_relay;
             cover_clusters[cover_clusters_cnt].cover_idx   = cover_clusters_cnt;
             cover_clusters_cnt++;
+        } else if (entry[0] == 'W') {
+#if HAS_ONEWIRE
+            // W<pin> only prepares the bus. The search runs later, after the NV reads.
+            if (!ow_is_configured()) {
+                hal_gpio_pin_t pin = hal_gpio_parse_pin(entry + 1);
+                if (pin != HAL_INVALID_PIN) {
+                    ow_init(pin);
+                }
+            }
+#endif
         } else if (entry[0] == 'i') {
             uint32_t image_type = parse_int(entry + 1);
             hal_zigbee_set_image_type(image_type);
@@ -297,13 +315,15 @@ void parse_config() {
 
     peripherals_init();
 
+    uint8_t other_endpoints = switch_clusters_cnt + relay_clusters_cnt +
+                              cover_switch_clusters_cnt + cover_clusters_cnt;
+
     printf("Initializing Zigbee with %d switches, %d relays, %d cover switches, "
            "%d covers\r\n",
            switch_clusters_cnt, relay_clusters_cnt, cover_switch_clusters_cnt,
            cover_clusters_cnt);
 
-    uint8_t total_endpoints = switch_clusters_cnt + relay_clusters_cnt +
-                              cover_switch_clusters_cnt + cover_clusters_cnt;
+    uint8_t total_endpoints = other_endpoints;
 
     hal_zigbee_cluster *cluster_ptr = clusters;
 
@@ -388,7 +408,50 @@ void parse_config() {
                                       &endpoints[cover_base + index]);
     }
 
+#if HAS_ONEWIRE
+    uint8_t sensor_endpoint_base = total_endpoints;
+    uint8_t onewire_attach_limit = 0;
+    if (ow_is_configured() && sensor_endpoint_base < APP_ENDPOINT_LIMIT) {
+        uint8_t room = (uint8_t)(APP_ENDPOINT_LIMIT - sensor_endpoint_base);
+        onewire_attach_limit =
+            room < OW_MAX_SENSORS ? room : OW_MAX_SENSORS;
+    }
+    {
+        hal_zigbee_endpoint *last = &endpoints[total_endpoints - 1];
+        clusters_used =
+            (uint16_t)(last->clusters - clusters) + last->cluster_count;
+    }
+    while (onewire_attach_limit > 0 &&
+           (uint16_t)(clusters_used + (uint16_t)onewire_attach_limit * 2) >
+           APP_CLUSTER_LIMIT) {
+        onewire_attach_limit--;
+    }
+
+    /*
+     * Every sensor slot gets an endpoint now, before the bus is searched.
+     * An empty slot stays readable and reports the invalid measured value.
+     */
+    for (uint8_t slot = 0; slot < onewire_attach_limit; slot++) {
+        hal_zigbee_endpoint *ep = &endpoints[sensor_endpoint_base + slot];
+        memset(ep, 0, sizeof(*ep));
+        ep->endpoint   = (uint8_t)(sensor_endpoint_base + slot + 1);
+        ep->profile_id = 0x0104;
+        ep->device_id  = 0xffff;
+        ep->clusters   = &clusters[clusters_used];
+
+        temperature_cluster_add_to_endpoint(&temperature_clusters[slot], ep);
+        humidity_cluster_add_to_endpoint(&humidity_clusters[slot], ep);
+        clusters_used = (uint16_t)(clusters_used + ep->cluster_count);
+    }
+    temperature_clusters_cnt = onewire_attach_limit;
+    humidity_clusters_cnt    = onewire_attach_limit;
+    printf("1-Wire endpoints: %d\r\n", onewire_attach_limit);
+
+    hal_zigbee_init(endpoints,
+                    (uint8_t)(sensor_endpoint_base + onewire_attach_limit));
+#else
     hal_zigbee_init(endpoints, total_endpoints);
+#endif
     while (cursor != (char *)device_config_str.data) {
         cursor--;
         if (*cursor == '\0') {

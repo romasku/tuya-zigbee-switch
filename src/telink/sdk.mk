@@ -164,7 +164,29 @@ sdk-clean:
 # Special compiler flags for specific SDK files
 $(BUILD_DIR)/sdk/proj/drivers/drv_nv.o: GCC_FLAGS += -Dnv_resetToFactoryNew=nv_resetToFactoryNew__sdk
 
+# Discovery confirm calls zb_assocJoinReq() with the parents it just stored.
+# A debug build renames that call so the log can run before association.
+ifeq ($(DEBUG), 1)
+$(BUILD_DIR)/sdk/zigbee/bdb/bdb.o: GCC_FLAGS += -Dzb_assocJoinReq=zb_assocJoinReq_after_discovery
+endif
+
 $(SDK_OBJS): GCC_FLAGS += -fpack-struct
+
+# Mumubiz TYZGTH4CH-D1RF (image type 47119) uses endpoints 1-8 for
+# switches and relays and 9-16 for 1-Wire sensors. The SDK header
+# fixes the active-endpoint table at 8, and that tree is not writable,
+# so this board compiles a copy of zb_af.c that raises the limit after
+# the header is included.
+ifeq ($(IMAGE_TYPE),47119)
+ZB_AF_EP16_SRC := $(BUILD_DIR)/sdk/zigbee/af/ep16/zb_af.c
+$(ZB_AF_EP16_SRC): $(SDK_PATH)/zigbee/af/zb_af.c
+	@mkdir -p $(dir $@)
+	@sed 's|#include "../common/includes/zb_common.h"|#include "$(abspath $(SDK_PATH)/zigbee/common/includes/zb_common.h)"\n#undef MAX_ACTIVE_EP_NUMBER\n#define MAX_ACTIVE_EP_NUMBER 16|' \
+		$< > $@
+$(BUILD_DIR)/sdk/zigbee/af/zb_af.o: $(ZB_AF_EP16_SRC)
+	@echo "Compiling SDK $< (MAX_ACTIVE_EP_NUMBER=16)"
+	@$(CC) $(GCC_FLAGS) $(DEVICE_DEFS) $(INCLUDE_PATHS) -c -o $@ $<
+endif
 
 # Compile SDK C files
 $(BUILD_DIR)/sdk/%.o: $(SDK_PATH)/%.c

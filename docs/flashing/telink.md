@@ -59,3 +59,18 @@ Plug the UART into your PC, then open pvvx's [web flasher](https://pvvx.github.i
 4. Click "Write to Flash" and wait until the process finishes.  
 
 If done correctly, the onboard LED will start flashing automatically. You can try joining the device to a Zigbee network to verify that it connects properly. Once confirmed, disconnect everything, unsolder the wires, and reassemble the case.  
+
+## Troubleshooting
+
+If using the SWS is not working or you want to backup the existing firmware, try using [Suxsem's tool](https://github.com/Suxsem/Telink-Zigbee-serial-flash-tool). _Note, that this requires some extra wiring and the correct pinout (for my ZT3L: PA0 = RX - pin 12, PB1 = TX - pin 16)!_
+
+<details>
+C:\Telink-Zigbee-serial-flash-tool-main> python.exe .\Telink_Tools.py --port COM9 read_flash 0 0x100000 myfirmware.out
+Telink_Tools.py v0.2 dev Suxsem
+Open COM9 ... ... Success!
+Connect Board ... ...Success!
+Loader version: S0.2 - Chip version: 02 - Chip product: 5562 (825x ?) - Flash ID: c86014 - Flash size: 1024 KB
+
+Reading to binary file: myfirmware.out
+100% [>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>]
+</details>

@@ -6,11 +6,14 @@
 #include "zcl_multistate_input.h"
 #include "zcl_window_covering_custom.h"
 #include "zcl_onoff_configuration.h"
+#include "zcl_relative_humidity.h"
+#include "zcl_temperature_measurement.h"
 #pragma pack(pop)
 
 #include "telink_size_t_hack.h"
 
 #include "hal/zigbee.h"
+#include <string.h>
 #include "telink_zigbee_hal.h"
 #include "zigbee/battery_cluster.h"
 #include "zigbee/consts.h"
@@ -27,6 +30,12 @@ static hal_zigbee_endpoint *hal_endpoints = NULL;
 static uint8_t hal_endpoints_cnt          = 0;
 static hal_attribute_change_callback_t attribute_change_callback = NULL;
 static hal_zcl_activity_callback_t     zcl_activity_callback     = NULL;
+
+static af_simple_descriptor_t *zcl_endpoint_desc_ptr;
+static u16 *zcl_in_cluster_ptr;
+static u16 *zcl_out_cluster_ptr;
+static zcl_specClusterInfo_t *zcl_cluster_info_ptr;
+static zclAttrInfo_t *        zcl_attr_table_ptr;
 
 static cluster_registerFunc_t get_register_func_by_cluster_id(u16 cluster_id) {
     if (cluster_id == ZCL_CLUSTER_GEN_BASIC) {
@@ -62,6 +71,12 @@ static cluster_registerFunc_t get_register_func_by_cluster_id(u16 cluster_id) {
     }
     if (cluster_id == ZCL_CLUSTER_GEN_POLL_CONTROL) {
         return zcl_pollCtrl_register;
+    }
+    if (cluster_id == ZCL_CLUSTER_TEMPERATURE_MEASUREMENT) {
+        return zcl_temperature_measurement_register;
+    }
+    if (cluster_id == ZCL_CLUSTER_RELATIVE_HUMIDITY) {
+        return zcl_relative_humidity_register;
     }
     return NULL;
 }
@@ -165,6 +180,89 @@ static void af_rx_callback(void *arg) {
     zcl_rx_handler(arg);
 }
 
+static uint8_t zcl_register_hal_endpoint(hal_zigbee_endpoint *endpoint) {
+    if (zcl_endpoint_desc_ptr >= endpoint_descriptors + MAX_ENDPOINTS) {
+        return 0;
+    }
+
+    uint8_t in_n = 0, out_n = 0, info_n = 0, attr_n = 0;
+    for (uint8_t i = 0; i < endpoint->cluster_count; i++) {
+        hal_zigbee_cluster *cluster = &endpoint->clusters[i];
+        if (cluster->is_server) {
+            in_n++;
+        } else {
+            out_n++;
+        }
+        if (cluster->cluster_id == ZCL_CLUSTER_OTA) {
+            continue;
+        }
+        info_n++;
+        attr_n = (uint8_t)(attr_n + cluster->attribute_count);
+    }
+    if (zcl_in_cluster_ptr + in_n > in_clusters + MAX_IN_CLUSTERS ||
+        zcl_out_cluster_ptr + out_n > out_clusters + MAX_OUT_CLUSTERS ||
+        zcl_cluster_info_ptr + info_n >
+        cluster_infos + (MAX_IN_CLUSTERS + MAX_OUT_CLUSTERS) ||
+        zcl_attr_table_ptr + attr_n > attr_tables + MAX_ATTRS) {
+        return 0;
+    }
+
+    af_simple_descriptor_t *endpoint_desc_ptr = zcl_endpoint_desc_ptr;
+    memset(endpoint_desc_ptr, 0, sizeof(*endpoint_desc_ptr));
+    endpoint_desc_ptr->endpoint            = endpoint->endpoint;
+    endpoint_desc_ptr->app_profile_id      = endpoint->profile_id;
+    endpoint_desc_ptr->app_dev_id          = endpoint->device_id;
+    endpoint_desc_ptr->app_dev_ver         = endpoint->device_version;
+    endpoint_desc_ptr->app_in_cluster_lst  = zcl_in_cluster_ptr;
+    endpoint_desc_ptr->app_out_cluster_lst = zcl_out_cluster_ptr;
+
+    zcl_specClusterInfo_t *endpoint_first_cluster_ptr = zcl_cluster_info_ptr;
+    for (hal_zigbee_cluster *cluster = endpoint->clusters;
+         cluster < endpoint->clusters + endpoint->cluster_count; cluster++) {
+        if (cluster->is_server) {
+            *zcl_in_cluster_ptr = cluster->cluster_id;
+            zcl_in_cluster_ptr++;
+            endpoint_desc_ptr->app_in_cluster_count++;
+        } else {
+            *zcl_out_cluster_ptr = cluster->cluster_id;
+            zcl_out_cluster_ptr++;
+            endpoint_desc_ptr->app_out_cluster_count++;
+        }
+        if (cluster->cluster_id == ZCL_CLUSTER_OTA) {
+            continue;
+        }
+        zcl_cluster_info_ptr->clusterId           = cluster->cluster_id;
+        zcl_cluster_info_ptr->manuCode            = 0;
+        zcl_cluster_info_ptr->attrTbl             = zcl_attr_table_ptr;
+        zcl_cluster_info_ptr->attrNum             = 0;
+        zcl_cluster_info_ptr->clusterRegisterFunc =
+            get_register_func_by_cluster_id(cluster->cluster_id);
+        zcl_cluster_info_ptr->clusterAppCb =
+            get_cmd_callback_by_cluster_id(cluster->cluster_id);
+        for (hal_zigbee_attribute *attr = cluster->attributes;
+             attr < cluster->attributes + cluster->attribute_count; attr++) {
+            zcl_attr_table_ptr->id     = attr->attribute_id;
+            zcl_attr_table_ptr->type   = attr->data_type_id;
+            zcl_attr_table_ptr->access =
+                ACCESS_CONTROL_READ | ACCESS_CONTROL_REPORTABLE;
+            if (attr->flag == ATTR_WRITABLE) {
+                zcl_attr_table_ptr->access |= ACCESS_CONTROL_WRITE;
+            }
+            zcl_attr_table_ptr->data = attr->value;
+            zcl_attr_table_ptr++;
+            zcl_cluster_info_ptr->attrNum++;
+        }
+
+        zcl_cluster_info_ptr++;
+    }
+    af_endpointRegister(endpoint->endpoint, endpoint_desc_ptr, af_rx_callback,
+                        NULL);
+    u8 cluster_count = zcl_cluster_info_ptr - endpoint_first_cluster_ptr;
+    zcl_register(endpoint->endpoint, cluster_count, endpoint_first_cluster_ptr);
+    zcl_endpoint_desc_ptr++;
+    return 1;
+}
+
 void telink_zigbee_hal_zcl_init(hal_zigbee_endpoint *endpoints,
                                 uint8_t endpoints_cnt) {
     zcl_init(zcl_incoming_message_callback);
@@ -173,67 +271,29 @@ void telink_zigbee_hal_zcl_init(hal_zigbee_endpoint *endpoints,
     hal_endpoints     = endpoints;
     hal_endpoints_cnt =
         endpoints_cnt < MAX_ENDPOINTS ? endpoints_cnt : MAX_ENDPOINTS;
-    af_simple_descriptor_t *endpoint_desc_ptr = endpoint_descriptors;
-    u16 *in_cluster_ptr  = in_clusters;
-    u16 *out_cluster_ptr = out_clusters;
-    zcl_specClusterInfo_t *cluster_info_ptr = cluster_infos;
-    zclAttrInfo_t *        attr_table_ptr   = attr_tables;
+    zcl_endpoint_desc_ptr = endpoint_descriptors;
+    zcl_in_cluster_ptr    = in_clusters;
+    zcl_out_cluster_ptr   = out_clusters;
+    zcl_cluster_info_ptr  = cluster_infos;
+    zcl_attr_table_ptr    = attr_tables;
 
     for (hal_zigbee_endpoint *endpoint = endpoints;
          endpoint < endpoints + hal_endpoints_cnt; endpoint++) {
-        endpoint_desc_ptr->endpoint            = endpoint->endpoint;
-        endpoint_desc_ptr->app_profile_id      = endpoint->profile_id;
-        endpoint_desc_ptr->app_dev_id          = endpoint->device_id;
-        endpoint_desc_ptr->app_dev_ver         = endpoint->device_version;
-        endpoint_desc_ptr->app_in_cluster_lst  = in_cluster_ptr;
-        endpoint_desc_ptr->app_out_cluster_lst = out_cluster_ptr;
-
-        zcl_specClusterInfo_t *endpoint_first_cluster_ptr = cluster_info_ptr;
-        for (hal_zigbee_cluster *cluster = endpoint->clusters;
-             cluster < endpoint->clusters + endpoint->cluster_count; cluster++) {
-            if (cluster->is_server) {
-                *in_cluster_ptr = cluster->cluster_id;
-                in_cluster_ptr++;
-                endpoint_desc_ptr->app_in_cluster_count++;
-            } else {
-                *out_cluster_ptr = cluster->cluster_id;
-                out_cluster_ptr++;
-                endpoint_desc_ptr->app_out_cluster_count++;
-            }
-            if (cluster->cluster_id == ZCL_CLUSTER_OTA) {
-                continue;
-            }
-            cluster_info_ptr->clusterId           = cluster->cluster_id;
-            cluster_info_ptr->manuCode            = 0;
-            cluster_info_ptr->attrTbl             = attr_table_ptr;
-            cluster_info_ptr->attrNum             = 0;
-            cluster_info_ptr->clusterRegisterFunc =
-                get_register_func_by_cluster_id(cluster->cluster_id);
-            cluster_info_ptr->clusterAppCb =
-                get_cmd_callback_by_cluster_id(cluster->cluster_id);
-            for (hal_zigbee_attribute *attr = cluster->attributes;
-                 attr < cluster->attributes + cluster->attribute_count; attr++) {
-                attr_table_ptr->id     = attr->attribute_id;
-                attr_table_ptr->type   = attr->data_type_id;
-                attr_table_ptr->access =
-                    ACCESS_CONTROL_READ | ACCESS_CONTROL_REPORTABLE;
-                if (attr->flag == ATTR_WRITABLE) {
-                    attr_table_ptr->access |= ACCESS_CONTROL_WRITE;
-                }
-                attr_table_ptr->data = attr->value;
-                attr_table_ptr++;
-                cluster_info_ptr->attrNum++;
-            }
-
-            cluster_info_ptr++;
-        }
-        af_endpointRegister(endpoint->endpoint, endpoint_desc_ptr,
-                            af_rx_callback, NULL);
-        u8 cluster_count = cluster_info_ptr - endpoint_first_cluster_ptr;
-        zcl_register(endpoint->endpoint, cluster_count, endpoint_first_cluster_ptr);
-
-        endpoint_desc_ptr++;
+        zcl_register_hal_endpoint(endpoint);
     }
+}
+
+uint8_t hal_zigbee_add_endpoint(hal_zigbee_endpoint *endpoint) {
+    if (hal_endpoints == NULL || endpoint == NULL ||
+        endpoint != &hal_endpoints[hal_endpoints_cnt] ||
+        hal_endpoints_cnt >= MAX_ENDPOINTS) {
+        return 0;
+    }
+    if (!zcl_register_hal_endpoint(endpoint)) {
+        return 0;
+    }
+    hal_endpoints_cnt++;
+    return 1;
 }
 
 void hal_zigbee_notify_attribute_changed(uint8_t endpoint, uint16_t cluster_id,
@@ -263,20 +323,24 @@ hal_zigbee_status_t
 hal_zigbee_send_report_attr(uint8_t endpoint, uint16_t cluster_id,
                             uint16_t attr_id, uint8_t zcl_type_id,
                             const void *value, uint8_t value_len) {
-    if (zb_isDeviceJoinedNwk()) {
-        epInfo_t dstEpInfo;
-        TL_SETSTRUCTCONTENT(dstEpInfo, 0);
-
-        dstEpInfo.profileId   = HA_PROFILE_ID;
-        dstEpInfo.dstAddrMode = APS_DSTADDR_EP_NOTPRESETNT;
-
-        zclAttrInfo_t *pAttrEntry;
-        pAttrEntry = zcl_findAttribute(endpoint, cluster_id, attr_id);
-        zcl_sendReportCmd(endpoint, &dstEpInfo, TRUE, ZCL_FRAME_SERVER_CLIENT_DIR,
-                          cluster_id, pAttrEntry->id, pAttrEntry->type,
-                          pAttrEntry->data);
+    if (!zb_isDeviceJoinedNwk()) {
+        return HAL_ZIGBEE_ERR_NOT_JOINED;
     }
-    return HAL_ZIGBEE_OK;
+
+    epInfo_t dstEpInfo;
+    TL_SETSTRUCTCONTENT(dstEpInfo, 0);
+
+    dstEpInfo.profileId   = HA_PROFILE_ID;
+    dstEpInfo.dstAddrMode = APS_DSTADDR_EP_NOTPRESETNT;
+
+    zclAttrInfo_t *pAttrEntry = zcl_findAttribute(endpoint, cluster_id, attr_id);
+    if (pAttrEntry == NULL || pAttrEntry->data == NULL) {
+        return HAL_ZIGBEE_ERR_BAD_ARG;
+    }
+    status_t status = zcl_sendReportCmd(
+        endpoint, &dstEpInfo, TRUE, ZCL_FRAME_SERVER_CLIENT_DIR, cluster_id,
+        pAttrEntry->id, pAttrEntry->type, pAttrEntry->data);
+    return status == ZCL_STA_SUCCESS ? HAL_ZIGBEE_OK : HAL_ZIGBEE_ERR_SEND_FAILED;
 }
 
 void hal_zigbee_register_on_attribute_change_callback(

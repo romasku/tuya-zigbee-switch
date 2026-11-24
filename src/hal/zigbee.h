@@ -68,6 +68,14 @@ typedef struct {
  */
 void hal_zigbee_init(hal_zigbee_endpoint *endpoints, uint8_t endpoints_cnt);
 
+/**
+ * Register one more endpoint after hal_zigbee_init.
+ * The endpoint must be the next entry in the same array passed to init.
+ * Returns 1 on success, 0 when the stack tables are full or the pointer is not
+ * that next entry.
+ */
+uint8_t hal_zigbee_add_endpoint(hal_zigbee_endpoint *endpoint);
+
 // Network membership control
 
 /**

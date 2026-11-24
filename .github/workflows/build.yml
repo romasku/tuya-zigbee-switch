@@ -22,7 +22,11 @@ jobs:
     - name: Install dependencies
       run: |
         sudo apt-get update
-        sudo apt-get install -y make python3 yq unzip wget gcc-arm-none-eabi
+        sudo apt-get install -y make python3 yq unzip wget gcc-arm-none-eabi libnss3 nss-plugin-pem ca-certificates
+        curl -fsSL -o /tmp/curl-impersonate.tar.gz \
+          https://github.com/lwthiker/curl-impersonate/releases/download/v0.6.1/curl-impersonate-v0.6.1.x86_64-linux-gnu.tar.gz
+        sudo tar -xzf /tmp/curl-impersonate.tar.gz -C /usr/local/bin
+        curl_chrome116 --version
 
     - name: Set up JDK 21
       uses: actions/setup-java@v4
