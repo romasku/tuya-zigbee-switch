@@ -1,6 +1,6 @@
 # Multi-click on momentary switches
 
-A momentary switch can report single, double, and triple clicks for use in automations. This also works with normally closed momentary switches. Latching switches still report their physical position instead.
+A momentary switch can report single, double, and triple clicks for use in automations. You can also hold the last press in any of these sequences to get a hold event followed by a release event. This also works with normally closed momentary switches. Latching switches still report their physical position instead.
 
 ## Set up multi-click in Zigbee2MQTT
 
