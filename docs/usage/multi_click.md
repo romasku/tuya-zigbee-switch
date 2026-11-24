@@ -11,9 +11,9 @@ Use a converter that supports multi-click on your firmware. If action events are
 
 These settings are saved per button. On a multi-button device, the field suffix identifies the button you are configuring.
 
-## Use the action events
+## Use multi-click events in automations
 
-Trigger automations from the Zigbee2MQTT `action` event, not the diagnostic press state (`switch_press_action_switch`). The table shows the action names for a button named `switch`; other buttons use their own endpoint name as the prefix.
+Use multi-click events as automation triggers rather than the switch's current press state. How these events are exposed depends on your Zigbee integration. The table shows the Zigbee2MQTT `action` values for a button named `switch`; other buttons use their own endpoint name as the prefix.
 
 | Presses | All presses short | Last press held | When the held press is released |
 | --- | --- | --- | --- |
@@ -21,9 +21,9 @@ Trigger automations from the Zigbee2MQTT `action` event, not the diagnostic pres
 | 2 | `switch_double` | `switch_double_hold` | `switch_double_release` |
 | 3 | `switch_triple` | `switch_triple_hold` | `switch_triple_release` |
 
-If you hold the last press, you get the hold and release events instead of the short-click event. The hold threshold uses the existing long-press setting. A latching switch reports `switch_position_on` and `switch_position_off` instead of multi-click events.
+If you hold the last press, you get the hold and release events instead of the short-click event. The hold threshold uses the existing long-press setting. A latching switch reports position changes instead of multi-click events (`switch_position_on` and `switch_position_off` in Zigbee2MQTT).
 
-The diagnostic field `switch_press_action_switch` still shows the current switch state: `released`, `press`, `long_press`, `position_on`, or `position_off`. It now also shows `double_hold` or `triple_hold` while the second or third press is held past the long-press threshold. Use `action` for multi-click automations.
+In Zigbee2MQTT, the diagnostic field `switch_press_action_switch` shows the current switch state: `released`, `press`, `long_press`, `position_on`, or `position_off`. It also shows `double_hold` or `triple_hold` while the second or third press is held past the long-press threshold.
 
 ## How multi-click affects bindings
 
