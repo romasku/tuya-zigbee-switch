@@ -1,66 +1,22 @@
-# Momentary switch gestures (phase 1)
+# Multi-click on momentary switches
 
-Gestures apply to momentary and normally closed momentary switches. A toggle
-switch still reports its physical position. Gesture settings are per switch and
-survive a restart. The existing relay/switch settings retain their NVM layout.
+A momentary switch can report single, double, and triple clicks for use in automations. This also works with normally closed momentary switches. Latching switches still report their physical position instead.
 
-On the AVATTO LZWSM16-1 use the updated `switch_custom.js` converter in
-Zigbee2MQTT. Ensure switch endpoint 1 (`switch`) has its `genMultistateInput`
-binding to the coordinator and attribute reporting configured (the converter's
-Configure action sets these up). Use the `action` event, not the diagnostic
-`switch_press_action_switch` state, to drive automations:
+## Set up multi-click in Zigbee2MQTT
 
-- `switch_single`, `switch_double`, `switch_triple`
-- `switch_single_hold` / `switch_single_release`, and equivalent double/triple
-  variants when the last press of a sequence is held
+Use a converter that supports multi-click on your firmware. If action events are missing, reconfigure the device in Zigbee2MQTT so the button endpoint's `genMultistateInput` cluster is bound to the coordinator.
 
-The converter only publishes `action` from explicit reports of attribute
-`0xff00` in `genMultistateInput` (readback is always zero). Periodic
-`presentValue` reports and read responses do not generate action events.
-Use firmware and converter from the same revision; older builds still expose
-their diagnostic state but do not emit events on the new attribute.
+- **Max press count** (`max_press_count_switch`): set to **2** for double clicks or **3** for double and triple clicks. The default is **1**, which reports each short click on release without an extra wait.
+- **Confirm release** (`confirm_release_ms_switch`): how long the switch waits after a short release for the next press when the click limit is above 1. The default is **200 ms**. Increase it if your double clicks are being reported as two singles.
 
-Set `max_press_count_switch` to **2** for double clicks or **3** to include
-triple clicks. The firmware default is **1**, which reports a single click on
-debounced release without waiting. With a limit above 1, the switch waits
-`confirm_release_ms_switch` after each short release, even at the maximum count
-(extra clicks in the same sequence saturate at the limit). The default window
-is **200 ms**. It measures debounced events, not the physical edge times. A
-hold uses the existing long-press threshold. The native configuration attributes
-in `genOnOffSwitchCfg` are `0xff07` (uint8, 1–3) and `0xff08` (uint16, 1–2000 ms).
-Writing zero restores the default for that setting.
-Unchanged settings do not write flash. When a save fails, readback returns the
-previous settings; a successful ZCL write response alone does not prove
-persistence. If the Telink timer reserve would be used, the pending gesture
-is dropped without changing local relay or binding behavior.
+These settings are saved per button. On a multi-button device, the field suffix identifies the button you are configuring.
 
-**Binding behavior is unchanged.** In `short_press` binding mode an On/Off
-command still goes out on **each** short release, even if the gesture is later
-reported as a double or triple. Relay modes and Move/StopWithOnOff behavior
-remain independent of gesture reporting. This build has no Scenes client.
+## Use the action events
 
-## Verification without hardware
+Trigger automations from the Zigbee2MQTT `action` event, not the diagnostic press state (`switch_press_action_switch`). For a button named `switch`, short clicks produce `switch_single`, `switch_double`, or `switch_triple`.
 
-- Run `make tests` for the router/End Device stubs, including gesture timing,
-  per-endpoint settings, legacy NVM and the AVATTO detached/SHORT regression.
-- From the repository root, run `make tools/update_converters` first: the test
-  loads the generated `switch_custom.js`, which is not updated in the code PR.
-  Then run `node tests/test_switch_gesture_converter.cjs`
-  with `zigbee-herdsman-converters` 26.125.0 and `zigbee-herdsman` 11.2.0 on the
-  Node module path (Zigbee2MQTT 2.14.3 dependencies).
-- With the Telink SDK/toolchain and `yq` installed, run
-  `make -f board.mk build-firmware BOARD=MODULE_AVATTO_TS0011 DEVICE_TYPE=end_device BIN_PATH=build/phase1-avatto`.
-  This builds the binary without publishing an OTA or modifying the OTA index.
+If the last press in a sequence is held, the switch reports a hold and then a release instead of a short-click event. For example, a short click followed by a held second press produces `switch_double_hold` and then `switch_double_release`. The hold threshold uses the existing long-press setting.
 
-These checks do not validate radio delivery, missed GPIO interrupts, or rollback
-on an installed module. A controlled OTA test requires a separate decision.
-The Router and End Device releases for this AVATTO model share OTA identifiers.
-Do not install an End Device test index globally. Verify the intended module's
-IEEE address and `type: EndDevice` in Zigbee2MQTT (or in `bridge/devices`) and
-use only an explicitly targeted check with the test index. An OTA match does
-not prove the role. A Router-to-End-Device flash clears network settings.
-`helper_scripts/check_avatto_end_device.py` accepts a current `bridge/devices`
-JSON export and the target IEEE address, and prints only the payload for
-`bridge/request/device/ota_update/check`; it does not connect to MQTT.
-Zigbee2MQTT 1.42.0 is not covered: its converters library lacks the `text`
-modern extend that the upstream legacy converter already required.
+## How multi-click affects bindings
+
+Multi-click reporting does not change local relay behavior or when the switch sends Zigbee commands to bound devices. With `short_press` binding mode and `toggle_simple` action, a double click reports one `switch_double` event but still sends two Toggle commands, one per short release. A bound light can therefore briefly change state and then return to its original state.
