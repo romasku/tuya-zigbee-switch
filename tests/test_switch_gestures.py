@@ -114,12 +114,11 @@ def test_hold_uses_existing_move_stop(device, button_pin, taps, hold, release):
 
 
 @pytest.mark.parametrize("limit", [1, 2])
-def test_avatto_end_device_short_binding_timing(limit):
-    config = "hbxsdd6k;TS0011-avatto;BB4u;LB5;SC0u;RC2;"
+def test_end_device_short_binding_timing(limit):
+    config = "StubManufacturer;StubEndDevice;SA0u;RB0;"
+    button_pin = "A0"
     with StubProc(cmd=["./build/stub/stub_end_device"], device_config=config) as proc:
         device = Device(proc)
-        device.set_gpio("C0", 1)  # The stub pre-initializes only A0..A3 high.
-        device.step_time(60)
         setup_button(device, 1, limit)
         device.zcl_switch_relay_mode_set(1, ZCL_ONOFF_CONFIGURATION_RELAY_MODE_DETACHED)
         device.zcl_switch_actions_set(1, ZCL_ONOFF_CONFIGURATION_SWITCH_ACTION_TOGGLE_SIMPLE)
@@ -128,10 +127,10 @@ def test_avatto_end_device_short_binding_timing(limit):
         reports = collect_reports(proc)
 
         for i in range(limit):
-            device.press_button("C0")
+            device.press_button(button_pin)
             assert device.zcl_switch_get_multistate_value(1) == "1"
             assert len(device.zcl_list_cmds(1, ZCL_CLUSTER_ON_OFF)) == i
-            device.release_button("C0")
+            device.release_button(button_pin)
             assert device.zcl_switch_get_multistate_value(1) == "0"
             assert [cmd.cmd for cmd in device.zcl_list_cmds(1, ZCL_CLUSTER_ON_OFF)] == [
                 ZCL_CMD_ONOFF_TOGGLE
