@@ -23,6 +23,8 @@ Trigger automations from the Zigbee2MQTT `action` event, not the diagnostic pres
 
 If you hold the last press, you get the hold and release events instead of the short-click event. The hold threshold uses the existing long-press setting. A latching switch reports `switch_position_on` and `switch_position_off` instead of multi-click events.
 
+The diagnostic field `switch_press_action_switch` still shows the current switch state: `released`, `press`, `long_press`, `position_on`, or `position_off`. It now also shows `double_hold` or `triple_hold` while the second or third press is held past the long-press threshold. Use `action` for multi-click automations.
+
 ## How multi-click affects bindings
 
 Multi-click reporting does not change local relay behavior or when the switch sends Zigbee commands to bound devices. With `short_press` binding mode and `toggle_simple` action, a double click reports one `switch_double` event but still sends two Toggle commands, one per short release. A bound light can therefore briefly change state and then return to its original state.
