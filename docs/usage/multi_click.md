@@ -13,9 +13,15 @@ These settings are saved per button. On a multi-button device, the field suffix 
 
 ## Use the action events
 
-Trigger automations from the Zigbee2MQTT `action` event, not the diagnostic press state (`switch_press_action_switch`). For a button named `switch`, short clicks produce `switch_single`, `switch_double`, or `switch_triple`.
+Trigger automations from the Zigbee2MQTT `action` event, not the diagnostic press state (`switch_press_action_switch`). The table shows the action names for a button named `switch`; other buttons use their own endpoint name as the prefix.
 
-If the last press in a sequence is held, the switch reports a hold and then a release instead of a short-click event. For example, a short click followed by a held second press produces `switch_double_hold` and then `switch_double_release`. The hold threshold uses the existing long-press setting.
+| Presses | All presses short | Last press held | When the held press is released |
+| --- | --- | --- | --- |
+| 1 | `switch_single` | `switch_single_hold` | `switch_single_release` |
+| 2 | `switch_double` | `switch_double_hold` | `switch_double_release` |
+| 3 | `switch_triple` | `switch_triple_hold` | `switch_triple_release` |
+
+If you hold the last press, you get the hold and release events instead of the short-click event. The hold threshold uses the existing long-press setting. A latching switch reports `switch_position_on` and `switch_position_off` instead of multi-click events.
 
 ## How multi-click affects bindings
 
