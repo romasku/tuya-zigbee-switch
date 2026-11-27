@@ -172,6 +172,11 @@ class Device:
         res = self.p.exec(f"set_pin {self._parse_pin(pin)} {val}")
         assert res.ok, f"GPIO failed: {res.payload}"
 
+    def set_gpio_silent(self, pin: str, val: int) -> None:
+        """Change a pin without a GPIO callback, like a missed edge interrupt."""
+        res = self.p.exec(f"set_pin_silent {self._parse_pin(pin)} {val}")
+        assert res.ok, f"GPIO failed: {res.payload}"
+
     def press_button(
         self,
         pin: str,

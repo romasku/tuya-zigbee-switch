@@ -9,6 +9,15 @@ void _btn_gpio_callback(hal_gpio_pin_t pin, void *arg);
 void _btn_update_callback(void *arg);
 void btn_update_debounced(button_t *button, uint8_t is_pressed,
                           uint32_t changed_at);
+static void btn_schedule_held_check(button_t *button);
+
+// While a button is held its pin level is re-checked periodically, as a
+// safety net for missed GPIO edge interrupts. Fast until the long press
+// fires (so a release missed during a short press is caught before it turns
+// into a long press), slower afterwards (toggle switches can stay "pressed"
+// for a long time, keep wake-ups rare).
+#define BUTTON_HELD_POLL_MS         50
+#define BUTTON_HELD_POLL_SLOW_MS    250
 
 void btn_init(button_t *button) {
     // During device startup, button may be already pressed, but this should not
@@ -25,6 +34,9 @@ void btn_init(button_t *button) {
     button->update_task.arg     = button;
     hal_tasks_init(&button->update_task);
     hal_gpio_callback(button->pin, _btn_gpio_callback, button);
+    if (button->pressed) {
+        btn_schedule_held_check(button);
+    }
 }
 
 void _btn_gpio_callback(hal_gpio_pin_t pin, void *arg) {
@@ -41,18 +53,48 @@ void _btn_gpio_callback(hal_gpio_pin_t pin, void *arg) {
     hal_tasks_schedule(&button->update_task, button->debounce_delay_ms);
 }
 
+// Schedule the next check while the button is held. Besides timing the long
+// press, this keeps re-reading the pin so that a missed release edge is
+// noticed (see _btn_update_callback).
+static void btn_schedule_held_check(button_t *button) {
+    uint32_t delay;
+
+    if (button->long_pressed) {
+        delay = BUTTON_HELD_POLL_SLOW_MS;
+    } else {
+        uint32_t pressed_for = hal_millis() - button->pressed_at_ms;
+        delay = pressed_for < button->long_press_duration_ms
+                ? button->long_press_duration_ms - pressed_for
+                : 0;
+        if (delay > BUTTON_HELD_POLL_MS) {
+            delay = BUTTON_HELD_POLL_MS;
+        }
+    }
+    hal_tasks_schedule(&button->update_task, delay);
+}
+
 void _btn_update_callback(void *arg) {
     button_t *button = (button_t *)arg;
+    uint8_t   state  = hal_gpio_read(button->pin);
 
-    btn_update_debounced(button,
-                         button->debounce_last_state == button->pressed_when_high,
+    if (state != button->debounce_last_state) {
+        // The pin changed without a GPIO callback, i.e. an edge interrupt was
+        // missed (e.g. a transition while the IRQ was being re-armed during
+        // contact bounce). Without this check the button would stay "pressed"
+        // until the next real edge, which shows up as a spurious long press
+        // followed by a late release. Treat it like a regular change and
+        // restart the debounce window.
+        printf("Missed edge detected\r\n");
+        button->debounce_last_state  = state;
+        button->debounce_last_change = hal_millis();
+        hal_tasks_schedule(&button->update_task, button->debounce_delay_ms);
+        return;
+    }
+
+    btn_update_debounced(button, state == button->pressed_when_high,
                          button->debounce_last_change);
-    if (button->pressed && !button->long_pressed) {
-        uint32_t pressed_for = hal_millis() - button->pressed_at_ms;
-        hal_tasks_schedule(&button->update_task,
-                           pressed_for < button->long_press_duration_ms
-                           ? button->long_press_duration_ms - pressed_for
-                           : 0);
+    if (button->pressed) {
+        btn_schedule_held_check(button);
     }
 }
 

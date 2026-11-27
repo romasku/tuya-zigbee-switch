@@ -92,6 +92,7 @@ void stub_app_print_help(void) {
     puts(
         "  net                                   - Toggle network joined status");
     puts("  set_pin <pin> <0|1>                   - Simulate GPIO input");
+    puts("  set_pin_silent <pin> <0|1>            - Simulate GPIO input without callback (missed edge IRQ)");
     puts("  read_pin <pin>                        - Read GPIO output");
     puts("  zcl_list_attrs                        - List all Zigbee attributes");
     puts("  zcl_read <ep> <cluster> <attr>        - Read attribute (ep dec, IDs "

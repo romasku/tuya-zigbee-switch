@@ -8,6 +8,25 @@ Please describe what you are working on, under ## Upcoming
 
 ------------------------------------------------------->
 
+## Upcoming
+
+### Features
+
+- **Button events as Z2M `action`**: the converters now expose the standard `action` property
+  (`press`, `release`, `long_press`, `long_release`, `position_on`, `position_off`, suffixed with the
+  switch endpoint name, e.g. `long_press_switch_1`). Zigbee2MQTT republishes it to the
+  `zigbee2mqtt/<device>/action` topic and creates Home Assistant device triggers for it, for all press
+  types and not only short presses. `<switch>_press_action` is unchanged (it stays the current *state*
+  of the switch, repeated in every message). Re-download the converters to get it.
+
+### Bugs
+
+- **Fixed**
+  - Spurious `long_press` on a short press (followed by a late `released`, and a `press` missing on
+    the next click): a release edge missed by the GPIO interrupt (possible while the contact bounces)
+    left the button "pressed" until the next edge. The button now re-reads its pin while held, and the
+    Telink interrupt code re-arms the edge if the pin changed while the interrupt was being enabled.
+
 ## 1.1.3
 
 ### Features
