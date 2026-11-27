@@ -43,3 +43,19 @@ void hal_tasks_unschedule(hal_task_t *task) {
         ev_timer_taskCancel(&task->platform_struct.ev_timer_handle);
     }
 }
+
+bool hal_tasks_try_schedule(hal_task_t *task, uint32_t delay_ms) {
+    // The SDK keeps four pool slots in reserve. Don't deplete them for a
+    // gesture or call taskPost on a full pool (it raises an SDK exception).
+    u32 irq_state = drv_disable_irq();
+
+    hal_tasks_unschedule(task);
+    bool scheduled = false;
+
+    if (ev_timer_enough()) {
+        hal_tasks_schedule(task, delay_ms);
+        scheduled = task->platform_struct.ev_timer_handle != NULL;
+    }
+    drv_restore_irq(irq_state);
+    return scheduled;
+}

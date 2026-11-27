@@ -22,6 +22,12 @@ void hal_tasks_schedule(hal_task_t *task, uint32_t delay_ms) {
     sl_zigbee_af_event_set_delay_ms(&task->platform_struct, delay_ms);
 }
 
+bool hal_tasks_try_schedule(hal_task_t *task, uint32_t delay_ms) {
+    // AF events are embedded in each task, not allocated from a timer pool.
+    hal_tasks_schedule(task, delay_ms);
+    return true;
+}
+
 void hal_tasks_unschedule(hal_task_t *task) {
     sl_zigbee_af_event_set_inactive(&task->platform_struct);
 }

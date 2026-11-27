@@ -358,6 +358,16 @@ static int cmd_step_time(int argc, char **argv) {
     return 0;
 }
 
+static int cmd_task_reject(int argc, char **argv) {
+    if (argc != 2 || (strcmp(argv[1], "0") != 0 && strcmp(argv[1], "1") != 0)) {
+        io_res_err("usage");
+        return -1;
+    }
+    stub_tasks_reject_optional(argv[1][0] == '1');
+    io_res_ok("");
+    return 0;
+}
+
 static int cmd_set_battery_voltage(int argc, char **argv) {
     if (argc != 2) {
         fprintf(stderr, "Usage: set_battery_voltage <millivolts>\n");
@@ -393,6 +403,7 @@ static const SimpleReplCommand kCmds[] = {
     { "zcl_cmd_no_activity", cmd_zcl_cmd_no_activity },
     { "freeze_time",         cmd_freeze_time         },
     { "step_time",           cmd_step_time           },
+    { "task_reject",         cmd_task_reject         },
     { "set_battery_voltage", cmd_set_battery_voltage },
     { "q",                   cmd_quit                },
     { "quit",                cmd_quit                },

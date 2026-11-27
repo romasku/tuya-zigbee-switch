@@ -213,6 +213,10 @@ hal_zigbee_send_report_attr(uint8_t endpoint, uint16_t cluster_id,
            "type=0x%02x, len=%d",
            endpoint, cluster_id, attr_id, zcl_type_id, value_len);
 
+    char buffer[value_len * 2 + 1];
+    bytes_to_hexstr(value, value_len, buffer);
+    io_evt("zcl_attr_report ep=%u cluster=0x%04X attr=0x%04X type=0x%02X data_hex=%s",
+           endpoint, cluster_id, attr_id, zcl_type_id, buffer);
     return HAL_ZIGBEE_OK;
 }
 

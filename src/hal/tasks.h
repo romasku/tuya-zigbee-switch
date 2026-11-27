@@ -1,6 +1,7 @@
 #ifndef _HAL_TASKS_H_
 #define _HAL_TASKS_H_
 
+#include <stdbool.h>
 #include <stdint.h>
 
 /** Function called when a scheduled task executes */
@@ -52,6 +53,9 @@ void hal_tasks_init(hal_task_t *task);
  * @param delay_ms Delay in milliseconds before execution
  */
 void hal_tasks_schedule(hal_task_t *task, uint32_t delay_ms);
+
+/** Schedule optional work without consuming the platform's timer reserve. */
+bool hal_tasks_try_schedule(hal_task_t *task, uint32_t delay_ms);
 
 /**
  * Cancel a previously scheduled task

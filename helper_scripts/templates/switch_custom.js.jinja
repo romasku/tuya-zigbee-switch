@@ -8,6 +8,7 @@ const {
     windowCovering,
 } = require("zigbee-herdsman-converters/lib/modernExtend");
 const {assertString} = require("zigbee-herdsman-converters/lib/utils");
+const {presets} = require("zigbee-herdsman-converters/lib/exposes");
 const reporting = require("zigbee-herdsman-converters/lib/reporting");
 const constants = require("zigbee-herdsman-converters/lib/constants");
 const Zcl = require('zigbee-herdsman').Zcl;
@@ -25,6 +26,13 @@ const ota = require("zigbee-herdsman-converters/lib/ota");
 
   Generate with: `make tools/update_converters`
 ********************************************************************/
+
+const switchActionSuffix = {
+    2: "single_hold", 3: "position_on", 4: "position_off",
+    5: "single", 6: "single_release",
+    7: "double", 8: "double_hold", 9: "double_release",
+    10: "triple", 11: "triple_hold", 12: "triple_release",
+};
 
 const romasku = {
     switchAction: (name, endpointName) =>
@@ -106,15 +114,59 @@ const romasku = {
             valueMax: 255,
             entityCategory: "config",
         }),
+    switchGestures: (switchNames) => ({
+        isModernExtend: true,
+        exposes: [presets.action(switchNames.flatMap((name) =>
+            Object.values(switchActionSuffix).map((suffix) => `${name}_${suffix}`)))],
+        fromZigbee: [{
+            cluster: "genMultistateInput",
+            type: ["attributeReport"],
+            convert: (model, msg) => {
+                const name = switchNames[msg.endpoint.ID - 1];
+                // Never publish an action from the periodically reported live state.
+                const value = msg.data[0xff00];
+                const suffix = Number.isInteger(value) ? switchActionSuffix[value] : undefined;
+                if (name && suffix) return {action: `${name}_${suffix}`};
+            },
+        }],
+    }),
+    maxPressCount: (endpointNames) =>
+        numeric({
+            name: "max_press_count",
+            endpointNames,
+            cluster: "genOnOffSwitchCfg",
+            attribute: {ID: 0xff07, type: Zcl.DataType.UINT8},
+            description: "Momentary switch click limit: 1 (no wait), 2 (double), 3 (triple).",
+            valueMin: 1,
+            valueMax: 3,
+            valueStep: 1,
+            entityCategory: "config",
+        }),
+    confirmReleaseMs: (endpointNames) =>
+        numeric({
+            name: "confirm_release_ms",
+            endpointNames,
+            cluster: "genOnOffSwitchCfg",
+            attribute: {ID: 0xff08, type: Zcl.DataType.UINT16},
+            description: "Time after release to accept the next click (only for max_press_count > 1).",
+            valueMin: 1,
+            valueMax: 2000,
+            valueStep: 1,
+            unit: "ms",
+            entityCategory: "config",
+        }),
     pressAction: (name, endpointName) =>
         enumLookup({
             name,
             endpointName,
             access: "STATE_GET",
-            lookup: { released: 0, press: 1, long_press: 2, position_on: 3, position_off: 4 },
+            lookup: {
+                released: 0, press: 1, long_press: 2, position_on: 3, position_off: 4,
+                double_hold: 8, triple_hold: 11,
+            },
             cluster: "genMultistateInput",
             attribute: "presentValue",
-            description: "Action of the switch: 'released' or 'press' or 'long_press'",
+            description: "Raw switch state (use action for gesture automations)",
             entityCategory: "diagnostic",
         }),
     relayIndicatorMode: (name, endpointName) =>
@@ -459,6 +511,11 @@ const definitions = [
             {% endif%}
             {% if device.relayNames %}
             onOff({ endpointNames: {{device.relayNames | tojson }} }),
+            {% endif %}
+            {% if device.switchNames %}
+            romasku.switchGestures({{device.switchNames | tojson }}),
+            romasku.maxPressCount({{device.switchNames | tojson }}),
+            romasku.confirmReleaseMs({{device.switchNames | tojson }}),
             {% endif %}
             {% for switchName in device.switchNames %}
             romasku.pressAction("{{switchName}}_press_action", "{{switchName}}"),
