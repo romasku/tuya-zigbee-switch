@@ -203,6 +203,25 @@ class CustomCoverSwitchCluster(CustomCluster):
 
 class CustomWindowCoveringCluster(CustomCluster, WindowCovering):
 
+    # The position has to be inverted, because even though HA displays 100% for open, it expects the device to send 0%
+    # for open and 100% for closed. Our firmware also uses 100% for open instead, that's why we need to invert here.
+    # The same inversion is applied on the Z2M side too, fixing the firmware's internal representation would make these
+    # two methods obsolete, though that would be a breaking change.
+    def _update_attribute(self, attrid, value):
+        if attrid == self.AttributeDefs.current_position_lift_percentage.id and value is not None and 0 <= value <= 100:
+            value = 100 - value
+
+        super()._update_attribute(attrid, value)
+
+    def command(self, command_id, *args, **kwargs):
+        if command_id == self.ServerCommandDefs.go_to_lift_percentage.id:
+            if args and 0 <= args[0] <= 100:
+                args = (100 - args[0], *args[1:])
+            elif "percentage_lift_value" in kwargs and 0 <= kwargs["percentage_lift_value"] <= 100:
+                kwargs["percentage_lift_value"] = 100 - kwargs["percentage_lift_value"]
+
+        return super().command(command_id, *args, **kwargs)
+
     class AttributeDefs(WindowCovering.AttributeDefs):
         moving = ZCLAttributeDef(
             id=0xff00,
@@ -214,6 +233,34 @@ class CustomWindowCoveringCluster(CustomCluster, WindowCovering):
         motor_reversal = ZCLAttributeDef(
             id=0xff01,
             type=t.Bool,
+            access="rw",
+            is_manufacturer_specific=False,
+        )
+
+        open_time = ZCLAttributeDef(
+            id=0xff02,
+            type=t.uint16_t,
+            access="rw",
+            is_manufacturer_specific=False,
+        )
+
+        close_time = ZCLAttributeDef(
+            id=0xff03,
+            type=t.uint16_t,
+            access="rw",
+            is_manufacturer_specific=False,
+        )
+
+        open_deadzone = ZCLAttributeDef(
+            id=0xff04,
+            type=t.uint16_t,
+            access="rw",
+            is_manufacturer_specific=False,
+        )
+
+        closed_deadzone = ZCLAttributeDef(
+            id=0xff05,
+            type=t.uint16_t,
             access="rw",
             is_manufacturer_specific=False,
         )
@@ -784,7 +831,7 @@ for config in CONFIGS:
                 CustomWindowCoveringCluster.AttributeDefs.moving.name,
                 CustomWindowCoveringCluster.cluster_id,
                 translation_key="cover_moving_"+str(endpoint_id),
-                fallback_name="Cover moving "+str(endpoint_id),
+                fallback_name="Cover moving" if cover_cnt == 1 else "Cover moving "+str(endpoint_id),
                 endpoint_id=endpoint_id,
                 reporting_config=ReportingConfig(min_interval=0, max_interval=300, reportable_change=1),
                 device_class=SensorDeviceClass.ENUM,
@@ -800,6 +847,26 @@ for config in CONFIGS:
                 entity_type=EntityType.CONFIG,
             )
         )
+
+        attrs = CustomWindowCoveringCluster.AttributeDefs
+        for attr, maximum, step, scale, unit in (
+            (attrs.open_time, 300, 0.1, 0.1, "s"),
+            (attrs.close_time, 300, 0.1, 0.1, "s"),
+            (attrs.open_deadzone, 50, 1, 1, "%"),
+            (attrs.closed_deadzone, 50, 1, 1, "%"),
+        ):
+            builder.number(
+                attr.name,
+                CustomWindowCoveringCluster.cluster_id,
+                translation_key=f"cover_{attr.name}_{endpoint_id}",
+                fallback_name=f"Cover {attr.name.replace('_', ' ')}" + (f" {endpoint_id}" if cover_cnt > 1 else ""),
+                endpoint_id=endpoint_id,
+                min_value=0,
+                max_value=maximum,
+                step=step,
+                multiplier=scale,
+                unit=unit,
+            )
 
     builder = (
         builder
