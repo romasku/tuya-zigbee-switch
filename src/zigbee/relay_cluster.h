@@ -5,6 +5,7 @@
 #include "base_components/relay.h"
 #include <stdint.h>
 
+#include "hal/timer.h"
 #include "hal/zigbee.h"
 
 typedef struct {
@@ -16,6 +17,15 @@ typedef struct {
     relay_t *            relay;
     led_t *              indicator_led;
     uint8_t              indicator_state;
+
+#ifdef HAL_HAS_COUNTDOWN_TIMER
+    // Auto-off timer (ZCL On With Timed Off). 0 = no timer, 1 = armed.
+    uint8_t              off_timer_active;
+    // Deadline in the hal_millis() time domain (32-bit, wraps every
+    // ~49.7 days). Compared with a signed difference, so the wrap of the
+    // counter does not matter.
+    uint32_t             off_timer_deadline_ms;
+#endif
 } zigbee_relay_cluster;
 
 void relay_cluster_add_to_endpoint(zigbee_relay_cluster *cluster,
@@ -28,6 +38,12 @@ void relay_cluster_toggle(zigbee_relay_cluster *cluster);
 void relay_cluster_report(zigbee_relay_cluster *cluster);
 
 void update_relay_clusters();
+
+#ifdef HAL_HAS_COUNTDOWN_TIMER
+// Fire any expired auto-off timer. Call from app_task().
+void relay_cluster_task(void);
+
+#endif
 
 void relay_cluster_callback_attr_write_trampoline(uint8_t endpoint,
                                                   uint16_t attribute_id);

@@ -36,10 +36,11 @@ Users also consider this _the missing piece of a reliable smart home,_ because i
 - Multiple **reset options** (configurable multi-press count, on-board button)
 - **Wireless switches** (battery-powered remotes)
 - **Curtain modules**
+- **Countdown timers** (`on_with_timed_off`) - Telink only
 
 ### Work in progress
 - FW-level multi-press (double or triple click) - [progress](https://github.com/romasku/tuya-zigbee-switch/pull/380)
-- Countdown timers (on_with_timed_off)
+- Countdown timers (on_with_timed_off) for Silabs - [progress](https://github.com/romasku/tuya-zigbee-switch/pull/556)
 - Inching (pulse relay output)
 - Scenes (send and receive)
 - Power monitoring - [progress](https://github.com/romasku/tuya-zigbee-switch/pull/314)

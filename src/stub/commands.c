@@ -8,6 +8,7 @@
 
 #include "stub/stub_app.h"
 #include "zigbee/consts.h"
+#include "zigbee/relay_cluster.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -355,6 +356,12 @@ static int cmd_step_time(int argc, char **argv) {
     }
     stub_millis_step((uint64_t)step);
     io_res_ok("stepped_ms=%ld", step);
+#ifdef HAL_HAS_COUNTDOWN_TIMER
+    // Re-evaluate the auto-off timers against the new time.
+    // Deliberately not stub_app_poll(): its network-steering branch would
+    // restart joining right after a test triggered a factory reset.
+    relay_cluster_task();
+#endif
     return 0;
 }
 

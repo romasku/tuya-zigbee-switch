@@ -105,6 +105,14 @@ if __name__ == "__main__":
         else:
             cover_names = [f"cover_{index}" for index in range(cover_cnt)]
 
+        # The ZCL countdown timer (On With Timed Off, 0x42) is implemented in
+        # the Telink firmware only: src/hal/timer.h defines HAL_HAS_COUNTDOWN_TIMER
+        # for HAL_TELINK, and the handler in src/zigbee/relay_cluster.c lives
+        # behind that guard. End-device builds have the timer as well, but
+        # they share the modelID with the router build, so the converter
+        # cannot tell the two apart.
+        has_countdown_timer = device.get("mcu_family") == "Telink" and relay_cnt > 0
+
         devices.append(
             {
                 "zb_models": [zb_model] + (device.get("old_zb_models") or []),
@@ -117,6 +125,7 @@ if __name__ == "__main__":
                 "coverNames": cover_names,
                 "has_dedicated_net_led": has_dedicated_net_led,
                 "has_battery_cluster": has_battery_cluster,
+                "has_countdown_timer": has_countdown_timer,
             }
         )
 
