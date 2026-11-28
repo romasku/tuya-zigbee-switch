@@ -10,10 +10,14 @@ const {
 const {assertString} = require("zigbee-herdsman-converters/lib/utils");
 const reporting = require("zigbee-herdsman-converters/lib/reporting");
 const constants = require("zigbee-herdsman-converters/lib/constants");
+const tz = require("zigbee-herdsman-converters/converters/toZigbee");
+const exposes = require("zigbee-herdsman-converters/lib/exposes");
 const Zcl = require('zigbee-herdsman').Zcl;
 {% if z2m_v1 %}
 const ota = require("zigbee-herdsman-converters/lib/ota");
 {% endif%}
+
+const {Numeric, access: ea} = exposes;
 
 /********************************************************************
   This file (`switch_custom.js`) is generated. 
@@ -419,6 +423,67 @@ const romasku = {
             unit: "%",
             entityCategory: "config",
         }),
+    // ====== ZCL countdown timer (On With Timed Off, 0x42) ======
+    //
+    // The firmware handles the ZCL On With Timed Off command on every relay
+    // endpoint. Stock tz.on_off already puts the right bytes on the wire, so
+    // only the write-only Numeric below is needed to make the field visible
+    // in the UI.
+    countdownOnOff: (relayNames) => {
+        // The state and the timer need separate converters with disjoint
+        // keys. A converter bound to endpoints is dropped by Z2M for a
+        // payload key without an endpoint qualifier, which leaves
+        // "No converter available for 'on_time'" in the log.
+        const stateConverter = {
+            ...tz.on_off,
+            key: ["state"],
+            endpoints: relayNames,
+        };
+
+        const timerConverter = {
+            ...tz.on_off,
+            key: ["on_time", "off_wait_time"],
+            convertSet: async (entity, key, value, meta) => {
+                // A qualified state_<relay> key was already handled by the
+                // state converter, which sent the command to that endpoint.
+                // Sending it again would re-arm the first relay's timer.
+                const qualifiedState = Object.keys(meta.message).find(
+                    (k) => k.startsWith("state_") && relayNames.includes(k.substring("state_".length))
+                );
+                if (qualifiedState !== undefined) {
+                    return;
+                }
+
+                // A bare on_time carries no state, and tz.on_off rejects a
+                // missing one. Default to "on" so the timer branch is taken.
+                if (meta.message.state === undefined) {
+                    meta.message.state = "on";
+                }
+                return tz.on_off.convertSet(entity, key, value, meta);
+            },
+        };
+
+        // modernExtend's onOff() provides the state and power_on_behavior
+        // exposes and the genOnOff reporting setup. Only its toZigbee list
+        // is replaced, to split state from the timer.
+        const onOffExtend = onOff({endpointNames: relayNames});
+        onOffExtend.toZigbee = [stateConverter, timerConverter, tz.power_on_behavior];
+
+        // The timer field itself: write-only, so the UI shows it but the
+        // device never reports a value for it.
+        const countdownExposes = relayNames.map((relayName) =>
+            new Numeric("on_time", ea.SET)
+                .withUnit("s")
+                .withDescription("Seconds to stay ON before switching OFF. 0 = no timer.")
+                .withEndpoint(relayName)
+                .withPreset("on", "on", "Turn ON with a countdown timer")
+        );
+
+        return {
+            ...onOffExtend,
+            exposes: [...onOffExtend.exposes, ...countdownExposes],
+        };
+    },
 };
 
 const definitions = [
@@ -458,7 +523,11 @@ const definitions = [
             romasku.networkIndicator("network_led", "{{first_endpoint}}"),
             {% endif%}
             {% if device.relayNames %}
+            {% if device.has_countdown_timer %}
+            romasku.countdownOnOff({{device.relayNames | tojson }}),
+            {% else %}
             onOff({ endpointNames: {{device.relayNames | tojson }} }),
+            {% endif %}
             {% endif %}
             {% for switchName in device.switchNames %}
             romasku.pressAction("{{switchName}}_press_action", "{{switchName}}"),

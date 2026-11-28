@@ -10,6 +10,7 @@
 #include "hal/zigbee_ota.h"
 #include "zigbee/battery_cluster.h"
 #include "zigbee/general_commands.h"
+#include "zigbee/relay_cluster.h"
 #ifdef END_DEVICE
 #include "zigbee/poll_control_cluster.h"
 #endif
@@ -58,6 +59,11 @@ static bool boot_announce_sent = false;
 
 void app_task() {
     hal_millis(); // keeps the millisecond clock running across the wraps of the hardware timer
+
+#ifdef HAL_HAS_COUNTDOWN_TIMER
+    relay_cluster_task();
+#endif
+
 #ifdef END_DEVICE
     poll_control_cluster_update();
 #endif
