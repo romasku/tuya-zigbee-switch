@@ -23,7 +23,10 @@ Please describe what you are working on, under ## Upcoming
   but the SDK restores the system tick after a suspend sleep, so the countdown is still
   timed correctly; it is checked once per wake-up and therefore ends about a second
   after its deadline.
-  The Silabs platform is not covered by this change.
+  The Silabs platform is not covered by this change. A Silabs implementation can be
+  built on request - the cluster logic is shared and only the millisecond counter is
+  platform specific - but it needs someone with Silabs hardware to flash it and check
+  that the countdown behaves, so it is not part of this pull request.
 
 ## 1.1.3
 
