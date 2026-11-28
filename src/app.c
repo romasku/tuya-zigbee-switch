@@ -5,6 +5,7 @@
 #include "hal/nvm.h"
 #include "hal/printf_selector.h"
 #include "hal/system.h"
+#include "hal/timer.h"
 #include "hal/zigbee.h"
 #include "hal/zigbee_ota.h"
 #include "zigbee/battery_cluster.h"
@@ -56,6 +57,7 @@ void app_init(void) {
 static bool boot_announce_sent = false;
 
 void app_task() {
+    hal_millis(); // keeps the millisecond clock running across the wraps of the hardware timer
 #ifdef END_DEVICE
     poll_control_cluster_update();
 #endif
