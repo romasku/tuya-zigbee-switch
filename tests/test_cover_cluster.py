@@ -768,3 +768,161 @@ def test_cover_manual_mode_goto_position_ignored(cover_device: Device):
     assert d.zcl_cover_get_moving(endpoint) == ZCL_WINDOW_COVERING_MOVING_STOPPED
     assert d.zcl_cover_get_position(endpoint) == 50
 
+
+# ============================================================================
+# Power-loss / NVM persistence tests
+# ============================================================================
+
+POWER_LOSS_DEVICE_CONFIG = "X;Y;CA0A1;"
+
+
+def _open_session() -> tuple[StubProc, Device]:
+    p = StubProc(device_config=POWER_LOSS_DEVICE_CONFIG).start()
+    d = Device(p)
+    d.step_time(MINIMUM_SWITCH_TIME_MS)
+    return p, d
+
+
+def test_cover_position_persisted_across_power_loss():
+    """After a full open and stop, motor_position must survive a reboot.
+
+    Regression: motor_position used to be saved only when a Zigbee attribute was
+    written (e.g. open_time). After a power outage the restored position was the
+    stale value from that last write (often 50%), so the next open/close only
+    travelled the remaining tracked distance and did not reach the physical end.
+    """
+    endpoint = 1
+
+    p, d = _open_session()
+    try:
+        d.zcl_cover_set_open_time(endpoint, 300)
+        d.zcl_cover_open(endpoint)
+        d.step_time(TRAVEL_TIME_MS + OVERRUN_DURATION_MS)
+        assert d.zcl_cover_get_moving(endpoint) == ZCL_WINDOW_COVERING_MOVING_STOPPED
+        assert d.zcl_cover_get_position(endpoint) == 100
+    finally:
+        p.stop()
+
+    # Second session: power restored.
+    p, d = _open_session()
+    try:
+        assert d.zcl_cover_get_position(endpoint) == 100, (
+            "motor_position was not restored after power loss"
+        )
+
+        # Close from the restored 100% must run the full travel time.
+        d.zcl_cover_close(endpoint)
+        assert d.zcl_cover_get_moving(endpoint) == ZCL_WINDOW_COVERING_MOVING_CLOSING
+        d.step_time(TRAVEL_TIME_MS)
+        # Still in overrun after the full travel, so position is already 0.
+        assert d.zcl_cover_get_position(endpoint) == 0
+        d.step_time(OVERRUN_DURATION_MS)
+        assert d.zcl_cover_get_moving(endpoint) == ZCL_WINDOW_COVERING_MOVING_STOPPED
+        assert d.zcl_cover_get_position(endpoint) == 0
+    finally:
+        p.stop()
+
+
+def test_cover_open_after_power_loss_from_closed():
+    """Same persistence check from the closed end: open after reboot takes full travel."""
+    endpoint = 1
+
+    p, d = _open_session()
+    try:
+        d.zcl_cover_set_open_time(endpoint, 300)
+        d.zcl_cover_close(endpoint)
+        d.step_time(TRAVEL_TIME_MS + OVERRUN_DURATION_MS)
+        assert d.zcl_cover_get_position(endpoint) == 0
+    finally:
+        p.stop()
+
+    p, d = _open_session()
+    try:
+        assert d.zcl_cover_get_position(endpoint) == 0, (
+            "motor_position was not restored after power loss"
+        )
+        d.zcl_cover_open(endpoint)
+        d.step_time(TRAVEL_TIME_MS)
+        assert d.zcl_cover_get_position(endpoint) == 100
+        d.step_time(OVERRUN_DURATION_MS)
+        assert d.zcl_cover_get_moving(endpoint) == ZCL_WINDOW_COVERING_MOVING_STOPPED
+        assert d.zcl_cover_get_position(endpoint) == 100
+    finally:
+        p.stop()
+
+
+def test_cover_rehomes_after_power_loss_mid_move():
+    """If power dies mid-travel the tracker is wrong on the next boot.
+
+    The firmware must re-home: a full open/close runs the complete travel time
+    (ignoring the restored position) so the cover always reaches the end stop.
+    """
+    endpoint = 1
+
+    p, d = _open_session()
+    try:
+        d.zcl_cover_set_open_time(endpoint, 300)
+        # Start from a known closed end, then open and kill mid-travel.
+        d.zcl_cover_close(endpoint)
+        d.step_time(TRAVEL_TIME_MS + OVERRUN_DURATION_MS)
+        assert d.zcl_cover_get_position(endpoint) == 0
+        d.step_time(MINIMUM_SWITCH_TIME_MS)
+
+        d.zcl_cover_open(endpoint)
+        d.step_time(TRAVEL_TIME_MS // 4)  # kill at ~25% open
+    finally:
+        p.stop()
+
+    p, d = _open_session()
+    try:
+        # Position is untrusted after an unclean stop. Open must re-home with a
+        # full travel-time run (not the 75% remaining the tracker might think).
+        d.zcl_cover_open(endpoint)
+        assert d.zcl_cover_get_moving(endpoint) == ZCL_WINDOW_COVERING_MOVING_OPENING
+
+        # Still moving after the full remaining-travel duration would have elapsed
+        # (75% of 30s = 22.5s) — we require a full 30s + overrun re-home instead.
+        d.step_time(TRAVEL_TIME_MS * 3 // 4)
+        assert d.zcl_cover_get_moving(endpoint) == ZCL_WINDOW_COVERING_MOVING_OPENING, (
+            "open stopped early after mid-move power loss — did not re-home"
+        )
+
+        d.step_time(TRAVEL_TIME_MS // 4 + OVERRUN_DURATION_MS)
+        assert d.zcl_cover_get_moving(endpoint) == ZCL_WINDOW_COVERING_MOVING_STOPPED
+        assert d.zcl_cover_get_position(endpoint) == 100
+    finally:
+        p.stop()
+
+
+def test_cover_goto_ignored_while_untrusted_after_power_loss():
+    """GoToLiftPercentage must not run from a stale position after a mid-move
+    power loss — it is ignored until an open/close has re-homed the cover."""
+    endpoint = 1
+
+    p, d = _open_session()
+    try:
+        d.zcl_cover_set_open_time(endpoint, 300)
+        d.zcl_cover_open(endpoint)
+        d.step_time(TRAVEL_TIME_MS // 2)  # kill mid-travel
+    finally:
+        p.stop()
+
+    p, d = _open_session()
+    try:
+        d.zcl_cover_goto_position(endpoint, 80)
+        assert d.zcl_cover_get_moving(endpoint) == ZCL_WINDOW_COVERING_MOVING_STOPPED
+
+        # Re-home via close, then goto works again.
+        d.zcl_cover_close(endpoint)
+        d.step_time(TRAVEL_TIME_MS + OVERRUN_DURATION_MS)
+        assert d.zcl_cover_get_position(endpoint) == 0
+        d.step_time(MINIMUM_SWITCH_TIME_MS)
+
+        d.zcl_cover_goto_position(endpoint, 50)
+        assert d.zcl_cover_get_moving(endpoint) == ZCL_WINDOW_COVERING_MOVING_OPENING
+        d.step_time(TRAVEL_TIME_MS // 2)
+        assert d.zcl_cover_get_moving(endpoint) == ZCL_WINDOW_COVERING_MOVING_STOPPED
+        assert d.zcl_cover_get_position(endpoint) == 50
+    finally:
+        p.stop()
+

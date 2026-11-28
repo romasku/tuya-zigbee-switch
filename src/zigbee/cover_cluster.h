@@ -50,6 +50,10 @@ typedef struct {
     uint16_t             target_motor_position;
     uint32_t             movement_start_time;
     uint16_t             start_motor_position;
+    // False when the tracker may not match the physical cover (boot after a
+    // mid-move power loss, or first boot). End-position commands then re-home
+    // with a full-travel run instead of trusting the stale motor_position.
+    uint8_t              position_trusted;
     hal_task_t           delay_task;
     hal_task_t           stop_task;
     hal_task_t           update_task;
