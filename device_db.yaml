@@ -5181,17 +5181,17 @@ SWITCH_LERLINK_TS0011:
   tuya_module: ZTU
   mcu_family: Telink
   mcu: TLSR8258
-  config_str: null____;LerLink-1-gang;SC2u;RC3;IB1;M;
+  config_str: zjlw8dfl;LerLink-1-gang;SC2u;RC3;IB1;M;
   alt_config_str: null
   old_manufacturer_names: null
   old_zb_models: null
   stock_manufacturer_id: 4417
   stock_image_type: 54179
   firmware_image_type: 43624
-  build: no
-  status: in_progress
-  info: Needs ID and pinout confirmation
-  threads: https://github.com/romasku/tuya-zigbee-switch/issues/333
+  build: yes
+  status: fully_supported
+  info: Supported, Led is inverted so it can be shown when the switch is turned off.
+  threads: https://github.com/romasku/tuya-zigbee-switch/issues/562
   store: https://www.aliexpress.com/item/1005004761142268.html
 SWITCH_LERLINK_TS0012:
   human_name: LerLink 2-gang switch
